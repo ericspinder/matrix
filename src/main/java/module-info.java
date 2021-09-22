@@ -1,3 +1,4 @@
-module dev.inward.executable {
+module dev.inward.matrix {
     requires java.logging;
+    requires lombok;
 }

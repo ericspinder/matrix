@@ -1,6 +1,6 @@
 package dev.inward.id;
 
-import dev.inward.gathering.Agenda;
+import dev.inward.gathering.Lexicon;
 
-public class IdAgenda extends Agenda {
+public class IdAgenda extends Lexicon {
 }
