@@ -1,14 +1,23 @@
 package dev.inward.morph;
 
-import dev.inward.crud.Read;
-import dev.inward.crud.Update;
+import dev.inward.crud.Crudem;
 
-public abstract class Morph<V extends Comparable<V>, C extends Crud<V, ?, ?, ? ,?>> {
+import java.io.Serializable;
+import java.util.EnumMap;
 
-    private Map<>
-    private Read<V> read;
-    private Update<V> update;
-    private V value;
+public abstract class Morph<V extends Comparable<V>> implements Comparable<V>, Serializable {
+
+    protected final EnumMap<Crudem.Operation, Crudem> crudemMap;
+
+    protected V value;
 
 
+    public Morph(EnumMap<Crudem.Operation, Crudem> crudemMap) {
+        this.crudemMap = crudemMap;
+    }
+
+    @Override
+    public int compareTo(V o) {
+        return 0;
+    }
 }

@@ -1,18 +1,15 @@
 package dev.inward.fact;
 
-import dev.inward.morph.CreationMorph;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
 
 @EqualsAndHashCode
-public abstract class Fact implements Comparable<Fact>, Serializable {
-
-    //private CreationMorph creationMorph;
+public abstract class Fact<F extends Fact<?>> implements Comparable<F>, Serializable {
 
     @Override
-    public int compareTo(Fact o) {
+    public int compareTo(F o) {
         return 0;
     }
 }

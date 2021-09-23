@@ -1,12 +1,11 @@
 package dev.inward.gathering;
 
 import dev.inward.fact.Fact;
-import dev.inward.fact.Model;
+import dev.inward.model.Model;
 
 import java.util.List;
 
-public abstract class Gathering<T extends Synth<F>, V, O extends Cargo<T, V>, L extends Lexicon<F>, F extends Fact> extends Fact {
-
+public abstract class Gathering<K, V, O extends Cargo<K, V>, L extends Lexicon<F>, F extends Fact> {
 
     public abstract List<F> getAll();
 

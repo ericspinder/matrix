@@ -1,15 +1,9 @@
 package dev.inward.fact;
 
-import dev.inward.morph.CreationMorph;
+import dev.inward.settings.Gate;
 
-
-
-public class Criterion<G extends CriterionGate> extends Fact {
+public class Criterion<G extends Gate> {
 
     private G gate;
-
-    public Criterion(CreationMorph creationMorph) {
-        super(creationMorph);
-    }
 
 }
