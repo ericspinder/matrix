@@ -1,4 +1,4 @@
 module dev.inward.matrix {
     requires java.logging;
-    requires lombok;
+    requires org.slf4j;
 }
