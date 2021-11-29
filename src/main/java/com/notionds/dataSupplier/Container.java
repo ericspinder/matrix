@@ -1,6 +1,7 @@
 package com.notionds.dataSupplier;
 
 import com.notionds.dataSupplier.cron.Receipt;
+import com.notionds.dataSupplier.delegation.Wrapper;
 import com.notionds.dataSupplier.exceptions.ExceptionWrapper;
 import com.notionds.dataSupplier.exceptions.Recommendation;
 import com.notionds.dataSupplier.operational.Operational;
@@ -9,10 +10,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.Closeable;
-import java.sql.Array;
-import java.sql.Blob;
-import java.sql.Clob;
-import java.sql.Wrapper;
 import java.time.Instant;
 import java.util.UUID;
 
