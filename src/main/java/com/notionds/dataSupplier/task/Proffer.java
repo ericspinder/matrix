@@ -1,14 +1,14 @@
-package com.notionds.dataSupplier.operational.task;
+package com.notionds.dataSupplier.task;
 
 import com.notionds.dataSupplier.Container;
-import com.notionds.dataSupplier.delegation.Wrapper;
+import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.operational.Operational;
 
 import java.time.Instant;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class Proffer<N,O extends Operational<N,W,T>,W extends Wrapper<N,O,T>,T extends Container<N,O,W>> extends Task<N,O,W,T> {
+public class Proffer<N,O extends Operational<N,W,T>,W extends Datum<N,O,T>,T extends Container<N,O,W>> extends Task<N,O,W,T> {
 
 
 

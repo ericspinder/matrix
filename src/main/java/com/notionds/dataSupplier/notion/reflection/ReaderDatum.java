@@ -1,7 +1,7 @@
-package com.notionds.dataSupplier.delegation.reflection;
+package com.notionds.dataSupplier.notion.reflection;
 
 import com.notionds.dataSupplier.Container;
-import com.notionds.dataSupplier.delegation.Wrapper;
+import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.operational.Operational;
 
 import java.io.IOException;
@@ -9,18 +9,18 @@ import java.io.Reader;
 import java.nio.CharBuffer;
 import java.util.UUID;
 
-public class ReaderWrapper<O extends Operational<Reader,W,T>, W extends Wrapper<Reader,O,T>,T extends Container<Reader,O,W>> extends Reader implements Wrapper<Reader,O,T> {
+public class ReaderDatum<O extends Operational<Reader,W,T>, W extends Datum<Reader,O,T>,T extends Container<Reader,O,W>> extends Reader implements Datum<Reader,O,T> {
 
     private final UUID uuid = UUID.randomUUID();
     private final T container;
     private final Reader delegate;
 
-    public ReaderWrapper(T container, Reader delegate) {
+    public ReaderDatum(T container, Reader delegate) {
         this.container = container;
         this.delegate = delegate;
     }
     @Override
-    public UUID getArtifactId() {
+    public UUID getDatumUuid() {
         return this.uuid;
     }
     @Override
@@ -138,14 +138,14 @@ public class ReaderWrapper<O extends Operational<Reader,W,T>, W extends Wrapper<
         if (that == null) {
             return false;
         }
-        if (!(that instanceof Wrapper)) {
+        if (!(that instanceof Datum)) {
             return false;
         }
-        if (this.getArtifactId() == null) {
-            if (((Wrapper)that).getArtifactId() != null) {
+        if (this.getDatumUuid() == null) {
+            if (((Datum)that).getDatumUuid() != null) {
                 return false;
             }
-        } else if (!this.getArtifactId().equals(((Wrapper)that).getArtifactId())) {
+        } else if (!this.getDatumUuid().equals(((Datum)that).getDatumUuid())) {
             return false;
         }
         return true;

@@ -1,10 +1,10 @@
-package com.notionds.dataSupplier.delegation.reflection;
+package com.notionds.dataSupplier.notion.reflection;
 
 import com.notionds.dataSupplier.Container;
 import com.notionds.dataSupplier.aggregation.Accounting;
 import com.notionds.dataSupplier.aggregation.Aggregation;
 import com.notionds.dataSupplier.aggregation.InvokeAggregator;
-import com.notionds.dataSupplier.delegation.Wrapper;
+import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.exceptions.NotionExceptionWrapper;
 import com.notionds.dataSupplier.operational.Operational;
 
@@ -13,15 +13,16 @@ import java.time.Instant;
 
 import static com.notionds.dataSupplier.operational.StringOption.Aggreation_Method_REGEX;
 
-public abstract class InvokeInterceptor<N,O extends Operational<N,W,T>,W extends Wrapper<N,O,T>,T extends Container<N,O,W>,G extends InvokeAggregator> {
+public abstract class InvokeInterceptor<N,O extends Operational<N,W,T>,W extends Datum<N,O,T>,T extends Container<N,O,W>,G extends InvokeAggregator> extends  {
 
-    public static class Default<N,O extends Operational<N,W,T>, W extends Wrapper<N,O,T>, T extends Container<N,O,W>, G extends InvokeAggregator> extends InvokeInterceptor<N,O,W,T,G> {
+    public static class Default<N,O extends Operational<N,W,T>, W extends Datum<N,O,T>, T extends Container<N,O,W>, G extends InvokeAggregator> extends InvokeInterceptor<N,O,W,T,G> {
 
         public Default(O options, Aggregation<O,G> aggregation) {
             super(options, aggregation);
         }
         @Override
         public Accounting startInvoke(Method m, Object[] args) {
+            m.getModifiers()
             if (m.getName().matches(options.getString(Aggreation_Method_REGEX.getI18n()))) {
                 return  aggregation.newInvokeAccounting();
             }

@@ -98,7 +98,7 @@ public enum ConnectionState {
     SqlState87("2200E","X", "00E","null value in array target", SqlClass.DataException),
     SqlState88("2200F","X", "00F","zero-length character string", SqlClass.DataException),
     SqlState89("2200G","X", "00G","most specific type mismatch", SqlClass.DataException),
-    SqlState90("2200H","X", "00H","sequence delegation limit exceeded", SqlClass.DataException),
+    SqlState90("2200H","X", "00H","sequence notion limit exceeded", SqlClass.DataException),
     SqlState91("2200J","X", "00J","nonidentical notations with the same name","SQL/XML", SqlClass.DataException),
     SqlState92("2200K","X", "00K","nonidentical unparsed entities with the same name","SQL/XML", SqlClass.DataException),
     SqlState93("2200L","X", "00L","not an XML document","SQL/XML", SqlClass.DataException),

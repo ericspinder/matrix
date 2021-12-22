@@ -1,7 +1,7 @@
 package com.notionds.dataSupplier;
 
-import com.notionds.dataSupplier.cron.Receipt;
-import com.notionds.dataSupplier.delegation.Wrapper;
+import com.notionds.dataSupplier.advisor.Receipt;
+import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.exceptions.ExceptionWrapper;
 import com.notionds.dataSupplier.exceptions.Recommendation;
 import com.notionds.dataSupplier.operational.Operational;
@@ -9,23 +9,20 @@ import com.notionds.dataSupplier.provider.Situation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.Closeable;
+import java.io.Serializable;
 import java.time.Instant;
-import java.util.UUID;
 
-public abstract class Container<N, O extends Operational<N,W>, W extends Wrapper<N,O,?>> {
+public abstract class Container<NOTION extends Comparable<NOTION> & Serializable,O extends Operational<NOTION,O,B,C,U>, B extends Bus<NOTION,O,B,C,U,?,?,?,?>, C extends Container<NOTION,O,B,C,U>,U extends Datum<NOTION,O,B,C,U>> {
+
     protected final static Logger logger = LogManager.getLogger();
-    public final UUID containerId = UUID.randomUUID();
     public final Instant createInstant = Instant.now();
-    protected final O options;
-    protected final Controller<N,O, W,?,?,?,?,?,?> controller;
+    protected final B bus;
     public volatile Situation currentSituation;
-    private Receipt<N,O,W,?> receipt = null;
+    private Receipt<NOTION,O, U,?> receipt = null;
 
-    public Container(O options, Controller<N,O, W,?,?,?,?,?,?> controller) {
-        this.options = options;
-        this.controller = controller;
-        this.currentSituation = Situation.New_Unattached;
+    public Container(B bus) {
+        this.bus = bus;
+        this.currentSituation = Situation.Unconditioned;
     }
 
     /**
@@ -33,7 +30,7 @@ public abstract class Container<N, O extends Operational<N,W>, W extends Wrapper
      * @return true to continue false to reject use of object
      */
     protected abstract boolean checkout();
-    public boolean checkout(Receipt<N,O,W,?> receipt) {
+    public boolean checkout(Receipt<NOTION,O, U,?> receipt) {
         this.receipt = receipt;
         if (this.checkout()) {
             this.currentSituation = Situation.Open;
@@ -51,9 +48,9 @@ public abstract class Container<N, O extends Operational<N,W>, W extends Wrapper
         return this.reuseInterest(this.currentSituation.equals(Situation.Open));
     }
 
-    public void handleException(Exception exception, Wrapper delegatedInstance) {
+    public void handleException(Exception exception, Datum delegatedInstance) {
         logger.debug(exception.getMessage());
-        ExceptionWrapper exceptionWrapper = this.controller.advice.adviseException(exception);
+        ExceptionWrapper exceptionWrapper = this.bus.advice.adviseException(exception);
         this.reviewException(delegatedInstance, exceptionWrapper.getRecommendation());
     }
 
@@ -65,25 +62,6 @@ public abstract class Container<N, O extends Operational<N,W>, W extends Wrapper
         }
     }
 
-    public static void DoDelegateClose(Object delegate) {
-        if (delegate == null) return;
-        try {
-            if (delegate instanceof Closeable) {
-                ((Closeable) delegate).close();
-            } else if (delegate instanceof Clob) {
-                ((Clob) delegate).free();
-            } else if (delegate instanceof Blob) {
-                ((Blob) delegate).free();
-            } else if (delegate instanceof Array) {
-                ((Array) delegate).free();
-            }
-        } catch (Exception e) {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("Exception trying to clean up Reference was ignored: ");
-            Container.PrintCause(e, stringBuilder);
-            logger.error(stringBuilder.toString());
-        }
-    }
 
     public static void PrintCause(Throwable t, StringBuilder stringBuilder) {
         stringBuilder.append(t.getMessage());
@@ -93,12 +71,12 @@ public abstract class Container<N, O extends Operational<N,W>, W extends Wrapper
         }
     }
 
-    public Receipt<N,O,W,?> getReceipt() {
+    public Receipt<NOTION,O, U,?> getReceipt() {
         return this.receipt;
     }
-    public Controller<N,O, W,?,?,?,?,?,?> getBridge() {
-        return this.controller;
+    public Bus<NOTION,O, U,?,?,?,?,?> getBus() {
+        return this.bus;
     }
 
-    public abstract void reviewException(Wrapper wrapperArtifact, Recommendation recommendation);
+    public abstract void reviewException(Datum datumArtifact, Recommendation recommendation);
 }

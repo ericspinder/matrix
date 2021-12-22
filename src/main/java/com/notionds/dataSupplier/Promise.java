@@ -4,7 +4,7 @@ import java.time.Duration;
 
 public class Promise<N> {
 
-    private final Controller<N,?,?,?,?,?,?,?,?> controller;
+    private final Bus<N,?,?,?,?,?,?,?,?> bus;
 
     private Duration currentAverage;
     private Duration variation

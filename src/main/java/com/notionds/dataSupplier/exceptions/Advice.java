@@ -1,11 +1,13 @@
 package com.notionds.dataSupplier.exceptions;
 
-import com.notionds.dataSupplier.delegation.Wrapper;
+import com.notionds.dataSupplier.Container;
+import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.operational.Operational;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.sql.SQLClientInfoException;
 import java.sql.SQLException;
 import java.time.Duration;
@@ -14,8 +16,9 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
 
-public abstract class Advice<N, O extends Operational, W extends Wrapper<N>> {
+public abstract class Advice<N, O extends Operational<N,W,I>, W extends Datum<N,O,I>, I extends Container<N,O,W>,E extends Exception> implements BiConsumer<Method,E> {
 
     private static final Logger logger = LogManager.getLogger(Advice.class);
 
@@ -32,6 +35,7 @@ public abstract class Advice<N, O extends Operational, W extends Wrapper<N>> {
         public ExceptionCounterByDuration(Duration qualifyingTime, int numberOfOccurrences) {
             this.qualifyingTime = qualifyingTime;
             this.numberOfOccurrences = numberOfOccurrences;
+            Method method
         }
         public Boolean addOne() {
             if (this.numberOfOccurrences > linkedHashMap.size()) {
@@ -44,6 +48,10 @@ public abstract class Advice<N, O extends Operational, W extends Wrapper<N>> {
     }
     protected final O options;
 
+    public void accept(W wrapper, E exception) {
+
+    }
+
     protected abstract Recommendation parseSqlState(String sqlState);
     protected abstract Recommendation addSocketTimeout();
     protected abstract Recommendation examineMessage(String message);
@@ -53,6 +61,7 @@ public abstract class Advice<N, O extends Operational, W extends Wrapper<N>> {
     }
 
     protected Recommendation examine(Throwable throwable, List<Recommendation> previousRecommendations) {
+
         if (throwable instanceof SQLException) {
             previousRecommendations.add(parseSqlState(((SQLException) throwable).getSQLState()));
         }

@@ -1,16 +1,15 @@
 package com.notionds.dataSupplier.operational;
 
-import com.notionds.dataSupplier.Container;
-import com.notionds.dataSupplier.Controller;
-import com.notionds.dataSupplier.NotionStartupException;
-import com.notionds.dataSupplier.delegation.Wrapper;
-import com.notionds.dataSupplier.operational.task.Result;
-import com.notionds.dataSupplier.operational.task.Task;
+import com.notionds.dataSupplier.*;
+import com.notionds.dataSupplier.datum.Datum;
+import com.notionds.dataSupplier.task.Result;
+import com.notionds.dataSupplier.task.Task;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.lang.ref.SoftReference;
+import java.io.Serializable;
 import java.time.Duration;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +17,7 @@ import java.util.concurrent.locks.StampedLock;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public abstract class Operational<N,W extends Wrapper<N,?,T>,T extends Container<N,?,W>> {
+public abstract class Operational<NOTION extends Comparable<NOTION> & Serializable,O extends Operational<NOTION,O,B,C,U>, B extends Bus<NOTION,O,B,C,U,?,?,?,?>, C extends Container<NOTION,O,B,C,U>,U extends Datum<NOTION,O,B,C,U>> implements Comparable<O>, Serializable {
 
     private static final Logger logger = LogManager.getLogger(Operational.class);
     public static final Default DEFAULT_OPTIONS_INSTANCE = new Default();
@@ -28,8 +27,7 @@ public abstract class Operational<N,W extends Wrapper<N,?,T>,T extends Container
         V getDefaultValue();
         String getDescription();
     }
-
-    private SoftReference<Controller<N,?,W,T,?,?,?,?,?>> controllerSoftReference;
+    private final Instant createInstant = Instant.now();
     protected StampedLock gate = new StampedLock();
     protected final Map<String, String> stringOptions = new HashMap<>();
     protected final Map<String, Integer> integerOptions = new HashMap<>();
@@ -37,31 +35,18 @@ public abstract class Operational<N,W extends Wrapper<N,?,T>,T extends Container
     protected final Map<String, Boolean> booleanOptions = new HashMap<>();
     protected final Map<String, Wrap<Task>> taskOptions = new HashMap<>();
 
-    public static final class Default<N, W extends Wrapper<N,?,T>,T extends Container<N,?,W>> extends Operational<N,W,T> {
+    public static final class Default<N, W extends Datum<N,?,T>,T extends Container<N,?,W>> extends Operational<N,W,T> {
         public Default() {
             super();
+        }
+
+        @Override
+        public int compareTo(Object o) {
+            return 0;
         }
     }
     public Operational() {
         this(Arrays.stream(Operational.class.getClass().getTypeParameters()).findFirst().get().getTypeName());
-    }
-    public Controller<N,?,W,T,?,?,?,?,?> getController() {
-        long readLock = gate.readLock();
-        try {
-            return this.controllerSoftReference.get();
-        }
-        finally {
-            gate.unlockRead(readLock);
-        }
-    }
-    public void setController(Controller<N,?,W,T,?,?,?,?,?> controller) {
-        long writeLock = gate.writeLock();
-        try {
-            this.controllerSoftReference = new SoftReference<>(controller);
-        }
-        finally {
-            gate.unlockWrite(writeLock);
-        }
     }
 
     public Operational(final String name) {
@@ -137,5 +122,13 @@ public abstract class Operational<N,W extends Wrapper<N,?,T>,T extends Container
     }
     public final void put(String key, Duration durationValue) {
         this.durationOptions.put(key, durationValue);
+    }
+
+    @Override
+    public int compareTo(O that) {
+        return this.createInstant.compareTo(that.getCreateInstant());
+    }
+    public final Instant getCreateInstant() {
+        return this.createInstant;
     }
 }

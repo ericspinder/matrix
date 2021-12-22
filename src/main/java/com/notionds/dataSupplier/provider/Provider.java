@@ -1,39 +1,42 @@
 package com.notionds.dataSupplier.provider;
 
 import com.notionds.dataSupplier.Container;
-import com.notionds.dataSupplier.Controller;
+import com.notionds.dataSupplier.Bus;
 import com.notionds.dataSupplier.NotionStartupException;
-import com.notionds.dataSupplier.delegation.Wrapper;
+import com.notionds.dataSupplier.advisor.Receipt;
+import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.exceptions.Recommendation;
 import com.notionds.dataSupplier.operational.Operational;
+import com.notionds.dataSupplier.task.Task;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.Serializable;
+import java.lang.ref.SoftReference;
 import java.sql.Connection;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.WeakHashMap;
+import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.Supplier;
 
 import static com.notionds.dataSupplier.operational.DurationOption.*;
 import static com.notionds.dataSupplier.operational.IntegerOption.*;
 
-public abstract class Provider <N, O extends Operational<N,W,T>, W extends Wrapper<N,O,T>, T extends Container<N,O,W>> {
+public abstract class Provider <NOTION extends Comparable<NOTION> & Serializable,O extends Operational<NOTION,O,B,C,U>, B extends Bus<NOTION,O,B,C,U,?,?,?,?>, C extends Container<NOTION,O,B,C,U>,U extends Datum<NOTION,O,B,C,U>> {
 
-    public static class PooledProvider<N,O extends Operational<N,W,T>,W extends Wrapper<N,O,T>,T extends Container<N,O,W>> extends Provider<N,O,W,T> {
+    public static class PooledProvider<N,O extends Operational<N,W,T>,W extends Datum<N,O,T>,T extends Container<N,O,W>> extends Provider<N,O,W,T> {
 
-        public PooledProvider(O options, Executor connectionExecutor, Controller<N,O,W,T,?,?,?,?,?> controller) {
-            super(options, connectionExecutor, controller);
+        public PooledProvider(O options, Executor connectionExecutor, Bus<N,O,W,T,?,?,?,?,?> bus) {
+            super(options, connectionExecutor, bus);
         }
-    }
-    public static class FreshProvider<N,O extends Operational<N,W,T>, W extends Wrapper<N,O,T>, T extends Container<N,O,W>> extends Provider<N,O,W,T> {
 
-        public FreshProvider(O options, Executor connectionExecutor, Controller<N,O,W,T,?,?,?,?,?> controller) {
-            super(options, connectionExecutor, controller);
+    }
+    public static class FreshProvider<N,O extends Operational<N,W,T>, W extends Datum<N,O,T>, T extends Container<N,O,W>> extends Provider<N,O,W,T> {
+
+        public FreshProvider(O options, Executor connectionExecutor, Bus<N,O,W,T,?,?,?,?,?> bus) {
+            super(options, connectionExecutor, bus);
         }
 
         @Override
@@ -45,7 +48,7 @@ public abstract class Provider <N, O extends Operational<N,W,T>, W extends Wrapp
     private static final Logger log = LogManager.getLogger();
     protected final O options;
     private final Executor connectionExecutor;
-    private final Controller<N,O,W,T,?,?,?,?,?> controller;
+    private final Bus<DELEGATE,O, D,T,?,?,?,?,?> bus;
     /**
      * Default timeout when loaned out
      */
@@ -67,16 +70,16 @@ public abstract class Provider <N, O extends Operational<N,W,T>, W extends Wrapp
     /**
      * Holds the ready connection objects, wrapped and active
      */
-    private final BlockingQueue<N> connectionQueue = new LinkedBlockingQueue<>();
+    private final BlockingQueue<DELEGATE> connectionQueue = new LinkedBlockingQueue<>();
     /**
      * The loaned Notions are held weakly and will drop out when garbage collected. They will be sent to a
      * referenceQueue in the Cleanup class when ready
      */
-    private final WeakHashMap<W, Instant> loanedNotions = new WeakHashMap<>();
-    public Provider(O options, Executor connectionExecutor, Controller<N,O,W,T,?,?,?,?,?> controller) {
+    private final WeakHashMap<D, Instant> loanedNotions = new WeakHashMap<>();
+    public Provider(O options, Executor connectionExecutor, Bus<DELEGATE,O, D,T,?,?,?,?,?> bus) {
         this.options = options;
         this.connectionExecutor = connectionExecutor;
-        this.controller = controller;
+        this.bus = bus;
         this.timeoutOnLoan_default = options.getDuration(ConnectionTimeoutOnLoan.getI18n());
         this.connection_retrieve_millis = (options.getDuration(RetrieveNewMember.getI18n()).toMillis());
         this.maxTotalAllowedConnections = options.getInteger(Connection_Max_Queue_Size.getI18n());
@@ -84,15 +87,15 @@ public abstract class Provider <N, O extends Operational<N,W,T>, W extends Wrapp
     }
 
     @SuppressWarnings("unchecked")
-    private W newConnectionContainer() {
+    private D newConnectionContainer() {
         return this.connectionPool.populateConnectionContainer();
     }
 
 
     protected populateConnectionContainer() {
-        Container<,?,?> container = controller.getNewContainer(this.options, this, t, W artifactWrapper);
+        Container<,?,?> container = bus.getNewContainer(this.options, this, t, D artifactWrapper);
         try {
-            return container.wrap(controller.getMemberSupplier(), Connection.class, null);
+            return container.wrap(bus.getMemberSupplier(), Connection.class, null);
         } catch (Exception e) {
             r.handleException(e, null);
             return null;
@@ -103,15 +106,15 @@ public abstract class Provider <N, O extends Operational<N,W,T>, W extends Wrapp
         return loanedNotions.size() + connectionQueue.size() < maxTotalAllowedConnections;
     }
 
-    public abstract W getWrappedReady();
+    public abstract D getWrappedReady();
 
     @SuppressWarnings("unchecked")
-    public W loanPooledMember(Supplier<Container<N,O,?>> newConnectionArtifactSupplier) {
+    public D loanPooledMember(Supplier<Container<DELEGATE,O,?>> newConnectionArtifactSupplier) {
         if (evalForSpaceInPool()) {
             addNotionFutures(newConnectionArtifactSupplier,minActiveConnections - connectionQueue.size());
         }
         try {
-            W wrapper = (W) connectionQueue.poll(connection_retrieve_millis, connection_retrieve_time_unit);
+            D wrapper = (D) connectionQueue.poll(connection_retrieve_millis, connection_retrieve_time_unit);
             loanedNotions.put(wrapper, Instant.now());
             return wrapper;
         }
@@ -124,27 +127,27 @@ public abstract class Provider <N, O extends Operational<N,W,T>, W extends Wrapp
         }
     }
 
-    public boolean addNotion(W wrapper, boolean returned) {
+    public boolean addNotion(D wrapper, boolean returned) {
         if (returned) {
             this.loanedNotions.remove(wrapper);
             if (!(wrapper.getContainer().getBridge().returnToPool(wrapper))) {
-                log.error("ConnectionId=" + ((Wrapper)added).getContainer().containerId + " was not able to reuse, will close");
+                log.error("ConnectionId=" + ((Datum)added).getContainer().containerId + " was not able to reuse, will close");
                 (wrapper.getContainer().closeDelegate());
                 return false;
             }
         }
         if (evalForSpaceInPool() && connectionQueue.add(added)) {
-            ((Wrapper)added).getContainer().currentSituation = Situation.Provider;
-            log.debug("ConnectionId=" + ((Wrapper)added).getContainer().containerId + " was added/re-added to Notion provider, queue_size=" + connectionQueue.size());
+            ((Datum)added).getContainer().currentSituation = Situation.Provider;
+            log.debug("ConnectionId=" + ((Datum)added).getContainer().containerId + " was added/re-added to Notion provider, queue_size=" + connectionQueue.size());
             return true;
         } else {
-            log.error("ConnectionId=" + ((Wrapper)added).getContainer().containerId + " was not able to add Notion provider, queue_size=" + connectionQueue.size());
-            ((Wrapper)added).getContainer().closeDelegate(((Wrapper)added));
+            log.error("ConnectionId=" + ((Datum)added).getContainer().containerId + " was not able to add Notion provider, queue_size=" + connectionQueue.size());
+            ((Datum)added).getContainer().closeDelegate(((Datum)added));
             return false;
         }
     }
 
-    public void addNotionFutures(Supplier<Container<N,O,?>> newNotionSupplier, int notionsToAdd) {
+    public void addNotionFutures(Supplier<Container<DELEGATE,O,?>> newNotionSupplier, int notionsToAdd) {
         if (notionsToAdd >= options.getInteger(Minimum_Replenishment.getI18n())) {
             for (int i = 0; i < notionsToAdd; i++) {
                 CompletableFuture.supplyAsync(() -> this.addNotion(newNotionSupplier.get(), false), connectionExecutor);
@@ -154,7 +157,7 @@ public abstract class Provider <N, O extends Operational<N,W,T>, W extends Wrapp
             log.debug("No need to fill notionsToAdd=" + notionsToAdd);
         }
     }
-    public boolean addNotionNow(Supplier<Container<N,O,?>> newNotionSupplier) {
+    public boolean addNotionNow(Supplier<Container<DELEGATE,O,?>> newNotionSupplier) {
         return this.addNotion(newNotionSupplier.get(), false);
     }
 
@@ -162,11 +165,40 @@ public abstract class Provider <N, O extends Operational<N,W,T>, W extends Wrapp
      * Drains and closes the current connection provider and marks them all loaned to be close when no longer in use, rather than returned to the provider.
      */
     public void drainAllCurrentConnections() {
-        List<Wrapper> drain = new ArrayList<>();
+        List<Datum> drain = new ArrayList<>();
         this.connectionQueue.drainTo(drain);
-        this.loanedNotions.keySet().stream().forEach((Wrapper loaned) -> loaned.getContainer().currentSituation = Situation.Empty);
-        drain.forEach((Wrapper artifactI) -> artifactI.getContainer().closeDelegate(artifactI));
+        this.loanedNotions.keySet().stream().forEach((Datum loaned) -> loaned.getContainer().currentSituation = Situation.Empty);
+        drain.forEach((Datum artifactI) -> artifactI.getContainer().closeDelegate(artifactI));
 
+    }
+    public Receipt<NOTION,O, U, C> add(final U wrapper, final Task[] tasks) {
+        SoftReference softReference = new SoftReference(wrapper, this.globalReferenceQueue);
+        boolean isDoCleanup = false;
+        Instant lowestTime = null;
+        Map<Task, Instant> taskInstantMap = new HashMap<>();
+        for (Task task : tasks) {
+            if (task.isDoAsCleanup()) isDoCleanup = true;
+            if (task.startTime() != null) {
+                taskInstantMap.put(task, task.startTime());
+                if (lowestTime == null) {
+                    lowestTime = task.startTime();
+                } else {
+                    if (task.startTime().isBefore(lowestTime)) lowestTime = task.startTime();
+                }
+            }
+        }
+        if (isDoCleanup)
+            return new Receipt<>(wrapper, globalReferenceQueue, taskInstantMap, lowestTime);
+        else
+            return new Receipt<>(wrapper,taskInstantMap,lowestTime);
+    }
+    public void removeFromCleanup(U wrapper) {
+        this.timeoutCleanup.remove(wrapper);
+        wrapper.getContainer().getReceipt().clear();
+    }
+    public void checkForRecyclables() {
+        Receipt<NOTION,O, U, C> receipt = (Receipt<NOTION,O, U, C>) this.globalReferenceQueue.poll();
+        U wrapper = receipt.get();
     }
     public void doFailover(Recommendation recommendation) {
 

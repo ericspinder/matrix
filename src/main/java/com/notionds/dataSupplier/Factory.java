@@ -1,10 +1,9 @@
 package com.notionds.dataSupplier;
 
-import com.notionds.dataSupplier.delegation.Wrapper;
+import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.operational.Operational;
-import com.notionds.dataSupplier.operational.task.Task;
+import com.notionds.dataSupplier.task.Task;
 
-import javax.management.MBeanInfo;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -15,19 +14,19 @@ import java.util.function.Supplier;
 
 public class Factory<O extends Operational> {
 
-    private Map<String, Controller<?,?,?,?,?,?,?,?,?>> controllerMap = new ConcurrentHashMap<>();
+    private Map<String, Bus<?,?,?,?,?,?,?,?,?,?>> controllerMap = new ConcurrentHashMap<>();
 
-    public Factory(Operational<?,?,?> operational, LinkedBlockingDeque<NotionSupplier> notionSuppliers) {
-
-    }
-    public <N, W extends Wrapper<N,?,T>, T extends Container<N,?,W>> void addNotionSupplier(LinkedBlockingDeque<NotionSupplier<N,?,W,T,?,?,?,?>> notionSuppliers) {
+    public Factory(Operational<?,?,?> operational, LinkedBlockingDeque<NotionSupplier<?,?,?,?,?,?,?,?>> notionSuppliers) {
 
     }
-    public <N, W extends Wrapper<N,?,T>,T extends Container<N,?,W>> W wrap(N delegate, Class<N> delegateClass, Object[] args) {
+    public <N, W extends Datum<N,?, I>, I extends Container<N,?,W>> void addNotionSupplier(LinkedBlockingDeque<NotionSupplier<N,?,W, I,?,?,?,?>> notionSuppliers) {
+
+    }
+    public <N, W extends Datum<N,?,T>,T extends Container<N,?,W>> W wrap(N delegate, Class<N> delegateClass, Object[] args) {
         if (this.controllerMap.containsKey(delegateClass.getCanonicalName())) {
-            Controller<?,?,?,?,?,?,?,?,?> controller = this.controllerMap.get(delegateClass.getCanonicalName());
-            Task[] tasks = new Task[]{controller.operational.};
-            return controller.wrap(delegate,args, )
+            Bus<?,?,?,?,?,?,?,?,?,?> bus = this.controllerMap.get(delegateClass.getCanonicalName());
+            Task[] tasks = new Task[]{bus.operational.};
+            return bus.wrap(delegate,args, )
         }
         throw new NotionStartupException(NotionStartupException.Type.SoftReference_Problem, this.getClass());
     }
@@ -40,7 +39,7 @@ public class Factory<O extends Operational> {
             protected Map<String, Consumer<?>> setterConsumerList = new HashMap<>();
             protected Map<String, Function<?,?>> functionMap = new HashMap<>();
 
-            private MBeanInfo mBeanInfo = null;
+//            private MBeanInfo mBeanInfo = null;
             public Default_JMX() {
                     super();
 

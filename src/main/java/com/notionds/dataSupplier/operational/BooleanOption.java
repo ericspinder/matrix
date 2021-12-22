@@ -4,8 +4,8 @@ public enum BooleanOption implements Operational.Option<Boolean> {
 
     ConnectionContainer_Check_ResultSet("com.notionds.connectionMain.checkResultSet", "Order a check of all ResultSets before closing when cleanupAfterGC() had not been called, until the connection had been closed", true),
     ConnectionPool_Use("com.notionds.provider.usePool", "Should provider connections", true),
-    Logging("com.notionds.connection.delegation.jdbcProxy.aggregation.UseLogging", "Use ProxyV1 aggregation", false),
-    LogNonExecuteProxyMembers("com.notionds.connection.delegation.jdbcProxy.aggregation.LogNonExecuteProxyMembers", "Use a proxy wrapper for even non-execute proxy member classes, when aggregation is turned on", false),
+    Logging("com.notionds.connection.notion.jdbcProxy.aggregation.UseLogging", "Use ProxyV1 aggregation", false),
+    LogNonExecuteProxyMembers("com.notionds.connection.notion.jdbcProxy.aggregation.LogNonExecuteProxyMembers", "Use a proxy wrapper for even non-execute proxy member classes, when aggregation is turned on", false),
     EqualsByUUID("com.notionds.wrapper.equalsByUUID", "Allow the wrapper Id to override the equals", false);
     private final String i18n;
     private final String description;

@@ -1,25 +1,25 @@
-package com.notionds.dataSupplier.delegation.reflection;
+package com.notionds.dataSupplier.notion.reflection;
 
 import com.notionds.dataSupplier.Container;
-import com.notionds.dataSupplier.delegation.Wrapper;
+import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.operational.Operational;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.UUID;
 
-public class OutputStreamWrapper<O extends Operational<OutputStream,W,T>, W extends Wrapper<OutputStream,O,T>,T extends Container<OutputStream,O,W>> extends OutputStream implements Wrapper<OutputStream,O,T> {
+public class OutputStreamDatum<O extends Operational<OutputStream,W,T>, W extends Datum<OutputStream,O,T>,T extends Container<OutputStream,O,W>> extends OutputStream implements Datum<OutputStream,O,T> {
 
     private UUID uuid = UUID.randomUUID();
     protected final OutputStream delegate;
     protected final T container;
 
-    public OutputStreamWrapper(T container, OutputStream delegate) {
+    public OutputStreamDatum(T container, OutputStream delegate) {
         this.container = container;
         this.delegate = delegate;
     }
     @Override
-    public UUID getArtifactId() {
+    public UUID getDatumUuid() {
         return this.uuid;
     }
     @Override
@@ -67,14 +67,14 @@ public class OutputStreamWrapper<O extends Operational<OutputStream,W,T>, W exte
         if (that == null) {
             return false;
         }
-        if (!(that instanceof Wrapper)) {
+        if (!(that instanceof Datum)) {
             return false;
         }
-        if (this.getArtifactId() == null) {
-            if (((Wrapper)that).getArtifactId() != null) {
+        if (this.getDatumUuid() == null) {
+            if (((Datum)that).getDatumUuid() != null) {
                 return false;
             }
-        } else if (!this.getArtifactId().equals(((Wrapper)that).getArtifactId())) {
+        } else if (!this.getDatumUuid().equals(((Datum)that).getDatumUuid())) {
             return false;
         }
         return true;

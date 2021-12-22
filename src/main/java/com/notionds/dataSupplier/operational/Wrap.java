@@ -1,6 +1,6 @@
 package com.notionds.dataSupplier.operational;
 
-import com.notionds.dataSupplier.operational.task.Task;
+import com.notionds.dataSupplier.task.Task;
 
 public class Wrap<T extends Task> {
 

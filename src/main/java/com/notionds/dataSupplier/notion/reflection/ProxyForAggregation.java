@@ -1,16 +1,16 @@
-package com.notionds.dataSupplier.delegation.reflection;
+package com.notionds.dataSupplier.notion.reflection;
 
 import com.notionds.dataSupplier.Container;
 import com.notionds.dataSupplier.NotionStartupException;
 import com.notionds.dataSupplier.aggregation.Accounting;
 import com.notionds.dataSupplier.aggregation.InvokeAggregator;
-import com.notionds.dataSupplier.delegation.Wrapper;
+import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.exceptions.NotionExceptionWrapper;
 import com.notionds.dataSupplier.operational.Operational;
 
 import java.lang.reflect.Method;
 
-public class ProxyForAggregation<N, O extends Operational<N,W,T>, W extends Wrapper<N,O,T>, T extends Container<N,O,W>, G extends InvokeAggregator, I extends InvokeInterceptor<N,O,W,T,G>> extends Proxy<N,O,W,T> {
+public class ProxyForAggregation<N, O extends Operational<N,W,T>, W extends Datum<N,O,T>, T extends Container<N,O,W>, G extends InvokeAggregator, I extends InvokeInterceptor<N,O,W,T,G>> extends Proxy<N,O,W,T> {
 
     private final I invokeInterceptor;
     private String description = "No description";

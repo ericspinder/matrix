@@ -1,6 +1,6 @@
 package com.notionds.dataSupplier;
 
-import com.notionds.dataSupplier.delegation.Wrapper;
+import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.operational.IntegerOption;
 import com.notionds.dataSupplier.operational.Operational;
 
@@ -38,7 +38,7 @@ public abstract class NotionDs<O extends Operational, F extends Factory<O>> impl
     public Connection testConnection() {
         long writeLock = connectionGate.writeLock();
         try {
-            Wrapper connection = newConnectionContainer();
+            Datum connection = newConnectionContainer();
             if (connection != null) {
                 return (Connection) connection;
             }

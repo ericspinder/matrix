@@ -2,7 +2,7 @@ package com.notionds.dataSupplier.management;
 
 import com.notionds.dataSupplier.NotionDs;
 import com.notionds.dataSupplier.NotionStartupException;
-import com.notionds.dataSupplier.delegation.Wrapper;
+import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.operational.Operational;
 
 import javax.management.MBeanInfo;
@@ -10,7 +10,7 @@ import java.time.Duration;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public abstract class Management<N, O extends Operational, W extends Wrapper<N>> {
+public abstract class Management<N, O extends Operational, W extends Datum<N>> {
 
     public static class Default_Unavailable extends Management<Operational.Default> {
 

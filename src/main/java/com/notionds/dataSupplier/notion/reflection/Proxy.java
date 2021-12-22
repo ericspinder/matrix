@@ -1,7 +1,7 @@
-package com.notionds.dataSupplier.delegation.reflection;
+package com.notionds.dataSupplier.notion.reflection;
 
 import com.notionds.dataSupplier.Container;
-import com.notionds.dataSupplier.delegation.Wrapper;
+import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.operational.BooleanOption;
 import com.notionds.dataSupplier.operational.Operational;
 
@@ -10,7 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.UUID;
 
-public class Proxy<N, O extends Operational<N,W,T>, W extends Wrapper<N,O,T>, T extends Container<N,O,W>> implements InvocationHandler, Wrapper<N,O,T> {
+public class Proxy<N, O extends Operational<N,W,T>, W extends Datum<N,O,T>, T extends Container<N,O,W>> implements InvocationHandler, Datum<N,O,T> {
 
     private UUID artifactId = UUID.randomUUID();
     protected final N delegate;
@@ -24,7 +24,7 @@ public class Proxy<N, O extends Operational<N,W,T>, W extends Wrapper<N,O,T>, T 
 
     }
     @Override
-    public UUID getArtifactId() {
+    public UUID getDatumUuid() {
         return this.artifactId;
     }
     @Override
@@ -55,7 +55,7 @@ public class Proxy<N, O extends Operational<N,W,T>, W extends Wrapper<N,O,T>, T 
             case "getContainer":
                 return getContainer();
             case "getArtifactId":
-                return getArtifactId();
+                return getDatumUuid();
             case "equals":
                 if (equalsByUUID) return this.artifactId.equals(args[0]);
                 return equals(args[0]);
@@ -80,7 +80,7 @@ public class Proxy<N, O extends Operational<N,W,T>, W extends Wrapper<N,O,T>, T 
         try {
             Object object = m.invoke(delegate, args);
             //String maybeSql = (args != null && args[0] instanceof String) ? (String) args[0] : null;
-            Wrapper connectionMember = container.getBridge().getFactory().wrap(object, m.getReturnType(), args);
+            Datum connectionMember = container.getBus().getFactory().wrap(object, m.getReturnType(), args);
             if (connectionMember != null) {
                 return connectionMember;
             }
@@ -99,14 +99,14 @@ public class Proxy<N, O extends Operational<N,W,T>, W extends Wrapper<N,O,T>, T 
         if (that == null) {
             return false;
         }
-        if (!(that instanceof Wrapper)) {
+        if (!(that instanceof Datum)) {
             return false;
         }
-        if (this.getArtifactId() == null) {
-            if (((Wrapper)that).getArtifactId() != null) {
+        if (this.getDatumUuid() == null) {
+            if (((Datum)that).getDatumUuid() != null) {
                 return false;
             }
-        } else if (!this.getArtifactId().equals(((Wrapper)that).getArtifactId())) {
+        } else if (!this.getDatumUuid().equals(((Datum)that).getDatumUuid())) {
             return false;
         }
         return true;

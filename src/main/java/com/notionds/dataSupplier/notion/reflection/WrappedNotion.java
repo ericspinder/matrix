@@ -1,19 +1,19 @@
-package com.notionds.dataSupplier.delegation.reflection;
+package com.notionds.dataSupplier.notion.reflection;
 
 import com.notionds.dataSupplier.Container;
 import com.notionds.dataSupplier.NotionStartupException;
-import com.notionds.dataSupplier.delegation.Delegation;
-import com.notionds.dataSupplier.delegation.Wrapper;
+import com.notionds.dataSupplier.notion.Notion;
+import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.operational.Operational;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.ParameterizedType;
 
-public class WrappedDelegation<N,O extends Operational<N,W,T>, W extends Wrapper<N,O,T>,T extends Container<N,O,W>> extends Delegation<N,O,W,T> {
+public class WrappedNotion<N,O extends Operational<N,W,T>, W extends Datum<N,O,T>,T extends Container<N,O,W>> extends Notion<N,O,W,T> {
 
     private Constructor<W> wrapperConstructor = null;
     @SuppressWarnings("unchecked")
-    public WrappedDelegation(O operational, ClassLoader classLoader) {
+    public WrappedNotion(O operational, ClassLoader classLoader) {
         super(operational, classLoader);
 
         try {

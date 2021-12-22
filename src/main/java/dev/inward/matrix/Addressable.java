@@ -5,6 +5,8 @@ import java.net.URL;
 
 public interface Addressable<UM> extends Comparable<UM>, Serializable {
 
-    URL getUrl();
+    default String getUrl() {
+        return this.getClass().toGenericString();
+    }
 
 }

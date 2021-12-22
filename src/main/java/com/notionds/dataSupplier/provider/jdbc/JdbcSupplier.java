@@ -1,4 +1,4 @@
-package com.notionds.dataSupplier.jdbc;
+package com.notionds.dataSupplier.provider.jdbc;
 
 import com.notionds.dataSupplier.NotionDs;
 

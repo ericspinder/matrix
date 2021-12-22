@@ -1,4 +1,4 @@
-package com.notionds.dataSupplier.operational.task;
+package com.notionds.dataSupplier.task;
 
 import java.time.Duration;
 import java.time.Instant;
