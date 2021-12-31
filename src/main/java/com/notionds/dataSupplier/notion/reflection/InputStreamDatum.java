@@ -2,13 +2,13 @@ package com.notionds.dataSupplier.notion.reflection;
 
 import com.notionds.dataSupplier.Container;
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.operational.Operational;
+import com.notionds.dataSupplier.options.Options;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 
-public class InputStreamDatum<O extends Operational<InputStream,W,T>,W extends Datum<InputStream,O,T>, T extends Container<InputStream,O,W>> extends InputStream implements Datum<InputStream,O,T> {
+public class InputStreamDatum<O extends Options<InputStream,W,T>,W extends Datum<InputStream,O,T>, T extends Container<InputStream,O,W>> extends InputStream implements Datum<InputStream,O,T> {
 
     private final UUID uuid = UUID.randomUUID();
     protected final InputStream delegate;

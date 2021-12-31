@@ -4,12 +4,12 @@ import com.notionds.dataSupplier.Container;
 import com.notionds.dataSupplier.NotionStartupException;
 import com.notionds.dataSupplier.notion.Notion;
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.operational.Operational;
+import com.notionds.dataSupplier.options.Options;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.ParameterizedType;
 
-public class WrappedNotion<N,O extends Operational<N,W,T>, W extends Datum<N,O,T>,T extends Container<N,O,W>> extends Notion<N,O,W,T> {
+public class WrappedNotion<N,O extends Options<N,W,T>, W extends Datum<N,O,T>,T extends Container<N,O,W>> extends Notion<N,O,W,T> {
 
     private Constructor<W> wrapperConstructor = null;
     @SuppressWarnings("unchecked")

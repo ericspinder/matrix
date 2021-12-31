@@ -2,36 +2,29 @@ package com.notionds.dataSupplier.datum;
 
 import com.notionds.dataSupplier.Container;
 import com.notionds.dataSupplier.Bus;
-import com.notionds.dataSupplier.operational.Operational;
+import com.notionds.dataSupplier.notion.Notion;
+import com.notionds.dataSupplier.options.Options;
 
 import java.io.Serializable;
 
 /**
- * Holding the Datum will prevent garbage collection for it's NOTION
- * @param <NOTION>
- * @param <O> Operational, not kept in this object but available from the Bus in the Container
- * @param <C> Container, the container associated with this Datum
- * @param <B> Bus, not kept in this object but available in the Container
+ * Holding the Datum will prevent garbage collection for it's DATUM
+ * @param <DATUM> Any Comparable and Serializable Object including primitives which are to be wrapped
+ * @param <N>
+ * @param <O>
+ * @param <B>
+ * @param <C>
  */
-public abstract class Datum<NOTION extends Comparable<NOTION> & Serializable,O extends Operational<NOTION,O,B,C,U>, B extends Bus<NOTION,O,B,C,U,?,?,?,?>, C extends Container<NOTION,O,B,C,U>,U extends Datum<NOTION,O,B,C,U>> implements Comparable<U>, Serializable {
+public abstract class Datum<DATUM extends Comparable<DATUM> & Serializable,O extends Options<DATUM,O,D>,C extends Container<DATUM,O,C,D,B>,D extends Datum<DATUM,O,C,D,B>, B extends Bus<DATUM,O,C,D,B,?,?,?>> implements Comparable<Datum>, Serializable {
 
-    private final NOTION notion;
     private final C container;
 
-    public Datum(NOTION notion, C container) {
-        this.notion = notion;
+    public Datum(C container) {
         this.container = container;
-        this.init(notion, container);
     }
 
     public C getContainer() {
         return this.container;
     }
-
-    public NOTION getDelegate() {
-        return this.notion;
-    }
-
-    protected abstract void init(NOTION notion, C container);
 
 }

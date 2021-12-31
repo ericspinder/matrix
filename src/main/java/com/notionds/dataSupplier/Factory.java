@@ -1,9 +1,14 @@
 package com.notionds.dataSupplier;
 
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.operational.Operational;
+import com.notionds.dataSupplier.meta.Meta;
+import com.notionds.dataSupplier.meta.Meta_I;
+import com.notionds.dataSupplier.notion.Notion;
+import com.notionds.dataSupplier.options.Options;
+import com.notionds.dataSupplier.provider.Provider;
 import com.notionds.dataSupplier.task.Task;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,19 +17,20 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class Factory<O extends Operational> {
+public class Factory<DATUM extends Comparable<DATUM> & Serializable,O extends Options<DATUM,O,D>,D extends Datum<DATUM,O,?,D,B>,B extends Bus<DATUM,O,?,D,B,?,?,M>,M extends Meta<DATUM,O,?,D,B>> {
 
-    private Map<String, Bus<?,?,?,?,?,?,?,?,?,?>> controllerMap = new ConcurrentHashMap<>();
+    private Map<String, Bus<DATUM,?,?,?,?,N,?,?,?>> busRoutes = new ConcurrentHashMap<>();
+    private O options;
 
-    public Factory(Operational<?,?,?> operational, LinkedBlockingDeque<NotionSupplier<?,?,?,?,?,?,?,?>> notionSuppliers) {
-
+    public Factory(O options, LinkedBlockingDeque<Provider<N,O,B,?,?>> providers) {
+        this.options = options;
     }
-    public <N, W extends Datum<N,?, I>, I extends Container<N,?,W>> void addNotionSupplier(LinkedBlockingDeque<NotionSupplier<N,?,W, I,?,?,?,?>> notionSuppliers) {
+    public <N, W extends Datum<N,?, I>, I extends Container<N,?,W>> void addProvider(LinkedBlockingDeque<Provider<N>> notionSuppliers) {
 
     }
     public <N, W extends Datum<N,?,T>,T extends Container<N,?,W>> W wrap(N delegate, Class<N> delegateClass, Object[] args) {
-        if (this.controllerMap.containsKey(delegateClass.getCanonicalName())) {
-            Bus<?,?,?,?,?,?,?,?,?,?> bus = this.controllerMap.get(delegateClass.getCanonicalName());
+        if (this.busRoutes.containsKey(delegateClass.getCanonicalName())) {
+            Bus<?,?,?,?,?,?,?,?,?,?> bus = this.busRoutes.get(delegateClass.getCanonicalName());
             Task[] tasks = new Task[]{bus.operational.};
             return bus.wrap(delegate,args, )
         }

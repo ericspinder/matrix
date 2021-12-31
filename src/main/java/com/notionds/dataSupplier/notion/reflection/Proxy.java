@@ -2,25 +2,25 @@ package com.notionds.dataSupplier.notion.reflection;
 
 import com.notionds.dataSupplier.Container;
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.operational.BooleanOption;
-import com.notionds.dataSupplier.operational.Operational;
+import com.notionds.dataSupplier.options.BooleanOption;
+import com.notionds.dataSupplier.options.Options;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.UUID;
 
-public class Proxy<N, O extends Operational<N,W,T>, W extends Datum<N,O,T>, T extends Container<N,O,W>> implements InvocationHandler, Datum<N,O,T> {
+public class Proxy<N, O extends Options<N,W,T>, W extends Datum<N,O,T>, T extends Container<N,O,W>> implements InvocationHandler, Datum<N,O,T> {
 
     private UUID artifactId = UUID.randomUUID();
     protected final N delegate;
     protected final T container;
     protected final boolean equalsByUUID;
 
-    public Proxy(N delegate, Operational<N,W,T> operational, T container) {
+    public Proxy(N delegate, Options<N,W,T> options, T container) {
         this.delegate = delegate;
         this.container = container;
-        this.equalsByUUID = operational.getBoolean(BooleanOption.EqualsByUUID.getI18n());
+        this.equalsByUUID = options.getBoolean(BooleanOption.EqualsByUUID.getI18n());
 
     }
     @Override

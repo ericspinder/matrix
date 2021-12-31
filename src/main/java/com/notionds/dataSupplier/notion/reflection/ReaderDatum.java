@@ -2,14 +2,14 @@ package com.notionds.dataSupplier.notion.reflection;
 
 import com.notionds.dataSupplier.Container;
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.operational.Operational;
+import com.notionds.dataSupplier.options.Options;
 
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.CharBuffer;
 import java.util.UUID;
 
-public class ReaderDatum<O extends Operational<Reader,W,T>, W extends Datum<Reader,O,T>,T extends Container<Reader,O,W>> extends Reader implements Datum<Reader,O,T> {
+public class ReaderDatum<O extends Options<Reader,W,T>, W extends Datum<Reader,O,T>,T extends Container<Reader,O,W>> extends Reader implements Datum<Reader,O,T> {
 
     private final UUID uuid = UUID.randomUUID();
     private final T container;

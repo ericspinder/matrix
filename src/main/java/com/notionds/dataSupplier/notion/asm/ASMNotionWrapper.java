@@ -3,7 +3,7 @@ package com.notionds.dataSupplier.notion.asm;
 import com.notionds.dataSupplier.Container;
 import com.notionds.dataSupplier.notion.Notion;
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.operational.Operational;
+import com.notionds.dataSupplier.options.Options;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +14,7 @@ import java.util.concurrent.locks.StampedLock;
  * https://www.baeldung.com/java-asm
  *
  */
-public class ASMNotionWrapper<N,O extends Operational<N,W,T>,W extends Datum<N,O,T>, T extends Container<N,O,W>> extends Notion<N,O,W,T> {
+public class ASMNotionWrapper<N,O extends Options<N,W,T>,W extends Datum<N,O,T>, T extends Container<N,O,W>> extends Notion<N,O,W,T> {
 
     private Map<Class, Class<Datum>> cache = new HashMap<>();
     private StampedLock creationGate = new StampedLock();

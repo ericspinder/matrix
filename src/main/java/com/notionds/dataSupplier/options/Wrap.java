@@ -1,4 +1,4 @@
-package com.notionds.dataSupplier.operational;
+package com.notionds.dataSupplier.options;
 
 import com.notionds.dataSupplier.task.Task;
 

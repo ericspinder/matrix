@@ -4,7 +4,7 @@ import com.notionds.dataSupplier.advisor.Advisor;
 import com.notionds.dataSupplier.meta.Meta;
 import com.notionds.dataSupplier.notion.Notion;
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.operational.Operational;
+import com.notionds.dataSupplier.options.Options;
 import com.notionds.dataSupplier.task.Proffer;
 import com.notionds.dataSupplier.task.Task;
 import com.notionds.dataSupplier.provider.Provider;
@@ -12,41 +12,38 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.Serializable;
-import java.lang.ref.ReferenceQueue;
+import java.util.UUID;
 import java.util.concurrent.locks.StampedLock;
 
-public class Bus<NOTION extends Comparable<NOTION> & Serializable,O extends Operational<NOTION,O,B,C,U>, B extends Bus<NOTION,O,B,C,U,N,A,P,M>, C extends Container<NOTION,O,B,C,U>,U extends Datum<NOTION,O,B,C,U>, N extends Notion<NOTION,O,B,C,U>,A extends Advisor<NOTION,O,B,C,U>,P extends Provider<NOTION,O,B,C,U>,M extends Meta<NOTION,O,B,C,U>> {
+public class Bus<DATUM extends Comparable<DATUM> & Serializable,O extends Options<DATUM,O,D>, C extends Container<DATUM,O,C,D,B>,D extends Datum<DATUM,O,C,D,B>,B extends Bus<DATUM,O,C,D,B,A,P,M>, A extends Advisor<DATUM,O,C,D,B,?>,P extends Provider<DATUM,O,C,D,B>,M extends Meta<DATUM,O,C,D,B>> {
 
         private static final Logger logger = LogManager.getLogger();
-        private transient final Factory factory;
-        private transient final ClassLoader classLoader;
+        protected transient A advisor;
+        protected final N notion;
+        private final UUID uuid;
         protected final O operational;
-        protected final N delegation;
         protected P provider;
-        protected A advisor;
         protected M meta;
-        protected ReferenceQueue<U> globalReferenceQueue = new ReferenceQueue<>();
         private final StampedLock memberGate = new StampedLock();
 
-        public Bus(final Factory<?> factory, final ClassLoader classLoader, final O operational, final N delegation, final A advisor, final P provider, final M meta, final ) {
-                this.factory = factory;
-                this.classLoader = classLoader;
+        public Bus(final UUID uuid, final A advisor, final O operational, final N notion, final P provider, final M meta)  {
+                this.uuid = uuid;
                 this.operational = operational;
-                this.delegation = delegation;
+                this.notion = notion;
                 this.provider = provider;
                 this.advisor = advisor;
                 this.meta = meta;
         }
 
         @SuppressWarnings("unchecked")
-        public NOTION take(Proffer proffer, Task[] tasks, boolean isWriteLock) {
+        public DATUM take(Proffer proffer, Task[] tasks, boolean isWriteLock) {
                 long lock;
                 if(!isWriteLock) lock = memberGate.readLock();
                 else lock = memberGate.writeLock();
                 try {
                         N wrapped = this.provider.getWrappedReady();
                         if (wrapped.getContainer().checkout(advisor.add(wrapped,tasks))) {
-                                return (NOTION) wrapped;
+                                return (DATUM) wrapped;
                         }
                         return null;
                 }
@@ -56,7 +53,7 @@ public class Bus<NOTION extends Comparable<NOTION> & Serializable,O extends Oper
                 }
         }
 
-        public Promise<NOTION> get(Task[] tasks, boolean isWriteLock) {
+        public Promise<DATUM> get(Task[] tasks, boolean isWriteLock) {
                 long lock;
                 if(isWriteLock) lock = memberGate.writeLock();
                 else lock = memberGate.readLock();
@@ -69,7 +66,7 @@ public class Bus<NOTION extends Comparable<NOTION> & Serializable,O extends Oper
                 }
                 return null;
         }
-        public NOTION get(Promise<NOTION> promise) {
+        public DATUM get(Promise<DATUM> promise) {
                 long lock = memberGate.readLock();
                 try {
 
@@ -81,15 +78,15 @@ public class Bus<NOTION extends Comparable<NOTION> & Serializable,O extends Oper
         }
         /**
          * Wraps an existing delegate into a notion. It will be set as Situation.Closed_Failure if not suitable for use.
-         * @param NOTION the delegate
+         * @param DATUM the delegate
          * @param args an array of Objects for the constructor, Strings may sometimes be assumed by default, they should match the forth and such constructor parameters
          * @param tasks the tasks to be associated with this notion. Cleanup instructions
          * @return The wrapped delegate, but it might be closed, check to see if Situation.Open before use, unless you're feeling lucky or irrelevant.
          */
         @SuppressWarnings("unchecked")
-        public N wrap(NOTION NOTION, Object[] args, Task[] tasks) {
+        public N wrap(DATUM DATUM, Object[] args, Task[] tasks) {
                 C container = (C) notionSupplier.getNewContainer(operational);
-                N wrapped = delegation.wrapNotion(container, NOTION, args);
+                N wrapped = notion.wrapNotion(container, DATUM, args);
                 if (!wrapped.getContainer().checkout(advisor.add(wrapped, tasks))) {
                         logger.error("delegate was not suitable for wrapping or just unneeded, let it go");
                 }

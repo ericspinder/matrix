@@ -2,11 +2,11 @@ package com.notionds.dataSupplier.provider.jdbc;
 
 import com.notionds.dataSupplier.NotionDs;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+//import java.sql.Connection;
+//import java.sql.DriverManager;
+//import java.sql.SQLException;
 
-public class JdbcSupplier implements NotionDs.Supplier_I {
+public class JdbcSupplier  {
 
     private String name;
     private String url;
@@ -24,14 +24,11 @@ public class JdbcSupplier implements NotionDs.Supplier_I {
             classNotFoundException.printStackTrace();
         }
     }
-    @Override
-    public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(url, username, password);
-    }
+//    public Connection getConnection() throws SQLException {
+//        return DriverManager.getConnection(url, username, password);
+//    }
 
 
-
-    @Override
     public String getName() {
         return this.name;
     }

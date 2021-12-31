@@ -3,21 +3,21 @@ package com.notionds.dataSupplier.management;
 import com.notionds.dataSupplier.NotionDs;
 import com.notionds.dataSupplier.NotionStartupException;
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.operational.Operational;
+import com.notionds.dataSupplier.options.Options;
 
 import javax.management.MBeanInfo;
 import java.time.Duration;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public abstract class Management<N, O extends Operational, W extends Datum<N>> {
+public abstract class Management<N, O extends Options, W extends Datum<N>> {
 
-    public static class Default_Unavailable extends Management<Operational.Default> {
+    public static class Default_Unavailable extends Management<Options.Default> {
 
         public static final Default_Unavailable INSTANCE = new Default_Unavailable();
 
         public Default_Unavailable() {
-            super(Operational.DEFAULT_OPTIONS_INSTANCE);
+            super(Options.DEFAULT_OPTIONS_INSTANCE);
         }
 
         @Override

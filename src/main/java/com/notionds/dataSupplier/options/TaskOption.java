@@ -1,8 +1,8 @@
-package com.notionds.dataSupplier.operational;
+package com.notionds.dataSupplier.options;
 
 import com.notionds.dataSupplier.task.Task;
 
-public enum TaskOption implements Operational.Option<Wrap<Task>> {
+public enum TaskOption implements Options.Option<Wrap<Task>> {
     task("com.notionds..task.timeout", new Wrap<>(),"")
     ;
     private final String i18n;

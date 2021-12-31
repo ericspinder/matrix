@@ -1,10 +1,11 @@
 package com.notionds.dataSupplier;
 
-import com.notionds.dataSupplier.advisor.Receipt;
+import com.notionds.dataSupplier.notion.Notion;
+import com.notionds.dataSupplier.provider.Receipt;
 import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.exceptions.ExceptionWrapper;
 import com.notionds.dataSupplier.exceptions.Recommendation;
-import com.notionds.dataSupplier.operational.Operational;
+import com.notionds.dataSupplier.options.Options;
 import com.notionds.dataSupplier.provider.Situation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,13 +13,12 @@ import org.apache.logging.log4j.Logger;
 import java.io.Serializable;
 import java.time.Instant;
 
-public abstract class Container<NOTION extends Comparable<NOTION> & Serializable,O extends Operational<NOTION,O,B,C,U>, B extends Bus<NOTION,O,B,C,U,?,?,?,?>, C extends Container<NOTION,O,B,C,U>,U extends Datum<NOTION,O,B,C,U>> {
+public abstract class Container<DATUM extends Comparable<DATUM> & Serializable, O extends Options<DATUM,O,D>,C extends Container<DATUM,O,C,D,B>,D extends Datum<DATUM,O,C,D,B>,B extends Bus<DATUM,O,C,D,B,?,?,?>> {
 
     protected final static Logger logger = LogManager.getLogger();
     public final Instant createInstant = Instant.now();
     protected final B bus;
     public volatile Situation currentSituation;
-    private Receipt<NOTION,O, U,?> receipt = null;
 
     public Container(B bus) {
         this.bus = bus;
@@ -30,7 +30,7 @@ public abstract class Container<NOTION extends Comparable<NOTION> & Serializable
      * @return true to continue false to reject use of object
      */
     protected abstract boolean checkout();
-    public boolean checkout(Receipt<NOTION,O, U,?> receipt) {
+    public boolean checkout(Receipt<DATUM,O, U,?> receipt) {
         this.receipt = receipt;
         if (this.checkout()) {
             this.currentSituation = Situation.Open;
@@ -71,10 +71,10 @@ public abstract class Container<NOTION extends Comparable<NOTION> & Serializable
         }
     }
 
-    public Receipt<NOTION,O, U,?> getReceipt() {
+    public Receipt<DATUM,O, U,?> getReceipt() {
         return this.receipt;
     }
-    public Bus<NOTION,O, U,?,?,?,?,?> getBus() {
+    public Bus<DATUM,O, U,?,?,?,?,?> getBus() {
         return this.bus;
     }
 

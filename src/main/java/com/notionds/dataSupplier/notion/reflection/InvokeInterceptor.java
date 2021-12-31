@@ -6,16 +6,16 @@ import com.notionds.dataSupplier.aggregation.Aggregation;
 import com.notionds.dataSupplier.aggregation.InvokeAggregator;
 import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.exceptions.NotionExceptionWrapper;
-import com.notionds.dataSupplier.operational.Operational;
+import com.notionds.dataSupplier.options.Options;
 
 import java.lang.reflect.Method;
 import java.time.Instant;
 
-import static com.notionds.dataSupplier.operational.StringOption.Aggreation_Method_REGEX;
+import static com.notionds.dataSupplier.options.StringOption.Aggreation_Method_REGEX;
 
-public abstract class InvokeInterceptor<N,O extends Operational<N,W,T>,W extends Datum<N,O,T>,T extends Container<N,O,W>,G extends InvokeAggregator> extends  {
+public abstract class InvokeInterceptor<N,O extends Options<N,W,T>,W extends Datum<N,O,T>,T extends Container<N,O,W>,G extends InvokeAggregator> extends  {
 
-    public static class Default<N,O extends Operational<N,W,T>, W extends Datum<N,O,T>, T extends Container<N,O,W>, G extends InvokeAggregator> extends InvokeInterceptor<N,O,W,T,G> {
+    public static class Default<N,O extends Options<N,W,T>, W extends Datum<N,O,T>, T extends Container<N,O,W>, G extends InvokeAggregator> extends InvokeInterceptor<N,O,W,T,G> {
 
         public Default(O options, Aggregation<O,G> aggregation) {
             super(options, aggregation);

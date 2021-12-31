@@ -4,20 +4,20 @@ package com.notionds.dataSupplier.meta;
 import com.notionds.dataSupplier.Bus;
 import com.notionds.dataSupplier.Container;
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.operational.Operational;
+import com.notionds.dataSupplier.options.Options;
 
 import java.io.Serializable;
 
-public abstract class Create<NOTION extends Comparable<NOTION> & Serializable,O extends Operational<NOTION,O,B,C,U>, B extends Bus<NOTION,O,B,C,U,?,?,?,?>, C extends Container<NOTION,O,B,C,U>,U extends Datum<NOTION,O,B,C,U>> extends Meta<NOTION,O,B,C,U> {
+public abstract class Create<DATUM extends Comparable<DATUM> & Serializable,O extends Options<DATUM,O,B,C,U>, B extends Bus<DATUM,O,B,C,U,?,?,?,?>, C extends Container<DATUM,O,B,C,U>,U extends Datum<DATUM,O,B,C,U>> extends Meta<DATUM,O,B,C,U> {
 
     private boolean isOldestFirst;
     private boolean indicatesEquality;
 
-    public Create(NOTION notion, C container) {
+    public Create(DATUM notion, C container) {
         super(notion, container);
     }
 
-    public Create(NOTION notion, C container, boolean isOldestFirst, boolean indicatesEquality) {
+    public Create(DATUM notion, C container, boolean isOldestFirst, boolean indicatesEquality) {
         super(notion, container);
         this.isOldestFirst = isOldestFirst;
         this.indicatesEquality = indicatesEquality;

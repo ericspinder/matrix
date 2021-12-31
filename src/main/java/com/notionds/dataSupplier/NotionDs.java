@@ -1,8 +1,8 @@
 package com.notionds.dataSupplier;
 
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.operational.IntegerOption;
-import com.notionds.dataSupplier.operational.Operational;
+import com.notionds.dataSupplier.options.IntegerOption;
+import com.notionds.dataSupplier.options.Options;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
@@ -14,7 +14,7 @@ import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.logging.Logger;
 
-public abstract class NotionDs<O extends Operational, F extends Factory<O>> implements DataSource {
+public abstract class NotionDs<O extends Options, F extends Factory<O>> implements DataSource {
 
     private static final String TTL_PROP = "networkaddress.cache.ttl";
     private final O options;

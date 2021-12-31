@@ -1,6 +1,6 @@
-package com.notionds.dataSupplier.operational;
+package com.notionds.dataSupplier.options;
 
-public enum StringOption implements Operational.Option<String> {
+public enum StringOption implements Options.Option<String> {
     Management_JMX("com.notionds.jmx.management", "JMX management mBean Implementation", "com.notionds.dataSupplier.jmx.NotionDsBean"),
     Aggreation_Method_REGEX("com.notionds.aggregation.method_regex", "The regex for the method or methods (how clever is your regex?) which need have an InvokeAccounting created", "^execute"),
     ;

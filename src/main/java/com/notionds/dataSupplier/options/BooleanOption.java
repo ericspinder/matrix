@@ -1,6 +1,6 @@
-package com.notionds.dataSupplier.operational;
+package com.notionds.dataSupplier.options;
 
-public enum BooleanOption implements Operational.Option<Boolean> {
+public enum BooleanOption implements Options.Option<Boolean> {
 
     ConnectionContainer_Check_ResultSet("com.notionds.connectionMain.checkResultSet", "Order a check of all ResultSets before closing when cleanupAfterGC() had not been called, until the connection had been closed", true),
     ConnectionPool_Use("com.notionds.provider.usePool", "Should provider connections", true),

@@ -6,11 +6,11 @@ import com.notionds.dataSupplier.aggregation.Accounting;
 import com.notionds.dataSupplier.aggregation.InvokeAggregator;
 import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.exceptions.NotionExceptionWrapper;
-import com.notionds.dataSupplier.operational.Operational;
+import com.notionds.dataSupplier.options.Options;
 
 import java.lang.reflect.Method;
 
-public class ProxyForAggregation<N, O extends Operational<N,W,T>, W extends Datum<N,O,T>, T extends Container<N,O,W>, G extends InvokeAggregator, I extends InvokeInterceptor<N,O,W,T,G>> extends Proxy<N,O,W,T> {
+public class ProxyForAggregation<N, O extends Options<N,W,T>, W extends Datum<N,O,T>, T extends Container<N,O,W>, G extends InvokeAggregator, I extends InvokeInterceptor<N,O,W,T,G>> extends Proxy<N,O,W,T> {
 
     private final I invokeInterceptor;
     private String description = "No description";

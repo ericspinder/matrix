@@ -1,7 +1,8 @@
-package com.notionds.dataSupplier.operational;
+package com.notionds.dataSupplier.options;
 
 import com.notionds.dataSupplier.*;
 import com.notionds.dataSupplier.datum.Datum;
+import com.notionds.dataSupplier.notion.Notion;
 import com.notionds.dataSupplier.task.Result;
 import com.notionds.dataSupplier.task.Task;
 import org.apache.logging.log4j.LogManager;
@@ -17,9 +18,9 @@ import java.util.concurrent.locks.StampedLock;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public abstract class Operational<NOTION extends Comparable<NOTION> & Serializable,O extends Operational<NOTION,O,B,C,U>, B extends Bus<NOTION,O,B,C,U,?,?,?,?>, C extends Container<NOTION,O,B,C,U>,U extends Datum<NOTION,O,B,C,U>> implements Comparable<O>, Serializable {
+public abstract class Options<DATUM extends Comparable<DATUM> & Serializable,O extends Options<DATUM,O,D>,D extends Datum<DATUM,O,?,D,?>> implements Comparable<O>, Serializable {
 
-    private static final Logger logger = LogManager.getLogger(Operational.class);
+    private static final Logger logger = LogManager.getLogger(Options.class);
     public static final Default DEFAULT_OPTIONS_INSTANCE = new Default();
 
     public interface Option<V> {
@@ -35,22 +36,22 @@ public abstract class Operational<NOTION extends Comparable<NOTION> & Serializab
     protected final Map<String, Boolean> booleanOptions = new HashMap<>();
     protected final Map<String, Wrap<Task>> taskOptions = new HashMap<>();
 
-    public static final class Default<N, W extends Datum<N,?,T>,T extends Container<N,?,W>> extends Operational<N,W,T> {
+    public static final class Default<DATUM extends Comparable<DATUM> & Serializable> extends Options<DATUM, Options.Default<DATUM>>{
         public Default() {
             super();
         }
 
-        @Override
-        public int compareTo(Object o) {
-            return 0;
-        }
+
     }
-    public Operational() {
-        this(Arrays.stream(Operational.class.getClass().getTypeParameters()).findFirst().get().getTypeName());
+    public Options() {
+        this(Arrays.stream(Options.class.getClass().getTypeParameters()).findFirst().get().getTypeName());
     }
 
-    public Operational(final String name) {
+    public Options(final String name) {
             this.setDefaultValues(DurationOption.values());
+            this.setDefaultValues(BooleanOption.values());
+            this.setDefaultValues(IntegerOption.values());
+            this.setDefaultValues(TaskOption.values());
     }
 
     public Integer getInteger(String key) {
@@ -77,10 +78,10 @@ public abstract class Operational<NOTION extends Comparable<NOTION> & Serializab
         }
         throw new NotionStartupException(NotionStartupException.Type.MissMatchedOptionKey, this.getClass());
     }
-    public Task getTask(String key, Supplier<Result<?,?,?,?>> supplier, Consumer<Exception> consumer) {
+    public Task getTask(String key, Supplier supplier, Consumer<Exception> consumer) {
         if (this.taskOptions.containsKey(key)) {
             Wrap<Task> taskWrap = this.taskOptions.get(key);
-            taskWrap.g
+
         }
         throw new NotionStartupException(NotionStartupException.Type.MissMatchedOptionKey, this.getClass());
     }

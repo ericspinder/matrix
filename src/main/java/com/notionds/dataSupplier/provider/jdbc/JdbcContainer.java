@@ -3,11 +3,11 @@ package com.notionds.dataSupplier.provider.jdbc;
 import com.notionds.dataSupplier.Container;
 import com.notionds.dataSupplier.Bus;
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.operational.Operational;
+import com.notionds.dataSupplier.options.Options;
 
 import java.io.Closeable;
 
-public class JdbcContainer<N,O extends Operational<N,W,?>,W extends Datum<N,O,?>> extends Container<N,O,W> {
+public class JdbcContainer<N,O extends Options<N,W,?>,W extends Datum<N,O,?>> extends Container<N,O,W> {
 
     public JdbcContainer(O options, Bus<N,O, W,?,?,?,?,?,?,?> bus) {
         super(options, bus);
