@@ -1,10 +1,13 @@
 package com.notionds.dataSupplier.meta;
 
-public interface Meta_I {
+import java.lang.reflect.ParameterizedType;
 
-    String getName();
+public interface Meta_I<DATUM> {
 
-    String getDescription();
-
+    String getLabel();
     String getI18n();
+    String getDescription();
+    default Class<DATUM> getDatumClass() {
+        return ((Class<DATUM>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
+    }
 }

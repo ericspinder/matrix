@@ -1,18 +1,21 @@
 package com.notionds.dataSupplier.aggregation;
 
+import com.notionds.dataSupplier.Container;
+import com.notionds.dataSupplier.datum.Datum;
+import com.notionds.dataSupplier.datum.context.Context;
 import com.notionds.dataSupplier.exceptions.NotionExceptionWrapper;
-import com.notionds.dataSupplier.options.IntegerOption;
-import com.notionds.dataSupplier.options.Options;
+import com.notionds.dataSupplier.operational.IntegerOption;
+import com.notionds.dataSupplier.operational.Operational;
 
 import java.lang.reflect.Method;
 import java.util.Map;
 
-public abstract class Aggregation<O extends Options<?,?,?>, G extends InvokeAggregator> {
+public abstract class Aggregation<D extends Datum<D,O,C,X>,O extends Operational<D,O>,C extends Container<D,O,C,X,?>,X extends Context<D,O,C,X>,G extends InvokeAggregator> {
 
-    public static class Default_Into_Log extends Aggregation<Options.Default<?>, InvokeAggregator.Default_intoLog> {
+    public static class Default_Into_Log extends Aggregation<Operational.Default<?>, InvokeAggregator.Default_intoLog> {
 
         public Default_Into_Log(Method method, String message) {
-            super(Options.DEFAULT_OPTIONS_INSTANCE, new InvokeAggregator.Default_intoLog(method, message));
+            super(Operational.DEFAULT_OPTIONS_INSTANCE, new InvokeAggregator.Default_intoLog(method, message));
         }
 
         @Override

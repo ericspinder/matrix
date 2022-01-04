@@ -1,10 +1,12 @@
 package com.notionds.dataSupplier.exceptions;
 
+import com.notionds.dataSupplier.advisor.Matter;
+
 public class ExceptionWrapper extends Exception implements NotionExceptionWrapper {
 
-    private final Recommendation recommendation;
+    private
 
-    public ExceptionWrapper(String message, Recommendation recommendation, Exception cause) {
+    public ExceptionWrapper(Matter matter, Datum<> datum, Exception cause) {
         super(message, cause, false, false);
         this.recommendation = recommendation;
     }

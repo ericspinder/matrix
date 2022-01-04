@@ -1,6 +1,6 @@
 package dev.inward.matrix.setting;
 
-import dev.inward.matrix.fact.Fact;
+import com.notionds.dataSupplier.datum.notion.fact.Fact;
 
 public abstract class Security extends Fact {
 

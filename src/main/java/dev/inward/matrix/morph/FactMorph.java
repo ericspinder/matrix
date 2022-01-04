@@ -1,7 +1,7 @@
 package dev.inward.matrix.morph;
 
 import dev.inward.matrix.crud.Crudem;
-import dev.inward.matrix.fact.Fact;
+import com.notionds.dataSupplier.datum.notion.fact.Fact;
 
 import java.util.EnumMap;
 

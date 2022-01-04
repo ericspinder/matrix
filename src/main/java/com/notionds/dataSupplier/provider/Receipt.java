@@ -2,8 +2,10 @@ package com.notionds.dataSupplier.provider;
 
 import com.notionds.dataSupplier.Bus;
 import com.notionds.dataSupplier.Container;
+import com.notionds.dataSupplier.Promise;
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.options.Options;
+import com.notionds.dataSupplier.datum.context.Context;
+import com.notionds.dataSupplier.operational.Operational;
 import com.notionds.dataSupplier.task.Task;
 
 import java.io.Serializable;
@@ -12,18 +14,12 @@ import java.lang.ref.SoftReference;
 import java.time.Instant;
 import java.util.Map;
 
-public class Receipt<DATUM extends Comparable<DATUM> & Serializable,O extends Options<DATUM,O,B,C,U>,B extends Bus<DATUM,O,B,C,U,?,?,?,?>, C extends Container<DATUM,O,B,C,U>,U extends Datum<DATUM,O,B,C,U>> extends SoftReference<U> {
+public class Receipt<D extends Datum<D,O,C,X>,O extends Operational<D,O>,C extends Container<D,O,C,X,?>,X extends Context<D,O,C,X>> extends SoftReference<D> {
 
     private final Map<Task, Instant> taskMap;
-    private final Instant nextExecutionTime;
+    private final Promise promise;
 
-    public Receipt(U datum, Map<Task, Instant> taskMap, Instant nextExecutionTime) {
-        super(datum);
-        this.taskMap = taskMap;
-        this.nextExecutionTime = nextExecutionTime;
-    }
-
-    public Receipt(U datum, ReferenceQueue<? super U> referenceQueue, Map<Task, Instant> taskMap, Instant nextExecutionTime) {
+    public Receipt(D datum, ReferenceQueue<? super D> referenceQueue, Map<Task, Instant> taskMap, Promise) {
         super(datum, referenceQueue);
         this.taskMap = taskMap;
         this.nextExecutionTime = nextExecutionTime;

@@ -1,18 +1,21 @@
 package dev.inward.matrix.id;
 
-import dev.inward.matrix.Addressable;
+import com.notionds.dataSupplier.Bus;
+import com.notionds.dataSupplier.Container;
+import com.notionds.dataSupplier.datum.Datum;
+import com.notionds.dataSupplier.datum.notion.Notion;
+import com.notionds.dataSupplier.operational.Operational;
 
 import java.net.URL;
+import java.util.UUID;
 
-public class Id<I extends Id> implements Addressable<I> {
+public abstract class Id<N extends Notion<N,O,C,B,I>,O extends Operational<N,O,N>,C extends Container<N,O,C,N,B>, B extends Bus<N,O,C,N,B,?,?,?>,I extends Id<N,O,C,B,I>> extends Datum<N,O,C,N,B> {
 
-    @Override
+    private final UUID uuid;
+    private final Authority
+
     public URL getUrl() {
         return null;
     }
 
-    @Override
-    public int compareTo(I o) {
-        return 0;
-    }
 }

@@ -2,7 +2,7 @@ package com.notionds.dataSupplier.task;
 
 import com.notionds.dataSupplier.Container;
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.options.Options;
+import com.notionds.dataSupplier.operational.Operational;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -16,7 +16,7 @@ public class Conditions {
     // on getter or setter (method)
     // on method exception
 
-    public static class Countdown<N,O extends Options<N,W,T>,W extends Datum<N,O,T>,T extends Container<N,O,W>> extends Timer<N,O,W,T> {
+    public static class Countdown<N,O extends Operational<N,W,T>,W extends Datum<N,O,T>,T extends Container<N,O,W>> extends Conditions<N,O,W,T> {
         private final Duration fromStart;
 
         public Countdown(final String name, final boolean registerForCleanup, final Supplier<Result<N,O,W,T>> execution, final Consumer<Exception> handler, final Duration fromStart) {
@@ -33,7 +33,7 @@ public class Conditions {
             return Instant.now().plus(fromStart);
         }
     }
-    public static class SpecificTime<N,O extends Options<N,W,T>,W extends Datum<N,O,T>,T extends Container<N,O,W>> extends Task<N,O,W,T> {
+    public static class SpecificTime<N,O extends Operational<N,W,T>,W extends Datum<N,O,T>,T extends Container<N,O,W>> extends Conditions<N,O,W,T> {
         private final Instant instant;
 
         public SpecificTime(final String name, final boolean registerForCleanup, final Supplier<Result<N,O,W,T>> execution, final Consumer<Exception> handler, final Instant instant) {
@@ -50,7 +50,7 @@ public class Conditions {
             return this.instant;
         }
     }
-    public static class CleanupOnly<N,O extends Options<N,W,T>,W extends Datum<N,O,T>,T extends Container<N,O,W>> extends Task<N,O,W,T> {
+    public static class CleanupOnly<N,O extends Operational<N,W,T>,W extends Datum<N,O,T>,T extends Container<N,O,W>> extends Conditions<N,O,W,T> {
 
         public CleanupOnly(final String name, final Supplier<Result<N,O,W,T>> execution, final Consumer<Exception> handler) {
             super(name, true,execution,handler);

@@ -1,8 +1,9 @@
 package com.notionds.dataSupplier.advisor;
 
+import com.notionds.dataSupplier.datum.notion.why.Why;
 import com.notionds.dataSupplier.meta.Meta_I;
 
-public class Matter {
+public abstract class Matter<W extends Why> {
 
     private final String name;
     private final Footing footing;
@@ -16,7 +17,10 @@ public class Matter {
         this.goodThing = goodThing;
     }
 
-    public enum Footing implements Meta_I {
+    protected abstract why();
+
+
+    public enum Footing implements Meta_I<String> {
         Ending("Ending","unable to execution of process","dev.inward.matter.footing.ending"),
         Changing("Changing","","dev.inward.matter.footing.changing"),
         Deleting("Deleting", "Something was deleted","dev.inward.matter.footing.deleting"),
@@ -24,18 +28,18 @@ public class Matter {
         Admonitory("Admonitory", "Locus is providing information on an admonitory matter, ", "dev.inward.matter.footing.admonitory"),
         Integral("Integral", "Locus is providing information on an integral matter", "dev.inward.matter.footing.integral"),
         ;
-        private final String name;
+        private final String label;
         private final String description;
         private final String i18n;
-        Footing(final String name, final String description, final String i18n) {
-            this.name = name;
+        Footing(final String label, final String description, final String i18n) {
+            this.label = label;
             this.description = description;
             this.i18n = i18n;
         }
 
         @Override
-        public String getName() {
-            return name;
+        public String getLabel() {
+            return label;
         }
 
         @Override
@@ -56,18 +60,18 @@ public class Matter {
         Platform_Issue("Platform Issue","","dev.inward.matter.locus.platform"),
         System_Wide("System Wide","An unexpected occurrence", "dev.inward.matter.locus.system"),
         ;
-        private final String name;
+        private final String label;
         private final String description;
         private final String i18n;
-        Locus(final String name, final String description, final String i18n) {
-            this.name = name;
+        Locus(final String label, final String description, final String i18n) {
+            this.label = label;
             this.description = description;
             this.i18n = i18n;
         }
 
         @Override
-        public String getName() {
-            return name;
+        public String getLabel() {
+            return label;
         }
 
         @Override

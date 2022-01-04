@@ -1,15 +1,15 @@
 package com.notionds.dataSupplier;
 
 import com.notionds.dataSupplier.advisor.Advisor;
-import com.notionds.dataSupplier.notion.Notion;
+import com.notionds.dataSupplier.datum.notion.Notion;
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.options.Options;
+import com.notionds.dataSupplier.operational.Operational;
 import com.notionds.dataSupplier.provider.Provider;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 
-public abstract class NotionSupplier<DELEGATE extends Comparable<DELEGATE> & Serializable,O extends Options<DELEGATE,W, C, B,?,D,A,P,L>,W extends Datum<DELEGATE,O, C, B>, C extends Container<DELEGATE,O,W,B>,B extends Bus<DELEGATE,O,W, C,?,?,?,?,?>,D extends Notion<DELEGATE,O,W, C, B>, A extends Advisor<DELEGATE,O,W, C, B>,P extends Provider<DELEGATE,O,W, C, B>,L extends NotionClassLoader<DELEGATE,O,W, C, B,?,D,A,P>> {
+public abstract class NotionSupplier<DELEGATE extends Comparable<DELEGATE> & Serializable,O extends Operational<DELEGATE,W, C, B,?,D,A,P,L>,W extends Datum<DELEGATE,O, C, B>, C extends Container<DELEGATE,O,W,B>,B extends Bus<DELEGATE,O,W, C,?,?,?,?,?>,D extends Notion<DELEGATE,O,W, C, B>, A extends Advisor<DELEGATE,O,W, C, B>,P extends Provider<DELEGATE,O,W, C, B>,L extends NotionClassLoader<DELEGATE,O,W, C, B,?,D,A,P>> {
 
     private final O operational;
     private final String name;

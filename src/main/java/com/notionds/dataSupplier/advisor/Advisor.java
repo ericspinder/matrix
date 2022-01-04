@@ -1,28 +1,26 @@
 package com.notionds.dataSupplier.advisor;
 
 import com.notionds.dataSupplier.Container;
-import com.notionds.dataSupplier.Bus;
 import com.notionds.dataSupplier.Factory;
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.notion.Notion;
-import com.notionds.dataSupplier.options.Options;
+import com.notionds.dataSupplier.datum.context.Context;
+import com.notionds.dataSupplier.operational.Operational;
 
 import java.io.Serializable;
 
-public abstract class Advisor<DATUM extends Comparable<DATUM> & Serializable,O extends Options<DATUM,O,D>, C extends Container<DATUM,N,O,B,C>,D extends Datum<DATUM,O,C,D,B>,B extends Bus<DATUM,O,C,D,B,?,?,?>,F extends Factory<DATUM,O,B,?>> {
+
+public abstract class Advisor<D extends Datum<D,O,C,X>,O extends Operational<D,O>, C extends Container<D,O,C,X,?>,X extends Context<D,O,C,X>,A extends Advisor<D,O,C,X,A,F>, F extends Factory<D,O,?,?,?,F>> implements Comparable<F>, Serializable {
 
     private final F factory;
-    private final B bus;
-    public Advisor(F factory, B bus) {
+    public Advisor(F factory) {
         this.factory = factory;
-        this.bus = bus;
     }
 
-    public void handle(Matter matter, Exception e, DATUM notion) {
+    public void handle(Matter matter, Exception e, D datum) {
 
     }
 
-    public void handle(Matter matter, DATUM notion) {
+    public void handle(Matter matter, D datum) {
 
     }
 

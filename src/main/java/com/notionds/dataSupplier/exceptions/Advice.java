@@ -2,7 +2,7 @@ package com.notionds.dataSupplier.exceptions;
 
 import com.notionds.dataSupplier.Container;
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.options.Options;
+import com.notionds.dataSupplier.operational.Operational;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-public abstract class Advice<N, O extends Options<N,W,I>, W extends Datum<N,O,I>, I extends Container<N,O,W>,E extends Exception> implements BiConsumer<Method,E> {
+public abstract class Advice<N, O extends Operational<N,W,I>, W extends Datum<N,O,I>, I extends Container<N,O,W>,E extends Exception> implements BiConsumer<Method,E> {
 
     private static final Logger logger = LogManager.getLogger(Advice.class);
 

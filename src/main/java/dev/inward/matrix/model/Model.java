@@ -1,6 +1,6 @@
 package dev.inward.matrix.model;
 
-import dev.inward.matrix.fact.Fact;
+import com.notionds.dataSupplier.datum.notion.fact.Fact;
 import dev.inward.matrix.gathering.Lexicon;
 import dev.inward.matrix.gathering.Synth;
 
