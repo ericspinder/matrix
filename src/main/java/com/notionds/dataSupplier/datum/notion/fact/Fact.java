@@ -1,17 +1,27 @@
 package com.notionds.dataSupplier.datum.notion.fact;
 
-import com.notionds.dataSupplier.Bus;
 import com.notionds.dataSupplier.Container;
-import com.notionds.dataSupplier.Id;
-import com.notionds.dataSupplier.datum.context.Context;
+import com.notionds.dataSupplier.context.Context;
+import com.notionds.dataSupplier.datum.id.SuperEgo;
+import com.notionds.dataSupplier.datum.notion.Aspect;
 import com.notionds.dataSupplier.datum.notion.Notion;
+import com.notionds.dataSupplier.datum.notion.NotionContext;
 import com.notionds.dataSupplier.operational.Operational;
 
 
-public abstract class Fact<D extends Fact<D,O,C,X,I,B>,O extends Operational<D,O>,C extends Container<D,O,C,>,X extends Context<D,O,C,X>,I extends Basis<D,O,C,X,I,B>,B extends Bus<D,O,C,D,B,?,?,?,?> extends Notion<D,O,C,X,I,B> {
+public abstract class Fact<D extends Fact<D,I>,I extends Id<D,I>> extends Notion<D, Fact.Operational,Fact.Container,I> {
 
-    public Fact(I id, X context, C container, B bus) {
-        super(id,context,container,bus);
+    private class Operational extends com.notionds.dataSupplier.operational.Operational<D,Fact.Operational> {
+
+    }
+    private class Container extends com.notionds.dataSupplier.Container<D,Fact.Container> {
+
+    }
+
+    private final E driver;
+
+    public Fact(E driver, I id, C container) {
+        super(id,container);
     }
 
 }

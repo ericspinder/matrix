@@ -1,16 +1,18 @@
 package com.notionds.dataSupplier.datum.notion.fact;
 
-import com.notionds.dataSupplier.Container;
-import com.notionds.dataSupplier.datum.host.Host;
-import com.notionds.dataSupplier.datum.context.Context;
-import com.notionds.dataSupplier.Id;
-import com.notionds.dataSupplier.datum.notion.Notion;
-import com.notionds.dataSupplier.operational.Operational;
+import com.notionds.dataSupplier.context.Context;
+import com.notionds.dataSupplier.house.House;
 
-public abstract class Basis<D extends Fact<D,O,C,X,?,?>,O extends Operational<D,O>,C extends Container<D,O,C,?,?,?>,X extends Context<D,O,C,X>, I extends Id<D,O,C,X,I>,H extends House> extends Id<D,O,C,X,I> {
+import java.util.UUID;
+
+public abstract class Basis<X extends Context<?,?,?,X>, I extends Id<X,I>,H extends House<H,?,?>> extends Id<X,I> {
 
     private final H house;
-    public Basis(C context) {
-        super(context);
+    public Basis(X context, H house) {
+        this(UUID.randomUUID(),context, house);
+    }
+    public Basis(UUID uuid, X context, H house) {
+        super(uuid,context);
+        this.house = house;
     }
 }

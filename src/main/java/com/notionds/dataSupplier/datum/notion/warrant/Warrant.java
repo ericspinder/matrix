@@ -3,7 +3,7 @@ package com.notionds.dataSupplier.datum.notion.warrant;
 import com.notionds.dataSupplier.Container;
 import com.notionds.dataSupplier.Promise;
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.datum.context.Context;
+import com.notionds.dataSupplier.context.Context;
 import com.notionds.dataSupplier.datum.id.SuperEgo;
 import com.notionds.dataSupplier.operational.Operational;
 

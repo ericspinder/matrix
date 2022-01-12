@@ -1,7 +1,7 @@
 package com.notionds.dataSupplier.datum.notion.reflection;
 
 import com.notionds.dataSupplier.Container;
-import com.notionds.dataSupplier.aggregation.Accounting;
+import com.notionds.dataSupplier.aggregation.Timer;
 import com.notionds.dataSupplier.aggregation.Aggregation;
 import com.notionds.dataSupplier.aggregation.InvokeAggregator;
 import com.notionds.dataSupplier.datum.Datum;
@@ -21,7 +21,7 @@ public abstract class InvokeInterceptor<N,O extends Operational<N,W,T>,W extends
             super(options, aggregation);
         }
         @Override
-        public Accounting startInvoke(Method m, Object[] args) {
+        public Timer startInvoke(Method m, Object[] args) {
             m.getModifiers()
             if (m.getName().matches(options.getString(Aggreation_Method_REGEX.getI18n()))) {
                 return  aggregation.newInvokeAccounting();
@@ -30,14 +30,14 @@ public abstract class InvokeInterceptor<N,O extends Operational<N,W,T>,W extends
         }
 
         @Override
-        public void exception(NotionExceptionWrapper notionExceptionWrapper, String description, Method method, Accounting accounting) {
-            aggregation.populateException(notionExceptionWrapper, description, method, accounting);
+        public void exception(NotionExceptionWrapper notionExceptionWrapper, String description, Method method, Timer timer) {
+            aggregation.populateException(notionExceptionWrapper, description, method, timer);
         }
 
         @Override
-        public void endInvoke(Method m, String description, Accounting accounting) {
-            accounting.setFinishTime(Instant.now());
-            aggregation.populateExecution(m,  description, accounting);
+        public void endInvoke(Method m, String description, Timer timer) {
+            timer.setFinishTime(Instant.now());
+            aggregation.populateExecution(m,  description, timer);
         }
     }
 
@@ -48,10 +48,10 @@ public abstract class InvokeInterceptor<N,O extends Operational<N,W,T>,W extends
         this.options = options;
         this.aggregation = aggregation;
     }
-    abstract Accounting startInvoke(Method m, Object[] args);
+    abstract Timer startInvoke(Method m, Object[] args);
 
-    abstract void exception(NotionExceptionWrapper notionExceptionWrapper, String description, Method m, Accounting accounting);
+    abstract void exception(NotionExceptionWrapper notionExceptionWrapper, String description, Method m, Timer timer);
 
-    abstract void endInvoke(Method m, String description, Accounting accounting);
+    abstract void endInvoke(Method m, String description, Timer timer);
 
 }

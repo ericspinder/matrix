@@ -1,18 +1,27 @@
 package com.notionds.dataSupplier.aggregation;
 
+import com.notionds.dataSupplier.NotionStartupException;
+
 import java.time.Duration;
 import java.time.Instant;
 
-public final class Accounting {
+public class Timer {
     private final Instant startTime;
-    private Duration duration;
+    private Duration duration = null;
 
-    public Accounting() {
+    public Timer() {
         this.startTime = Instant.now();
+    }
+    public Timer(Instant startTime, Duration duration) {
+        this.startTime = startTime;
+        this.duration = duration;
     }
 
     public void setFinishTime(Instant finishTime) {
-        this.duration = Duration.between(this.startTime, finishTime);
+        if (this.duration == null) {
+            this.duration = Duration.between(this.startTime, finishTime);
+        }
+        throw new NotionStartupException(NotionStartupException.Type.Cannot_Update_Timer, this.getClass());
     }
     public Instant getStartTime() {
         return this.startTime;

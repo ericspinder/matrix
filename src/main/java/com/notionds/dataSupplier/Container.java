@@ -1,31 +1,33 @@
 package com.notionds.dataSupplier;
 
+import com.notionds.dataSupplier.advisor.Matter;
+import com.notionds.dataSupplier.datum.Bus;
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.datum.context.Context;
-import com.notionds.dataSupplier.exceptions.Recommendation;
+import com.notionds.dataSupplier.datum.notion.fact.Id;
 import com.notionds.dataSupplier.operational.Operational;
 import com.notionds.dataSupplier.provider.Receipt;
-import com.notionds.dataSupplier.provider.Situation;
 import com.notionds.dataSupplier.task.Task;
 
+import java.io.Serializable;
 import java.util.concurrent.LinkedBlockingDeque;
 
 
-public abstract class Container<D extends Datum<D,O,C,X>,O extends Operational<D,O>,C extends Container<D,O,C,X,B>,X extends Context<D,O,C,X>,B extends Bus<D,O,C,X,B,?,?,?>> {
+public abstract class Container<D extends Datum<D,O,C,I>,O extends Operational<D,O>,C extends Container<D,O,C,I,B>,I extends Id<D,I>, B extends Bus<D,O,C,I,B,?,?,?>> implements Comparable<C>, Serializable {
 
     protected final B bus;
-    private Receipt<D,O,C,X> receipt = null;
-    public volatile Situation currentSituation;
+    private Receipt<D,O,C,I> receipt = null;
+    public volatile Situation situation;
 
     public Container(B bus) {
         this(bus,null, null);
     }
-    public Container(B bus, Situation currentSituation, LinkedBlockingDeque<Task<?,?,?>> tasks) {
+    public Container(B bus, Situation situation, LinkedBlockingDeque<Task<D,?,?,?,?>> tasks) {
         this.bus = bus;
-        this.currentSituation = currentSituation;
+        this.situation = situation;
     }
-    public boolean initialize(LinkedBlockingDeque<Task<?,?,?>> tasks) {
-        this.receipt = new Receipt<D,O,C,X>()
+    public boolean initialize(LinkedBlockingDeque<Task<D,?,?,?,?>> tasks) {
+       //this.receipt = new Receipt<D,O,C,I>()
+        return false;
     }
 
 
@@ -46,43 +48,43 @@ public abstract class Container<D extends Datum<D,O,C,X>,O extends Operational<D
 //            return false;
 //        }
 //    }
+//
+//    protected abstract boolean reuseInterest(boolean currently);
+//    protected abstract boolean recondition() throws ProtocolException;
+//    public void checkout( reason)
+//    public abstract boolean recondition(Reason reason) {
+//
+//    }
+//
+//
+//    public boolean reuseInterest() {
+//        return this.reuseInterest(this.currentSituation.equals(Situation.Open));
+//    }
+//
+//
+//    public void closeDelegate() {
+//        this.currentSituation = Situation.Closed;
+//        DoDelegateClose(this.getReceipt().get().getDelegate());
+//        if (this.receipt != null) {
+//            this.receipt.clear();
+//        }
+//    }
+//
+//
+//    public static void PrintCause(Throwable t, StringBuilder stringBuilder) {
+//        stringBuilder.append(t.getMessage());
+//        if (t.getCause() != null) {
+//            stringBuilder.append("\n caused by: ");
+//            Container.PrintCause(t.getCause(), stringBuilder);
+//        }
+//    }
 
-    protected abstract boolean reuseInterest(boolean currently);
-    protected abstract boolean recondition() throws ProtocolException;
-    public void checkout( reason)
-    public abstract boolean recondition(Reason reason) {
-
-    }
-
-
-    public boolean reuseInterest() {
-        return this.reuseInterest(this.currentSituation.equals(Situation.Open));
-    }
-
-
-    public void closeDelegate() {
-        this.currentSituation = Situation.Closed;
-        DoDelegateClose(this.getReceipt().get().getDelegate());
-        if (this.receipt != null) {
-            this.receipt.clear();
-        }
-    }
-
-
-    public static void PrintCause(Throwable t, StringBuilder stringBuilder) {
-        stringBuilder.append(t.getMessage());
-        if (t.getCause() != null) {
-            stringBuilder.append("\n caused by: ");
-            Container.PrintCause(t.getCause(), stringBuilder);
-        }
-    }
-
-    public Receipt<DATUM,O, U,?> getReceipt() {
+    public Receipt<D,O,C,I> getReceipt() {
         return this.receipt;
     }
     public B getBus() {
         return this.bus;
     }
 
-    public abstract void reviewException(Datum datumArtifact, Recommendation recommendation);
+//    public abstract void reviewException(Datum datumArtifact, Recommendation recommendation);
 }

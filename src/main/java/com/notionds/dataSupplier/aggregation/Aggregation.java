@@ -2,7 +2,7 @@ package com.notionds.dataSupplier.aggregation;
 
 import com.notionds.dataSupplier.Container;
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.datum.context.Context;
+import com.notionds.dataSupplier.datum.notion.fact.Id;
 import com.notionds.dataSupplier.exceptions.NotionExceptionWrapper;
 import com.notionds.dataSupplier.operational.IntegerOption;
 import com.notionds.dataSupplier.operational.Operational;
@@ -10,7 +10,7 @@ import com.notionds.dataSupplier.operational.Operational;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-public abstract class Aggregation<D extends Datum<D,O,C,X>,O extends Operational<D,O>,C extends Container<D,O,C,X,?>,X extends Context<D,O,C,X>,G extends InvokeAggregator> {
+public abstract class Aggregation<D extends Datum<D,O,C,I>,O extends Operational<D,O>,C extends Container<D,O,C,I,?>,I extends Id<D,I>,G extends InvokeAggregator> {
 
     public static class Default_Into_Log extends Aggregation<Operational.Default<?>, InvokeAggregator.Default_intoLog> {
 
@@ -42,8 +42,8 @@ public abstract class Aggregation<D extends Datum<D,O,C,X>,O extends Operational
         }
 
         @Override
-        public Accounting newInvokeAccounting() {
-            return new Accounting();
+        public Timer newInvokeAccounting() {
+            return new Timer();
         }
 
     }
@@ -72,7 +72,7 @@ public abstract class Aggregation<D extends Datum<D,O,C,X>,O extends Operational
     protected abstract G newInvokeAggregator(Method method, String description);
     protected abstract String makeKey(Method method, String description);
     protected abstract String makeKey(NotionExceptionWrapper notionExceptionWrapper, String description);
-    public void populateExecution(Method method, String description, Accounting accounting) {
+    public void populateExecution(Method method, String description, Timer timer) {
         String key = makeKey(method, description);
         G ig;
         if (this.nominalOperationAggregators.containsKey(key)) {
@@ -82,9 +82,9 @@ public abstract class Aggregation<D extends Datum<D,O,C,X>,O extends Operational
             ig = this.newInvokeAggregator(method, description);
             this.nominalOperationAggregators.put(key, ig);
         }
-        ig.addInvokeAccounting(accounting);
+        ig.addInvokeAccounting(timer);
     }
-    public void populateException(NotionExceptionWrapper notionExceptionWrapper, String description, Method method, Accounting accounting) {
+    public void populateException(NotionExceptionWrapper notionExceptionWrapper, String description, Method method, Timer timer) {
         String key = makeKey(notionExceptionWrapper, description);
         G ig;
         if (this.sqlExceptionAggregators.containsKey(key)) {
@@ -94,8 +94,8 @@ public abstract class Aggregation<D extends Datum<D,O,C,X>,O extends Operational
             ig = this.newInvokeAggregator(method, description);
             this.sqlExceptionAggregators.put(key, ig);
         }
-        ig.addInvokeAccounting(accounting);
+        ig.addInvokeAccounting(timer);
     }
-    public  abstract Accounting newInvokeAccounting();
+    public  abstract Timer newInvokeAccounting();
 
 }

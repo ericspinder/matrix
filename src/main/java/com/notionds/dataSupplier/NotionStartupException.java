@@ -5,10 +5,12 @@ public class NotionStartupException extends RuntimeException {
     public enum Type {
         ReflectiveOperationFailed("A reflective operation failed to instantiate class"),
         BadCastToGeneric("A bad cast when trying to retrieve a value"),
+        Cannot_Update_Timer("Cannot update timer object with new finish time once set"),
         ConstructorProblem_Reflective("Unable to create needed constructor, reflective operation failed"),
         ConstructorProblem_WrongClass("Unable to find needed constructor, likely should be using a different class"),
         MissingDefaultValue("Missing a default value"),
         MissMatchedOptionKey("Option key was not set for proper instance value"),
+        No_Parent("Only a SuperEgo may have no parent"),
         WAITED_TOO_LONG_FOR_CONNECTION("Waited too long for a connection"),
         SoftReference_Problem("SoftReference problem"),
         TEST_CONNECTION_FAILURE("A fatal error in when running the startup connection test"),

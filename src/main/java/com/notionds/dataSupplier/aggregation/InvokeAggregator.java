@@ -17,11 +17,11 @@ public abstract class InvokeAggregator implements EvictByLowCountMap.Member, Com
         }
 
         @Override
-        public void addInvokeAccounting(Accounting accounting) {
+        public void addInvokeAccounting(Timer timer) {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("\n\t").append(this.description).append(" : ");
-            if (accounting.getDuration() != null) {
-                stringBuilder.append("seconds=").append(accounting.getDuration().getSeconds()).append('.').append(accounting.getDuration().getNano());
+            if (timer.getDuration() != null) {
+                stringBuilder.append("seconds=").append(timer.getDuration().getSeconds()).append('.').append(timer.getDuration().getNano());
             }
             else {
 
@@ -49,7 +49,7 @@ public abstract class InvokeAggregator implements EvictByLowCountMap.Member, Com
         return this.count.get();
     }
 
-    public void addInvokeAccounting(Accounting accounting) {
+    public void addInvokeAccounting(Timer timer) {
         this.count.incrementAndGet();
 
     }

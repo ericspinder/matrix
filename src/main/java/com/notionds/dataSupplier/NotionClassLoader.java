@@ -1,5 +1,6 @@
 package com.notionds.dataSupplier;
 
+import com.notionds.dataSupplier.datum.Bus;
 import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.operational.Operational;
 

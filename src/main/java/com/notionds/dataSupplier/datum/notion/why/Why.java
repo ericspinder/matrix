@@ -1,16 +1,16 @@
 package com.notionds.dataSupplier.datum.notion.why;
 
-import com.notionds.dataSupplier.Container;
-import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.datum.context.Context;
-import com.notionds.dataSupplier.datum.notion.warrant.Warrant;
-import com.notionds.dataSupplier.operational.Operational;
+import com.notionds.dataSupplier.datum.sanction.Sanction;
+import com.notionds.dataSupplier.meta.Meta;
 
-public abstract class Why<D extends Datum<D,O,C,X>,O extends Operational<D,O>,C extends Container<D,O,C,?,?>,X extends Context<D,O,C,X>> extends Datum<D,O,C,X> {
+import java.io.Serializable;
 
-    private Warrant warrant;
-    public Why(X context, C container) {
-        super(context, container);
+public abstract class Why<S extends Sanction,W extends Why<S,W>> implements Comparable<Why<S,W>>, Serializable {
+
+    private S sanction;
+
+    public Why(S sanction) {
+        this.sanction = sanction;
     }
 
 }

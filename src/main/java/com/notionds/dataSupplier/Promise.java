@@ -1,24 +1,21 @@
 package com.notionds.dataSupplier;
 
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.datum.context.Context;
-import com.notionds.dataSupplier.operational.Operational;
-import dev.inward.matrix.id.Ego;
 
+import java.io.Serializable;
 import java.time.Duration;
+import java.time.Instant;
 
-public abstract class Promise<D extends Datum<D,O,C,X>,O extends Operational<D,O>,C extends Container<D,O,C,X,?>,X extends Context<D,O,C,X>,E extends Ego<E>> extends Datum<D,O,C,X> {
+public abstract class Promise<D extends Datum<D,?,?,?>, M extends Maker<M,?,?,?>, P extends Promise<D,M,P>> implements Comparable<P>, Serializable {
 
-    private final E maker;
-
-    public Promise(X context, C container, E maker) {
-        super(context, container);
+    private final M maker;
+    private Instant instantReady;
+    private Duration durationAvailable;
+    public Promise(M maker) {
         this.maker = maker;
     }
-    private Duration currentAverage;
-    private Duration variation;
 
-    public final E getMaker() {
+    public final M getMaker() {
         return this.maker;
     }
 }

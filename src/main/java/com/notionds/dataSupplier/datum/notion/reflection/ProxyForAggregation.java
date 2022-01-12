@@ -2,7 +2,7 @@ package com.notionds.dataSupplier.datum.notion.reflection;
 
 import com.notionds.dataSupplier.Container;
 import com.notionds.dataSupplier.NotionStartupException;
-import com.notionds.dataSupplier.aggregation.Accounting;
+import com.notionds.dataSupplier.aggregation.Timer;
 import com.notionds.dataSupplier.aggregation.InvokeAggregator;
 import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.exceptions.NotionExceptionWrapper;
@@ -23,7 +23,7 @@ public class ProxyForAggregation<N, O extends Operational<N,W,T>, W extends Datu
     @SuppressWarnings("unchecked")
     @Override
     public Object invoke(Object proxy, Method m, Object[] args) throws Throwable {
-        Accounting accounting = this.getInvokeInterceptor().startInvoke(m, args);
+        Timer timer = this.getInvokeInterceptor().startInvoke(m, args);
         try {
             switch (m.getName()) {
                 case "getInvokeInterceptor":
@@ -40,18 +40,18 @@ public class ProxyForAggregation<N, O extends Operational<N,W,T>, W extends Datu
             return super.invoke(proxy, m, args);
         }
         catch (Throwable throwable) {
-            if (accounting != null && throwable instanceof NotionExceptionWrapper) {
-                this.getInvokeInterceptor().exception((NotionExceptionWrapper) throwable, this.description, m, accounting);
+            if (timer != null && throwable instanceof NotionExceptionWrapper) {
+                this.getInvokeInterceptor().exception((NotionExceptionWrapper) throwable, this.description, m, timer);
             }
             throw throwable;
         }
         finally {
-            if (accounting != null) {
+            if (timer != null) {
                 if (args != null && args[0] != null && args[0] instanceof String) {
-                    this.getInvokeInterceptor().endInvoke(m, (String)args[0], accounting);
+                    this.getInvokeInterceptor().endInvoke(m, (String)args[0], timer);
                 }
                 else {
-                    this.getInvokeInterceptor().endInvoke(m, description, accounting);
+                    this.getInvokeInterceptor().endInvoke(m, description, timer);
                 }
             }
         }

@@ -1,15 +1,47 @@
 package com.notionds.dataSupplier.task;
 
 import com.notionds.dataSupplier.Container;
+import com.notionds.dataSupplier.advisor.Matter;
 import com.notionds.dataSupplier.datum.Datum;
+import com.notionds.dataSupplier.datum.notion.Notion;
+import com.notionds.dataSupplier.datum.notion.fact.Id;
+import com.notionds.dataSupplier.datum.sanction.Sanction;
+import com.notionds.dataSupplier.house.Ego;
+import com.notionds.dataSupplier.meta.Meta;
+import com.notionds.dataSupplier.meta.Meta_I;
 import com.notionds.dataSupplier.operational.Operational;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class Conditions {
+public abstract class Conditions<D extends Datum<D,?,?,?>,C extends Conditions<D,I,S,Q,C>> extends Matter<W,R> {
+
+    public enum When implements Meta_I<When> {
+        OnInitialization("On Initialization","");
+        private final String label;
+        private final String description;
+        When(String label, String description) {
+            this.label = label;
+            this.description = description;
+        }
+        @Override
+        public String getLabel() {
+            return null;
+        }
+
+        @Override
+        public String getI18n() {
+            return this.getDatumClass();
+        }
+
+        @Override
+        public String getDescription() {
+            return null;
+        }
+    }
 
     // timer
     // on cleanup

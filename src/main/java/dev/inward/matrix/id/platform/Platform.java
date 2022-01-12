@@ -1,7 +1,5 @@
 package dev.inward.matrix.id.platform;
 
-import dev.inward.matrix.id.Id;
-
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.util.Map;

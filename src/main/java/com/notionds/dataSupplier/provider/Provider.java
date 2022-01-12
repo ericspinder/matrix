@@ -1,9 +1,9 @@
 package com.notionds.dataSupplier.provider;
 
 import com.notionds.dataSupplier.Container;
+import com.notionds.dataSupplier.advisor.Matter;
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.datum.context.Context;
-import com.notionds.dataSupplier.exceptions.Recommendation;
+import com.notionds.dataSupplier.datum.notion.fact.Id;
 import com.notionds.dataSupplier.operational.Operational;
 import com.notionds.dataSupplier.task.Task;
 import org.apache.logging.log4j.LogManager;
@@ -17,7 +17,7 @@ import java.util.concurrent.locks.StampedLock;
 
 import static com.notionds.dataSupplier.operational.IntegerOption.*;
 
-public abstract class Provider<D extends Datum<D,O,C,X>,O extends Operational<D,O>,C extends Container<D,O,C,X,?>,X extends Context<D,O,C,X>> {
+public abstract class Provider<D extends Datum<D,O,C,I>,O extends Operational<D,O>,C extends Container<D,O,C,I,?>,I extends Id<D,I>> {
 
     private static final Logger log = LogManager.getLogger();
     private StampedLock gate = new StampedLock();
@@ -41,7 +41,7 @@ public abstract class Provider<D extends Datum<D,O,C,X>,O extends Operational<D,
             }
         }
         if (evalForSpaceInPool() && connectionQueue.add(added)) {
-            ((Datum)added).getContainer().currentSituation = Situation.Provider;
+            ((Datum)added).getContainer().currentState = Matter.State.Provider;
             log.debug("ConnectionId=" + ((Datum)added).getContainer().containerId + " was added/re-added to Notion provider, queue_size=" + connectionQueue.size());
             return true;
         } else {
@@ -71,7 +71,7 @@ public abstract class Provider<D extends Datum<D,O,C,X>,O extends Operational<D,
     public void drainAllCurrentConnections() {
         List<Datum> drain = new ArrayList<>();
         this.connectionQueue.drainTo(drain);
-        this.loanedNotions.keySet().stream().forEach((Datum loaned) -> loaned.getContainer().currentSituation = Situation.Empty);
+        this.loanedNotions.keySet().stream().forEach((Datum loaned) -> loaned.getContainer().currentState = Matter.State.Empty);
         drain.forEach((Datum artifactI) -> artifactI.getContainer().closeDelegate(artifactI));
 
     }
