@@ -2,7 +2,7 @@ package com.notionds.dataSupplier.meta;
 
 import java.lang.reflect.ParameterizedType;
 
-public interface Meta_I<DATUM> {
+public interface Meta_I<DATUM,M extends Meta_I<DATUM,M>> extends Comparable<M> {
 
     String getLabel();
     default String getI18n() {
@@ -16,5 +16,9 @@ public interface Meta_I<DATUM> {
     String getDescription();
     default Class<DATUM> getDatumClass() {
         return ((Class<DATUM>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
+    }
+
+    default int compareTo(M that) {
+        return this.getLabel().compareTo(that.getLabel());
     }
 }

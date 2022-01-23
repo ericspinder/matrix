@@ -1,21 +1,17 @@
 package com.notionds.dataSupplier.meta;
 
-import com.notionds.dataSupplier.operational.Operational;
+import com.notionds.dataSupplier.datum.Datum;
 
-import java.io.Serializable;
-
-public abstract class Meta<DATUM extends Comparable<DATUM> & Serializable> implements Operational.Option<DATUM> {
+public abstract class Meta<D extends Datum<?,D,?,?,?>,M extends Meta<D,M>> implements Meta_I<D,M> {
 
     private String label;
     private String description;
     private String i18n;
-    private DATUM defaultValue;
 
-    public Meta(String label, String description, String i18n, DATUM defaultValue) {
+    public Meta(String label, String description, String i18n) {
         this.label = label;
         this.description = description;
         this.i18n = i18n;
-        this.defaultValue = defaultValue;
     }
 
     public String getLabel() {
@@ -29,8 +25,4 @@ public abstract class Meta<DATUM extends Comparable<DATUM> & Serializable> imple
     public String getI18n() {
         return i18n;
     }
-    public DATUM getDefaultValue() {
-        return this.defaultValue;
-    }
-
 }

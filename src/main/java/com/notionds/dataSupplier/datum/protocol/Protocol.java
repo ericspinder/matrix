@@ -1,7 +1,7 @@
 package com.notionds.dataSupplier.datum.protocol;
 
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.datum.notion.fact.Id;
+import com.notionds.dataSupplier.datum.Id;
 import com.notionds.dataSupplier.operational.Operational;
 
 import javax.net.ServerSocketFactory;

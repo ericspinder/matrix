@@ -1,37 +1,23 @@
 package com.notionds.dataSupplier.maker;
 
-import com.notionds.dataSupplier.Container;
 import com.notionds.dataSupplier.Unspoken;
-import com.notionds.dataSupplier.context.Context;
-import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.datum.id.Session;
-import com.notionds.dataSupplier.operational.Operational;
+import com.notionds.dataSupplier.datum.fact.persona.Persona;
+import com.notionds.dataSupplier.datum.fact.persona.SuperEgo;
+import com.notionds.dataSupplier.subject.Subject;
+import com.notionds.dataSupplier.subject.Matter;
 
-import java.util.Arrays;
+import java.util.UUID;
 
-public abstract class Engagement<D extends Datum<D,O,C,I>,O extends Operational<D,O>,C extends Container<D,O,C,I,?>,I extends Engagement<D,O,C,I,F>,F extends Fingerprint<F>> extends Session<D,O,C,I> {
+public abstract class Engagement<D extends Persona<D,?,?,I>, I extends SuperEgo<D,I,?,?>,EVT extends Engagement<D,I,EVT,F,ENG>,F extends Fingerprint<F>,ENG extends Engagement<D,I,EVT,F,ENG>> extends Subject<D,I,EVT> {
 
     @Unspoken
     private final F fingerprint;
 
-    public Engagement(String id, Context<D> context, String[] magicWords, F fingerprint) {
-        super(id, context, magicWords);
+    public Engagement(UUID uuid, Matter<D,I,EVT> matter, F fingerprint) {
+        super(uuid,matter);
         this.fingerprint = fingerprint;
     }
 
-    @Override
-    public int compareTo(I that) {
-        if(this.getContext().equals(that.getContext())) {
-            if (this.getId().equals(that.getId())) {
-                if (this.getMagicWords().equals(that.getMagicWords())) {
-                    return this.getFingerprint().compareTo(that.getFingerprint());
-                }
-                return Arrays.compare(this.getMagicWords(),that.getMagicWords());
-            }
-            return this.getId().compareTo(that.getId());
-        }
-        return this.getContext().compareTo(that.getContext());
-    }
     public F getFingerprint() {
         return this.fingerprint;
     }

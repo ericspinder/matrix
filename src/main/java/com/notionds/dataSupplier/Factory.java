@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingDeque;
 
-public abstract class Factory<D extends Datum<D,O,?,?>,O extends Operational<D,O>,B extends Bus<D,O,?,?,B,?,?,?>,P extends Provider<D,O,?,?>,M extends Meta<D>,F extends Factory<D,O,B,P,M,F>> implements Comparable<F>, Serializable {
+public abstract class Factory<D extends Datum<?,D,O,?,?>,O extends Operational<D,O>,B extends Bus<D,O,?,?,B,?,?,?>,P extends Provider<D,O,?,?>,M extends Meta<D>,F extends Factory<D,O,B,P,M,F>> implements Comparable<F>, Serializable {
 
     private Map<String, B> busRoutes = new ConcurrentHashMap<>();
     private O options;

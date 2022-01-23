@@ -1,17 +1,11 @@
 package com.notionds.dataSupplier.task;
 
-import com.notionds.dataSupplier.Container;
-import com.notionds.dataSupplier.advisor.Matter;
+import com.notionds.dataSupplier.container.Container;
+import com.notionds.dataSupplier.subject.Matter;
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.datum.notion.Notion;
-import com.notionds.dataSupplier.datum.notion.fact.Id;
-import com.notionds.dataSupplier.datum.sanction.Sanction;
-import com.notionds.dataSupplier.house.Ego;
-import com.notionds.dataSupplier.meta.Meta;
 import com.notionds.dataSupplier.meta.Meta_I;
 import com.notionds.dataSupplier.operational.Operational;
 
-import java.io.Serializable;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.function.Consumer;

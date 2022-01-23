@@ -1,9 +1,10 @@
 package com.notionds.dataSupplier.provider;
 
 import com.notionds.dataSupplier.datum.Bus;
-import com.notionds.dataSupplier.Container;
+import com.notionds.dataSupplier.container.Container;
 import com.notionds.dataSupplier.NotionStartupException;
 import com.notionds.dataSupplier.datum.Datum;
+import com.notionds.dataSupplier.datum.Id;
 import com.notionds.dataSupplier.operational.Operational;
 
 import java.io.Serializable;
@@ -19,12 +20,12 @@ import java.util.function.Supplier;
 
 import static com.notionds.dataSupplier.operational.DurationOption.ConnectionMaxLifetime;
 
-public class Pooled<DATUM extends Comparable<DATUM> & Serializable, O extends Operational<DATUM, O>, B extends Bus<DATUM, O, B, C, U,?,?,?>, C extends Container<DATUM, O, B, C, U>, U extends Datum<U,O, C,?>> extends Provider<DATUM, O, B, C, U> {
+public final class Pooled<D extends Datum<?,D,O,C,I>, O extends Operational<D,O>,C extends Container<D,O,C,I>,I extends Id<?,I,?>> extends Provider<D,O,I,C,Pooled<D,O,C,I>> {
 
     private final Executor executor;
 
-    public Pooled(B bus, Executor executor) {
-        super(bus);
+    public Pooled(Executor executor) {
+        super();
         this.executor = executor;
         this.maxConnectionLifetime = bus.getOperational().getDuration(ConnectionMaxLifetime.getI18n());
     }
@@ -61,21 +62,8 @@ public class Pooled<DATUM extends Comparable<DATUM> & Serializable, O extends Op
      */
     private final WeakHashMap<DATUM, Instant> loanedNotions = new WeakHashMap<>();
 
-    public U loanPooledMember(Supplier<Container<DATUM, O, B, C, U>> newConnectionArtifactSupplier) {
-        if (evalForSpaceInPool()) {
-            addNotionFutures(newConnectionArtifactSupplier, minActiveConnections - connectionQueue.size());
-        }
-        try {
-            wrapper = (D) connectionQueue.poll(connection_retrieve_millis, connection_retrieve_time_unit);
-            loanedNotions.put(wrapper, Instant.now());
-            return wrapper;
-        } catch (ClassCastException cce) {
-            cce.printStackTrace();
-            throw new NotionStartupException(NotionStartupException.Type.BadCastToGeneric, this.getClass());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            throw new NotionStartupException(NotionStartupException.Type.WAITED_TOO_LONG_FOR_CONNECTION, this.getClass());
-        }
+    public U loanPooledMember(Supplier<Container<D, O, B, C, U>> newConnectionArtifactSupplier) {
+
     }
 
     public Duration getTimeoutOnLoan_default() {
@@ -114,8 +102,4 @@ public class Pooled<DATUM extends Comparable<DATUM> & Serializable, O extends Op
         return loanedNotions.size() + connectionQueue.size() < maxTotalNotionsAllowed;
     }
 
-    @Override
-    public U getWrappedReady() {
-        return null;
-    }
 }

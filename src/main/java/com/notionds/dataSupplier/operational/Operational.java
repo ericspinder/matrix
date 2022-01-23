@@ -3,8 +3,6 @@ package com.notionds.dataSupplier.operational;
 import com.notionds.dataSupplier.*;
 import com.notionds.dataSupplier.meta.Meta_I;
 import com.notionds.dataSupplier.task.Task;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.Serializable;
 import java.time.Duration;
@@ -16,10 +14,9 @@ import java.util.concurrent.locks.StampedLock;
 
 public abstract class Operational<DATUM extends Comparable<DATUM> & Serializable,O extends Operational<DATUM,O>> implements Comparable<O>, Serializable {
 
-    private static final Logger logger = LogManager.getLogger(Operational.class);
     public static final Default DEFAULT_OPTIONS_INSTANCE = new Default();
 
-    public interface Option<V> extends Meta_I<V> {
+    public interface Option<V,M extends Option<V,M>> extends Meta_I<V,M> {
         V getDefaultValue();
     }
     private final Instant createInstant = Instant.now();
@@ -79,12 +76,11 @@ public abstract class Operational<DATUM extends Comparable<DATUM> & Serializable
         }
         throw new NotionStartupException(NotionStartupException.Type.MissMatchedOptionKey, this.getClass());
     }
-    public final <D> void setDefaultValues(Option<D>[] optionsLoad) {
-        logger.info("loading default values");
+    public final <D> void setDefaultValues(Option<D,?>[] optionsLoad) {
         if (optionsLoad == null) return;
         long stamp = gate.writeLock();
         try {
-            for (Option<D> option: optionsLoad) {
+            for (Option<D,?> option: optionsLoad) {
                 if (option.getDefaultValue() instanceof String) {
                     this.stringOptions.put(option.getI18n(), (String) option.getDefaultValue());
                 }
