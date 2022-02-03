@@ -2,20 +2,21 @@ package com.notionds.dataSupplier.datum;
 
 import com.notionds.dataSupplier.container.Context;
 import com.notionds.dataSupplier.house.House;
+import com.notionds.dataSupplier.library.Library;
 
 import java.io.Serializable;
 
-public abstract class Id<H extends House<H,?>,I extends Id<H,I,X>,X extends Context<H,X>> implements Comparable<I>, Serializable {
+public abstract class Id<H extends House<H,L>,L extends Library<H,L>,I extends Id<H,L,I,X>,X extends Context<H,L,X>> implements Comparable<I>, Serializable {
 
-    public static class Production<H extends House<H,?>> extends Id<H,Production<H>,Context.Production<H>> {
+    public static class Production<H extends House<H,L>,L extends Library<H,L>> extends Id<H,L,Production<H,L>,Context.Production<H,L>> {
 
-        public Production(String name, Context.Production<H> context) {
+        public Production(String name, Context.Production<H,L> context) {
             super(name, context);
         }
     }
-    public static class Test<H extends House<H,?>> extends Id<H,Test<H>,Context.Test<H>> {
+    public static class Test<H extends House<H,L>,L extends Library<H,L>> extends Id<H,L,Test<H,L>,Context.Test<H,L>> {
 
-        public Test(String name, Context.Test<H> context) {
+        public Test(String name, Context.Test<H,L> context) {
             super(name, context);
         }
     }

@@ -1,4 +1,4 @@
-package com.notionds.dataSupplier.management;
+package dev.inward.matrix.management;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

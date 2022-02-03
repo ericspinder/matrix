@@ -21,8 +21,8 @@ public abstract class Aggregation<D extends Datum<?,D,O,C,I>,O extends Operation
     public Aggregation(O options, G aggregator) {
         this.options = options;
         //this.aggregator = aggregator;
-        sqlExceptionAggregators = new EvictByLowCountMap<>(options.getInteger(IntegerOption.Advice_Exception_Aggregator_Map_Max_Size.getI18n()));
-        nominalOperationAggregators = new EvictByLowCountMap<>(options.getInteger(IntegerOption.Advice_Nominal_Aggregator_Map_Max_Size.getI18n()));
+        sqlExceptionAggregators = new LowCountEviction<>(options.getInteger(IntegerOption.Advice_Exception_Aggregator_Map_Max_Size.getI18n()));
+        nominalOperationAggregators = new LowCountEviction<>(options.getInteger(IntegerOption.Advice_Nominal_Aggregator_Map_Max_Size.getI18n()));
     }
 
     public final Map getSqlExceptionAggregators() {

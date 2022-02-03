@@ -3,8 +3,9 @@ package com.notionds.dataSupplier.house;
 import com.notionds.dataSupplier.Unspoken;
 import com.notionds.dataSupplier.container.Context;
 import com.notionds.dataSupplier.datum.Id;
+import com.notionds.dataSupplier.library.Library;
 
-public class Ego<H extends House<H,?>,I extends Ego<H,I,X>,X extends Context<H,X>> extends Id<H,I,X> {
+public class Ego<H extends House<H,L>,L extends Library<H,L>,I extends Ego<H,L,I,X>,X extends Context<H,L,X>> extends Id<H,L,I,X> {
 
 
     protected final H house;

@@ -1,17 +1,16 @@
 package com.notionds.dataSupplier.datum.fact.persona;
 
-import com.notionds.dataSupplier.datum.fact.notion.Aspect;
+import com.notionds.dataSupplier.advisor.Advisor;
 import com.notionds.dataSupplier.datum.fact.notion.Notion;
-import com.notionds.dataSupplier.operational.Operational;
+import com.notionds.dataSupplier.house.House;
+import com.notionds.dataSupplier.library.Library;
+import com.notionds.dataSupplier.provider.Provider;
 
-public class Persona<D extends Persona<D,O,C,I>,O extends Operational<D,O>,C extends Aspect<D,O,C,I,?>,I extends SuperEgo<D,I,?,?>> extends Notion<D,O,C,I> {
+public final class Persona<H extends House<H,L>,L extends Library<H,L>,Y extends Psyche<H,L,Y,FEST>,FEST extends Manifestation<H,L,Y,FEST>> extends Notion<Persona<H,L,Y,FEST>, Heart<H,L,Y,FEST>, Body<H,L,Y,FEST>,SuperEgo<H,L>> {
 
-    public Persona(I id, C container) {
+
+    public Persona(SuperEgo<H,L> id, Body<H,L,Y,FEST> container) {
         super(id, container);
     }
 
-    @Override
-    public int compareTo(D that) {
-        return this.getId().compareTo(that.getId());
-    }
 }

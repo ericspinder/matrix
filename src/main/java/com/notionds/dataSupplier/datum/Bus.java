@@ -11,19 +11,19 @@ import com.notionds.dataSupplier.provider.Provider;
 
 import java.util.concurrent.locks.StampedLock;
 
-public class Bus<D extends Fact<D,O,C,I>,O extends Operational<D,O>,C extends Support<D,O,C,I,B>,I extends Ego<?,I,?>,B extends Bus<D,O,C,I,B,A,P,M>, A extends Advisor<D,O,C,I,A,?>,P extends Provider<D,O,C,I,P>,M extends Meta<D,M>> {
+public class Bus<D extends Fact<D,O,C,I>,O extends Operational<D,O>,C extends Support<D,O,C,I,B>,I extends Ego<?,?,I,?>,B extends Bus<D,O,C,I,B,A,P,M>, A extends Advisor<D,O,C,I,A>,P extends Provider<D,O,C,I,P>,M extends Meta<D,M>> {
 
         protected transient volatile A advisor;
-        protected O operational;
-        protected P provider;
+        protected final O operational;
+        protected final P provider;
         protected final M meta;
         private final StampedLock memberGate = new StampedLock();
 
-        public Bus(A advisor, final M meta, P provider, O operational) {
-                this.advisor = advisor;
+        public Bus(final M meta,final O operational,final A advisor,final P provider) {
                 this.meta = meta;
-                this.provider = provider;
                 this.operational = operational;
+                this.advisor = advisor;
+                this.provider = provider;
         }
         public final M getMeta(C container) {
                 return meta;

@@ -59,7 +59,7 @@ public abstract class Operational<DATUM extends Comparable<DATUM> & Serializable
     }
     public Duration getDuration(String key) {
         if (this.durationOptions.containsKey(key)) {
-            return (Duration) this.durationOptions.get(key);
+            return this.durationOptions.get(key);
         }
         throw new NotionStartupException(NotionStartupException.Type.MissingDefaultValue, this.getClass());
     }

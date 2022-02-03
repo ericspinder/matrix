@@ -9,7 +9,7 @@ import com.notionds.dataSupplier.operational.Operational;
 import java.io.Serializable;
 
 
-public interface Advisor<D extends Datum<?,D,O,C,I>,O extends Operational<D,O>, C extends Container<D,O,C,I>,I extends Id<?,I,?>,A extends Advisor<D,O,C,I,A,F>, F extends Factory<D,O,?,?,?,F>> extends Comparable<A>, Serializable {
+public abstract class Advisor<D extends Datum<?,D,O,C,I>,O extends Operational<D,O>, C extends Container<D,O,C,I>,I extends Id<?,?,I,?>,A extends Advisor<D,O,C,I,A>> implements Comparable<A>, Serializable {
 
 //
 //    default handle(T t, D datum, S sanction, Matter.Focus focus, Matter.Locus locus) {

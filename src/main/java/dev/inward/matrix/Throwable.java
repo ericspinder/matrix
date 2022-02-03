@@ -5,10 +5,10 @@ import com.notionds.dataSupplier.container.Phase;
 import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.datum.Id;
 import com.notionds.dataSupplier.subject.sanction.Sanction;
-import com.notionds.dataSupplier.subject.Matter;
+import com.notionds.dataSupplier.subject.Subject;
 import com.notionds.dataSupplier.operational.Operational;
 
-public class Throwable<D extends Datum<D,O,C,I>,O extends Operational<D,O>, C extends Container<D,O,C,I,?>,I extends Id<D,I>, S extends Sanction<S,?,?,?,?>, M extends Throwable<D,O,C,I,S,M,T>,T extends java.lang.Throwable> extends Matter<D,O,C,I,S,M> {
+public class Throwable<D extends Datum<D,O,C,I>,O extends Operational<D,O>, C extends Container<D,O,C,I,?>,I extends Id<D,I>, S extends Sanction<S,?,?,?,?>, M extends Throwable<D,O,C,I,S,M,T>,T extends java.lang.Throwable> extends Subject<D,O,C,I,S,M> {
 
     private final T throwable;
 

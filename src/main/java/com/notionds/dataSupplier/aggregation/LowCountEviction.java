@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.StampedLock;
 
-public class EvictByLowCountMap<K, V extends EvictByLowCountMap.Member> extends LinkedHashMap<K, V> {
+public class LowCountEviction<K, V extends LowCountEviction.Member> extends LinkedHashMap<K, V> {
 
     public interface Member {
         long getCount();
@@ -16,7 +16,7 @@ public class EvictByLowCountMap<K, V extends EvictByLowCountMap.Member> extends 
     private int unresolvedNesting = 0;
     private final Lock gate = new StampedLock().asWriteLock();
 
-    public EvictByLowCountMap(int max_size) {
+    public LowCountEviction(int max_size) {
         super(max_size);
         maxSize = max_size;
     }

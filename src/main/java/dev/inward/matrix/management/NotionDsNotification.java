@@ -1,4 +1,4 @@
-package com.notionds.dataSupplier.management;
+package dev.inward.matrix.management;
 
 public class NotionDsNotification extends javax.management.Notification {
 

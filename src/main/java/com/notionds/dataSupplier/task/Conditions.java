@@ -1,7 +1,7 @@
 package com.notionds.dataSupplier.task;
 
 import com.notionds.dataSupplier.container.Container;
-import com.notionds.dataSupplier.subject.Matter;
+import com.notionds.dataSupplier.subject.Subject;
 import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.meta.Meta_I;
 import com.notionds.dataSupplier.operational.Operational;
@@ -11,7 +11,7 @@ import java.time.Instant;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public abstract class Conditions<D extends Datum<D,?,?,?>,C extends Conditions<D,I,S,Q,C>> extends Matter<W,R> {
+public abstract class Conditions<D extends Datum<D,?,?,?>,C extends Conditions<D,I,S,Q,C>> extends Subject<W,R> {
 
     public enum When implements Meta_I<When> {
         OnInitialization("On Initialization","");

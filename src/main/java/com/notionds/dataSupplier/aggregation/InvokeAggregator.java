@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 import java.lang.reflect.Method;
 import java.util.concurrent.atomic.AtomicLong;
 
-public abstract class InvokeAggregator implements EvictByLowCountMap.Member, Comparable {
+public abstract class InvokeAggregator implements LowCountEviction.Member, Comparable {
 
     public static class Default_intoLog extends InvokeAggregator {
 

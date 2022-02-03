@@ -7,7 +7,7 @@ import com.notionds.dataSupplier.operational.Operational;
 
 import java.io.Serializable;
 
-public abstract class Provider<D extends Datum<?,D,O,C,I>,O extends Operational<D,O>,C extends Container<D,O,C,I>,I extends Id<?,I,?>, P extends Provider<D,O,C,I,P>> {
+public abstract class Provider<D extends Datum<?,D,O,C,I>,O extends Operational<D,O>,C extends Container<D,O,C,I>,I extends Id<?,?,I,?>, P extends Provider<D,O,C,I,P>> implements Comparable<P> {
 
     public Provider() {
     }

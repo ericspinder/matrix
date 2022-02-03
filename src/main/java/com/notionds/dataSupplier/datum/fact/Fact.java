@@ -4,7 +4,7 @@ import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.house.Ego;
 import com.notionds.dataSupplier.operational.Operational;
 
-public abstract class Fact<D extends Fact<D,O,C,I>,O extends Operational<D,O>,C extends Support<D,O,C,I,?>,I extends Ego<?,I,?>> extends Datum<D,D,O,C,I> {
+public abstract class Fact<D extends Fact<D,O,C,I>,O extends Operational<D,O>,C extends Support<D,O,C,I,?>,I extends Ego<?,?,I,?>> extends Datum<D,D,O,C,I> {
 
     private final I id;
 

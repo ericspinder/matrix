@@ -1,15 +1,16 @@
 package com.notionds.dataSupplier.container;
 
 import com.notionds.dataSupplier.house.House;
+import com.notionds.dataSupplier.library.Library;
 
 import java.io.Serializable;
 
 
-public abstract class Context<H extends House<H,?>,X extends Context<H,X>> implements Comparable<X>, Serializable {
+public abstract class Context<H extends House<H,L>,L extends Library<H,L>,X extends Context<H,L,X>> implements Comparable<X>, Serializable {
 
-    public static final class Production<H extends House<H,?>> extends Context<H,Production<H>> {
+    public static final class Production<H extends House<H,L>,L extends Library<H,L>> extends Context<H,L,Production<H,L>> {
 
-        public Production(House house, String path) {
+        public Production(H house, String path) {
             super(house, path);
         }
 
@@ -19,9 +20,9 @@ public abstract class Context<H extends House<H,?>,X extends Context<H,X>> imple
         }
     }
 
-    public static class Test<H extends House<H,?>> extends Context<H,Test<H>> {
+    public static class Test<H extends House<H,L>,L extends Library<H,L>> extends Context<H,L,Test<H,L>> {
 
-        public Test(House house, String path) {
+        public Test(H house, String path, String testName) {
             super(house, path);
         }
 
@@ -30,10 +31,10 @@ public abstract class Context<H extends House<H,?>,X extends Context<H,X>> imple
             return false;
         }
     }
-    public static final class Individual<H extends House<H,?>> extends Context<H,Individual<H>> {
+    public static final class Individual<H extends House<H,L>,L extends Library<H,L>> extends Context<H,L,Individual<H,L>> {
 
-        public Individual(House house) {
-            super(house, "");
+        public Individual(H house) {
+            super(house, null);
         }
 
         @Override
@@ -43,7 +44,7 @@ public abstract class Context<H extends House<H,?>,X extends Context<H,X>> imple
     }
     private final House house;
     private final String path;
-    public Context(House house, String path) {
+    public Context(H house, String path) {
         this.house = house;
         this.path = path;
     }

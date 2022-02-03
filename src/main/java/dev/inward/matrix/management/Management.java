@@ -1,4 +1,4 @@
-package com.notionds.dataSupplier.management;
+package dev.inward.matrix.management;
 
 import com.notionds.dataSupplier.NotionDs;
 import com.notionds.dataSupplier.NotionStartupException;

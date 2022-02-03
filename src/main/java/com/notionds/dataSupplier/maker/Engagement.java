@@ -1,20 +1,22 @@
 package com.notionds.dataSupplier.maker;
 
 import com.notionds.dataSupplier.Unspoken;
-import com.notionds.dataSupplier.datum.fact.persona.Persona;
 import com.notionds.dataSupplier.datum.fact.persona.SuperEgo;
-import com.notionds.dataSupplier.subject.Subject;
+import com.notionds.dataSupplier.house.House;
+import com.notionds.dataSupplier.library.Library;
 import com.notionds.dataSupplier.subject.Matter;
+import com.notionds.dataSupplier.subject.Subject;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
-public abstract class Engagement<D extends Persona<D,?,?,I>, I extends SuperEgo<D,I,?,?>,EVT extends Engagement<D,I,EVT,F,ENG>,F extends Fingerprint<F>,ENG extends Engagement<D,I,EVT,F,ENG>> extends Subject<D,I,EVT> {
+public class Engagement<H extends House<H,L>,L extends Library<H,L>,F extends Fingerprint<F>> extends Matter<SuperEgo<H,L>,Engagement<H,L,F>> {
 
     @Unspoken
     private final F fingerprint;
 
-    public Engagement(UUID uuid, Matter<D,I,EVT> matter, F fingerprint) {
-        super(uuid,matter);
+    public Engagement(UUID uuid, SuperEgo<H,L> id, LocalDateTime createDateTime, Subject subject, F fingerprint) {
+        super(uuid, id, createDateTime, subject);
         this.fingerprint = fingerprint;
     }
 

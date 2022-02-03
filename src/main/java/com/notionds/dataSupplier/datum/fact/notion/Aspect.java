@@ -6,7 +6,7 @@ import com.notionds.dataSupplier.operational.Operational;
 import dev.inward.matrix.gathering.Lexicon;
 import dev.inward.matrix.setting.Gate;
 
-public class Aspect<D extends Notion<D,O,C,I>,O extends Operational<D,O>,C extends Aspect<D,O,C,I,B>,I extends Ego<?,I,?>,B extends Omnibus<D,O,C,I,B,?,?,?>> extends Support<D,O,C,I,B> {
+public class Aspect<D extends Notion<D,O,C,I>,O extends Operational<D,O>,C extends Aspect<D,O,C,I,B>,I extends Ego<?,?,I,?>,B extends Omnibus<D,O,C,I,B,?,?,?>> extends Support<D,O,C,I,B> {
 
     private Lexicon<D> lexicon;
 

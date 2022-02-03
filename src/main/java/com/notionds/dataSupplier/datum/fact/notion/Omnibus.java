@@ -10,9 +10,9 @@ import com.notionds.dataSupplier.meta.Meta;
 import com.notionds.dataSupplier.operational.Operational;
 import com.notionds.dataSupplier.provider.Provider;
 
-public class Omnibus<D extends Fact<D,O,C,I>,O extends Operational<D,O>,C extends Support<D,O,C,I,B>,I extends Ego<?,I,?>,B extends Omnibus<D,O,C,I,B,A,P,M>,A extends Advisor<D,O,C,I,A,?>,P extends Provider<D,D,O,C,I,P>,M extends Meta<D>> extends Bus<D,O,C,I,B,A,P,M> {
+public class Omnibus<D extends Fact<D,O,C,I>,O extends Operational<D,O>,C extends Support<D,O,C,I,B>,I extends Ego<?,I,?>,B extends Omnibus<D,O,C,I,B,A,P,M>,A extends Advisor<D,O,C,I,A>,P extends Provider<D,O,C,I,P>,M extends Meta<D,M>> extends Bus<D,O,C,I,B,A,P,M> {
 
-    public Omnibus(A advisor, M meta, P provider, O operational) {
-        super(advisor, meta, provider, operational);
+    public Omnibus(M meta, O operational,A advisor, P provider) {
+        super(meta, operational,advisor, provider);
     }
 }

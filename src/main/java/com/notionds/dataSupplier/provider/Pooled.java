@@ -1,13 +1,10 @@
 package com.notionds.dataSupplier.provider;
 
-import com.notionds.dataSupplier.datum.Bus;
 import com.notionds.dataSupplier.container.Container;
-import com.notionds.dataSupplier.NotionStartupException;
 import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.datum.Id;
 import com.notionds.dataSupplier.operational.Operational;
 
-import java.io.Serializable;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -16,18 +13,15 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Supplier;
 
-import static com.notionds.dataSupplier.operational.DurationOption.ConnectionMaxLifetime;
 
-public final class Pooled<D extends Datum<?,D,O,C,I>, O extends Operational<D,O>,C extends Container<D,O,C,I>,I extends Id<?,I,?>> extends Provider<D,O,I,C,Pooled<D,O,C,I>> {
+public abstract class Pooled<D extends Datum<?,D,O,C,I>, O extends Operational<D,O>,C extends Container<D,O,C,I>,I extends Id<?,I,?>,P extends Pooled<D,O,C,I,P>> extends Provider<D,O,C,I,P> {
 
     private final Executor executor;
 
     public Pooled(Executor executor) {
         super();
         this.executor = executor;
-        this.maxConnectionLifetime = bus.getOperational().getDuration(ConnectionMaxLifetime.getI18n());
     }
 
     /**
@@ -55,14 +49,16 @@ public final class Pooled<D extends Datum<?,D,O,C,I>, O extends Operational<D,O>
     /**
      * Holds the ready connection objects, wrapped and active
      */
-    private final BlockingQueue<DATUM> connectionQueue = new LinkedBlockingQueue<>();
+    private final BlockingQueue<D> connectionQueue = new LinkedBlockingQueue<>();
     /**
      * The loaned Notions are held weakly and will drop out when garbage collected. They will be sent to a
      * referenceQueue in the Cleanup class when ready
      */
-    private final WeakHashMap<DATUM, Instant> loanedNotions = new WeakHashMap<>();
+    private final WeakHashMap<D, Instant> loanedNotions = new WeakHashMap<>();
 
-    public U loanPooledMember(Supplier<Container<D, O, B, C, U>> newConnectionArtifactSupplier) {
+    public D loanPooledMember() {
+
+        throw new UnsupportedOperationException("fix");
 
     }
 
@@ -82,11 +78,11 @@ public final class Pooled<D extends Datum<?,D,O,C,I>, O extends Operational<D,O>
         this.connection_retrieve_time_unit.toMillis(connection_retrieveTimeout.toMillis());
     }
 
-    public int getMaxTotalNotionsAllowed() {
+    public int getMaxAllowed() {
         return maxTotalNotionsAllowed;
     }
 
-    public void setMaxTotalNotionsAllowed(int maxTotalNotionsAllowed) {
+    public void setMaxAllowed(int maxTotalNotionsAllowed) {
         this.maxTotalNotionsAllowed = maxTotalNotionsAllowed;
     }
 

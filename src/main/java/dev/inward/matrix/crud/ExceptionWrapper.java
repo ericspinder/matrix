@@ -1,14 +1,14 @@
 package dev.inward.matrix.crud;
 
-import com.notionds.dataSupplier.subject.Matter;
+import com.notionds.dataSupplier.subject.Subject;
 import com.notionds.dataSupplier.datum.Datum;
 import dev.inward.matrix.Recommendation;
 
 public class ExceptionWrapper extends Exception implements NotionExceptionWrapper {
 
-    private Matter<>
+    private Subject<>
 
-    public ExceptionWrapper(Matter matter, Datum<?,?,?,?> datum, Exception cause) {
+    public ExceptionWrapper(Subject subject, Datum<?,?,?,?> datum, Exception cause) {
         super(message, cause, false, false);
         this.recommendation = recommendation;
     }

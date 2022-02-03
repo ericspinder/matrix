@@ -17,23 +17,23 @@ public final class Situation<D extends Datum<?,D,O,C,I>,O extends Operational<D,
     private Envoy<D,O,C,I,PAR,PI> envoy = null;
     private Phase phase = null;
     private transient StampedLock lock = new StampedLock();
-    private transient Map<Phase,Complication[]> complications = new HashMap<>();
+    private transient Map<Phase, PhasedComplication[]> complications = new HashMap<>();
 
     public <I8N> List<Broken<D,?,?,?>> phaseChange(Phase entry, D datum, O operational, C container, I id, I8N indication) {
         long phaseLock = lock.writeLock();
         List<Broken<D,?,?,?>> issueList = new ArrayList<>();
         try {
             if (phase != null) {
-                for (Complication complication : complications.get(phase)) {
-                    Broken<D,?,?,?> broken =  complication.disengage(datum, operational, container, id, this.getClass());
+                for (PhasedComplication phasedComplication : complications.get(phase)) {
+                    Broken<D,?,?,?> broken =  phasedComplication.disengage(datum, operational, container, id, this.getClass());
                     if (broken != null) {
                         issueList.add(broken);
                     }
                 }
             }
-            for (Complication complication: complications.get(entry)) {
+            for (PhasedComplication phasedComplication : complications.get(entry)) {
                 if (indication instanceof I8N) {
-                    Breaker<D,?,?,?,?> breaker = complication.engage(datum, operational, container, id, this.getClass(), indication);
+                    Breaker<D,?,?,?,?> breaker = phasedComplication.engage(datum, operational, container, id, this.getClass(), indication);
                     if (breaker != null) {
                         issueList.add(breaker);
                     }

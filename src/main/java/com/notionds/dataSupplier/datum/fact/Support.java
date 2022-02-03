@@ -7,7 +7,7 @@ import com.notionds.dataSupplier.house.Ego;
 import com.notionds.dataSupplier.operational.Operational;
 import dev.inward.matrix.setting.Gate;
 
-public abstract class Support<D extends Fact<D,O,C,I>,O extends Operational<D,O>,C extends Support<D,O,C,I,B>,I extends Ego<?,I,?>,B extends Bus<D,O,C,I,B,?,?,?>> extends Container<D,O,C,I> {
+public abstract class Support<D extends Fact<D,O,C,I>,O extends Operational<D,O>,C extends Support<D,O,C,I,B>,I extends Ego<?,?,I,?>,B extends Bus<D,O,C,I,B,?,?,?>> extends Container<D,O,C,I> {
 
     @Unspoken
     private B bus;

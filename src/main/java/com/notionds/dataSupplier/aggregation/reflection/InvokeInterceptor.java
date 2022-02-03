@@ -1,4 +1,4 @@
-package com.notionds.dataSupplier.datum.notion.reflection;
+package com.notionds.dataSupplier.aggregation.reflection;
 
 import com.notionds.dataSupplier.container.Container;
 import com.notionds.dataSupplier.aggregation.Timer;
