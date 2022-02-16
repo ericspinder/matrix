@@ -1,7 +1,7 @@
 package com.notionds.dataSupplier;
 
 import com.notionds.dataSupplier.advisor.Advisor;
-import com.notionds.dataSupplier.datum.Bus;
+import com.notionds.dataSupplier.datum.fact.Bus;
 import com.notionds.dataSupplier.datum.fact.Fact;
 import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.operational.Operational;

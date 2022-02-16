@@ -1,10 +1,11 @@
 package com.notionds.dataSupplier.datum.fact;
 
+import com.notionds.dataSupplier.container.Context;
 import com.notionds.dataSupplier.datum.Datum;
-import com.notionds.dataSupplier.house.Ego;
+import com.notionds.dataSupplier.datum.Id;
 import com.notionds.dataSupplier.operational.Operational;
 
-public abstract class Fact<D extends Fact<D,O,C,I>,O extends Operational<D,O>,C extends Support<D,O,C,I,?>,I extends Ego<?,?,I,?>> extends Datum<D,D,O,C,I> {
+public abstract class Fact<F extends Fact<F,O,C,I,X,B>,O extends Operational<F,O>,C extends Support<F,O,C,I,X,B>,I extends Id<I,X>,X extends Context<X>,B extends Bus<F,O,I,X,B>> extends Datum<F,F,C> implements Id.Addressable<I,X> {
 
     private final I id;
 
@@ -13,12 +14,13 @@ public abstract class Fact<D extends Fact<D,O,C,I>,O extends Operational<D,O>,C 
         this.id = id;
     }
 
+    @Override
     public I getId() {
         return this.id;
     }
 
     @Override
-    public int compareTo(D that) {
+    public int compareTo(F that) {
         return this.id.compareTo(that.getId());
     }
 

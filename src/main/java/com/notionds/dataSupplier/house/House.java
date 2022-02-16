@@ -1,15 +1,14 @@
 package com.notionds.dataSupplier.house;
 
-import com.notionds.dataSupplier.library.Library;
+import com.notionds.dataSupplier.datum.Id;
 
 import java.io.Serializable;
 
-public class House<H extends House<H,L>,L extends Library<H,L>> implements Comparable<H>, Serializable {
+public class House<H extends House<H>> implements Comparable<H>, Serializable {
 
-    private final L library;
-    private final Ego ego;
 
-    public House(Ego ego, L library) {
+
+    public House(Id.Ego ego, L library) {
         this.ego = ego;
         this.library = library;
     }

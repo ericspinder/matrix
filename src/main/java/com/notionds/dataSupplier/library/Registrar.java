@@ -4,5 +4,16 @@ import com.notionds.dataSupplier.Industry;
 
 public class Registrar {
 
-    private List<Industry>
+    protected final Registrar issuer;
+
+
+    public Registrar(Registrar issuer,) {
+        this.issuer = issuer;
+
+    }
+
+
+
+
+
 }

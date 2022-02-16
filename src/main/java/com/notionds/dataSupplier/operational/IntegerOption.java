@@ -1,6 +1,6 @@
 package com.notionds.dataSupplier.operational;
 
-public enum IntegerOption implements Operational.Option<Integer> {
+public enum IntegerOption implements Operational.Option<Integer,IntegerOption> {
     Advice_Exception_Aggregator_Map_Max_Size("com.notionds.advice.exception.aggregatorMap.maxSize", "The number of ", 1000),
     Advice_Nominal_Aggregator_Map_Max_Size("com.notionds.advice.nominal.aggregatorMap.maxSize", "The number of ", 1000),
     //ConnectionAnalysis_Max_Exceptions("com.notionds.connectionAnalysis.maxExceptions", "The maximum number of noncritical sql Exceptions before a connection will terminate", 5),

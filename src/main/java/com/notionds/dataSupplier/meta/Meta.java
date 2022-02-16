@@ -2,7 +2,9 @@ package com.notionds.dataSupplier.meta;
 
 import com.notionds.dataSupplier.datum.Datum;
 
-public abstract class Meta<D extends Datum<?,D,?,?,?>,M extends Meta<D,M>> implements Meta_I<D,M> {
+import java.io.Serializable;
+
+public abstract class Meta<DATUM extends Comparable<DATUM> & Serializable,M extends Meta<DATUM,M>> implements Meta_I<DATUM,M> {
 
     private String label;
     private String description;

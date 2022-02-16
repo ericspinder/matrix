@@ -2,23 +2,13 @@ package com.notionds.dataSupplier.datum;
 
 import com.notionds.dataSupplier.container.Context;
 import com.notionds.dataSupplier.house.House;
-import com.notionds.dataSupplier.library.Library;
 
 import java.io.Serializable;
 
-public abstract class Id<H extends House<H,L>,L extends Library<H,L>,I extends Id<H,L,I,X>,X extends Context<H,L,X>> implements Comparable<I>, Serializable {
+public abstract class Id<I extends Id<I,X>,X extends Context<X>> implements Comparable<I>, Serializable {
 
-    public static class Production<H extends House<H,L>,L extends Library<H,L>> extends Id<H,L,Production<H,L>,Context.Production<H,L>> {
-
-        public Production(String name, Context.Production<H,L> context) {
-            super(name, context);
-        }
-    }
-    public static class Test<H extends House<H,L>,L extends Library<H,L>> extends Id<H,L,Test<H,L>,Context.Test<H,L>> {
-
-        public Test(String name, Context.Test<H,L> context) {
-            super(name, context);
-        }
+    public interface Addressable<I extends Id<I,X>,X extends Context<X>> {
+        I getId();
     }
     private final String name;
     private final X context;
@@ -45,5 +35,39 @@ public abstract class Id<H extends House<H,L>,L extends Library<H,L>,I extends I
             return this.name.compareTo(that.getName());
         }
         return this.context.compareTo(that.getContext());
+    }
+
+    public static final class SuperEgo<H extends House<H>> extends Id<SuperEgo<H>,Context.Character<H>> {
+
+        public SuperEgo(String id, Context.Character<H> context) {
+            super(id,context);
+        }
+    }
+
+    public static class Ego extends Id<Ego,Context.Gathering> {
+
+        public Ego(String id, Context.Gathering context) {
+            super(id, context);
+        }
+    }
+    public static class Farce extends Id<Farce,Context.Panel> {
+
+        public Farce(String name, Context.Panel context) {
+            super(name, context);
+        }
+
+    }
+
+    public static final class Data extends Id<Data,Context.Production> {
+
+        public Data(String name, Context.Production context) {
+            super(name, context);
+        }
+    }
+    public static final class Satire extends Id<Satire,Context.Test> {
+
+        public Satire(String name, Context.Test context) {
+            super(name, context);
+        }
     }
 }

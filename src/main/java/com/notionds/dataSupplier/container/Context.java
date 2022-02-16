@@ -6,12 +6,12 @@ import com.notionds.dataSupplier.library.Library;
 import java.io.Serializable;
 
 
-public abstract class Context<H extends House<H,L>,L extends Library<H,L>,X extends Context<H,L,X>> implements Comparable<X>, Serializable {
+public abstract class Context<X extends Context<X>> implements Comparable<X>, Serializable {
 
-    public static final class Production<H extends House<H,L>,L extends Library<H,L>> extends Context<H,L,Production<H,L>> {
+    public static final class Production extends Context<Production> {
 
-        public Production(H house, String path) {
-            super(house, path);
+        public Production(Library library, String path) {
+            super(library, path);
         }
 
         @Override
@@ -20,10 +20,10 @@ public abstract class Context<H extends House<H,L>,L extends Library<H,L>,X exte
         }
     }
 
-    public static class Test<H extends House<H,L>,L extends Library<H,L>> extends Context<H,L,Test<H,L>> {
+    public static class Test extends Context<Test> {
 
-        public Test(H house, String path, String testName) {
-            super(house, path);
+        public Test(Library library, String path, String testName) {
+            super(library, path);
         }
 
         @Override
@@ -31,10 +31,44 @@ public abstract class Context<H extends House<H,L>,L extends Library<H,L>,X exte
             return false;
         }
     }
-    public static final class Individual<H extends House<H,L>,L extends Library<H,L>> extends Context<H,L,Individual<H,L>> {
+    public static final class Individual<H extends House<H>> extends Character<H> {
 
-        public Individual(H house) {
-            super(house, null);
+        public Individual(Library library, H house  ) {
+            super(library,'@',house);
+        }
+
+        @Override
+        public boolean isProduction() {
+            return true;
+        }
+    }
+    public static final class Official<H extends House<H>> extends Character<H> {
+
+        public Official(Library library,H house) {
+            super(library, '^', house);
+        }
+
+        @Override
+        public boolean isProduction() {
+            return true;
+        }
+    }
+
+    public static final class Gathering extends Context<Gathering> {
+
+        public Gathering(Library library) {
+            super(library, null);
+        }
+
+        @Override
+        public boolean isProduction() {
+            return true;
+        }
+    }
+    public static final class Panel extends Context<Panel> {
+
+        public Panel(Library library) {
+            super(library,null);
         }
 
         @Override
@@ -42,10 +76,19 @@ public abstract class Context<H extends House<H,L>,L extends Library<H,L>,X exte
             return false;
         }
     }
-    private final House house;
-    private final String path;
-    public Context(H house, String path) {
-        this.house = house;
+    public static abstract class Character<H extends House<H>> extends Context<Character<H>> {
+
+        private H house;
+        public Character(Library library, char path, H house) {
+            super(library, String.valueOf(path));
+            this.house = house;
+        }
+    }
+    protected final Library library;
+    protected final String path;
+
+    public Context(Library library, String path) {
+        this.library = library;
         this.path = path;
     }
 
@@ -58,9 +101,9 @@ public abstract class Context<H extends House<H,L>,L extends Library<H,L>,X exte
         if (that.isProduction()) return -1;
         return compare2(that);
     }
-    private int compare2(X that) {
+    protected int compare2(X that) {
         if (this.path.equals(that.getPath())) {
-            return this.house.compareTo(that.getHouse());
+            return this.library.compareTo(that.library);
         }
         return this.path.compareTo(that.getPath());
     }
@@ -69,8 +112,8 @@ public abstract class Context<H extends House<H,L>,L extends Library<H,L>,X exte
     public String getPath() {
         return path;
     }
-    public House getHouse() {
-        return house;
+    public Library getLibrary() {
+        return this.library;
     }
 
 }

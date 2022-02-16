@@ -1,18 +1,21 @@
 package com.notionds.dataSupplier.subject;
 
+import com.notionds.dataSupplier.container.Context;
 import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.datum.Id;
+import com.notionds.dataSupplier.datum.fact.Fact;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class Breaker<D extends Datum<?,D,?,?,I>,I extends Id<?,?,I,?>,MAT extends Breaker<D,I,MAT,CALLER,E>,CALLER, E extends Exceptional> extends Broken<D,I,MAT,CALLER> {
+public class Breaker<D extends Datum<?,D,?>,F extends Fact<F,?,?,?,X>,I extends Id<I,X>,X extends Context<X>,M extends Breaker<D,F,I,X,M,E>,E extends Exception> extends Broken<D,F,I,X,M> {
 
-    private final E breaker;
+    protected final E breaker;
 
-    public Breaker(UUID uuid, I id, LocalDateTime createDateTime, Subject subject, E breaker) {
-        super(uuid, id, createDateTime, subject);
+    public Breaker(UUID uuid, I id, Instant createDateTime, Subject subject,F caller, E breaker) {
+        super(uuid, id, createDateTime, subject, caller);
         this.breaker = breaker;
-
     }
+
 }

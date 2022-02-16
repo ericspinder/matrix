@@ -1,6 +1,6 @@
 package com.notionds.dataSupplier;
 
-import com.notionds.dataSupplier.datum.Bus;
+import com.notionds.dataSupplier.datum.fact.Bus;
 import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.meta.Meta;
 import com.notionds.dataSupplier.operational.Operational;

@@ -1,22 +1,27 @@
 package com.notionds.dataSupplier.datum.fact.notion;
 
+import com.notionds.dataSupplier.container.Context;
+import com.notionds.dataSupplier.datum.Id;
+import com.notionds.dataSupplier.datum.fact.Bus;
+import com.notionds.dataSupplier.datum.fact.Fact;
 import com.notionds.dataSupplier.datum.fact.Support;
-import com.notionds.dataSupplier.house.Ego;
+import com.notionds.dataSupplier.meta.Meta;
 import com.notionds.dataSupplier.operational.Operational;
 import dev.inward.matrix.gathering.Lexicon;
-import dev.inward.matrix.setting.Gate;
+import com.notionds.dataSupplier.setting.Track;
 
-public class Aspect<D extends Notion<D,O,C,I>,O extends Operational<D,O>,C extends Aspect<D,O,C,I,B>,I extends Ego<?,?,I,?>,B extends Omnibus<D,O,C,I,B,?,?,?>> extends Support<D,O,C,I,B> {
+public class Aspect<N extends Notion<N,O,I,X>,O extends Operational<N,O>,I extends Id<I,X>,X extends Context<X>> extends Support<N,O,Aspect<N,O,I,X>,I,X,Omnibus<N,O,I,X>> {
 
-    private Lexicon<D> lexicon;
+    private Lexicon<N> lexicon;
 
-    public Aspect(B omnibus, Gate gate, Lexicon<D> lexicon) {
-        super(omnibus, gate);
+    public Aspect(Omnibus<N,O,I,X> omnibus, Circuit track, Lexicon<N> lexicon) {
+        super(omnibus, track);
         this.lexicon = lexicon;
     }
 
+
     @Override
-    public int compareTo(C that) {
+    public int compareTo(Aspect<N, O, I, X> o) {
         return 0;
     }
 }

@@ -1,8 +1,10 @@
 package com.notionds.dataSupplier.operational;
 
 import com.notionds.dataSupplier.*;
+import com.notionds.dataSupplier.container.Phase;
+import com.notionds.dataSupplier.library.RemoteServer;
 import com.notionds.dataSupplier.meta.Meta_I;
-import com.notionds.dataSupplier.task.Task;
+import com.notionds.dataSupplier.rubric.Complication;
 
 import java.io.Serializable;
 import java.time.Duration;
@@ -14,10 +16,10 @@ import java.util.concurrent.locks.StampedLock;
 
 public abstract class Operational<DATUM extends Comparable<DATUM> & Serializable,O extends Operational<DATUM,O>> implements Comparable<O>, Serializable {
 
-    public static final Default DEFAULT_OPTIONS_INSTANCE = new Default();
+    public static final Local LOCAL_OPTIONS_INSTANCE = new Local();
 
-    public interface Option<V,M extends Option<V,M>> extends Meta_I<V,M> {
-        V getDefaultValue();
+    public interface Option<DATUM extends Comparable<DATUM> & Serializable,M extends Option<DATUM,M>> extends Meta_I<DATUM,M> {
+        DATUM getDefaultValue();
     }
     private final Instant createInstant = Instant.now();
     protected StampedLock gate = new StampedLock();
@@ -25,14 +27,12 @@ public abstract class Operational<DATUM extends Comparable<DATUM> & Serializable
     protected final Map<String, Integer> integerOptions = new HashMap<>();
     protected final Map<String, Duration> durationOptions = new HashMap<>();
     protected final Map<String, Boolean> booleanOptions = new HashMap<>();
-    protected final Map<String, Task> taskOptions = new HashMap<>();
+    protected final Map<String, ComplicationOption> complicationsOptions = new HashMap<>();
 
-    public static final class Default<DATUM extends Comparable<DATUM> & Serializable,O extends Operational<DATUM,O>> extends Operational<DATUM,O> {
-        public Default() {
+    public static final class Local<DATUM extends Comparable<DATUM> & Serializable> extends Operational<DATUM, Local<DATUM>> {
+        public Local() {
             super();
         }
-
-
     }
     public Operational() {
         this(Arrays.stream(Operational.class.getClass().getTypeParameters()).findFirst().get().getTypeName());
@@ -45,33 +45,38 @@ public abstract class Operational<DATUM extends Comparable<DATUM> & Serializable
 //            this.setDefaultValues(TaskOption.values());
     }
 
-    public Integer getInteger(String key) {
+    public Integer getInteger(String key, RemoteServer remoteServer) {
         if (this.integerOptions.containsKey(key)) {
             return this.integerOptions.get(key);
         }
+        else if (remoteServer != null) {
+            if (remoteServer.getContainer().getSituation().getPhase().equals(Phase.Lucid)) {
+                remoteServer.getContainer()
+            }
+        }
         throw new NotionStartupException(NotionStartupException.Type.MissingDefaultValue, this.getClass());
     }
-    public String getString(String key) {
+    public String getString(String key, RemoteServer remoteServer) {
         if (this.stringOptions.containsKey(key)) {
             return this.stringOptions.get(key);
         }
         throw new NotionStartupException(NotionStartupException.Type.MissingDefaultValue, this.getClass());
     }
-    public Duration getDuration(String key) {
+    public Duration getDuration(String key, RemoteServer remoteServer) {
         if (this.durationOptions.containsKey(key)) {
             return this.durationOptions.get(key);
         }
         throw new NotionStartupException(NotionStartupException.Type.MissingDefaultValue, this.getClass());
     }
-    public Boolean getBoolean(String key) {
+    public Boolean getBoolean(String key, RemoteServer remoteServer) {
         if (this.booleanOptions.containsKey(key)) {
             return this.booleanOptions.get(key);
         }
         throw new NotionStartupException(NotionStartupException.Type.MissMatchedOptionKey, this.getClass());
     }
-    public Task getTask(String key) {
-        if (this.taskOptions.containsKey(key)) {
-            return this.taskOptions.get(key);
+    public ComplicationOption getComplicationOption(String key, RemoteServer remoteServer) {
+        if (this.complicationsOptions.containsKey(key)) {
+            return this.complicationsOptions.get(key);
 
         }
         throw new NotionStartupException(NotionStartupException.Type.MissMatchedOptionKey, this.getClass());
@@ -93,8 +98,8 @@ public abstract class Operational<DATUM extends Comparable<DATUM> & Serializable
                 else if (option.getDefaultValue() instanceof Duration) {
                     this.durationOptions.put(option.getI18n(), (Duration) option.getDefaultValue());
                 }
-                else if (option.getDefaultValue() instanceof Task) {
-                    this.taskOptions.put(option.getI18n(),(Task) option.getDefaultValue());
+                else if (option.getDefaultValue() instanceof Complication) {
+                    this.complicationsOptions.put(option.getI18n(),(Complication) option.getDefaultValue());
                 }
                 else {
                     throw new NotionStartupException(NotionStartupException.Type.MissingDefaultValue, this.getClass());

@@ -6,7 +6,7 @@ import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.datum.Id;
 import com.notionds.dataSupplier.operational.Operational;
 
-public abstract class Criterion<D extends Datum<?,D,O,C,I>, O extends Operational<D,O>,C extends Container<D,O,C,I>,I extends Id<?,?,I,X>,X extends Context<?,?,X>, CRIT extends Criterion<D,O,C,I,X,CRIT,PRE>, PRE extends Predictor<?,?,CRIT,PRE>> {
+public abstract class Criterion<D extends Datum<?,D,O,C,I>, O extends Operational<D,O>,C extends Container<D,O,C,I>,I extends Id<I,X>,X extends Context<X>, CRIT extends Criterion<D,O,C,I,X,CRIT,PRE>, PRE extends Predictor<CRIT,PRE>> {
 
     // on method
     // on phase
@@ -14,17 +14,21 @@ public abstract class Criterion<D extends Datum<?,D,O,C,I>, O extends Operationa
     // on garbage
     // on countdown
     // on shutdown
-    public static abstract class OnShutdown<D extends Datum<?,D,O,C,I>, O extends Operational<D,O>,C extends Container<D,O,C,I>,I extends Id<?,?,I,X>,X extends Context<?,?,X>, CRIT extends Criterion<D,O,C,I,X,CRIT,PRE>, PRE extends Predictor<?,?,CRIT,PRE>> extends Criterion<D,O,C,I,X,CRIT,PRE> {
+    public static abstract class OnShutdown<D extends Datum<?,D,O,C,I>, O extends Operational<D,O>,C extends Container<D,O,C,I>,I extends Id<I,X>,X extends Context<X>, CRIT extends Criterion<D,O,C,I,X,CRIT,PRE>, PRE extends Predictor<CRIT,PRE>> extends Criterion<D,O,C,I,X,CRIT,PRE> {
 
     }
-    public static abstract class OnMethod<D extends Datum<?,D,O,C,I>, O extends Operational<D,O>,C extends Container<D,O,C,I>,I extends Id<?,?,I,X>,X extends Context<?,?,X>, CRIT extends Criterion<D,O,C,I,X,CRIT,PRE>, PRE extends Predictor<?,?,CRIT,PRE>> extends Criterion<D,O,C,I,X,CRIT,PRE> {
+    public static abstract class OnMethod<D extends Datum<?,D,O,C,I>, O extends Operational<D,O>,C extends Container<D,O,C,I>,I extends Id<I,X>,X extends Context<X>, CRIT extends Criterion<D,O,C,I,X,CRIT,PRE>, PRE extends Predictor<CRIT,PRE>> extends Criterion<D,O,C,I,X,CRIT,PRE> {
         public abstract void doMethod();
     }
-    public static abstract class OnPhase<D extends Datum<?,D,O,C,I>, O extends Operational<D,O>,C extends Container<D,O,C,I>,I extends Id<?,?,I,X>,X extends Context<?,?,X>, CRIT extends Criterion<D,O,C,I,X,CRIT,PRE>, PRE extends Predictor<?,?,CRIT,PRE>> extends Criterion<D,O,C,I,X,CRIT,PRE> {
-        public abstract void doPhase();
+    public static final class OnPhase<D extends Datum<?,D,O,C,I>, O extends Operational<D,O>,C extends Container<D,O,C,I>,I extends Id<I,X>,X extends Context<X>, CRIT extends Criterion<D,O,C,I,X,CRIT,PRE>, PRE extends Predictor<CRIT,PRE>> extends Criterion<D,O,C,I,X,CRIT,PRE> {
 
+
+        @Override
+        public void enroll(PRE predictor) {
+
+        }
     }
-    public static abstract class OnTime<D extends Datum<?,D,O,C,I>, O extends Operational<D,O>,C extends Container<D,O,C,I>,I extends Id<?,?,I,X>,X extends Context<?,?,X>, CRIT extends Criterion<D,O,C,I,X,CRIT,PRE>, PRE extends Predictor<?,?,CRIT,PRE>> extends Criterion<D,O,C,I,X,CRIT,PRE> {
+    public static abstract class OnTime<D extends Datum<?,D,O,C,I>, O extends Operational<D,O>,C extends Container<D,O,C,I>,I extends Id<I,X>,X extends Context<X>, CRIT extends Criterion<D,O,C,I,X,CRIT,PRE>, PRE extends Predictor<CRIT,PRE>> extends Criterion<D,O,C,I,X,CRIT,PRE> {
 
     }
 

@@ -4,7 +4,6 @@ import com.notionds.dataSupplier.container.Container;
 import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.datum.fact.Fact;
 import com.notionds.dataSupplier.datum.Id;
-import com.notionds.dataSupplier.house.Ego;
 import com.notionds.dataSupplier.operational.Operational;
 import com.notionds.dataSupplier.task.Task;
 
@@ -14,7 +13,7 @@ import java.lang.ref.SoftReference;
 import java.time.Instant;
 import java.util.Map;
 
-public final class Envoy<D extends Datum<?,D,O,C,I>,O extends Operational<D,O>,C extends Container<D,O,C,I>,I extends Id<?,I,?>, PAR extends Fact<PAR,?,?,PI>,PI extends Ego<?,PI,?>> extends SoftReference<D> implements Comparable<Envoy<D,O,C,I,PAR,PI>>, Serializable {
+public final class Envoy<D extends Datum<?,D,O,C,I>,O extends Operational<D,O>,C extends Container<D,O,C,I>,I extends Id<?,?,I,?>, PAR extends Fact<PAR,?,?,PI>,PI extends Id.Ego<?,?,PI,?>> extends SoftReference<D> implements Comparable<Envoy<D,O,C,I,PAR,PI>>, Serializable {
 
     private final Map<Task, Instant> taskMap;
     private final PAR parent;

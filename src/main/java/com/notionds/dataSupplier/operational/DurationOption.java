@@ -3,7 +3,7 @@ package com.notionds.dataSupplier.operational;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
-public enum DurationOption implements Operational.Option<Duration> {
+public enum DurationOption implements Operational.Option<Duration,DurationOption> {
 
     ConnectionTimeoutInPool("com.notionds.connections_timeout_in_pool", "Amount of time connections will wait in the provider before reaping excess of the number of active in provider connections", Duration.of(20, ChronoUnit.MINUTES)),
     ConnectionTimeoutInPool_Cool_Down("com.notionds.connections_timeout_in_pool_cool_down", "Minimum amount of time between reaping extra active connections, this creates a walk down from the maximum number of connections", Duration.of(60, ChronoUnit.SECONDS)),

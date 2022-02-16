@@ -12,12 +12,12 @@ import java.util.function.Supplier;
 
 public abstract class Management<N, O extends Operational, W extends Datum<N>> {
 
-    public static class Default_Unavailable extends Management<Operational.Default> {
+    public static class Default_Unavailable extends Management<Operational.Local> {
 
         public static final Default_Unavailable INSTANCE = new Default_Unavailable();
 
         public Default_Unavailable() {
-            super(Operational.DEFAULT_OPTIONS_INSTANCE);
+            super(Operational.LOCAL_OPTIONS_INSTANCE);
         }
 
         @Override

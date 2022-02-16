@@ -1,6 +1,6 @@
 package com.notionds.dataSupplier.operational;
 
-public enum BooleanOption implements Operational.Option<Boolean> {
+public enum BooleanOption implements Operational.Option<Boolean,BooleanOption> {
 
     ConnectionContainer_Check_ResultSet("com.notionds.connectionMain.checkResultSet", "Order a check of all ResultSets before closing when cleanupAfterGC() had not been called, until the connection had been closed", true),
     ConnectionPool_Use("com.notionds.provider.usePool", "Should provider connections", true),
@@ -11,6 +11,7 @@ public enum BooleanOption implements Operational.Option<Boolean> {
     private final String i18n;
     private final String description;
     private final Boolean defaultValue;
+
 
     BooleanOption(String i18n, String description, Boolean defaultValue) {
         this.label = name();

@@ -1,24 +1,22 @@
 package com.notionds.dataSupplier.subject.sanction;
 
 import com.notionds.dataSupplier.Unspoken;
-import com.notionds.dataSupplier.datum.fact.Fact;
-import com.notionds.dataSupplier.datum.fact.persona.SuperEgo;
-import com.notionds.dataSupplier.house.Ego;
-import com.notionds.dataSupplier.house.House;
+import com.notionds.dataSupplier.datum.Id;
 import com.notionds.dataSupplier.subject.Subject;
 import com.notionds.dataSupplier.subject.Matter;
 
+import java.time.Instant;
 import java.util.UUID;
 
-public abstract class Sanction<D extends Fact<D,?,?,I>,I extends Ego<?,I,?>,H extends House<H,?>,MAT extends Sanction<D,I,H,MAT>> extends Matter<D,I,MAT> {
+public abstract class Sanction<I extends Id<I,?>,M extends Matter<I,M>> extends Matter<I,M> {
 
-    private final SuperEgo<H> maker;
-    public Sanction(UUID uuid, I id, Subject<D,I,MAT> subject, SuperEgo<H> maker) {
-        super(uuid, id, subject);
+    private final Id.SuperEgo<?> maker;
+    public Sanction(UUID uuid, I subjectId, Instant createInstant, Subject subject, Id.SuperEgo maker) {
+        super(uuid, subjectId, createInstant, subject);
         this.maker = maker;
     }
     @Unspoken
-    public SuperEgo<H> getMaker() {
+    public Id.SuperEgo getMaker() {
         return this.maker;
     }
 

@@ -1,22 +1,21 @@
 package com.notionds.dataSupplier.subject;
 
+import com.notionds.dataSupplier.container.Context;
 import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.datum.Id;
+import com.notionds.dataSupplier.datum.fact.Fact;
 
 import java.lang.reflect.ParameterizedType;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class Broken<D extends Datum<?,D,?,?,I>,I extends Id<?,?,I,?>,MAT extends Broken<D,I,MAT,CALLER>,CALLER> extends Matter<D,I,MAT> {
+public class Broken<D extends Datum<?,D,?>,F extends Fact<F,?,?,?,X>, I extends Id<I,X>,X extends Context<X>,M extends Broken<D,F,I,X,M>> extends Matter<I,M> {
 
-    private final String caller;
-    public Broken(UUID uuid, I id, LocalDateTime createDateTime, Subject subject) {
-        super(uuid, id, createDateTime, subject);
-        this.caller = ((Class<CALLER>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[0]).getCanonicalName();
-    }
-    public Broken(UUID uuid, I id, LocalDateTime createDateTime, Subject subject, Class<CALLER> callerClass) {
-        super(uuid, id, createDateTime, subject);
-        this.caller = callerClass.getCanonicalName();
+    protected final F caller;
+    public Broken(UUID uuid, I id, Instant createInstant, Subject subject,F caller) {
+        super(uuid, id, createInstant, subject);
+        this.caller = caller;
     }
 
 }

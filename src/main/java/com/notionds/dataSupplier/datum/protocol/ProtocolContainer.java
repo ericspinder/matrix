@@ -1,6 +1,6 @@
 package com.notionds.dataSupplier.datum.protocol;
 
-import com.notionds.dataSupplier.datum.Bus;
+import com.notionds.dataSupplier.datum.fact.Bus;
 import com.notionds.dataSupplier.container.Container;
 import com.notionds.dataSupplier.datum.Id;
 import com.notionds.dataSupplier.operational.Operational;

@@ -1,31 +1,26 @@
 package com.notionds.dataSupplier.rubric;
 
-import com.notionds.dataSupplier.NotionClassLoader;
 import com.notionds.dataSupplier.container.Container;
 import com.notionds.dataSupplier.container.Context;
 import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.datum.Id;
-import com.notionds.dataSupplier.house.House;
-import com.notionds.dataSupplier.library.Library;
 import com.notionds.dataSupplier.operational.Operational;
+import com.notionds.dataSupplier.setting.Setting;
 import com.notionds.dataSupplier.subject.Breaker;
 import com.notionds.dataSupplier.subject.Broken;
-import com.notionds.dataSupplier.subject.Exceptional;
 
-import java.io.Serializable;
+public abstract class Complication<I extends Id<I,X>,X extends Context<X>,D extends Datum<?,D,OD,CD,ID>,OD extends Operational<D,OD>,CD extends Container<D,OD,CD,ID>,ID extends Id<ID,XD>,XD extends Context<XD>,PRE extends Predictor<CRIT,PRE>,CRIT extends Criterion<D,OD,CD,ID,XD,CRIT,PRE>,S extends Complication<I,X,D,OD,CD,ID,XD,PRE,CRIT,S>> extends Setting<I,X,S> {
 
-public abstract class Complication<H extends House<H,L>,L extends Library<H,L>,D extends Datum<?,D,O,C,I>, O extends Operational<D,O>,C extends Container<D,O,C,I>,I extends Id<H,L,I,X>,X extends Context<H,L,X>,PRE extends Predictor<H,L,CRIT,PRE>,CRIT extends Criterion<D,O,C,I,X,CRIT,PRE>, C10N extends Complication<H,L,D,O,C,I,X,PRE,CRIT, C10N>> implements Comparable<C10N>, Serializable {
+    protected final PRE predictor;
+    protected final CRIT criterion;
 
-    private final PRE predictor;
-    private final CRIT criterion;
-
-    public Complication(PRE predictor, CRIT criterion) {
+    public Complication(I id, PRE predictor, CRIT criterion) {
+        super(id);
         this.predictor = predictor;
         this.criterion = criterion;
     }
-    public abstract <MAT extends Breaker<D,?,?,CALLER,?>,CALLER> Breaker<D,I,?,?,?> classLoader(NotionClassLoader<D,>)
-    public abstract <MAT extends Breaker<D,?,?,CALLER,?>,CALLER> Breaker<D,I,?,?,?> engage(D datum, O operational, C container, I id, Class<CALLER> callerClass, CRIT criterion);
-    public abstract <MAT extends Broken<D,?,?,CALLER>,CALLER> Broken<D,?,?,CALLER> disengage(D datum, O operational, C container, I id, Class<CALLER> callerClass);
+    public abstract Breaker<D,ID,?,?,?> engage(D datum,OD operational,CD container,ID id, CRIT criterion);
+    public abstract <MAT extends Broken<D,?,?,CALLER>,CALLER> Broken<D,?,?,CALLER> disengage(D datum,OD operational,CD container,ID id,CRIT criterion);
 
     @Override
     public int compareTo(Complication o) {

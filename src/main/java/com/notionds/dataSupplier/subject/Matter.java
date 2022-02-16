@@ -3,22 +3,20 @@ package com.notionds.dataSupplier.subject;
 import com.notionds.dataSupplier.datum.Id;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
-public class Matter<I extends Id<?,?,I,?>,MAT extends Matter<I,MAT>> implements Comparable<MAT>, Serializable {
+public class Matter<I extends Id<I,?>,MAT extends Matter<I,MAT>> implements Comparable<MAT>, Serializable {
 
     private final UUID uuid;
-    private final I subjectId;
-    /**
-     * Default time zone is set in the Fact or Notion
-     */
-    private final LocalDateTime createDateTime;
+    private final I topicId;
+    private final Instant createInstant;
     private final Subject subject;
-    public Matter(UUID uuid, I subjectId, LocalDateTime createDateTime, Subject subject) {
+
+    public Matter(UUID uuid, I topicId, Instant createInstant, Subject subject) {
         this.uuid = uuid;
-        this.subjectId = subjectId;
-        this.createDateTime = createDateTime;
+        this.topicId = topicId;
+        this.createInstant = createInstant;
         this.subject = subject;
     }
     @Override
@@ -33,12 +31,11 @@ public class Matter<I extends Id<?,?,I,?>,MAT extends Matter<I,MAT>> implements 
     public UUID getUuid() {
         return uuid;
     }
-    public I getSubjectId() {
-        return this.subjectId;
+    public I getTopicId() {
+        return this.topicId;
     }
-
-    public final LocalDateTime getCreateDateTime() {
-        return this.createDateTime;
+    public Instant getCreateInstant() {
+        return this.createInstant;
     }
     public Subject getSubject() {
         return subject;

@@ -1,11 +1,17 @@
 package com.notionds.dataSupplier.task;
 
+import com.notionds.dataSupplier.datum.Id;
+import com.notionds.dataSupplier.datum.fact.Fact;
+import com.notionds.dataSupplier.subject.Matter;
 import com.notionds.dataSupplier.subject.Subject;
 
-public abstract class Result<R extends Request> extends Subject<R> {
+import java.time.Instant;
+import java.util.UUID;
+
+public abstract class Result<I extends Id<?,I,?>,M extends Matter<I,M>,F extends Fact<F,?,?,?>,R extends Request<F,?,?,R>> extends Matter<I,M> {
 
 
-    public Result(String name, Focus focus, Locus locus, Boolean goodThing) {
-        super(name, focus, locus, goodThing);
+    public Result(UUID uuid, I subjectId, Instant createInstant, Subject subject) {
+        super(uuid, subjectId, createInstant, subject);
     }
 }

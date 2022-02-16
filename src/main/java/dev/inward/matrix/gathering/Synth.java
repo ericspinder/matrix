@@ -1,7 +1,7 @@
 package dev.inward.matrix.gathering;
 
 import com.notionds.dataSupplier.meta.Meta;
-import dev.inward.matrix.setting.Setting;
+import com.notionds.dataSupplier.setting.Setting;
 
 import java.io.Serializable;
 

@@ -1,8 +1,9 @@
 package com.notionds.dataSupplier.meta;
 
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 
-public interface Meta_I<DATUM,M extends Meta_I<DATUM,M>> extends Comparable<M> {
+public interface Meta_I<DATUM extends Comparable<DATUM> & Serializable,M extends Meta_I<DATUM,M>> extends Comparable<M> {
 
     String getLabel();
     default String getI18n() {
