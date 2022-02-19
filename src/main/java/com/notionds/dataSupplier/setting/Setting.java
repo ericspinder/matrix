@@ -1,10 +1,7 @@
 package com.notionds.dataSupplier.setting;
 
 import com.notionds.dataSupplier.container.Context;
-import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.datum.Id;
-import com.notionds.dataSupplier.house.House;
-import com.notionds.dataSupplier.library.Library;
 
 import java.io.Serializable;
 

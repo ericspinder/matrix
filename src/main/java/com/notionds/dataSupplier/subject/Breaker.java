@@ -9,7 +9,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class Breaker<D extends Datum<?,D,?>,F extends Fact<F,?,?,?,X>,I extends Id<I,X>,X extends Context<X>,M extends Breaker<D,F,I,X,M,E>,E extends Exception> extends Broken<D,F,I,X,M> {
+public class Breaker<D extends Datum<?,D,?>,F extends Fact<F,?,?,I,X,?>,I extends Id<I,X>,X extends Context<X>,M extends Breaker<D,F,I,X,M,E>,E extends Exception> extends Broken<D,F,I,X,M> {
 
     protected final E breaker;
 

@@ -13,3 +13,4 @@ public abstract class Notion<N extends Notion<N,O,I,X>,O extends Operational<N,O
         super(id, container);
     }
 }
+ 

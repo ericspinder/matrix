@@ -3,6 +3,7 @@ package com.notionds.dataSupplier.container;
 import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.datum.Id;
 import com.notionds.dataSupplier.datum.fact.Fact;
+import com.notionds.dataSupplier.datum.fact.Support;
 import com.notionds.dataSupplier.rubric.Criterion;
 import com.notionds.dataSupplier.subject.Breaker;
 import com.notionds.dataSupplier.subject.Broken;
@@ -14,9 +15,8 @@ import com.sun.jdi.request.EventRequest;
 import java.util.*;
 import java.util.concurrent.locks.StampedLock;
 
-public final class Situation<D extends Datum<?,D,C>,O extends Operational<D,O>,C extends Container<D,C>,I extends Id<I,?>,PAR extends Fact<PAR,?,?,PI>,PI extends Id.Ego<PI>> implements Comparable<Situation<D,O,C,I,PAR,PI>> {
+public final class Situation<D extends Datum<?,D,C>,C extends Container<D,C>,F extends Fact<F,O,S,I,X,?>,O extends Operational<F,O>,S extends Support<F,O,S,I,X,?>,I extends Id<I,X>,X extends Context<X>> {
 
-    private Envoy<D,O,C,I,PAR,PI> envoy = null;
     private Phase phase = null;
     private transient StampedLock lock = new StampedLock();
     private transient Map<Phase, PhasedComplication[]> complications = new HashMap<>();
@@ -46,23 +46,7 @@ public final class Situation<D extends Datum<?,D,C>,O extends Operational<D,O>,C
             return issueList;
         }
     }
-    public Envoy<D,O,C,I,PAR,PI> getEnvoy() {
-        return this.envoy;
-    }
-    public void setEnvoy(Envoy<D,O,C,I,PAR,PI> envoy) {
-        this.envoy = envoy;
-    }
     public Phase getPhase() {
         return this.phase;
-    }
-
-    @Override
-    public int compareTo(Situation<D,O,C,I,PAR, PI> that ) {
-        if (this.envoy != null && that.envoy != null) {
-            return this.envoy.compareTo(that.envoy);
-        }
-        if (this.equals(that)) return 0;
-        if (this.envoy != null) return -1;
-        return 1;
     }
 }

@@ -4,28 +4,26 @@ import com.notionds.dataSupplier.container.Container;
 import com.notionds.dataSupplier.container.Context;
 import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.datum.Id;
+import com.notionds.dataSupplier.datum.fact.Fact;
+import com.notionds.dataSupplier.datum.fact.Support;
 import com.notionds.dataSupplier.operational.Operational;
 import com.notionds.dataSupplier.setting.Setting;
 import com.notionds.dataSupplier.subject.Breaker;
 import com.notionds.dataSupplier.subject.Broken;
 
-public abstract class Complication<I extends Id<I,X>,X extends Context<X>,D extends Datum<?,D,OD,CD,ID>,OD extends Operational<D,OD>,CD extends Container<D,OD,CD,ID>,ID extends Id<ID,XD>,XD extends Context<XD>,PRE extends Predictor<CRIT,PRE>,CRIT extends Criterion<D,OD,CD,ID,XD,CRIT,PRE>,S extends Complication<I,X,D,OD,CD,ID,XD,PRE,CRIT,S>> extends Setting<I,X,S> {
+public abstract class Complication<I extends Id<I,X>,X extends Context<X>,D extends Datum<?,D,C>,C extends Container<D,C>,F extends Fact<F,O,S,IF,XF,?>,O extends Operational<F,O>,S extends Support<F,O,S,IF,XF,?>,IF extends Id<IF,XF>,XF extends Context<XF>,CRIT extends Criterion<D,C,F,O,S,I,X,CRIT,PRE>,PRE extends Predictor<D,C,F,O,S,I,X,CRIT,PRE>,S extends Complication<I,X,D,C,F,O,S,I,X,PRE,CRIT,S>> extends Setting<I,X,S> {
 
     protected final PRE predictor;
     protected final CRIT criterion;
 
     public Complication(I id, PRE predictor, CRIT criterion) {
         super(id);
-        this.predictor = predictor;
+        this.predictor = predictor
         this.criterion = criterion;
     }
-    public abstract Breaker<D,ID,?,?,?> engage(D datum,OD operational,CD container,ID id, CRIT criterion);
-    public abstract <MAT extends Broken<D,?,?,CALLER>,CALLER> Broken<D,?,?,CALLER> disengage(D datum,OD operational,CD container,ID id,CRIT criterion);
+    public abstract Breaker<D,?,I,X,?,?> engage(D datum,C container, F fact, D operational,S support,I id);
+    public abstract Broken<D,?,I,X,?> disengage(D datum,C container, F fact, D operational,S support,I id);
 
-    @Override
-    public int compareTo(Complication o) {
-        return 0;
-    }
     public final PRE getPredictor() {
         return this.predictor;
     }
