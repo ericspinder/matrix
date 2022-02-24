@@ -1,10 +1,16 @@
 package com.notionds.dataSupplier.operational;
 
 import com.notionds.dataSupplier.*;
+import com.notionds.dataSupplier.container.Context;
 import com.notionds.dataSupplier.container.Phase;
+import com.notionds.dataSupplier.datum.Datum;
+import com.notionds.dataSupplier.datum.Id;
+import com.notionds.dataSupplier.datum.fact.Fact;
+import com.notionds.dataSupplier.datum.fact.Support;
 import com.notionds.dataSupplier.library.RemoteServer;
 import com.notionds.dataSupplier.meta.Meta_I;
 import com.notionds.dataSupplier.rubric.Complication;
+import com.notionds.dataSupplier.rubric.Criterion;
 
 import java.io.Serializable;
 import java.time.Duration;
@@ -14,9 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.StampedLock;
 
-public abstract class Operational<DATUM extends Comparable<DATUM> & Serializable,O extends Operational<DATUM,O>> implements Comparable<O>, Serializable {
-
-    public static final Local LOCAL_OPTIONS_INSTANCE = new Local();
+public abstract class Operational<F extends Fact<F,O,S,I,X,?>,O extends Operational<F,O,S,I,X>,S extends Support<F,O,S,I,X,?>,I extends Id<I,X>,X extends Context<X>> implements Comparable<O>, Serializable {
 
     public interface Option<DATUM extends Comparable<DATUM> & Serializable,M extends Option<DATUM,M>> extends Meta_I<DATUM,M> {
         DATUM getDefaultValue();
@@ -27,13 +31,8 @@ public abstract class Operational<DATUM extends Comparable<DATUM> & Serializable
     protected final Map<String, Integer> integerOptions = new HashMap<>();
     protected final Map<String, Duration> durationOptions = new HashMap<>();
     protected final Map<String, Boolean> booleanOptions = new HashMap<>();
-    protected final Map<String, ComplicationOption> complicationsOptions = new HashMap<>();
+    protected final Map<Class<Datum<?,?,?,F,O,S,I,X>>, Map<Class<Criterion<?,?,F,O,S,I,X,?,?>>,Complication<?,?,F,O,S,I,X,?,?,?>[]>> complicationsByCriterionForClass = new HashMap<>();
 
-    public static final class Local<DATUM extends Comparable<DATUM> & Serializable> extends Operational<DATUM, Local<DATUM>> {
-        public Local() {
-            super();
-        }
-    }
     public Operational() {
         this(Arrays.stream(Operational.class.getClass().getTypeParameters()).findFirst().get().getTypeName());
     }
@@ -44,6 +43,7 @@ public abstract class Operational<DATUM extends Comparable<DATUM> & Serializable
             this.setDefaultValues(IntegerOption.values());
 //            this.setDefaultValues(TaskOption.values());
     }
+
 
     public Integer getInteger(String key, RemoteServer remoteServer) {
         if (this.integerOptions.containsKey(key)) {
@@ -74,13 +74,14 @@ public abstract class Operational<DATUM extends Comparable<DATUM> & Serializable
         }
         throw new NotionStartupException(NotionStartupException.Type.MissMatchedOptionKey, this.getClass());
     }
-    public ComplicationOption getComplicationOption(String key, RemoteServer remoteServer) {
-        if (this.complicationsOptions.containsKey(key)) {
-            return this.complicationsOptions.get(key);
-
+    public <D extends Datum> Complication<?,?,F,O,S,I,X,?,?,?>[] getComplications(Class<D> datumClass, Class<Criterion<?,?,F,O,S,I,X,?,?>> criterionClass) {
+        if (this.complicationsByCriterionForClass.containsKey(datumClass)) {
+            Map<Class<Criterion<?,?,F,O,S,I,X,?,?>>,Complication<?,?,F,O,S,I,X,?,?,?>[]> criterionMap = this.complicationsByCriterionForClass.get(datumClass);
+            return criterionMap.get(criterionClass);
         }
-        throw new NotionStartupException(NotionStartupException.Type.MissMatchedOptionKey, this.getClass());
+        return null;
     }
+
     public final <D> void setDefaultValues(Option<D,?>[] optionsLoad) {
         if (optionsLoad == null) return;
         long stamp = gate.writeLock();
@@ -99,7 +100,7 @@ public abstract class Operational<DATUM extends Comparable<DATUM> & Serializable
                     this.durationOptions.put(option.getI18n(), (Duration) option.getDefaultValue());
                 }
                 else if (option.getDefaultValue() instanceof Complication) {
-                    this.complicationsOptions.put(option.getI18n(),(Complication) option.getDefaultValue());
+                    this.complicationsByCriterionForClass.put(option.getI18n(),(Complication) option.getDefaultValue());
                 }
                 else {
                     throw new NotionStartupException(NotionStartupException.Type.MissingDefaultValue, this.getClass());

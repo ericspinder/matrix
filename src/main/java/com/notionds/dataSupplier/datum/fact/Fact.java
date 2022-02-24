@@ -5,7 +5,7 @@ import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.datum.Id;
 import com.notionds.dataSupplier.operational.Operational;
 
-public abstract class Fact<F extends Fact<F,O,S,I,X,B>,O extends Operational<F,O>,S extends Support<F,O,S,I,X,B>,I extends Id<I,X>,X extends Context<X>,B extends Bus<F,O,I,X,B>> extends Datum<F,F,S> implements Id.Addressable<I,X> {
+public abstract class Fact<F extends Fact<F,O,S,I,X,B>,O extends Operational<F,O,S,I,X,B>,S extends Support<F,O,S,I,X,B>,I extends Id<I,X>,X extends Context<X>,B extends Bus<F,O,I,X,B>> extends Datum<F,F,S,F,O,S,I,X> implements Id.Addressable<I,X> {
 
     private final I id;
 

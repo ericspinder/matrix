@@ -10,7 +10,7 @@ import com.notionds.dataSupplier.provider.Provider;
 import java.util.Arrays;
 import java.util.concurrent.locks.StampedLock;
 
-public class Bus<F extends Fact<F,O,?,I,X,B>,O extends Operational<F,O>,I extends Id<I,X>,X extends Context<X>,B extends Bus<F,O,I,X,B>> {
+public class Bus<F extends Fact<F,O,?,I,X,B>,O extends Operational<F,O,?,I,X>,I extends Id<I,X>,X extends Context<X>,B extends Bus<F,O,I,X,B>> {
 
         protected volatile Advisor[] advisors;
         protected O operational;

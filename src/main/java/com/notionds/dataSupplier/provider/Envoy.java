@@ -1,47 +1,36 @@
 package com.notionds.dataSupplier.provider;
 
 import com.notionds.dataSupplier.container.Container;
+import com.notionds.dataSupplier.container.Context;
 import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.datum.fact.Fact;
 import com.notionds.dataSupplier.datum.Id;
+import com.notionds.dataSupplier.datum.fact.Support;
 import com.notionds.dataSupplier.operational.Operational;
-import com.notionds.dataSupplier.task.Task;
 
 import java.io.Serializable;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
-import java.time.Instant;
-import java.util.Map;
 
-public final class Envoy<D extends Datum<?,D,O,C,I>,O extends Operational<D,O>,C extends Container<D,O,C,I>,I extends Id<?,?,I,?>, PAR extends Fact<PAR,?,?,PI>,PI extends Id.Ego<?,?,PI,?>> extends SoftReference<D> implements Comparable<Envoy<D,O,C,I,PAR,PI>>, Serializable {
+public class Envoy<D extends Datum<D,D,C,F,O,S,I,X>,C extends Container<D,C,F,O,S,I,X>,F extends Fact<F,O,S,I,X,?>,O extends Operational<F,O,S,I,X>,S extends Support<F,O,S,I,X,?>,I extends Id<I,X>,X extends Context<X>,E extends Envoy<D,C,F,O,S,I,X,E>> extends SoftReference<D> implements Comparable<E>, Serializable {
 
-    private final Map<Task, Instant> taskMap;
-    private final PAR parent;
+    protected final Parent<F,O,S,I,X,?> parent;
 
-    public Envoy(D datum, ReferenceQueue<? super D> referenceQueue, Map<Task, Instant> taskMap, PAR parent) {
+    public Envoy(D datum, ReferenceQueue<? super D> referenceQueue,Parent<F,O,S,I,X,?> parent) {
         super(datum, referenceQueue);
-        this.taskMap = taskMap;
         this.parent = parent;
     }
 
-
-    public Map<Task,Instant> getTaskMap() {
-        return this.taskMap;
-    }
-
     @Override
-    public int compareTo(Envoy<D,O,C,I,PAR,PI> that) {
-        int result = this.parent.compareTo(that.parent);
-        if (result == 0) {
-            if (this.equals(that)) {
-                return 0;
-            }
-            return -1;
+    public int compareTo(E that) {
+        int isZero = this.parent.compareTo(that.parent);
+        if (isZero == 0) {
+            return this.get().compareTo(that.get());
         }
-        return result;
+        return isZero;
     }
 
-    public PAR getParent() {
+    public Parent<F,O,S,I,X,?> getParent() {
         return this.parent;
     }
 }
