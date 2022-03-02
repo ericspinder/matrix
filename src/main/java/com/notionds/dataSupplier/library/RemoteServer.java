@@ -2,7 +2,7 @@ package com.notionds.dataSupplier.library;
 
 import com.notionds.dataSupplier.datum.Id;
 import com.notionds.dataSupplier.datum.fact.Fact;
-import com.notionds.dataSupplier.datum.fact.Support;
+import dev.inward.matrix.crud.Support;
 import com.notionds.dataSupplier.operational.Operational;
 
 import java.net.InetAddress;

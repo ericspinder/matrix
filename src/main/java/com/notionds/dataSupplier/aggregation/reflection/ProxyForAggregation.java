@@ -1,6 +1,6 @@
 package com.notionds.dataSupplier.aggregation.reflection;
 
-import com.notionds.dataSupplier.container.Container;
+import dev.inward.matrix.crud.Container;
 import com.notionds.dataSupplier.NotionStartupException;
 import com.notionds.dataSupplier.aggregation.Timer;
 import com.notionds.dataSupplier.aggregation.InvokeAggregator;

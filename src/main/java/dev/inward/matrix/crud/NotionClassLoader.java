@@ -1,12 +1,15 @@
-package com.notionds.dataSupplier;
+package dev.inward.matrix.crud;
 
 import com.notionds.dataSupplier.container.Context;
 import com.notionds.dataSupplier.house.House;
 import com.notionds.dataSupplier.library.Library;
 import com.sun.jdi.ClassLoaderReference;
+import com.sun.jdi.ReferenceType;
 
-public class NotionClassLoader<H extends House<H,L>,L extends Library<H,L>,X extends Context<H,L,X>> extends ClassLoaderReference
-{
+import java.util.List;
+
+public class NotionClassLoader<X extends Context<X>> extends ClassLoader  {
+
 
 
 }

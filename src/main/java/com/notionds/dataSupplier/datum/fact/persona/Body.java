@@ -1,7 +1,7 @@
 package com.notionds.dataSupplier.datum.fact.persona;
 
 import com.notionds.dataSupplier.datum.Id;
-import com.notionds.dataSupplier.datum.fact.notion.Aspect;
+import dev.inward.matrix.crud.Aspect;
 import com.notionds.dataSupplier.house.House;
 import com.notionds.dataSupplier.library.Library;
 import dev.inward.matrix.gathering.Lexicon;

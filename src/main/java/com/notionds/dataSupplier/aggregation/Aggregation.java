@@ -1,6 +1,6 @@
 package com.notionds.dataSupplier.aggregation;
 
-import com.notionds.dataSupplier.container.Container;
+import dev.inward.matrix.crud.Container;
 import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.datum.Id;
 import dev.inward.matrix.crud.NotionExceptionWrapper;

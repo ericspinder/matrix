@@ -10,12 +10,14 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class Broken<D extends Datum<?,D,?>,F extends Fact<F,?,?,I,X,?>, I extends Id<I,X>,X extends Context<X>,M extends Broken<D,F,I,X,M>> extends Matter<I,M> {
+public class Broken<D extends Datum<D,FP,?,IP,XP,?,?>,FP extends Fact<FP,?,IP,XP,?,?,?,?,?,?,?>,IP extends Id<IP,XP>,XP extends Context<XP>,M extends Broken<D,FP,IP,XP,M>> extends Matter<IP,M> {
 
-    protected final F caller;
-    public Broken(UUID uuid, I id, Instant createInstant, Subject subject,F caller) {
+    protected final FP parent;
+    protected final D child;
+    public Broken(UUID uuid, IP id, Instant createInstant, Subject subject,FP parent,D child) {
         super(uuid, id, createInstant, subject);
-        this.caller = caller;
+        this.parent = parent;
+        this.child = child;
     }
 
 }

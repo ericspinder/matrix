@@ -1,17 +1,17 @@
 package com.notionds.dataSupplier.rubric;
 
-import com.notionds.dataSupplier.container.Container;
+import dev.inward.matrix.crud.Container;
 import com.notionds.dataSupplier.container.Context;
 import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.datum.Id;
 import com.notionds.dataSupplier.datum.fact.Fact;
-import com.notionds.dataSupplier.datum.fact.Support;
+import dev.inward.matrix.crud.Support;
 import com.notionds.dataSupplier.operational.Operational;
 import com.notionds.dataSupplier.provider.Envoy;
 
 import static com.notionds.dataSupplier.rubric.Criterion.*;
 
-public abstract class Predictor<D extends Datum<D,D,C>,C extends Container<D,C>,F extends Fact<F,O,S,I,X,?>,O extends Operational<F,O>,S extends Support<F,O,S,I,X,?>,I extends Id<I,X>,X extends Context<X>,T extends Criterion<D,C,F,O,S,I,X,T,PRE>,PRE extends Predictor<D,C,F,O,S,I,X,T,PRE>> {
+public abstract class Predictor<D extends Datum<D,FP,OP,IP,XP,?,>,F extends Fact<F,O,I,X,?,>,O extends Operational<F,O>,S extends Support<F,O,S,I,X,?>,I extends Id<I,X>,X extends Context<X>,T extends Criterion<D,C,F,O,S,I,X,T,PRE>,PRE extends Predictor<D,C,F,O,S,I,X,T,PRE>> {
 
     public Envoy<D,C,F,O,S,I,X> registerCriterion(T criterion,Envoy<D,C,F,O,S,I,X> envoy) {
         criterion.enroll((PRE) this, envoy);

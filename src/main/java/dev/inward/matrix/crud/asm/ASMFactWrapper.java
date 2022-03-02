@@ -1,6 +1,6 @@
 package dev.inward.matrix.crud.asm;
 
-import com.notionds.dataSupplier.container.Container;
+import dev.inward.matrix.crud.Container;
 import com.notionds.dataSupplier.datum.fact.Fact;
 import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.operational.Operational;

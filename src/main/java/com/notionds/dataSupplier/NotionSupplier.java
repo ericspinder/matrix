@@ -6,7 +6,8 @@ import com.notionds.dataSupplier.datum.fact.Fact;
 import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.operational.Operational;
 import com.notionds.dataSupplier.provider.Provider;
-import com.notionds.dataSupplier.container.Container;
+import dev.inward.matrix.crud.Container;
+import dev.inward.matrix.crud.NotionClassLoader;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;

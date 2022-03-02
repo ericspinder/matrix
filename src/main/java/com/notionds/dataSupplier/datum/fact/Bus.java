@@ -3,59 +3,26 @@ package com.notionds.dataSupplier.datum.fact;
 import com.notionds.dataSupplier.advisor.Advisor;
 import com.notionds.dataSupplier.container.Context;
 import com.notionds.dataSupplier.datum.Id;
-import com.notionds.dataSupplier.meta.Meta;
-import com.notionds.dataSupplier.operational.Operational;
-import com.notionds.dataSupplier.provider.Provider;
 
+import java.io.Serializable;
 import java.util.Arrays;
-import java.util.concurrent.locks.StampedLock;
 
-public class Bus<F extends Fact<F,O,?,I,X,B>,O extends Operational<F,O,?,I,X>,I extends Id<I,X>,X extends Context<X>,B extends Bus<F,O,I,X,B>> {
+public class Bus<F extends Fact<F,?,I,X,B,?>,I extends Id<I,X>,X extends Context<X>,B extends Bus<F,I,X,B>> implements Serializable {
 
         protected volatile Advisor[] advisors;
-        protected O operational;
-        private final StampedLock memberGate = new StampedLock();
 
-        public Bus(O operational, Advisor[] advisors) {
-                this.operational = operational;
+        public Bus(Advisor[] advisors) {
                 this.advisors = advisors;
         }
         public final Advisor[] getAdvisors() {
-                long readLock = memberGate.readLock();
-                try {
-                        return this.advisors;
-                } finally {
-                        memberGate.unlockRead(readLock);
-                }
-        }
-        public final O getOperational() {
-                long readLock = memberGate.readLock();
-                try {
-                        return this.operational;
-                }
-                finally {
-                        memberGate.unlockRead(readLock);
-                }
+                return this.advisors;
         }
         public final void addAdvisor(Advisor advisor) {
-                long writeLock = memberGate.writeLock();
-                try {
-                        advisors = Arrays.copyOf(this.advisors,advisors.length + 1);
-                        advisors[advisors.length -1] = advisor;
-                }
-                finally{
-                        memberGate.unlockWrite(writeLock);
-                }
+                advisors = Arrays.copyOf(this.advisors,advisors.length + 1);
+                advisors[advisors.length -1] = advisor;
         }
         public final void removeAdvisor(Advisor advisor) {
-                long writeLock = memberGate.writeLock();
-                try {
-                        this.advisors = Arrays.stream(this.advisors)
-                                .filter(a -> !a.equals(advisor)).toArray(Advisor[]::new);
-                }
-                finally{
-                        memberGate.unlockWrite(writeLock);
-                }
+                this.advisors = Arrays.stream(this.advisors).filter(a -> !a.equals(advisor)).toArray(Advisor[]::new);
         }
 }
 //        public DATUM take(Proffer proffer, Task[] tasks, boolean isWriteLock) {

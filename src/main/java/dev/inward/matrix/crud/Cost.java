@@ -1,6 +1,5 @@
 package dev.inward.matrix.crud;
 
-import com.notionds.dataSupplier.container.Container;
 import com.notionds.dataSupplier.container.Context;
 import com.notionds.dataSupplier.datum.Datum;
 import com.notionds.dataSupplier.datum.Id;

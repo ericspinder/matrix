@@ -6,8 +6,9 @@ import com.notionds.dataSupplier.provider.Parent;
 
 import java.lang.ref.ReferenceQueue;
 
-public final class Authority<N extends Notion<N,I,X>,I extends Id<I,X>,X extends Context<X>> extends Parent<N,Asperational<N,I,X>,Aspect<N,I,X>,I,X,Authority<N,I,X>> {
-    public Authority(N fact, ReferenceQueue<N> referenceQueue, Parent parent) {
-        super(fact, referenceQueue, parent);
+public class Authority<N extends Notion<N,I,X,NP,IP,XP,A>,I extends Id<I,X>,X extends Context<X>,NP extends Notion<NP,IP,XP,?,?,?,?>,IP extends Id<IP,XP>,XP extends Context<XP>,A extends Authority<N,I,X,NP,IP,XP,A>>
+        extends Parent<N,Aspirational<N,I,X>,I,X,NP,Aspirational<NP,IP,XP>,IP,XP,A> {
+    public Authority(N fact, ReferenceQueue<N> referenceQueue) {
+        super(fact, referenceQueue);
     }
 }
