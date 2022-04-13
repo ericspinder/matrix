@@ -1,6 +1,6 @@
 package dev.inward.matrix;
 
-import com.notionds.dataSupplier.datum.Datum;
+import dev.inward.matrix.datum.Datum;
 
 import java.sql.SQLException;
 

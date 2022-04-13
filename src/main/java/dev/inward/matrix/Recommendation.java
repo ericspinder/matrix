@@ -10,7 +10,7 @@ public enum Recommendation {
 
     Close_Closable("Close any Closeable associated with this connection", true, false),
     Database_Failover("Error that shows a database failover is needed", true, true),
-    Burn_Pool_Failover("Error indicates a need to remove old connections to prevent more subject, then failover to next DB config", true, true),
+    Burn_Pool_Failover("Error indicates a need to remove old connections to prevent more matter, then failover to next DB config", true, true),
     Authentication_Failover("Error indicates an authentication fail over is needed", false, true),
     Version_Fail("Error indicative of a coding problem", true, false),
     Nominal_Operation("Nominal Operation", false, false),
