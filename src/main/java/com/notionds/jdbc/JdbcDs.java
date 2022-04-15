@@ -1,5 +1,7 @@
 package com.notionds.jdbc;
 
+import dev.inward.matrix.datum.Identity;
+import dev.inward.matrix.datum.fact.Fact;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.advisor.NotionStartupException;
 import dev.inward.matrix.datum.Datum;
@@ -17,15 +19,15 @@ import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.logging.Logger;
 
-public abstract class NotionDS<O> extends Notion<NotionDS, Context.JVM> implements DataSource {
+public abstract class JdbcDs extends Fact<JdbcDs, Identity.Ego<Context.JVM>,Context.JVM, Progenitor_holdingJdbcDs,Connector, Identity.Ego<Context.JVM>, Primogenitor_holdingConnector> implements DataSource {
 
     private static final String TTL_PROP = "networkaddress.cache.ttl";
 
 
     private final Integer dnsTimeout;
 
-    public NotionDS(O options) {
-        this.options = options;
+    public JdbcDs(Identity.Ego<Context.JVM> identity) {
+        super(identity);
         this.dnsTimeout = options.getInteger(IntegerOption.DnsTimeout.getI18n());
         String ttlString = Security.getProperty(TTL_PROP);
         if (ttlString == null || Integer.parseInt(ttlString) < dnsTimeout) {
@@ -44,7 +46,7 @@ public abstract class NotionDS<O> extends Notion<NotionDS, Context.JVM> implemen
             if (connection != null) {
                 return (Connection) connection;
             }
-            throw new NotionStartupException(NotionStartupException.Type.TEST_CONNECTION_FAILURE, NotionDS.class, Subject.Focus.Admonitory, Subject.Severity.Exceptional,null);
+            throw new NotionStartupException(NotionStartupException.Type.TEST_CONNECTION_FAILURE, JdbcDs.class, Subject.Focus.Admonitory, Subject.Severity.Exceptional,null);
         }
         finally {
             connectionGate.unlockWrite(writeLock);

@@ -2,36 +2,45 @@ package dev.inward.matrix.datum.fact;
 
 import dev.inward.matrix.datum.Tracks;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
+import dev.inward.matrix.datum.fact.notion.concept.Referenced;
 import dev.inward.matrix.rubric.*;
 import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.operational.Operational;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.LinkedBlockingDeque;
 
-public abstract class Factory<Y extends Factory<Y,F,O,I,X,B,P>,F extends Fact<F,I,X,P,?,?,?>,O extends Operational<Y,F,O,I,X,B,P>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<F,B>,P extends Progenitor<Y,F,O,I,X,B,P>> extends ClassLoader implements Comparable<Y>, Serializable {
+public abstract class Factory<Y extends Factory<Y,F,O,I,X,B,P>,F extends Fact<F,I,X,P,?,?,?>,O extends Operational<Y,F,O,I,X,B,P>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<F,B>,P extends Progenitor<Y,F,O,I,X,B,P>> extends ClassLoader implements Comparable<Y>, Serializable, Referenced<Context.JVM> {
 
+    protected final UUID uuid = UUID.randomUUID();
     protected Progenitor progenitor;
     protected O operational;
     protected final LinkedBlockingDeque<O> operationalDeque;
     protected final Map<Class<?>,List<Predictor<Y,?,F,O,I,X,B,P,?,?,?>>> predictorMap;
-
-
+    protected final Class<F> factClass;
     public Factory(Progenitor progenitor, LinkedBlockingDeque<O> operationalDeque,Map<Class<?>,List<Predictor<Y,?,F,O,I,X,B,P,?,?,?>>> predictorMap) {
         this.progenitor = progenitor;
         this.operationalDeque = operationalDeque;
         this.predictorMap = predictorMap;
         this.operational = operationalDeque.remove();
+        this.factClass = (Class<F>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
+        this.preInit(factClass);
     }
     public O getOperational() {
         return this.operational;
     }
 
+    public UUID getUuid() {
+        return this.uuid;
+    }
     public void preInit(Class<F> factClass) {
+        this.operational.getCriteria(factClass);
         DatumVisitor datumVisitor = new DatumVisitor()
     }
 
@@ -46,7 +55,6 @@ public abstract class Factory<Y extends Factory<Y,F,O,I,X,B,P>,F extends Fact<F,
                     break;
                 }
             }
-
         }
     }
 

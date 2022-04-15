@@ -1,7 +1,5 @@
 package dev.inward.matrix.datum.fact.notion.concept;
 
-import dev.inward.matrix.Agent.Agent;
-
 import java.io.Serializable;
 
 public abstract class Context<X extends Context<X>> implements Comparable<X>, Serializable {
