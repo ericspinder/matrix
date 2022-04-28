@@ -1,4 +1,4 @@
-package dev.inward.matrix.datum.fact.persona;
+package dev.inward.matrix.datum.fact.notion.persona;
 
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.Aspect;

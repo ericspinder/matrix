@@ -1,8 +1,8 @@
 package dev.inward.matrix.meta;
 
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.house.House;
 import dev.inward.matrix.datum.fact.Factory;
+import dev.inward.matrix.house.House;
 import dev.inward.matrix.matter.sanction.Notarized;
 
 public final class Specification<H extends House<H,?,?>,L extends Factory<L>> extends Standard<H,L,Specification<H,L>> {

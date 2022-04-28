@@ -1,7 +1,7 @@
-package dev.inward.matrix.datum.fact.persona;
+package dev.inward.matrix.datum.fact.notion.persona;
 
-import dev.inward.matrix.datum.fact.Progenitor;
 import dev.inward.matrix.datum.Identity;
+import dev.inward.matrix.datum.fact.Progenitor;
 import dev.inward.matrix.datum.fact.notion.Industry;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.rubric.Predictor;

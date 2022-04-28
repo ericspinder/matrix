@@ -1,9 +1,9 @@
 package dev.inward.matrix.maker;
 
-import dev.inward.matrix.datum.fact.notion.concept.dataSupplier.Unspoken;
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.house.House;
 import dev.inward.matrix.datum.fact.Factory;
+import dev.inward.matrix.datum.fact.notion.concept.dataSupplier.Unspoken;
+import dev.inward.matrix.house.House;
 import dev.inward.matrix.matter.Matter;
 import dev.inward.matrix.matter.Subject;
 

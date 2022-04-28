@@ -1,11 +1,12 @@
 package dev.inward.matrix.matter.sanction;
-import dev.inward.matrix.path.Path;
+
 import dev.inward.matrix.datum.Identity.SuperEgo;
 import dev.inward.matrix.datum.fact.Factory;
 import dev.inward.matrix.house.House;
 import dev.inward.matrix.maker.Fingerprint;
 import dev.inward.matrix.matter.Matter;
 import dev.inward.matrix.matter.Subject;
+import dev.inward.matrix.path.Path;
 
 import java.time.Instant;
 import java.util.UUID;

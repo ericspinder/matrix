@@ -2,10 +2,12 @@ package dev.inward.matrix.datum;
 
 import dev.inward.matrix.backup.BackupSet.BackupSet;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.path.Path;
 import dev.inward.matrix.datum.fact.test.Test;
+import dev.inward.matrix.matter.Subject;
+import dev.inward.matrix.path.Path;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 public abstract class Identity<I extends Identity<I,X>,X extends Context<X>> implements Comparable<I>, Serializable {
 
@@ -41,14 +43,15 @@ public abstract class Identity<I extends Identity<I,X>,X extends Context<X>> imp
 
     public static final class SuperEgo<X extends Context.Platform<X>> extends Identity<SuperEgo<X>,X> {
 
-        public SuperEgo(X context) {
-            super(null ,context);
+        public SuperEgo(String name,X context) {
+            super(name ,context);
         }
     }
     public static final class Ego<X extends Context.Platform<X>> extends Identity<Ego<X>,X> {
+        public Subject subject;
 
-        public Ego(String name, X context) {
-            super(name, context);
+        public Ego(Instant instant, String uuid, X context) {
+            super(uuid, context);
         }
 
     }

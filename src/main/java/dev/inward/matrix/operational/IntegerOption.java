@@ -10,6 +10,9 @@ public enum IntegerOption implements Options.Option<Integer,IntegerOption> {
     Connections_Min_Active("com.notionds.connection.min_queue_size", "", 10),
     DnsTimeout("com.notionds.dns.timeout", "Sets the default DNS timeout for the entire application", 30),
     Minimum_Replenishment("com.notionds.provider", "Smallest number of new Notions to make for a Pool", 1),
+    Zero("dev.inward.matrix.zero","Default to Zero", 0),
+    NegativeOne("dev.inward.matrix.negative_one","",-1),
+    One("dev.inward.matrix.one","Exactly one is used by default",1),
     ;
     private final String label;
     private final String i18n;
@@ -34,5 +37,11 @@ public enum IntegerOption implements Options.Option<Integer,IntegerOption> {
     }
     public Integer getDefaultValue() {
         return this.defaultValue;
+    }
+
+    public static @interface IntegerDefault {
+        IntegerOption value() default Zero;
+        IntegerOption low() default NegativeOne;
+        IntegerOption high() default One;
     }
 }

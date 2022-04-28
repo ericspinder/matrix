@@ -1,16 +1,29 @@
 package dev.inward.matrix.datum.fact;
 
-import dev.inward.matrix.advisor.Manager;
+import dev.inward.matrix.datum.Identity;
+import dev.inward.matrix.datum.fact.notion.Notion;
+import dev.inward.matrix.datum.fact.notion.Primogenitor;
+import dev.inward.matrix.datum.fact.notion.concept.Context;
+import dev.inward.matrix.operational.Operational;
+import dev.inward.matrix.rubric.Criteria;
+import dev.inward.matrix.rubric.Criterion;
 
-public class Bus<F extends Fact<F,?,?,?,?,?,?>,B extends Bus<F,B>> {
+import java.util.Map;
 
-        protected volatile Manager management;
+public class Bus<Y extends Factory<Y,F,O,I,X,B,P,NP,PP>,F extends Fact<F,I,X,P>,O extends Operational<Y,F,O,I,X,B,P,NP,PP>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,P,NP,PP>,P extends Progenitor<Y,F,O,I,X,B,P,NP,PP>,NP extends Notion<NP,I,X,PP>,PP extends Primogenitor<?,NP,?,I,X,?,PP>> {
 
-        public Bus(Manager management) {
-                this.management = management;
+        protected O operational;
+        protected final Map<Criteria<Y,F,O,I,X,B,P,NP,PP>, Criterion<Y,?,F,O,I,X,B,P,NP,PP,?,?,?>[]> criteriaMap;
+
+        public Bus(O operational, Map<Criteria<Y,F,O,I,X,B,P,NP,PP>, Criterion<Y,?,F,O,I,X,B,P,NP,PP,?,?,?>[]>  criteriaMap) {
+                this.operational = operational;
+                this.criteriaMap = criteriaMap;
         }
-        public final Manager getManagement() {
-                return this.management;
+        public final O getOperational() {
+                return this.operational;
+        }
+        public final Map<Criteria<Y,F,O,I,X,B,P,NP,PP>, Criterion<Y,?,F,O,I,X,B,P,NP,PP,?,?,?>[]>  getCriteriaMap(){
+                return this.criteriaMap;
         }
 }
 //        public DATUM take(Proffer proffer, Task[] tasks, boolean isWriteLock) {

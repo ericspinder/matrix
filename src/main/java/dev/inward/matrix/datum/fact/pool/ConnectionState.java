@@ -1,4 +1,4 @@
-package com.notionds.jdbc;
+package dev.inward.matrix.datum.fact.pool;
 
 import dev.inward.matrix.Recommendation;
 

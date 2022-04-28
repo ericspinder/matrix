@@ -1,7 +1,7 @@
 package dev.inward.matrix.setting;
 
-import dev.inward.matrix.datum.fact.notion.concept.dataSupplier.Unspoken;
 import dev.inward.matrix.datum.Identity;
+import dev.inward.matrix.datum.fact.notion.concept.dataSupplier.Unspoken;
 import dev.inward.matrix.matter.sanction.Sanction;
 
 import java.io.Serializable;

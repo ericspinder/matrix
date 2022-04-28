@@ -1,18 +1,15 @@
 package dev.inward.matrix.datum.fact.notion.concept;
 
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.Progenitor;
+import dev.inward.matrix.datum.fact.Resource;
 import dev.inward.matrix.datum.fact.notion.Industry;
-import dev.inward.matrix.rubric.Predictor;
 
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.LinkedBlockingDeque;
 
-public class Fabrication<F extends Fabrication<F,C,E,X,V,IM>,C extends Concept<C,X,IM>,E extends Effect<F,C,E,X,V,IM>,X extends Context.Platform<X>,V extends Volume<C,V>,IM extends Immortal<F,C,E,X,V,IM>> extends Industry<F,C,E, Identity.SuperEgo<X>,X,V,IM> {
+public class Fabrication<F extends Fabrication<F,C,E,X,V,M>,C extends Concept<C,X,M>,E extends Effect<F,C,E,X,V,M>,X extends Context.Platform<X>,V extends Volume<F,C,E,X,V,M>,M extends Mortal<F,C,E,X,V,M>> extends Industry<F,C,E,Identity.Ego<X>,X,V,M> {
 
-    public Fabrication(Progenitor progenitor, LinkedBlockingDeque<E> operationalDeque, Map<Class<?>, List<Predictor<F, ?, C, E, Identity.SuperEgo<X>,X,V,IM,?, ?, ?>>> predictorMap) {
-        super(progenitor, operationalDeque, predictorMap);
+    public Fabrication(M primogenitor, Map<Class<?>, Resource<F, ?, C, E, Identity.Ego<X>, X, V, M, C, M, ?>> classResourceMap) {
+        super(primogenitor, classResourceMap);
     }
 
     @Override

@@ -1,8 +1,8 @@
 package dev.inward.matrix.domain;
 
+import dev.inward.crud.Support;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Fact;
-import dev.inward.crud.Support;
 import dev.inward.matrix.operational.Operational;
 
 import java.net.InetAddress;

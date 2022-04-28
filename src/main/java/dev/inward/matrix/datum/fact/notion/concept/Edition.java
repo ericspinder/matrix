@@ -1,14 +1,17 @@
 package dev.inward.matrix.datum.fact.notion.concept;
 
+import dev.inward.matrix.Agent.Version;
+
 import java.io.Serializable;
 import java.time.Clock;
 
 public class Edition<E extends Edition<E>> implements Comparable<E>, Serializable {
 
     private final Clock clock;
-    private String version;
+    private Version version;
 
-    public Edition(Clock clock) {
+    public Edition(Version version, Clock clock) {
+        this.version = version;
         this.clock = clock;
     }
 

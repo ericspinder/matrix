@@ -17,6 +17,7 @@ public class Options {
     protected final Map<String, Duration> durationOptions = new HashMap<>();
     protected final Map<String, Boolean> booleanOptions = new HashMap<>();
 
+
     public Options() {
         try {
             this.setDefaultValues(DurationOption.values());

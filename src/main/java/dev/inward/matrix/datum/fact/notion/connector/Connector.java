@@ -1,4 +1,4 @@
-package com.notionds.jdbc;
+package dev.inward.matrix.datum.fact.notion.connector;
 
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.Notion;

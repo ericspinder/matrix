@@ -2,7 +2,11 @@ package dev.inward.matrix.datum.fact.notion.concept;
 
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.Aspect;
+import dev.inward.matrix.operational.Options;
 
-public class Effect<F extends Fabrication<F,C,E,X,V,IM>,C extends Concept<C,X,IM>,E extends Effect<F,C,E,X,V,IM>,X extends Context.Platform<X>,V extends Volume<C,V>,IM extends Immortal<F,C,E,X,V,IM>> extends Aspect<F,C,E, Identity.SuperEgo<X>,X,V,IM> {
+public class Effect<F extends Fabrication<F,C,E,X,V,M>,C extends Concept<C,X,M>,E extends Effect<F,C,E,X,V,M>,X extends Context.Platform<X>,V extends Volume<F,C,E,X,V,M>,M extends Mortal<F,C,E,X,V,M>> extends Aspect<F,C,E,Identity.Ego<X>,X,V,M> {
 
+    public Effect(Options options, X context) {
+        super(options, context);
+    }
 }

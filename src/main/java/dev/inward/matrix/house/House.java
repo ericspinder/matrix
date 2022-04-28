@@ -1,8 +1,8 @@
 package dev.inward.matrix.house;
 
-import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Factory;
+import dev.inward.matrix.datum.fact.notion.concept.Context;
 
 import java.io.Serializable;
 

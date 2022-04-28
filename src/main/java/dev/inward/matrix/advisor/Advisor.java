@@ -1,18 +1,18 @@
 package dev.inward.matrix.advisor;
 
-import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.datum.fact.notion.concept.Gathering;
-import dev.inward.matrix.rubric.Envoy;
-import dev.inward.matrix.rubric.aggregation.Participants;
+import dev.inward.matrix.advisor.advice.Advice;
 import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Bus;
 import dev.inward.matrix.datum.fact.Fact;
 import dev.inward.matrix.datum.fact.Factory;
-import dev.inward.matrix.advisor.advice.Advice;
-import dev.inward.matrix.operational.Operational;
 import dev.inward.matrix.datum.fact.Progenitor;
+import dev.inward.matrix.datum.fact.notion.concept.Context;
+import dev.inward.matrix.datum.fact.notion.concept.Gathering;
 import dev.inward.matrix.matter.sanction.Sanction;
+import dev.inward.matrix.operational.Operational;
+import dev.inward.matrix.rubric.Envoy;
+import dev.inward.matrix.rubric.aggregation.Participants;
 
 import java.io.Serializable;
 import java.util.Map;

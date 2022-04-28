@@ -1,8 +1,8 @@
 package dev.inward.matrix.meta;
 
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.house.House;
 import dev.inward.matrix.datum.fact.Factory;
+import dev.inward.matrix.house.House;
 
 import java.io.Serializable;
 

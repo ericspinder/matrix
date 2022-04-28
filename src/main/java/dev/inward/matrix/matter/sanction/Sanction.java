@@ -2,8 +2,8 @@ package dev.inward.matrix.matter.sanction;
 
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Factory;
-import dev.inward.matrix.matter.Subject;
 import dev.inward.matrix.matter.Matter;
+import dev.inward.matrix.matter.Subject;
 
 import java.time.Instant;
 import java.util.UUID;

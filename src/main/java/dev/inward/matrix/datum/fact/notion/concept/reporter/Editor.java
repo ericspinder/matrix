@@ -1,8 +1,8 @@
 package dev.inward.matrix.datum.fact.notion.concept.reporter;
 
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.path.Path;
 import dev.inward.matrix.datum.fact.notion.Primogenitor;
+import dev.inward.matrix.path.Path;
 
 import java.lang.ref.ReferenceQueue;
 

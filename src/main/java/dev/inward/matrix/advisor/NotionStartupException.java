@@ -1,9 +1,9 @@
 package dev.inward.matrix.advisor;
 
 import dev.inward.matrix.matter.Subject;
-import dev.inward.matrix.rubric.Roller;
+import dev.inward.matrix.rubric.Blocker;
 
-public class NotionStartupException extends Roller {
+public class NotionStartupException extends Blocker {
 
     public enum Type {
         ReflectiveOperationFailed("A reflective operation failed to instantiate class"),
