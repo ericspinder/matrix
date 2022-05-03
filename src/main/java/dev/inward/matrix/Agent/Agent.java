@@ -11,28 +11,38 @@ import dev.inward.matrix.operational.Options;
 
 import java.lang.instrument.Instrumentation;
 import java.time.Clock;
+import java.time.Instant;
 import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingDeque;
 
 public class Agent {
 
     private Instrumentation instrumentation;
+    private CommandLine commandLine;
 
     private Agent(Instrumentation instrumentation) {
         this.instrumentation = instrumentation;
     }
 
     public static void premain(String agentArgs, Instrumentation instrumentation) throws InstantiationException {
+        CommandLine commandLine = new CommandLine(agentArgs);
         LinkedBlockingDeque<Init> deque = new LinkedBlockingDeque<>();
         Agent agent = new Agent(instrumentation);
         deque.add(new Init(new Options(), new Context.JVM(new Edition(Version.Aforementioned,Clock.systemUTC()),true), agentArgs));
-        Map<Class<?>,Resource<BootLoader,?,Boot,Init, Identity.Ego<Context.JVM>,Context.JVM, Structure,Root,Boot,Root,?>> resourceMap = new ConcurrentHashMap<>();
+        Map<Class<?>,Resource<BootLoader,?,?,Boot,Init, Identity.Ego<Context.JVM>,Context.JVM, Structure,Root,Boot,Root,?>> resourceMap = new ConcurrentHashMap<>();
 
-        Resource<BootLoader, Creation,Boot,Init, Identity.Ego<Context.JVM>,Context.JVM, Structure, Root,Boot,Root, Prime> resource = new Resource();
+        Resource<BootLoader,Instant,Creation,Boot,Init, Identity.Ego<Context.JVM>,Context.JVM, Structure, Root,Boot,Root, Prime> resource = new Resource();
         BootLoader bootLoader = new BootLoader(null,);
         bootLoader.preInit(Boot.class);
         Boot boot = new Boot(new Identity.SuperEgo<>(new Context.JVM(new Edition(Clock.systemDefaultZone()),true)),new Agent(instrumentation));
 
+    }
+    public CommandLine getCommandLine() {
+        return this.commandLine;
+    }
+    public Instrumentation getInstrumentation() {
+        return this.instrumentation;
     }
 }

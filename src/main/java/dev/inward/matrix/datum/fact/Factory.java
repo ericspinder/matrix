@@ -7,14 +7,13 @@ import dev.inward.matrix.datum.fact.notion.Primogenitor;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.operational.Operational;
 import dev.inward.matrix.operational.Supplier;
-import dev.inward.matrix.rubric.Complication;
-import dev.inward.matrix.rubric.Criterion;
-import dev.inward.matrix.rubric.Envoy;
-import dev.inward.matrix.rubric.Predictor;
+import dev.inward.matrix.rubric.*;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.lang.ref.ReferenceQueue;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.StampedLock;
@@ -23,11 +22,11 @@ public abstract class Factory<Y extends Factory<Y,F,O,I,X,B,P,NP,PP>,F extends F
 
     protected final PP primogenitor;
     protected Supplier<Y,F,O,I,X,B,P,NP,PP> supplier;
-    protected final Map<Class<?>, Resource<Y,?,F,O,I,X,B,P,NP,PP,?>> resourceMap;
+    protected final Map<Class<?>, Resource<Y,?,?,F,O,I,X,B,P,NP,PP,?>> resourceMap;
 //    protected Criteria<Y,F,O,I,X,B,P> criteria;
     protected StampedLock gate = new StampedLock();
 
-    public Factory(PP primogenitor,Map<Class<?>, Resource<Y,?,F,O,I,X,B,P,NP,PP,?>> resourceMap) {
+    public Factory(PP primogenitor,Map<Class<?>, Resource<Y,?,?,F,O,I,X,B,P,NP,PP,?>> resourceMap) {
         this.primogenitor = primogenitor;
         this.resourceMap = resourceMap;
     }
@@ -47,31 +46,38 @@ public abstract class Factory<Y extends Factory<Y,F,O,I,X,B,P,NP,PP>,F extends F
 
 
     @SuppressWarnings("unchecked")
-    public <D extends Datum<D,F,I,X,P,E>,E extends Envoy<Y,D,F,O,I,X,B,P,NP,PP,E>> void init(String datumClassName) {
-        List<Complication<Y,D,F,O,I,X,B,P,NP,PP,E,?,?>> complications = this.supplier.introduceComplications(datumClassName);
+    public <DATUM,D extends Datum<DATUM,D,F,I,X,P,NP,PP,E>,E extends Envoy<Y,DATUM,D,F,O,I,X,B,P,NP,PP,E>> void init(String datumClassName) {
+        List<Complication<Y,DATUM,D,F,O,I,X,B,P,NP,PP,E,?,?>> complications = this.supplier.introduceComplications(datumClassName);
         if (complications != null) {
-            ClassReader classReader = new ClassReader(this.)
-            for (Complication<Y, D, F, O, I, X, B, P, NP, PP, E, ?, ?> complication : complications) {
-                classReader.accept();
-                ClassWriter classWriter = new ClassWriter(classReader,0);
+            try {
+                ClassReader classReader = new ClassReader(this.getResourceAsStream(datumClassName));
+                for (Complication<Y, DATUM, D, F, O, I, X, B, P, NP, PP, E, ?, ?> complication : complications) {
+                    classReader.accept(complication.getDatumVisitor(),0);
+                    complication.getDatumVisitor();
+                }
+                ClassWriter classWriter = new ClassWriter(classReader, 0);
+            }
+            catch (IOException io) {
 
-                complication.getDatumVisitor();
             }
         }
     }
 
-    public <D extends Datum<D,F,I,X,P,E>, E extends Envoy<Y,D,F,O,I,X,B,P,NP,PP,E>> E add(D datum) {
-        Resource<Y,D,F,O,I,X,B,P,NP,PP,E> resource = (Resource<Y, D, F, O, I, X, B, P, NP, PP, E>) this.resourceMap.get(datum.getClass());
-        E envoy = (E) this.supplier.;
+    @SuppressWarnings("unchecked")
+    public <DATUM,D extends Datum<DATUM,D,F,I,X,P,NP,PP,E>, E extends Envoy<Y,DATUM,D,F,O,I,X,B,P,NP,PP,E>> E add(Class<E> envoyClass, DATUM datum,P progenitor) {
+        try {
+            Resource<Y,DATUM,D,F,O,I,X,B,P,NP,PP,E> resource = (Resource<Y,DATUM,D, F, O, I, X, B, P, NP, PP, E>) this.resourceMap.get(((D) datum).getClass());
+            return this.supplier.get(envoyClass,datum,(ReferenceQueue<DATUM>)resource.getReferenceQueue(),progenitor);
+        }
+        catch (ClassCastException cce) {
+
+        }
+
 
 //        for (Predictor<Y,?,F,O,I,X,B,P,?,?,?> predictor: predictorMap.keySet()) {
 //            predictor.registerCriterion()
 //        }
         return null;
-    }
-    @SuppressWarnings("unchecked")
-    public <D extends Datum<D,F,I,X,P,E>, E extends Envoy<Y,D,F,O,I,X,B,P,NP,PP,E>,C extends Criterion<Y,D,F,O,I,X,B,P,NP,PP,E,C,PRE>,PRE extends Predictor<Y,D,F,O,I,X,B,P,NP,PP,E,C,PRE>> List<PRE> getPredictor(Class<D> datumClass) {
-        return (List<PRE>)this.predictors.get(datumClass);
     }
 
     @Override
