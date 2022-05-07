@@ -1,12 +1,12 @@
 package dev.inward.matrix.operational;
 
 import dev.inward.matrix.advisor.NotionStartupException;
+
 import dev.inward.matrix.domain.RemoteServer;
 import dev.inward.matrix.matter.Subject;
 import dev.inward.matrix.meta.Meta_I;
 import dev.inward.matrix.rubric.Roller;
 
-import java.io.Serializable;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
@@ -66,7 +66,7 @@ public class Options {
 //        return null;
 //    }
 
-    public final <DATUM extends Comparable<DATUM> & Serializable> void setDefaultValues(Option[] optionsLoad) throws Roller {
+    public final <DATUM> void setDefaultValues(Option[] optionsLoad) throws Roller {
         if (optionsLoad == null) return;
         for (Option option: optionsLoad) {
             if (option.getDefaultValue() instanceof String) {
@@ -100,7 +100,23 @@ public class Options {
         this.durationOptions.put(key, durationValue);
     }
 
-    public interface Option<DATUM extends Comparable<DATUM> & Serializable,M extends Option<DATUM,M>> extends Meta_I<DATUM,M> {
+    public interface Option<DATUM,M extends Option<DATUM,M>> extends Meta_I<DATUM,M> {
         DATUM getDefaultValue();
     }
+    public interface Bounded<DATUM,M extends Bounded<DATUM,M>> extends Option<DATUM,M> {
+        DATUM maximumValue();
+    }
+    public interface Range<DATUM,M extends Range<DATUM,M>> extends Option<DATUM,M> {
+        DATUM minimumValue();
+    }
+    public interface Choice<DATUM,M extends Choice<DATUM,M>> extends Option<DATUM,M> {
+        DATUM[] choices();
+    }
+    public interface SuggestedChoice<DATUM,M extends SuggestedChoice<DATUM,M> extends Option<DATUM,M> {
+        M[] choices();
+    }
+    public interface SystemProperty<DATUM,M extends SystemProperty<DATUM,M>> extends SuggestedChoice<DATUM,M> {
+        String systemPropKey();
+    }
+
 }

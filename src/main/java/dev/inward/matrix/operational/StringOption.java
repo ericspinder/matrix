@@ -27,4 +27,8 @@ public enum StringOption implements Options.Option<String,StringOption> {
     public String getDefaultValue() {
         return this.defaultValue;
     }
+
+    public static @interface StringDefault {
+
+    }
 }

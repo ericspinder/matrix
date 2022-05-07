@@ -35,8 +35,10 @@ public enum DurationOption implements Options.Option<Duration,DurationOption> {
     }
 
     public static @interface DurationDefault {
+
         DurationOption lowVariation();
         DurationOption value();
         DurationOption highVariation();
+
     }
 }

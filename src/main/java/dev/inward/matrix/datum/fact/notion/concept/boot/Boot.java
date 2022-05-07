@@ -13,6 +13,7 @@ public final class Boot extends Concept<Boot, Context.JVM, Root> {
     protected final Agent agent;
     @IntegerOption.IntegerDefault(IntegerOption.DnsTimeout)
     protected int dnsTimeout;
+    @Su
 
 
     public Boot(Identity.Ego<Context.JVM> id, Agent agent) {

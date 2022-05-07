@@ -39,9 +39,7 @@ public enum IntegerOption implements Options.Option<Integer,IntegerOption> {
         return this.defaultValue;
     }
 
-    public static @interface IntegerDefault {
+    public @interface IntegerDefault {
         IntegerOption value() default Zero;
-        IntegerOption low() default NegativeOne;
-        IntegerOption high() default One;
     }
 }
