@@ -112,10 +112,10 @@ public class Options {
     public interface Choice<DATUM,M extends Choice<DATUM,M>> extends Option<DATUM,M> {
         DATUM[] choices();
     }
-    public interface SuggestedChoice<DATUM,M extends SuggestedChoice<DATUM,M> extends Option<DATUM,M> {
+    public interface SuggestedChoice<DATUM,M extends SuggestedChoice<DATUM,M>> extends Option<DATUM,M> {
         M[] choices();
     }
-    public interface SystemProperty<DATUM,M extends SystemProperty<DATUM,M>> extends SuggestedChoice<DATUM,M> {
+    public interface SystemProperty<DATUM,M extends SystemProperty<DATUM,M>> extends Option<DATUM,M> {
         String systemPropKey();
     }
 

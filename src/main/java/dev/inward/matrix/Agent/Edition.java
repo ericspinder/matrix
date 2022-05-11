@@ -1,18 +1,16 @@
-package dev.inward.matrix.datum.fact.notion.concept;
-
-import dev.inward.matrix.Agent.Version;
+package dev.inward.matrix.Agent;
 
 import java.io.Serializable;
 import java.time.Clock;
 
 public class Edition<E extends Edition<E>> implements Comparable<E>, Serializable {
 
-    private final Clock clock;
+
     private Version version;
 
-    public Edition(Version version, Clock clock) {
+    public Edition(Version version) {
         this.version = version;
-        this.clock = clock;
+
     }
 
     @Override
@@ -22,26 +20,20 @@ public class Edition<E extends Edition<E>> implements Comparable<E>, Serializabl
 
     public static class Code extends Edition<Code> {
 
-        public Code(Clock clock) {
-            super(clock);
+        public Code(Version version, Clock clock) {
+            super(version);
         }
     }
     public static class Jar extends Edition<Jar> {
 
-        public Jar(Clock clock) {
-            super(clock);
+        public Jar(Version version, Clock clock) {
+            super(version);
         }
     }
 
     public static class Source extends Edition<Source> {
-        public Source(Clock clock) {
-            super(clock);
+        public Source(Version version, Clock clock) {
+            super(version);
         }
     }
-
-
-    public Clock getClock() {
-        return clock;
-    }
-
 }

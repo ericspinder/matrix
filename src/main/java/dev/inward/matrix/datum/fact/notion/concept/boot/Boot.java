@@ -1,6 +1,6 @@
 package dev.inward.matrix.datum.fact.notion.concept.boot;
 
-import dev.inward.matrix.Agent.Agent;
+import dev.inward.matrix.Agent.PlatformAgent;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.concept.Concept;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
@@ -10,13 +10,11 @@ import java.security.Security;
 
 public final class Boot extends Concept<Boot, Context.JVM, Root> {
 
-    protected final Agent agent;
     @IntegerOption.IntegerDefault(IntegerOption.DnsTimeout)
-    protected int dnsTimeout;
-    @Su
 
 
-    public Boot(Identity.Ego<Context.JVM> id, Agent agent) {
+
+    public Boot(Identity.Ego<Context.JVM> id, PlatformAgent agent) {
         super(id);
         this.agent = agent;
         String ttlString = Security.getProperty(TTL_PROP);
@@ -26,7 +24,7 @@ public final class Boot extends Concept<Boot, Context.JVM, Root> {
     }
 
 
-    public Agent getAgent() {
+    public PlatformAgent getAgent() {
         return this.agent;
     }
 }

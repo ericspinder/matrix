@@ -1,15 +1,24 @@
 package dev.inward.matrix.datum.fact.notion.concept;
 
+import dev.inward.matrix.Agent.Edition;
+import dev.inward.matrix.Agent.Version;
+import dev.inward.matrix.clues.Clue;
+import dev.inward.matrix.clues.Clues;
+
 import java.io.Serializable;
 
 public abstract class Context<X extends Context<X>> implements Comparable<X>, Serializable {
 
     protected final boolean production;
     protected final Edition edition;
-
-    public Context(Edition edition, boolean production) {
+    protected final Clues<X> clues;
+    public Context() {
+        this(new Edition(Version.Aforementioned),true,new Clues<>());
+    }
+    public Context(Edition edition, boolean production, Clues<X> clues) {
         this.edition = edition;
         this.production = production;
+        this.clues = clues;
     }
 
     public Edition getEdition() {
@@ -22,8 +31,12 @@ public abstract class Context<X extends Context<X>> implements Comparable<X>, Se
     public static class Service extends Platform<Service> {
 
         protected final String name;
-        public Service(Edition edition, boolean production, String name) {
-            super(edition, production);
+        public Service(String name) {
+            super();
+            this.name = name;
+        }
+        public Service(Edition edition, boolean production, Clues<Service> clues, String name) {
+            super(edition, production, clues);
             this.name = name;
         }
         public String getName() {
@@ -31,14 +44,19 @@ public abstract class Context<X extends Context<X>> implements Comparable<X>, Se
         }
     }
     public static class JVM extends Platform<JVM> {
-        public JVM(Edition edition, boolean production) {
-            super(edition,production);
+        public JVM() {
+            super();
+        }
+        public JVM(Edition edition, boolean production, Clues<JVM> clues) {
+            super(edition,production,clues);
         }
     }
     public static abstract class Platform<X extends Platform<X>> extends Context<X> {
-
-        public Platform(Edition edition, boolean production) {
-            super(edition, production);
+        public Platform() {
+            super();
+        }
+        public Platform(Edition edition, boolean production, Clues<X> clues) {
+            super(edition, production,clues);
         }
     }
 
@@ -54,5 +72,9 @@ public abstract class Context<X extends Context<X>> implements Comparable<X>, Se
         else {
             return -1;
         }
+    }
+
+    public <EXHIBIT,CLUE extends Clue<X,EXHIBIT>> CLUE  getClue(Class<CLUE> clueClass)  {
+        return clues.get(clueClass, (X)this);
     }
 }

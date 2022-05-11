@@ -1,7 +1,7 @@
 package dev.inward.matrix.path;
 
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.datum.fact.notion.concept.Edition;
+import dev.inward.matrix.Agent.Edition;
 import dev.inward.matrix.datum.fact.test.Test;
 
 import java.io.Serializable;
