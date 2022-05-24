@@ -2,30 +2,22 @@ package dev.inward.matrix.datum.fact;
 
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.Notion;
-import dev.inward.matrix.datum.fact.notion.Primogenitor;
-import dev.inward.matrix.datum.fact.notion.concept.Concept;
+import dev.inward.matrix.datum.fact.notion.Ambassador;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.datum.fact.notion.concept.Mortal;
 import dev.inward.matrix.operational.Operational;
 import dev.inward.matrix.rubric.Criteria;
 import dev.inward.matrix.rubric.Criterion;
 
 import java.util.Map;
 
-public class Bus<Y extends Factory<Y,F,O,I,X,B,P,NP,PP,C,M>,F extends Fact<F,I,X,P>,O extends Operational<Y,F,O,I,X,B,P,NP,PP,C,M>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,P,NP,PP,C,M>,P extends Progenitor<Y,F,O,I,X,B,P,NP,PP,C,M>,NP extends Notion<NP,I,X,PP>,PP extends Primogenitor<?,NP,?,I,X,?,PP,C,M>,C extends Concept<C,?,M>,M extends Mortal<?,C,?,?,?,M>> {
+public class Bus<Y extends Factory<Y,F,O,I,X,B,P,N,A>,F extends Fact<F,I,X,P>,O extends Operational<Y,F,O,I,X,B,P,N,A>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,P,N,A>,P extends Diplomat<Y,F,O,I,X,B,P,N,A>,N extends Notion<N,I,X,A>,A extends Ambassador<?,N,?,I,X,?,A,?,?>> {
 
         protected O operational;
-        protected final Map<Criteria<Y,F,O,I,X,B,P,NP,PP>, Criterion<Y,?,F,O,I,X,B,P,NP,PP,?,?,?>[]> criteriaMap;
-
-        public Bus(O operational, Map<Criteria<Y,F,O,I,X,B,P,NP,PP>, Criterion<Y,?,F,O,I,X,B,P,NP,PP,?,?,?>[]>  criteriaMap) {
+        public Bus(O operational) {
                 this.operational = operational;
-                this.criteriaMap = criteriaMap;
         }
         public final O getOperational() {
                 return this.operational;
-        }
-        public final Map<Criteria<Y,F,O,I,X,B,P,NP,PP>, Criterion<Y,?,F,O,I,X,B,P,NP,PP,?,?,?>[]>  getCriteriaMap(){
-                return this.criteriaMap;
         }
 }
 //        public DATUM take(Proffer proffer, Task[] tasks, boolean isWriteLock) {

@@ -5,7 +5,7 @@ import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Bus;
 import dev.inward.matrix.datum.fact.Fact;
 import dev.inward.matrix.datum.fact.Factory;
-import dev.inward.matrix.datum.fact.Progenitor;
+import dev.inward.matrix.datum.fact.Diplomat;
 import dev.inward.matrix.operational.Operational;
 
 import java.time.Duration;
@@ -18,7 +18,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 
-public abstract class Pooled<Y extends Factory<Y,F,O,I,X,B,P>,D extends Datum<Y,D,F,O,I,X,B,P>,F extends Fact<Y,F,O,I,X,B,P>,O extends Operational<Y,F,O,I,X,B,P>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,P>,P extends Progenitor<Y,F,O,I,X,B,P>,V extends Pooled<Y,D,F,O,I,X,B,P,V>> extends Provider<Y,D,F,O,I,X,B,P,V> {
+public abstract class Pooled<Y extends Factory<Y,F,O,I,X,B,P>,D extends Datum<Y,D,F,O,I,X,B,P>,F extends Fact<Y,F,O,I,X,B,P>,O extends Operational<Y,F,O,I,X,B,P>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,P>,P extends Diplomat<Y,F,O,I,X,B,P>,V extends Pooled<Y,D,F,O,I,X,B,P,V>> extends Provider<Y,D,F,O,I,X,B,P,V> {
 
     private final Executor executor;
 

@@ -4,7 +4,7 @@ import com.sun.security.auth.UnixPrincipal;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.creation.Creation;
 import dev.inward.matrix.datum.creation.Prime;
-import dev.inward.matrix.datum.fact.Resource;
+import dev.inward.matrix.datum.fact.Resources;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.datum.fact.notion.concept.boot.*;
 import dev.inward.matrix.operational.Options;
@@ -34,9 +34,9 @@ public class PlatformAgent extends Agent {
         UnixPrincipal unixPrincipal = new UnixPrincipal(System.getenv("user.name"));
         PlatformAgent agent = new PlatformAgent(unixPrincipal,instrumentation);
         deque.add(new Init(new Options(), new Context.JVM(), agentArgs));
-        Map<Class<?>,Resource<BootLoader,?,?,Boot,Init, Identity.Ego<Context.JVM>,Context.JVM, Structure,Root,Boot,Root,?>> resourceMap = new ConcurrentHashMap<>();
+        Map<Class<?>, Resources<BootLoader,?,?,Boot,Init, Identity.Ego<Context.JVM>,Context.JVM, Structure,Root,Boot,Root,?>> resourceMap = new ConcurrentHashMap<>();
 
-        Resource<BootLoader,Instant,Creation,Boot,Init, Identity.Ego<Context.JVM>,Context.JVM, Structure, Root,Boot,Root, Prime> resource = new Resource();
+        Resources<BootLoader,Instant,Creation,Boot,Init, Identity.Ego<Context.JVM>,Context.JVM, Structure, Root,Boot,Root, Prime> resources = new Resources();
         BootLoader bootLoader = new BootLoader(null,);
         bootLoader.preInit(Boot.class);
         Boot boot = new Boot(new Identity.SuperEgo<>(new Context.JVM(new Edition("Boot",Clock.systemDefaultZone()),true)),new PlatformAgent(instrumentation));

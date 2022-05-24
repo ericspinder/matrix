@@ -6,6 +6,7 @@ import dev.inward.matrix.rubric.Blocker;
 public class NotionStartupException extends Blocker {
 
     public enum Type {
+        VisitorFailed("Class Visitor failed to operate"),
         ReflectiveOperationFailed("A reflective operation failed to instantiate class"),
         BadCastToGeneric("A bad cast when trying to retrieve a value"),
         Cannot_Update_Timer("Cannot update timer object with new finish time once set"),

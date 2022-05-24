@@ -1,29 +1,26 @@
 package dev.inward.matrix.meta;
 
+import dev.inward.matrix.Agent.Edition;
+import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.Factory;
-import dev.inward.matrix.house.House;
+import dev.inward.matrix.datum.fact.Fact;
+import dev.inward.matrix.datum.fact.notion.concept.Context;
+import dev.inward.matrix.rubric.Criteria;
 
 import java.io.Serializable;
+import java.util.List;
 
-public abstract class Standard<H extends House<H,?,?>,L extends Factory<L>,STAN extends Standard<H,L,STAN>> implements Comparable<STAN>, Serializable {
+public class Standard<DATUM,F extends Fact<F,I,X,?>,I extends Identity<I,X>,X extends Context<X>> {
 
-    private final Identity.SuperEgo<H,L> id;
-    private final L library;
-    private final String version;
+    protected String objectClassName;
+    protected Criteria<DATUM,?,?,F,I,X,?,?,?,?> criteria;
 
-    protected Standard(Identity.SuperEgo<H,L> id, L library, String version) {
-        this.id = id;
-        this.library = library;
-        this.version = version;
+    public Standard(final String objectClassName, Criteria<DATUM,?,?,F,I,X,?,?,?,?> criteria) {
+        this.objectClassName = objectClassName;
+        this.criteria = criteria;
     }
-    public Identity.SuperEgo<H,L> getId() {
-        return id;
-    }
-    public L getLibrary() {
-        return library;
-    }
-    public String getVersion() {
-        return version;
+
+    public String getObjectClassName() {
+        return objectClassName;
     }
 }

@@ -1,7 +1,7 @@
 package dev.inward.matrix.datum.fact.notion.persona;
 
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.Progenitor;
+import dev.inward.matrix.datum.fact.Diplomat;
 import dev.inward.matrix.datum.fact.notion.Industry;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.rubric.Predictor;
@@ -13,8 +13,8 @@ import java.util.concurrent.LinkedBlockingDeque;
 public class Hospitality extends Industry<Hospitality,Persona,Psyche, Identity.Ego<Context.Service>, Context.Service,Skeleton,Spirit> {
 
 
-    public Hospitality(Progenitor progenitor, LinkedBlockingDeque<Psyche> operationalDeque, Map<Class<?>, List<Predictor<Hospitality, ?, Persona, Psyche, Identity.Ego<Context.Service>, Context.Service, Skeleton, Spirit, ?, ?, ?>>> predictorMap) {
-        super(progenitor, operationalDeque, predictorMap);
+    public Hospitality(Diplomat diplomat, LinkedBlockingDeque<Psyche> operationalDeque, Map<Class<?>, List<Predictor<Hospitality, ?, Persona, Psyche, Identity.Ego<Context.Service>, Context.Service, Skeleton, Spirit, ?, ?, ?>>> predictorMap) {
+        super(diplomat, operationalDeque, predictorMap);
     }
 
     @Override

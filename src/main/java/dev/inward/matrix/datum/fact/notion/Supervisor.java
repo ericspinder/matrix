@@ -7,7 +7,7 @@ import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.rubric.Envoy;
 import dev.inward.matrix.rubric.Roller;
 
-public class Supervisor<Y extends Industry<Y,N,S,I,X,O,P>,N extends Notion<N,I,X,P>,S extends Aspect<Y,N,S,I,X,O,P>,I extends Identity<I,X>,X extends Context<X>,O extends Omnibus<Y,N,S,I,X,O,P>,P extends Primogenitor<Y,N,S,I,X,O,P>,M extends Supervisor<Y,N,S,I,X,O,P,M>> extends Manager<Y,N,S,I,X,O,P,M> {
+public class Supervisor<Y extends Industry<Y,N,S,I,X,O,P>,N extends Notion<N,I,X,P>,S extends Aspect<Y,N,S,I,X,O,P>,I extends Identity<I,X>,X extends Context<X>,O extends Omnibus<Y,N,S,I,X,O,P>,P extends Ambassador<Y,N,S,I,X,O,P>,M extends Supervisor<Y,N,S,I,X,O,P,M>> extends Manager<Y,N,S,I,X,O,P,M> {
 
 
     @Override

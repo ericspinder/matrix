@@ -10,7 +10,7 @@ import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Bus;
 import dev.inward.matrix.datum.fact.Fact;
 import dev.inward.matrix.datum.fact.Factory;
-import dev.inward.matrix.datum.fact.Progenitor;
+import dev.inward.matrix.datum.fact.Diplomat;
 import dev.inward.matrix.datum.fact.notion.concept.Gathering;
 import dev.inward.matrix.operational.Operational;
 import dev.inward.matrix.rubric.Envoy;
@@ -22,7 +22,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Advice<Y extends Factory<Y,F,O,I,X,B,P>,D extends Datum<D,F,I,X>,F extends Fact<F,I,X>,O extends Operational<Y,F,O,I,X,B,P>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<F,B>,P extends Progenitor<Y,F,O,I,X,B,P>,E extends Envoy<Y,D,F,O,I,X,B,P,E>,L extends Gathering.Ledger<Y,D,F,O,I,X,B,P,E>,A extends Advisor<Y,D,F,O,I,X,B,P,A>> {
+public abstract class Advice<Y extends Factory<Y,F,O,I,X,B,P>,D extends Datum<D,F,I,X>,F extends Fact<F,I,X>,O extends Operational<Y,F,O,I,X,B,P>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<F,B>,P extends Diplomat<Y,F,O,I,X,B,P>,E extends Envoy<Y,D,F,O,I,X,B,P,E>,L extends Gathering.Ledger<Y,D,F,O,I,X,B,P,E>,A extends Advisor<Y,D,F,O,I,X,B,P,A>> {
 
     public abstract Participants<Y,D,F,O,I,X,B,P,E,L> supply();
 

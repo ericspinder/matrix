@@ -5,7 +5,7 @@ import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Bus;
 import dev.inward.matrix.datum.fact.Fact;
 import dev.inward.matrix.datum.fact.Factory;
-import dev.inward.matrix.datum.fact.Progenitor;
+import dev.inward.matrix.datum.fact.Diplomat;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.operational.Operational;
 import dev.inward.matrix.rubric.Envoy;
@@ -14,7 +14,7 @@ import dev.inward.matrix.rubric.Roller;
 import java.io.Serializable;
 
 
-public abstract class Manager<Y extends Factory<Y,F,O,I,X,B,P,?,?,?>,F extends Fact<F,I,X,P>,O extends Operational<Y,F,O,I,X,B,P,?,?,?>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,P>,P extends Progenitor<Y,F,O,I,X,B,P>,M extends Manager<Y,F,O,I,X,B,P,M>> implements Comparable<M>, Serializable {
+public abstract class Manager<Y extends Factory<Y,F,O,I,X,B,P,?,?,?>,F extends Fact<F,I,X,P>,O extends Operational<Y,F,O,I,X,B,P,?,?,?>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,P>,P extends Diplomat<Y,F,O,I,X,B,P>,M extends Manager<Y,F,O,I,X,B,P,M>> implements Comparable<M>, Serializable {
 
     public abstract  <D extends Datum<D,F,I,X,P,E>,E extends Envoy<Y,D,F,O,I,X,B,P,E>> D handle(Roller roller,E envoy);
 

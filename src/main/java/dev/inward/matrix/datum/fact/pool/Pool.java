@@ -3,10 +3,10 @@ package dev.inward.matrix.datum.fact.pool;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Fact;
 import dev.inward.matrix.datum.fact.notion.Notion;
-import dev.inward.matrix.datum.fact.notion.Primogenitor;
+import dev.inward.matrix.datum.fact.notion.Ambassador;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 
-public class Pool<NP extends Notion<NP, Identity.Ego<Context.JVM>,Context.JVM,PP>,PP extends Primogenitor<?,NP,?,Identity.Ego<Context.JVM>, Context.JVM,?,PP>> extends Fact<Pool<NP,PP>, Identity.Ego<Context.JVM>,Context.JVM, LifeGuard<NP,PP>> {
+public class Pool<NP extends Notion<NP, Identity.Ego<Context.JVM>,Context.JVM,PP>,PP extends Ambassador<?,NP,?,Identity.Ego<Context.JVM>, Context.JVM,?,PP>> extends Fact<Pool<NP,PP>, Identity.Ego<Context.JVM>,Context.JVM, LifeGuard<NP,PP>> {
 
     private static final String TTL_PROP = "networkaddress.cache.ttl";
 

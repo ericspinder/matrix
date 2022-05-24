@@ -5,17 +5,15 @@ import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Bus;
 import dev.inward.matrix.datum.fact.Fact;
 import dev.inward.matrix.datum.fact.Factory;
-import dev.inward.matrix.datum.fact.Progenitor;
+import dev.inward.matrix.datum.fact.Diplomat;
 import dev.inward.matrix.datum.fact.notion.Notion;
-import dev.inward.matrix.datum.fact.notion.Primogenitor;
+import dev.inward.matrix.datum.fact.notion.Ambassador;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.operational.Operational;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 
-import java.io.Serializable;
-
-public abstract class DatumVisitor<Y extends Factory<Y,F,O,I,X,B,P,NP,PP>,DATUM,D extends Datum<DATUM,D,F,I,X,P,NP,PP,E>,F extends Fact<F,I,X,P>,O extends Operational<Y,F,O,I,X,B,P,NP,PP>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,P,NP,PP>,P extends Progenitor<Y,F,O,I,X,B,P,NP,PP>,NP extends Notion<NP,I,X,PP>,PP extends Primogenitor<?,NP,?,I,X,?,PP>,E extends Envoy<Y,DATUM,D,F,O,I,X,B,P,NP,PP,E>> extends ClassVisitor {
+public abstract class DatumVisitor<DATUM,D extends Datum<DATUM,D,E>,E extends Envoy<DATUM,D,E,?,?,?,?,?,?>> extends ClassVisitor {
 
     public DatumVisitor() {
         super(Opcodes.ASM9);
