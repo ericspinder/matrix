@@ -1,12 +1,13 @@
 package dev.inward.matrix.setting;
 
 import dev.inward.matrix.datum.Identity;
+import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.datum.fact.notion.concept.dataSupplier.Unspoken;
 import dev.inward.matrix.matter.sanction.Sanction;
 
 import java.io.Serializable;
 
-public abstract class Setting<I extends Identity<I,X>,X extends Context<X>,ION extends Sanction,S extends Setting<I,X,ION,S>> implements Comparable<S>, Serializable, Identity.Addressable<L,I,X> {
+public abstract class Setting<I extends Identity<I,X>,X extends Context<X>,ION extends Sanction,S extends Setting<I,X,ION,S>> implements Comparable<S>, Serializable, Identity.Addressable<I,X> {
 
     protected final I id;
     @Unspoken

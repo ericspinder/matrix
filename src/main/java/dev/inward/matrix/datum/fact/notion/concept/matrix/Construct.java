@@ -8,9 +8,9 @@ import dev.inward.matrix.datum.fact.notion.concept.Fabrication;
 import java.util.Map;
 
 
-public final class Construct extends Fabrication<Construct,Matrix,Interface, Context.Service,Loader,Architect> {
+public final class Construct extends Fabrication<Construct,Matrix,Interface,Loader,Architect> {
 
-    public Construct(Architect primogenitor, Map<Class<?>, Resources<Construct, ?, ?, ?, Matrix, Interface, Identity.Ego<Context.Service>, Context.Service, Loader, Architect, Matrix, Architect>> classResourceMap) {
+    public Construct(Architect primogenitor, Map<Class<?>, Resources<Construct, ?, ?, ?, Matrix, Interface, Identity.Ego, Context.Service, Loader, Architect>> classResourceMap) {
         super(primogenitor, classResourceMap);
     }
 }

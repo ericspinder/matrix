@@ -1,19 +1,18 @@
 package dev.inward.matrix.Agent;
 
-import dev.inward.matrix.datum.fact.notion.concept.Context;
+import dev.inward.matrix.Addressable;
 
-import java.io.Serializable;
-import java.time.Clock;
+import java.net.URL;
+import java.security.CodeSigner;
+import java.security.CodeSource;
 
-public class Edition<E extends Edition<E,X>,X extends Context<X>> implements Comparable<E>, Serializable {
+public class Edition<E extends Edition<E>> extends CodeSource implements Addressable<E> {
 
-    protected final X context;
     protected final Version version;
 
-    public Edition(X context, Version version) {
-        this.context = context;
+    public Edition(URL url, CodeSigner[] signers, Version version) {
+        super(url,signers);
         this.version = version;
-
     }
 
     @Override
@@ -21,19 +20,32 @@ public class Edition<E extends Edition<E,X>,X extends Context<X>> implements Com
         return 0;
     }
 
-    public static class Code<X extends Context<X>> extends Edition<Code<X>,X> {
-        public Code(X context, Version version) {
-            super(context, version);
+    @Override
+    public String getUrl() {
+        return this.getLocation().toExternalForm();
+    }
+
+    public static class Code extends Edition<Code> {
+        public Code(URL url, CodeSigner[] signers, Version version) {
+            super(url,signers, version);
         }
     }
-    public static class Jar<X extends Context<X>> extends Edition<Jar<X>,X> {
-        public Jar(X context, Version version) {
-            super(context, version);
+    public static class Jar extends Edition<Jar> {
+        public Jar(URL url, CodeSigner[] signers,Version version) {
+            super(url,signers,version);
         }
     }
-    public static class Source<X extends Context<X>> extends Edition<Source<X>,X> {
-        public Source(X context, Version version) {
-            super(context, version);
+    public static class Source extends Edition<Source> {
+        public Source(URL url, CodeSigner[] signers, Version version) {
+            super(url,signers, version);
         }
+    }
+    public byte[] defineClass(String datumClassName) {
+
+
+    }
+
+    public static record Version(String version) {
+        public static final Version Aforementioned = new Version(".01"); // can't call it 'this'
     }
 }

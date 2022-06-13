@@ -25,5 +25,6 @@ import java.util.Map;
  * @param <NP>
  * @param <V>
  */
-public record Criteria<DATUM, D extends Datum<DATUM, D, E>, E extends Envoy<DATUM, D, E, F, I, X, P, N, NP>, F extends Fact<F, I, X, P>, I extends Identity<I, X>, X extends Context<X>, P extends Diplomat<?, F, ?, I, X, ?, P, N, NP>, N extends Notion<N, I, X, NP>, NP extends Ambassador<?, N, ?, I, X, ?, NP, ?, ?>, V extends DatumVisitor<DATUM, D, E>>(
-        V visitor, Map<Criterion<DATUM, D, E, F, I, X, P, N, NP, ?>,Zone[]> criteriaForZones) {}
+public record Criteria<DATUM, D extends Datum<DATUM,D,E,F,I,X,P>, E extends Envoy<DATUM,D,E,F,I, X, P>, F extends Fact<F, I, X, P>, I extends Identity<I, X>, X extends Context<X>, P extends Diplomat<?, F, ?, I, X, ?, P, N, NP>, N extends Notion<N, I, X, NP>, NP extends Ambassador<?, N, ?, I, X, ?, NP, ?, ?>, V extends DatumVisitor<DATUM, D, E>> (
+        V visitor,
+        Map<Criterion<DATUM, D, E, F, I, X, P, ?>,Zone[]> criteriaForZones) {}

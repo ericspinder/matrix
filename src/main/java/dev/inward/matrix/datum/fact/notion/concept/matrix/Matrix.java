@@ -7,9 +7,9 @@ import dev.inward.matrix.datum.fact.notion.concept.Context;
 /**
  * Source Control
  */
-public final class Matrix extends Concept<Matrix, Context.Service,Architect> {
+public final class Matrix extends Concept<Matrix,Architect> {
 
-    public Matrix(Identity.Ego<Context.Service> id) {
+    public Matrix(Identity.Ego id) {
         super(id);
     }
 }

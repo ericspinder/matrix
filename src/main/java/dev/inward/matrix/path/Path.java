@@ -1,5 +1,6 @@
 package dev.inward.matrix.path;
 
+import dev.inward.matrix.clues.Clues;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.Agent.Edition;
 import dev.inward.matrix.datum.fact.test.Test;
@@ -15,16 +16,16 @@ public abstract class Path<X extends Path<X>> extends Context<X> implements Comp
 
     public static final class Nominal extends Path<Nominal> {
 
-        public Nominal(Edition edition, char character, String path, Data<Nominal> data) {
-            super(edition,true, character, path,data);
+        public Nominal(char character, Clues<Nominal> clues, String path, Data<Nominal> data) {
+            super(true, clues,character, path,data);
         }
     }
     public static class Mock<T extends Test> extends Path<Mock<T>> {
 
         protected T test;
 
-        public Mock(Edition edition, String path, final char character, Data<Mock<T>> data,T test) {
-            super(edition, false, character, path, data);
+        public Mock(Clues<Mock<T>> clues, String path, final char character, Data<Mock<T>> data, T test) {
+            super(false, clues,character, path, data);
             this.test = test;
         }
 
@@ -44,8 +45,8 @@ public abstract class Path<X extends Path<X>> extends Context<X> implements Comp
     }
 
 
-    public Path(Edition edition, boolean production, final char character, final String path, final Data<X> data) {
-        super(edition, production);
+    public Path(boolean production, Clues<X> clues, final char character, final String path, final Data<X> data) {
+        super(production,clues);
         this.character = character;
         this.path = path;
         this.data = data;

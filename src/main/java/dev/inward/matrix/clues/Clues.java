@@ -6,15 +6,15 @@ import dev.inward.matrix.matter.Subject;
 
 import java.util.HashMap;
 
-public class Clues<X extends Context<X>> extends HashMap<Class<?>,Clue<X,?>> {
+public class Clues<X extends Context<X>> extends HashMap<Class<?>,Clue<?>> {
 
     @SuppressWarnings("unchecked")
-    public <EXHIBIT,CLUE extends Clue<X,EXHIBIT>> CLUE get(Class<CLUE> clueClass, X context) {
-        return (CLUE) super.getOrDefault(clueClass,this.initDefault(clueClass, context));
+    public <EXHIBIT,CLUE extends Clue<EXHIBIT>> CLUE get(Class<CLUE> clueClass) {
+        return (CLUE) super.getOrDefault(clueClass,this.initDefault(clueClass));
     }
-    public <EXHIBIT,CLUE extends Clue<X,EXHIBIT>> CLUE initDefault(Class<CLUE> clueClass,X context) {
+    public <EXHIBIT,CLUE extends Clue<EXHIBIT>> CLUE initDefault(Class<CLUE> clueClass) {
         try {
-            return clueClass.getDeclaredConstructor(context.getClass()).newInstance(context);
+            return clueClass.getDeclaredConstructor(clueClass).newInstance();
         } catch (ReflectiveOperationException e) {
             throw new NotionStartupException(NotionStartupException.Type.ReflectiveOperationFailed,this.getClass(), Subject.Focus.Admonitory, Subject.Severity.Exceptional,e);
         }

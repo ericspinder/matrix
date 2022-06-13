@@ -7,9 +7,9 @@ import dev.inward.matrix.rubric.Criterion;
 
 import java.util.Map;
 
-public class Structure extends Volume<BootLoader,Boot,Init, Context.Platform.JVM,Structure,Root> {
+public class Structure extends Volume<BootLoader,Boot,Init,Structure,Root> {
 
-    public Structure(Init operational, Map<Criteria, Criterion[]> criteriaMap) {
-        super(operational, criteriaMap);
+    public Structure(Init operational) {
+        super(operational);
     }
 }

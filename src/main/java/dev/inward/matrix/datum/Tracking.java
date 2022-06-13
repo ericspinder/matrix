@@ -4,17 +4,18 @@ import dev.inward.matrix.datum.fact.Factory;
 
 import dev.inward.matrix.rubric.Envoy;
 
+import java.lang.ref.SoftReference;
 import java.lang.reflect.ParameterizedType;
 
-public class Tracking<DATUM,D extends Datum<DATUM,D,E>,E extends Envoy<DATUM,D,E,?,?,?,?,?,?>> {
+public class Tracking<DATUM,D extends Datum<DATUM,D,E>,E extends Envoy<DATUM,D,E,?,?,?,?>> {
 
-    protected final E envoy;
+    protected final SoftReference<E> envoySoft;
 
     @SuppressWarnings("unchecked")
-    public Tracking(DATUM datum) {
-        this.envoy = (E)((Factory)this.getClass().getClassLoader()).add(datum);
+    public Tracking(D datum) {
+        this.envoySoft = new SoftReference<>((E)((Factory)this.getClass().getClassLoader()).add(datum));
     }
     public E getEnvoy() {
-        return this.envoy;
+        return this.envoySoft.get();
     }
 }

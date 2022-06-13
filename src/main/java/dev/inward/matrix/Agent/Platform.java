@@ -17,29 +17,29 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingDeque;
 
-public class PlatformAgent extends Agent {
+public class Platform {
 
-    private Instrumentation instrumentation;
-    private CommandLine commandLine;
-    private LocalSystemNetworking localSystemNetworking = new LocalSystemNetworking();
+    protected final CommandLine commandLine;
+    protected final Instrumentation instrumentation;
+    protected final OSinfo oSinfo = new OSinfo();
 
-    public PlatformAgent(Principal principal, Instrumentation instrumentation) {
-        super(principal);
+    public Platform(CommandLine commandLine, Instrumentation instrumentation) {
+        this.commandLine = commandLine;
         this.instrumentation = instrumentation;
     }
 
     public static void premain(String agentArgs, Instrumentation instrumentation) throws InstantiationException {
-        CommandLine commandLine = new CommandLine(agentArgs);
         LinkedBlockingDeque<Init> deque = new LinkedBlockingDeque<>();
-        UnixPrincipal unixPrincipal = new UnixPrincipal(System.getenv("user.name"));
-        PlatformAgent agent = new PlatformAgent(unixPrincipal,instrumentation);
-        deque.add(new Init(new Options(), new Context.JVM(), agentArgs));
-        Map<Class<?>, Resources<BootLoader,?,?,Boot,Init, Identity.Ego<Context.JVM>,Context.JVM, Structure,Root,Boot,Root,?>> resourceMap = new ConcurrentHashMap<>();
+        Platform platform = new Platform(new CommandLine(agentArgs), instrumentation);
 
-        Resources<BootLoader,Instant,Creation,Boot,Init, Identity.Ego<Context.JVM>,Context.JVM, Structure, Root,Boot,Root, Prime> resources = new Resources();
+
+        deque.add(new Init(new Options(), new Context.JVM(), agentArgs));
+        Map<Class<?>, Resources<BootLoader,?,?,Boot,Init, Identity.Ego,Context.JVM, Structure,Root,Boot>> resourceMap = new ConcurrentHashMap<>();
+
+        Resources<BootLoader,Instant,Creation,Boot,Init, Identity.Ego,Context.JVM, Structure, Root,Boot> resources = new Resources();
         BootLoader bootLoader = new BootLoader(null,);
         bootLoader.preInit(Boot.class);
-        Boot boot = new Boot(new Identity.SuperEgo<>(new Context.JVM(new Edition("Boot",Clock.systemDefaultZone()),true)),new PlatformAgent(instrumentation));
+        Boot boot = new Boot(new Identity.SuperEgo<>(new Context.JVM(new Edition("Boot",Clock.systemDefaultZone()),true)),new Platform(instrumentation));
 
     }
     public CommandLine getCommandLine() {

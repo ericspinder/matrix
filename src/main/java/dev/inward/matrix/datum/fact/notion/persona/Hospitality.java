@@ -1,25 +1,23 @@
 package dev.inward.matrix.datum.fact.notion.persona;
 
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.Diplomat;
+import dev.inward.matrix.datum.fact.Resources;
 import dev.inward.matrix.datum.fact.notion.Industry;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.rubric.Predictor;
+import dev.inward.matrix.datum.fact.notion.concept.corpus.Corpus;
+import dev.inward.matrix.datum.fact.notion.concept.corpus.Prophet;
+import dev.inward.matrix.meta.Standard;
 
-import java.util.List;
+
+
 import java.util.Map;
-import java.util.concurrent.LinkedBlockingDeque;
 
-public class Hospitality extends Industry<Hospitality,Persona,Psyche, Identity.Ego<Context.Service>, Context.Service,Skeleton,Spirit> {
+public class Hospitality extends Industry<Hospitality,Persona,Psyche,Identity.SuperEgo,Context.Service,Skeleton,Spirit, Corpus, Prophet> {
 
 
-    public Hospitality(Diplomat diplomat, LinkedBlockingDeque<Psyche> operationalDeque, Map<Class<?>, List<Predictor<Hospitality, ?, Persona, Psyche, Identity.Ego<Context.Service>, Context.Service, Skeleton, Spirit, ?, ?, ?>>> predictorMap) {
-        super(diplomat, operationalDeque, predictorMap);
+    public Hospitality(Spirit parent, Map<Standard<?, Persona, Identity.SuperEgo, Context.Service>, Resources<Hospitality, ?, ?, ?, Persona, Psyche, Identity.SuperEgo, Context.Service, Skeleton, Spirit>> resourceMap) {
+        super(parent, resourceMap);
     }
 
-    @Override
-    public int compareTo(Hospitality o) {
-        return 0;
-    }
 
 }

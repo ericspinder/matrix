@@ -58,6 +58,7 @@ public final class Subject implements Comparable<Subject>, Serializable {
         Privilege("privilege","Demanded by a Super Ego"),
         Nominal("nominal","Normal operation"),
         Exceptional("exceptional","Problem"),
+        Unexpected("unexpected", "represents a code guard on recursion which could get out of hand")
         ;
         private final String label;
         private final String description;
