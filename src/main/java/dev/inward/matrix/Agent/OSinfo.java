@@ -1,7 +1,7 @@
 package dev.inward.matrix.Agent;
 
 import dev.inward.matrix.advisor.NotionStartupException;
-import dev.inward.matrix.matter.Subject;
+import dev.inward.matrix.matter.Topic;
 
 import java.util.Locale;
 
@@ -24,7 +24,7 @@ public class OSinfo {
     private OS parseOS() {
         String osName = System.getProperty("os.name");
         if (osName == null) {
-            throw new NotionStartupException(NotionStartupException.Type.UnableToParseOS, this.getClass(), Subject.Focus.Admonitory, Subject.Severity.Unexpected,null);
+            throw new NotionStartupException(NotionStartupException.Type.UnableToParseOS, this.getClass(), Topic.Focus.Admonitory, Topic.Severity.Unexpected,null);
         }
         osName = osName.toLowerCase(Locale.ENGLISH);
         if (osName.contains("windows")) {

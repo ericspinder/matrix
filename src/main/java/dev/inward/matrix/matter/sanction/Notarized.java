@@ -5,7 +5,7 @@ import dev.inward.matrix.datum.fact.Factory;
 import dev.inward.matrix.datum.fact.notion.concept.corpus.Corpus;
 import dev.inward.matrix.maker.Fingerprint;
 import dev.inward.matrix.matter.Matter;
-import dev.inward.matrix.matter.Subject;
+import dev.inward.matrix.matter.Topic;
 import dev.inward.matrix.path.Path;
 
 import java.time.Instant;
@@ -15,8 +15,8 @@ public class Notarized<H extends Corpus<H,?,?>,L extends Factory<L>,F extends Fi
 
     protected final F fingerprint;
 
-    public Notarized(UUID uuid, SuperEgo<H,L> topicId, Instant createInstant, Subject subject, SuperEgo<H,?> maker, F fingerprint) {
-        super(uuid, topicId, createInstant, subject, maker);
+    public Notarized(UUID uuid, SuperEgo<H,L> topicId, Instant createInstant, Topic topic, SuperEgo<H,?> maker, F fingerprint) {
+        super(uuid, topicId, createInstant, topic, maker);
         this.fingerprint = fingerprint;
     }
 }

@@ -7,16 +7,9 @@ import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.rubric.Envoy;
 import dev.inward.matrix.rubric.Roller;
 
-public class Supervisor<Y extends Industry<Y,N,S,I,X,O,P>,N extends Notion<N,I,X,P>,S extends Aspect<Y,N,S,I,X,O,P>,I extends Identity<I,X>,X extends Context<X>,O extends Omnibus<Y,N,S,I,X,O,P>,P extends Ambassador<Y,N,S,I,X,O,P>,M extends Supervisor<Y,N,S,I,X,O,P,M>> extends Manager<Y,N,S,I,X,O,P,M> {
+public abstract class Supervisor<Y extends Industry<Y,N,S,I,X,O,A,?,?,?,?,?>,N extends Notion<N,I,X,A>,S extends Aspect<Y,N,S,I,X,O,A>,I extends Identity<I,X>,X extends Context<X>,O extends Omnibus<Y,N,S,I,X,O,A>,A extends Ambassador<Y,N,S,I,X,O,A>,U extends Supervisor<Y,N,S,I,X,O,A,U>> extends Manager<Y,N,S,I,X,O,A,U> {
 
 
     @Override
-    public int compareTo(M o) {
-        return 0;
-    }
-
-    @Override
-    public <D extends Datum<D, N, I, X, P, E>, E extends Envoy<Y, D, N, S, I, X, O, P, E>> D handle(Roller roller, E envoy) {
-        return null;
-    }
+    public abstract  <DATUM,D extends Datum<DATUM,D,V,N,I,X,A>,V extends Envoy<DATUM,D,V,N,I,X,A>> boolean handle(Roller roller,V envoy);
 }

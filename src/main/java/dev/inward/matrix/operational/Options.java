@@ -3,7 +3,7 @@ package dev.inward.matrix.operational;
 import dev.inward.matrix.advisor.NotionStartupException;
 
 import dev.inward.matrix.domain.RemoteServer;
-import dev.inward.matrix.matter.Subject;
+import dev.inward.matrix.matter.Topic;
 import dev.inward.matrix.meta.Meta_I;
 import dev.inward.matrix.rubric.Roller;
 
@@ -38,25 +38,25 @@ public class Options {
 //                remoteServer.getContainer()
 //            }
         }
-        throw new NotionStartupException(NotionStartupException.Type.MissingDefaultValue, this.getClass(), Subject.Focus.Admonitory, Subject.Severity.Exceptional,new Exception("missing "));
+        throw new NotionStartupException(NotionStartupException.Type.MissingDefaultValue, this.getClass(), Topic.Focus.Admonitory, Topic.Severity.Exceptional,new Exception("missing "));
     }
     public String getString(String key, RemoteServer remoteServer)  throws Roller{
         if (this.stringOptions.containsKey(key)) {
             return this.stringOptions.get(key);
         }
-        throw new NotionStartupException(NotionStartupException.Type.MissingDefaultValue, this.getClass(), Subject.Focus.Admonitory, Subject.Severity.Exceptional,new Exception("roller"));
+        throw new NotionStartupException(NotionStartupException.Type.MissingDefaultValue, this.getClass(), Topic.Focus.Admonitory, Topic.Severity.Exceptional,new Exception("roller"));
     }
     public Duration getDuration(String key, RemoteServer remoteServer) throws Roller {
         if (this.durationOptions.containsKey(key)) {
             return this.durationOptions.get(key);
         }
-        throw new NotionStartupException(NotionStartupException.Type.MissingDefaultValue, this.getClass(), Subject.Focus.Admonitory, Subject.Severity.Exceptional,new Exception("roller"));
+        throw new NotionStartupException(NotionStartupException.Type.MissingDefaultValue, this.getClass(), Topic.Focus.Admonitory, Topic.Severity.Exceptional,new Exception("roller"));
     }
     public Boolean getBoolean(String key, RemoteServer remoteServer) throws Roller {
         if (this.booleanOptions.containsKey(key)) {
             return this.booleanOptions.get(key);
         }
-        throw new NotionStartupException(NotionStartupException.Type.MissMatchedOptionKey, this.getClass(), Subject.Focus.Admonitory, Subject.Severity.Exceptional,new Exception("roller"));
+        throw new NotionStartupException(NotionStartupException.Type.MissMatchedOptionKey, this.getClass(), Topic.Focus.Admonitory, Topic.Severity.Exceptional,new Exception("roller"));
     }
 //    public <D extends Datum> Complication<?,?,F,O,S,I,X,?,?,?>[] getComplications(Class<D> datumClass, Class<Criterion<?,?,F,O,S,I,X,?,?>> criterionClass) {
 ////        if (this.complicationsByCriterionForClass.containsKey(datumClass)) {
@@ -82,7 +82,7 @@ public class Options {
                 this.durationOptions.put(option.getI18n(), (Duration) option.getDefaultValue());
             }
             else {
-                throw new NotionStartupException(NotionStartupException.Type.MissingDefaultValue, this.getClass(), Subject.Focus.Admonitory, Subject.Severity.Exceptional,new Exception("roller"));
+                throw new NotionStartupException(NotionStartupException.Type.MissingDefaultValue, this.getClass(), Topic.Focus.Admonitory, Topic.Severity.Exceptional,new Exception("roller"));
             }
         }
     }

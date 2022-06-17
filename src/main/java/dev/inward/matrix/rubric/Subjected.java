@@ -1,7 +1,7 @@
 package dev.inward.matrix.rubric;
 
-import dev.inward.matrix.matter.Subject;
+import dev.inward.matrix.matter.Topic;
 
 public interface Subjected {
-    Subject getSubject();
+    Topic getSubject();
 }

@@ -11,8 +11,8 @@ public class RemoteMatter<E extends Fact<E,I,X,?>,I extends Identity<I,X>,X exte
 
     protected E effect;
 
-    public RemoteMatter(UUID uuid, I topicId, Instant createInstant, Subject subject,E effect) {
-        super(uuid, topicId, createInstant, subject);
+    public RemoteMatter(UUID uuid, I topicId, Instant createInstant, Topic topic, E effect) {
+        super(uuid, topicId, createInstant, topic);
         this.effect = effect;
     }
     public E getEffect() {

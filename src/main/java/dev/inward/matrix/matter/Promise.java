@@ -11,7 +11,7 @@ public abstract class Promise<I extends Identity<I,X>,X extends Context<X>,P ext
 
     private Instant instantReady;
     private Duration durationAvailable;
-    public Promise(UUID uuid, I topicId, Instant createInstant, Subject subject) {
-        super(uuid,topicId,createInstant,subject);
+    public Promise(UUID uuid, I topicId, Instant createInstant, Topic topic) {
+        super(uuid,topicId,createInstant, topic);
     }
 }

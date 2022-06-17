@@ -12,17 +12,17 @@ public class Matter<I extends Identity<I,X>,X extends Context<X>,MAT extends Mat
     protected final UUID uuid;
     protected final I topicId;
     protected final Instant createInstant;
-    protected final Subject subject;
+    protected final Topic topic;
 
-    public Matter(UUID uuid, I topicId, Instant createInstant, Subject subject) {
+    public Matter(UUID uuid, I topicId, Instant createInstant, Topic topic) {
         this.uuid = uuid;
         this.topicId = topicId;
         this.createInstant = createInstant;
-        this.subject = subject;
+        this.topic = topic;
     }
     @Override
     public int compareTo(MAT that) {
-        int result = this.subject.compareTo(subject);
+        int result = this.topic.compareTo(topic);
         if (result == 0) {
             return this.uuid.compareTo(uuid);
         }
@@ -38,8 +38,8 @@ public class Matter<I extends Identity<I,X>,X extends Context<X>,MAT extends Mat
     public final Instant getCreateInstant() {
         return this.createInstant;
     }
-    public final Subject getSubject() {
-        return subject;
+    public final Topic getSubject() {
+        return topic;
     }
 
 

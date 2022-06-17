@@ -14,9 +14,18 @@ import dev.inward.matrix.rubric.Roller;
 import java.io.Serializable;
 
 
-public abstract class Manager<Y extends Factory<Y,F,O,I,X,B,P,?,?,?>,F extends Fact<F,I,X,P>,O extends Operational<Y,F,O,I,X,B,P,?,?,?>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,P>,P extends Diplomat<Y,F,O,I,X,B,P>,M extends Manager<Y,F,O,I,X,B,P,M>> implements Comparable<M>, Serializable {
+public abstract class Manager<Y extends Factory<Y,F,O,I,X,B,P,?,?,?,?,?>,F extends Fact<F,I,X,P>,O extends Operational<Y,F,O,I,X,B,P>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,P>,P extends Diplomat<Y,F,O,I,X,B,P>,M extends Manager<Y,F,O,I,X,B,P,M>> implements Comparable<M>, Serializable {
 
-    public abstract  <D extends Datum<D,F,I,X,P,E>,E extends Envoy<Y,D,F,O,I,X,B,P,E>> D handle(Roller roller,E envoy);
+    /**
+     *
+     * @param roller
+     * @param envoy
+     * @param <DATUM>
+     * @param <D>
+     * @param <V>
+     * @return try again?
+     */
+    public abstract  <DATUM,D extends Datum<DATUM,D,V,F,I,X,P>,V extends Envoy<DATUM,D,V,F,I,X,P>> boolean handle(Roller roller,V envoy);
 
 }
 //    private class ExceptionCounterByDuration {

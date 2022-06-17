@@ -13,7 +13,7 @@ import dev.inward.matrix.operational.Operational;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 
-public abstract class DatumVisitor<DATUM,D extends Datum<DATUM,D,E>,E extends Envoy<DATUM,D,E,?,?,?,?,?,?>> extends ClassVisitor {
+public abstract class DatumVisitor<DATUM,D extends Datum<DATUM,D,?,?,?,?,?>> extends ClassVisitor {
 
     public DatumVisitor() {
         super(Opcodes.ASM9);

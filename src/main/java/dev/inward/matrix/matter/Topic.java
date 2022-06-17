@@ -4,7 +4,7 @@ import dev.inward.matrix.meta.Meta_I;
 
 import java.io.Serializable;
 
-public final class Subject implements Comparable<Subject>, Serializable {
+public final class Topic implements Comparable<Topic>, Serializable {
 
     private final String locus;
     private final Focus focus;
@@ -12,11 +12,11 @@ public final class Subject implements Comparable<Subject>, Serializable {
 
     /**
      *
-     * @param locus typically the canonical name of the Id, may describe a super for security, but it's unsupported
+     * @param locus typically the canonical name of the Id, it should never be unique, but may only happen once or never.
      * @param focus the
      * @param severity
      */
-    public Subject(String locus, Focus focus, Severity severity) {
+    public Topic(String locus, Focus focus, Severity severity) {
         this.locus = locus;
         this.focus = focus;
         this.severity = severity;
@@ -77,7 +77,7 @@ public final class Subject implements Comparable<Subject>, Serializable {
         }
     }
     @Override
-    public int compareTo(Subject that) {
+    public int compareTo(Topic that) {
         if (this.locus.equals(that.getLocus())) {
             if(this.focus.equals(that.getFocus())) {
 

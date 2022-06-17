@@ -10,7 +10,7 @@ public class Init extends Effect<BootLoader,Boot,Init,Structure,Root> {
 
     private final String args;
 
-    public Init(Options options, Supplier<BootLoader, Boot, Init, Identity.Ego, Context.JVM, Structure, Root, Boot, Root> supplier,String args) {
+    public Init(Options options, Supplier<BootLoader, Boot, Init, Identity.Ego, Context.JVM, Structure, Root,BootLoader,Boot,Init,Structure,Root> supplier,String args) {
         super(options, supplier);
         this.args = args;
     }

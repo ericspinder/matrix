@@ -1,17 +1,17 @@
 package dev.inward.matrix.rubric;
 
-import dev.inward.matrix.matter.Subject;
+import dev.inward.matrix.matter.Topic;
 
 public class Roller extends Throwable {
 
-    protected final Subject subject;
+    protected final Topic topic;
 
-    public Roller(String locus, Subject.Focus focus, Subject.Severity severity, Exception e) {
+    public Roller(String locus, Topic.Focus focus, Topic.Severity severity, Exception e) {
         super(e);
-        this.subject = new Subject(locus, focus, severity);
+        this.topic = new Topic(locus, focus, severity);
     }
 
-    public Subject getSubject() {
-        return subject;
+    public Topic getSubject() {
+        return topic;
     }
 }

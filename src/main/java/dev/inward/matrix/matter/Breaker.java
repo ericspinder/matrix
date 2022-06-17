@@ -12,8 +12,8 @@ public class Breaker<D extends Datum<?,D,F,?,I,X,?,P>,F extends Fact<?,F,?,I,X,?
 
     protected final E breaker;
 
-    public Breaker(UUID uuid, I id, Instant createDateTime, Subject subject, D caller, E breaker) {
-        super(uuid,id, createDateTime, subject, caller);
+    public Breaker(UUID uuid, I id, Instant createDateTime, Topic topic, D caller, E breaker) {
+        super(uuid,id, createDateTime, topic, caller);
         this.breaker = breaker;
     }
 

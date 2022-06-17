@@ -1,7 +1,7 @@
 package dev.inward.matrix.rubric;
 
 public enum Zone {
-    Authority,
+    InSitu,
     Cache,
     Storage,
     Hoard

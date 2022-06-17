@@ -1,6 +1,6 @@
 package dev.inward.matrix.advisor;
 
-import dev.inward.matrix.matter.Subject;
+import dev.inward.matrix.matter.Topic;
 import dev.inward.matrix.rubric.Blocker;
 
 public class NotionStartupException extends Blocker {
@@ -38,7 +38,7 @@ public class NotionStartupException extends Blocker {
     public final Class where;
 
 
-    public NotionStartupException(Type type, Class where, Subject.Focus focus, Subject.Severity severity, Exception e) {
+    public NotionStartupException(Type type, Class where, Topic.Focus focus, Topic.Severity severity, Exception e) {
         super(where.getCanonicalName(),focus,severity,e);
         this.type = type;
         this.where = where;

@@ -8,7 +8,7 @@ import dev.inward.matrix.operational.Supplier;
 
 public class Mechanical extends Effect<Assembly, Corpus,Mechanical,Sandbox,Prophet> {
 
-    public Mechanical(Options options, Supplier<Assembly, Corpus, Mechanical, Identity.Ego, Context.JVM, Sandbox, Prophet, Corpus, Prophet> supplier) {
+    public Mechanical(Options options, Supplier<Assembly, Corpus, Mechanical, Identity.Ego, Context.JVM, Sandbox, Prophet,Assembly,Corpus,Mechanical,Sandbox,Prophet> supplier) {
         super(options, supplier);
     }
 }
