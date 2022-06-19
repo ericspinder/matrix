@@ -31,11 +31,11 @@ public abstract class Factory<Y extends Factory<Y,F,O,I,X,B,P,FAB,C,E,V,M>,F ext
     protected StampedLock gate = new StampedLock();
     final ThreadLocal<P> progenitorInThread = new ThreadLocal<>();
 
-    public Factory(M mortal, Map<Standard<?,F,I,X>,Resources<Y,?,?,?,F,O,I,X,B,P>> standardResourcesMap) {
+    public Factory(M mortal, Resources resources, Map<Standard<?,F,I,X>, Resource<Y,?,?,?,F,O,I,X,B,P>> standardResourcesMap) {
         this.mortal = mortal;
     }
     @SuppressWarnings("unchecked")
-    public void installEngine(Guard guard, Persona[] personas, O operational) {
+    public void installEngine(O operational) {
         long writeLock = gate.writeLock();
         try {
             boolean isNew = (this.engine == null); // Editions cannot be rolled
@@ -58,8 +58,8 @@ public abstract class Factory<Y extends Factory<Y,F,O,I,X,B,P,FAB,C,E,V,M>,F ext
             gate.unlockRead(readLock);
         }
     }
-    public <DATUM,D extends Datum<DATUM,D,E,F,I,X,P>,E extends Envoy<DATUM,D,E,F,I,X,P>> Resources<Y,DATUM,D,E,F,O,I,X,B,P> getResources(D datum) {
-        Supplier<Resources<Y,DATUM,D,E,F,O,I,X,B,P>> supplier = () -> {return new Resources(engine.getStorage());};
+    public <DATUM,D extends Datum<DATUM,D,E,F,I,X,P>,E extends Envoy<DATUM,D,E,F,I,X,P>> Resource<Y,DATUM,D,E,F,O,I,X,B,P> getResources(D datum) {
+        Supplier<Resource<Y,DATUM,D,E,F,O,I,X,B,P>> supplier = () -> {return new Resource(engine.getStorage());};
         return this.getEngine().get(datum.datumClass,supplier);
     }
 
@@ -83,7 +83,7 @@ public abstract class Factory<Y extends Factory<Y,F,O,I,X,B,P,FAB,C,E,V,M>,F ext
     @SuppressWarnings("unchecked")
     public <DATUM,D extends Datum<DATUM,D,E,F,I,X,P>, E extends Envoy<DATUM,D,E,F,I,X,P>> E add(DATUM datum) {
         try {
-            Resources<Y,DATUM,D,E,F,O,I,X,B,P> resources = (Resources<Y,DATUM,D,E,F,O,I,X,B,P>) this.producer.get(((D) datum).getClass());
+            Resource<Y,DATUM,D,E,F,O,I,X,B,P> resource = (Resource<Y,DATUM,D,E,F,O,I,X,B,P>) this.producer.get(((D) datum).getClass());
             return this.engine.getStorage().add(datum,this);
         }
         catch (ClassCastException cce) {

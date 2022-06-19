@@ -49,7 +49,7 @@ public abstract class Supplier<Y extends Factory<Y,F,O,I,X,B,P,FAB,C,E,V,M>,F ex
     public Engine<Y,F,O,I,X,B,P> buildEngine(Edition<?> edition, Guard guard, Y factory, Persona[] personas, O operational) {
         return new Engine<>(edition,guard,factory,personas,operational);
     }
-    public Y buildFactory(M mortal, Map<Specification<?,F,I,X>, Resources<Y,?,?,?,F,O,I,X,B,P>> resourceMap) {
+    public Y buildFactory(M mortal, Map<Specification<?,F,I,X>, Resource<Y,?,?,?,F,O,I,X,B,P>> resourceMap) {
         try {
             return factoryClass.getDeclaredConstructor(mortalClass, Map.class)
                     .newInstance(mortal,resourceMap);
