@@ -3,11 +3,12 @@ package dev.inward.matrix.datum.fact.notion.persona;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.Notion;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
+import dev.inward.matrix.rubric.Topical;
 
 import javax.security.auth.Subject;
 import java.security.Principal;
 
-public final class Persona extends Notion<Persona, Identity.SuperEgo,Context.Service,Spirit> implements Principal {
+public final class Persona extends Notion<Persona, Identity.SuperEgo,Context.Service,Spirit> implements  {
 
     protected final String name;
 
