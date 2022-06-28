@@ -33,8 +33,8 @@ public abstract class Supplier<Y extends Factory<Y,F,O,I,X,B,P,FAB,C,E,V,M>,F ex
 
 
     public abstract class IndustrySupplier<Y extends Industry<Y,N,S,I,X,O,A,FAB,C,E,V,M>,N extends Notion<N,I,X,A>,S extends Aspect<Y,N,S,I,X,O,A>,I extends Identity<I,X>,X extends Context<X>,O extends Omnibus<Y,N,S,I,X,O,A>,A extends Ambassador<Y,N,S,I,X,O,A>,FAB extends Fabrication<FAB,C,E,V,M>,C extends Concept<C,M>,E extends Effect<FAB,C,E,V,M>,V extends Volume<FAB,C,E,V,M>,M extends Mortal<FAB,C,E,V,M>> extends Supplier<Y,N,S,I,X,O,A,FAB,C,E,V,M> {
-        public <DATUM,D extends Datum<DATUM,D,E,N,I,X,A>,E extends Envoy<DATUM,D,E,N,I,X,A>> ProtectionDomainStorage<Y,N,S,I,X,O,A> buildStorage(Edition<?> edition, Guard guard, Y industry, Persona[] principals) {
-            return new ProtectionDomainStorage<>(edition,guard,industry,principals);
+        public <DATUM,D extends Datum<DATUM,D,E,N,I,X,A>,E extends Envoy<DATUM,D,E,N,I,X,A>> ProtectionDomainStorage<Y,N,S,I,X,O,A> buildStorage(Edition<?> edition, LocationCollection locationCollection, Y industry, Persona[] principals) {
+            return new ProtectionDomainStorage<>(edition, locationCollection,industry,principals);
         }
 
     }
@@ -46,8 +46,8 @@ public abstract class Supplier<Y extends Factory<Y,F,O,I,X,B,P,FAB,C,E,V,M>,F ex
         return induction.createEnvoy(datum,factory);
     }
 
-    public Engine<Y,F,O,I,X,B,P> buildEngine(Edition<?> edition, Guard guard, Y factory, Persona[] personas, O operational) {
-        return new Engine<>(edition,guard,factory,personas,operational);
+    public Engine<Y,F,O,I,X,B,P> buildEngine(Edition<?> edition, LocationCollection locationCollection, Y factory, Persona[] personas, O operational) {
+        return new Engine<>(edition, locationCollection,factory,personas,operational);
     }
     public Y buildFactory(M mortal, Map<Specification<?,F,I,X>, Resource<Y,?,?,?,F,O,I,X,B,P>> resourceMap) {
         try {

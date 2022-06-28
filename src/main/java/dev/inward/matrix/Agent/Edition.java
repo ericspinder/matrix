@@ -1,6 +1,7 @@
 package dev.inward.matrix.Agent;
 
 import dev.inward.matrix.Addressable;
+import jdk.security.jarsigner.JarSigner;
 
 import java.net.URL;
 import java.security.CodeSigner;
@@ -31,7 +32,7 @@ public class Edition<E extends Edition<E>> extends CodeSource implements Address
         }
     }
     public static class Jar extends Edition<Jar> {
-        public Jar(URL url, CodeSigner[] signers,Version version) {
+        public Jar(URL url, JarSigner[] signers, Version version) {
             super(url,signers,version);
         }
     }

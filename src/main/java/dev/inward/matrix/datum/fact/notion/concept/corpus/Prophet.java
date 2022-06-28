@@ -6,9 +6,9 @@ import javax.security.auth.Subject;
 import java.lang.ref.ReferenceQueue;
 import java.math.BigInteger;
 
-public class Prophet extends Mortal<Assembly, Corpus,Mechanical,Sandbox,Prophet> {
+public class Prophet extends Mortal<Assembly,Corpus,Mechanical,Sandbox,Prophet> {
 
-    public Prophet(Corpus concept, ReferenceQueue<Corpus> referenceQueue, Sandbox bus, Mechanical operational, Prophet mortal, BigInteger initialSize, Subject authSubject) {
-        super(concept, referenceQueue, bus, operational, mortal, initialSize, authSubject);
+    public Prophet(Corpus fact, ReferenceQueue<Corpus> referenceQueue, Sandbox omnibus, Mechanical aspect) {
+        super(fact, referenceQueue, omnibus, aspect);
     }
 }

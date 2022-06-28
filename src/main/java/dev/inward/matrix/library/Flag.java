@@ -1,25 +1,13 @@
 package dev.inward.matrix.library;
 
-import java.security.Permission;
+import dev.inward.matrix.Referral;
+import dev.inward.matrix.datum.fact.notion.authority.Authority;
+import dev.inward.matrix.datum.fact.notion.authority.Judge;
 
-public class Flag extends Permission {
-    @Override
-    public boolean implies(Permission permission) {
-        return false;
-    }
+public class Flag {
 
-    @Override
-    public boolean equals(Object obj) {
-        return false;
-    }
+    protected Referral<Authority, Judge> authority;
+    public Flag() {
 
-    @Override
-    public int hashCode() {
-        return 0;
-    }
-
-    @Override
-    public String getActions() {
-        return null;
     }
 }

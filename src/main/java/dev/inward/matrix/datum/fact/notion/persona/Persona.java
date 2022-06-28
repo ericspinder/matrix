@@ -8,7 +8,7 @@ import dev.inward.matrix.rubric.Topical;
 import javax.security.auth.Subject;
 import java.security.Principal;
 
-public final class Persona extends Notion<Persona, Identity.SuperEgo,Context.Service,Spirit> implements  {
+public final class Persona extends Notion<Persona, Identity.SuperEgo,Context.Service,Spirit> implements Principal {
 
     protected final String name;
 

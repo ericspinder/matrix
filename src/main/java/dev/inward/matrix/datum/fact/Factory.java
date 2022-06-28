@@ -5,10 +5,8 @@ import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.concept.*;
 import dev.inward.matrix.datum.fact.notion.concept.boot.BootLoader;
-import dev.inward.matrix.datum.fact.notion.persona.Persona;
 import dev.inward.matrix.matter.Topic;
 import dev.inward.matrix.meta.Standard;
-import dev.inward.matrix.operational.Guard;
 import dev.inward.matrix.operational.Operational;
 import dev.inward.matrix.operational.Engine;
 import dev.inward.matrix.rubric.Criteria;
@@ -84,7 +82,7 @@ public abstract class Factory<Y extends Factory<Y,F,O,I,X,B,P,FAB,C,E,V,M>,F ext
     public <DATUM,D extends Datum<DATUM,D,E,F,I,X,P>, E extends Envoy<DATUM,D,E,F,I,X,P>> E add(DATUM datum) {
         try {
             Resource<Y,DATUM,D,E,F,O,I,X,B,P> resource = (Resource<Y,DATUM,D,E,F,O,I,X,B,P>) this.producer.get(((D) datum).getClass());
-            return this.engine.getStorage().add(datum,this);
+            return this.defineClass()add(datum,this);
         }
         catch (ClassCastException cce) {
 
