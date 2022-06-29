@@ -8,6 +8,7 @@ import dev.inward.matrix.datum.fact.*;
 import dev.inward.matrix.datum.fact.notion.*;
 import dev.inward.matrix.datum.fact.notion.concept.*;
 import dev.inward.matrix.datum.fact.notion.persona.Persona;
+import dev.inward.matrix.library.LocationCollection;
 import dev.inward.matrix.library.ProtectionDomainStorage;
 import dev.inward.matrix.matter.Topic;
 import dev.inward.matrix.meta.Specification;

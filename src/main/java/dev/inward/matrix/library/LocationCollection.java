@@ -1,4 +1,4 @@
-package dev.inward.matrix.operational;
+package dev.inward.matrix.library;
 
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Bus;
@@ -6,6 +6,7 @@ import dev.inward.matrix.datum.fact.Diplomat;
 import dev.inward.matrix.datum.fact.Fact;
 import dev.inward.matrix.datum.fact.Factory;
 import dev.inward.matrix.datum.fact.notion.concept.*;
+import dev.inward.matrix.operational.Operational;
 
 import java.security.Permission;
 import java.security.PermissionCollection;
