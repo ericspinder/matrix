@@ -4,18 +4,20 @@ import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Fact;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.rubric.Criteria;
-import dev.inward.matrix.rubric.DatumVisitor;
 
 
-public class Standard<DATUM,F extends Fact<F,I,X,?>,I extends Identity<I,X>,X extends Context<X>> {
+public class Standard<DATUM,F extends Fact<F,I,X>,I extends Identity<I,X>,X extends Context<X>> {
 
-    protected String objectClassName;
-    protected Criteria<DATUM,?,?,F,I,X,?,?,?,?> criteria;
 
-    public Standard(final String objectClassName, Criteria<DATUM,?,) {
+    protected String datumClassName;
+    protected Criteria<DATUM,F,I,X>[] criteria;
+
+    public Standard(final String datumClassName, Criteria<DATUM,F,I,X>[] criteria) {
+        this.datumClassName = datumClassName;
+        this.criteria = criteria;
     }
 
-    public String getObjectClassName() {
-        return objectClassName;
+    public String getDatumClassName() {
+        return datumClassName;
     }
 }

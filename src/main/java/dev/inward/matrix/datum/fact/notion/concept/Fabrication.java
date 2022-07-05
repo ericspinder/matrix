@@ -8,10 +8,10 @@ import dev.inward.matrix.meta.Standard;
 
 import java.util.Map;
 
-public class Fabrication<FAB extends Fabrication<FAB,C,E,V,M>,C extends Concept<C,M>,E extends Effect<FAB,C,E,V,M>,V extends Volume<FAB,C,E,V,M>,M extends Mortal<FAB,C,E,V,M>> extends Industry<FAB,C,E,Identity.Ego, Context.JVM,V,M,FAB,C,E,V,M> {
+public class Fabrication<FAB extends Fabrication<FAB,C, T,V,M>,C extends Concept<C,M>, T extends Effect<FAB,C, T,V,M>,V extends Volume<FAB,C, T,V,M>,M extends Mortal<FAB,C, T,V,M>> extends Industry<FAB,C, T,Identity.Ego, Context.JVM,V,M,FAB,C, T,V,M> {
 
 
-    public Fabrication(M mortal, Resources resources, Map<Standard<?, C, Identity.Ego, Context.JVM>, Resource<FAB, ?, ?, ?, C, E, Identity.Ego, Context.JVM, V, M>> standardResourcesMap) {
+    public Fabrication(M mortal, Resources resources, Map<Standard<?, C, Identity.Ego, Context.JVM>, Resource<FAB, ?, ?, ?, C, T, Identity.Ego, Context.JVM, V, M>> standardResourcesMap) {
         super(mortal, resources, standardResourcesMap);
     }
 

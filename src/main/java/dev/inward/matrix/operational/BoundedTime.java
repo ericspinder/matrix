@@ -2,7 +2,7 @@ package dev.inward.matrix.operational;
 
 import dev.inward.matrix.meta.time.Instant;
 
-public abstract class BoundedTime implements Options.Bounded<Instant, BoundedTime> {
+public abstract class BoundedTime implements Specification.Bounded<Instant, BoundedTime> {
 
 
     ;

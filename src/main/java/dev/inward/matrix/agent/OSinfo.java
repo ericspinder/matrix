@@ -1,4 +1,4 @@
-package dev.inward.matrix.Agent;
+package dev.inward.matrix.agent;
 
 import dev.inward.matrix.advisor.NotionStartupException;
 import dev.inward.matrix.matter.Topic;

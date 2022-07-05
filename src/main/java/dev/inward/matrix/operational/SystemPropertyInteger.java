@@ -1,6 +1,6 @@
 package dev.inward.matrix.operational;
 
-public enum SystemPropertyInteger implements Options.SystemProperty<Integer, SystemPropertyInteger> {
+public enum SystemPropertyInteger implements Specification.SystemProperty<Integer, SystemPropertyInteger> {
     NameService_Cache("networkaddress.cache.ttl",10,"Specified in java.security to indicate the caching policy for successful name lookups from the name service. The value is specified as integer to indicate the number of seconds to cache the successful lookup. A value of -1 indicates \"cache forever\". The default behavior is to cache forever when a security manager is installed, and to cache for an implementation specific period of time, when a security manager is not installed."),
     NameService_Cache_negative("networkaddress.cache.negative.ttl",10, "(default: 10) Specified in java.security to indicate the caching policy for un-successful name lookups from the name service.. The value is specified as integer to indicate the number of seconds to cache the failure for un-successful lookups. A value of 0 indicates \"never cache\". A value of -1 indicates \"cache forever\"."),
     HTTP_Keep_Alive_Max_Setting("http.maxConnections",5,"(default: 5) If HTTP keep-alive is enabled (is on by default), this value is the number of idle connections that will be simultaneously kept alive, per-destination."),

@@ -1,6 +1,6 @@
 package dev.inward.matrix.operational;
 
-public enum BoundedInteger implements Options.Bounded<Integer, BoundedInteger> {
+public enum BoundedInteger implements Specification.Bounded<Integer, BoundedInteger> {
 
     ;
     private final String label;

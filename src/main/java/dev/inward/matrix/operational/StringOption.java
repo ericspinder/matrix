@@ -1,6 +1,6 @@
 package dev.inward.matrix.operational;
 
-public enum StringOption implements Options.Option<String,StringOption> {
+public enum StringOption implements Specification.Option<String,StringOption> {
     Management_JMX("com.notionds.jmx.management", "JMX management mBean Implementation", "dev.inward.matrix.datum.fact.notion.concept.dataSupplier.jmx.NotionDsBean"),
     Aggregation_Method_REGEX("com.notionds.aggregation.method_regex", "The regex for the method or methods (how clever is your regex?) which need have an InvokeAccounting created", "^execute"),
     ;

@@ -12,6 +12,7 @@ public class NotionStartupException extends Blocker {
         Cannot_Update_Timer("Cannot update timer object with new finish time once set"),
         ConstructorProblem_Reflective("Unable to create needed constructor, reflective operation failed"),
         ConstructorProblem_WrongClass("Unable to find needed constructor, likely should be using a different class"),
+        ClassCastException("Unable to cast to needed class"),
         MissingDefaultValue("Missing a default value"),
         MissMatchedOptionKey("Option key was not set for proper instance value"),
         NetworkUnavailable_No_Return("Problem gaining network details"),

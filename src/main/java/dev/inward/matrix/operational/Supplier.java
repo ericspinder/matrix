@@ -1,6 +1,6 @@
 package dev.inward.matrix.operational;
 
-import dev.inward.matrix.Agent.Edition;
+import dev.inward.matrix.agent.Edition;
 import dev.inward.matrix.advisor.NotionStartupException;
 import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
@@ -11,7 +11,6 @@ import dev.inward.matrix.datum.fact.notion.persona.Persona;
 import dev.inward.matrix.library.LocationCollection;
 import dev.inward.matrix.library.ProtectionDomainStorage;
 import dev.inward.matrix.matter.Topic;
-import dev.inward.matrix.meta.Specification;
 import dev.inward.matrix.rubric.Envoy;
 
 import java.lang.ref.ReferenceQueue;
@@ -20,7 +19,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Map;
 
 @SuppressWarnings("unchecked")
-public abstract class Supplier<Y extends Factory<Y,F,O,I,X,B,P,FAB,C,E,V,M>,F extends Fact<F,I,X,P>,O extends Operational<Y,F,O,I,X,B,P>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,P>,P extends Diplomat<Y,F,O,I,X,B,P>,FAB extends Fabrication<FAB,C,E,V,M>,C extends Concept<C,M>,E extends Effect<FAB,C,E,V,M>,V extends Volume<FAB,C,E,V,M>,M extends Mortal<FAB,C,E,V,M>> {
+public abstract class Supplier<Y extends Factory<Y,F,O,I,X,B,P,FAB,C,E,V,M>,F extends Fact<F,I,X>,O extends Operational<Y,F,O,I,X,B,P>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,P>,P extends Diplomat<Y,F,O,I,X,B,P>,FAB extends Fabrication<FAB,C,E,V,M>,C extends Concept<C,M>,E extends Effect<FAB,C,E,V,M>,V extends Volume<FAB,C,E,V,M>,M extends Mortal<FAB,C,E,V,M>> {
     public final Class<Y> factoryClass = ((Class<Y>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
     public final Class<F> factClass = ((Class<F>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[1]);
     public final Class<O> operationalClass = ((Class<O>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[2]);
@@ -47,10 +46,10 @@ public abstract class Supplier<Y extends Factory<Y,F,O,I,X,B,P,FAB,C,E,V,M>,F ex
         return induction.createEnvoy(datum,factory);
     }
 
-    public Engine<Y,F,O,I,X,B,P> buildEngine(Edition<?> edition, LocationCollection locationCollection, Y factory, Persona[] personas, O operational) {
-        return new Engine<>(edition, locationCollection,factory,personas,operational);
+    public Engine<Y,F,O,I,X,B,P> buildEngine(O operational) {
+        return new Engine<Y,F,O,I,X,B,P>(operational);
     }
-    public Y buildFactory(M mortal, Map<Specification<?,F,I,X>, Resource<Y,?,?,?,F,O,I,X,B,P>> resourceMap) {
+    public Y buildFactory(M mortal, Map<Specification<F,I,X>, Resource<Y,?,?,?,F,O,I,X,B,P>> resourceMap) {
         try {
             return factoryClass.getDeclaredConstructor(mortalClass, Map.class)
                     .newInstance(mortal,resourceMap);

@@ -21,7 +21,7 @@ import java.util.UUID;
 import java.util.concurrent.locks.StampedLock;
 import java.util.function.Supplier;
 
-public abstract class Factory<Y extends Factory<Y,F,O,I,X,B,P,FAB,C,E,V,M>,F extends Fact<F,I,X,P>,O extends Operational<Y,F,O,I,X,B,P>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,P>,P extends Diplomat<Y,F,O,I,X,B,P>,FAB extends Fabrication<FAB,C,E,V,M>,C extends Concept<C,M>,E extends Effect<FAB,C,E,V,M>,V extends Volume<FAB,C,E,V,M>,M extends Mortal<FAB,C,E,V,M>> extends ClassLoader implements Comparable<Y>, Serializable {
+public abstract class Factory<Y extends Factory<Y,F,O,I,X,B,P,FAB,C,E,V,M>,F extends Fact<F,I,X>,O extends Operational<Y,F,O,I,X,B,P>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,P>,P extends Diplomat<Y,F,O,I,X,B,P>,FAB extends Fabrication<FAB,C,E,V,M>,C extends Concept<C,M>,E extends Effect<FAB,C,E,V,M>,V extends Volume<FAB,C,E,V,M>,M extends Mortal<FAB,C,E,V,M>> extends ClassLoader implements Comparable<Y>, Serializable {
 
     protected final UUID uuid = UUID.randomUUID();
     protected final M mortal;
@@ -37,8 +37,8 @@ public abstract class Factory<Y extends Factory<Y,F,O,I,X,B,P,FAB,C,E,V,M>,F ext
         long writeLock = gate.writeLock();
         try {
             boolean isNew = (this.engine == null); // Editions cannot be rolled
-            this.engine = operational.getSupplier().buildEngine(mortal.get().id.getContext().getEdition(), guard,(Y)this,personas,operational);
-            for (Standard<?,F,I,X> standard:  ) {
+            this.engine = operational.supplier().buildEngine(operational);
+            for (Standard<?,F,I,X> standard: operational.options()) {
                 this.init(standard.getObjectClassName());
             }
          }

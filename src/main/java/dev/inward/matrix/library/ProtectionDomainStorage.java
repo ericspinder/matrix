@@ -1,7 +1,6 @@
 package dev.inward.matrix.library;
 
-import dev.inward.matrix.Agent.Edition;
-import dev.inward.matrix.datum.Datum;
+import dev.inward.matrix.agent.Edition;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.*;
 import dev.inward.matrix.datum.fact.notion.concept.*;

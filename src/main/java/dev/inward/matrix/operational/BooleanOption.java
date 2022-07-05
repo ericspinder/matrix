@@ -1,6 +1,6 @@
 package dev.inward.matrix.operational;
 
-public enum BooleanOption implements Options.Option<Boolean,BooleanOption> {
+public enum BooleanOption implements Specification.Option<Boolean,BooleanOption> {
 
     ConnectionContainer_Check_ResultSet("dev.inward.matrix.connectionMain.checkResultSet", "Order a check of all ResultSets before closing when cleanupAfterGC() had not been called, until the connection had been closed", true),
     Logging("dev.inward.matrix.connection.notion.jdbcProxy.aggregation.UseLogging", "Use ProxyV1 aggregation", false),

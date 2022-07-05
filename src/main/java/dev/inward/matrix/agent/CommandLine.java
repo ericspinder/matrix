@@ -1,4 +1,4 @@
-package dev.inward.matrix.Agent;
+package dev.inward.matrix.agent;
 
 import java.util.*;
 import java.util.regex.Matcher;

@@ -1,6 +1,6 @@
 package dev.inward.matrix.datum.fact.notion.concept;
 
-import dev.inward.matrix.Agent.Edition;
+import dev.inward.matrix.agent.Edition;
 import dev.inward.matrix.clues.Clue;
 import dev.inward.matrix.clues.Clues;
 

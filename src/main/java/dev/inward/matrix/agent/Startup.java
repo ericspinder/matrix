@@ -1,4 +1,4 @@
-package dev.inward.matrix.Agent;
+package dev.inward.matrix.agent;
 
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.creation.Creation;
@@ -6,7 +6,7 @@ import dev.inward.matrix.datum.fact.Resource;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.datum.fact.notion.concept.boot.*;
 import dev.inward.matrix.meta.Standard;
-import dev.inward.matrix.operational.Options;
+import dev.inward.matrix.operational.Specification;
 import dev.inward.matrix.rubric.Envoy;
 
 import java.lang.instrument.Instrumentation;
@@ -32,7 +32,7 @@ public class Startup {
         Startup startup = new Startup(new CommandLine(agentArgs), instrumentation);
 
 
-        deque.add(new Init(new Options(), new Context.JVM, agentArgs));
+        deque.add(new Init(new Specification(), new Context.JVM, agentArgs));
 
 
         Map<Standard<?,Boot,Identity.Ego,Context.JVM>, Resource<BootLoader,?,?,?,Boot,Init,Identity.Ego,Context.JVM,Structure,Root>> resourceMap = new ConcurrentHashMap<>();

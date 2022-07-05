@@ -2,11 +2,9 @@ package dev.inward.matrix.datum.fact.notion;
 
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Memory;
-import dev.inward.matrix.datum.fact.notion.concept.Concept;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.datum.fact.notion.concept.Mortal;
 import dev.inward.matrix.operational.Operational;
-import dev.inward.matrix.operational.Options;
+import dev.inward.matrix.operational.Specification;
 import dev.inward.matrix.operational.Supplier;
 
 import java.security.ProtectionDomain;
@@ -15,8 +13,8 @@ public class Aspect<Y extends Industry<Y,N,S,I,X,O,A,?,?,?,?,?>,N extends Notion
 
     protected final Memory<Y, N, S, I, X, O, A> notionsInMemory = new Memory();
 
-    public Aspect(Options options, Supplier<Y, N, S, I, X, O, A, ?, ?, ?, ?, ?> supplier, ProtectionDomain protectionDomain) {
-        super(options, supplier, protectionDomain);
+    public Aspect(Specification specification, Supplier<Y, N, S, I, X, O, A, ?, ?, ?, ?, ?> supplier, ProtectionDomain protectionDomain) {
+        super(specification, supplier, protectionDomain);
     }
 }
 

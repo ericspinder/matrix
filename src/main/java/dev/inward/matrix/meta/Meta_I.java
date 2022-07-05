@@ -1,9 +1,8 @@
 package dev.inward.matrix.meta;
 
-import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 
-public interface Meta_I<DATUM,M extends Meta_I<DATUM,M>> extends Comparable<M> {
+public interface Meta_I<OPTION,M extends Meta_I<OPTION,M>> extends Comparable<M> {
 
     String getLabel();
     default String getI18n() {
@@ -15,8 +14,8 @@ public interface Meta_I<DATUM,M extends Meta_I<DATUM,M>> extends Comparable<M> {
         }
     }
     String getDescription();
-    default Class<DATUM> getDatumClass() {
-        return ((Class<DATUM>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
+    default Class<OPTION> getDatumClass() {
+        return ((Class<OPTION>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
     }
 
     default int compareTo(M that) {

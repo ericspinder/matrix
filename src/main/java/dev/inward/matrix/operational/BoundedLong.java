@@ -1,6 +1,6 @@
 package dev.inward.matrix.operational;
 
-public enum BoundedLong implements Options.Bounded<Long, BoundedLong> {
+public enum BoundedLong implements Specification.Bounded<Long, BoundedLong> {
 
 
     ;

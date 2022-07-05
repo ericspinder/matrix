@@ -3,7 +3,7 @@ package dev.inward.matrix.operational;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
-public enum DurationOption implements Options.Option<Duration,DurationOption> {
+public enum DurationOption implements Specification.Option<Duration,DurationOption> {
 
     ConnectionTimeoutInPool("dev.inward.matrix.connections_timeout_in_pool", "Amount of time connections will wait in the provider before reaping excess of the number of active in provider connections", Duration.of(20, ChronoUnit.MINUTES)),
     ConnectionTimeoutInPool_Cool_Down("dev.inward.matrix.connections_timeout_in_pool_cool_down", "Minimum amount of time between reaping extra active connections, this creates a walk down from the maximum number of connections", Duration.of(60, ChronoUnit.SECONDS)),

@@ -5,7 +5,7 @@ import dev.inward.matrix.datum.fact.notion.concept.Context;
 
 import java.io.Serializable;
 
-public abstract class Fact<F extends Fact<F,I,X,P>,I extends Identity<I,X>,X extends Context<X>,P extends Diplomat<?,F,?,I,X,?,P>> implements Comparable<F>, Serializable, Identity.Addressable<F,I,X> {
+public abstract class Fact<F extends Fact<F,I,X>,I extends Identity<I,X>,X extends Context<X>> implements Comparable<F>, Serializable, Identity.Addressable<F,I,X> {
 
     protected final I id;
 

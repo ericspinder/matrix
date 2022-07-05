@@ -1,4 +1,4 @@
-package dev.inward.matrix.backup.BackupSet;
+package dev.inward.matrix.backup;
 
 import java.io.Serializable;
 import java.time.Instant;
