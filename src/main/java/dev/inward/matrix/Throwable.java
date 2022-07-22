@@ -3,7 +3,7 @@ package dev.inward.matrix;
 import dev.inward.crud.Container;
 import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.notion.concept.dataSupplier.container.Phase;
+import dev.inward.matrix.fact.notion.concept.dataSupplier.container.Phase;
 import dev.inward.matrix.matter.Topic;
 import dev.inward.matrix.matter.sanction.Sanction;
 import dev.inward.matrix.operational.Operational;

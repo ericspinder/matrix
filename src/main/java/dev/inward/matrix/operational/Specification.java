@@ -3,8 +3,8 @@ package dev.inward.matrix.operational;
 import dev.inward.matrix.advisor.NotionStartupException;
 
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.Fact;
-import dev.inward.matrix.datum.fact.notion.concept.Context;
+import dev.inward.matrix.fact.Fact;
+import dev.inward.matrix.fact.notion.concept.Context;
 import dev.inward.matrix.matter.Topic;
 import dev.inward.matrix.meta.Meta_I;
 import dev.inward.matrix.meta.Standard;
@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class Specification<F extends Fact<F,I,X>,I extends Identity<I,X>,X extends Context<X>> {
     protected final Map<String, Option<?,?>> options = new HashMap<>();
-    protected final Map<Standard<?, F, I, X>,  []> standardZones;
+    protected final Map<Standard<?,F,I,X>,Zone[]> standardZones;
     
     public Specification(final Map<Standard<?, F, I, X>,Zone[]> standardZones) {
         try {

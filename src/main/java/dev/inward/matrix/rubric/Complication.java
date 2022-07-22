@@ -2,15 +2,11 @@ package dev.inward.matrix.rubric;
 
 import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.*;
-import dev.inward.matrix.datum.fact.notion.Notion;
-import dev.inward.matrix.datum.fact.notion.Ambassador;
-import dev.inward.matrix.datum.fact.notion.concept.*;
+import dev.inward.matrix.fact.*;
+import dev.inward.matrix.fact.notion.concept.*;
 import dev.inward.matrix.operational.Operational;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
 
 public abstract class Complication<Y extends Factory<Y,F,O,I,X,B,P,FAB,C,T,V,M>,DATUM,D extends Datum<DATUM,D,E,F,I,X,P>,E extends Envoy<DATUM,D,E,F,I,X,P>,F extends Fact<F,I,X,P>,O extends Operational<Y,F,O,I,X,B,P>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,P>,P extends Diplomat<Y,F,O,I,X,B,P>,FAB extends Fabrication<FAB,C,T,V,M>,C extends Concept<C,M>,T extends Effect<FAB,C,T,V,M>,V extends Volume<FAB,C,T,V,M>,M extends Mortal<FAB,C,T,V,M>,COMP extends Complication<Y,DATUM,D,E,F,O,I,X,B,P,FAB,C,T,V,M,COMP>> implements Comparable<COMP>, Serializable {
 

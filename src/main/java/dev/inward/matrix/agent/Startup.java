@@ -2,9 +2,9 @@ package dev.inward.matrix.agent;
 
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.creation.Creation;
-import dev.inward.matrix.datum.fact.Resource;
-import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.datum.fact.notion.concept.boot.*;
+import dev.inward.matrix.fact.Resource;
+import dev.inward.matrix.fact.notion.concept.Context;
+import dev.inward.matrix.fact.notion.concept.boot.*;
 import dev.inward.matrix.meta.Standard;
 import dev.inward.matrix.operational.Specification;
 import dev.inward.matrix.rubric.Envoy;

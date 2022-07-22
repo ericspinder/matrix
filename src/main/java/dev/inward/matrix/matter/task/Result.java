@@ -1,7 +1,7 @@
 package dev.inward.matrix.matter.task;
 
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.Fact;
+import dev.inward.matrix.fact.Fact;
 import dev.inward.matrix.matter.Matter;
 import dev.inward.matrix.matter.Topic;
 

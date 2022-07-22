@@ -1,11 +1,10 @@
 package dev.inward.matrix.datum;
 
-import dev.inward.matrix.datum.fact.Factory;
+import dev.inward.matrix.fact.Factory;
 
 import dev.inward.matrix.rubric.Envoy;
 
 import java.lang.ref.SoftReference;
-import java.lang.reflect.ParameterizedType;
 
 public class Tracking<DATUM,D extends Datum<DATUM,D,E>,E extends Envoy<DATUM,D,E,?,?,?,?>> {
 

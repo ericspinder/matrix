@@ -6,13 +6,13 @@ public class TopLevelDomain<TDL extends TopLevelDomain<TDL>> implements Comparab
 
     protected final TopLevelDomain topLevelDomain;
     protected final String tld;
-    protected RemoteServer[] remoteServers;
+    protected Server[] servers;
 
 
-    public TopLevelDomain(String tld,TopLevelDomain topLevelDomain,RemoteServer[] remoteServers) {
+    public TopLevelDomain(String tld, TopLevelDomain topLevelDomain, Server[] servers) {
         this.tld = tld;
         this.topLevelDomain = topLevelDomain;
-        this.remoteServers = remoteServers;
+        this.servers = servers;
     }
 
     @Override
@@ -33,5 +33,5 @@ public class TopLevelDomain<TDL extends TopLevelDomain<TDL>> implements Comparab
         }
         return this.tld;
     }
-    public static final TopLevelDomain COM = new TopLevelDomain("COM", null, RemoteServer.COM_NS_ARRAY);
+    public static final TopLevelDomain COM = new TopLevelDomain("COM", null, Server.COM_NS_ARRAY);
 }

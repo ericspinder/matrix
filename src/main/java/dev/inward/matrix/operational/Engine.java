@@ -1,11 +1,8 @@
 package dev.inward.matrix.operational;
 
-import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.*;
-import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.meta.Standard;
-import dev.inward.matrix.rubric.Envoy;
+import dev.inward.matrix.fact.*;
+import dev.inward.matrix.fact.notion.concept.Context;
 
 import java.time.Instant;
 

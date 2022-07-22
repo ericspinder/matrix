@@ -2,9 +2,9 @@ package dev.inward.matrix.library;
 
 import dev.inward.matrix.agent.Edition;
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.notion.*;
-import dev.inward.matrix.datum.fact.notion.concept.*;
-import dev.inward.matrix.datum.fact.notion.persona.Persona;
+import dev.inward.matrix.fact.notion.*;
+import dev.inward.matrix.fact.notion.concept.*;
+import dev.inward.matrix.fact.notion.persona.Persona;
 
 import java.security.PermissionCollection;
 import java.security.ProtectionDomain;

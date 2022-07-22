@@ -1,7 +1,7 @@
 package dev.inward.matrix.clues;
 
 import dev.inward.matrix.advisor.NotionStartupException;
-import dev.inward.matrix.datum.fact.notion.concept.Context;
+import dev.inward.matrix.fact.notion.concept.Context;
 import dev.inward.matrix.matter.Topic;
 
 import java.util.HashMap;

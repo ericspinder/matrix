@@ -1,8 +1,8 @@
 package dev.inward.matrix.meta;
 
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.Fact;
-import dev.inward.matrix.datum.fact.notion.concept.Context;
+import dev.inward.matrix.fact.Fact;
+import dev.inward.matrix.fact.notion.concept.Context;
 import dev.inward.matrix.rubric.Criteria;
 
 

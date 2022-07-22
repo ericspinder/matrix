@@ -2,8 +2,8 @@ package dev.inward.matrix.matter;
 
 import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.Fact;
-import dev.inward.matrix.datum.fact.Diplomat;
+import dev.inward.matrix.fact.Fact;
+import dev.inward.matrix.fact.Diplomat;
 
 import java.time.Instant;
 import java.util.UUID;

@@ -3,12 +3,12 @@ package dev.inward.matrix.advisor;
 import dev.inward.matrix.advisor.advice.Advice;
 import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.Bus;
-import dev.inward.matrix.datum.fact.Fact;
-import dev.inward.matrix.datum.fact.Factory;
-import dev.inward.matrix.datum.fact.Diplomat;
-import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.datum.fact.notion.concept.Gathering;
+import dev.inward.matrix.fact.Bus;
+import dev.inward.matrix.fact.Fact;
+import dev.inward.matrix.fact.Factory;
+import dev.inward.matrix.fact.Diplomat;
+import dev.inward.matrix.fact.notion.concept.Context;
+import dev.inward.matrix.fact.notion.concept.Ledger;
 import dev.inward.matrix.matter.sanction.Sanction;
 import dev.inward.matrix.operational.Operational;
 import dev.inward.matrix.rubric.Envoy;
@@ -28,7 +28,7 @@ public abstract class Advisor<Y extends Factory<Y,F,O,I,X,B,P>,D extends Datum<D
     }
 
 
-    public final <L extends Gathering.Ledger<Y,D,F,O,I,X,B,P>> void add(Advice<Y,D,F,O,I,X,B,P,?,L,?> advice) {
+    public final <L extends Ledger<Y,D,F,O,I,X,B,P>> void add(Advice<Y,D,F,O,I,X,B,P,?,L,?> advice) {
         adviceWithParticipants.put(advice,advice.supply());
     }
     public final void removeAdvisor(Advice adviceToRemove) {

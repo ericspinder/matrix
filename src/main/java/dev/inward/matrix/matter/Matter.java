@@ -1,7 +1,7 @@
 package dev.inward.matrix.matter;
 
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.notion.concept.Context;
+import dev.inward.matrix.fact.notion.concept.Context;
 
 import java.io.Serializable;
 import java.time.Instant;

@@ -4,23 +4,23 @@ import dev.inward.matrix.advisor.Advisor;
 import dev.inward.matrix.advisor.advice.Advice;
 import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.Bus;
-import dev.inward.matrix.datum.fact.Fact;
-import dev.inward.matrix.datum.fact.Factory;
-import dev.inward.matrix.datum.fact.Diplomat;
-import dev.inward.matrix.datum.fact.notion.concept.Gathering;
+import dev.inward.matrix.fact.Bus;
+import dev.inward.matrix.fact.Fact;
+import dev.inward.matrix.fact.Factory;
+import dev.inward.matrix.fact.Diplomat;
+import dev.inward.matrix.fact.notion.concept.Ledger;
 import dev.inward.matrix.operational.Operational;
 import dev.inward.matrix.rubric.Envoy;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class Participants<Y extends Factory<Y,F,O,I,X,B,P>,D extends Datum<D,F,I,X>,F extends Fact<F,I,X>,O extends Operational<Y,F,O,I,X,B,P>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<F,B>,P extends Diplomat<Y,F,O,I,X,B,P>,E extends Envoy<Y,D,F,O,I,X,B,P,E>,L extends Gathering.Ledger<Y,D,F,O,I,X,B,P,E>> extends LinkedHashMap<E,L> {
+public class Participants<Y extends Factory<Y,F,O,I,X,B,P>,D extends Datum<D,F,I,X>,F extends Fact<F,I,X>,O extends Operational<Y,F,O,I,X,B,P>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<F,B>,P extends Diplomat<Y,F,O,I,X,B,P>,E extends Envoy<Y,D,F,O,I,X,B,P,E>,L extends Ledger<Y,D,F,O,I,X,B,P,E>> extends LinkedHashMap<E,L> {
 
     @SuppressWarnings("unchecked")
     public Participants(Advisor<Y,D,F,O,I,X,B,P,?> advisor, Advice<Y,D,F,O,I,X,B,P,E,L,?> advice) {
-        super(,advice.getLoadFactor((Advice<Y,D,F,O,I,X,B,P,E, Gathering.Ledger<Y,D,F,O,I,X,B,P,E>,?>) advice),advisor.accessOrder((Advice<Y,D,F,O,I,X,B,P,E, Gathering.Ledger<Y,D,F,O,I,X,B,P,E>,?>) advice));
-        int i = advisor.getMaxSize((Advice<Y,D,F,O,I,X,B,P,E, Gathering.Ledger<Y,D,F,O,I,X,B,P,E>,?>) advice);
+        super(,advice.getLoadFactor((Advice<Y,D,F,O,I,X,B,P,E, Ledger<Y,D,F,O,I,X,B,P,E>,?>) advice),advisor.accessOrder((Advice<Y,D,F,O,I,X,B,P,E, Ledger<Y,D,F,O,I,X,B,P,E>,?>) advice));
+        int i = advisor.getMaxSize((Advice<Y,D,F,O,I,X,B,P,E, Ledger<Y,D,F,O,I,X,B,P,E>,?>) advice);
     }
     @Override
     protected boolean removeEldestEntry(Map.Entry<E,L> eldestCandidate) {

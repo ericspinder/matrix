@@ -1,15 +1,15 @@
 package dev.inward.matrix.library;
 
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.Diplomat;
-import dev.inward.matrix.datum.fact.Fact;
-import dev.inward.matrix.datum.fact.notion.concept.*;
+import dev.inward.matrix.fact.Diplomat;
+import dev.inward.matrix.fact.Fact;
+import dev.inward.matrix.fact.notion.concept.*;
 
 import java.net.InetAddress;
 import java.security.Permission;
 import java.util.regex.Pattern;
 
-public class Location<F extends Fact<F,I,X,P>,I extends Identity<I,X>,X extends Context<X>,P extends Diplomat<?,F,?,I,X,?,P>,FAB extends Fabrication<FAB,C,E,V,M>,C extends Concept<C,M>,E extends Effect<FAB,C,E,V,M>,V extends Volume<FAB,C,E,V,M>,M extends Mortal<FAB,C,E,V,M>> extends Permission implements Comparable<Location<F,I,X,P,FAB,C,E,V,M>> {
+public class Location<F extends Fact<F,I,X>,I extends Identity<I,X>,X extends Context<X>,P extends Diplomat<?,F,?,I,X,?,P>,FAB extends Fabrication<FAB,C,E,V,M>,C extends Concept<C,M>,E extends Effect<FAB,C,E,V,M>,V extends Volume<FAB,C,E,V,M>,M extends Mortal<FAB,C,E,V,M>> extends Permission implements Comparable<Location<F,I,X,P,FAB,C,E,V,M>> {
 
     protected final Pattern pattern;
     protected final InetAddress inetAddress;

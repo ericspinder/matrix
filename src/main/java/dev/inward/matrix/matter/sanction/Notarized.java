@@ -1,8 +1,8 @@
 package dev.inward.matrix.matter.sanction;
 
 import dev.inward.matrix.datum.Identity.SuperEgo;
-import dev.inward.matrix.datum.fact.Factory;
-import dev.inward.matrix.datum.fact.notion.concept.corpus.Corpus;
+import dev.inward.matrix.fact.Factory;
+import dev.inward.matrix.fact.notion.concept.corpus.Corpus;
 import dev.inward.matrix.maker.Fingerprint;
 import dev.inward.matrix.matter.Matter;
 import dev.inward.matrix.matter.Topic;

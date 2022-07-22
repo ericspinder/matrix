@@ -1,8 +1,8 @@
 package dev.inward.matrix.path;
 
 import dev.inward.matrix.clues.Clues;
-import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.datum.fact.test.Test;
+import dev.inward.matrix.fact.notion.concept.Context;
+import dev.inward.matrix.fact.test.Test;
 
 import java.io.Serializable;
 
