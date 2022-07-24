@@ -7,14 +7,14 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.UUID;
 
-public class Matter<I extends Identity<I,X>,X extends Context<X>,MAT extends Matter<I,X,MAT>> implements Comparable<MAT>, Serializable {
+public class Matter<MAT extends Matter<MAT, IMAT, XMAT>, IMAT extends Identity<IMAT, XMAT>, XMAT extends Context<XMAT>> implements Comparable<MAT>, Serializable {
 
     protected final UUID uuid;
-    protected final I topicId;
+    protected final IMAT topicId;
     protected final Instant createInstant;
     protected final Topic topic;
 
-    public Matter(UUID uuid, I topicId, Instant createInstant, Topic topic) {
+    public Matter(UUID uuid, IMAT topicId, Instant createInstant, Topic topic) {
         this.uuid = uuid;
         this.topicId = topicId;
         this.createInstant = createInstant;
@@ -32,7 +32,7 @@ public class Matter<I extends Identity<I,X>,X extends Context<X>,MAT extends Mat
     public final UUID getUuid() {
         return uuid;
     }
-    public final I getTopicId() {
+    public final IMAT getTopicId() {
         return this.topicId;
     }
     public final Instant getCreateInstant() {

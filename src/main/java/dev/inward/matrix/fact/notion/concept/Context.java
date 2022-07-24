@@ -3,15 +3,19 @@ package dev.inward.matrix.fact.notion.concept;
 import dev.inward.matrix.agent.Edition;
 import dev.inward.matrix.clues.Clue;
 import dev.inward.matrix.clues.Clues;
+import dev.inward.matrix.domain.Domain;
 
 public abstract class Context<X extends Context<X>> implements Comparable<X> {
 
     protected final boolean production;
     protected final Edition edition;
+    protected final Domain domain;
     protected final Clues<X> clues;
-    public Context(Edition<?> edition, boolean production, Clues<X> clues) {
+
+    public Context(Edition<?> edition, boolean production,Domain domain, Clues<X> clues) {
         this.edition = edition;
         this.production = production;
+        this.domain = domain;
         this.clues = clues;
     }
 
@@ -22,8 +26,8 @@ public abstract class Context<X extends Context<X>> implements Comparable<X> {
     public static class Service extends Platform<Service> {
 
         protected final String name;
-        public Service(Edition edition, boolean production, Clues<Service> clues, String name) {
-            super(edition, production, clues);
+        public Service(Edition edition, boolean production, Domain domain, Clues<Service> clues, String name) {
+            super(edition, production, domain, clues);
             this.name = name;
         }
         public String getName() {
@@ -31,13 +35,13 @@ public abstract class Context<X extends Context<X>> implements Comparable<X> {
         }
     }
     public static class JVM extends Platform<JVM> {
-        public JVM(Edition<?> edition, boolean production, Clues<JVM> clues) {
-            super(edition,production,clues);
+        public JVM(Edition<?> edition, boolean production, Domain domain,Clues<JVM> clues) {
+            super(edition,production,domain,clues);
         }
     }
     public static class Platform<X extends Platform<X>> extends Context<X> {
-        public Platform(Edition<?> edition, boolean production, Clues<X> clues) {
-            super(edition, production,clues);
+        public Platform(Edition<?> edition, boolean production,Domain domain, Clues<X> clues) {
+            super(edition, production,domain,clues);
         }
     }
 
