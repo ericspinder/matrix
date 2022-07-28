@@ -12,7 +12,6 @@ import java.util.Map;
 
 public class Agency extends Industry<Agency,Connector, Journey,Identity.Ego,Context.JVM, Passage, Agent, BootLoader,Boot, Init, Structure,Root> {
 
-
     public Agency(Root mortal, Resources resources, Map<Standard<?, Connector, Identity.Ego, Context.JVM>, Resource<Agency, ?, ?, ?, Connector, Journey, Identity.Ego, Context.JVM, Passage, Agent>> standardResourcesMap) {
         super(mortal, resources, standardResourcesMap);
     }

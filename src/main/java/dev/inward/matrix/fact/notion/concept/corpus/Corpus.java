@@ -6,6 +6,7 @@ import dev.inward.matrix.fact.notion.concept.Concept;
 
 public class Corpus extends Concept<Corpus,Prophet> {
 
+
     protected LocalSystemNetworking networking = LocalSystemNetworking.getInstance();
 
     public Corpus(Identity.Ego id) {

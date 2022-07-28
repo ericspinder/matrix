@@ -3,15 +3,37 @@ package dev.inward.matrix.matter;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.fact.notion.concept.Context;
 
+import java.lang.ref.SoftReference;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.UUID;
+import java.util.concurrent.*;
 
-public abstract class Promise<I extends Identity<I,X>,X extends Context<X>,P extends Promise<I,X,P>> extends Matter<I,X,P> {
+public abstract class Promise<RESP extends Response<RESP,IC,XC>,REQ extends Request<REQ,IC,XC>,IC extends Identity<IC,XC>,XC extends Context<XC>> implements Future<RESP> {
 
-    private Instant instantReady;
-    private Duration durationAvailable;
-    public Promise(UUID uuid, I topicId, Instant createInstant, Topic topic) {
-        super(uuid,topicId,createInstant, topic);
+    protected final REQ request;
+    protected final Instant instantExpectedReady;
+    protected final Duration durationAvailable;
+    protected SoftReference<RESP> promised;
+
+    public Promise(REQ request, Instant instantExpectedReady, Duration durationAvailable) {
+        this.request = request;
+        this.instantExpectedReady = instantExpectedReady;
+        this.durationAvailable = durationAvailable;
+    }
+
+    public REQ getRequest() {
+        return request;
+    }
+
+    public Instant getInstantExpectedReady() {
+        return instantExpectedReady;
+    }
+
+    public Duration getDurationAvailable() {
+        return durationAvailable;
+    }
+
+    public SoftReference<RESP> getPromised() {
+        return promised;
     }
 }
