@@ -3,7 +3,7 @@ package dev.inward.matrix.matter.warrant;
 import dev.inward.crud.Container;
 import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.matter.Promise;
+import dev.inward.matrix.datum.fact.intialized.maker.Promise;
 import dev.inward.matrix.operational.Operational;
 import dev.inward.matrix.path.Path;
 

@@ -1,9 +1,9 @@
 package dev.inward.matrix.library;
 
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.fact.Diplomat;
-import dev.inward.matrix.fact.Fact;
-import dev.inward.matrix.fact.notion.concept.*;
+import dev.inward.matrix.datum.fact.Diplomat;
+import dev.inward.matrix.datum.fact.Fact;
+import dev.inward.matrix.datum.fact.notion.concept.*;
 
 import java.net.InetAddress;
 import java.security.Permission;

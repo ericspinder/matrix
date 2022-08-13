@@ -3,9 +3,9 @@ package dev.inward.matrix.operational;
 import dev.inward.matrix.advisor.NotionStartupException;
 
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.fact.Fact;
-import dev.inward.matrix.fact.notion.concept.Context;
-import dev.inward.matrix.matter.Topic;
+import dev.inward.matrix.datum.fact.Fact;
+import dev.inward.matrix.datum.fact.notion.concept.Context;
+import dev.inward.matrix.matter.Indicia;
 import dev.inward.matrix.meta.Meta_I;
 import dev.inward.matrix.meta.Standard;
 import dev.inward.matrix.rubric.Roller;
@@ -15,7 +15,7 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Specification<F extends Fact<F,I,X>,I extends Identity<I,X>,X extends Context<X>> {
+public class Specification<F extends Fact<F,I,X,?,?,?>,I extends Identity<I,X>,X extends Context<X>> {
     protected final Map<String, Option<?,?>> options = new HashMap<>();
     protected final Map<Standard<?,F,I,X>,Zone[]> standardZones;
     
@@ -35,50 +35,7 @@ public class Specification<F extends Fact<F,I,X>,I extends Identity<I,X>,X exten
         return this.standardZones;
     }
 
-    public Option<Integer,?> getInteger(String key) {
-        if (this.options.containsKey(key)) {
-            try {
-                return (Option<Integer,?>) this.options.get(key);
-            }
-            catch (ClassCastException cce) {
-                throw new NotionStartupException(NotionStartupException.Type.ClassCastException, StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE).getCallerClass(), Topic.Focus.Admonitory, Topic.Severity.Exceptional,cce);
-            }
-        }
-        throw new NotionStartupException(NotionStartupException.Type.MissingDefaultValue, StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE).getCallerClass(), Topic.Focus.Admonitory, Topic.Severity.Exceptional,null);
-    }
-    public Option<String,?> getString(String key) {
-        if (this.options.containsKey(key)) {
-            try {
-                return (Option<String,?>) this.options.get(key);
-            }
-            catch (ClassCastException cce) {
-                throw new NotionStartupException(NotionStartupException.Type.ClassCastException, StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE).getCallerClass(), Topic.Focus.Admonitory, Topic.Severity.Exceptional,cce);
-            }
-        }
-        throw new NotionStartupException(NotionStartupException.Type.MissingDefaultValue, StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE).getCallerClass(), Topic.Focus.Admonitory, Topic.Severity.Exceptional,null);
-    }
-    public Option<Duration,?> getDuration(String key) throws Roller {
-        if (this.options.containsKey(key)) {
-            try {
-                return (Option<Duration,?>) this.options.get(key);
-            }
-            catch (ClassCastException cce) {
-                throw new NotionStartupException(NotionStartupException.Type.ClassCastException, StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE).getCallerClass(), Topic.Focus.Admonitory, Topic.Severity.Exceptional,cce);
-            }
-        }
-        throw new NotionStartupException(NotionStartupException.Type.MissingDefaultValue, StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE).getCallerClass(), Topic.Focus.Admonitory, Topic.Severity.Exceptional,null);
-    }
-    public Option<Boolean,?> getBoolean(String key) throws Roller {
-        if (this.options.containsKey(key)) {
-            try {
-                return (Option<Boolean,?>) this.options.get(key);
-            }
-            catch (ClassCastException cce) {
-                throw new NotionStartupException(NotionStartupException.Type.ClassCastException, StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE).getCallerClass(), Topic.Focus.Admonitory, Topic.Severity.Exceptional,cce);
-            }
-        }
-        throw new NotionStartupException(NotionStartupException.Type.MissingDefaultValue, StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE).getCallerClass(), Topic.Focus.Admonitory, Topic.Severity.Exceptional,null);
-    }
+
     public Map<String,Standard<?,F,I,X>> getStandards() {
         return this.standards;
     }
@@ -87,7 +44,7 @@ public class Specification<F extends Fact<F,I,X>,I extends Identity<I,X>,X exten
         if (optionsLoad == null) return;
         for (Option option: optionsLoad) {
             if (option.getDefaultValue() instanceof String) {
-                this.stringOptions.put(option.getI18n(), (String) option.getDefaultValue());
+                this.options.put(option.getI18n(), (String) option.getDefaultValue());
             }
             else if (option.getDefaultValue() instanceof Integer) {
                 this.integerOptions.put(option.getI18n(), (Integer) option.getDefaultValue());
@@ -99,7 +56,7 @@ public class Specification<F extends Fact<F,I,X>,I extends Identity<I,X>,X exten
                 this.durationOptions.put(option.getI18n(), (Duration) option.getDefaultValue());
             }
             else {
-                throw new NotionStartupException(NotionStartupException.Type.MissingDefaultValue, this.getClass(), Topic.Focus.Admonitory, Topic.Severity.Exceptional,new Exception("roller"));
+                throw new NotionStartupException(NotionStartupException.Type.MissingDefaultValue, this.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Exceptional,new Exception("roller"));
             }
         }
     }

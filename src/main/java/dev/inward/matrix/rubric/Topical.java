@@ -1,7 +1,7 @@
 package dev.inward.matrix.rubric;
 
-import dev.inward.matrix.matter.Topic;
+import dev.inward.matrix.matter.Indicia;
 
 public interface Topical {
-    Topic getTopic();
+    Indicia getTopic();
 }

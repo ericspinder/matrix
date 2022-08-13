@@ -1,10 +1,10 @@
 package dev.inward.matrix.rubric;
 
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.fact.Fact;
-import dev.inward.matrix.fact.notion.concept.Context;
+import dev.inward.matrix.datum.fact.Fact;
+import dev.inward.matrix.datum.fact.notion.concept.Context;
 
-public abstract class Criterion<DATUM,F extends Fact<F,I,X,?>,I extends Identity<I,X>,X extends Context<X>> {
+public abstract class Criterion<DATUM,F extends Fact<F,I,X,?,?,?>,I extends Identity<I,X>,X extends Context<X>> {
 
     protected final String name;
 
@@ -12,7 +12,7 @@ public abstract class Criterion<DATUM,F extends Fact<F,I,X,?>,I extends Identity
         this.name = name;
     }
 
-    public static class Limiter<DATUM,F extends Fact<F,I,X,?>,I extends Identity<I,X>,X extends Context<X>> extends Criterion<DATUM,F,I,X> {
+    public static class Limiter<DATUM,F extends Fact<F,I,X,?,?,?>,I extends Identity<I,X>,X extends Context<X>> extends Criterion<DATUM,F,I,X> {
 
         protected final int totalAllowed;
         protected final int warnLevel;
@@ -30,22 +30,22 @@ public abstract class Criterion<DATUM,F extends Fact<F,I,X,?>,I extends Identity
             return warnLevel;
         }
     }
-    public static class Wrapped<DATUM,F extends Fact<F,I,X,?>,I extends Identity<I,X>,X extends Context<X>> extends Criterion<DATUM,F,I,X> {
+    public static class Wrapped<DATUM,F extends Fact<F,I,X,?,?,?>,I extends Identity<I,X>,X extends Context<X>> extends Criterion<DATUM,F,I,X> {
         public Wrapped(String name) {
             super(name);
         }
     }
-    public static class Replacement<DATUM,F extends Fact<F,I,X,?>,I extends Identity<I,X>,X extends Context<X>> extends Criterion<DATUM,F,I,X> {
+    public static class Replacement<DATUM,F extends Fact<F,I,X,?,?,?>,I extends Identity<I,X>,X extends Context<X>> extends Criterion<DATUM,F,I,X> {
         public Replacement(String name) {
             super(name);
         }
     }
-    public static class Chronological<DATUM,F extends Fact<F,I,X,?>,I extends Identity<I,X>,X extends Context<X>> extends Criterion<DATUM,F,I,X> {
+    public static class Chronological<DATUM,F extends Fact<F,I,X,?,?,?>,I extends Identity<I,X>,X extends Context<X>> extends Criterion<DATUM,F,I,X> {
         public Chronological(String name) {
             super(name);
         }
     }
-    public static class OnCountdown<DATUM,F extends Fact<F,I,X,?>,I extends Identity<I,X>,X extends Context<X>> extends Criterion<DATUM,F,I,X> {
+    public static class OnCountdown<DATUM,F extends Fact<F,I,X,?,?,?>,I extends Identity<I,X>,X extends Context<X>> extends Criterion<DATUM,F,I,X> {
         public OnCountdown(String name) {
             super(name);
         }

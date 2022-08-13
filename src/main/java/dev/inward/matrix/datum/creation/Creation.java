@@ -2,9 +2,9 @@ package dev.inward.matrix.datum.creation;
 
 import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.fact.Fact;
-import dev.inward.matrix.fact.Diplomat;
-import dev.inward.matrix.fact.notion.concept.Context;
+import dev.inward.matrix.datum.fact.Fact;
+import dev.inward.matrix.datum.fact.Diplomat;
+import dev.inward.matrix.datum.fact.notion.concept.Context;
 
 import java.time.Duration;
 import java.time.Instant;

@@ -2,8 +2,9 @@ package dev.inward.matrix.rubric;
 
 import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.fact.*;
-import dev.inward.matrix.fact.notion.concept.*;
+import dev.inward.matrix.datum.fact.*;
+import dev.inward.matrix.datum.fact.notion.concept.*;
+import dev.inward.matrix.factory.Factory;
 import dev.inward.matrix.operational.Operational;
 
 import java.io.Serializable;

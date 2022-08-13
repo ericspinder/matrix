@@ -1,8 +1,8 @@
 package dev.inward.matrix.datum;
 
 import dev.inward.matrix.backup.BackupSet;
-import dev.inward.matrix.fact.notion.concept.Context;
-import dev.inward.matrix.fact.test.Test;
+import dev.inward.matrix.datum.fact.notion.concept.Context;
+import dev.inward.matrix.datum.fact.test.Test;
 import dev.inward.matrix.path.Path;
 
 import javax.security.auth.Subject;
@@ -16,14 +16,10 @@ public abstract class Identity<I extends Identity<I,X>,X extends Context<X>> imp
     }
     protected final String name;
     protected final X context;
-    protected final Profile profile;
-    protected final Subject subject;
 
-    public Identity(String name, X context, Profile profile, Subject subject) {
+    public Identity(String name, X context) {
         this.name = name;
         this.context = context;
-        this.profile = profile;
-        this.subject = subject;
     }
 
     public String getName() {
@@ -50,8 +46,8 @@ public abstract class Identity<I extends Identity<I,X>,X extends Context<X>> imp
      */
     public static final class SuperEgo extends Identity<SuperEgo, Context.Service> {
 
-        public SuperEgo(String name,Context.Service context, Profile profile, Subject subject) {
-            super(name,context, profile,subject);
+        public SuperEgo(String name,Context.Service context) {
+            super(name,context);
         }
     }
 
@@ -60,8 +56,8 @@ public abstract class Identity<I extends Identity<I,X>,X extends Context<X>> imp
      */
     public static final class Ego extends Identity<Ego,Context.JVM> {
 
-        public Ego(UUID uuid, Context.JVM context, Profile profile, Subject subject) {
-            super(uuid.toString(),context, profile,subject);
+        public Ego(UUID uuid, Context.JVM context) {
+            super(uuid.toString(),context);
         }
 
     }
@@ -73,24 +69,24 @@ public abstract class Identity<I extends Identity<I,X>,X extends Context<X>> imp
      */
     public static class Id<X extends Path<X>> extends Identity<Id<X>,X> {
 
-        public Id(String name,X context, Profile profile, Subject subject) {
-            super(name,context,profile,subject);
+        public Id(String name,X context) {
+            super(name,context);
         }
 
     }
 
     public static final class Production extends Id<Path.Nominal> {
 
-        public Production(String name, Path.Nominal context, Profile profile, Subject subject) {
-            super(name,context,profile,subject);
+        public Production(String name, Path.Nominal context) {
+            super(name,context);
         }
     }
     public static final class Backup extends Id<Path.Nominal> {
 
         protected BackupSet backupSet;
 
-        public Backup(String name, Path.Nominal context, Profile profile, Subject subject, BackupSet backupSet) {
-            super(name, context, profile,subject);
+        public Backup(String name, Path.Nominal context, BackupSet backupSet) {
+            super(name, context);
             this.backupSet = backupSet;
         }
     }

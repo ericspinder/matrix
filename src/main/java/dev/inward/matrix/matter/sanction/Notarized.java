@@ -1,11 +1,11 @@
 package dev.inward.matrix.matter.sanction;
 
 import dev.inward.matrix.datum.Identity.SuperEgo;
-import dev.inward.matrix.fact.Factory;
-import dev.inward.matrix.fact.notion.concept.corpus.Corpus;
+import dev.inward.matrix.factory.Factory;
+import dev.inward.matrix.datum.fact.notion.concept.corpus.Corpus;
 import dev.inward.matrix.maker.Fingerprint;
 import dev.inward.matrix.matter.Matter;
-import dev.inward.matrix.matter.Topic;
+import dev.inward.matrix.matter.Indicia;
 import dev.inward.matrix.path.Path;
 
 import java.time.Instant;
@@ -15,8 +15,8 @@ public class Notarized<H extends Corpus<H,?,?>,L extends Factory<L>,F extends Fi
 
     protected final F fingerprint;
 
-    public Notarized(UUID uuid, SuperEgo<H,L> topicId, Instant createInstant, Topic topic, SuperEgo<H,?> maker, F fingerprint) {
-        super(uuid, topicId, createInstant, topic, maker);
+    public Notarized(UUID uuid, SuperEgo<H,L> topicId, Instant createInstant, Indicia indicia, SuperEgo<H,?> maker, F fingerprint) {
+        super(uuid, topicId, createInstant, indicia, maker);
         this.fingerprint = fingerprint;
     }
 }

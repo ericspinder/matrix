@@ -1,8 +1,8 @@
 package dev.inward.matrix.rubric;
 
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.fact.Fact;
-import dev.inward.matrix.fact.notion.concept.Context;
+import dev.inward.matrix.datum.fact.Fact;
+import dev.inward.matrix.datum.fact.notion.concept.Context;
 
 import java.util.Map;
 
@@ -13,5 +13,5 @@ import java.util.Map;
  * @param <I>
  * @param <X>
  */
-public record Criteria<DATUM,F extends Fact<F,I,X,?>,I extends Identity<I, X>,X extends Context<X>> (
-        Map<Criterion<DATUM,?,?,F,I,X,?>,Zone[]> criteriaForZones) {}
+public record Criteria<DATUM,F extends Fact<F,I,X,?,?,?>,I extends Identity<I, X>,X extends Context<X>> (
+        Map<Criterion<DATUM,F,I,X>,Zone[]> criteriaForZones) {}

@@ -1,18 +1,18 @@
 package dev.inward.matrix.rubric;
 
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.fact.Fact;
-import dev.inward.matrix.fact.notion.concept.Context;
+import dev.inward.matrix.datum.fact.Fact;
+import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.matter.RemoteMatter;
-import dev.inward.matrix.matter.Topic;
+import dev.inward.matrix.matter.Indicia;
 
 import java.time.Instant;
 import java.util.UUID;
 
-public abstract class Confounder<F extends Fact<F,I,X,?>,I extends Identity<I, X>, X extends Context<X>,CORO extends Confounder<F,I,X,CORO>> extends RemoteMatter<F,I,X,CORO> {
+public abstract class Confounder<F extends Fact<F,I,X,?,?,?>,I extends Identity<I, X>, X extends Context<X>,CORO extends Confounder<F,I,X,CORO>> extends RemoteMatter<F,I,X,CORO> {
 
-    public Confounder(UUID uuid, I topicId, Instant createInstant, Topic topic, F effect) {
-        super(uuid, topicId, createInstant, topic, effect);
+    public Confounder(UUID uuid, I topicId, Instant createInstant, Indicia indicia, F effect) {
+        super(uuid, topicId, createInstant, indicia, effect);
 
     }
 

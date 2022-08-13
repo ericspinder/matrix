@@ -1,7 +1,7 @@
 package dev.inward.matrix.matter;
 
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.fact.notion.concept.Context;
+import dev.inward.matrix.datum.fact.notion.concept.Context;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -12,17 +12,17 @@ public class Matter<MAT extends Matter<MAT, IMAT, XMAT>, IMAT extends Identity<I
     protected final UUID uuid;
     protected final IMAT topicId;
     protected final Instant createInstant;
-    protected final Topic topic;
+    protected final Indicia indicia;
 
-    public Matter(UUID uuid, IMAT topicId, Instant createInstant, Topic topic) {
+    public Matter(UUID uuid, IMAT topicId, Instant createInstant, Indicia indicia) {
         this.uuid = uuid;
         this.topicId = topicId;
         this.createInstant = createInstant;
-        this.topic = topic;
+        this.indicia = indicia;
     }
     @Override
     public int compareTo(MAT that) {
-        int result = this.topic.compareTo(topic);
+        int result = this.indicia.compareTo(indicia);
         if (result == 0) {
             return this.uuid.compareTo(uuid);
         }
@@ -38,8 +38,8 @@ public class Matter<MAT extends Matter<MAT, IMAT, XMAT>, IMAT extends Identity<I
     public final Instant getCreateInstant() {
         return this.createInstant;
     }
-    public final Topic getSubject() {
-        return topic;
+    public final Indicia getSubject() {
+        return indicia;
     }
 
 

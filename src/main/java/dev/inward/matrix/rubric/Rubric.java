@@ -2,8 +2,8 @@ package dev.inward.matrix.rubric;
 
 import dev.inward.matrix.agent.Edition;
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.fact.notion.*;
-import dev.inward.matrix.fact.notion.concept.Context;
+import dev.inward.matrix.datum.fact.notion.*;
+import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.meta.Standard;
 
 import java.util.Map;

@@ -1,18 +1,18 @@
 package dev.inward.matrix.rubric;
 
-import dev.inward.matrix.matter.Topic;
+import dev.inward.matrix.matter.Indicia;
 
 public class Blocker extends RuntimeException implements Topical {
 
-    protected final Topic topic;
+    protected final Indicia indicia;
 
-    public Blocker(String locus, Topic.Focus focus, Topic.Severity severity, Exception e) {
+    public Blocker(String locus, Indicia.Focus focus, Indicia.Severity severity, Exception e) {
         super(e);
-        this.topic = new Topic(locus, focus, severity);
+        this.indicia = new Indicia(locus, focus, severity);
     }
 
-    public Topic getTopic() {
-        return topic;
+    public Indicia getTopic() {
+        return indicia;
     }
 
 }

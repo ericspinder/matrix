@@ -1,7 +1,7 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.advisor.NotionStartupException;
-import dev.inward.matrix.matter.Topic;
+import dev.inward.matrix.matter.Indicia;
 
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
@@ -23,7 +23,7 @@ public class LocalSystemNetworking {
                 newInstance.enrollPlatformInterfaceAddresses();
             }
             catch (SocketException se) {
-                throw new NotionStartupException(NotionStartupException.Type.NetworkUnavailable_No_Return, newInstance.getClass(), Topic.Focus.Admonitory, Topic.Severity.Exceptional,se);
+                throw new NotionStartupException(NotionStartupException.Type.NetworkUnavailable_No_Return, newInstance.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Exceptional,se);
             }
             INSTANCE = newInstance;
         }
@@ -69,7 +69,7 @@ public class LocalSystemNetworking {
             enrollPlatformInterfaceAddresses();
         }
         catch (SocketException se) {
-            throw new NotionStartupException(NotionStartupException.Type.NetworkUnavailable_No_Return, this.getClass(), Topic.Focus.Admonitory, Topic.Severity.Exceptional, se);
+            throw new NotionStartupException(NotionStartupException.Type.NetworkUnavailable_No_Return, this.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Exceptional, se);
         }
         finally {
             gate.unlockWrite(writeLock);
@@ -88,7 +88,7 @@ public class LocalSystemNetworking {
     }
 
     private final void parseInetAddresses(int layer, NetworkInterface networkInterface) throws SocketException {
-        if (layer > 10) throw new NotionStartupException(NotionStartupException.Type.Recursion,this.getClass(), Topic.Focus.Admonitory, Topic.Severity.Unexpected,null);
+        if (layer > 10) throw new NotionStartupException(NotionStartupException.Type.Recursion,this.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Unexpected,null);
         Enumeration<InetAddress> inetAddressEnumeration = networkInterface.getInetAddresses();
         while (inetAddressEnumeration.hasMoreElements()) {
             InetAddress inetAddress = inetAddressEnumeration.nextElement();

@@ -1,35 +1,35 @@
 package dev.inward.matrix.operational;
 
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.fact.*;
+import dev.inward.matrix.datum.fact.*;
 
-import dev.inward.matrix.fact.notion.concept.Context;
+import dev.inward.matrix.datum.fact.notion.concept.Context;
+import dev.inward.matrix.factory.Factory;
+import dev.inward.matrix.matter.Matter;
+import dev.inward.matrix.operational.induction.Supplier;
 
-import java.security.ProtectionDomain;
+public abstract class Operational<Y extends Factory<Y,F,O,I,X,B,R,IC,XC>,F extends Fact<F,I,X,R,IC,XC>,O extends Operational<Y,F,O,I,X,B,R,IC,XC>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,R,IC,XC>,R extends Representative<F,I,X,R,IC,XC>,IC extends Identity<IC,XC>,XC extends Context<XC>> {
 
-public abstract class Operational<Y extends Factory<Y,F,O,I,X,B,P,?,?,?,?,?>,F extends Fact<F,I,X>,O extends Operational<Y,F,O,I,X,B,P>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,P>,P extends Diplomat<Y,F,O,I,X,B,P>> {
-
-    protected final Supplier<Y,F,O,I,X,B,P,?,?,?,?,?> supplier;
-    protected final ProtectionDomain protectionDomain;
+    protected final Supplier<Y,F,O,I,X,B,R,IC,XC> supplier;
     protected final Specification<F,I,X> specification;
 
-    public Operational(Specification specification, Supplier<Y,F,O,I,X,B,P,?,?,?,?,?> supplier, ProtectionDomain protectionDomain) {
+    public Operational(Specification<F,I,X> specification, Supplier<Y,F,O,I,X,B,R,IC,XC> supplier) {
         this.specification = specification;
         this.supplier = supplier;
-        this.protectionDomain = protectionDomain;
     }
 
-    public Supplier<Y,F,O,I,X,B,P,?,?,?,?,?> supplier() {
+    public Supplier<Y,F,O,I,X,B,R,IC,XC> supplier() {
         return this.supplier;
     }
 
-    public ProtectionDomain protectionDomain() {
-        return this.protectionDomain;
-    }
-
-    public Specification specification() {
+    public Specification<F,I,X> specification() {
         return this.specification;
     }
 
+    public Settle settle(Matter<?,I,X> matter) {
 
+    }
+    public void report(Matter<?,IC,XC> matter) {
+
+    }
 }

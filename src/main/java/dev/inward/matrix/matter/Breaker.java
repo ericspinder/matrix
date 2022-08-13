@@ -2,8 +2,8 @@ package dev.inward.matrix.matter;
 
 import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.fact.Fact;
-import dev.inward.matrix.fact.Diplomat;
+import dev.inward.matrix.datum.fact.Fact;
+import dev.inward.matrix.datum.fact.Diplomat;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -12,8 +12,8 @@ public class Breaker<D extends Datum<?,D,F,?,I,X,?,P>,F extends Fact<?,F,?,I,X,?
 
     protected final E breaker;
 
-    public Breaker(UUID uuid, I id, Instant createDateTime, Topic topic, D caller, E breaker) {
-        super(uuid,id, createDateTime, topic, caller);
+    public Breaker(UUID uuid, I id, Instant createDateTime, Indicia indicia, D caller, E breaker) {
+        super(uuid,id, createDateTime, indicia, caller);
         this.breaker = breaker;
     }
 
