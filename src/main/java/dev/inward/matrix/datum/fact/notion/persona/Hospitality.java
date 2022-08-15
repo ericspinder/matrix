@@ -12,10 +12,9 @@ import dev.inward.matrix.meta.Standard;
 
 import java.util.Map;
 
-public class Hospitality extends Industry<Hospitality,Persona,Psyche,Identity.SuperEgo,Context.Service,Skeleton,Spirit,Assembly,Corpus,Mechanical,Sandbox,Prophet> {
+public class Hospitality extends Industry<Hospitality,Persona,Psyche,Identity.SuperEgo,Context.Service,Skeleton,Spirit> {
 
-
-    public Hospitality(Prophet mortal, Resources resources, Map<Standard<?, Persona, Identity.SuperEgo, Context.Service>, Resource<Hospitality, ?, ?, ?, Persona, Psyche, Identity.SuperEgo, Context.Service, Skeleton, Spirit>> standardResourcesMap) {
-        super(mortal, resources, standardResourcesMap);
+    public Hospitality(Resources<Hospitality, Persona, Psyche, Identity.SuperEgo, Context.Service, Skeleton, Spirit, Identity.SuperEgo, Context.Service> resources) {
+        super(resources);
     }
 }

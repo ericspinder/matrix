@@ -23,7 +23,7 @@ public abstract class Context<X extends Context<X>> implements Comparable<X> {
         return this.production;
     }
 
-    public static class Service extends Platform<Service> {
+    public static class  Service extends Platform<Service> {
 
         protected final String name;
         public Service(Edition edition, boolean production, Domain domain, Clues<Service> clues, String name) {

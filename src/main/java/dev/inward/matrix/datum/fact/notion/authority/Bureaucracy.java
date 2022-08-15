@@ -10,10 +10,8 @@ import dev.inward.matrix.meta.Standard;
 
 import java.util.Map;
 
-public class Bureaucracy extends Industry<Bureaucracy,Authority,Court,Identity.SuperEgo, Context.Service,Docket,Judge, Assembly, Corpus, Mechanical, Sandbox, Prophet> {
-
-
-    public Bureaucracy(Prophet mortal, Resources resources, Map<Standard<?, Authority, Identity.SuperEgo, Context.Service>, Resource<Bureaucracy, ?, ?, ?, Authority, Court, Identity.SuperEgo, Context.Service, Docket, Judge>> standardResourcesMap) {
-        super(mortal, resources, standardResourcesMap);
+public class Bureaucracy extends Industry<Bureaucracy,Authority,Court,Identity.SuperEgo,Context.Service,Docket,Judge> {
+    public Bureaucracy(Resources<Bureaucracy, Authority, Court, Identity.SuperEgo, Context.Service, Docket, Judge, Identity.SuperEgo, Context.Service> resources) {
+        super(resources);
     }
 }

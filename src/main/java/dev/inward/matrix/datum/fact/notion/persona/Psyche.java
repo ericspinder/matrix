@@ -10,7 +10,7 @@ import java.security.ProtectionDomain;
 
 public class Psyche extends Aspect<Hospitality,Persona,Psyche,Identity.SuperEgo,Context.Service,Skeleton,Spirit> {
 
-    public Psyche(Specification specification, Supplier<Hospitality, Persona, Psyche, Identity.SuperEgo, Context.Service, Skeleton, Spirit, ?, ?, ?, ?, ?> supplier, ProtectionDomain protectionDomain) {
+    public Psyche(Specification specification, Supplier<Hospitality, Persona, Psyche, Identity.SuperEgo, Context.Service, Skeleton, Spirit, ?, ?> supplier, ProtectionDomain protectionDomain) {
         super(specification, supplier, protectionDomain);
     }
 }

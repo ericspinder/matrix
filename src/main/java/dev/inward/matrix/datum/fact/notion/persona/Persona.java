@@ -29,7 +29,7 @@ public final class Persona extends Notion<Persona, Identity.SuperEgo,Context.Ser
     }
 
     public Identity.SuperEgo getMatterCollector(Indicia indicia) {
-        this.matterCollectors.getOrDefault(indicia,)
+        this.matterCollectors.getOrDefault(indicia,);
         if (this.matterCollectors.containsKey(indicia)) {
             return this.matterCollectors.get(indicia)
         }

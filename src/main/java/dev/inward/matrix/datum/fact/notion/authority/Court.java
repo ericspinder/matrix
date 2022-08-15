@@ -10,7 +10,7 @@ import java.security.ProtectionDomain;
 
 public class Court extends Aspect<Bureaucracy,Authority,Court, Identity.SuperEgo, Context.Service,Docket,Judge> {
 
-    public Court(Specification specification, Supplier<Bureaucracy, Authority, Court, Identity.SuperEgo, Context.Service, Docket, Judge, ?, ?, ?, ?, ?> supplier, ProtectionDomain protectionDomain) {
+    public Court(Specification specification, Supplier<Bureaucracy, Authority, Court, Identity.SuperEgo, Context.Service, Docket, Judge, ?, ?> supplier, ProtectionDomain protectionDomain) {
         super(specification, supplier, protectionDomain);
     }
 }
