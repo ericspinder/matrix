@@ -10,8 +10,8 @@ import java.lang.ref.ReferenceQueue;
 public class Agent<N extends Notion<N,I,X,A>,I extends Identity<I,X>,X extends Context<X>,A extends Agent<N,I,X,A>> extends Representative<N,I,X,A,I,X> {
 
     protected final NotionProtectionDomain notionProtectionDomain;
-    public Agent(N n, ReferenceQueue<N> referenceQueue, I containerId, NotionProtectionDomain notionProtectionDomain) {
-        super(n, referenceQueue, containerId);
+    public Agent(N notion, ReferenceQueue<N> referenceQueue, I containerId, NotionProtectionDomain notionProtectionDomain) {
+        super(notion, referenceQueue, containerId);
         this.notionProtectionDomain = notionProtectionDomain;
     }
 }

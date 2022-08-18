@@ -10,9 +10,9 @@ import java.lang.ref.SoftReference;
 import java.time.Instant;
 import java.util.UUID;
 
-public abstract class Sanction<S extends Sanction<S,I,X,R>,I extends Identity<I,X>,X extends Context<X>,R extends Regulator<I,X,?,?>> extends Matter<S,I,X> {
+public abstract class Sanction<S extends Sanction<S,I,X,IC,XC,R>,I extends Identity<I,X>,X extends Context<X>,IC extends Identity<IC,XC>,XC extends Context<XC>,R extends Regulator<I,X,IC,XC>> extends Matter<S,I,X> {
 
-    private final Indicia Sanction = new Indicia(this.getClass().getCanonicalName(), Indicia.Focus.Regulatory, Indicia.Severity.Privilege);
+//    private final Indicia DefaultSanction = new Indicia(this.getClass().getCanonicalName(), Indicia.Focus.Regulatory, Indicia.Severity.Privilege);
     private final SoftReference<R> regulator;
     public Sanction(UUID uuid, I subjectId, Instant createInstant, Indicia indicia, R regulator) {
         super(uuid, subjectId, createInstant, indicia);
