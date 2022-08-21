@@ -6,7 +6,7 @@ import dev.inward.matrix.operational.induction.Resources;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.datum.fact.notion.concept.corpus.Prophet;
 import dev.inward.matrix.datum.fact.notion.interaction.Handler;
-import dev.inward.matrix.meta.Standard;
+import dev.inward.matrix.standard.Standard;
 
 import java.util.Map;
 

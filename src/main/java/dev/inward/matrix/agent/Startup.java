@@ -5,7 +5,7 @@ import dev.inward.matrix.datum.creation.Creation;
 import dev.inward.matrix.operational.induction.Resource;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.datum.fact.notion.concept.boot.*;
-import dev.inward.matrix.meta.Standard;
+import dev.inward.matrix.standard.Standard;
 import dev.inward.matrix.operational.Specification;
 import dev.inward.matrix.rubric.Envoy;
 

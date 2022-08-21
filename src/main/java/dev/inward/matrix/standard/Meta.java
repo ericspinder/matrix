@@ -1,8 +1,6 @@
-package dev.inward.matrix.meta;
+package dev.inward.matrix.standard;
 
-import java.io.Serializable;
-
-public abstract class Meta<DATUM extends Comparable<DATUM> & Serializable,M extends Meta<DATUM,M>> implements Meta_I<DATUM,M> {
+public abstract class Meta<DATUM,M extends Meta<DATUM,M>> implements Meta_I<DATUM,M> {
 
     private String label;
     private String description;

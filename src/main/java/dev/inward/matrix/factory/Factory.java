@@ -11,7 +11,7 @@ import dev.inward.matrix.operational.induction.Resources;
 import dev.inward.matrix.datum.fact.notion.concept.*;
 import dev.inward.matrix.datum.fact.notion.concept.boot.BootLoader;
 import dev.inward.matrix.matter.Indicia;
-import dev.inward.matrix.meta.Standard;
+import dev.inward.matrix.standard.Standard;
 import dev.inward.matrix.operational.Operational;
 import dev.inward.matrix.operational.Engine;
 import dev.inward.matrix.rubric.Criteria;

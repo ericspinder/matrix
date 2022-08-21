@@ -6,8 +6,8 @@ import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Fact;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.matter.Indicia;
-import dev.inward.matrix.meta.Meta_I;
-import dev.inward.matrix.meta.Standard;
+import dev.inward.matrix.standard.Meta_I;
+import dev.inward.matrix.standard.Standard;
 import dev.inward.matrix.rubric.Roller;
 import dev.inward.matrix.rubric.Zone;
 

@@ -4,7 +4,7 @@ import dev.inward.matrix.agent.Edition;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.concept.Concept;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.meta.Standard;
+import dev.inward.matrix.standard.Standard;
 
 import java.security.KeyStore;
 import java.util.Map;

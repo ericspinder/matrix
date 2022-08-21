@@ -7,7 +7,7 @@ import dev.inward.matrix.datum.fact.notion.Agent;
 import dev.inward.matrix.datum.fact.notion.Industry;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.datum.fact.notion.concept.boot.*;
-import dev.inward.matrix.meta.Standard;
+import dev.inward.matrix.standard.Standard;
 
 import java.util.Map;
 

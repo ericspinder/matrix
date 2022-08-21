@@ -1,6 +1,6 @@
 package dev.inward.matrix.matter;
 
-import dev.inward.matrix.meta.Meta_I;
+import dev.inward.matrix.standard.Meta_I;
 
 import java.io.Serializable;
 

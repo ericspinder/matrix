@@ -5,7 +5,7 @@ import dev.inward.matrix.factory.Factory;
 import dev.inward.matrix.operational.induction.Resource;
 import dev.inward.matrix.operational.induction.Resources;
 import dev.inward.matrix.datum.fact.notion.concept.*;
-import dev.inward.matrix.meta.Standard;
+import dev.inward.matrix.standard.Standard;
 
 import java.util.Map;
 

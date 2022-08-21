@@ -1,17 +1,17 @@
 package dev.inward.matrix.operational;
 
-import dev.inward.matrix.meta.time.Instant;
+import dev.inward.matrix.standard.time.InstantDatum;
 
-public abstract class BoundedTime implements Specification.Bounded<Instant, BoundedTime> {
+public abstract class BoundedTime implements Specification.Bounded<InstantDatum, BoundedTime> {
 
 
     ;
     private final String label;
     private final String description;
-    private final Instant defaultValue;
-    private final Instant maximumValue;
+    private final InstantDatum defaultValue;
+    private final InstantDatum maximumValue;
 
-    BoundedTime(String label, String description, Instant defaultValue, Instant maximumValue) {
+    BoundedTime(String label, String description, InstantDatum defaultValue, InstantDatum maximumValue) {
         this.label = label;
         this.description = description;
         this.defaultValue = defaultValue;
@@ -28,12 +28,12 @@ public abstract class BoundedTime implements Specification.Bounded<Instant, Boun
     }
 
     @Override
-    public Instant getDefaultValue() {
+    public InstantDatum getDefaultValue() {
         return this.defaultValue;
     }
 
     @Override
-    public Instant maximumValue() {
+    public InstantDatum maximumValue() {
         return this.maximumValue;
     }
 }

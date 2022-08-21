@@ -6,7 +6,7 @@ import dev.inward.matrix.datum.fact.Diplomat;
 import dev.inward.matrix.datum.fact.Fact;
 import dev.inward.matrix.factory.Factory;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.meta.Standard;
+import dev.inward.matrix.standard.Standard;
 import dev.inward.matrix.operational.induction.Induction;
 
 import java.util.LinkedHashMap;

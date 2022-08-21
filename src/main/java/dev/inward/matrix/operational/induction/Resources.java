@@ -7,7 +7,7 @@ import dev.inward.matrix.datum.fact.Representative;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.datum.fact.notion.persona.Persona;
 import dev.inward.matrix.factory.Factory;
-import dev.inward.matrix.meta.Standard;
+import dev.inward.matrix.standard.Standard;
 import dev.inward.matrix.operational.Operational;
 
 import java.util.Map;

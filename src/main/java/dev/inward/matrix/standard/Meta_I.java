@@ -1,4 +1,4 @@
-package dev.inward.matrix.meta;
+package dev.inward.matrix.standard;
 
 import java.lang.reflect.ParameterizedType;
 
