@@ -27,7 +27,7 @@ public abstract class Supplier<Y extends Factory<Y,F,O,I,X,B,R,IC,XC>,F extends 
 
 
     public <DATUM,D extends Datum<DATUM,D,V,IC,XC>,V extends Envoy<DATUM,D,V,IC,XC>> V buildEnvoy(D datum,Y factory) {
-        Induction<Y,DATUM,D,V,F,I,X,P> induction = (Induction<Y,DATUM,D,V,F,I,X,P>) inductionMap.get(datum.datumClass);
+        Induction<Y,DATUM,D,V,F,I,X,IC,XC> induction = (Induction<Y,DATUM,D,V,F,I,X,>) inductionMap.get(datum.datumClass);
         return induction.createEnvoy(datum,factory);
     }
 

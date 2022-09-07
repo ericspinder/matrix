@@ -4,6 +4,7 @@ import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Bus;
 import dev.inward.matrix.datum.fact.Fact;
+import dev.inward.matrix.datum.fact.Representative;
 import dev.inward.matrix.factory.Factory;
 import dev.inward.matrix.datum.fact.Diplomat;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
@@ -14,7 +15,7 @@ import dev.inward.matrix.rubric.Roller;
 import java.io.Serializable;
 
 
-public abstract class Manager<Y extends Factory<Y,F,O,I,X,B,P,?,?,?,?,?>,F extends Fact<F,I,X,P>,O extends Operational<Y,F,O,I,X,B,P>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,P>,P extends Diplomat<Y,F,O,I,X,B,P>,M extends Manager<Y,F,O,I,X,B,P,M>> implements Comparable<M>, Serializable {
+public abstract class Manager<Y extends Factory<Y,F,O,I,X,B,R,IC,XC>,F extends Fact<F,I,X,R,IC,XC>,O extends Operational<Y,F,O,I,X,B,R,IC,XC>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,R,IC,XC>,R extends Representative<F,I,X,R,IC,XC>,IC extends Identity<IC,XC>,XC extends Context<XC>,M extends Manager<Y,F,O,I,X,B,R,IC,XC,M>> implements Comparable<M>, Serializable {
 
     /**
      *
@@ -25,7 +26,7 @@ public abstract class Manager<Y extends Factory<Y,F,O,I,X,B,P,?,?,?,?,?>,F exten
      * @param <V>
      * @return try again?
      */
-    public abstract  <DATUM,D extends Datum<DATUM,D,V,F,I,X,P>,V extends Envoy<DATUM,D,V,F,I,X,P>> boolean handle(Roller roller,V envoy);
+    public abstract  <DATUM,D extends Datum<DATUM,D,V,I,X>,V extends Envoy<DATUM,D,V,I,X>> boolean handle(Roller roller,V envoy);
 
 }
 //    private class ExceptionCounterByDuration {

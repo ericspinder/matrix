@@ -82,7 +82,7 @@ public abstract class Factory<Y extends Factory<Y,F,O,I,X,B,R,IC,XC>,F extends F
     @SuppressWarnings("unchecked")
     public <DATUM,D extends Datum<DATUM,D,E,I,X>, E extends Envoy<DATUM,D,E,I,X>> E add(DATUM datum) {
         try {
-            Resource<Y,DATUM,D,E,F,O,I,X,B,P> resource = (Resource<Y,DATUM,D,E,F,O,I,X,B,P>) this.producer.get(((D) datum).getClass());
+            Resource<DATUM,D,E,F,I,X,B,IC,XC> resource = (Resource<DATUM,D,E,F,I,X,B,IC,XC>) this.producer.get(((D) datum).getClass());
             return this.defineClass()add(datum,this);
         }
         catch (ClassCastException cce) {
