@@ -2,9 +2,9 @@ package dev.inward.matrix.clues;
 
 import java.time.Clock;
 
-public class ClockClue extends Clue<Clock> {
+public class ClockPolicy extends Policy<Clock> {
 
-    public ClockClue(Clock clock) {
+    public ClockPolicy(Clock clock) {
         super();
     }
 

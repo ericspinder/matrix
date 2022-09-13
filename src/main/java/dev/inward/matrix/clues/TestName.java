@@ -1,7 +1,7 @@
 package dev.inward.matrix.clues;
 
 
-public class TestName extends Clue<String> {
+public class TestName extends Policy<String> {
 
     public TestName(String s) {
         super(s);
