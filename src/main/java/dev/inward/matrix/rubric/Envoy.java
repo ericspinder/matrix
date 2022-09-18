@@ -9,14 +9,15 @@ import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
 import java.util.UUID;
 
-public abstract class Envoy<DATUM,D extends Datum<DATUM,D, V,IC,XC>, V extends Envoy<DATUM,D, V,IC,XC>,IC extends Identity<IC,XC>,XC extends Context<XC>> extends SoftReference<DATUM> implements Comparable<V>, Serializable {
+public abstract class Envoy<DATUM,D extends Datum<DATUM,D,V>, V extends Envoy<DATUM,D,V>> extends SoftReference<DATUM> implements Comparable<V>, Serializable {
 
     public final UUID uuid = UUID.randomUUID();
-    public static final class NoOp<DATUM,D extends Datum<DATUM,D,E,I,X>,E extends Envoy<DATUM,D,E,I,X>,I extends Identity<I,X>,X extends Context<X>> extends Envoy<DATUM,D,E,I,X> {
+    public static final class NoOp<DATUM,D extends Datum<DATUM,D,V>,V extends Envoy<DATUM,D,V>> extends Envoy<DATUM,D,V> {
 
         public NoOp(DATUM datum, ReferenceQueue<DATUM> referenceQueue) {
             super(datum, referenceQueue);
         }
+
     }
 
     public Envoy(DATUM datum, ReferenceQueue<DATUM> referenceQueue) {
@@ -32,4 +33,5 @@ public abstract class Envoy<DATUM,D extends Datum<DATUM,D, V,IC,XC>, V extends E
     public D getDatum() {
         return (D) this.get();
     }
+
 }

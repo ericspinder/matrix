@@ -1,18 +1,22 @@
 package dev.inward.matrix.clues;
 
+import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
+import dev.inward.matrix.datum.fact.notion.Agent;
+import dev.inward.matrix.datum.fact.notion.Notion;
+import dev.inward.matrix.datum.fact.notion.concept.Concept;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.datum.fact.notion.concept.Effect;
+import dev.inward.matrix.datum.fact.notion.concept.Mortal;
+import dev.inward.matrix.rubric.Envoy;
 
-public abstract class Rule<PRACTICE,E extends Effect<?,?,E,?,?>,R extends Rule<PRACTICE,E,R>> extends Policy<PRACTICE,E,Identity.Ego, Context.JVM,R> {
+public abstract class Rule<BEHAVIOR,N extends Notion<N,I,X,A>,I extends Identity<I,X>,X extends Context<X>,A extends Agent<N,I,X,A>,CN extends Notion<CN,CI,CX,CA>,CI extends Identity<CI,CX>,CX extends Context<CX>,CA extends Agent<CN,CI,CX,CA>,R extends Rule<BEHAVIOR,N,I,X,A,CN,CI,CX,CA,R>> extends Practice<BEHAVIOR,N,I,X,A,N,> {
 
-    public Rule(E effect,Identity.Ego ego) {
-        super(effect, ego);
+    public Rule(E effect,M mortal) {
+        super(effect, mortal);
     }
-
-    public Rule(PRACTICE BEHAVIOR) {
-        super(BEHAVIOR);
+    public Rule(E effect,M mortal,Identity.Ego ego) {
+        super(effect, mortal,ego);
     }
-
 
 }

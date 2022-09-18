@@ -5,7 +5,7 @@ import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.factory.Factory;
 import dev.inward.matrix.operational.Operational;
 
-public class Bus<Y extends Factory<Y,F,O,I,X,B,R,IC,XC>,F extends Fact<F,I,X,R,IC,XC>,O extends Operational<Y,F,O,I,X,B,R,IC,XC>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,R,IC,XC>,R extends Representative<F,I,X,R,IC,XC>,IC extends Identity<IC,XC>,XC extends Context<XC>> {
+public class Bus<Y extends Factory<Y,F,O,I,X,B,R,?,?>,F extends Fact<F,I,X,R>,O extends Operational<Y,F,O,I,X,B,R,?,?>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,R>,R extends Representative<F,I,X,R>> {
 
         protected O operational;
         public Bus(O operational) {

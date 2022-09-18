@@ -2,28 +2,45 @@ package dev.inward.matrix.clues;
 
 import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
+import dev.inward.matrix.datum.fact.Fact;
+import dev.inward.matrix.datum.fact.Representative;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
+import dev.inward.matrix.operational.Operational;
 import dev.inward.matrix.rubric.Envoy;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Objects;
 
-public abstract class Policy<BEHAVIOR,DATUM,D extends Datum<DATUM,D,V,CI,CX>,V extends Envoy<DATUM,D,V,CI,CX>,CI extends Identity<CI,CX>,CX extends Context<CX>, P extends Policy<BEHAVIOR,DATUM,D,V,CI,CX,P>> implements Comparable<P> {
+/**
+ * @param <BEHAVIOR> The object created during initialization
+ * @param <DATUM> Raw Datum class- could be any class, including Datum
+ * @param <D> Datum - The class for DATUM
+ * @param <V> Envoy - The soft reference container class for DATUM/Datum
+ * @param <CF> Containing Fact's class
+ * @param <CO> Containing Fact's operational class
+ * @param <CI> Containing Fact's Identity class
+ * @param <CX> Containing Fact's Context class
+ * @param <CR> Containing Fact's Representative class
+ * @param <P> This class - allows Comparable<P> to work
+ */
+public abstract class Policy<BEHAVIOR,DATUM,D extends Datum<DATUM,D,V,CI,CX>,V extends Envoy<DATUM,D,V,CI,CX>,CF extends Fact<CF,CI,CX,CR,?,?>,CO extends Operational<?,CF,CO,CI,CX,?,?,?,?>,CI extends Identity<CI,CX>,CX extends Context<CX>,CR extends Representative<CF,CI,CX,CR,?,?>,P extends Policy<BEHAVIOR,DATUM,D,V,CF,CO,CI,CX,CR,P>> implements Comparable<P> {
 
-    protected final BEHAVIOR exhibit;
+    protected final BEHAVIOR behavior;
 
-    public Policy(CI id) {
-        this.exhibit = this.initDefault(id);
+    public Policy(@Nonnull CO operational, @Nonnull CR representative, @Nullable CI cid, @Nullable V envoy) {
+        this.behavior = this.initDefault(operational, representative, cid, envoy);
     }
 
     public Policy(BEHAVIOR BEHAVIOR) {
-        this.exhibit = BEHAVIOR;
+        this.behavior = BEHAVIOR;
     }
 
-    public BEHAVIOR getExhibit() {
-        return this.exhibit;
+    public BEHAVIOR getBehavior() {
+        return this.behavior;
     }
 
-    protected abstract BEHAVIOR initDefault(CI containerId);
+    protected abstract BEHAVIOR initDefault(@Nonnull CO operational, @Nonnull CR representative, @Nullable CI cid, @Nullable V envoy);
 
     @Override
     public int compareTo(P that) {
