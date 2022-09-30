@@ -6,16 +6,21 @@ import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.matter.Indicia;
 
 import javax.security.auth.Subject;
+import java.security.CodeSigner;
 import java.security.Principal;
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class Persona extends Notion<Persona, Identity.SuperEgo,Context.Service,Spirit> implements Principal {
 
+    protected CodeSigner codeSigner;
     protected ConcurrentHashMap<Indicia, Identity.SuperEgo> matterCollectors;
+    protected Identity.SuperEgo defaultCollector;
 
-    public Persona(Identity.SuperEgo id, ConcurrentHashMap<Indicia,Identity.SuperEgo> matterCollectors,) {
+    public Persona(Identity.SuperEgo id, CodeSigner codeSigner, ConcurrentHashMap<Indicia,Identity.SuperEgo> matterCollectors, Identity.SuperEgo defaultCollector) {
         super(id);
+        this.codeSigner = codeSigner;
         this.matterCollectors = matterCollectors;
+        this.defaultCollector = defaultCollector;
     }
 
     @Override
@@ -29,9 +34,6 @@ public final class Persona extends Notion<Persona, Identity.SuperEgo,Context.Ser
     }
 
     public Identity.SuperEgo getMatterCollector(Indicia indicia) {
-        this.matterCollectors.getOrDefault(indicia,);
-        if (this.matterCollectors.containsKey(indicia)) {
-            return this.matterCollectors.get(indicia)
-        }
+        return this.matterCollectors.getOrDefault(indicia,defaultCollector);
     }
 }

@@ -18,7 +18,7 @@ public class ResourceRecord {
 //            LOC	29	RFC 1876	Location record	Specifies a geographical location associated with a domain name
 //    SRV	33	RFC 2782	Service locator	Generalized service location record, used for newer protocols instead of creating protocol-specific records such as MX.
 //            NAPTR	35	RFC 3403	Naming Authority Pointer	Allows regular-expression-based rewriting of domain names which can then be used as URIs, further domain names to lookups, etc.
-//    KX	36	RFC 2230	Key Exchanger record	Used with some cryptographic systems (not including DNSSEC) to identify a key management agent for the associated domain-name. Note that this has nothing to do with DNS Security. It is Informational status, rather than being on the IETF standards-track. It has always had limited deployment, but is still in use.
+//    KX	36	RFC 2230	Key Exchanger record	Used with some cryptographic systems (not including DNSSEC) to identify a key management edition for the associated domain-name. Note that this has nothing to do with DNS Security. It is Informational status, rather than being on the IETF standards-track. It has always had limited deployment, but is still in use.
 //    CERT	37	RFC 4398	Certificate record	Stores PKIX, SPKI, PGP, etc.
 //    DNAME	39	RFC 6672	Delegation name record	Alias for a name and all its subnames, unlike CNAME, which is an alias for only the exact name. Like a CNAME record, the DNS lookup will continue by retrying the lookup with the new name.
 //            APL	42	RFC 3123	Address Prefix List	Specify lists of address ranges, e.g. in CIDR format, for various address families. Experimental.

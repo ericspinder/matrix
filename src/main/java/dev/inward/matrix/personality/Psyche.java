@@ -1,8 +1,12 @@
 package dev.inward.matrix.personality;
 
+import dev.inward.matrix.datum.Identity;
+import dev.inward.matrix.datum.fact.notion.Notion;
+import dev.inward.matrix.datum.fact.notion.concept.Context;
+
 import java.security.Permission;
 
-public class Psyche extends Permission {
+public class Psyche<N extends Notion<N,I,X,A>,I extends Identity<I,X>,X extends Context<X>> extends Permission {
 
     protected final String description;
 

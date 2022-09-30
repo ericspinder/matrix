@@ -2,8 +2,6 @@ package dev.inward.matrix.datum.fact;
 
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.factory.Factory;
-import dev.inward.matrix.operational.Operational;
 
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;

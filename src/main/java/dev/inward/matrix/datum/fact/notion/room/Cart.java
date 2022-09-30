@@ -4,7 +4,7 @@ import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.Omnibus;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 
-public class Cart extends Omnibus<Hotel,Room,Desk, Identity.Ego,Context.JVM,Cart,HouseKeeping> {
+public class Cart extends Omnibus<Hotel,Room,Desk, Identity.Ego, Context.Ethereal,Cart,HouseKeeping> {
     public Cart(Desk operational) {
         super(operational);
     }

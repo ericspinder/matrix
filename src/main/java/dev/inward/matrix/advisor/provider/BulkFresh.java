@@ -3,7 +3,7 @@ package dev.inward.matrix.advisor.provider;
 import dev.inward.crud.Container;
 import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.fact.Bus;
-import dev.inward.matrix.operational.Operational;
+import dev.inward.matrix.datum.fact.Operational;
 
 import java.io.Serializable;
 

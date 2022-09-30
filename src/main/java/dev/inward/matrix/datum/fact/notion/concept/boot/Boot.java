@@ -1,9 +1,9 @@
 package dev.inward.matrix.datum.fact.notion.concept.boot;
 
-import dev.inward.matrix.agent.Startup;
+import dev.inward.matrix.edition.Startup;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.concept.Concept;
-import dev.inward.matrix.operational.IntegerOption;
+import dev.inward.matrix.datum.fact.operational.IntegerOption;
 
 public final class Boot extends Concept<Boot> {
 

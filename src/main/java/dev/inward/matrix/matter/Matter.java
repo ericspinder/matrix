@@ -7,16 +7,16 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.UUID;
 
-public class Matter<MAT extends Matter<MAT, IMAT, XMAT>, IMAT extends Identity<IMAT, XMAT>, XMAT extends Context<XMAT>> implements Comparable<MAT>, Serializable {
+public class Matter<MAT extends Matter<MAT, CI, CX>, CI extends Identity<CI,CX>,CX extends Context<CX>> implements Comparable<MAT>, Serializable {
 
     protected final UUID uuid;
-    protected final IMAT topicId;
+    protected final CI containerId;
     protected final Instant createInstant;
     protected final Indicia indicia;
 
-    public Matter(UUID uuid, IMAT topicId, Instant createInstant, Indicia indicia) {
+    public Matter(UUID uuid, CI containerId, Instant createInstant, Indicia indicia) {
         this.uuid = uuid;
-        this.topicId = topicId;
+        this.containerId = containerId;
         this.createInstant = createInstant;
         this.indicia = indicia;
     }
@@ -32,13 +32,13 @@ public class Matter<MAT extends Matter<MAT, IMAT, XMAT>, IMAT extends Identity<I
     public final UUID getUuid() {
         return uuid;
     }
-    public final IMAT getTopicId() {
-        return this.topicId;
+    public final CI getContainerId() {
+        return this.containerId;
     }
     public final Instant getCreateInstant() {
         return this.createInstant;
     }
-    public final Indicia getSubject() {
+    public final Indicia getIndica() {
         return indicia;
     }
 

@@ -5,7 +5,7 @@ import dev.inward.matrix.datum.fact.notion.Omnibus;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 
 
-public final class Skeleton extends Omnibus<Hospitality,Persona,Psyche, Identity.SuperEgo,Context.Service,Skeleton,Spirit> {
+public final class Skeleton extends Omnibus<Hospitality, Persona,Psyche, Identity.SuperEgo,Context.Service,Skeleton,Spirit> {
 
     public Skeleton(Psyche psyche) {
         super(psyche);

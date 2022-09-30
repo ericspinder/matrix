@@ -1,19 +1,15 @@
 package dev.inward.matrix.datum;
 
-import dev.inward.matrix.backup.BackupSet;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.datum.fact.test.Test;
-import dev.inward.matrix.path.Path;
 
-import javax.security.auth.Subject;
 import java.io.Serializable;
 import java.util.UUID;
 
 public abstract class Identity<I extends Identity<I,X>,X extends Context<X>> implements Comparable<I>, Serializable {
 
-    public interface Addressable<T,I extends Identity<I,X>,X extends Context<X>> extends Comparable<T>, Serializable {
-        I getId();
-    }
+//    public interface Addressable<T,I extends Identity<I,X>,X extends Context<X>> extends Comparable<T>, Serializable {
+//        I getId();
+//    }
     protected final String name;
     protected final X context;
 
@@ -54,50 +50,25 @@ public abstract class Identity<I extends Identity<I,X>,X extends Context<X>> imp
     /**
      * Domain + NULL
      */
-    public static final class Ego extends Identity<Ego,Context.JVM> {
+    public static final class Ego extends Identity<Ego, Context.Ethereal> {
 
-        public Ego(UUID uuid, Context.JVM context) {
+        public Ego(UUID uuid, Context.Ethereal context) {
             super(uuid.toString(),context);
         }
 
     }
-
     /**
      * Domain + Slash character
      * e.g.  example.com/index.html
-     * @param <X>
+     * @param
      */
-    public static class Id<X extends Path<X>> extends Identity<Id<X>,X> {
+    public static final class Path extends Identity<Path, Context.Web> implements Comparable<Path>, Serializable {
 
-        public Id(String name,X context) {
+        protected final String path;
+
+        public Path(String name, Context.Web context, String path) {
             super(name,context);
+            this.path = path;
         }
-
-    }
-
-    public static final class Production extends Id<Path.Nominal> {
-
-        public Production(String name, Path.Nominal context) {
-            super(name,context);
-        }
-    }
-    public static final class Backup extends Id<Path.Nominal> {
-
-        protected BackupSet backupSet;
-
-        public Backup(String name, Path.Nominal context, BackupSet backupSet) {
-            super(name, context);
-            this.backupSet = backupSet;
-        }
-    }
-
-    public static final class Integration<T extends Test<T,?,?,?,?,?,?>> extends Id<Path.Mock<T>> {
-
-        public Integration(String name, Path.Mock<T> context, Profile profile, Subject subject) {
-            super(name, context, profile,subject);
-        }
-    }
-    public X getContext() {
-        return this.context;
     }
 }

@@ -4,8 +4,9 @@ import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Fact;
 import dev.inward.matrix.datum.fact.Representative;
+import dev.inward.matrix.datum.fact.notion.Notion;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.operational.Operational;
+import dev.inward.matrix.datum.fact.Operational;
 import dev.inward.matrix.rubric.Envoy;
 
 import javax.annotation.Nonnull;
@@ -14,22 +15,21 @@ import java.util.Objects;
 
 /**
  * @param <BEHAVIOR> The object created during initialization
- * @param <DATUM> Raw Datum class- could be any class, including Datum
- * @param <D> Datum - The class for DATUM
- * @param <V> Envoy - The soft reference container class for DATUM/Datum
  * @param <CF> Containing Fact's class
  * @param <CO> Containing Fact's operational class
  * @param <CI> Containing Fact's Identity class
  * @param <CX> Containing Fact's Context class
  * @param <CR> Containing Fact's Representative class
+ * @param <NI> Containing Notion's Identity
+ * @param <NX> Containing Notion's Context
  * @param <P> This class - allows Comparable<P> to work
  */
-public abstract class Policy<BEHAVIOR,DATUM,D extends Datum<DATUM,D,V,CI,CX>,V extends Envoy<DATUM,D,V,CI,CX>,CF extends Fact<CF,CI,CX,CR,?,?>,CO extends Operational<?,CF,CO,CI,CX,?,?,?,?>,CI extends Identity<CI,CX>,CX extends Context<CX>,CR extends Representative<CF,CI,CX,CR,?,?>,P extends Policy<BEHAVIOR,DATUM,D,V,CF,CO,CI,CX,CR,P>> implements Comparable<P> {
+public abstract class Policy<BEHAVIOR,CF extends Fact<CF,CI,CX,CR,NI,NX>,CO extends Operational<?,CF,CO,CI,CX,?,CR,?,NI,NX,?>,CI extends Identity<CI,CX>,CX extends Context<CX>,CR extends Representative<CF,CI,CX,CR,NI,NX>,NI extends Identity<NI,NX>,NX extends Context<NX>,P extends Policy<BEHAVIOR,CF,CO,CI,CX,CR,NI,NX,P>> implements Comparable<P> {
 
     protected final BEHAVIOR behavior;
 
-    public Policy(@Nonnull CO operational, @Nonnull CR representative, @Nullable CI cid, @Nullable V envoy) {
-        this.behavior = this.initDefault(operational, representative, cid, envoy);
+    public Policy(@Nonnull CO operational, @Nonnull CR representative, @Nullable CI cid, @Nullable NI nid) {
+        this.behavior = this.initDefault(operational, representative, cid, nid);
     }
 
     public Policy(BEHAVIOR BEHAVIOR) {
@@ -40,7 +40,7 @@ public abstract class Policy<BEHAVIOR,DATUM,D extends Datum<DATUM,D,V,CI,CX>,V e
         return this.behavior;
     }
 
-    protected abstract BEHAVIOR initDefault(@Nonnull CO operational, @Nonnull CR representative, @Nullable CI cid, @Nullable V envoy);
+    protected abstract BEHAVIOR initDefault(@Nonnull CO operational, @Nonnull CR representative, @Nullable CI cid, @Nullable NI nid);
 
     @Override
     public int compareTo(P that) {

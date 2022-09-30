@@ -1,15 +1,12 @@
 package dev.inward.matrix.matter;
 
-import java.io.PrintStream;
-import java.io.PrintWriter;
+import dev.inward.matrix.datum.Identity;
+
+import java.util.UUID;
 
 public interface Exceptional {
-    String getMessage();
-    String getLocalizedMessage();
-    java.lang.Throwable getCause();
-    String toString();
-    void printStackTrace();
-    void printStackTrace(PrintStream s);
-    void printStackTrace(PrintWriter s);
-    StackTraceElement[] getStackTrace();
+
+    UUID getUuid();
+    Identity getTopicId();
+    Indicia getIndicia();
 }

@@ -1,7 +1,7 @@
 package dev.inward.matrix.datum.fact.session;
 
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.factory.Factory;
+import dev.inward.matrix.datum.fact.Factory;
 import dev.inward.matrix.datum.fact.Diplomat;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.rubric.Predictor;

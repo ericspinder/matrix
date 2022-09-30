@@ -3,7 +3,7 @@ package dev.inward.matrix.datum.fact.notion;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Representative;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.operational.induction.NotionProtectionDomain;
+import dev.inward.matrix.resources.NotionProtectionDomain;
 
 import java.lang.ref.ReferenceQueue;
 
@@ -11,7 +11,8 @@ public class Agent<N extends Notion<N,I,X,A>,I extends Identity<I,X>,X extends C
 
     protected final NotionProtectionDomain notionProtectionDomain;
     public Agent(N notion, ReferenceQueue<N> referenceQueue, I containerId, NotionProtectionDomain notionProtectionDomain) {
-        super(notion, referenceQueue, containerId);
+        super(notion, containerId, referenceQueue);
         this.notionProtectionDomain = notionProtectionDomain;
     }
+
 }

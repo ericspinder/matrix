@@ -2,9 +2,9 @@ package dev.inward.matrix.datum.fact.intialized;
 
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.concept.*;
-import dev.inward.matrix.operational.Operational;
-import dev.inward.matrix.operational.Specification;
-import dev.inward.matrix.operational.induction.Supplier;
+import dev.inward.matrix.datum.fact.Operational;
+import dev.inward.matrix.datum.fact.Specification;
+import dev.inward.matrix.resources.Supplier;
 
 import java.security.ProtectionDomain;
 

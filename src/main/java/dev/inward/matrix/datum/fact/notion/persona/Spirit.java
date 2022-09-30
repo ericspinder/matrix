@@ -3,7 +3,7 @@ package dev.inward.matrix.datum.fact.notion.persona;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.Agent;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.operational.induction.NotionProtectionDomain;
+import dev.inward.matrix.resources.NotionProtectionDomain;
 
 import java.lang.ref.ReferenceQueue;
 

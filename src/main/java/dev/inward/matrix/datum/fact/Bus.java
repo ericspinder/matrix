@@ -2,10 +2,8 @@ package dev.inward.matrix.datum.fact;
 
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.factory.Factory;
-import dev.inward.matrix.operational.Operational;
 
-public class Bus<Y extends Factory<Y,F,O,I,X,B,R,?,?>,F extends Fact<F,I,X,R>,O extends Operational<Y,F,O,I,X,B,R,?,?>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,R>,R extends Representative<F,I,X,R>> {
+public class Bus<Y extends Factory<Y,F,O,I,X,B,R,?,?,?,?>,F extends Fact<F,I,X,R>,O extends Operational<Y,F,O,I,X,B,R,?,?,?,?>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,R>,R extends Representative<F,I,X,R>> {
 
         protected O operational;
         public Bus(O operational) {
@@ -45,7 +43,7 @@ public class Bus<Y extends Factory<Y,F,O,I,X,B,R,?,?>,F extends Fact<F,I,X,R>,O 
 //                }
 //                return null;
 //        }
-//        public DATUM get(Promise<DATUM> promise) {
+//        public DATUM get(Promise<DATUM> worker) {
 //                long lock = memberGate.readLock();
 //                try {
 //

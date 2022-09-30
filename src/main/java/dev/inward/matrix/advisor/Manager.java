@@ -5,10 +5,9 @@ import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Bus;
 import dev.inward.matrix.datum.fact.Fact;
 import dev.inward.matrix.datum.fact.Representative;
-import dev.inward.matrix.factory.Factory;
-import dev.inward.matrix.datum.fact.Diplomat;
+import dev.inward.matrix.datum.fact.Factory;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.operational.Operational;
+import dev.inward.matrix.datum.fact.Operational;
 import dev.inward.matrix.rubric.Envoy;
 import dev.inward.matrix.rubric.Roller;
 

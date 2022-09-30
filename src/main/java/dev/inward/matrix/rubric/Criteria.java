@@ -13,5 +13,5 @@ import java.util.Map;
  * @param <I>
  * @param <X>
  */
-public record Criteria<DATUM,F extends Fact<F,I,X,?,?,?>,I extends Identity<I, X>,X extends Context<X>> (
-        Map<Criterion<DATUM,F,I,X>,Zone[]> criteriaForZones) {}
+public record Criteria<DATUM> (
+        Map<Criterion<DATUM>,Zone[]> criteriaForZones) {}

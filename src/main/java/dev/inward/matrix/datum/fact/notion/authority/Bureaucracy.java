@@ -1,7 +1,7 @@
 package dev.inward.matrix.datum.fact.notion.authority;
 
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.operational.induction.Resources;
+import dev.inward.matrix.resources.Resources;
 import dev.inward.matrix.datum.fact.notion.Industry;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 

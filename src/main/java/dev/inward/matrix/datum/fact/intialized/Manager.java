@@ -1,9 +1,9 @@
 package dev.inward.matrix.datum.fact.intialized;
 
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.factory.Factory;
-import dev.inward.matrix.operational.induction.Resource;
-import dev.inward.matrix.operational.induction.Resources;
+import dev.inward.matrix.datum.fact.Factory;
+import dev.inward.matrix.resources.Resource;
+import dev.inward.matrix.resources.Resources;
 import dev.inward.matrix.datum.fact.notion.concept.*;
 import dev.inward.matrix.standard.Standard;
 

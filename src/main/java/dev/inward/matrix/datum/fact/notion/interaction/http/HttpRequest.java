@@ -2,7 +2,7 @@ package dev.inward.matrix.datum.fact.notion.interaction.http;
 
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.datum.fact.intialized.maker.Request;
+import dev.inward.matrix.matter.maker.Request;
 import dev.inward.matrix.matter.Indicia;
 
 import java.time.Instant;

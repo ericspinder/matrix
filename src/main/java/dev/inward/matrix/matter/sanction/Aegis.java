@@ -1,8 +1,8 @@
 package dev.inward.matrix.matter.sanction;
 
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.maker.Fingerprint;
-import dev.inward.matrix.maker.issuer.Issuer;
+import dev.inward.matrix.matter.maker.Fingerprint;
+import dev.inward.matrix.matter.maker.issuer.Issuer;
 import dev.inward.matrix.matter.Indicia;
 
 import java.security.PrivateKey;

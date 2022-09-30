@@ -2,7 +2,7 @@ package dev.inward.matrix.domain;
 
 import java.io.Serializable;
 
-public abstract class Domain implements Comparable<Domain>, Serializable {
+public final class Domain implements Comparable<Domain>, Serializable {
 
     protected final TopLevelDomain tld;
     protected final String[] parts;
@@ -32,12 +32,5 @@ public abstract class Domain implements Comparable<Domain>, Serializable {
             }
         }
         return 0;
-    }
-
-    public final class COM extends Domain {
-
-        public COM(String[] parts) {
-            super(TopLevelDomain.COM, parts);
-        }
     }
 }

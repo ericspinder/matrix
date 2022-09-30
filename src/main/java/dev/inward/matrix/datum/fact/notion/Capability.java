@@ -2,8 +2,8 @@ package dev.inward.matrix.datum.fact.notion;
 
 import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.operational.induction.NotionProtectionDomain;
-import dev.inward.matrix.operational.induction.Resource;
+import dev.inward.matrix.resources.NotionProtectionDomain;
+import dev.inward.matrix.resources.Resource;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.rubric.Envoy;
 
