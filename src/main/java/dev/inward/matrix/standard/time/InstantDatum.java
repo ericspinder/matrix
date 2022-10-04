@@ -2,7 +2,7 @@ package dev.inward.matrix.standard.time;
 
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.rubric.Envoy;
+import dev.inward.matrix.datum.Envoy;
 
 import java.time.Instant;
 

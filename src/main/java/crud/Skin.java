@@ -1,4 +1,7 @@
-package dev.inward.matrix.library;
+package crud;
+
+import crud.Flag;
+import crud.Flags;
 
 public class Skin {
 

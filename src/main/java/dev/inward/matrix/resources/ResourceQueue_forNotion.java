@@ -5,7 +5,7 @@ import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.Agent;
 import dev.inward.matrix.datum.fact.notion.Notion;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.rubric.Envoy;
+import dev.inward.matrix.datum.Envoy;
 
 import java.lang.ref.ReferenceQueue;
 

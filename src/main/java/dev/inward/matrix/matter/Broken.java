@@ -3,11 +3,9 @@ package dev.inward.matrix.matter;
 import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Fact;
-import dev.inward.matrix.datum.fact.Diplomat;
 import dev.inward.matrix.datum.fact.Representative;
-import dev.inward.matrix.datum.fact.notion.Agent;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.rubric.Envoy;
+import dev.inward.matrix.datum.Envoy;
 
 import java.time.Instant;
 import java.util.UUID;

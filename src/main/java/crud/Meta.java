@@ -1,4 +1,4 @@
-package dev.inward.matrix.standard;
+package crud;
 
 public abstract class Meta<DATUM,M extends Meta<DATUM,M>> implements Meta_I<DATUM,M> {
 

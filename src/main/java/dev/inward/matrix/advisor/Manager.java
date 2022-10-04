@@ -6,15 +6,17 @@ import dev.inward.matrix.datum.fact.Bus;
 import dev.inward.matrix.datum.fact.Fact;
 import dev.inward.matrix.datum.fact.Representative;
 import dev.inward.matrix.datum.fact.Factory;
+import dev.inward.matrix.datum.fact.notion.Agent;
+import dev.inward.matrix.datum.fact.notion.Notion;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.datum.fact.Operational;
-import dev.inward.matrix.rubric.Envoy;
+import dev.inward.matrix.datum.Envoy;
 import dev.inward.matrix.rubric.Roller;
 
 import java.io.Serializable;
 
 
-public abstract class Manager<Y extends Factory<Y,F,O,I,X,B,R,IC,XC>,F extends Fact<F,I,X,R,IC,XC>,O extends Operational<Y,F,O,I,X,B,R,IC,XC>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,R,IC,XC>,R extends Representative<F,I,X,R,IC,XC>,IC extends Identity<IC,XC>,XC extends Context<XC>,M extends Manager<Y,F,O,I,X,B,R,IC,XC,M>> implements Comparable<M>, Serializable {
+public abstract class Manager<Y extends Factory<Y,F,O,I,X,B,R,N, NI, NX,A>,F extends Fact<F,I,X,R, NI, NX>,O extends Operational<Y,F,O,I,X,B,R,N, NI, NX,A>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,R>,R extends Representative<F,I,X,R, NI, NX>,N extends Notion<N, NI, NX,A>, NI extends Identity<NI, NX>, NX extends Context<NX>,A extends Agent<N, NI,NX,A>> implements Comparable<Manager<Y,F,O,I,X,B,R,N,NI,NX,A>>, Serializable {
 
     /**
      *
@@ -25,7 +27,7 @@ public abstract class Manager<Y extends Factory<Y,F,O,I,X,B,R,IC,XC>,F extends F
      * @param <V>
      * @return try again?
      */
-    public abstract  <DATUM,D extends Datum<DATUM,D,V,I,X>,V extends Envoy<DATUM,D,V,I,X>> boolean handle(Roller roller,V envoy);
+    public abstract  <DATUM,D extends Datum<DATUM,D,V>,V extends Envoy<DATUM,D,V>> boolean handle(Roller roller,V envoy);
 
 }
 //    private class ExceptionCounterByDuration {

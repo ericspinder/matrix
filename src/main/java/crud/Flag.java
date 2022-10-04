@@ -1,6 +1,6 @@
-package dev.inward.matrix.library;
+package crud;
 
-import dev.inward.matrix.Referral;
+import crud.Referral;
 import dev.inward.matrix.datum.fact.notion.authority.Authority;
 import dev.inward.matrix.datum.fact.notion.authority.Judge;
 

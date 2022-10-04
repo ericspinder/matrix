@@ -1,13 +1,10 @@
 package dev.inward.matrix.clues;
 
-import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Fact;
 import dev.inward.matrix.datum.fact.Representative;
-import dev.inward.matrix.datum.fact.notion.Notion;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.datum.fact.Operational;
-import dev.inward.matrix.rubric.Envoy;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

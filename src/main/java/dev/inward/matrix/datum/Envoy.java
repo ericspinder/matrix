@@ -1,8 +1,4 @@
-package dev.inward.matrix.rubric;
-
-import dev.inward.matrix.datum.Datum;
-import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.notion.concept.Context;
+package dev.inward.matrix.datum;
 
 import java.io.Serializable;
 import java.lang.ref.ReferenceQueue;

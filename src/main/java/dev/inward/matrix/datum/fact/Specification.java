@@ -1,18 +1,16 @@
 package dev.inward.matrix.datum.fact;
 
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.Fact;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.datum.fact.operational.BooleanOption;
 import dev.inward.matrix.datum.fact.operational.DurationOption;
 import dev.inward.matrix.datum.fact.operational.IntegerOption;
 import dev.inward.matrix.domain.Server;
 import dev.inward.matrix.matter.Indicia;
-import dev.inward.matrix.standard.Meta_I;
+import crud.Meta_I;
 import dev.inward.matrix.standard.Standard;
 import dev.inward.matrix.rubric.Roller;
 import dev.inward.matrix.rubric.Zone;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.*;
 
@@ -20,9 +18,9 @@ public class Specification<C extends Fact<C,CI,CX,?,?,?>,CI extends Identity<CI,
 
     protected final Map<String, Option<?,?>> options = new HashMap<>();
     protected final Map<Standard<?>,Zone[]> standardZones;
-    protected final Map<Indicia, Server> indiciaServerMap;
+    protected final Map<Indicia, Server[]> indiciaServerMap;
     
-    public Specification(final Map<Standard<?>,Zone[]> standardZones,Map<Indicia,Server> indiciaServerMap) {
+    public Specification(final Map<Standard<?>,Zone[]> standardZones,Map<Indicia,Server[]> indiciaServerMap) {
         try {
             this.setDefaultValues(DurationOption.values());
             this.setDefaultValues(BooleanOption.values());
@@ -53,7 +51,7 @@ public class Specification<C extends Fact<C,CI,CX,?,?,?>,CI extends Identity<CI,
         return result;
     }
 
-    public final <DATUM> void setDefaultValues(Option[] optionsLoad) throws Roller {
+    public final void setDefaultValues(Option[] optionsLoad) throws Roller {
         if (optionsLoad == null) return;
         for (Option option: optionsLoad) {
             this.options.put(option.getI18n(), option);

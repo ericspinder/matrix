@@ -1,6 +1,6 @@
 package dev.inward.matrix.datum.fact;
 
-import dev.inward.matrix.advisor.NotionStartupException;
+import dev.inward.matrix.NotionStartupException;
 import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.Agent;
@@ -11,7 +11,7 @@ import dev.inward.matrix.datum.fact.notion.concept.boot.BootLoader;
 import dev.inward.matrix.matter.Indicia;
 import dev.inward.matrix.standard.Standard;
 import dev.inward.matrix.rubric.Criteria;
-import dev.inward.matrix.rubric.Envoy;
+import dev.inward.matrix.datum.Envoy;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 
@@ -25,7 +25,7 @@ public abstract class Factory<Y extends Factory<Y,F,O,I,X,B,R,N,NI,NX,A>,F exten
     protected final UUID uuid = UUID.randomUUID();
     private Engine<Y,F,O,I,X,B,R,N,NI,NX,A> engine = null;
     protected StampedLock gate = new StampedLock();
-    final ThreadLocal<R> localRepresentative = new ThreadLocal<>();
+    final LocalRepresentative<R> localRepresentative = new LocalRepresentative<>();
 
     public Factory() {
     }

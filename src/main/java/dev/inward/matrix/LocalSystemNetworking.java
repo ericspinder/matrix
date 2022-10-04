@@ -1,6 +1,5 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.advisor.NotionStartupException;
 import dev.inward.matrix.matter.Indicia;
 
 import java.net.InetAddress;

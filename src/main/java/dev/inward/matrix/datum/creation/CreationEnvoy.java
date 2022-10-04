@@ -4,7 +4,7 @@ import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Diplomat;
 import dev.inward.matrix.datum.fact.Fact;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.rubric.Envoy;
+import dev.inward.matrix.datum.Envoy;
 
 import java.lang.ref.ReferenceQueue;
 import java.time.Instant;

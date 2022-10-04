@@ -1,18 +1,21 @@
 package dev.inward.matrix.datum.fact;
 
+import dev.inward.matrix.NotionStartupException;
 import dev.inward.matrix.datum.Identity;
 
 import dev.inward.matrix.datum.fact.notion.Agent;
 import dev.inward.matrix.datum.fact.notion.Notion;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.domain.Server;
+import dev.inward.matrix.matter.Indicia;
 import dev.inward.matrix.matter.Matter;
+import dev.inward.matrix.matter.worker.settlement.Settlement;
 import dev.inward.matrix.resources.Induction;
 import dev.inward.matrix.resources.Supplier;
 import dev.inward.matrix.rubric.Zone;
 import dev.inward.matrix.standard.Standard;
 
-import java.util.Arrays;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,10 +31,15 @@ public abstract class Operational<Y extends Factory<Y,F,O,I,X,B,R,N,NI,NX,A>,F e
         this.specification = specification;
         this.supplier = supplier;
         for (Standard standard: specification.getStandards(zone)) {
-            try {
-
-            }
-            inductionMap.put(standard.getDatumClassName(),)
+            inductionMap.put(standard.getDatumClassName(), this.init(standard));
+        }
+    }
+    protected Induction<Y,F,O,I,X,B,R,N,NI,NX,A> init(Standard standard) {
+        try {
+            return (Induction) Class.forName(standard.getInductionClassName()).getConstructor(String.class).newInstance(standard.getDatumClassName());
+        }
+        catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+            throw new NotionStartupException(NotionStartupException.Type.ConstructorProblem_Reflective,this.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Exceptional,e);
         }
     }
 
@@ -43,10 +51,11 @@ public abstract class Operational<Y extends Factory<Y,F,O,I,X,B,R,N,NI,NX,A>,F e
         return this.specification;
     }
 
-    public Induction[] inductions() {
-        return this.inductions;
+    public Induction<Y,F,O,I,X,B,R,N,NI,NX,A> getInduction(String datumClassName) {
+        return this.inductionMap.get(datumClassName);
     }
-    public Settle settle(Matter<?,I,X> matter) {
+    public Settlement settle(Matter<?,I,X> matter) {
+        Server[] servers = this.specification.indiciaServerMap.get(matter.getIndica());
 
     }
 
@@ -55,7 +64,7 @@ public abstract class Operational<Y extends Factory<Y,F,O,I,X,B,R,N,NI,NX,A>,F e
      * @param matter
      */
     public void report(Matter<?, NI, NX> matter, Map<String,String> details) {
-        Server server = this.specification.indiciaServerMap.get(matter.getIndica());
+        Server[] servers = this.specification.indiciaServerMap.get(matter.getIndica());
 
     }
 }

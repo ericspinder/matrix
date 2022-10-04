@@ -1,4 +1,4 @@
-package dev.inward.matrix.advisor;
+package dev.inward.matrix;
 
 import dev.inward.matrix.matter.Indicia;
 import dev.inward.matrix.rubric.Blocker;

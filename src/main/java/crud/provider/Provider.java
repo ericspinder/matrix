@@ -1,4 +1,4 @@
-package dev.inward.matrix.advisor.provider;
+package crud.provider;
 
 import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;

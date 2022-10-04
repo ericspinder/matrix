@@ -2,7 +2,7 @@ package dev.inward.matrix.resources;
 
 import dev.inward.matrix.clues.Policy;
 import dev.inward.matrix.datum.Datum;
-import dev.inward.matrix.rubric.Envoy;
+import dev.inward.matrix.datum.Envoy;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

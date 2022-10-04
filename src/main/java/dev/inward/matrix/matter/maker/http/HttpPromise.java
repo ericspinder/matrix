@@ -12,7 +12,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-public class HttpPromise<IH extends Identity<IH,XH>,XH extends Context<XH>> extends Promise<HttpResponse<IH,XH>,HttpRequest<IH,XH>,IH,XH> {
+public class HttpPromise<IH extends Identity<IH,XH>,XH extends Context<XH>> extends Promise<HttpPromise<IH,XH>,HttpResponse<IH,XH>,HttpRequest<IH,XH>,IH,XH> {
 
     public HttpPromise(HttpRequest<IH, XH> request, Instant instantExpectedReady, Duration durationAvailable) {
         super(request, instantExpectedReady, durationAvailable);

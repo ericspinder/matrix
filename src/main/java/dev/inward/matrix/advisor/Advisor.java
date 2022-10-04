@@ -11,7 +11,7 @@ import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.datum.fact.notion.concept.Ledger;
 import dev.inward.matrix.matter.sanction.Sanction;
 import dev.inward.matrix.datum.fact.Operational;
-import dev.inward.matrix.rubric.Envoy;
+import dev.inward.matrix.datum.Envoy;
 import dev.inward.matrix.rubric.aggregation.Participants;
 
 import java.io.Serializable;

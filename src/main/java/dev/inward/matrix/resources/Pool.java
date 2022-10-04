@@ -1,9 +1,7 @@
 package dev.inward.matrix.resources;
 
 import dev.inward.matrix.datum.Datum;
-import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.rubric.Envoy;
+import dev.inward.matrix.datum.Envoy;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -11,7 +9,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.WeakHashMap;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 
 
 public class Pool<DATUM,D extends Datum<DATUM,D,V>, V extends Envoy<DATUM,D,V>> extends Resource<DATUM,D,V> {

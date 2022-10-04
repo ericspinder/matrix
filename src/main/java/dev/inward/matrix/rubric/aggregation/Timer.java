@@ -1,6 +1,6 @@
 package dev.inward.matrix.rubric.aggregation;
 
-import dev.inward.matrix.advisor.NotionStartupException;
+import dev.inward.matrix.NotionStartupException;
 
 import java.time.Duration;
 import java.time.Instant;

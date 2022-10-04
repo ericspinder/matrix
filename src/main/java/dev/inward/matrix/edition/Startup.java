@@ -7,7 +7,7 @@ import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.datum.fact.notion.concept.boot.*;
 import dev.inward.matrix.standard.Standard;
 import dev.inward.matrix.datum.fact.Specification;
-import dev.inward.matrix.rubric.Envoy;
+import dev.inward.matrix.datum.Envoy;
 
 import java.lang.instrument.Instrumentation;
 import java.time.Clock;

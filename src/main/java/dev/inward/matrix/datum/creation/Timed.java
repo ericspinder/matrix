@@ -8,7 +8,7 @@ import dev.inward.matrix.datum.fact.Diplomat;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.standard.time.InstantDatum;
 import dev.inward.matrix.datum.fact.Operational;
-import dev.inward.matrix.rubric.Envoy;
+import dev.inward.matrix.datum.Envoy;
 
 import java.lang.ref.ReferenceQueue;
 

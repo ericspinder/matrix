@@ -1,6 +1,6 @@
 package dev.inward.matrix.matter.worker;
 
-import dev.inward.matrix.advisor.NotionStartupException;
+import dev.inward.matrix.NotionStartupException;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.datum.fact.Factory;
@@ -17,7 +17,7 @@ import java.util.UUID;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-public class Worker<PRODUCT,R extends Worker<PRODUCT,R,CI,CX>, CI extends Identity<CI, CX>, CX extends Context<CX>> extends Matter<R,CI,CX> implements Future<PRODUCT> {
+public class Worker<PRODUCT,R extends Worker<PRODUCT,R,CI,CX>,CI extends Identity<CI,CX>,CX extends Context<CX>> extends Matter<R,CI,CX> implements Future<PRODUCT> {
 
     protected SoftReference<PRODUCT> product;
     protected final Duration defaultTimeout;

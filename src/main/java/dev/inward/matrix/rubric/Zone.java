@@ -1,6 +1,6 @@
 package dev.inward.matrix.rubric;
 
-import dev.inward.matrix.library.Location;
+import crud.Location;
 
 public abstract class Zone {
 

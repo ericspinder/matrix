@@ -1,6 +1,6 @@
 package dev.inward.matrix.edition;
 
-import dev.inward.matrix.advisor.NotionStartupException;
+import dev.inward.matrix.NotionStartupException;
 import dev.inward.matrix.matter.Indicia;
 
 import java.util.Locale;

@@ -1,4 +1,4 @@
-package dev.inward.matrix;
+package crud;
 
 import dev.inward.crud.Container;
 import dev.inward.matrix.datum.Datum;

@@ -1,4 +1,4 @@
-package dev.inward.matrix.library;
+package crud;
 
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Bus;

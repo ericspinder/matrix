@@ -11,7 +11,7 @@ public class Aspect<Y extends Industry<Y,N,S,I,X,O,A>,N extends Notion<N,I,X,A>,
 
     protected final Memory<Y, N, S, I, X, O, A> notionsInMemory = new Memory();
 
-    public Aspect(Specification<N, I, X> specification, Supplier<Y, N, S, I, X, O, A, I, X> supplier) {
+    public Aspect(Specification<N, I, X> specification, Supplier<Y,N,S,I,X,O,A,N,I,X,A> supplier) {
         super(specification, supplier);
     }
 }
