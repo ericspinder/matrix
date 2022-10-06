@@ -1,28 +1,25 @@
 package dev.inward.matrix.standard;
 
-import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.rubric.Criteria;
 import dev.inward.matrix.rubric.Zone;
 
+import java.util.Map;
 
-public abstract class Standard<DATUM> {
+public abstract class Standard<DATUM> implements Comparable<Standard> {
 
     protected final String datumClassName;
     protected final String i18n;
     protected final String description;
     protected final String fieldName;
-    protected final String inductionClassName;
-    protected final String[] criteriaClassNames;
-    protected final Zone[] zones;
+    protected final Map<String, Zone[]> inductionClassNameByZone;
+    protected final Map<String, Zone[]> criteriaClassNamesByZone;
 
-    public Standard(final String datumClassName, final String i18n, final String description, final String fieldName,final String inductionClassName, final String[] criteriaClassNames, final Zone[] zones) {
+    public Standard(final String datumClassName, final String i18n, final String description, final String fieldName, final String inductionClassName, final Map<String, Zone[]> criteriaClassNamesByZone, final Zone[] zones) {
         this.datumClassName = datumClassName;
         this.i18n = i18n;
         this.description = description;
         this.fieldName = fieldName;
         this.inductionClassName = inductionClassName;
-        this.criteriaClassNames = criteriaClassNames;
+        this.criteriaClassNamesByZone = criteriaClassNamesByZone;
         this.zones = zones;
     }
 
@@ -45,8 +42,8 @@ public abstract class Standard<DATUM> {
     public String getInductionClassName() {
         return this.inductionClassName;
     }
-    public String[] getCriteriaClassNames() {
-        return this.criteriaClassNames;
+    public String[][] getCriteriaClassNamesByZone() {
+        return this.criteriaClassNamesByZone;
     }
     public Zone[] getZones() {
         return this.zones;

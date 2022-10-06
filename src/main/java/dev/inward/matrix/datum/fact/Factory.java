@@ -35,9 +35,6 @@ public abstract class Factory<Y extends Factory<Y,F,O,I,X,B,R,N,NI,NX,A>,F exten
         try {
             boolean isNew = (this.engine == null); // Editions cannot be rolled
             this.engine = operational.supplier().buildEngine(operational);
-            for (Standard<?,F,I,X> standard: operational.options()) {
-                this.init(standard.getObjectClassName());
-            }
             gate.unlockWrite(writeLock);
          }
         finally {

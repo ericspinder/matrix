@@ -3,7 +3,7 @@ package dev.inward.matrix.datum.fact.intialized;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Factory;
 import dev.inward.matrix.resources.Resource;
-import dev.inward.matrix.resources.Resources;
+import dev.inward.matrix.resources.Storage;
 import dev.inward.matrix.datum.fact.notion.concept.*;
 import dev.inward.matrix.standard.Standard;
 
@@ -11,8 +11,8 @@ import java.util.Map;
 
 public class Manager<A extends Manager<A,Z,U,I,X,B,D,F,C,T,V,M>,Z extends Intialized<Z,I,X>,U extends Functionary<A,Z,U,I,X,B,D>,I extends Identity<I,X>,X extends Context<X>,B extends Book<A,Z,U,I,X,B,D>,D extends Delegated<A,Z,U,I,X,B,D>,F extends Fabrication<F,C,T,V,M>,C extends Concept<C,M>,T extends Effect<F,C,T,V,M>,V extends Volume<F,C,T,V,M>,M extends Mortal<F,C,T,V,M>> extends Factory<A,Z,U,I,X,B,D,F,C,T,V,M> {
 
-    public Manager(M mortal, Resources resources, Map<Standard<?,Z,I,X>, Resource<A,?,?,?,Z,U,I,X,B,D>> standardResourcesMap) {
-        super(mortal, resources, standardResourcesMap);
+    public Manager(M mortal, Storage storage, Map<Standard<?,Z,I,X>, Resource<A,?,?,?,Z,U,I,X,B,D>> standardResourcesMap) {
+        super(mortal, storage, standardResourcesMap);
     }
 
     @Override

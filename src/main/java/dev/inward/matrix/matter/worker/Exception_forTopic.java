@@ -8,13 +8,13 @@ import java.util.UUID;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 
-public class Canceled_forTopic extends CancellationException implements Exceptional {
+public class Exception_forTopic extends ExecutionException implements Exceptional {
 
     protected final UUID uuid;
     protected final Identity topicId;
     protected final Indicia indicia;
 
-    public Canceled_forTopic(UUID uuid, Identity topicId, String locus) {
+    public Exception_forTopic(UUID uuid, Identity topicId, String locus) {
         this.uuid = uuid;
         this.topicId = topicId;
         this.indicia = new Indicia(locus, Indicia.Focus.Admonitory, Indicia.Severity.Exceptional);

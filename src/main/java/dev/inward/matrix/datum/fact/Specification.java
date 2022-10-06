@@ -16,45 +16,30 @@ import java.util.*;
 
 public class Specification<C extends Fact<C,CI,CX,?,?,?>,CI extends Identity<CI,CX>,CX extends Context<CX>> {
 
-    protected final Map<String, Option<?,?>> options = new HashMap<>();
-    protected final Map<Standard<?>,Zone[]> standardZones;
+    protected final Map<String, Option<?,?>> options;
     protected final Map<Indicia, Server[]> indiciaServerMap;
     
-    public Specification(final Map<Standard<?>,Zone[]> standardZones,Map<Indicia,Server[]> indiciaServerMap) {
+    public Specification(final Map<String,Option<?,?>> optionMap, Map<Indicia,Server[]> indiciaServerMap) {
+        this.options = optionMap;
+        this.indiciaServerMap = indiciaServerMap;
+    }
+    public Specification(Map<Indicia,Server[]> indiciaServerMap) {
+        this.options = new HashMap<>();
         try {
-            this.setDefaultValues(DurationOption.values());
-            this.setDefaultValues(BooleanOption.values());
-            this.setDefaultValues(IntegerOption.values());
+            setDefaultValues(DurationOption.values(),this.options);
+            setDefaultValues(BooleanOption.values(),this.options);
+            setDefaultValues(IntegerOption.values(),this.options);
         }
         catch (Roller roller) {
             throw new RuntimeException(roller);
         }
-        this.standardZones = standardZones;
         this.indiciaServerMap = indiciaServerMap;
     }
 
-    public final Map<Standard<?>,Zone[]> getStandardZones() {
-        return this.standardZones;
-    }
-
-
-    @SuppressWarnings("unchecked")
-    public List<Standard<C>> getStandards(Zone zone) {
-        List<Standard<C>> result = new ArrayList<>();
-        for(Map.Entry<Standard<?>,Zone[]> standardEntry: standardZones.entrySet()) {
-            for (Zone z: standardEntry.getValue()) {
-                if (z.equals(zone)) {
-                    result.add((Standard<C>)standardEntry.getKey());
-                }
-            }
-        }
-        return result;
-    }
-
-    public final void setDefaultValues(Option[] optionsLoad) throws Roller {
+    public static final void setDefaultValues(Option<?,?>[] optionsLoad,Map<String,Option<?,?>> options) throws Roller {
         if (optionsLoad == null) return;
-        for (Option option: optionsLoad) {
-            this.options.put(option.getI18n(), option);
+        for (Option<?,?> option: optionsLoad) {
+            options.put(option.getI18n(), option);
         }
     }
 

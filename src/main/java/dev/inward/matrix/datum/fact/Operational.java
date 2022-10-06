@@ -31,10 +31,10 @@ public abstract class Operational<Y extends Factory<Y,F,O,I,X,B,R,N,NI,NX,A>,F e
         this.specification = specification;
         this.supplier = supplier;
         for (Standard standard: specification.getStandards(zone)) {
-            inductionMap.put(standard.getDatumClassName(), this.init(standard));
+            inductionMap.put(standard.getDatumClassName(), this.initDatumClass(standard));
         }
     }
-    protected Induction<Y,F,O,I,X,B,R,N,NI,NX,A> init(Standard standard) {
+    protected Induction<Y,F,O,I,X,B,R,N,NI,NX,A> initDatumClass(Standard standard) {
         try {
             return (Induction) Class.forName(standard.getInductionClassName()).getConstructor(String.class).newInstance(standard.getDatumClassName());
         }

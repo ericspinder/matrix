@@ -17,7 +17,7 @@ import java.util.UUID;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-public class Worker<PRODUCT,R extends Worker<PRODUCT,R,CI,CX>,CI extends Identity<CI,CX>,CX extends Context<CX>> extends Matter<R,CI,CX> implements Future<PRODUCT> {
+public class Worker<PRODUCT,P extends Worker<PRODUCT, P,CI,CX>,CI extends Identity<CI,CX>,CX extends Context<CX>> extends Matter<P, CI, CX> implements Future<PRODUCT> {
 
     protected SoftReference<PRODUCT> product;
     protected final Duration defaultTimeout;
@@ -26,9 +26,9 @@ public class Worker<PRODUCT,R extends Worker<PRODUCT,R,CI,CX>,CI extends Identit
 
     public Worker(UUID uuid, CI containerId, Instant createInstant, String locus) {
         super(uuid, containerId, createInstant, new Indicia(locus, Indicia.Focus.Assembly, Indicia.Severity.Nominal));
-        this.defaultTimeout = (Duration)((Factory)(this.getClass().getClassLoader())).getEngine().getOperational().specification().getOptions().get("dev.inward.matrix.matter.retainer.Retainer.defaultTimeout");
-        this.sleep = (long)((Factory)(this.getClass().getClassLoader())).getEngine().getOperational().specification().getOptions().get("dev.inward.matrix.matter.retainer.Retainer.sleep");
-        this.snooze = (long)((Factory)(this.getClass().getClassLoader())).getEngine().getOperational().specification().getOptions().get("dev.inward.matrix.matter.retainer.Retainer.snooze");
+        this.defaultTimeout = (Duration)((Factory)(this.getClass().getClassLoader())).getEngine().getOperational().specification().getOptions().get("dev.inward.matrix.matter.retainer.Worker.defaultTimeout");
+        this.sleep = (long)((Factory)(this.getClass().getClassLoader())).getEngine().getOperational().specification().getOptions().get("dev.inward.matrix.matter.retainer.Worker.sleep");
+        this.snooze = (long)((Factory)(this.getClass().getClassLoader())).getEngine().getOperational().specification().getOptions().get("dev.inward.matrix.matter.retainer.Worker.snooze");
     }
 
     public final PRODUCT getProduct() {
@@ -63,7 +63,7 @@ public class Worker<PRODUCT,R extends Worker<PRODUCT,R,CI,CX>,CI extends Identit
     }
 
     @Override
-    public PRODUCT get() throws Interruption_ofTopic, Canceled_forTopic {
+    public PRODUCT get() throws Interruption_ofTopic, Exception_forTopic, Canceled_forTopic {
         try {
             return get(this.defaultTimeout);
         }
