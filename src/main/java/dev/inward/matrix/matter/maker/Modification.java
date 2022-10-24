@@ -2,7 +2,7 @@ package dev.inward.matrix.matter.maker;
 
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.matter.worker.promise.Promise;
+import dev.inward.matrix.phenomenon.producer.promise.Promise;
 import dev.inward.matrix.matter.Matter;
 import dev.inward.matrix.matter.Indicia;
 

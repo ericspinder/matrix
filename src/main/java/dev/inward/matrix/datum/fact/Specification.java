@@ -1,16 +1,13 @@
 package dev.inward.matrix.datum.fact;
 
+import dev.inward.matrix.Meta_I;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.datum.fact.operational.BooleanOption;
-import dev.inward.matrix.datum.fact.operational.DurationOption;
-import dev.inward.matrix.datum.fact.operational.IntegerOption;
 import dev.inward.matrix.domain.Server;
 import dev.inward.matrix.matter.Indicia;
-import crud.Meta_I;
-import dev.inward.matrix.standard.Standard;
-import dev.inward.matrix.rubric.Roller;
-import dev.inward.matrix.rubric.Zone;
+import crud.rubric.Roller;
+import dev.inward.matrix.datum.Standard;
+import dev.inward.matrix.engine.Zone;
 
 import java.util.*;
 
@@ -18,29 +15,36 @@ public class Specification<C extends Fact<C,CI,CX,?,?,?>,CI extends Identity<CI,
 
     protected final Map<String, Option<?,?>> options;
     protected final Map<Indicia, Server[]> indiciaServerMap;
-    
-    public Specification(final Map<String,Option<?,?>> optionMap, Map<Indicia,Server[]> indiciaServerMap) {
+    protected final Map<Standard<?>, Zone[]> standardsMap;
+
+    public Specification(final Map<String,Option<?,?>> optionMap, Map<Indicia,Server[]> indiciaServerMap, Map<Standard<?>,Zone[]> standardsMap) {
         this.options = optionMap;
         this.indiciaServerMap = indiciaServerMap;
-    }
-    public Specification(Map<Indicia,Server[]> indiciaServerMap) {
-        this.options = new HashMap<>();
-        try {
-            setDefaultValues(DurationOption.values(),this.options);
-            setDefaultValues(BooleanOption.values(),this.options);
-            setDefaultValues(IntegerOption.values(),this.options);
-        }
-        catch (Roller roller) {
-            throw new RuntimeException(roller);
-        }
-        this.indiciaServerMap = indiciaServerMap;
+        this.standardsMap = standardsMap;
     }
 
-    public static final void setDefaultValues(Option<?,?>[] optionsLoad,Map<String,Option<?,?>> options) throws Roller {
+    public static void setDefaultValues(Option<?,?>[] optionsLoad,Map<String,Option<?,?>> options) throws Roller {
         if (optionsLoad == null) return;
         for (Option<?,?> option: optionsLoad) {
             options.put(option.getI18n(), option);
         }
+    }
+
+    public Map<Indicia, Server[]> getIndiciaServerMap() {
+        return indiciaServerMap;
+    }
+
+    public List<Standard<?>> getStandards(Zone zone) {
+        List<Standard<?>> standardsList = new ArrayList<>();
+        for(Map.Entry<Standard<?>,Zone[]> entry: standardsMap.entrySet()) {
+            for (Zone zoneTest: entry.getValue()) {
+                if(zoneTest.equals(zone)) {
+                    standardsList.add(entry.getKey());
+                    break;
+                }
+            }
+        }
+        return standardsList;
     }
 
     public interface Option<OPTION,M extends Option<OPTION,M>> extends Meta_I<OPTION,M> {

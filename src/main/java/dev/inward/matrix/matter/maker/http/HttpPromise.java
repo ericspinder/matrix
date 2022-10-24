@@ -4,7 +4,7 @@ import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.datum.fact.notion.interaction.http.HttpRequest;
 import dev.inward.matrix.datum.fact.notion.interaction.http.HttpResponse;
-import dev.inward.matrix.matter.worker.promise.Promise;
+import dev.inward.matrix.phenomenon.producer.promise.Promise;
 
 import java.time.Duration;
 import java.time.Instant;

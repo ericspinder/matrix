@@ -5,11 +5,11 @@ import dev.inward.matrix.datum.fact.Fact;
 import dev.inward.matrix.datum.fact.Representative;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 
-public class Regulator<I extends Identity<I,X>,X extends Context<X>,IC extends Identity<IC,XC>,XC extends Context<XC>> extends Fact<Regulator<I,X,IC,XC>,I,X,Regulated<I,X,IC,XC>,IC,XC> {
+public class Regulator<ID extends Identity.Id<ID,P>,P extends Context.Platform<P>> extends Fact<Regulator<ID,P>, Identity.SuperEgo, Context.Service,Regulated<ID,P>,ID,P> {
 
     protected Aegis aegis;
 
-    public Regulator(I id) {
+    public Regulator(Identity.SuperEgo id) {
         super(id);
     }
 }

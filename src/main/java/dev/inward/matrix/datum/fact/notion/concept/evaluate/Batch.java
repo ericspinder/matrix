@@ -10,7 +10,7 @@ import java.security.ProtectionDomain;
 
 public class Batch extends Effect<Bakery,Evaluate,Batch,Calc,Existent> {
 
-    public Batch(Specification specification, Supplier<Bakery, Evaluate, Batch, Identity.Ego, Context.Ethereal, Calc, Existent, ?, ?, ?, ?, ?> supplier, ProtectionDomain protectionDomain) {
+    public Batch(Specification specification, Supplier<Bakery, Evaluate, Batch, Identity.Ego, Context.Demarc, Calc, Existent, ?, ?, ?, ?, ?> supplier, ProtectionDomain protectionDomain) {
         super(specification, supplier, protectionDomain);
     }
 

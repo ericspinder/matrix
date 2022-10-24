@@ -1,6 +1,6 @@
 package dev.inward.matrix.datum.fact.notion;
 
-import dev.inward.matrix.advisor.Manager;
+import dev.inward.matrix.datum.fact.notion.advisor.Manager;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 

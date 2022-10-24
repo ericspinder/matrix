@@ -1,6 +1,6 @@
 package dev.inward.matrix.matter;
 
-import crud.Meta_I;
+import dev.inward.matrix.Meta_I;
 
 import java.io.Serializable;
 
@@ -56,7 +56,9 @@ public final class Indicia implements Comparable<Indicia>, Serializable {
     public enum Severity implements Meta_I<Severity,Severity> {
         Trace("trace","Asked for by a Super Ego"),
         Privilege("privilege","Demanded by a Super Ego"),
+        Capacity("Capacity", "Capacity has been exceeded"),
         Nominal("nominal","Normal operation"),
+        Timer("timer",""),
         Exceptional("exceptional","Problem"),
         Unexpected("unexpected", "represents a code guard on recursion which could get out of hand")
         ;

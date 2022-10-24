@@ -13,6 +13,8 @@ public abstract class Representative<F extends Fact<F,I,X,R,NI,NX>,I extends Ide
     public Representative(F f, NI containerId, ReferenceQueue<F> referenceQueue) {
         super(f, referenceQueue);
         this.containerId = containerId;
-
+    }
+    public NI getContainerId() {
+        return this.containerId;
     }
 }

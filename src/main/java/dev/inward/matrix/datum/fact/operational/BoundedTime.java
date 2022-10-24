@@ -1,7 +1,7 @@
 package dev.inward.matrix.datum.fact.operational;
 
 import dev.inward.matrix.datum.fact.Specification;
-import dev.inward.matrix.standard.time.InstantDatum;
+import dev.inward.matrix.datum.time.InstantDatum;
 
 public abstract class BoundedTime implements Specification.Bounded<InstantDatum, BoundedTime> {
 

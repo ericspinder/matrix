@@ -1,8 +1,6 @@
 package dev.inward.matrix.datum.fact.notion.concept;
 
 
-import dev.inward.matrix.domain.Domain;
-
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
 

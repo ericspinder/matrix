@@ -6,7 +6,7 @@ import dev.inward.matrix.datum.fact.intialized.Delegated;
 
 import java.lang.ref.ReferenceQueue;
 
-public class JdbcDelegated extends Delegated<JdbcManager, JdbcConnection, JdbcFunctionary, Identity.Ego, Context.Ethereal, JdbcBook, JdbcDelegated> {
+public class JdbcDelegated extends Delegated<JdbcManager, JdbcConnection, JdbcFunctionary, Identity.Ego, Context.Demarc, JdbcBook, JdbcDelegated> {
 
 
     public JdbcDelegated(JdbcConnection fact, ReferenceQueue<JdbcConnection> referenceQueue, JdbcBook bus, JdbcFunctionary operational) {

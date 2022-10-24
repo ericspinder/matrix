@@ -1,6 +1,6 @@
 package dev.inward.matrix.datum.fact.notion.concept.matrix;
 
-import dev.inward.matrix.edition.Edition;
+import dev.inward.matrix.engine.Edition;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.domain.Registrar;
 import dev.inward.matrix.datum.fact.notion.concept.Concept;

@@ -1,41 +1,44 @@
 package dev.inward.matrix.resources;
 
 import dev.inward.matrix.clues.Policy;
-import dev.inward.matrix.datum.Datum;
-import dev.inward.matrix.datum.Envoy;
+import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Factory;
-import dev.inward.matrix.matter.worker.Canceled_forTopic;
+import dev.inward.matrix.matter.report.DefaultFailure;
+import dev.inward.matrix.matter.report.DefaultWarning;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
-import java.time.Duration;
+import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Resource<DATUM> extends ReferenceQueue<DATUM> {
+public class Resource<DATUM> extends ReferenceQueue<DATUM> implements Comparable<DATUM> {
 
     protected AtomicInteger count;
     protected long warnCount;
     protected long limit;
     protected final Policy[] policies;
 
-    public Resource(@Nullable Policy[] policies, String resourceName) {
+
+    public Resource(Policy[] policies) {
         this.policies = policies;
-        this.warnCount = (long)((Factory)(this.getClass().getClassLoader())).getEngine().getOperational().specification().getOptions().get("dev.inward.matrix.resource." + resourceName + ".sleep");
-        this.limit = (long)((Factory)(this.getClass().getClassLoader())).getEngine().getOperational().specification().getOptions().get("dev.inward.matrix.resource." + resourceName + ".snooze");
+        this.warnCount = (long)((Factory)(this.getClass().getClassLoader())).getEngine().getOperational().specification().getOptions().get("dev.inward.matrix.resource.warn");
+        this.limit = (long)((Factory)(this.getClass().getClassLoader())).getEngine().getOperational().specification().getOptions().get("dev.inward.matrix.resource.limit");
     }
 
-    public ReferenceQueue<DATUM> increment() {
+    public ReferenceQueue increment(Identity cid) {
         int currentCount = this.count.incrementAndGet();
         if ( currentCount > warnCount) {
-            ((Factory)this.getClass().getClassLoader()).getEngine().
+            ((Factory)this.getClass().getClassLoader()).getEngine().getOperational().
             if (currentCount > limit) {
-
-                throw new Canceled_forTopic(UUID.randomUUID(), null,)
+                Map<String,Object> details = new HashMap<>();
+                details.put("currentCount",Integer.toString(currentCount));
+                throw new DefaultFailure(UUID.randomUUID(), cid, Instant.now(),"Resource",details);
             }
 
+            ((Factory)(this.getClass().getClassLoader())).getEngine().getOperational().report(new DefaultWarning(UUID.randomUUID(),cid,""));
         }
         return this;
     }
@@ -47,6 +50,10 @@ public class Resource<DATUM> extends ReferenceQueue<DATUM> {
 
         }
         return bringOutYourDead;
+    }
+    @Override
+    public final int compareTo(DATUM that) {
+        return this.getClass().getCanonicalName().compareTo(that.getClass().getCanonicalName());
     }
 
 }

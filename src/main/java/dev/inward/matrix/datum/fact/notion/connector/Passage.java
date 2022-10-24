@@ -5,7 +5,7 @@ import dev.inward.matrix.datum.fact.notion.Agent;
 import dev.inward.matrix.datum.fact.notion.Omnibus;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 
-public class Passage extends Omnibus<Agency,Connector, Journey, Identity.Ego, Context.Ethereal, Passage, Agent> {
+public class Passage extends Omnibus<Agency,Connector, Journey, Identity.Ego, Context.Demarc, Passage, Agent> {
     public Passage(Journey operational) {
         super(operational);
     }

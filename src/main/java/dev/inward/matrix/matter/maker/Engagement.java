@@ -8,7 +8,7 @@ import dev.inward.matrix.matter.Indicia;
 import java.time.Instant;
 import java.util.UUID;
 
-public class Engagement<E extends Engagement<E,F>,F extends Fingerprint> extends Matter<Engagement<E,F>,Identity.Ego, Context.Ethereal> {
+public class Engagement<E extends Engagement<E,F>,F extends Fingerprint> extends Matter<Engagement<E,F>,Identity.Ego, Context.Demarc> {
 
     private final F fingerprint;
 

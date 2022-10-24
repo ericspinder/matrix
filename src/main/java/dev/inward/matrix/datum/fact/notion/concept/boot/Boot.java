@@ -1,6 +1,6 @@
 package dev.inward.matrix.datum.fact.notion.concept.boot;
 
-import dev.inward.matrix.edition.Startup;
+import dev.inward.matrix.Startup;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.concept.Concept;
 import dev.inward.matrix.datum.fact.operational.IntegerOption;

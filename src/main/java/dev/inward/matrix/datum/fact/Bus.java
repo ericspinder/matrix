@@ -1,16 +1,37 @@
 package dev.inward.matrix.datum.fact;
 
+import dev.inward.matrix.datum.Datum;
+import dev.inward.matrix.datum.Envoy;
 import dev.inward.matrix.datum.Identity;
+import dev.inward.matrix.datum.fact.notion.Agent;
+import dev.inward.matrix.datum.fact.notion.Notion;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 
-public class Bus<Y extends Factory<Y,F,O,I,X,B,R,?,?,?,?>,F extends Fact<F,I,X,R>,O extends Operational<Y,F,O,I,X,B,R,?,?,?,?>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,R>,R extends Representative<F,I,X,R>> {
+import java.util.UUID;
 
-        protected O operational;
-        public Bus(O operational) {
-                this.operational = operational;
+public class Bus<F extends Fact<F,I,X,R,NI,NX>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<F,I,X,B,R,N,NI,NX,A,U>,R extends Representative<F,I,X,R,NI,NX>,N extends Notion<N,NI,NX,A>,NI extends Identity<NI,NX>,NX extends Context<NX>,A extends Agent<N,NI,NX,A>,U extends Route<F,I,X,B,R,N,NI,NX,A,U>> implements Comparable<B> {
+
+        protected final UUID uuid = UUID.randomUUID();
+        protected final A driver;
+        protected final ThreadedRepresentative<F,I,X,R,NI,NX> threadedRepresentative = new ThreadedRepresentative<>();
+
+        @SuppressWarnings("unchecked")
+        public Bus(A driver) {
+                this.driver = driver;
         }
-        public final O getOperational() {
-                return this.operational;
+
+        public void addRoute(R representative) {
+                this.threadedRepresentative.set(representative);
+                return;
+        }
+        public <DATUM,D extends Datum<DATUM,D,V>,V extends Envoy<DATUM,D,V>> V addPassenger(DATUM datum) {
+                Factory factory = ((Factory)getClass().getClassLoader());
+                V envoy = factory.getEngine().buildEnvoy(datum.getClass().getCanonicalName());
+        }
+
+        @Override
+        public int compareTo(B that) {
+                return this.uuid.compareTo(that.uuid);
         }
 }
 //        public DATUM take(Proffer proffer, Task[] tasks, boolean isWriteLock) {
@@ -43,7 +64,7 @@ public class Bus<Y extends Factory<Y,F,O,I,X,B,R,?,?,?,?>,F extends Fact<F,I,X,R
 //                }
 //                return null;
 //        }
-//        public DATUM get(Promise<DATUM> worker) {
+//        public DATUM get(Promise<DATUM> producer) {
 //                long lock = memberGate.readLock();
 //                try {
 //
@@ -69,4 +90,5 @@ public class Bus<Y extends Factory<Y,F,O,I,X,B,R,?,?,?,?>,F extends Fact<F,I,X,R
 //                }
 //                return wrapped;
 //        }
+
 

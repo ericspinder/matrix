@@ -22,6 +22,10 @@ public abstract class Identity<I extends Identity<I,X>,X extends Context<X>> imp
         return name;
     }
 
+    public final X getContext() {
+        return this.context;
+    }
+
     @Override
     public int compareTo(I that) {
         if (this.context.equals(that.context)) {
@@ -33,30 +37,39 @@ public abstract class Identity<I extends Identity<I,X>,X extends Context<X>> imp
         return this.context.compareTo(that.context);
     }
 
-    /**
-     * Domain + any Characters
-     * e.g. example.com*
-     * e.g. example.comA
-     * e.g. example.coma
-     *
-     */
-    public static final class SuperEgo extends Identity<SuperEgo, Context.Service> {
+    public static final class SuperEgo extends Id<SuperEgo, Context.Service> {
 
         public SuperEgo(String name,Context.Service context) {
             super(name,context);
         }
     }
 
-    /**
-     * Domain + NULL
-     */
-    public static final class Ego extends Identity<Ego, Context.Ethereal> {
-
-        public Ego(UUID uuid, Context.Ethereal context) {
-            super(uuid.toString(),context);
+    public static final class Ghost extends Id<Ghost,Context.Ethereal> {
+        public Ghost(Context.Ethereal ethereal) {
+            super(null, ethereal);
         }
 
+        @Override
+        public int compareTo(Ghost that) {
+            return this.context.compareTo(that.context);
+        }
     }
+
+    public static final class Ego extends Id<Ego, Context.Demarc> {
+
+        public Ego(UUID uuid, Context.Demarc demarc) {
+            super(uuid.toString(),demarc);
+        }
+    }
+    public static abstract class Id<I extends Id<I,X>,X extends Context.Platform<X>> extends Identity<I,X> {
+
+        public Id(String name, X context) {
+            super(name, context);
+        }
+
+
+    }
+
     /**
      * Domain + Slash character
      * e.g.  example.com/index.html

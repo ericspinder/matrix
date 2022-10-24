@@ -8,9 +8,9 @@ import dev.inward.matrix.resources.Supplier;
 
 import java.security.ProtectionDomain;
 
-public class JdbcFunctionary extends Functionary<JdbcManager, JdbcConnection, JdbcFunctionary, Identity.Ego, Context.Ethereal, JdbcBook, JdbcDelegated> {
+public class JdbcFunctionary extends Functionary<JdbcManager, JdbcConnection, JdbcFunctionary, Identity.Ego, Context.Demarc, JdbcBook, JdbcDelegated> {
 
-    public JdbcFunctionary(Specification specification, Supplier<JdbcManager, JdbcConnection, JdbcFunctionary, Identity.Ego, Context.Ethereal, JdbcBook, JdbcDelegated, ?, ?, ?, ?, ?> supplier, ProtectionDomain protectionDomain) {
+    public JdbcFunctionary(Specification specification, Supplier<JdbcManager, JdbcConnection, JdbcFunctionary, Identity.Ego, Context.Demarc, JdbcBook, JdbcDelegated, ?, ?, ?, ?, ?> supplier, ProtectionDomain protectionDomain) {
         super(specification, supplier, protectionDomain);
     }
 }

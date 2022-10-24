@@ -13,8 +13,9 @@ public class Matter<MAT extends Matter<MAT, CI, CX>, CI extends Identity<CI,CX>,
     protected final CI containerId;
     protected final Instant createInstant;
     protected final Indicia indicia;
+    protected final Situation situation = new Situation();
 
-    public Matter(UUID uuid, CI containerId, Instant createInstant, Indicia indicia) {
+    public Matter(UUID uuid, CI containerId, Instant createInstant, Indicia indicia, ) {
         this.uuid = uuid;
         this.containerId = containerId;
         this.createInstant = createInstant;

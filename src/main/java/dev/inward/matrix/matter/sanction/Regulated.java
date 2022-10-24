@@ -6,9 +6,9 @@ import dev.inward.matrix.datum.fact.notion.concept.Context;
 
 import java.lang.ref.ReferenceQueue;
 
-public class Regulated<I extends Identity<I,X>,X extends Context<X>,IC extends Identity<IC,XC>,XC extends Context<XC>> extends Representative<Regulator<I,X,IC,XC>,I,X,Regulated<I,X,IC,XC>,IC,XC> {
+public class Regulated<ID extends Identity.Id<ID,P>,P extends Context.Platform<P>> extends Representative<Regulator<ID,P>, Identity.SuperEgo,Context.Service,Regulated<ID,P>,ID,P> {
 
-    public Regulated(Regulator<I, X, IC, XC> regulator, ReferenceQueue<Regulator<I, X, IC, XC>> referenceQueue, IC containerId) {
-        super(regulator, referenceQueue, containerId);
+    public Regulated(Regulator<ID, P> idpRegulator, ID containerId, ReferenceQueue<Regulator<ID, P>> referenceQueue) {
+        super(idpRegulator, containerId, referenceQueue);
     }
 }

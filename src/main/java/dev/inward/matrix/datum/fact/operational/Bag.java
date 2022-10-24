@@ -10,7 +10,7 @@ public class Bag<T> {
     }
 
     /****
-     * Method to add item x of type T to Bag
+     * Method to add phenomenon x of type T to Bag
      *****/
     public void add(T x) {
         if(map.containsKey(x)) {
@@ -23,7 +23,7 @@ public class Bag<T> {
     }
 
     /****
-     * Method to get frequency of item x with type T in Bag
+     * Method to get frequency of phenomenon x with type T in Bag
      * where x is not null
      *****/
     public int freq(T x) {
@@ -38,8 +38,8 @@ public class Bag<T> {
     //void remove(T,x) - not to be coded
 
     /****
-     * Method to get most frequent item x with type T in Bag
-     * where x is not null and if more than one item is the most
+     * Method to get most frequent phenomenon x with type T in Bag
+     * where x is not null and if more than one phenomenon is the most
      * frequent any of these elements can be returned
      *****/
     public T mode()
@@ -50,14 +50,14 @@ public class Bag<T> {
         }
         else
         {	//If not emptpy intialise an integer to store the num of occurences of the most
-            // frequent item
+            // frequent phenomenon
             Integer largestFrequency = new Integer(0);
             //Also initialise a variable to store the key with the largest frequency
             T largestKey = null;
 
             //Iterate through the keys in the bag/map
             for(T key : map.keySet()){
-                //Store the current item frequency
+                //Store the current phenomenon frequency
                 Integer currentFrequency = map.get(key);
                 //If the current is greater than the largest
                 if(currentFrequency > largestFrequency){

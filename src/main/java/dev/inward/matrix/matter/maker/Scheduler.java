@@ -8,10 +8,10 @@ import dev.inward.matrix.resources.Supplier;
 
 import java.security.ProtectionDomain;
 
-public class Scheduler<M extends Maker<M,?,?,?,?,?,?,?,?>,IS extends Identity<IS,XS>,XS extends Context<XS>> extends Functionary<Studio<M,IS,XS>,M,Scheduler<M,IS,XS>, Identity.Ego, Context.Ethereal,Scratch<M,IS,XS>, Observer<M,IS,XS>> {
+public class Scheduler<M extends Maker<M,?,?,?,?,?,?,?,?>,IS extends Identity<IS,XS>,XS extends Context<XS>> extends Functionary<Studio<M,IS,XS>,M,Scheduler<M,IS,XS>, Identity.Ego, Context.Demarc,Scratch<M,IS,XS>, Observer<M,IS,XS>> {
 
 
-    public Scheduler(Specification specification, Supplier<Studio<M, IS, XS>, M, Scheduler<M, IS, XS>, Identity.Ego, Context.Ethereal, Scratch<M, IS, XS>, Observer<M, IS, XS>, ?, ?, ?, ?, ?> supplier, ProtectionDomain protectionDomain) {
+    public Scheduler(Specification specification, Supplier<Studio<M, IS, XS>, M, Scheduler<M, IS, XS>, Identity.Ego, Context.Demarc, Scratch<M, IS, XS>, Observer<M, IS, XS>, ?, ?, ?, ?, ?> supplier, ProtectionDomain protectionDomain) {
         super(specification, supplier, protectionDomain);
     }
 }

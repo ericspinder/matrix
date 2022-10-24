@@ -9,9 +9,9 @@ import dev.inward.matrix.resources.Supplier;
 
 import java.security.ProtectionDomain;
 
-public class Journey extends Aspect<Agency,Connector, Journey, Identity.Ego, Context.Ethereal, Passage, Agent> {
+public class Journey extends Aspect<Agency,Connector, Journey, Identity.Ego, Context.Demarc, Passage, Agent> {
 
-    public Journey(Specification specification, Supplier<Agency, Connector, Journey, Identity.Ego, Context.Ethereal, Passage, Agent, ?, ?, ?, ?, ?> supplier, ProtectionDomain protectionDomain) {
+    public Journey(Specification specification, Supplier<Agency, Connector, Journey, Identity.Ego, Context.Demarc, Passage, Agent, ?, ?, ?, ?, ?> supplier, ProtectionDomain protectionDomain) {
         super(specification, supplier, protectionDomain);
     }
 }

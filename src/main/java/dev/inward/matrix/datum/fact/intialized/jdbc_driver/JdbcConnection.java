@@ -6,7 +6,7 @@ import dev.inward.matrix.datum.fact.intialized.Intialized;
 
 import java.sql.Connection;
 
-public abstract class JdbcConnection extends Intialized<JdbcConnection, Identity.Ego, Context.Ethereal> implements Connection {
+public abstract class JdbcConnection extends Intialized<JdbcConnection, Identity.Ego, Context.Demarc> implements Connection {
 
     public JdbcConnection(Identity.Ego id) {
         super(id);

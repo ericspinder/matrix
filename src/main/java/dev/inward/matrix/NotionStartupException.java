@@ -1,7 +1,7 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.matter.Indicia;
-import dev.inward.matrix.rubric.Blocker;
+import crud.rubric.Blocker;
 
 public class NotionStartupException extends Blocker {
 
@@ -16,6 +16,7 @@ public class NotionStartupException extends Blocker {
         MissingDefaultValue("Missing a default value"),
         MissMatchedOptionKey("Option key was not set for proper instance value"),
         NetworkUnavailable_No_Return("Problem gaining network details"),
+        NotImplemented("Not implemented"),
         Parent_already_set("Cannot replace a parent"),
         WAITED_TOO_LONG_FOR_CONNECTION("Waited too long for a connection"),
         SoftReference_Problem("SoftReference problem"),
