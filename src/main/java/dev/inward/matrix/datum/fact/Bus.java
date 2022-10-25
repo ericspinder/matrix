@@ -9,7 +9,7 @@ import dev.inward.matrix.datum.fact.notion.concept.Context;
 
 import java.util.UUID;
 
-public class Bus<F extends Fact<F,I,X,R,NI,NX>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<F,I,X,B,R,N,NI,NX,A,U>,R extends Representative<F,I,X,R,NI,NX>,N extends Notion<N,NI,NX,A>,NI extends Identity<NI,NX>,NX extends Context<NX>,A extends Agent<N,NI,NX,A>,U extends Route<F,I,X,B,R,N,NI,NX,A,U>> implements Comparable<B> {
+public class Bus<F extends Fact<F,I,X,R,NI,NX>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<F,I,X,B,R,N,NI,NX,A,U>,R extends Representative<F,I,X,R,NI,NX>,N extends Notion<N,NI,NX,A>,NI extends Identity<NI,NX>,NX extends Context<NX>,A extends Agent<N,NI,NX,A>,U extends Route<F,I,X,B,R,N,NI,NX,A,U>> implements Runnable,Comparable<B> {
 
         protected final UUID uuid = UUID.randomUUID();
         protected final A driver;
@@ -27,6 +27,9 @@ public class Bus<F extends Fact<F,I,X,R,NI,NX>,I extends Identity<I,X>,X extends
         public <DATUM,D extends Datum<DATUM,D,V>,V extends Envoy<DATUM,D,V>> V addPassenger(DATUM datum) {
                 Factory factory = ((Factory)getClass().getClassLoader());
                 V envoy = factory.getEngine().buildEnvoy(datum.getClass().getCanonicalName());
+        }
+        public final void run() {
+
         }
 
         @Override

@@ -1,9 +1,8 @@
-package dev.inward.matrix;
+package dev.inward.matrix.datum.fact.notion.house.ziggurat;
 
+import dev.inward.matrix.CommandLine;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.creation.Creation;
-import dev.inward.matrix.datum.fact.notion.house.ziggurat.Boot;
-import dev.inward.matrix.datum.fact.notion.house.ziggurat.Root;
 import dev.inward.matrix.engine.Edition;
 import dev.inward.matrix.resources.OSinfo;
 import dev.inward.matrix.resources.Resource;
@@ -29,6 +28,10 @@ public class Startup {
     public Startup(CommandLine commandLine, Instrumentation instrumentation) {
         this.commandLine = commandLine;
         this.instrumentation = instrumentation;
+    }
+    private static Root root;
+    public static final Root root() {
+        return root;
     }
 
     public static void premain(String agentArgs, Instrumentation instrumentation) throws InstantiationException {

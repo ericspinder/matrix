@@ -8,19 +8,22 @@ import java.io.Serializable;
 
 public abstract class Fact<F extends Fact<F,I,X,R,NI,NX>,I extends Identity<I,X>,X extends Context<X>,R extends Representative<F,I,X,R,NI,NX>,NI extends Identity<NI,NX>,NX extends Context<NX>> extends Datum<F,F,R> implements Comparable<F>, Serializable {
 
-    protected final I id;
+    protected final I identity;
 
-    public Fact(I id) {
-        this.id = id;
+    public Fact(I identity) {
+        this.identity = identity;
     }
 
-    public I getId() {
-        return this.id;
+    public I getIdentity() {
+        return this.identity;
     }
 
     @Override
     public int compareTo(F that) {
-        return this.id.compareTo(that.getId());
+        return this.identity.compareTo(that.identity);
     }
 
+    public final I identity() {
+        return this.identity;
+    }
 }

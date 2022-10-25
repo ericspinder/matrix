@@ -13,7 +13,7 @@ public class Agent<N extends Notion<N,I,X,A>,I extends Identity<I,X>,X extends C
     protected final NotionProtectionDomain notionProtectionDomain;
 
     public Agent(N notion, ReferenceQueue<N> referenceQueue, NotionProtectionDomain notionProtectionDomain) {
-        super(notion, notion.getId(), referenceQueue);
+        super(notion, notion.getIdentity(), referenceQueue);
         this.notionProtectionDomain = notionProtectionDomain;
     }
     public void report(Report report) {

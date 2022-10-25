@@ -1,17 +1,15 @@
-package dev.inward.matrix.datum.fact.notion.concept.boot;
+package dev.inward.matrix.datum.fact.notion.house.ziggurat;
 
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.datum.fact.notion.concept.Effect;
 import dev.inward.matrix.datum.fact.Specification;
-import dev.inward.matrix.datum.fact.notion.house.ziggurat.Boot;
-import dev.inward.matrix.datum.fact.notion.house.ziggurat.Root;
-import dev.inward.matrix.datum.fact.notion.house.ziggurat.Ziggurat;
+import dev.inward.matrix.datum.fact.notion.concept.boot.Structure;
 import dev.inward.matrix.resources.Supplier;
 
 import java.security.ProtectionDomain;
 
-public class Init extends Effect<Boot, Ziggurat,Init,Structure, Root> {
+public class Init extends Effect<Boot, Ziggurat,Init, Structure, Root> {
 
     private final String args;
 

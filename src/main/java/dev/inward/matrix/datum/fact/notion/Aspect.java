@@ -8,7 +8,7 @@ import dev.inward.matrix.datum.fact.Specification;
 import dev.inward.matrix.resources.Supplier;
 import dev.inward.matrix.engine.Zone;
 
-public class Aspect<Y extends Industry<Y,N,S,I,X,O,A>,N extends Notion<N,I,X,A>,S extends Aspect<Y,N,S,I,X,O,A>,I extends Identity<I,X>,X extends Context<X>,O extends Omnibus<Y,N,S,I,X,O,A>,A extends Agent<N,I,X,A>> extends Operational<Y,N,S,I,X,O,A,N,I,X,A> {
+public class Aspect<Y extends Industry<Y,N,S,I,X,O,A>,N extends Notion<N,I,X,A>,S extends Aspect<Y,N,S,I,X,O,A>,I extends Identity<I,X>,X extends Context<X>,O extends Omnibus<Y,N,S,I,X,O,A,T>,A extends Agent<N,I,X,A>,T extends Itinerary<N,I,X,O,A>> extends Operational<Y,N,S,I,X,O,A,N,I,X,A> {
 
     protected final Memory<Y, N, S, I, X, O, A> notionsInMemory = new Memory();
 
