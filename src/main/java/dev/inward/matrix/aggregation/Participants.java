@@ -1,4 +1,4 @@
-package crud.rubric.aggregation;
+package dev.inward.matrix.aggregation;
 
 import dev.inward.matrix.datum.fact.notion.advisor.Advisor;
 import dev.inward.matrix.matter.maker.Advice;

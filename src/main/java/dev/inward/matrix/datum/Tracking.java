@@ -2,15 +2,15 @@ package dev.inward.matrix.datum;
 
 import dev.inward.matrix.datum.fact.Factory;
 
-public class Tracking<DATUM,D extends Datum<DATUM,D,E>,E extends Envoy<DATUM,D,E>> {
+public class Tracking<DATUM,D extends Datum<DATUM,D>> {
 
-    protected final E envoy;
+    protected final Envoy<DATUM,D,?> envoy;
 
     @SuppressWarnings("unchecked")
     public Tracking(D datum) {
-        this.envoy = (E)((Factory)this.getClass().getClassLoader()).add(datum);
+        this.envoy = (Envoy<DATUM,D,?>)((Factory)this.getClass().getClassLoader()).getEngine().buildEnvoy(datum);
     }
-    public E getEnvoy() {
+    public Envoy<DATUM,D,?> getEnvoy() {
         return this.envoy;
     }
 }

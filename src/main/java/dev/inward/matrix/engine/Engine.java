@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Engine<Y extends Factory<Y,F,O,I,X,B,R,N,NI,NX,A,S>,F extends Fact<F,I,X,R,NI,NX>,O extends Operational<Y,F,O,I,X,B,R,N,NI,NX,A>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<F,I,X,B,R,N,NI,NX,A,U>,R extends Representative<F,I,X,R,NI,NX>,N extends Notion<N,NI,NX,A>,NI extends Identity<NI,NX>,NX extends Context<NX>,A extends Agent<N,NI,NX,A>,U extends Route<F,I,X,B,R,N,NI,NX,A,U>,S extends Resources<F,I,X,R,NI,NX>> {
+public class Engine<Y extends Factory<Y,F,O,I,X,B,R,N,NI,NX,A,S,U>,F extends Fact<F,I,X,R,NI,NX>,O extends Operational<F,O,I,X,B,R,N,NI,NX,A,U>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<F,I,X,B,R,N,NI,NX,A,U,T>,R extends Representative<F,I,X,R,NI,NX>,N extends Notion<N,NI,NX,A>,NI extends Identity<NI,NX>,NX extends Context<NX>,A extends Agent<N,NI,NX,A>,U extends Router<F,I,X,B,R,N,NI,NX,A,U>,S extends Resources<F,I,X,R,NI,NX>> {
 
     public final Instant createInstant = Instant.now();
     protected final O operational;
@@ -32,7 +32,7 @@ public class Engine<Y extends Factory<Y,F,O,I,X,B,R,N,NI,NX,A,S>,F extends Fact<
         return operational;
     }
 
-    public <DATUM,D extends Datum<DATUM,D,V>,V extends Envoy<DATUM,D,V>> V buildEnvoy(DATUM datum) {
+    public <DATUM,D extends Datum<DATUM,D>> Envoy<DATUM,D,?> buildEnvoy(DATUM datum) {
         Induction<> induction = (Induction<Y,DATUM,D,V,F,I,X,>) operational.specification().getStandards().get(datum.getClass());
         return induction.createEnvoy(datum,factory
         );

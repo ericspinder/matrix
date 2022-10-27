@@ -1,15 +1,22 @@
 package dev.inward.matrix.datum.fact;
 
+import dev.inward.matrix.NotionStartupException;
 import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Envoy;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.Agent;
 import dev.inward.matrix.datum.fact.notion.Notion;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
+import dev.inward.matrix.matter.Indicia;
+import dev.inward.matrix.matter.Matter;
+import dev.inward.matrix.phenomenon.Phenomenon;
+import dev.inward.matrix.phenomenon.Tolerances;
 
 import java.util.UUID;
+import java.util.concurrent.Callable;
 
-public class Bus<F extends Fact<F,I,X,R,NI,NX>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<F,I,X,B,R,N,NI,NX,A,U>,R extends Representative<F,I,X,R,NI,NX>,N extends Notion<N,NI,NX,A>,NI extends Identity<NI,NX>,NX extends Context<NX>,A extends Agent<N,NI,NX,A>,U extends Route<F,I,X,B,R,N,NI,NX,A,U>> implements Runnable,Comparable<B> {
+public class Bus<F extends Fact<F,I,X,NI,NX>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<F,I,X,B,R,N,NI,NX,A,U,P,M,T>,R extends Representative<F,I,X,R,NI,NX>,N extends Notion<N,NI,NX>,NI extends Identity<NI,NX>,NX extends Context<NX>,A extends Agent<N,NI,NX,A>,
+        U extends Router<F,I,X,B,R,N,NI,NX,A,U,P,M,T>,P extends Phenomenon<M,P,T>,M extends Matter<M,I,X>,T extends Tolerances<M,T>> implements Runnable,Callable<M>,Comparable<B> {
 
         protected final UUID uuid = UUID.randomUUID();
         protected final A driver;
@@ -20,16 +27,30 @@ public class Bus<F extends Fact<F,I,X,R,NI,NX>,I extends Identity<I,X>,X extends
                 this.driver = driver;
         }
 
-        public void addRoute(R representative) {
+        public void addPickup(R representative) {
                 this.threadedRepresentative.set(representative);
                 return;
         }
-        public <DATUM,D extends Datum<DATUM,D,V>,V extends Envoy<DATUM,D,V>> V addPassenger(DATUM datum) {
-                Factory factory = ((Factory)getClass().getClassLoader());
-                V envoy = factory.getEngine().buildEnvoy(datum.getClass().getCanonicalName());
-        }
-        public final void run() {
 
+        @Override
+        public void run() {
+                System.out.println(this.ride(this.threadedRepresentative.get()));
+        }
+        @Override
+        public M call() {
+               return ride(this.threadedRepresentative.get());
+        }
+        protected M ride(R representative) {
+
+        }
+
+        public <DATUM,D extends Datum<DATUM,D,V>,V extends Envoy<DATUM,D,V>,M extends Matter>  add(V datum) {
+                R pickup = this.threadedRepresentative.get();
+                if (pickup == null) {
+                        throw new NotionStartupException(NotionStartupException.Type.Pickup_Not_Set,getClass(), Indicia.Focus.Assembly, Indicia.Severity.Critical, null);
+                }
+                Factory<?,F,?,I,X,B,R,N,NI,NX,A,?,U> factory = ((Factory<?, F, ?, I, X, B, R, N, NI, NX, A, ?, U>) getClass().getClassLoader());
+                factory.getEngine().
         }
 
         @Override

@@ -6,7 +6,7 @@ import dev.inward.matrix.datum.fact.notion.concept.Concept;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.datum.fact.notion.concept.Mortal;
 
-public class Omnibus<N extends Notion<N,I,X,A>,S extends Aspect<Y,N,S,I,X,O,A>,I extends Identity<I,X>,X extends Context<X>,O extends Omnibus<N,S,I,X,O,A,C,M,Y>,A extends Agent<N,I,X,A>,C extends Concept<C,M>,M extends Mortal<C,M>,Y extends Itinerary<N,I,X,O,A>> extends Bus<N,I,X,O,A,C, Identity.Ego,Context.Demarc,M,Y> {
+public class Omnibus<N extends Notion<N,I,X,A>,I extends Identity<I,X>,X extends Context<X>,O extends Omnibus<N,I,X,O,A,T>,A extends Agent<N,I,X,A>,T extends Itinerary<N,S,I,X,O,A,T>> extends Bus<N,I,X,O,A,T> {
 
     public Omnibus(M driver) {
         super(driver);

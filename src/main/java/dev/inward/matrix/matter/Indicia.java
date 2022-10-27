@@ -21,7 +21,7 @@ public final class Indicia implements Comparable<Indicia>, Serializable {
         this.focus = focus;
         this.severity = severity;
     }
-    public enum Focus implements Meta_I<Focus,Focus> {
+    public enum Focus implements Meta_I<Focus> {
         Assembly("assembly", "The matter is related to assembly for the Id on the platform"),
         Genesis("genesis", "The creation of the Id"),
         Change("change", "Change is afoot for the Id"),
@@ -53,7 +53,8 @@ public final class Indicia implements Comparable<Indicia>, Serializable {
     public String getLocus() {
         return locus;
     }
-    public enum Severity implements Meta_I<Severity,Severity> {
+    public enum Severity implements Meta_I<Severity> {
+        Critical("critical","Code related problem of primary importance"),
         Trace("trace","Asked for by a Super Ego"),
         Privilege("privilege","Demanded by a Super Ego"),
         Capacity("Capacity", "Capacity has been exceeded"),

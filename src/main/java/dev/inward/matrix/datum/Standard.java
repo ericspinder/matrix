@@ -13,15 +13,17 @@ public class Standard<DATUM> implements Comparable<Standard<DATUM>> {
     protected final String i18n;
     protected final String description;
     protected final String fieldName;
-    protected final String inductionClassName;
+    protected final String transformerClassName;
+    protected final String[] inductionClassNames;
     protected final Map<Criterion<DATUM>, Zone[]> criteriaForZones;
 
-    public Standard(final String datumClassName, final String i18n, final String description, final String fieldName, final String inductionClassName, final Map<Criterion<DATUM>, Zone[]> criteriaForZones) {
+    public Standard(final String datumClassName, final String i18n, final String description, final String fieldName, final String transformerClassName, final String[] inductionClassNames, final Map<Criterion<DATUM>, Zone[]> criteriaForZones) {
         this.datumClassName = datumClassName;
         this.i18n = i18n;
         this.description = description;
         this.fieldName = fieldName;
-        this.inductionClassName = inductionClassName;
+        this.transformerClassName = transformerClassName;
+        this.inductionClassNames = inductionClassNames;
         this.criteriaForZones = criteriaForZones;
     }
 
@@ -39,6 +41,14 @@ public class Standard<DATUM> implements Comparable<Standard<DATUM>> {
 
     public String getFieldName() {
         return fieldName;
+    }
+
+    public String getTransformerClassName() {
+        return transformerClassName;
+    }
+
+    public String[] getInductionClassNames() {
+        return inductionClassNames;
     }
 
     public List<Criterion<DATUM>> getCriteria(Zone activeZone) {

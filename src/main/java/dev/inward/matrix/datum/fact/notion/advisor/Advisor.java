@@ -12,7 +12,7 @@ import dev.inward.matrix.datum.fact.notion.concept.Ledger;
 import dev.inward.matrix.matter.sanction.Sanction;
 import dev.inward.matrix.datum.fact.Operational;
 import dev.inward.matrix.datum.Envoy;
-import crud.rubric.aggregation.Participants;
+import dev.inward.matrix.aggregation.Participants;
 
 import java.io.Serializable;
 import java.util.Map;

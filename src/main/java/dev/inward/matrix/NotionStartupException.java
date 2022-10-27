@@ -17,7 +17,7 @@ public class NotionStartupException extends Blocker {
         MissMatchedOptionKey("Option key was not set for proper instance value"),
         NetworkUnavailable_No_Return("Problem gaining network details"),
         NotImplemented("Not implemented"),
-        Parent_already_set("Cannot replace a parent"),
+        Pickup_Not_Set("The thread doesn't contain a fact when processing DATUM on Bus"),
         WAITED_TOO_LONG_FOR_CONNECTION("Waited too long for a connection"),
         SoftReference_Problem("SoftReference problem"),
         Recursion("Unlikely Recursion"),
@@ -39,10 +39,11 @@ public class NotionStartupException extends Blocker {
     public final Type type;
     public final Class where;
 
-
     public NotionStartupException(Type type, Class where, Indicia.Focus focus, Indicia.Severity severity, Exception e) {
         super(where.getCanonicalName(),focus,severity,e);
         this.type = type;
         this.where = where;
     }
+
+
 }

@@ -8,9 +8,9 @@ import dev.inward.matrix.resources.NotionProtectionDomain;
 
 import java.lang.ref.ReferenceQueue;
 
-public class Steward<H extends House<H,P>,P extends Steward<H,P>> extends Agent<H, Identity.Ghost, Context.Ethereal,P> {
+public abstract class Steward<H extends House<H,P>,P extends Steward<H,P>> extends Agent<H, Identity.Ghost, Context.Ethereal,P> {
 
-    public Steward(Corpus concept, ReferenceQueue<Corpus> referenceQueue, NotionProtectionDomain notionProtectionDomain) {
-        super(concept, referenceQueue, notionProtectionDomain);
+    public Steward(H notion, ReferenceQueue<H> referenceQueue, NotionProtectionDomain notionProtectionDomain) {
+        super(notion, referenceQueue, notionProtectionDomain);
     }
 }

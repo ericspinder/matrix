@@ -36,8 +36,8 @@ public abstract class Phenomenon<M extends Matter<M,?,?>,P extends Phenomenon<M,
         return this.tolerances;
     }
 
-    public final Identity.Ghost identity() {
-        return this.ghost;
+    public final Identity identity() {
+        return this.ethereal;
     }
 
     public final M matter() {

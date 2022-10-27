@@ -11,15 +11,16 @@ import dev.inward.matrix.engine.Induction;
 import dev.inward.matrix.matter.Indicia;
 import dev.inward.matrix.matter.Matter;
 import dev.inward.matrix.matter.report.Report;
+import dev.inward.matrix.phenomenon.Phenomenon;
+import dev.inward.matrix.phenomenon.Tolerances;
 import dev.inward.matrix.phenomenon.producer.settlement.Settlement;
-import dev.inward.matrix.resources.Resources;
 import dev.inward.matrix.resources.Supplier;
 import dev.inward.matrix.engine.Zone;
 import dev.inward.matrix.datum.Standard;
 
 import java.lang.reflect.InvocationTargetException;
 
-public abstract class Operational<F extends Fact<F,I,X,R,NI,NX>,O extends Operational<F,O,I,X,B,R,N,NI,NX,A,U>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<F,I,X,B,R,N,NI,NX,A,U>,R extends Representative<F,I,X,R,NI,NX>,N extends Notion<N,NI,NX,A>,NI extends Identity<NI,NX>,NX extends Context<NX>,A extends Agent<N,NI,NX,A>,U extends Resources<F,I,X,R,NI,NX>> {
+public abstract class Operational<F extends Fact<F,I,X,NI,NX>,O extends Operational<F,O,I,X,B,R,N,NI,NX,A,U>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<F,I,X,B,N,NI,NX,U,P,M,T>,N extends Notion<N,NI,NX>,NI extends Identity<NI,NX>,NX extends Context<NX>,U extends Router<F,I,X,B,?,N,NI,NX,?,U,P,M,T>,P extends Phenomenon<M,P,T>,M extends Matter<M,I,X>,T extends Tolerances<M,T>> {
 
     protected final Zone zone;
     protected final Supplier<?,F,O,I,X,B,R,N,NI,NX,A,U> supplier;
