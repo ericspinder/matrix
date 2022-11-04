@@ -1,6 +1,6 @@
 package dev.inward.matrix.domain;
 
-import dev.inward.matrix.matter.order.Order;
+import dev.inward.matrix.datum.fact.matter.order.Order;
 
 import java.util.Map;
 

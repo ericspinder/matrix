@@ -3,23 +3,19 @@ package dev.inward.matrix.datum;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.UUID;
 
 public abstract class Identity<I extends Identity<I,X>,X extends Context<X>> implements Comparable<I>, Serializable {
 
-//    public interface Addressable<T,I extends Identity<I,X>,X extends Context<X>> extends Comparable<T>, Serializable {
-//        I getId();
-//    }
-    protected final String name;
+    public static final char Empty = '\u0000';
+
+    protected final char persona;
     protected final X context;
 
-    public Identity(String name, X context) {
-        this.name = name;
+    public Identity(char persona, X context) {
+        this.persona = persona;
         this.context = context;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public final X getContext() {
@@ -28,60 +24,82 @@ public abstract class Identity<I extends Identity<I,X>,X extends Context<X>> imp
 
     @Override
     public int compareTo(I that) {
-        if (this.context.equals(that.context)) {
-            if (this.name.equals(that.getName())) {
-                return 0;
+        int isZero = this.context.compareTo(that.context);
+        if (isZero == 0) {
+            return this.persona - that.persona;
+        }
+        return isZero;
+    }
+
+    public static class Id extends Identity<Id, Context.Service> {
+
+        protected final SuperEgo superEgo;
+        protected String path;
+        public Id(char persona, Context.Service context, SuperEgo superEgo, String path) {
+            super(persona, context);
+            this.superEgo = superEgo;
+            this.path = path.substring(this.getContext().getIndex().length);
+        }
+        public SuperEgo getSuperEgo() {
+            return superEgo;
+        }
+        public String getPath() {
+            return path;
+        }
+        public String getCompetePath() {
+            return Arrays.toString(this.getContext().getIndex()) + this.path;
+        }
+        @Override
+        public int compareTo(Id that) {
+            int isZero = this.superEgo.compareTo(that.superEgo);
+            if (isZero == 0) {
+                isZero = this.context.compareTo(that.context);
+                if (isZero == 0) {
+                    isZero = this.path.compareTo(that.path);
+                    if (isZero == 0) {
+                        return this.persona - that.persona;
+                    }
+                }
             }
-            return this.name.compareTo(that.getName());
-        }
-        return this.context.compareTo(that.context);
-    }
-
-    public static final class SuperEgo extends Id<SuperEgo, Context.Service> {
-
-        public SuperEgo(String name,Context.Service context) {
-            super(name,context);
+            return isZero;
         }
     }
+    public static class SuperEgo extends Identity<SuperEgo, Context.Service> {
 
-    public static final class Ghost extends Id<Ghost,Context.Ethereal> {
-        public Ghost(Context.Ethereal ethereal) {
-            super(null, ethereal);
+        public SuperEgo(char persona, Context.Service context) {
+            super(persona, context);
+        }
+    }
+    public static final class Ego extends Identity<Ego,Context.Ethereal> {
+
+        public final UUID uuid;
+
+        public Ego(char persona, Context.Ethereal ethereal, UUID uuid) {
+            super(persona,ethereal);
+            this.uuid = uuid;
+        }
+        public Ego(char persona, Context.Ethereal ethereal) {
+            this(persona,ethereal,UUID.randomUUID());
         }
 
         @Override
-        public int compareTo(Ghost that) {
-            return this.context.compareTo(that.context);
+        public int compareTo(Ego that) {
+            int isZero =  this.context.compareTo(that.context);
+            if (isZero == 0) {
+                isZero = this.persona - that.persona;
+                if (isZero == 0) {
+                    return this.uuid.compareTo(that.uuid);
+                }
+            }
+            return isZero;
         }
     }
-
-    public static final class Ego extends Id<Ego, Context.Demarc> {
-
-        public Ego(UUID uuid, Context.Demarc demarc) {
-            super(uuid.toString(),demarc);
+    public static final class Ghost extends Identity<Ghost,Context.Ethereal>  {
+        public Ghost(Context.Ethereal ethereal) {
+            super(Empty, ethereal);
         }
-    }
-    public static abstract class Id<I extends Id<I,X>,X extends Context.Platform<X>> extends Identity<I,X> {
-
-        public Id(String name, X context) {
-            super(name, context);
-        }
-
 
     }
 
-    /**
-     * Domain + Slash character
-     * e.g.  example.com/index.html
-     * @param
-     */
-    public static final class Path extends Identity<Path, Context.Web> implements Comparable<Path>, Serializable {
 
-        protected final String path;
-
-        public Path(String name, Context.Web context, String path) {
-            super(name,context);
-            this.path = path;
-        }
-    }
 }

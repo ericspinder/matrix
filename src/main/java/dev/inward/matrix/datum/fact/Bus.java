@@ -1,57 +1,56 @@
 package dev.inward.matrix.datum.fact;
 
-import dev.inward.matrix.NotionStartupException;
-import dev.inward.matrix.datum.Datum;
-import dev.inward.matrix.datum.Envoy;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.Agent;
 import dev.inward.matrix.datum.fact.notion.Notion;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.matter.Indicia;
-import dev.inward.matrix.matter.Matter;
-import dev.inward.matrix.phenomenon.Phenomenon;
+import dev.inward.matrix.datum.fact.notion.house.ziggurat.Root;
+import dev.inward.matrix.datum.fact.notion.house.ziggurat.Startup;
+
+import dev.inward.matrix.datum.fact.matter.Matter;
 import dev.inward.matrix.phenomenon.Tolerances;
 
 import java.util.UUID;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
-public class Bus<F extends Fact<F,I,X,NI,NX>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<F,I,X,B,R,N,NI,NX,A,U,P,M,T>,R extends Representative<F,I,X,R,NI,NX>,N extends Notion<N,NI,NX>,NI extends Identity<NI,NX>,NX extends Context<NX>,A extends Agent<N,NI,NX,A>,
-        U extends Router<F,I,X,B,R,N,NI,NX,A,U,P,M,T>,P extends Phenomenon<M,P,T>,M extends Matter<M,I,X>,T extends Tolerances<M,T>> implements Runnable,Callable<M>,Comparable<B> {
+public class Bus<F extends Fact<F,I,X>,I extends Identity<I,X>,X extends Context<X>,O extends Operational<F,I,X,O,N,NI,NX,M,T>,B extends Bus<F,I,X,O,B,N,NI,NX,M,T>,
+        N extends Notion<N,NI,NX>,NI extends Identity<NI,NX>,NX extends Context<NX>,
+        M extends Matter<M,I,X>,T extends Tolerances<M,T>> implements Runnable,Callable<M>,Comparable<B> {
 
         protected final UUID uuid = UUID.randomUUID();
-        protected final A driver;
-        protected final ThreadedRepresentative<F,I,X,R,NI,NX> threadedRepresentative = new ThreadedRepresentative<>();
+        protected final ThreadedAgent<N,NI,NX> threadedAgent = new ThreadedAgent<>();
+        protected final ThreadedRepresentative<F,I,X,NI,NX> threadedRepresentative = new ThreadedRepresentative<>();
+
+        protected final O operational;
+        protected ConcurrentLinkedDeque<Representative<F,I,X,?,NI,NX>> deque;
 
         @SuppressWarnings("unchecked")
-        public Bus(A driver) {
-                this.driver = driver;
+        public Bus(O operational) {
+                this.operational = operational;
         }
-
-        public void addPickup(R representative) {
-                this.threadedRepresentative.set(representative);
-                return;
+        public void addPassenger(F fact, NI containerId) {
+                Startup.root().get();
         }
 
         @Override
         public void run() {
-                System.out.println(this.ride(this.threadedRepresentative.get()));
+                System.out.println(this.ride(deque.poll()));
         }
         @Override
         public M call() {
-               return ride(this.threadedRepresentative.get());
+               return ride(deque.poll());
         }
-        protected M ride(R representative) {
+
+        private final M ride(Representative<F,I,X,?,NI,NX> representative) {
+                if (!(representative instanceof Root)) {
+                        if (!(representative instanceof Agent)) {
+                                Agent<N,NI,NX,?> agent = threadedAgent.get();
+                                this.threadedRepresentative.set(representative);
+                        return;
 
         }
 
-        public <DATUM,D extends Datum<DATUM,D,V>,V extends Envoy<DATUM,D,V>,M extends Matter>  add(V datum) {
-                R pickup = this.threadedRepresentative.get();
-                if (pickup == null) {
-                        throw new NotionStartupException(NotionStartupException.Type.Pickup_Not_Set,getClass(), Indicia.Focus.Assembly, Indicia.Severity.Critical, null);
-                }
-                Factory<?,F,?,I,X,B,R,N,NI,NX,A,?,U> factory = ((Factory<?, F, ?, I, X, B, R, N, NI, NX, A, ?, U>) getClass().getClassLoader());
-                factory.getEngine().
-        }
 
         @Override
         public int compareTo(B that) {

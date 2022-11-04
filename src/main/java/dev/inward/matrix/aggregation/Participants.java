@@ -1,8 +1,7 @@
 package dev.inward.matrix.aggregation;
 
 import dev.inward.matrix.datum.fact.notion.advisor.Advisor;
-import dev.inward.matrix.matter.maker.Advice;
-import dev.inward.matrix.datum.Datum;
+import dev.inward.matrix.datum.fact.matter.messaging.Advice;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.datum.fact.notion.concept.Ledger;

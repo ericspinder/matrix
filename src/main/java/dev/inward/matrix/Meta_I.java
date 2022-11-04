@@ -1,6 +1,6 @@
 package dev.inward.matrix;
 
-public interface Meta_I<CLASS> {
+public interface Meta_I<CLASS,M extends Meta_I> {
 
     String getLabel();
 
@@ -14,7 +14,7 @@ public interface Meta_I<CLASS> {
         }
     }
 
-    class Meta<CLASS> implements Meta_I<CLASS> {
+    class Meta<CLASS,M extends Meta_I> implements Meta_I<CLASS,M> {
 
         private String label;
         private String description;

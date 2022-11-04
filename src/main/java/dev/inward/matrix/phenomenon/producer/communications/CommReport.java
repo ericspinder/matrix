@@ -2,7 +2,7 @@ package dev.inward.matrix.phenomenon.producer.communications;
 
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.matter.report.Report;
+import dev.inward.matrix.datum.fact.matter.report.Report;
 
 import java.time.Instant;
 import java.util.Map;

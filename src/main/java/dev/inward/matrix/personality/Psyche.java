@@ -2,7 +2,7 @@ package dev.inward.matrix.personality;
 
 import dev.inward.matrix.NotionStartupException;
 import dev.inward.matrix.domain.Server;
-import dev.inward.matrix.matter.Indicia;
+import dev.inward.matrix.datum.fact.matter.Indicia;
 
 import java.security.Permission;
 import java.security.cert.CertPath;

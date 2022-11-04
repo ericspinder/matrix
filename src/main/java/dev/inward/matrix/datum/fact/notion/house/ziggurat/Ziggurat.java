@@ -4,8 +4,8 @@ import dev.inward.matrix.CommandLine;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.datum.fact.notion.house.House;
-import dev.inward.matrix.domain.Authority;
 import dev.inward.matrix.resources.LocalSystemNetworking;
+import dev.inward.matrix.resources.Resource;
 
 import java.lang.instrument.Instrumentation;
 import java.util.HashMap;
@@ -20,6 +20,8 @@ public class Ziggurat extends House<Ziggurat,Root> {
     protected final String osVersion;
 
     protected final Map<Context.Ethereal, Authority> etherealAuthorityMap = new HashMap<>();
+
+    protected Map<String,? super Resource<?>> datumMap = new HashMap<>();
 
     protected Ziggurat(Identity.Ghost ghost, CommandLine commandLine, Instrumentation instrumentation, Startup.OS os, String osVersion) {
         super(ghost);
@@ -52,4 +54,6 @@ public class Ziggurat extends House<Ziggurat,Root> {
     public Map<Context.Ethereal, Authority> getEtherealAuthorityMap() {
         return etherealAuthorityMap;
     }
+
+
 }

@@ -1,6 +1,5 @@
 package dev.inward.matrix.datum.fact.notion;
 
-import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.resources.NotionProtectionDomain;
 import dev.inward.matrix.resources.Resource;

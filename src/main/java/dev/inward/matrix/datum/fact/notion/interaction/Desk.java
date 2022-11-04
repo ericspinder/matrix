@@ -3,7 +3,7 @@ package dev.inward.matrix.datum.fact.notion.interaction;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.Aspect;
 import dev.inward.matrix.datum.fact.notion.concept.*;
-import dev.inward.matrix.matter.Matter;
+import dev.inward.matrix.datum.fact.matter.Matter;
 import dev.inward.matrix.datum.fact.Specification;
 import dev.inward.matrix.resources.Supplier;
 

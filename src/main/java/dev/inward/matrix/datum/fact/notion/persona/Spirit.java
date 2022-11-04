@@ -9,7 +9,8 @@ import java.lang.ref.ReferenceQueue;
 
 public class Spirit extends Agent<Persona,Identity.SuperEgo,Context.Service,Spirit> {
 
-    public Spirit(Persona persona, ReferenceQueue<Persona> referenceQueue, Identity.SuperEgo containerId, NotionProtectionDomain notionProtectionDomain) {
-        super(persona, referenceQueue, containerId, notionProtectionDomain);
+
+    public Spirit(Persona notion, ReferenceQueue<Persona> referenceQueue, NotionProtectionDomain notionProtectionDomain) {
+        super(notion, referenceQueue, notionProtectionDomain);
     }
 }

@@ -2,9 +2,9 @@ package dev.inward.matrix.phenomenon.producer.promise;
 
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.matter.maker.Request;
-import dev.inward.matrix.matter.maker.Response;
-import dev.inward.matrix.matter.Indicia;
+import dev.inward.matrix.datum.fact.matter.messaging.Request;
+import dev.inward.matrix.datum.fact.matter.messaging.Response;
+import dev.inward.matrix.datum.fact.matter.Indicia;
 import dev.inward.matrix.phenomenon.producer.Producer;
 
 import java.time.Duration;

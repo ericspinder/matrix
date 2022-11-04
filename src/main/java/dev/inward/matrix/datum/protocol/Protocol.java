@@ -1,6 +1,5 @@
 package dev.inward.matrix.datum.protocol;
 
-import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Operational;
 

@@ -4,14 +4,14 @@ import dev.inward.matrix.Meta_I;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.domain.Server;
-import dev.inward.matrix.matter.Indicia;
+import dev.inward.matrix.datum.fact.matter.Indicia;
 import crud.rubric.Roller;
 import dev.inward.matrix.datum.Standard;
 import dev.inward.matrix.engine.Zone;
 
 import java.util.*;
 
-public class Specification<C extends Fact<C,CI,CX,?,?,?>,CI extends Identity<CI,CX>,CX extends Context<CX>> {
+public class Specification<C extends Fact<C,CI,CX>,CI extends Identity<CI,CX>,CX extends Context<CX>> {
 
     protected final Map<String, Option<?,?>> options;
     protected final Map<Indicia, Server[]> indiciaServerMap;

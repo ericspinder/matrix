@@ -1,123 +1,75 @@
 package dev.inward.matrix.datum.fact.notion.concept;
 
-import dev.inward.matrix.domain.Authority;
-import dev.inward.matrix.engine.Zone;
+import dev.inward.matrix.datum.fact.notion.authority.Authority;
+import dev.inward.matrix.domain.InternetClass;
+
+import java.util.Arrays;
 
 public abstract class Context<X extends Context<X>> implements Comparable<X> {
 
-    public static final char PRODUCTION = '\u0000';
+    protected final InternetClass internetClass;
+    protected Authority authority;
 
-    protected final String serverName;
-    protected final Zone zone;
-    protected final Authority authority;
-    protected final char testCode;
-
-    public Context(String serverName, Authority authority, Zone zone, char testCode) {
-        this.serverName = serverName;
+    public Context(Authority authority, InternetClass internetClass) {
         this.authority = authority;
-        this.zone = zone;
-        this.testCode = testCode;
+        this.internetClass = internetClass;
     }
 
-    public Domain getDomain() {
-        return domain;
+    public Authority getAuthority() {
+        return authority;
     }
 
-    public boolean isProduction() {
-        return this.testCode == '\u0000';
-    }
+    public static class Service extends Context<Service> {
 
-    public static class Service extends Platform<Service> {
+        protected final char[] index;
 
-        protected final String name;
-        public Service(Domain domain, Zone zone,char testCode, String name) {
-            super(domain,zone,testCode);
-            this.name = name;
+        public Service(Authority authority, InternetClass testCode, char[] index) {
+            super(authority,testCode);
+            this.index = index;
         }
-        public String getName() {
-            return name;
-        }
-    }
 
-    public static class Ethereal extends Platform<Ethereal> {
-        public Ethereal(Domain domain,Zone zone) {
-            super(domain,zone,PRODUCTION);
+        public char[] getIndex() {
+            return index;
         }
+
         @Override
-        public int compareTo(Ethereal that) {
-            if (this.domain == null && that.domain == null) {
+        public int compareTo(Service that) {
+            if (this.index == null && that == null) {
                 return 0;
             }
-            if (this.domain == null) {
+            if (this.index == null) {
                 return 1;
             }
-            if (that.equals(null)) {
+            if (that.index == null) {
                 return -1;
             }
-            int isZero = this.domain.compareTo(that.domain);
+            int isZero = Arrays.compare(this.index, that.index);
             if (isZero == 0) {
-                return this.zone.compareTo(that.domain);
+                return super.compareTo(that);
             }
+            return isZero;
+        }
+    }
 
-        }
-    }
-    public static class Demarc extends Platform<Demarc> {
-        protected final byte[] demarc;
-        protected final Ethereal ethereal;
-        public Demarc(Domain domain, Zone zone, byte[] demarc, Ethereal ethereal) {
-            super(domain,zone,PRODUCTION);
-            this.demarc = demarc;
-            this.ethereal = ethereal;
-        }
-        public byte[] demarc() {
-            return this.demarc;
-        }
-        public Ethereal ethereal() {
-            return this.ethereal;
-        }
-        public String getAsPrettyMacAddress() {
-            String[] hexadecimal = new String[demarc.length];
-            for (int i = 0; i < demarc.length; i++) {
-                hexadecimal[i] = String.format("%02X", demarc[i]);
-            }
-            return String.join("-", hexadecimal);
-        }
-    }
-    public static class Platform<X extends Platform<X>> extends Context<X> {
-        public Platform(Domain domain, Zone zone, char testCode) {
-            super(domain,zone,testCode);
-        }
-    }
-    public static class Character<X extends Character<X>> extends Context<X> {
-
-        protected char character;
-
-        public Character(Domain domain, Zone zone, char testCode, char character) {
-            super(domain,zone, testCode);
-            this.character = character;
-        }
-    }
-    public static class Web extends Character<Web> {
-        public Web(Domain domain, Zone zone, char testCode) {
-            super(domain,zone,testCode,'/');
-        }
-    }
-    public static class Home extends Character<Home> {
-        public Home(Domain domain, Zone zone,char testCode) {
-            super(domain,zone,testCode,'~');
+    public static class Ethereal extends Context<Ethereal> {
+        public Ethereal(Authority authority,InternetClass internetClass) {
+            super(authority,internetClass);
         }
     }
 
     public int compareTo(X that) {
-        int isZero = this.domain.compareTo(that.domain);
+        if (this.authority == null && that.authority == null) {
+            return this.internetClass.getAuthorityCode() - that.internetClass.getAuthorityCode();
+        }
+        if (this.authority == null) {
+            return 1;
+        }
+        if (that.authority == null) {
+            return -1;
+        }
+        int isZero = this.authority.compareTo(that.authority);
         if (isZero == 0) {
-            if (this.isProduction() && that.isProduction()) {
-                return 0;
-            }
-            if (this.isProduction()) {
-                return 1;
-            }
-            return (int) this.testCode - (int) that.testCode;
+            return this.internetClass.getAuthorityCode() - that.internetClass.getAuthorityCode();
         }
         return isZero;
     }

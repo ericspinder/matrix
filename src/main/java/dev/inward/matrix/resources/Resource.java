@@ -2,52 +2,32 @@ package dev.inward.matrix.resources;
 
 import dev.inward.matrix.clues.Policy;
 import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.Factory;
-import dev.inward.matrix.matter.report.DefaultFailure;
-import dev.inward.matrix.matter.report.DefaultWarning;
 
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
-import java.time.Instant;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class Resource<DATUM> extends ReferenceQueue<DATUM> implements Comparable<DATUM> {
 
-    protected AtomicInteger count;
-    protected long warnCount;
-    protected long limit;
+    protected AtomicLong count;
+    protected long warnOnTotal;
     protected final Policy[] policies;
 
-
-    public Resource(Policy[] policies) {
+    public Resource(Policy[] policies, long warnOnTotal) {
         this.policies = policies;
-        this.warnCount = (long)((Factory)(this.getClass().getClassLoader())).getEngine().getOperational().specification().getOptions().get("dev.inward.matrix.resource.warn");
-        this.limit = (long)((Factory)(this.getClass().getClassLoader())).getEngine().getOperational().specification().getOptions().get("dev.inward.matrix.resource.limit");
+        this.warnOnTotal = warnOnTotal;
     }
 
-    public ReferenceQueue increment(Identity cid) {
-        int currentCount = this.count.incrementAndGet();
-        if ( currentCount > warnCount) {
-            ((Factory)this.getClass().getClassLoader()).getEngine().getOperational().
-            if (currentCount > limit) {
-                Map<String,Object> details = new HashMap<>();
-                details.put("currentCount",Integer.toString(currentCount));
-                throw new DefaultFailure(UUID.randomUUID(), cid, Instant.now(),"Resource",details);
-            }
-
-            ((Factory)(this.getClass().getClassLoader())).getEngine().getOperational().report(new DefaultWarning(UUID.randomUUID(),cid,""));
-        }
-        return this;
+    public boolean increment() {
+        long currentCount = this.count.incrementAndGet();
+        return currentCount < warnOnTotal;
     }
 
     @Override
     public Reference<? extends DATUM> poll() {
         Reference<? extends DATUM> bringOutYourDead = super.poll();
         if (bringOutYourDead != null) {
-
+            this.count.decrementAndGet();
         }
         return bringOutYourDead;
     }
@@ -56,4 +36,20 @@ public class Resource<DATUM> extends ReferenceQueue<DATUM> implements Comparable
         return this.getClass().getCanonicalName().compareTo(that.getClass().getCanonicalName());
     }
 
+    public long getCount() {
+        return count.get();
+    }
+
+
+    public long getWarnOnTotal() {
+        return warnOnTotal;
+    }
+
+    public void setWarnOnTotal(long warnOnTotal) {
+        this.warnOnTotal = warnOnTotal;
+    }
+
+    public Policy[] getPolicies() {
+        return policies;
+    }
 }

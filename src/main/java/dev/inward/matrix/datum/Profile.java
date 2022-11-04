@@ -1,6 +1,6 @@
 package dev.inward.matrix.datum;
 
-import dev.inward.matrix.setting.MagicWord;
+import dev.inward.matrix.datum.fact.setting.MagicWord;
 
 import java.security.Permission;
 

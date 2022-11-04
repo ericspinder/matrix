@@ -1,11 +1,10 @@
 package dev.inward.matrix.datum.fact;
 
-import dev.inward.matrix.aggregation.Timer;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.Agent;
 import dev.inward.matrix.datum.fact.notion.Notion;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.matter.Matter;
+import dev.inward.matrix.datum.fact.matter.Matter;
 import dev.inward.matrix.phenomenon.Phenomenon;
 import dev.inward.matrix.phenomenon.Tolerances;
 

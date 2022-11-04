@@ -1,6 +1,5 @@
 package dev.inward.matrix.datum.time;
 
-import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.datum.Envoy;

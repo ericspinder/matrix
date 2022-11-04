@@ -1,7 +1,7 @@
 package dev.inward.matrix.phenomenon.producer;
 
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.matter.Indicia;
+import dev.inward.matrix.datum.fact.matter.Indicia;
 import dev.inward.matrix.phenomenon.Phenomenon;
 
 import java.lang.ref.SoftReference;

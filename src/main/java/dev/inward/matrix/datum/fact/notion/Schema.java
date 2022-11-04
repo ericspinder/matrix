@@ -5,7 +5,7 @@ import dev.inward.matrix.datum.Standard;
 import dev.inward.matrix.datum.fact.Specification;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
 import dev.inward.matrix.domain.Server;
-import dev.inward.matrix.matter.Indicia;
+import dev.inward.matrix.datum.fact.matter.Indicia;
 import dev.inward.matrix.engine.Zone;
 
 import java.util.Map;

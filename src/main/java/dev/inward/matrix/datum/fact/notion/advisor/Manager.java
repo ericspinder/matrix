@@ -1,6 +1,5 @@
 package dev.inward.matrix.datum.fact.notion.advisor;
 
-import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.Bus;
 import dev.inward.matrix.datum.fact.Fact;

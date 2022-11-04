@@ -1,6 +1,6 @@
 package dev.inward.matrix.engine;
 
-import dev.inward.matrix.matter.signer.MatrixSigner;
+import dev.inward.matrix.datum.fact.matter.signer.MatrixSigner;
 
 import java.net.URL;
 import java.security.CodeSigner;

@@ -1,17 +1,15 @@
 package dev.inward.matrix.resources;
 
 import dev.inward.matrix.NotionStartupException;
-import dev.inward.matrix.matter.Indicia;
-import dev.inward.matrix.phenomenon.producer.communications.Network;
+import dev.inward.matrix.datum.fact.matter.Indicia;
+import dev.inward.matrix.datum.fact.threshold.Threshold;
 
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.time.Instant;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.locks.StampedLock;
 
 public class LocalSystemNetworking {
@@ -33,11 +31,11 @@ public class LocalSystemNetworking {
     private Instant updateInstant;
     private StampedLock gate = new StampedLock();
 
-    Map<Network, > externalActiveInterfaces = new HashMap<>();
-    Map<Network, NetworkInterface> loopbackActiveInterfaces = new HashMap<>();
-    Map<Network, NetworkInterface> inactiveInterfaces = new HashMap<>();
+    List<Threshold> externalActiveInterfaces = new ArrayList<>();
+    List<Threshold> loopbackActiveInterfaces = new ArrayList<>();
+    List<Threshold> inactiveInterfaces = new ArrayList<>();
 
-    public final Map<Network, NetworkInterface> getExternalActiveInterfaces() {
+    public final List<Threshold> getExternalActiveInterfaces() {
         long readLock = gate.readLock();
         try {
             return this.externalActiveInterfaces;
@@ -46,7 +44,7 @@ public class LocalSystemNetworking {
         }
     }
 
-    public final Map<Network, NetworkInterface> getLoopbackActiveInterfaces() {
+    public final List<Threshold> getLoopbackActiveInterfaces() {
         long readLock = gate.readLock();
         try {
             return this.loopbackActiveInterfaces;
@@ -55,7 +53,7 @@ public class LocalSystemNetworking {
         }
     }
 
-    public final Map<Network, NetworkInterface> getInactiveInterfaces() {
+    public final List<Threshold> getInactiveInterfaces() {
         long readLock = gate.readLock();
         try {
             return this.inactiveInterfaces;
@@ -89,7 +87,7 @@ public class LocalSystemNetworking {
     }
 
     private final void parseInetAddresses(int layer, NetworkInterface networkInterface) throws SocketException {
-        if (layer > 10) throw new NotionStartupException(NotionStartupException.Type.Recursion,this.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Unexpected,null);
+        if (layer > 3) throw new NotionStartupException(NotionStartupException.Type.Recursion,this.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Unexpected,null);
         Enumeration<InetAddress> inetAddressEnumeration = networkInterface.getInetAddresses();
         while (inetAddressEnumeration.hasMoreElements()) {
             InetAddress inetAddress = inetAddressEnumeration.nextElement();
@@ -97,7 +95,7 @@ public class LocalSystemNetworking {
         for (InterfaceAddress ifAddress : networkInterface.getInterfaceAddresses()) {
             if (networkInterface.isLoopback()) {
                 if (ifAddress.getBroadcast() != null) {
-                    this.loopbackActiveInterfaces.put(new Network(,networkInterface),);
+                    this.loopbackActiveInterfaces.put(new Threshold(networkInterface,ifAddress),);
                 } else {
                     this.inactiveInterfaces.put(ifAddress, networkInterface);
                 }
@@ -109,7 +107,7 @@ public class LocalSystemNetworking {
                 }
             }
         }
-        Enumeration<NetworkInterface> subInterfacesEnumeration = networkInterface.getSubInterfaces();
+        Enumeration<java.net.NetworkInterface> subInterfacesEnumeration = networkInterface.getSubInterfaces();
         if (subInterfacesEnumeration != null && subInterfacesEnumeration.hasMoreElements()) {
             while (subInterfacesEnumeration.hasMoreElements()) {
                 this.parseInetAddresses(layer + 1, subInterfacesEnumeration.nextElement());

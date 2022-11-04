@@ -1,10 +1,12 @@
 package dev.inward.matrix.datum.fact;
 
 import dev.inward.matrix.datum.Identity;
+import dev.inward.matrix.datum.fact.matter.Matter;
 import dev.inward.matrix.datum.fact.notion.Agent;
 import dev.inward.matrix.datum.fact.notion.Notion;
 import dev.inward.matrix.datum.fact.notion.concept.*;
 import dev.inward.matrix.engine.Engine;
+import dev.inward.matrix.phenomenon.Tolerances;
 import dev.inward.matrix.resources.Resources;
 
 import java.io.Serializable;
@@ -13,10 +15,10 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.locks.StampedLock;
 
-public abstract class Factory<Y extends Factory<Y,F,O,I,X,B,R,N,NI,NX,A,S,U>,F extends Fact<F,I,X,R,NI,NX>,O extends Operational<F,O,I,X,B,R,N,NI,NX,A,U>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<F,I,X,B,R,N,NI,NX,A,U>,R extends Representative<F,I,X,R,NI,NX>,N extends Notion<N,NI,NX,A>,NI extends Identity<NI,NX>,NX extends Context<NX>,A extends Agent<N,NI,NX,A>,S extends Resources<F,I,X,R,NI,NX>,U extends Router<F,I,X,B,R,N,NI,NX,A,U>> extends ClassLoader implements Comparable<Y>, Serializable {
+public abstract class Factory<Y extends Factory<Y,F,I,X,M,O,B,R>,F extends Fact<F,I,X>,I extends Identity<I,X>,X extends Context<X>,M extends Model<F,I,X,M>,O extends Operational<F,I,X,O,N,NI,NX,M,T>,B extends Bus<F,I,X,B,R,N,NI,NX,A>,R extends Representative<F,I,X,R,NI,NX>> extends ClassLoader implements Comparable<Y>, Serializable {
 
     protected final Identity.Ego id;
-    private Engine<Y,F,O,I,X,B,R,N,NI,NX,A,S,U> engine = null;
+    private Engine<Y,F,I,X,O,B,R,N,NI,NX,A,?,?> engine = null;
     protected StampedLock gate = new StampedLock();
     protected final Resources<F,I,X,R,NI,NX> resources;
     protected final Map<B,R> routeMap = new HashMap<>();

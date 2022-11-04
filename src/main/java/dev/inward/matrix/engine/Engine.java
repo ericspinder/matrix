@@ -1,6 +1,5 @@
 package dev.inward.matrix.engine;
 
-import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.*;
 import dev.inward.matrix.datum.fact.notion.Agent;
@@ -11,14 +10,15 @@ import dev.inward.matrix.resources.Resource;
 import dev.inward.matrix.resources.Resources;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Engine<Y extends Factory<Y,F,O,I,X,B,R,N,NI,NX,A,S,U>,F extends Fact<F,I,X,R,NI,NX>,O extends Operational<F,O,I,X,B,R,N,NI,NX,A,U>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<F,I,X,B,R,N,NI,NX,A,U,T>,R extends Representative<F,I,X,R,NI,NX>,N extends Notion<N,NI,NX,A>,NI extends Identity<NI,NX>,NX extends Context<NX>,A extends Agent<N,NI,NX,A>,U extends Router<F,I,X,B,R,N,NI,NX,A,U>,S extends Resources<F,I,X,R,NI,NX>> {
+public class Engine<Y extends Factory<Y,F,I,X,O,B,R,N,NI,NX,A,S,U>,F extends Fact<F,I,X>,O extends Operational<F,I,X,O,N,NI,NX,?,?>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<F,I,X,B,R,N,NI,NX,A,U,T>,R extends Representative<F,I,X,R,NI,NX>,N extends Notion<N,NI,NX,A>,NI extends Identity<NI,NX>,NX extends Context<NX>,A extends Agent<N,NI,NX,A>,U extends Router<F,I,X,B,R,N,NI,NX,A,U>,S extends Resources<F,I,X,R,NI,NX>> {
 
     public final Instant createInstant = Instant.now();
-    protected final O operational;
+    protected List<Model<F,I,X,O,B,?,N,NI,NX,?,?>> modelList = new ArrayList<>();
     protected final Map<String,Induction<Y,F,O,I,X,B,R,N,NI,NX,A,>> inductionMap = new HashMap<>();
 
 

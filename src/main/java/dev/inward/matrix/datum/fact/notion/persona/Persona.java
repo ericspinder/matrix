@@ -3,14 +3,14 @@ package dev.inward.matrix.datum.fact.notion.persona;
 import dev.inward.matrix.datum.Identity;
 import dev.inward.matrix.datum.fact.notion.Notion;
 import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.matter.Indicia;
+import dev.inward.matrix.datum.fact.matter.Indicia;
 
 import javax.security.auth.Subject;
 import java.security.CodeSigner;
 import java.security.Principal;
 import java.util.concurrent.ConcurrentHashMap;
 
-public final class Persona extends Notion<Persona, Identity.SuperEgo,Context.Service,Spirit> implements Principal {
+public class Persona extends Notion<Persona, Identity.SuperEgo,Context.Service> implements Principal {
 
     protected CodeSigner codeSigner;
     protected ConcurrentHashMap<Indicia, Identity.SuperEgo> matterCollectors;
@@ -36,4 +36,5 @@ public final class Persona extends Notion<Persona, Identity.SuperEgo,Context.Ser
     public Identity.SuperEgo getMatterCollector(Indicia indicia) {
         return this.matterCollectors.getOrDefault(indicia,defaultCollector);
     }
+
 }

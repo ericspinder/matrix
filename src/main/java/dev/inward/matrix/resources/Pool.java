@@ -1,6 +1,5 @@
 package dev.inward.matrix.resources;
 
-import dev.inward.matrix.datum.Datum;
 import dev.inward.matrix.datum.Envoy;
 
 import java.time.Duration;
