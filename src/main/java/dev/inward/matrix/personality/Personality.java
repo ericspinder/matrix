@@ -1,18 +1,16 @@
 package dev.inward.matrix.personality;
 
-import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.notion.Agent;
-import dev.inward.matrix.datum.fact.notion.Notion;
-import dev.inward.matrix.datum.fact.notion.concept.Context;
+import dev.inward.matrix.fact.datum.Identity;
+import dev.inward.matrix.fact.notion.Agent;
+import dev.inward.matrix.fact.notion.Notion;
+import dev.inward.matrix.fact.notion.concept.Context;
 
 import java.security.Permission;
 import java.security.PermissionCollection;
-import java.time.Instant;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Map;
 
-public class Personality<N extends Notion<N,I,X,A>,I extends Identity<I,X>,X extends Context<X>,A extends Agent<N,I,X,A>> extends PermissionCollection {
+public class Personality<N extends Notion<N,I,X,?,?,?>,I extends Identity<I,X>,X extends Context<X>,A extends Agent<N,I,X,A>> extends PermissionCollection {
 
     private List<Psyche> psycheList;
     @Override

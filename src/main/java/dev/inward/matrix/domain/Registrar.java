@@ -1,15 +1,15 @@
 package dev.inward.matrix.domain;
 
-import dev.inward.matrix.datum.fact.matter.order.Order;
+import dev.inward.matrix.fact.matter.order.Autopsy;
 
 import java.util.Map;
 
 public class Registrar {
 
     protected final Registrar issuer;
-    protected final Map<Domain, Order> domainOrdersMap;
+    protected final Map<Domain, Autopsy> domainOrdersMap;
 
-    public Registrar(Registrar issuer, Map<Domain, Order> domainOrdersMap) {
+    public Registrar(Registrar issuer, Map<Domain, Autopsy> domainOrdersMap) {
         this.issuer = issuer;
         this.domainOrdersMap = domainOrdersMap;
     }
@@ -18,7 +18,7 @@ public class Registrar {
         return issuer;
     }
 
-    public Map<Domain, Order> getDomainOrdersMap() {
+    public Map<Domain, Autopsy> getDomainOrdersMap() {
         return domainOrdersMap;
     }
 }

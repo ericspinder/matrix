@@ -1,8 +1,8 @@
 package dev.inward.matrix.phenomenon.producer;
 
-import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.matter.Exceptional;
-import dev.inward.matrix.datum.fact.matter.Indicia;
+import dev.inward.matrix.fact.datum.Identity;
+import dev.inward.matrix.fact.matter.Exceptional;
+import dev.inward.matrix.fact.matter.Indicia;
 
 import java.util.UUID;
 
@@ -12,10 +12,10 @@ public class Interruption extends InterruptedException implements Exceptional  {
     protected final Identity topicId;
     protected final Indicia indicia;
 
-    public Interruption(UUID uuid, Identity topicId, String locus) {
+    public Interruption(UUID uuid, Identity topicId, String locus, char authorityCode) {
         this.uuid = uuid;
         this.topicId = topicId;
-        this.indicia = new Indicia(locus, Indicia.Focus.Admonitory, Indicia.Severity.Exceptional);
+        this.indicia = new Indicia(locus, Indicia.Focus.Admonitory, Indicia.Severity.Exceptional, authorityCode);
     }
     @Override
     public synchronized Throwable fillInStackTrace() {

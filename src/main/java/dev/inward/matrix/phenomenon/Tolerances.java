@@ -1,6 +1,6 @@
 package dev.inward.matrix.phenomenon;
 
-import dev.inward.matrix.datum.fact.matter.Matter;
+import dev.inward.matrix.fact.matter.Matter;
 
 import java.util.concurrent.TimeUnit;
 

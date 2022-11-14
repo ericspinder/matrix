@@ -1,11 +1,11 @@
 package dev.inward.matrix.aggregation;
 
-import dev.inward.matrix.datum.fact.notion.advisor.Advisor;
-import dev.inward.matrix.datum.fact.matter.messaging.Advice;
-import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.datum.fact.notion.concept.Ledger;
-import dev.inward.matrix.datum.Envoy;
+import dev.inward.matrix.fact.notion.advisor.Advisor;
+import dev.inward.matrix.fact.matter.messaging.Advice;
+import dev.inward.matrix.fact.datum.Identity;
+import dev.inward.matrix.fact.notion.concept.Context;
+import dev.inward.matrix.fact.notion.concept.Ledger;
+import dev.inward.matrix.fact.datum.Envoy;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

@@ -1,6 +1,6 @@
 package crud.rubric;
 
-import dev.inward.matrix.datum.fact.matter.Indicia;
+import dev.inward.matrix.fact.matter.Indicia;
 
 public class Roller extends Throwable {
 

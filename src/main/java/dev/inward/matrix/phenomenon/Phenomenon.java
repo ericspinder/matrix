@@ -1,27 +1,23 @@
 package dev.inward.matrix.phenomenon;
 
 import dev.inward.matrix.NotionStartupException;
-import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.Factory;
-import dev.inward.matrix.datum.fact.notion.concept.Context;
-import dev.inward.matrix.engine.Edition;
-import dev.inward.matrix.datum.fact.matter.Indicia;
-import dev.inward.matrix.datum.fact.matter.Matter;
-import dev.inward.matrix.datum.fact.matter.report.Report;
+import dev.inward.matrix.fact.datum.Identity;
+import dev.inward.matrix.fact.notion.concept.Context;
+import dev.inward.matrix.fact.matter.Indicia;
+import dev.inward.matrix.fact.matter.Matter;
 import dev.inward.matrix.phenomenon.producer.Interruption;
 import dev.inward.matrix.phenomenon.producer.Timout;
 import dev.inward.matrix.phenomenon.producer.WorkException;
+import dev.inward.matrix.phenomenon.producer.communications.ThreadedConcept;
 
 import java.lang.ref.SoftReference;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-public abstract class Phenomenon<M extends Matter<M,?,?>,P extends Phenomenon<M,P,T>,T extends Tolerances<M,T>> implements Comparable<P>, Future<M> {
+public abstract class Phenomenon<M extends Matter<M,?,?>,T extends Tolerances<M,T>,P extends Phenomenon<M,T,P>> implements Comparable<P>, Future<M> {
 
     protected final Context.Ethereal ethereal;
     protected SoftReference<M> remains;
@@ -36,9 +32,7 @@ public abstract class Phenomenon<M extends Matter<M,?,?>,P extends Phenomenon<M,
         return this.tolerances;
     }
 
-    public final Identity identity() {
-        return this.ethereal;
-    }
+
 
     public final M matter() {
         if (this.remains != null) {
@@ -60,9 +54,6 @@ public abstract class Phenomenon<M extends Matter<M,?,?>,P extends Phenomenon<M,
         this.tolerances = tolerances;
     }
 
-    public Identity.Ghost ghost() {
-        return ghost;
-    }
 
     @Override
     public boolean cancel(boolean mayInterruptIfRunning) {
@@ -106,7 +97,7 @@ public abstract class Phenomenon<M extends Matter<M,?,?>,P extends Phenomenon<M,
                 throw new Interruption(this.uuid, this.containerId, "Interruption");
             }
             if (this.isCancelled()) {
-                throw new dev.inward.matrix.phenomenon.producer.Canceled(this.uuid, this.containerId,"Cancelled");
+                throw new dev.inward.matrix.phenomenon.producer.Canceled(UUID.randomUUID(), ThreadedConcept.Instance.get().getContainerId(), "Cancelled", ThreadedConcept.Instance.get().getContainerId().getContext().getAuthority());
             }
             if (Instant.now().isAfter(timeoutInstant)) {
                 throw new Timout(this.uuid,this.containerId,"Timeout");
@@ -114,22 +105,6 @@ public abstract class Phenomenon<M extends Matter<M,?,?>,P extends Phenomenon<M,
             response = (this.remains != null)? this.remains.get(): null;
             if (response != null) {
                 return response;
-            }
-            long startNano = System.nanoTime();
-            try {
-                Thread.sleep(this.sleep, 10);
-            }
-            catch (InterruptedException ie) {
-                throw new Interruption(this.uuid,this.containerId,"Interruption during sleep of future");
-            }
-            long elapsed = System.nanoTime() - startNano;
-            if (elapsed < this.snooze) {
-                Map<String,Object> details = new HashMap<>();
-                details.put("Version", Edition.Version.Aforementioned.get());
-                details.put("elapsed nano",elapsed);
-                details.put("planned sleep",this.sleep);
-                details.put("snooze nano",this.snooze);
-                ((Factory)(this.getClass().getClassLoader())).getEngine().getOperational().report(new Report(UUID.randomUUID(),this.containerId,Instant.now(),new Indicia("Over snoozed", Indicia.Focus.Admonitory, Indicia.Severity.Timer),details));
             }
         }
     }

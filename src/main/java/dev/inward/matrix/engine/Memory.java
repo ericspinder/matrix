@@ -1,8 +1,8 @@
 package dev.inward.matrix.engine;
 
-import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.notion.*;
-import dev.inward.matrix.datum.fact.notion.concept.Context;
+import dev.inward.matrix.fact.datum.Identity;
+import dev.inward.matrix.fact.notion.*;
+import dev.inward.matrix.fact.notion.concept.Context;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

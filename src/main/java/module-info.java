@@ -3,10 +3,11 @@ module dev.inward.matrix {
     exports dev.inward.matrix to java.instrument;
     requires transitive org.objectweb.asm;
     requires transitive com.google.common;
-    exports dev.inward.matrix.datum;
-    exports dev.inward.matrix.datum.fact.matter;
+    requires jsr305;
+    exports dev.inward.matrix.fact.datum;
+    exports dev.inward.matrix.fact.matter;
     exports dev.inward.matrix.engine;
     exports crud.rubric;
-    exports dev.inward.matrix.datum.fact;
-    exports dev.inward.matrix.datum.fact.notion.house.ziggurat to java.instrument;
+    exports dev.inward.matrix.fact;
+    exports dev.inward.matrix.fact.notion.house.ziggurat to java.instrument;
 }

@@ -1,6 +1,6 @@
 package dev.inward.matrix.engine;
 
-import dev.inward.matrix.datum.fact.matter.signer.MatrixSigner;
+import dev.inward.matrix.fact.matter.signer.MatrixSigner;
 
 import java.net.URL;
 import java.security.CodeSigner;
@@ -10,6 +10,7 @@ public class Edition extends CodeSource implements Comparable<Edition> {
 
     protected final Version version;
     protected final MatrixSigner matrixSigner;
+    public static final Version<String> Aforementioned = new Version<>(".01") {}; // can't call it 'this'
 
 
     public Edition(URL url, Version version, MatrixSigner matrixSigner) {
@@ -21,21 +22,6 @@ public class Edition extends CodeSource implements Comparable<Edition> {
         return this.matrixSigner;
     }
 
-    public static class Version implements Comparable<Version> {
-        public static final Version Aforementioned = new Version(".01"); // can't call it 'this'
-
-        private final String version;
-        public Version(String version) {
-            this.version = version;
-        }
-        public String get() {
-            return this.version;
-        }
-        public int compareTo(Version that) {
-            return this.version.compareTo(that.version);
-        }
-
-    }
     public int compareTo(Edition that) {
         return this.version.compareTo(that.version);
     }

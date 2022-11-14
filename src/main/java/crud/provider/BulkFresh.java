@@ -1,8 +1,8 @@
 package crud.provider;
 
 import dev.inward.crud.Container;
-import dev.inward.matrix.datum.fact.Bus;
-import dev.inward.matrix.datum.fact.Operational;
+import dev.inward.matrix.fact.Bus;
+import dev.inward.matrix.fact.Operational;
 
 import java.io.Serializable;
 

@@ -1,6 +1,6 @@
 package dev.inward.matrix.domain;
 
-import dev.inward.matrix.datum.fact.notion.authority.Authority;
+import dev.inward.matrix.fact.notion.authority.Authority;
 
 public class Domain implements Comparable<Domain> {
 

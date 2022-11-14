@@ -1,11 +1,11 @@
 package crud.provider;
 
-import dev.inward.matrix.datum.Identity;
-import dev.inward.matrix.datum.fact.Bus;
-import dev.inward.matrix.datum.fact.Fact;
-import dev.inward.matrix.datum.fact.Factory;
-import dev.inward.matrix.datum.fact.Model;
-import dev.inward.matrix.datum.fact.Operational;
+import dev.inward.matrix.fact.datum.Identity;
+import dev.inward.matrix.fact.Bus;
+import dev.inward.matrix.fact.Fact;
+import dev.inward.matrix.fact.Factory;
+import dev.inward.matrix.fact.Model;
+import dev.inward.matrix.fact.Operational;
 
 import java.io.Serializable;
 

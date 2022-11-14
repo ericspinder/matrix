@@ -1,6 +1,6 @@
 package dev.inward.matrix.resources;
 
-import dev.inward.matrix.datum.Envoy;
+import dev.inward.matrix.fact.datum.Envoy;
 
 import java.time.Duration;
 import java.time.Instant;

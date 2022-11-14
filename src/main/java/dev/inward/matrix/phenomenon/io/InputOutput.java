@@ -1,25 +1,26 @@
 package dev.inward.matrix.phenomenon.io;
 
-import dev.inward.matrix.datum.fact.notion.concept.Context;
+import dev.inward.matrix.fact.Fact;
+import dev.inward.matrix.fact.datum.Identity;
+import dev.inward.matrix.fact.notion.concept.Context;
 import dev.inward.matrix.engine.Zone;
 import dev.inward.matrix.phenomenon.Phenomenon;
 import dev.inward.matrix.phenomenon.SystemInitialization;
 import dev.inward.matrix.phenomenon.Tolerances;
-import dev.inward.matrix.datum.fact.threshold.Threshold;
+import dev.inward.matrix.fact.threshold.Threshold;
 
 import java.net.InetAddress;
 import java.nio.channels.AsynchronousChannel;
+import java.util.UUID;
 
-public abstract class InputOutput<I extends InputOutput<I,CHANNEL,O>,CHANNEL extends AsynchronousChannel,O extends ChannelOption<CHANNEL>> extends Phenomenon<SystemInitialization,I, Tolerances.ThresholdTolerances> {
+public abstract class InputOutput<IO extends InputOutput<IO,CHANNEL>,CHANNEL extends AsynchronousChannel> extends Fact<IO, Identity.Ego, Context.Ethereal> {
 
     protected final Threshold threshold;
     protected final CHANNEL channel;
-    protected final Zone zone;
 
-    public InputOutput(Context.Service demarc, Threshold threshold, Zone zone) {
-        super(demarc,);
+    public InputOutput(Context.Ethereal ethereal, Threshold threshold) {
+        super(new Identity.Ego(Identity.Empty,ethereal));
         this.threshold = threshold;
-        this.zone = zone;
         this.channel = init();
     }
     protected abstract CHANNEL init();
@@ -30,7 +31,5 @@ public abstract class InputOutput<I extends InputOutput<I,CHANNEL,O>,CHANNEL ext
     public final CHANNEL getChannel() {
         return this.channel;
     }
-    public final Zone getZone() {
-        return this.zone;
-    }
+
 }

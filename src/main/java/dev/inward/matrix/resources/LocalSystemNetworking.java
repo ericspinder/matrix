@@ -1,8 +1,8 @@
 package dev.inward.matrix.resources;
 
 import dev.inward.matrix.NotionStartupException;
-import dev.inward.matrix.datum.fact.matter.Indicia;
-import dev.inward.matrix.datum.fact.threshold.Threshold;
+import dev.inward.matrix.fact.matter.Indicia;
+import dev.inward.matrix.fact.threshold.Threshold;
 
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
