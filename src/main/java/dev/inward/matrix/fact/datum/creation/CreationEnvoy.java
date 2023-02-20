@@ -1,10 +1,10 @@
 package dev.inward.matrix.fact.datum.creation;
 
-import dev.inward.matrix.fact.datum.Identity;
-import dev.inward.matrix.fact.Model;
 import dev.inward.matrix.fact.Fact;
-import dev.inward.matrix.fact.notion.concept.Context;
+import dev.inward.matrix.fact.Model;
 import dev.inward.matrix.fact.datum.Envoy;
+import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.fact.Context;
 
 import java.lang.ref.ReferenceQueue;
 import java.time.Instant;

@@ -12,7 +12,7 @@ public enum ResourceRecordType implements Meta_I<ResourceRecordType,ResourceReco
     hostInfo("HINFO",13,"RFC 8482 - Host Information - Providing Minimal-Sized Responses to DNS Queries That Have QTYPE=ANY"),
     mailExchange("MX",15,"RFC 1035[1] and RFC 7505 - Mail exchange record - Maps a domain name to a list of message transfer agents for that domain"),
     text("TXT",16,"RFC 1035[1] - Text record - Originally for arbitrary human-readable text in a DNS record. Since the early 1990s, however, this record more often carries machine-readable data, such as specified by RFC 1464, opportunistic encryption, Sender Policy Framework, DKIM, DMARC, DNS-SD, etc."),
-    responsiblePerson("RP",17,"RFC 1183 - Responsible Person - Information about the responsible person(s) for the domain. Usually an email address with the @ replaced by a ."),
+    responsiblePerson("RP",17,"RFC 1183 - Responsible Person - Information about the responsible yard(s) for the domain. Usually an email address with the @ replaced by a ."),
     afsDb("AFSDB",18,"RFC 1183 AFS database record - Location of database servers of an AFS cell. This record is commonly used by AFS clients to contact AFS cells outside their local domain. A subtype of this record is used by the obsolete DCE/DFS file system."),
     signature("SIG",24,"RFC 2535 - Signature Signature record - used in SIG(0) (RFC 2931) and TKEY (RFC 2930).[7] RFC 3755 designated RRSIG as the replacement for SIG for use within DNSSEC.[7]"),
     key("KEY",25,"RFC 2535[3] and RFC 2930[4] - Key record - Used only for SIG(0) (RFC 2931) and TKEY (RFC 2930).[5] RFC 3445 eliminated their use for application keys and limited their use to DNSSEC.[6] RFC 3755 designates DNSKEY as the replacement within DNSSEC.[7] RFC 4025 designates IPSECKEY as the replacement for use with IPsec.[8]"),
@@ -79,7 +79,7 @@ public enum ResourceRecordType implements Meta_I<ResourceRecordType,ResourceReco
     }
 
     @Override
-    public String getI18n() {
+    public String getLabel() {
         return this.i18n;
     }
 }

@@ -1,14 +1,16 @@
 package dev.inward.matrix.fact.matter.messaging;
 
-import dev.inward.matrix.fact.datum.Identity;
-import dev.inward.matrix.fact.notion.house.Assembly;
-import dev.inward.matrix.fact.notion.house.Steward;
+import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.fact.datum.Standard;
+import dev.inward.matrix.fact.intialized.Manager;
+import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.fact.authoritative.notion.concept.corpus.Corpus;
+import dev.inward.matrix.fact.authoritative.notion.concept.corpus.Mechanical;
+import dev.inward.matrix.fact.authoritative.notion.concept.corpus.Sandbox;
+import dev.inward.matrix.fact.authoritative.notion.house.Assembly;
+import dev.inward.matrix.fact.authoritative.notion.house.Steward;
 import dev.inward.matrix.resources.Resource;
 import dev.inward.matrix.resources.Storage;
-import dev.inward.matrix.fact.notion.concept.Context;
-import dev.inward.matrix.fact.notion.concept.corpus.*;
-import dev.inward.matrix.fact.intialized.Manager;
-import dev.inward.matrix.fact.datum.Standard;
 
 import java.util.Map;
 

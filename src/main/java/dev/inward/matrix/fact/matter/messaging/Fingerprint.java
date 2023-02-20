@@ -1,16 +1,16 @@
 package dev.inward.matrix.fact.matter.messaging;
 
-import dev.inward.matrix.fact.datum.Identity;
-import dev.inward.matrix.fact.notion.concept.Context;
-import dev.inward.matrix.fact.matter.messaging.issuer.Issuer;
-import dev.inward.matrix.fact.matter.Matter;
+import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.matter.Indicia;
-import dev.inward.matrix.personality.Persona;
+import dev.inward.matrix.fact.matter.Matter;
+import dev.inward.matrix.fact.matter.messaging.issuer.Issuer;
+import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.fact.authoritative.yard.Tree;
 
 import java.security.PublicKey;
 import java.time.Instant;
 
-public class Fingerprint<P extends Persona> extends Matter<Fingerprint,Identity.SuperEgo, Context.Service> {
+public class Fingerprint<P extends Tree> extends Matter<Fingerprint,Identity.SuperEgo, Context.Path> {
 
     protected final PublicKey publicKey;
     protected final String subjectKeyIdentifier;

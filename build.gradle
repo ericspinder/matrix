@@ -22,7 +22,7 @@ dependencies {
 }
 tasks.named('jar') {
     manifest {
-        attributes('Pre-main','')
+//        attributes('Premain-Class','dev.inward.matrix.fact.tracked.authoritative.matrix.ziggurat.Ziggurat')
     }
 }
 test {

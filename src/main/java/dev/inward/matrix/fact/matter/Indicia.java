@@ -9,7 +9,6 @@ public final class Indicia implements Comparable<Indicia>, Serializable {
     private final String locus;
     private final Focus focus;
     private final Severity severity;
-    private final char authorityCode;
 
     /**
      *
@@ -17,13 +16,12 @@ public final class Indicia implements Comparable<Indicia>, Serializable {
      * @param focus the
      * @param severity
      */
-    public Indicia(String locus, Focus focus, Severity severity, char authorityCode) {
+    public Indicia(String locus, Focus focus, Severity severity) {
         this.locus = locus;
         this.focus = focus;
         this.severity = severity;
-        this.authorityCode = authorityCode;
     }
-    public enum Focus implements Meta_I<Focus,Focus> {
+    public enum Focus implements Meta_I<Focus> {
         Assembly("assembly", "The matter is related to assembly for the Id on the platform"),
         Genesis("genesis", "The creation of the Id"),
         Change("change", "Change is afoot for the Id"),
@@ -55,10 +53,12 @@ public final class Indicia implements Comparable<Indicia>, Serializable {
     public String getLocus() {
         return locus;
     }
-    public char getAuthorityCode() {
-        return this.authorityCode;
+
+    public Severity getSeverity() {
+        return severity;
     }
-    public enum Severity implements Meta_I<Severity,Severity> {
+
+    public enum Severity implements Meta_I<Severity> {
         Critical("critical","Code related problem of primary importance"),
         Trace("trace","Asked for by a Super Ego"),
         Privilege("privilege","Demanded by a Super Ego"),
@@ -66,7 +66,7 @@ public final class Indicia implements Comparable<Indicia>, Serializable {
         Nominal("nominal","Normal operation"),
         Timer("timer",""),
         Exceptional("exceptional","Problem"),
-        Unexpected("unexpected", "represents a code guard on recursion which could get out of hand")
+        Unexpected("unexpected", "represents a code guard which has not yet been grouped")
         ;
         private final String label;
         private final String description;
@@ -86,14 +86,11 @@ public final class Indicia implements Comparable<Indicia>, Serializable {
     }
     @Override
     public int compareTo(Indicia that) {
-        int isZero = this.authorityCode - that.authorityCode;
+        int isZero = this.severity.compareTo(that.severity);
         if (isZero == 0) {
-            isZero = this.severity.compareTo(that.severity);
+            isZero = this.focus.compareTo(that.focus);
             if (isZero == 0) {
-                isZero = this.focus.compareTo(that.focus);
-                if (isZero == 0) {
-                    return this.locus.compareTo(that.locus);
-                }
+                return this.locus.compareTo(that.locus);
             }
         }
         return isZero;

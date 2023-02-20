@@ -1,8 +1,7 @@
 package dev.inward.matrix.fact;
 
-import dev.inward.matrix.fact.datum.Identity;
-import dev.inward.matrix.fact.notion.concept.*;
 import dev.inward.matrix.engine.Engine;
+import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.resources.Resources;
 
 import java.io.Serializable;
@@ -11,7 +10,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.locks.StampedLock;
 
-public abstract class Factory<Y extends Factory<Y,F,I,X,R>,F extends Fact<F,I,X>,I extends Identity<I,X>,X extends Context<X>,R extends Representative<F,I,X,R,?,?>> extends ClassLoader implements Comparable<Y>, Serializable {
+public class Factory<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<F,I,ID,X>> extends ClassLoader implements Serializable {
 
     protected final Identity.Ego id;
     private Engine<Y,F,I,X,O,B,R,N,NI,NX,A,?,?> engine = null;
@@ -22,6 +21,7 @@ public abstract class Factory<Y extends Factory<Y,F,I,X,R>,F extends Fact<F,I,X>
     public Factory(Resources<F,I,X,R> resources) {
         this.id = new Identity.Ego(UUID.randomUUID(),mortal.getContainerId().getContext());
         this.resources = resources;
+        this.getClass().getProtectionDomain();
     }
     @SuppressWarnings("unchecked")
     public <O extends Operational<F,I,X,O,?,?>> void installEngine(O operational) {

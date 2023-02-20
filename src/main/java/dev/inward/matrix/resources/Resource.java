@@ -1,7 +1,7 @@
 package dev.inward.matrix.resources;
 
+import dev.inward.matrix.fact.Predictable;
 import dev.inward.matrix.policy.Policy;
-import dev.inward.matrix.fact.Predicted;
 
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
@@ -12,12 +12,12 @@ public class Resource<DATUM> extends ReferenceQueue<DATUM> implements Comparable
     protected AtomicLong count;
     protected long warnOnTotal;
     protected final Policy[] policies;
-    protected Predicted<DATUM,?,?>[] predicted;
+    protected Predictable<DATUM,?,?,?>[] predictable;
 
-    public Resource(Policy[] policies, long warnOnTotal, Predicted<DATUM,?,?>[] predicted) {
+    public Resource(Policy[] policies, long warnOnTotal, Predictable<DATUM,?,?,?>[] predictable) {
         this.policies = policies;
         this.warnOnTotal = warnOnTotal;
-        this.predicted = predicted;
+        this.predictable = predictable;
     }
 
     public boolean increment() {

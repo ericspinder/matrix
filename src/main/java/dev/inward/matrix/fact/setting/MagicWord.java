@@ -1,15 +1,15 @@
 package dev.inward.matrix.fact.setting;
 
 
-import dev.inward.matrix.fact.datum.Identity;
-import dev.inward.matrix.fact.notion.concept.Context;
+import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.fact.Context;
 
-public class MagicWord extends Setting<MagicWord, Identity.Id,Context.Service> {
+public class MagicWord extends Setting<MagicWord, Identity.WebPage, Context.Path> {
 
     protected final String magicWord;
 
-    public MagicWord(Identity.Id id, String magicWord) {
-        super(id);
+    public MagicWord(Identity.WebPage webPage, String magicWord) {
+        super(webPage);
         this.magicWord = magicWord;
     }
 

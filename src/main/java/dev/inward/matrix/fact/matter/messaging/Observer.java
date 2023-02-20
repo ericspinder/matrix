@@ -1,8 +1,8 @@
 package dev.inward.matrix.fact.matter.messaging;
 
-import dev.inward.matrix.fact.datum.Identity;
-import dev.inward.matrix.fact.notion.concept.Context;
+import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.intialized.Delegated;
+import dev.inward.matrix.fact.Context;
 
 import java.lang.ref.ReferenceQueue;
 

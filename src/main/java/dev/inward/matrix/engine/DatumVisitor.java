@@ -1,6 +1,5 @@
 package dev.inward.matrix.engine;
 
-import dev.inward.matrix.fact.datum.Envoy;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 

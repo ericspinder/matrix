@@ -1,12 +1,15 @@
 package dev.inward.matrix.engine;
 
+import dev.inward.matrix.fact.Bus;
+import dev.inward.matrix.fact.Fact;
+import dev.inward.matrix.fact.Representative;
+import dev.inward.matrix.route.Route;
 import dev.inward.matrix.fact.datum.Envoy;
-import dev.inward.matrix.fact.datum.Identity;
-import dev.inward.matrix.fact.*;
-import dev.inward.matrix.fact.notion.Agent;
-import dev.inward.matrix.fact.notion.Notion;
-import dev.inward.matrix.fact.notion.concept.Context;
+import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.matter.Matter;
+import dev.inward.matrix.fact.authoritative.notion.Agent;
+import dev.inward.matrix.fact.authoritative.notion.Notion;
+import dev.inward.matrix.fact.Context;
 import dev.inward.matrix.phenomenon.Phenomenon;
 import dev.inward.matrix.phenomenon.Tolerances;
 import dev.inward.matrix.resources.Resource;

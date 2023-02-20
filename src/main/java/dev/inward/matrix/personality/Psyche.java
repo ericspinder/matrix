@@ -13,7 +13,6 @@ public class Psyche extends Permission {
 
     protected final String description;
     protected final CertPath credential;
-    protected final Map<Server,Credential>
 
     public Psyche(String name, CertPath credential, String description) {
         super(name);
@@ -26,6 +25,7 @@ public class Psyche extends Permission {
     }
     @Override
     public void checkGuard(Object object) {
+
         throw new NotionStartupException(NotionStartupException.Type.NotImplemented,this.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Exceptional,null);
     }
     @Override

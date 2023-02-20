@@ -2,7 +2,7 @@ package dev.inward.matrix.fact.operational;
 
 import dev.inward.matrix.fact.Specification;
 
-public enum StandardsOptions implements Specification.Option<StandardsOptions,StandardsOptions> {
+public enum StandardsOptions implements Specification.DefaultOption<StandardsOptions,StandardsOptions> {
     ;
 
     @Override

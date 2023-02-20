@@ -1,11 +1,11 @@
 package dev.inward.matrix.fact.matter.messaging.http;
 
-import dev.inward.matrix.fact.datum.Identity;
-import dev.inward.matrix.fact.matter.messaging.Modification;
-import dev.inward.matrix.fact.notion.concept.Context;
-import dev.inward.matrix.fact.notion.interaction.http.HttpRequest;
-import dev.inward.matrix.fact.notion.interaction.http.HttpResponse;
+import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.matter.Indicia;
+import dev.inward.matrix.fact.matter.messaging.Modification;
+import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.fact.authoritative.notion.interaction.http.HttpRequest;
+import dev.inward.matrix.fact.authoritative.notion.interaction.http.HttpResponse;
 
 import java.time.Instant;
 import java.util.UUID;

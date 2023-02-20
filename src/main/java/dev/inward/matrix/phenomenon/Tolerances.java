@@ -1,17 +1,44 @@
 package dev.inward.matrix.phenomenon;
 
-import dev.inward.matrix.fact.matter.Matter;
-
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
-public abstract class Tolerances<M extends Matter<M,?,?>,T extends Tolerances<M,T>> {
+public abstract class Tolerances {
 
-    protected long timeout;
-    protected TimeUnit timeUnit;
+    protected final Timeout waitingTimeout;
+    protected final Timeout processingTimeout;
+    protected final Timeout pickupTimeout;
 
-    public static class ThresholdTolerances extends Tolerances<SystemInitialization, ThresholdTolerances> {
-        public ThresholdTolerances() {
+    public Tolerances(Timeout waitingTimeout, Timeout processingTimeout, Timeout pickupTimeout) {
+        this.waitingTimeout = waitingTimeout;
+        this.processingTimeout = processingTimeout;
+        this.pickupTimeout = pickupTimeout;
+    }
 
+    public Timeout getWaitingTimeout() {
+        return waitingTimeout;
+    }
+
+    public Timeout getPickupTimeout() {
+        return pickupTimeout;
+    }
+
+    public Timeout getProcessingTimeout() {
+        return processingTimeout;
+    }
+
+    public record Timeout(long timeout, TimeUnit timeUnit) {
+
+        public long getTimeout() {
+            return timeout;
+        }
+
+        public TimeUnit getTimeUnit() {
+            return timeUnit;
+        }
+
+        public Duration duration() {
+            return Duration.of(timeout, timeUnit.toChronoUnit());
         }
     }
 }

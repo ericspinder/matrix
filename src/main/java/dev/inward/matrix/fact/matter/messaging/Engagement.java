@@ -1,15 +1,15 @@
 package dev.inward.matrix.fact.matter.messaging;
 
-import dev.inward.matrix.fact.datum.Identity;
-import dev.inward.matrix.fact.notion.concept.Context;
-import dev.inward.matrix.fact.matter.Matter;
+import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.matter.Indicia;
-import dev.inward.matrix.personality.Persona;
+import dev.inward.matrix.fact.matter.Matter;
+import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.fact.authoritative.yard.Tree;
 
 import java.lang.ref.SoftReference;
 import java.time.Instant;
 
-public class Engagement<E extends Engagement<E,F,P>, F extends Fingerprint,P extends Persona> extends Matter<E, Identity.SuperEgo,Context.Service> {
+public class Engagement<E extends Engagement<E,F,P>, F extends Fingerprint,P extends Tree> extends Matter<E, Identity.SuperEgo, Context.Path> {
 
     private final F fingerprint;
     protected SoftReference<P> persona;

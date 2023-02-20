@@ -1,8 +1,8 @@
 package dev.inward.matrix.fact.matter;
 
-import dev.inward.matrix.fact.datum.Identity;
 import dev.inward.matrix.fact.Fact;
-import dev.inward.matrix.fact.notion.concept.Context;
+import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.fact.Context;
 
 import java.time.Instant;
 import java.util.UUID;

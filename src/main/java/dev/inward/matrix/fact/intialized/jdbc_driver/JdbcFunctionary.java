@@ -1,9 +1,9 @@
 package dev.inward.matrix.fact.intialized.jdbc_driver;
 
-import dev.inward.matrix.fact.datum.Identity;
-import dev.inward.matrix.fact.notion.concept.Context;
-import dev.inward.matrix.fact.intialized.Functionary;
 import dev.inward.matrix.fact.Specification;
+import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.fact.intialized.Functionary;
+import dev.inward.matrix.fact.Context;
 import dev.inward.matrix.resources.Supplier;
 
 import java.security.ProtectionDomain;

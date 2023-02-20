@@ -1,12 +1,11 @@
 package dev.inward.matrix.policy;
 
-import dev.inward.matrix.fact.datum.Identity;
 import dev.inward.matrix.fact.Fact;
 import dev.inward.matrix.fact.Representative;
-import dev.inward.matrix.fact.notion.concept.Context;
+import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.fact.Context;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Objects;
 
 /**

@@ -1,7 +1,11 @@
 package dev.inward.matrix.resources;
 
 import dev.inward.matrix.NotionStartupException;
+import dev.inward.matrix.domain.InternetClass;
+import dev.inward.matrix.fact.authoritative.Governance;
+import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.matter.Indicia;
+import dev.inward.matrix.fact.matter.report.DefaultFailure;
 import dev.inward.matrix.fact.threshold.Threshold;
 
 import java.net.InetAddress;
@@ -15,6 +19,7 @@ import java.util.concurrent.locks.StampedLock;
 public class LocalSystemNetworking {
     
     private static volatile LocalSystemNetworking INSTANCE;
+
     public static LocalSystemNetworking getInstance() {
         if (INSTANCE == null) {
             LocalSystemNetworking newInstance = new LocalSystemNetworking();
@@ -87,7 +92,12 @@ public class LocalSystemNetworking {
     }
 
     private final void parseInetAddresses(int layer, NetworkInterface networkInterface) throws SocketException {
-        if (layer > 3) throw new NotionStartupException(NotionStartupException.Type.Recursion,this.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Unexpected,null);
+        if (layer > 3) {
+            Map<String, Object> details = new HashMap<>();
+            details.put("error","recursion");
+            details.put("networkInterface.getName()", networkInterface.getName());
+            DefaultFailure defaultFailure = new DefaultFailure(Identity.Ego.Aforementioned,Instant.now(),"", InternetClass.Aforementioned, details);
+        }
         Enumeration<InetAddress> inetAddressEnumeration = networkInterface.getInetAddresses();
         while (inetAddressEnumeration.hasMoreElements()) {
             InetAddress inetAddress = inetAddressEnumeration.nextElement();
@@ -95,15 +105,15 @@ public class LocalSystemNetworking {
         for (InterfaceAddress ifAddress : networkInterface.getInterfaceAddresses()) {
             if (networkInterface.isLoopback()) {
                 if (ifAddress.getBroadcast() != null) {
-                    this.loopbackActiveInterfaces.put(new Threshold(networkInterface,ifAddress),);
+                    this.loopbackActiveInterfaces.add(new Threshold(new Identity.Ego(Governance.Ethereal.Aforementioned),ifAddress,networkInterface));
                 } else {
-                    this.inactiveInterfaces.put(ifAddress, networkInterface);
+                    this.inactiveInterfaces.add(new Threshold(new Identity.Ego(Governance.Ethereal.Aforementioned),ifAddress, networkInterface));
                 }
             } else {
                 if (ifAddress.getBroadcast() != null) {
-                    this.externalActiveInterfaces.put(ifAddress, networkInterface);
+                    this.externalActiveInterfaces.add(new Threshold(new Identity.Ego(Governance.Ethereal.Aforementioned),ifAddress, networkInterface));
                 } else {
-                    this.inactiveInterfaces.put(ifAddress, networkInterface);
+                    this.inactiveInterfaces.add(new Threshold(new Identity.Ego(Governance.Ethereal.Aforementioned),ifAddress, networkInterface));
                 }
             }
         }
@@ -114,6 +124,48 @@ public class LocalSystemNetworking {
             }
         }
     }
+    private OS parseOS() {
+        String osName = System.getProperty("os.name");
+        if (osName == null) {
+            throw new NotionStartupException(NotionStartupException.Type.UnableToParseOS, this.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Unexpected,null);
+        }
+        osName = osName.toLowerCase(Locale.ENGLISH);
+        if (osName.contains("windows")) {
+            return OS.WINDOWS;
+        } else if (osName.contains("linux")
+                || osName.contains("mpe/ix")
+                || osName.contains("freebsd")
+                || osName.contains("irix")
+                || osName.contains("digital unix")
+                || osName.contains("unix")) {
+            return OS.UNIX;
+        } else if (osName.contains("mac os")) {
+            return OS.MAC;
+        } else if (osName.contains("sun os")
+                || osName.contains("sunos")
+                || osName.contains("solaris")) {
+            return OS.POSIX_UNIX;
+        } else if (osName.contains("hp-ux")
+                || osName.contains("aix")) {
+            return OS.POSIX_UNIX;
+        } else {
+            return OS.OTHER;
+        }
+    }
 
-    private LocalSystemNetworking() {}
+    public enum OS {
+        WINDOWS,
+        UNIX,
+        POSIX_UNIX,
+        MAC,
+        OTHER;
+    }
+    protected final OS os;
+
+    private LocalSystemNetworking() {
+        this.os = this.parseOS();
+    }
+    public final OS getOs() {
+        return this.os;
+    }
 }

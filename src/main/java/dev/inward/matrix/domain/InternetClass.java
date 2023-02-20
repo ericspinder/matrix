@@ -1,13 +1,13 @@
 package dev.inward.matrix.domain;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ServiceLoader;
 
-public class InternetClass {
+public class InternetClass implements Comparable<InternetClass> {
     public static final InternetClass Legacy = new InternetClass("IN", "Legacy");
-    public static final InternetClass Public = new InternetClass('/', "Public");
     public static final InternetClass Helios = new InternetClass("HS", "Helios");
     public static final InternetClass Chaosnet = new InternetClass("CS", "Chaosnet");
-    public static final InternetClass Matrix = new InternetClass('\u0000', "Matrix");
+    public static final InternetClass Aforementioned = new InternetClass('\u0000', "Aforementioned");
 
     public final char authorityCode;
     public final String description;
@@ -25,4 +25,8 @@ public class InternetClass {
         return authorityCode;
     }
 
+    @Override
+    public int compareTo(InternetClass that) {
+        return this.getAuthorityCode() - that.getAuthorityCode();
+    }
 }

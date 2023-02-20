@@ -1,10 +1,10 @@
 package dev.inward.matrix.fact.setting;
 
-import dev.inward.matrix.fact.datum.Identity;
 import dev.inward.matrix.fact.Fact;
-import dev.inward.matrix.fact.notion.concept.Context;
-import dev.inward.matrix.fact.notion.concept.dataSupplier.Unspoken;
+import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.matter.sanction.Sanction;
+import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.fact.authoritative.notion.concept.dataSupplier.Unspoken;
 
 public abstract class Setting<S extends Setting<S,I,X,ION>,I extends Identity<I,X>,X extends Context<X>,ION extends Sanction> extends Fact<S,I,X> {
 

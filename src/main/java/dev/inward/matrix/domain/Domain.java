@@ -1,6 +1,8 @@
 package dev.inward.matrix.domain;
 
-import dev.inward.matrix.fact.notion.authority.Authority;
+import dev.inward.matrix.fact.authoritative.notion.authority.Authority;
+
+import java.net.URL;
 
 public class Domain implements Comparable<Domain> {
 
@@ -28,4 +30,11 @@ public class Domain implements Comparable<Domain> {
         }
         return isZero;
     }
+    public URL getURL() {
+        StringBuilder stringBuilder = new StringBuilder();
+        while (authority != null && authority.getIdentity().getContext().getDomain() != null) {
+            stringBuilder.append(authority.getIdentity().getContext().getDomain().name).append('.');
+        }
+    }
+
 }

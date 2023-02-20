@@ -1,7 +1,7 @@
 package dev.inward.matrix.fact.datum.protocol;
 
-import dev.inward.matrix.fact.datum.Identity;
 import dev.inward.matrix.fact.Operational;
+import dev.inward.matrix.fact.authoritative.Identity;
 
 import javax.net.ServerSocketFactory;
 

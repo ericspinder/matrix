@@ -1,32 +1,35 @@
 package dev.inward.matrix.fact;
 
-import dev.inward.matrix.Meta_I;
-import dev.inward.matrix.fact.datum.Identity;
-import dev.inward.matrix.fact.notion.concept.Context;
-import dev.inward.matrix.domain.Server;
-import dev.inward.matrix.fact.matter.Indicia;
 import crud.rubric.Roller;
-import dev.inward.matrix.fact.datum.Standard;
+import dev.inward.matrix.Meta_I;
+import dev.inward.matrix.domain.Server;
 import dev.inward.matrix.engine.Zone;
+import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.fact.datum.Standard;
+import dev.inward.matrix.fact.matter.Indicia;
+import dev.inward.matrix.fact.matter.Matter;
+import dev.inward.matrix.phenomenon.Tolerances;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-public class Specification<F extends Fact<F,I,X>,I extends Identity<I,X>,X extends Context<X>> extends Standard<F> {
+public abstract class Specification extends Standard<F,I,ID,X> {
 
-    protected final Map<String, Option<?,?>> options;
-    protected final Map<Indicia, Server[]> indiciaServerMap;
-    protected final Map<Standard<?>, Zone[]> standardsMap;
+    protected final Map<String, DefaultOption<?,?>> options;
+    protected final Map<Indicia.Focus, Server[]> focusServerMap;
+    protected final Standard[] standards;
 
-    public Specification(final String datumClassName, final String i18n, final String description, final String fieldName, final String asmTransformerClassName, final String[] inductionClassNames, final Map<Criterion<F>, Zone[]> criteriaForZones, final Map<String,Option<?,?>> optionMap, Map<Indicia,Server[]> indiciaServerMap, Map<Standard<?>,Zone[]> standardsMap) {
-        super(datumClassName,i18n,description,fieldName,asmTransformerClassName,inductionClassNames,criteriaForZones);
+    public Specification(X context,final String className, final String label, final String description, final String transformerClassName, final String[] inductionClassNames, final Criterion[] criteria, final Map<String, DefaultOption<?,?>> optionMap, Map<Indicia.Focus,Server[]> focusServerMap, Standard<F,I,ID,X>[] standards) {
+        super(context,className,label,description,transformerClassName,inductionClassNames,criteria);
         this.options = optionMap;
-        this.indiciaServerMap = indiciaServerMap;
-        this.standardsMap = standardsMap;
+        this.focusServerMap = focusServerMap;
+        this.standards = standards;
     }
 
-    public static void setDefaultValues(Option<?,?>[] optionsLoad,Map<String,Option<?,?>> options) throws Roller {
+    public static void setDefaultValues(DefaultOption<?,?>[] optionsLoad, Map<String, DefaultOption<?,?>> options) throws Roller {
         if (optionsLoad == null) return;
-        for (Option<?,?> option: optionsLoad) {
+        for (DefaultOption<?,?> option: optionsLoad) {
             options.put(option.getI18n(), option);
         }
     }
@@ -35,9 +38,9 @@ public class Specification<F extends Fact<F,I,X>,I extends Identity<I,X>,X exten
         return indiciaServerMap;
     }
 
-    public List<Standard<?>> getStandards(Zone zone) {
-        List<Standard<?>> standardsList = new ArrayList<>();
-        for(Map.Entry<Standard<?>,Zone[]> entry: standardsMap.entrySet()) {
+    public List<Standard<X,?>> getStandards(Zone zone) {
+        List<Standard> standardsList = new ArrayList<>();
+        for(Map.Entry<Standard,Zone[]> entry: standardContextsMap.entrySet()) {
             for (Zone zoneTest: entry.getValue()) {
                 if(zoneTest.equals(zone)) {
                     standardsList.add(entry.getKey());
@@ -47,26 +50,38 @@ public class Specification<F extends Fact<F,I,X>,I extends Identity<I,X>,X exten
         }
         return standardsList;
     }
+    public <MAT extends Matter<MAT,I,ID,VERSION,X>> Server[] getServer(MAT matter) {
+        for (Map.Entry<Indicia,Server[]> indiciaEntry: indiciaServerMap.entrySet()) {
+            Indicia indiciaKey = indiciaEntry.getKey();
+            int isZero = indiciaKey.getInternetClass().compareTo(matter.getIndica().getInternetClass());
+            if (isZero == 0) {
+                return indiciaEntry.getValue();
+            }
+        }
+        return this.askForMatch(matter);
 
-    public interface Option<OPTION,M extends Option<OPTION,M>> extends Meta_I<OPTION,M> {
+    }
+    public abstract <MAT extends Matter<MAT,I,ID,VERSION,X>> Server[] askForMatch(MAT matter);
+
+    public interface DefaultOption<OPTION,O extends DefaultOption<OPTION,O>> extends Meta_I<O> {
         OPTION getDefaultValue();
     }
-    public interface Bounded<OPTION,M extends Bounded<OPTION,M>> extends Option<OPTION,M> {
+    public interface MaxValue<OPTION,B extends MaxValue<OPTION,B>> extends Meta_I<B> {
         OPTION maximumValue();
     }
-    public interface Range<OPTION,M extends Range<OPTION,M>> extends Option<OPTION,M> {
+    public interface MinimumValue<OPTION,M extends MinimumValue<OPTION,M>> extends DefaultOption<OPTION,M> {
         OPTION minimumValue();
     }
-    public interface Choice<OPTION,M extends Choice<OPTION,M>> extends Option<OPTION,M> {
+    public interface Choice<OPTION,M extends Choice<OPTION,M>> extends DefaultOption<OPTION,M> {
         OPTION[] choices();
     }
-    public interface SuggestedChoice<OPTION,M extends SuggestedChoice<OPTION,M>> extends Option<OPTION,M> {
-        M[] choices();
+    public interface SuggestedChoice<OPTION,S extends SuggestedChoice<OPTION,S>> extends DefaultOption<OPTION,S> {
+        S[] choices();
     }
-    public interface SystemProperty<OPTION,M extends SystemProperty<OPTION,M>> extends Option<OPTION,M> {
+    public interface SystemProperty<OPTION,P extends SystemProperty<OPTION,P>> extends DefaultOption<OPTION,P> {
         String systemPropKey();
     }
-    public Map<String, Option<?,?>> getOptions() {
+    public Map<String, DefaultOption<?,?>> getOptions() {
         return this.options;
     }
 }

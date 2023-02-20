@@ -1,9 +1,9 @@
 package crud.rubric;
 
 import dev.inward.matrix.engine.Edition;
-import dev.inward.matrix.fact.datum.Identity;
-import dev.inward.matrix.fact.notion.concept.Concept;
-import dev.inward.matrix.fact.notion.concept.Context;
+import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.fact.authoritative.notion.concept.Concept;
+import dev.inward.matrix.fact.Context;
 import dev.inward.matrix.fact.datum.Standard;
 
 import java.security.KeyStore;

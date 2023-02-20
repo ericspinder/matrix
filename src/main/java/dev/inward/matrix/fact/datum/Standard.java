@@ -1,46 +1,43 @@
 package dev.inward.matrix.fact.datum;
 
+import dev.inward.matrix.Meta_I;
+import dev.inward.matrix.engine.Variant;
 import dev.inward.matrix.fact.Criterion;
-import dev.inward.matrix.engine.Zone;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+public class Standard<S extends Standard<S>> implements Meta_I<S> {
 
-public class Standard<DATUM> implements Comparable<Standard<DATUM>> {
-
-    protected final String datumClassName;
-    protected final String i18n;
+    protected final Variant variant;
+    protected final String className;
+    protected final String label;
     protected final String description;
-    protected final String fieldName;
     protected final String transformerClassName;
     protected final String[] inductionClassNames;
-    protected final Map<Criterion<DATUM>, Zone[]> criteriaForZones;
+    protected final Criterion[] criteria;
 
-    public Standard(final String datumClassName, final String i18n, final String description, final String fieldName, final String transformerClassName, final String[] inductionClassNames, final Map<Criterion<DATUM>, Zone[]> criteriaForZones) {
-        this.datumClassName = datumClassName;
-        this.i18n = i18n;
+    public Standard(final Variant variant, final String className, final String label, final String description, final String transformerClassName, final String[] inductionClassNames, Criterion[] criteria) {
+        this.variant = variant;
+        this.className = className;
         this.description = description;
-        this.fieldName = fieldName;
+        this.label = label;
         this.transformerClassName = transformerClassName;
         this.inductionClassNames = inductionClassNames;
-        this.criteriaForZones = criteriaForZones;
+        this.criteria = criteria;
     }
 
-    public String getDatumClassName() {
-        return datumClassName;
+    public Variant getVariant() {
+        return variant;
     }
 
-    public String getI18n() {
-        return i18n;
+    public String getClassName() {
+        return className;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public String getFieldName() {
-        return fieldName;
+    public String getLabel() {
+        return label;
     }
 
     public String getTransformerClassName() {
@@ -51,24 +48,7 @@ public class Standard<DATUM> implements Comparable<Standard<DATUM>> {
         return inductionClassNames;
     }
 
-    public List<Criterion<DATUM>> getCriteria(Zone activeZone) {
-        List<Criterion<DATUM>> criteria = new ArrayList<>();
-        for(Map.Entry<Criterion<DATUM>,Zone[]> criterionEntry: this.criteriaForZones.entrySet()) {
-            for (Zone zone: criterionEntry.getValue()) {
-                if (zone.equals(activeZone)){
-                    criteria.add(criterionEntry.getKey());
-                    break;
-                }
-            }
-        }
+    public Criterion[] getCriteria() {
         return criteria;
-    }
-    public Map<Criterion<DATUM>,Zone[]> getCriteriaForZones() {
-        return this.criteriaForZones;
-    }
-
-    @Override
-    public int compareTo(Standard<DATUM> that) {
-        return this.datumClassName.compareTo(that.datumClassName);
     }
 }

@@ -1,43 +1,36 @@
 package dev.inward.matrix.fact;
 
+import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.datum.Complication;
-import dev.inward.matrix.fact.datum.Identity;
-import dev.inward.matrix.fact.notion.concept.Context;
+import dev.inward.matrix.fact.datum.Envoy;
 
-import java.util.UUID;
-import java.util.concurrent.ConcurrentLinkedDeque;
+import java.time.Instant;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
-public class Bus<F extends Fact<F,I,X>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<F,I,X,B,R>,
-        R extends Representative<F,I,X,R,?,?>> implements Runnable {
+public class Bus<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<F,I,ID,X>,B extends Bus<F,I,ID,X,B>> {
 
         protected final UUID uuid = UUID.randomUUID();
         protected ConcurrentLinkedDeque<R> deque;
-        protected final Complication predictor;
+        public <DATUM,E extends Envoy<DATUM,E>> E add(Passenger<DATUM> passenger) {
 
-        @SuppressWarnings("unchecked")
-        public Bus() {
         }
-        public void addPassenger(R representative) {
-                this.deque.add(representative);
-        }
+        /**
+         * A map of the Complications currently affecting the bus, the value is the instant they were added
+         */
+        protected Map<Complication<?,?,?,?,?>, Instant> complications = new ConcurrentHashMap<>();
 
-        @Override
-        public void run() {
-                this.register(deque.poll());
+        public Bus(Complication<?,?,?,?,?>[] complications) {
+                Arrays.stream(complications).forEach(complication -> this.complications.put(complication,Instant.now()));
         }
 
-        private final void register(R representative) {
-                for (Criterion<?> criterion: representative.getStandard().getCriteria(Z)) {
-                        criterion
-                }
-                return this.predictor.engage()
+        public final void register(R representative) {
+        }
+        public final M calling() {
+
+                return null;
         }
 
-
-        @Override
-        public int compareTo(B that) {
-                return this.uuid.compareTo(that.uuid);
-        }
 }
 //        public DATUM take(Proffer proffer, Task[] tasks, boolean isWriteLock) {
 //                long lock;

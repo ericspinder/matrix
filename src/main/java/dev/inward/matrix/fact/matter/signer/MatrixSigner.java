@@ -1,13 +1,13 @@
 package dev.inward.matrix.fact.matter.signer;
 
-import dev.inward.matrix.fact.datum.Identity;
-import dev.inward.matrix.fact.notion.concept.Context;
 import dev.inward.matrix.engine.Edition;
+import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.fact.Context;
 
 import java.security.CodeSigner;
 import java.util.UUID;
 
-public class MatrixSigner extends Signer<MatrixSigner, Identity.SuperEgo,Context.Service> {
+public class MatrixSigner extends Signer<MatrixSigner, Identity.SuperEgo, Context.Path> {
 
 
     protected final Edition[] endorsed;

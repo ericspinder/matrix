@@ -1,18 +1,18 @@
 package dev.inward.matrix.fact.session;
 
-import dev.inward.matrix.fact.datum.Identity;
 import dev.inward.matrix.fact.Fact;
-import dev.inward.matrix.fact.notion.concept.Context;
-import dev.inward.matrix.fact.notion.concept.dataSupplier.Unspoken;
-import dev.inward.matrix.personality.Persona;
-import dev.inward.matrix.fact.notion.person.Spirit;
+import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.fact.authoritative.notion.concept.dataSupplier.Unspoken;
+import dev.inward.matrix.fact.authoritative.yard.Spirit;
+import dev.inward.matrix.fact.authoritative.yard.Tree;
 
-public class Session extends Fact<Session, Identity.Ego<Context.Service>,Context.Service,Guest, Persona, Identity.Ego<Context.Service>, Spirit> {
+public class Session extends Fact<Session, Identity.Ego<Context.Path>, Context.Path,Guest, Tree, Identity.Ego<Context.Path>, Spirit> {
 
     @Unspoken()
     private  String[] magicWords;
 
-    public Session(Identity.Ego<Context.Service> id) {
+    public Session(Identity.Ego<Context.Path> id) {
         super(id);
     }
 

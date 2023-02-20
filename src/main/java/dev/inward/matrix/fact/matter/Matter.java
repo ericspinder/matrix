@@ -1,44 +1,43 @@
 package dev.inward.matrix.fact.matter;
 
-import dev.inward.matrix.fact.datum.Identity;
 import dev.inward.matrix.fact.Fact;
-import dev.inward.matrix.fact.notion.concept.Context;
+import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.fact.Context;
 import dev.inward.matrix.phenomenon.producer.communications.ThreadedConcept;
 
 import java.io.Serializable;
 import java.time.Instant;
 
-public class Matter<MAT extends Matter<MAT,I,X>,I extends Identity<I,X>,X extends Context<X>> extends Fact<MAT, Identity.Ego, Context.Ethereal> implements Comparable<MAT>, Serializable {
+public abstract class Matter<M extends Matter<M,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<X>> extends Fact<M,I,ID,X> implements Serializable {
 
     protected final I containerId;
-    protected final Instant createInstant;
     protected final Indicia indicia;
     protected final ThreadedConcept threadedConcept = ThreadedConcept.Instance;
+    protected final boolean settled;
+    protected final Instant modificationInstant;
 
-    public Matter(Identity.Ego ego, I containerId, Instant createInstant, Indicia indicia) {
-        super(ego);
+    public Matter(I containerId,ID id, Indicia indicia,Instant modificationInstant) {
+        super(containerId,id);
         this.containerId = containerId;
-        this.createInstant = createInstant;
         this.indicia = indicia;
-    }
-    @Override
-    public int compareTo(MAT that) {
-        int result = this.indicia.compareTo(indicia);
-        if (result == 0) {
-            return super.compareTo(that);
-        }
-        return result;
+        this.modificationInstant = modificationInstant;
+        this.settled = this.defaultSettled();
     }
 
     public final I getContainerId() {
         return this.containerId;
     }
-    public final Instant getCreateInstant() {
-        return this.createInstant;
+    public final Instant getModificationInstant() {
+        return this.modificationInstant;
     }
     public final Indicia getIndica() {
         return indicia;
     }
-
+    protected final boolean isSettled() {
+        return this.settled;
+    }
+    public boolean defaultSettled() {
+        return false;
+    }
 
 }

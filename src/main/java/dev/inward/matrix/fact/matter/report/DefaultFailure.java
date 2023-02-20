@@ -1,15 +1,15 @@
 package dev.inward.matrix.fact.matter.report;
 
-import dev.inward.matrix.fact.datum.Identity;
-import dev.inward.matrix.fact.notion.concept.Context;
+import dev.inward.matrix.domain.InternetClass;
+import dev.inward.matrix.fact.authoritative.Governance;
+import dev.inward.matrix.fact.authoritative.Identity;
 
 import java.time.Instant;
 import java.util.Map;
-import java.util.UUID;
 
-public class DefaultFailure extends Report<DefaultFailure, Identity.Ego, Context.Ethereal> {
+public class DefaultFailure extends Report<DefaultFailure, Identity.Ego, Governance.Ethereal> {
 
-    public DefaultFailure(UUID uuid, Identity.Ego containerId, Instant createInstant, String locus, Map<String, Object> details) {
-        super(uuid, containerId, createInstant, locus, details);
+    public DefaultFailure(Identity.Ghost ghost, Identity.Ego ego, Instant createInstant, String locus, InternetClass internetClass, Map<String, Object> details) {
+        super(ghost, ego, createInstant, locus, internetClass,details);
     }
 }

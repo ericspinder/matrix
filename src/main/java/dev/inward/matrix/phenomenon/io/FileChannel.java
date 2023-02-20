@@ -1,6 +1,6 @@
 package dev.inward.matrix.phenomenon.io;
 
-import dev.inward.matrix.fact.notion.concept.Context;
+import dev.inward.matrix.fact.Context;
 import dev.inward.matrix.fact.threshold.Threshold;
 
 import java.nio.channels.AsynchronousFileChannel;

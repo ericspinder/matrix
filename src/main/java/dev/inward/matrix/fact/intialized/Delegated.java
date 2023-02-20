@@ -1,8 +1,8 @@
 package dev.inward.matrix.fact.intialized;
 
-import dev.inward.matrix.fact.datum.Identity;
 import dev.inward.matrix.fact.Model;
-import dev.inward.matrix.fact.notion.concept.*;
+import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.fact.Context;
 
 import java.lang.ref.ReferenceQueue;
 

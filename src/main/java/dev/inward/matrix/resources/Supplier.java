@@ -1,14 +1,12 @@
 package dev.inward.matrix.resources;
 
 import dev.inward.matrix.NotionStartupException;
-import dev.inward.matrix.fact.datum.Identity;
-import dev.inward.matrix.fact.notion.Notion;
-import dev.inward.matrix.fact.Operational;
 import dev.inward.matrix.fact.*;
-import dev.inward.matrix.fact.notion.concept.*;
-import dev.inward.matrix.fact.Factory;
+import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.matter.Indicia;
 import dev.inward.matrix.fact.matter.Matter;
+import dev.inward.matrix.fact.authoritative.notion.Notion;
+import dev.inward.matrix.fact.Context;
 import dev.inward.matrix.phenomenon.Phenomenon;
 import dev.inward.matrix.phenomenon.Tolerances;
 
@@ -17,13 +15,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 
 @SuppressWarnings("unchecked")
-public class Supplier<Y extends Factory<Y,F,I,X,R>,F extends Fact<F,I,X>,I extends Identity<I,X>,X extends Context<X>,O extends Operational<F,I,X,O,?,?>,B extends Bus<F,I,X,B,R>,R extends Representative<F,I,X,R,NI,NX>,N extends Notion<N,NI,NX,?,?,?>,NI extends Identity<NI,NX>,NX extends Context<NX>,M extends Matter<M,I,X>,T extends Tolerances<M,T>,P extends Phenomenon<M,T,P>> {
+public class Supplier<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<X>,O extends Operational<F,I,X,O,?,?>,B extends Bus<F,I,ID,VERSION,X,R,?>,R extends Representative<F,I,ID,VERSION,X,R,NI>,N extends Notion<N,NI,NX,?,?,?>,NI extends Identity<NI,>,NX extends Context<NX>,M extends Matter<M,I,X>,T extends Tolerances<M,T>,P extends Phenomenon<M,T,P>> {
 
     public final Class<Y> factoryClass = ((Class<Y>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
     public final Class<F> factClass = ((Class<F>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[1]);
     public final Class<I> identityClass = ((Class<I>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[2]);
-    public final Class<O> operationalClass = ((Class<O>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[4]);
-    public final Class<B> busClass = ((Class<B>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[5]);
     public final Class<R> representativeClass = ((Class<R>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[6]);
 
 

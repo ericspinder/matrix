@@ -1,7 +1,7 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.fact.matter.Indicia;
 import crud.rubric.Blocker;
+import dev.inward.matrix.fact.matter.Indicia;
 
 public class NotionStartupException extends Blocker {
 
