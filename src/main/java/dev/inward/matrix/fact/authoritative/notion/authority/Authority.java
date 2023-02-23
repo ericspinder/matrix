@@ -3,11 +3,9 @@ package dev.inward.matrix.fact.authoritative.notion.authority;
 import dev.inward.matrix.NotionStartupException;
 import dev.inward.matrix.domain.*;
 import dev.inward.matrix.engine.Zone;
-import dev.inward.matrix.fact.Fact;
-import dev.inward.matrix.fact.authoritative.Authoritative;
 import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.fact.authoritative.notion.connector.Connector;
 import dev.inward.matrix.fact.matter.Indicia;
-import dev.inward.matrix.fact.authoritative.notion.Notion;
 import dev.inward.matrix.fact.Context;
 
 import java.net.InetAddress;
@@ -21,7 +19,7 @@ public abstract class Authority<A extends Authority<A>>  {
 
     protected final InternetClass internetClass;
 
-    protected Map<Server[],> nameservers = new ConcurrentHashMap<>();
+    protected Map<Server[], Connector> nameservers = new ConcurrentHashMap<>();
 
     
     public Authority(InternetClass internetClass) {

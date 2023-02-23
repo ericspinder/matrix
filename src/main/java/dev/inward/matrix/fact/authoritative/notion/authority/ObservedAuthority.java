@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class ObservedAuthority extends Authority {
 
-    public ObservedAuthority(Map<InternetClass, Server[]> nameservers) {
+    public ObservedAuthority() {
         super(nameservers);
     }
 

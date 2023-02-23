@@ -13,4 +13,5 @@ module dev.inward.matrix {
     exports dev.inward.matrix.route;
     exports dev.inward.matrix.fact.tracked;
     exports dev.inward.matrix.fact.authoritative;
+    exports dev.inward.matrix.fact.datum.protocol;
 }

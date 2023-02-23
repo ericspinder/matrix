@@ -1,21 +1,20 @@
 package dev.inward.matrix.fact.datum.protocol;
 
-import dev.inward.matrix.fact.Operational;
-import dev.inward.matrix.fact.authoritative.Identity;
-
 import javax.net.ServerSocketFactory;
+import java.net.ProtocolFamily;
 
-public abstract class Protocol<D extends Protocol<D,O,C,I>,O extends Operational<D,O>,C extends ProtocolContainer<D,O,C,I,?>,I extends Identity<D,I>> extends Datum<D,O,C,I> {
+public abstract class Protocol<P extends Protocol<P>> implements ProtocolFamily {
 
-    private String protocol;
+    protected final String protocol;
 
-    public Protocol(I id, C container, String protocol) {
-        super(id, container);
-
+    public Protocol(String protocol) {
+        this.protocol = protocol;
 
     }
 
-    public ServerSocketFactory getServerSocketFactory() {
-        return serverSocketFactory;
+    public final String getProtocol() {
+        return this.protocol;
     }
+
+    public ServerSocketFactory
 }

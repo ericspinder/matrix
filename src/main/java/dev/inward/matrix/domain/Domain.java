@@ -3,19 +3,22 @@ package dev.inward.matrix.domain;
 import dev.inward.matrix.fact.authoritative.notion.authority.Authority;
 
 import java.net.URL;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Domain implements Comparable<Domain> {
 
-    protected final Authority authority;
+    protected final Domain parent;
     protected final String name;
+    protected final Map<InternetClass,Authority> authorities = new ConcurrentHashMap<>();
 
-    public Domain(String name, Authority authority) {
-        this.authority = authority;
+    public Domain(Domain parent, String name) {
+        this.parent = parent;
         this.name = name;
     }
 
-    public Authority getAuthority() {
-        return authority;
+    public Authority getAuthority(InternetClass internetClass) {
+        return authorities.getOrDefault(internetClass);
     }
 
     public String getName() {
@@ -24,10 +27,7 @@ public class Domain implements Comparable<Domain> {
 
     @Override
     public int compareTo(Domain that) {
-        int isZero = this.authority.compareTo(that.authority);
-        if (isZero == 0) {
-            return this.name.compareTo(that.name);
-        }
+        return this.name.
         return isZero;
     }
     public URL getURL() {

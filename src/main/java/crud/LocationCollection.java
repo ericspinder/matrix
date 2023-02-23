@@ -3,6 +3,7 @@ package crud;
 import dev.inward.matrix.fact.*;
 import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.authoritative.notion.concept.*;
+import dev.inward.matrix.fact.datum.protocol.NetworkContact;
 
 import java.security.Permission;
 import java.security.PermissionCollection;
