@@ -1,4 +1,4 @@
-package dev.inward.matrix.domain;
+package dev.inward.matrix.authority;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -10,7 +10,10 @@ public class DnsFlags {
     public enum OPCode {
         QUERY (0),
         IQUERY(1),
-        STATUS (2);
+        STATUS (2),
+        IXFR(251), // DNS Zone Transfer Query, partial
+        AXFR (252), // DNS Zone Transfer Query, full
+        ;
         final BitSet opCode;
         OPCode(Integer opCode) {
             this.opCode = BitSet.valueOf(ByteBuffer.allocate(4).order(ByteOrder.nativeOrder()).putInt(opCode));
@@ -70,7 +73,7 @@ public class DnsFlags {
     }
 
     /**
-     * AA	Authoritative Answer, in a response, indicates if the DNS server is authoritative for the queried hostname	1
+     * AA	Authoritative Answer, in a response, indicates if the DNS server is authoritative for the queried hostname
      * @return
      */
     protected boolean isAuthoritative() {
@@ -78,18 +81,28 @@ public class DnsFlags {
     }
 
     /**
-     * TC	TrunCation, indicates that this message was truncated due to excessive length	1
+     * TC	TrunCation, indicates that this message was truncated due to excessive length
      * @return
      */
     protected boolean isTruncated() {
         return this.flags.get(6);
     }
+
+    /**
+     * RD	Recursion Desired, indicates if the client means a recursive query
+     * @return
+     */
     protected boolean isRecursion() {
         return this.flags.get(7);
-    } //RD	Recursion Desired, indicates if the client means a recursive query	1
+    }
+
+    /**
+     * RA	Recursion Available, in a response, indicates if the replying DNS server supports recursion
+     * @return
+     */
     protected boolean isRecursionAvailable() {
         return this.flags.get(8);
-    }  //RA	Recursion Available, in a response, indicates if the replying DNS server supports recursion	1
+    }  //
     protected ZeroCode getZero() {
         byte[] zero = this.flags.get(9, 13).toByteArray();
         for (ZeroCode zeroCode : ZeroCode.values()) {

@@ -1,7 +1,7 @@
 package dev.inward.matrix.fact.authoritative.notion.authority;
 
-import dev.inward.matrix.domain.InternetClass;
-import dev.inward.matrix.domain.Server;
+import dev.inward.matrix.authority.InternetClass;
+import dev.inward.matrix.authority.ServerRecord;
 import dev.inward.matrix.fact.matter.Indicia;
 
 import java.time.Instant;
@@ -12,14 +12,14 @@ public class SubjectMatter implements Comparable<SubjectMatter> {
     protected final InternetClass internetClass;
     protected final Instant startInstant;
     protected final Instant endInstant;
-    protected final Server[] servers;
+    protected final ServerRecord[] serverRecords;
 
-    public SubjectMatter(Indicia indicia, InternetClass internetClass, Instant startInstant, Instant endInstant, Server[] servers) {
+    public SubjectMatter(Indicia indicia, InternetClass internetClass, Instant startInstant, Instant endInstant, ServerRecord[] serverRecords) {
         this.indicia = indicia;
         this.internetClass = internetClass;
         this.startInstant = startInstant;
         this.endInstant = endInstant;
-        this.servers = servers;
+        this.serverRecords = serverRecords;
     }
 
     public Indicia getIndicia() {
@@ -38,8 +38,8 @@ public class SubjectMatter implements Comparable<SubjectMatter> {
         return endInstant;
     }
 
-    public Server[] getServers() {
-        return servers;
+    public ServerRecord[] getServers() {
+        return serverRecords;
     }
 
     @Override

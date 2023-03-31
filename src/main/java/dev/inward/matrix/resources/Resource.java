@@ -1,20 +1,25 @@
 package dev.inward.matrix.resources;
 
+import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.fact.Fact;
 import dev.inward.matrix.fact.Predictable;
+import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.policy.Policy;
 
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class Resource<DATUM> extends ReferenceQueue<DATUM> implements Comparable<DATUM> {
+public class Resource<DATUM,F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<X>> extends ReferenceQueue<DATUM> {
 
-    protected AtomicLong count;
+    protected final String className;
+    protected final AtomicLong count = new AtomicLong();
     protected long warnOnTotal;
     protected final Policy[] policies;
-    protected Predictable<DATUM,?,?,?>[] predictable;
+    protected Predictable<DATUM,F,I,ID,X,?,?,?>[] predictable;
 
-    public Resource(Policy[] policies, long warnOnTotal, Predictable<DATUM,?,?,?>[] predictable) {
+    public Resource(String className, Policy[] policies, long warnOnTotal, Predictable<DATUM,F,I,ID,X,?,?,?>[] predictable) {
+        this.className = className;
         this.policies = policies;
         this.warnOnTotal = warnOnTotal;
         this.predictable = predictable;
@@ -33,11 +38,6 @@ public class Resource<DATUM> extends ReferenceQueue<DATUM> implements Comparable
         }
         return bringOutYourDead;
     }
-    @Override
-    public final int compareTo(DATUM that) {
-        return this.getClass().getCanonicalName().compareTo(that.getClass().getCanonicalName());
-    }
-
     public long getCount() {
         return count.get();
     }

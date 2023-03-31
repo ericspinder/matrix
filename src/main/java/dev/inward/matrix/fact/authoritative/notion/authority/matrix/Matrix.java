@@ -1,29 +1,26 @@
 package dev.inward.matrix.fact.authoritative.notion.authority.matrix;
 
-import dev.inward.matrix.CommandLine;
-import dev.inward.matrix.domain.InternetClass;
-import dev.inward.matrix.domain.ResourceRecord;
-import dev.inward.matrix.domain.ResourceRecordType;
-import dev.inward.matrix.domain.Server;
-import dev.inward.matrix.fact.tracked.Controller;
+import dev.inward.matrix.authority.InternetClass;
+import dev.inward.matrix.authority.ResourceRecord;
+import dev.inward.matrix.authority.ResourceRecordType;
+import dev.inward.matrix.authority.ServerRecord;
 import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.matter.Indicia;
 import dev.inward.matrix.fact.matter.report.DefaultFailure;
-import dev.inward.matrix.fact.authoritative.notion.authority.Authority;
+import dev.inward.matrix.authority.Authority;
 import dev.inward.matrix.fact.authoritative.notion.authority.SubjectMatter;
 import dev.inward.matrix.fact.authoritative.notion.authority.matrix.ziggurat.Ziggurat;
 
-import java.lang.instrument.Instrumentation;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Matrix extends Authority<String,Instant, Controller.Matrix> {
+public class Matrix extends Authority<String,Instan> {
 
 //    protected final Map<Edition, Registrar> editionRegistrarMap;
     protected Map<String, SubjectMatter[]> subjectMatterServers;
 
-    public Matrix(Identity.Ghost id, Controller.Matrix controller, Map<InternetClass,Server[]> nameservers, SubjectMatter[] subjectMatterServers) {
+    public Matrix(Identity.Ghost id, Controller.Matrix controller, Map<InternetClass, ServerRecord[]> nameservers, SubjectMatter[] subjectMatterServers) {
         super(id,controller,nameservers);
 
         for (SubjectMatter subjectMatter: subjectMatterServers) {

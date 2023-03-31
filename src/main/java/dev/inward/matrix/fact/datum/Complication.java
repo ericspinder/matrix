@@ -8,7 +8,7 @@ import dev.inward.matrix.phenomenon.producer.ExecutionExceptionly;
 import java.io.Serializable;
 import java.lang.invoke.*;
 
-public abstract class Complication<DATUM,E extends Envoy<DATUM>,CRIT extends Criterion<CRIT>,PRE extends Predictable<DATUM,E,CRIT,PRE>,COMP extends Complication<DATUM,E,CRIT,PRE,COMP>> implements Runnable, Serializable {
+public abstract class Complication<DATUM,E extends Envoy<DATUM>,CRIT extends Criterion<CRIT>,PRE extends Predictable<F,>,COMP extends Complication<DATUM,E,CRIT,PRE,COMP>> implements Runnable, Serializable {
 
     protected final CRIT criterion;
     protected final PRE predictable;
@@ -24,16 +24,6 @@ public abstract class Complication<DATUM,E extends Envoy<DATUM>,CRIT extends Cri
         MethodHandle methodHandle = callSite.getTarget();
         predictable.complete(this.criterion, envoy, methodHandle);
 
-    }
-    @Override
-    public int compareTo(COMP that) {
-        int isZero = this.criterion.getOrder() - that.criterion.getOrder();
-        if (isZero == 0) {
-            isZero = this.predictable.compareTo(that.predictable);
-            if (isZero == 0) {
-                isZero = this.criterion
-            }
-        }
     }
 }
 //        suppressors("Suppressor",""),

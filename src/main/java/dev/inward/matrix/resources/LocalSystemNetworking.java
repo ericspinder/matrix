@@ -1,8 +1,8 @@
 package dev.inward.matrix.resources;
 
-import dev.inward.matrix.NotionStartupException;
-import dev.inward.matrix.domain.InternetClass;
-import dev.inward.matrix.fact.authoritative.Governance;
+import dev.inward.matrix.MatrixException;
+import dev.inward.matrix.authority.InternetClass;
+import dev.inward.matrix.fact.Context;
 import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.matter.Indicia;
 import dev.inward.matrix.fact.matter.report.DefaultFailure;
@@ -27,7 +27,7 @@ public class LocalSystemNetworking {
                 newInstance.enrollPlatformInterfaceAddresses();
             }
             catch (SocketException se) {
-                throw new NotionStartupException(NotionStartupException.Type.NetworkUnavailable_No_Return, newInstance.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Exceptional,se);
+                throw new MatrixException(MatrixException.Type.NetworkUnavailable_No_Return, newInstance.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Exceptional,se);
             }
             INSTANCE = newInstance;
         }
@@ -73,7 +73,7 @@ public class LocalSystemNetworking {
             enrollPlatformInterfaceAddresses();
         }
         catch (SocketException se) {
-            throw new NotionStartupException(NotionStartupException.Type.NetworkUnavailable_No_Return, this.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Exceptional, se);
+            throw new MatrixException(MatrixException.Type.NetworkUnavailable_No_Return, this.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Exceptional, se);
         }
         finally {
             gate.unlockWrite(writeLock);
@@ -105,15 +105,15 @@ public class LocalSystemNetworking {
         for (InterfaceAddress ifAddress : networkInterface.getInterfaceAddresses()) {
             if (networkInterface.isLoopback()) {
                 if (ifAddress.getBroadcast() != null) {
-                    this.loopbackActiveInterfaces.add(new Threshold(new Identity.Ego(Governance.Ethereal.Aforementioned),ifAddress,networkInterface));
+                    this.loopbackActiveInterfaces.add(new Threshold(new Identity.Ego(Context.Ethereal.Aforementioned),ifAddress,networkInterface));
                 } else {
-                    this.inactiveInterfaces.add(new Threshold(new Identity.Ego(Governance.Ethereal.Aforementioned),ifAddress, networkInterface));
+                    this.inactiveInterfaces.add(new Threshold(new Identity.Ego(Context.Ethereal.Aforementioned),ifAddress, networkInterface));
                 }
             } else {
                 if (ifAddress.getBroadcast() != null) {
-                    this.externalActiveInterfaces.add(new Threshold(new Identity.Ego(Governance.Ethereal.Aforementioned),ifAddress, networkInterface));
+                    this.externalActiveInterfaces.add(new Threshold(new Identity.Ego(Context.Ethereal.Aforementioned),ifAddress, networkInterface));
                 } else {
-                    this.inactiveInterfaces.add(new Threshold(new Identity.Ego(Governance.Ethereal.Aforementioned),ifAddress, networkInterface));
+                    this.inactiveInterfaces.add(new Threshold(new Identity.Ego(Context.Ethereal.Aforementioned),ifAddress, networkInterface));
                 }
             }
         }
@@ -127,7 +127,7 @@ public class LocalSystemNetworking {
     private OS parseOS() {
         String osName = System.getProperty("os.name");
         if (osName == null) {
-            throw new NotionStartupException(NotionStartupException.Type.UnableToParseOS, this.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Unexpected,null);
+            throw new MatrixException(MatrixException.Type.UnableToParseOS, this.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Unexpected,null);
         }
         osName = osName.toLowerCase(Locale.ENGLISH);
         if (osName.contains("windows")) {

@@ -1,4 +1,4 @@
-package dev.inward.matrix.domain;
+package dev.inward.matrix.authority;
 
 import dev.inward.matrix.fact.matter.order.Autopsy;
 

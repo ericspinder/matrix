@@ -1,7 +1,7 @@
 package dev.inward.matrix.fact.authoritative.yard;
 
-import dev.inward.matrix.domain.ResourceRecord;
-import dev.inward.matrix.domain.ResourceRecordType;
+import dev.inward.matrix.authority.ResourceRecord;
+import dev.inward.matrix.authority.ResourceRecordType;
 import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.matter.Indicia;
 

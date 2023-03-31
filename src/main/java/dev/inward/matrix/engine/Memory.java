@@ -4,13 +4,62 @@ import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.authoritative.notion.*;
 import dev.inward.matrix.fact.Context;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.io.IOException;
+import java.nio.file.FileStore;
+import java.nio.file.attribute.FileAttributeView;
+import java.nio.file.attribute.FileStoreAttributeView;
 
-public class Memory<Y extends Industry<Y,N,S,I,X,O,A>,N extends Notion<N,I,X,A>,S extends Aspect<Y,N,S,I,X,O,A>,I extends Identity<I,X>,X extends Context<X>,O extends Omnibus<Y,N,S,I,X,O,A>,A extends Agent<N,I,X,A>> extends LinkedHashMap<X,A> {
+public class Memory<N extends Notion<N,VERSION,V,ID,EXPIRE,G>,VERSION extends Comparable<VERSION>,V extends Identity.Versioned<VERSION,V,ID,EXPIRE,G>,ID extends Comparable<ID>,EXPIRE extends Comparable<EXPIRE>,G extends Context.Governance<EXPIRE,G>> extends FileStore {
+
+    protected final String name;
 
     @Override
-    protected boolean removeEldestEntry(Map.Entry<X, A> eldest) {
-        return super.removeEldestEntry(eldest);
+    public String name() {
+        return null;
+    }
+
+    @Override
+    public String type() {
+        return null;
+    }
+
+    @Override
+    public boolean isReadOnly() {
+        return false;
+    }
+
+    @Override
+    public long getTotalSpace() throws IOException {
+        return 0;
+    }
+
+    @Override
+    public long getUsableSpace() throws IOException {
+        return 0;
+    }
+
+    @Override
+    public long getUnallocatedSpace() throws IOException {
+        return 0;
+    }
+
+    @Override
+    public boolean supportsFileAttributeView(Class<? extends FileAttributeView> type) {
+        return false;
+    }
+
+    @Override
+    public boolean supportsFileAttributeView(String name) {
+        return false;
+    }
+
+    @Override
+    public <V extends FileStoreAttributeView> V getFileStoreAttributeView(Class<V> type) {
+        return null;
+    }
+
+    @Override
+    public Object getAttribute(String attribute) throws IOException {
+        return null;
     }
 }

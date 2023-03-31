@@ -5,7 +5,7 @@ import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.authoritative.notion.Notion;
 import dev.inward.matrix.fact.Context;
 
-public class TestName<N extends Notion<N,I,X>,I extends Identity.WebPage<X>,X extends Context<X>> extends Practice<String,> {
+public class TestName<N extends Notion<N,I,X>,I extends Identity.Web<X>,X extends Context<X>> extends Practice<String,> {
 
     public TestName(String s) {
         super(s);

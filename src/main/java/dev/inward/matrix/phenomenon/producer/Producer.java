@@ -1,6 +1,5 @@
 package dev.inward.matrix.phenomenon.producer;
 
-import dev.inward.matrix.fact.authoritative.Governance;
 import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.Context;
 import dev.inward.matrix.phenomenon.Phenomenon;
@@ -12,7 +11,7 @@ public abstract class Producer<PRODUCT extends Product<PRODUCT,I,ID,VERSION,X>,I
 
     protected SoftReference<PRODUCT> product;
 
-    protected Producer(Governance.Ethereal ethereal, SoftReference road) {
+    protected Producer(Context.Ethereal ethereal, SoftReference road) {
         super(ethereal, road);
     }
 

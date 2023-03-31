@@ -1,4 +1,4 @@
-package dev.inward.matrix.domain;
+package dev.inward.matrix.authority;
 
 public abstract class ResourceRecord<RR extends ResourceRecord<RR>> implements Comparable<RR> {
 

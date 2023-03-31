@@ -10,7 +10,7 @@ import dev.inward.matrix.resources.Resources;
 import java.time.Instant;
 import java.util.*;
 
-public class Engine<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<F,I,ID,X>,O extends Operational<F,I,ID,X,O,R>,S extends Resources<F,I,X,R,NI,NX>> {
+public class Engine<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<X>,O extends Operational<F,I,ID,X>,S extends Resources<F,I,ID,X>> {
 
     public final Instant createInstant = Instant.now();
     protected final O operational;

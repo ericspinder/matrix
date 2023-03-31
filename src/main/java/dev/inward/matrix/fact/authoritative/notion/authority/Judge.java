@@ -1,5 +1,6 @@
 package dev.inward.matrix.fact.authoritative.notion.authority;
 
+import dev.inward.matrix.authority.Authority;
 import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.authoritative.notion.Agent;
 import dev.inward.matrix.fact.Context;

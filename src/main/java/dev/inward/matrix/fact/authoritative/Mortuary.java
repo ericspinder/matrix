@@ -3,9 +3,9 @@ package dev.inward.matrix.fact.authoritative;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 
-public abstract class Mortuary<EXPIRE extends Comparable<EXPIRE>, B extends Book<EXPIRE, B>, M extends Mortuary<EXPIRE, B, M>> implements BiConsumer<EXPIRE, M> {
+public abstract class Mortuary<EXPIRE extends Comparable<EXPIRE>, B extends Library<EXPIRE, B>, M extends Mortuary<EXPIRE, B, M>> implements BiConsumer<EXPIRE, M> {
 
-    protected final Book<>
+    protected final Library<>
     @Override
     public void accept(EXPIRE expire, M m) {
 

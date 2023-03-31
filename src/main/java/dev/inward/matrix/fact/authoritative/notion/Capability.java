@@ -1,9 +1,9 @@
 package dev.inward.matrix.fact.authoritative.notion;
 
-import dev.inward.matrix.fact.authoritative.Governance;
+import dev.inward.matrix.fact.Context;
 import dev.inward.matrix.resources.MatrixProtectionDomain;
 
-public class Capability extends Governance {
+public class Capability extends Context.Governance {
     /**
      * @param matrixProtectionDomain
      * @noinspection Intellij

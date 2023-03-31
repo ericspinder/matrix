@@ -1,28 +1,28 @@
 package dev.inward.matrix.engine;
 
-import dev.inward.matrix.domain.Domain;
-import dev.inward.matrix.domain.InternetClass;
+import dev.inward.matrix.authority.Domain;
+import dev.inward.matrix.authority.Authority;
+import dev.inward.matrix.fact.authoritative.notion.authority.Clerk;
 
-import java.net.URL;
-import java.security.CodeSigner;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.security.CodeSource;
 
 public class Variant extends CodeSource {
 
+    protected final Authority authority;
     protected final Domain domain;
-    protected final InternetClass internetClass;
 
-    public Variant(URL url, CodeSigner[] codeSigners, Domain domain, InternetClass internetClass) {
-        super(url, codeSigners);
+    public Variant(@Nonnull Authority authority, @Nullable Domain domain) {
+        super(authority.getURL(domain), authority.getCodeSigners(domain));
+        this.authority = authority;
         this.domain = domain;
-        this.internetClass = internetClass;
     }
 
-    public final InternetClass getInternetClass() {
-        return internetClass;
+    public Domain getDomain() {
+        return domain;
     }
 
-
-    public static final Variant aforementioned = new Variant();
+    public static Variant Aforementened = new Variant(Clerk.Aforementioned,);
 
 }

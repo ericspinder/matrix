@@ -3,7 +3,7 @@ package dev.inward.matrix;
 import crud.rubric.Blocker;
 import dev.inward.matrix.fact.matter.Indicia;
 
-public class NotionStartupException extends Blocker {
+public class MatrixException extends Blocker {
 
     public enum Type {
         VisitorFailed("Class Visitor failed to operate"),
@@ -13,6 +13,7 @@ public class NotionStartupException extends Blocker {
         ConstructorProblem_Reflective("Unable to create needed constructor, reflective operation failed"),
         ConstructorProblem_WrongClass("Unable to find needed constructor, likely should be using a different class"),
         ClassCastException("Unable to cast to needed class"),
+        CodeSigners_not_initialized("Domain not initialized, getCodeSigner cannot be called before getUrl()"),
         MissingDefaultValue("Missing a default value"),
         MissMatchedOptionKey("Option key was not set for proper instance value"),
         NetworkUnavailable_No_Return("Problem gaining network details"),
@@ -39,7 +40,7 @@ public class NotionStartupException extends Blocker {
     public final Type type;
     public final Class where;
 
-    public NotionStartupException(Type type, Class where, Indicia.Focus focus, Indicia.Severity severity, Exception e) {
+    public MatrixException(Type type, Class where, Indicia.Focus focus, Indicia.Severity severity, Exception e) {
         super(where.getCanonicalName(),focus,severity,e);
         this.type = type;
         this.where = where;

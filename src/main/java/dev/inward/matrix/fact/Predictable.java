@@ -14,14 +14,14 @@ import java.lang.invoke.MethodHandle;
 
 import static dev.inward.matrix.fact.Criterion.*;
 
-public abstract class Predictable<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<F,I,ID,X>,B extends Bus<F,I,ID,X,B>,CRIT extends Criterion<CRIT>,PRE extends Predictable<F,I,ID,X,B,CRIT,PRE>> implements Comparable<PRE>, Serializable {
+public abstract class Predictable<DATUM,F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<X>,B extends Bus<F,I,ID,X,B>,CRIT extends Criterion<CRIT>,PRE extends Predictable<F,I,ID,X,B,CRIT,PRE>> implements Comparable<PRE>, Serializable {
 
     /**
      *
      * @param criterion
      * @return the required CallSite for
      */
-    public abstract <C extends CallSite> C registerCriterion(CRIT criterion) throws ExecutionExceptionly, InterruptionExceptionally,TimeoutExceptionally;
+    public abstract <C extends CallSite> C registerCriterion(CRIT criterion);
 
     /**
      *

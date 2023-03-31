@@ -4,15 +4,18 @@ import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.datum.Complication;
 import dev.inward.matrix.fact.datum.Envoy;
 
+import java.security.Permission;
+import java.security.PermissionCollection;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
-public class Bus<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<F,I,ID,X>,B extends Bus<F,I,ID,X,B>> {
+public class Bus<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<X>,B extends Bus<F,I,ID,X,B>>  {
 
         protected final UUID uuid = UUID.randomUUID();
-        protected ConcurrentLinkedDeque<R> deque;
-        public <DATUM,E extends Envoy<DATUM,E>> E add(Passenger<DATUM> passenger) {
+        protected ConcurrentLinkedDeque<Representative<F,I,ID,X>> deque;
+        public <DATUM,E extends Envoy<DATUM>> E add(Passenger<DATUM> passenger) {
 
         }
         /**

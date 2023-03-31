@@ -2,26 +2,26 @@ package dev.inward.matrix.fact;
 
 import crud.rubric.Roller;
 import dev.inward.matrix.Meta_I;
-import dev.inward.matrix.domain.Server;
+import dev.inward.matrix.authority.ServerRecord;
+import dev.inward.matrix.engine.Variant;
 import dev.inward.matrix.engine.Zone;
 import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.datum.Standard;
 import dev.inward.matrix.fact.matter.Indicia;
 import dev.inward.matrix.fact.matter.Matter;
-import dev.inward.matrix.phenomenon.Tolerances;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public abstract class Specification extends Standard<F,I,ID,X> {
+public class Specification<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<X>,S extends Specification<F,I,ID,X,S>> extends Standard<S> {
 
     protected final Map<String, DefaultOption<?,?>> options;
-    protected final Map<Indicia.Focus, Server[]> focusServerMap;
+    protected final Map<Indicia.Focus, ServerRecord[]> focusServerMap;
     protected final Standard[] standards;
 
-    public Specification(X context,final String className, final String label, final String description, final String transformerClassName, final String[] inductionClassNames, final Criterion[] criteria, final Map<String, DefaultOption<?,?>> optionMap, Map<Indicia.Focus,Server[]> focusServerMap, Standard<F,I,ID,X>[] standards) {
-        super(context,className,label,description,transformerClassName,inductionClassNames,criteria);
+    public Specification(Variant variant, final String className, final String label, final String description, final String transformerClassName, final String[] inductionClassNames, final Criterion[] criteria, final Map<String, DefaultOption<?,?>> optionMap, Map<Indicia.Focus, ServerRecord[]> focusServerMap, Standard<?>[] standards) {
+        super(variant,className,label,description,transformerClassName,inductionClassNames,criteria);
         this.options = optionMap;
         this.focusServerMap = focusServerMap;
         this.standards = standards;
@@ -34,7 +34,7 @@ public abstract class Specification extends Standard<F,I,ID,X> {
         }
     }
 
-    public Map<Indicia, Server[]> getIndiciaServerMap() {
+    public Map<Indicia, ServerRecord[]> getIndiciaServerMap() {
         return indiciaServerMap;
     }
 
@@ -50,8 +50,8 @@ public abstract class Specification extends Standard<F,I,ID,X> {
         }
         return standardsList;
     }
-    public <MAT extends Matter<MAT,I,ID,VERSION,X>> Server[] getServer(MAT matter) {
-        for (Map.Entry<Indicia,Server[]> indiciaEntry: indiciaServerMap.entrySet()) {
+    public <MAT extends Matter<MAT,I,ID,VERSION,X>> ServerRecord[] getServer(MAT matter) {
+        for (Map.Entry<Indicia, ServerRecord[]> indiciaEntry: indiciaServerMap.entrySet()) {
             Indicia indiciaKey = indiciaEntry.getKey();
             int isZero = indiciaKey.getInternetClass().compareTo(matter.getIndica().getInternetClass());
             if (isZero == 0) {
@@ -61,7 +61,9 @@ public abstract class Specification extends Standard<F,I,ID,X> {
         return this.askForMatch(matter);
 
     }
-    public abstract <MAT extends Matter<MAT,I,ID,VERSION,X>> Server[] askForMatch(MAT matter);
+    public <MAT extends Matter<MAT,I,ID,X>> ServerRecord[] askForMatch(MAT matter) {
+
+    }
 
     public interface DefaultOption<OPTION,O extends DefaultOption<OPTION,O>> extends Meta_I<O> {
         OPTION getDefaultValue();

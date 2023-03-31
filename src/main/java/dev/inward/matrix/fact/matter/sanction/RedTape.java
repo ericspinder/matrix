@@ -6,7 +6,7 @@ import dev.inward.matrix.fact.authoritative.Regulated;
 import dev.inward.matrix.fact.authoritative.Regulator;
 import dev.inward.matrix.fact.Context;
 
-public class RedTape<ID extends Identity.WebPage<ID,P>,P extends Context.Platform<P>> extends Bus<Regulator<ID,P>, Identity.SuperEgo, Context.Path,RedTape<ID,P>, Regulated<ID,P>,ID,P> {
+public class RedTape<ID extends Identity.Web<ID,P>,P extends Context.Platform<P>> extends Bus<Regulator<ID,P>, Identity.SuperEgo, Context.Path,RedTape<ID,P>, Regulated<ID,P>,ID,P> {
 
 
 }

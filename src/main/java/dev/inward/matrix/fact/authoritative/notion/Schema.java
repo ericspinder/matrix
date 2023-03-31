@@ -1,6 +1,6 @@
 package dev.inward.matrix.fact.authoritative.notion;
 
-import dev.inward.matrix.domain.Server;
+import dev.inward.matrix.authority.ServerRecord;
 import dev.inward.matrix.engine.Zone;
 import dev.inward.matrix.fact.Criterion;
 import dev.inward.matrix.fact.Specification;
@@ -16,7 +16,7 @@ public class Schema<N extends Notion<N,I,X,?,?,?>,I extends Identity<I,X>,X exte
 
     protected Tree[] trees;
 
-    public Schema(final String datumClassName, final String i18n, final String description, final String fieldName, final String asmTransformerClassName, final String[] inductionClassNames, final Map<Criterion<N>, Zone[]> criteriaForZones, final Map<String, DefaultOption<?,?>> optionMap, Map<Indicia,Server[]> indiciaServerMap, Map<Standard<?>,Zone[]> standardsMap, Tree[] trees) {
+    public Schema(final String datumClassName, final String i18n, final String description, final String fieldName, final String asmTransformerClassName, final String[] inductionClassNames, final Map<Criterion<N>, Zone[]> criteriaForZones, final Map<String, DefaultOption<?,?>> optionMap, Map<Indicia, ServerRecord[]> indiciaServerMap, Map<Standard<?>,Zone[]> standardsMap, Tree[] trees) {
         super(datumClassName,i18n,description,fieldName,asmTransformerClassName,inductionClassNames,criteriaForZones,optionMap, indiciaServerMap, standardsMap);
     }
 

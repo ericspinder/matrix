@@ -14,9 +14,9 @@ import dev.inward.matrix.resources.Storage;
 
 import java.util.Map;
 
-public class Hotel extends Industry<Hotel,Room,Desk, Identity.WebPage.Ego, Context.Demarc,Cart,HouseKeeping, Assembly,Corpus, Mechanical, Sandbox, Steward> {
+public class Hotel extends Industry<Hotel,Room,Desk, Identity.Web.Ego, Context.Demarc,Cart,HouseKeeping, Assembly,Corpus, Mechanical, Sandbox, Steward> {
 
-    public Hotel(Steward mortal, Storage storage, Map<Standard<?, Room, Identity.WebPage.Ego, Context.Demarc>, Resource<Hotel, ?, ?, ?, Room, Desk, Identity.WebPage.Ego, Context.Demarc, Cart, HouseKeeping>> standardResourcesMap) {
+    public Hotel(Steward mortal, Storage storage, Map<Standard<?, Room, Identity.Web.Ego, Context.Demarc>, Resource<Hotel, ?, ?, ?, Room, Desk, Identity.Web.Ego, Context.Demarc, Cart, HouseKeeping>> standardResourcesMap) {
         super(mortal, storage, standardResourcesMap);
     }
 }

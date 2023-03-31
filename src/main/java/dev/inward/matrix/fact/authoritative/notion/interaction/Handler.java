@@ -1,6 +1,5 @@
 package dev.inward.matrix.fact.authoritative.notion.interaction;
 
-import dev.inward.matrix.fact.authoritative.Governance;
 import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.datum.Standard;
 import dev.inward.matrix.fact.matter.Matter;
@@ -16,9 +15,9 @@ import dev.inward.matrix.resources.Storage;
 
 import java.util.Map;
 
-public abstract class Handler<H extends Handler<H,A,D,J,P,RESP,REQ,IA,XA>,A extends Interaction<A,RESP,REQ,IA,XA>,D extends Desk<H,A,D,J,P,RESP,REQ,IA,XA>,J extends Journal<H,A,D,J,P,RESP,REQ,IA,XA>,P extends Producer<H,A,D,J,P,RESP,REQ,IA,XA>,RESP extends Matter<RESP,IA,XA>,REQ extends Matter<REQ,IA,XA>,IA extends Identity<IA,XA>,XA extends Context<XA>> extends Industry<H,A,D,Identity.Ego, Governance.Ethereal,J,P, Assembly,Corpus,Mechanical,Sandbox, Steward> {
+public abstract class Handler<H extends Handler<H,A,D,J,P,RESP,REQ,IA,XA>,A extends Interaction<A,RESP,REQ,IA,XA>,D extends Desk<H,A,D,J,P,RESP,REQ,IA,XA>,J extends Journal<H,A,D,J,P,RESP,REQ,IA,XA>,P extends Producer<H,A,D,J,P,RESP,REQ,IA,XA>,RESP extends Matter<RESP,IA,XA>,REQ extends Matter<REQ,IA,XA>,IA extends Identity<IA,XA>,XA extends Context<XA>> extends Industry<H,A,D,Identity.Ego, Context.Ethereal,J,P, Assembly,Corpus,Mechanical,Sandbox, Steward> {
 
-    public Handler(Steward mortal, Storage storage, Map<Standard<?, A, Identity.Ego, Governance.Ethereal>, Resource<H, ?, ?, ?, A, D, Identity.Ego, Governance.Ethereal, J, P>> standardResourcesMap) {
+    public Handler(Steward mortal, Storage storage, Map<Standard<?, A, Identity.Ego, Context.Ethereal>, Resource<H, ?, ?, ?, A, D, Identity.Ego, Context.Ethereal, J, P>> standardResourcesMap) {
         super(mortal, storage, standardResourcesMap);
     }
 }

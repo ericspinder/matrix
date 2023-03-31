@@ -1,9 +1,9 @@
 package dev.inward.matrix.fact.authoritative.notion.authority;
 
-import dev.inward.matrix.domain.InternetClass;
-import dev.inward.matrix.domain.ResourceRecord;
-import dev.inward.matrix.domain.ResourceRecordType;
-import dev.inward.matrix.fact.tracked.Controller;
+import dev.inward.matrix.authority.Authority;
+import dev.inward.matrix.authority.InternetClass;
+import dev.inward.matrix.authority.ResourceRecord;
+import dev.inward.matrix.authority.ResourceRecordType;
 import dev.inward.matrix.fact.authoritative.Identity;
 
 import java.time.Instant;

@@ -1,15 +1,13 @@
 package dev.inward.matrix.fact.datum.host;
 
-import dev.inward.matrix.fact.datum.protocol.Protocol;
-import org.objectweb.asm.FieldVisitor;
+import dev.inward.matrix.authority.ServerRecord;
 
-import java.io.Serializable;
+public final class RemoteHost {
 
-public final class RemoteHost<H extends RemoteHouse, P extends Protocol> implements Comparable<H>, Serializable {
+    protected final ServerRecord serverRecord;
+    protected final
 
-    private H house;
-    private P protocol;
 
-    FieldVisitor
+    public
 
 }

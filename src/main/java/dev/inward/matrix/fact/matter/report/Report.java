@@ -1,6 +1,6 @@
 package dev.inward.matrix.fact.matter.report;
 
-import dev.inward.matrix.domain.InternetClass;
+import dev.inward.matrix.authority.InternetClass;
 import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.matter.Indicia;
 import dev.inward.matrix.fact.matter.Matter;

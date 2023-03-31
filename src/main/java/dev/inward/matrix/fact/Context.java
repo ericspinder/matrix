@@ -1,29 +1,23 @@
 package dev.inward.matrix.fact;
 
-import dev.inward.matrix.domain.Domain;
-import dev.inward.matrix.domain.InternetClass;
 import dev.inward.matrix.engine.Variant;
 import dev.inward.matrix.engine.Zone;
-import dev.inward.matrix.fact.authoritative.Governance;
-import dev.inward.matrix.fact.authoritative.Identity;
-import dev.inward.matrix.fact.tracked.Controller;
-import dev.inward.matrix.fact.tracked.SelfSignedCert;
+import dev.inward.matrix.fact.authoritative.Reaper;
+import dev.inward.matrix.fact.authoritative.notion.Industry;
 import dev.inward.matrix.fact.authoritative.yard.Tree;
 import dev.inward.matrix.personality.Personality;
 
-import java.net.URL;
-import java.security.CodeSource;
 import java.security.ProtectionDomain;
 import java.time.Instant;
 
-public abstract class Context<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<F,I,ID,X>> extends ProtectionDomain implements Comparable<X> {
+public abstract class Context<X extends Context<X>> extends ProtectionDomain implements Comparable<X> {
 
     protected final Zone zone;
 
     public Context(Variant variant, Personality personality,
-                   Factory<F,I,ID,X> factory,
+                   Industry industry,
                    Tree[] trees, Zone zone) {
-        super(variant,personality,factory, trees);
+        super(variant,personality,industry, trees);
         this.zone = zone;
     }
     public static class Ranged extends Context<Ranged> {
@@ -31,9 +25,9 @@ public abstract class Context<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X
         protected final Instant endDate;
         public Ranged(Variant  variant,
                       Personality personality,
-                      Factory factory,
-                      Tree[] trees, Domain domain, InternetClass internetClass, Zone zone, Instant startDate, Instant endDate) {
-            super(variant,personality,factory, trees,domain, internetClass, zone);
+                      Industry industry,
+                      Tree[] trees, Zone zone, Instant startDate, Instant endDate) {
+            super(variant,personality,industry, trees, zone);
             this.startDate = startDate;
             this.endDate = endDate;
         }
@@ -45,17 +39,26 @@ public abstract class Context<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X
         public Instant getEndDate() {
             return endDate;
         }
+
+        @Override
+        public int compareTo(Ranged that) {
+            int isZero = this.endDate.compareTo(that.endDate);
+            if (isZero == 0) {
+                isZero = this.startDate.compareTo(that.endDate);
+            }
+            return isZero;
+        }
     }
 
-    public static class Path<F extends Fact<F,I,ID,Path<F,I,ID>>,I extends Identity<I,ID,Path<F,I,ID>>,ID extends Comparable<ID>> extends Context<F,I,ID,Path<F,I,ID>> {
+    public static class Path extends Context<Path> {
 
         protected final String path;
 
         public Path(Variant variant,
                     Personality personality,
-                    Factory factory,
-                    Tree[] trees, Domain domain, InternetClass testCode, Zone zone, String path) {
-            super(variant,personality,factory, trees,domain,testCode,zone);
+                    Industry industry,
+                    Tree[] trees, Zone zone, String path) {
+            super(variant,personality,industry,trees,zone);
             this.path = path;
         }
 
@@ -75,36 +78,38 @@ public abstract class Context<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X
                 return -1;
             }
             int isZero = this.path.compareTo(that.path);
-            if (isZero == 0) {
-                return super.compareTo(that);
-            }
             return isZero;
         }
     }
-
-    public static final CodeSource Aforementioned_codesource = new Controller.Matrix(new URL("file://",Variant.aforementioned, new java.net.URLStreamHandler()), new SelfSignedCert());
-    public static  Governance.Ethereal Aforementioned = new Governance.Ethereal();
-
-
-    public int compareTo(X that) {
-        if (this.domain == null && that.domain == null) {
-            return this.internetClass.getAuthorityCode() - that.internetClass.getAuthorityCode();
-        }
-        if (this.domain == null) {
-            return 1;
-        }
-        if (that.domain == null) {
-            return -1;
-        }
-        int isZero = this.domain.compareTo(that.domain);
-        if (isZero == 0) {
-            return this.internetClass.getAuthorityCode() - that.internetClass.getAuthorityCode();
-        }
-        return isZero;
-    }
+    public static Ethereal Aforementioned = new Ethereal();
 
     public Zone getZone() {
         return zone;
     }
 
+    public static class Ethereal extends Context<Ethereal> {
+
+        public Ethereal(Variant variant,
+                        Personality personality,
+                        Industry industry,
+                        Tree[] trees, Zone zone) {
+            super(variant, personality, industry, trees, zone);
+        }
+
+        @Override
+        public int compareTo(Ethereal that) {
+
+        }
+    }
+
+    public abstract static class Governance<EXPIRE extends Comparable<EXPIRE>,G extends Governance<EXPIRE,G>> extends Context<G> {
+
+       protected final Reaper<EXPIRE,?,?> reaper;
+
+       public Governance(Variant variant, Personality personality, Industry industry, Tree[] trees, Zone zone,Reaper<EXPIRE,?,?> reaper) {
+           super(variant, personality, industry, trees, zone);
+           this.reaper = reaper;
+       }
+
+    }
 }

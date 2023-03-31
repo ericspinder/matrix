@@ -19,7 +19,7 @@ import java.util.Objects;
  * @param <NX> Containing Notion's Context
  * @param <P> This class - allows Comparable<P> to work
  */
-public abstract class Policy<BEHAVIOR,CF extends Fact<CF,CI,CX>,CI extends Identity<CI,CX>,CX extends Context<CX>,CR extends Representative<CF,CI,CX,CR,NI,NX>,NI extends Identity<NI,NX>,NX extends Context<NX>,P extends Policy<BEHAVIOR,CF,CI,CX,CR,NI,NX,P>> implements Comparable<P> {
+public abstract class Policy<BEHAVIOR,F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<X>,R extends Representative<F,I,ID,X>,NI extends Identity<NI,NX>,NX extends Context<NX>,P extends Policy<BEHAVIOR,CF,CI,CX,CR,NI,NX,P>> implements Comparable<P> {
 
     protected final BEHAVIOR behavior;
 

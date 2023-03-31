@@ -1,9 +1,9 @@
 package dev.inward.matrix.fact.authoritative.notion.authority.matrix.ziggurat;
 
 import dev.inward.matrix.CommandLine;
-import dev.inward.matrix.fact.authoritative.Governance;
+import dev.inward.matrix.fact.Context;
 import dev.inward.matrix.fact.authoritative.Identity;
-import dev.inward.matrix.fact.authoritative.notion.authority.Authority;
+import dev.inward.matrix.authority.Authority;
 import dev.inward.matrix.fact.authoritative.notion.authority.matrix.Matrix;
 import dev.inward.matrix.resources.LocalSystemNetworking;
 import dev.inward.matrix.resources.Resource;
@@ -19,7 +19,7 @@ public class Ziggurat extends Matrix {
     protected final CommandLine commandLine;
     protected final Instrumentation instrumentation;
 
-    protected final Map<Governance.Ethereal, Authority> etherealAuthorityMap = new HashMap<>();
+    protected final Map<Context.Ethereal, Authority> etherealAuthorityMap = new HashMap<>();
 
     protected Map<String,? super Resource<?>> datumMap = new HashMap<>();
 
@@ -41,7 +41,7 @@ public class Ziggurat extends Matrix {
         return instrumentation;
     }
 
-    public Map<Governance.Ethereal, Authority> getEtherealAuthorityMap() {
+    public Map<Context.Ethereal, Authority> getEtherealAuthorityMap() {
         return etherealAuthorityMap;
     }
 

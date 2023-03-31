@@ -1,14 +1,14 @@
-package dev.inward.matrix.domain;
+package dev.inward.matrix.authority;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.util.Arrays;
 
-public class Server extends ResourceRecord<Server> {
+public class ServerRecord extends ResourceRecord<ServerRecord> {
 
     protected final InetAddress inetAddress;
 
-    public Server(Domain domain, InetAddress inetAddress, InternetClass internetClass) {
+    public ServerRecord(Domain domain, InetAddress inetAddress, InternetClass internetClass) {
         super(domain,(inetAddress instanceof Inet4Address)?ResourceRecordType.ipV4Address:ResourceRecordType.ipV6Address, internetClass);
         this.inetAddress = inetAddress;
     }
@@ -21,7 +21,7 @@ public class Server extends ResourceRecord<Server> {
     }
 
     @Override
-    public int compareTo(Server that) {
+    public int compareTo(ServerRecord that) {
         int isZero = this.domain.compareTo(that.domain);
         if (isZero == 0) {
             isZero = this.internetClass.authorityCode - that.internetClass.authorityCode;

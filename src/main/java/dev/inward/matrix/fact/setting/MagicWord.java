@@ -4,12 +4,12 @@ package dev.inward.matrix.fact.setting;
 import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.Context;
 
-public class MagicWord extends Setting<MagicWord, Identity.WebPage, Context.Path> {
+public class MagicWord extends Setting<MagicWord, Identity.Web, Context.Path> {
 
     protected final String magicWord;
 
-    public MagicWord(Identity.WebPage webPage, String magicWord) {
-        super(webPage);
+    public MagicWord(Identity.Web web, String magicWord) {
+        super(web);
         this.magicWord = magicWord;
     }
 

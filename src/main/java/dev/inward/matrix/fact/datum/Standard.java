@@ -4,7 +4,7 @@ import dev.inward.matrix.Meta_I;
 import dev.inward.matrix.engine.Variant;
 import dev.inward.matrix.fact.Criterion;
 
-public class Standard<S extends Standard<S>> implements Meta_I<S> {
+public class Standard implements Meta_I {
 
     protected final Variant variant;
     protected final String className;

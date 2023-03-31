@@ -2,7 +2,7 @@ package dev.inward.matrix;
 
 import dev.inward.matrix.fact.Specification;
 
-public class Meta<M extends Meta<M>> implements Meta_I<M> {
+public class Meta<M extends Meta<M>> implements Meta_I {
 
     protected final String label;
     protected final String description;
@@ -30,12 +30,4 @@ public class Meta<M extends Meta<M>> implements Meta_I<M> {
         return description;
     }
 
-    @Override
-    public int compareTo(M that) {
-        int isZero = this.label.compareTo(that.getLabel());
-        if (isZero == 0) {
-            isZero = this.description.compareTo(that.description);
-        }
-        return isZero;
-    }
 }

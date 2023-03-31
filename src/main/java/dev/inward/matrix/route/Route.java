@@ -14,7 +14,7 @@ import java.nio.channels.AsynchronousChannelGroup;
 import java.nio.channels.spi.AsynchronousChannelProvider;
 import java.util.concurrent.*;
 
-public class Route<F extends Fact<F,I,X>,I extends Identity<I,X>,X extends Context<X>,O extends Operational<F,I,X,O>,B extends Bus<F,I,X,R,B,M,T,P>,R extends Representative<F,I,X,R,?,?>,M extends Matter<M,I,X>,T extends Tolerances<M,T>,P extends Phenomenon<M,T,P>> extends AsynchronousChannelGroup {
+public class Route<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<F,I,ID,X>,B extends Bus<F,I,ID,X,B>,M extends Matter<M,I,X>,T extends Tolerances<M,T>,P extends Phenomenon<M,T,P>> {
 
     protected final Road<F,I,X,R,T> road;
     protected Route(Road<F,I,X,R,T> road) {
@@ -24,6 +24,7 @@ public class Route<F extends Fact<F,I,X>,I extends Identity<I,X>,X extends Conte
         super(provider);
         this.road = road;
     }
+    public
 
     @Override
     public void shutdown() {

@@ -1,7 +1,6 @@
 package dev.inward.matrix.phenomenon;
 
-import dev.inward.matrix.NotionStartupException;
-import dev.inward.matrix.fact.authoritative.Governance;
+import dev.inward.matrix.MatrixException;
 import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.matter.Indicia;
 import dev.inward.matrix.fact.matter.Matter;
@@ -12,19 +11,18 @@ import dev.inward.matrix.phenomenon.producer.TimeoutExceptionally;
 import dev.inward.matrix.phenomenon.producer.ExecutionExceptionly;
 import dev.inward.matrix.route.Road;
 
-import java.io.Serializable;
 import java.lang.ref.SoftReference;
 import java.time.Duration;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-public abstract class Phenomenon<MAT extends Matter<MAT,I,ID,VERSION,X>,I extends Identity<I,ID,VERSION,X>,ID extends Comparable<ID>,VERSION extends Comparable<VERSION>,X extends Context<VERSION,X>> implements Serializable, Comparable<Phenomenon>, Future<M> {
+public abstract class Phenomenon<MAT extends Matter<MAT,I,ID,VERSION,X>,I extends Identity<I,ID,VERSION,X>,ID extends Comparable<ID>,VERSION extends Comparable<VERSION>,X extends Context<X>> extends Thread {
 
-    protected final Governance.Ethereal ethereal;
+    protected
+
     protected SoftReference<MAT> remains;
     protected final SoftReference<Road> road;
 
-    protected Phenomenon(Governance.Ethereal ethereal, SoftReference<Road> road) {
+    protected Phenomenon(Context.Ethereal ethereal, SoftReference<Road> road) {
         this.ethereal = ethereal;
         this.road = road;
     }
@@ -45,7 +43,7 @@ public abstract class Phenomenon<MAT extends Matter<MAT,I,ID,VERSION,X>,I extend
             this.remains = new SoftReference<>(remains);
         }
         else {
-            throw new NotionStartupException(NotionStartupException.Type.SoftReference_Problem,this.getClass(), Indicia.Focus.Type, Indicia.Severity.Exceptional,new Exception("Cannot set a Soft Reference twice"));
+            throw new MatrixException(MatrixException.Type.SoftReference_Problem,this.getClass(), Indicia.Focus.Type, Indicia.Severity.Exceptional,new Exception("Cannot set a Soft Reference twice"));
         }
     }
 

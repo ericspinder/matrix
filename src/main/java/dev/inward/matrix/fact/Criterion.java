@@ -8,7 +8,7 @@ import java.time.Duration;
 import java.util.BitSet;
 import java.util.concurrent.TimeUnit;
 
-public abstract class Criterion<C extends Criterion<C>> implements Meta_I<C> {
+public abstract class Criterion implements Meta_I {
 
     protected final String label;
     protected final String description;
@@ -22,10 +22,7 @@ public abstract class Criterion<C extends Criterion<C>> implements Meta_I<C> {
         this.purposes = purposes;
     }
 
-
-    public abstract int getOrder();
-
-    public static class Limiter extends Criterion<Limiter> {
+    public static class Limiter extends Criterion {
 
         protected final int totalAllowed;
         protected final int warnLevel;
@@ -44,13 +41,13 @@ public abstract class Criterion<C extends Criterion<C>> implements Meta_I<C> {
         }
 
     }
-    public static class Timeout extends Criterion<Timeout> {
+    public static class Timeout extends Criterion {
 
         protected final long timeout;
         protected final TimeUnit timeUnit;
 
-        public Timeout(String label, String description, long timeout,TimeUnit timeUnit) {
-            super(label,description);
+        public Timeout(String label, String description, String timeoutClassName, Purpose[] purposes, long timeout,TimeUnit timeUnit) {
+            super(label,description,timeoutClassName,purposes);
             this.timeout = timeout;
             this.timeUnit = timeUnit;
         }
@@ -66,19 +63,15 @@ public abstract class Criterion<C extends Criterion<C>> implements Meta_I<C> {
             return Duration.of(timeout, timeUnit.toChronoUnit());
         }
 
-        @Override
-        public int compareTo(Timeout that) {
-            return super.compareTo(that);
-        }
     }
 
-    public static class Ranged<DATUM> extends Criterion<Ranged<DATUM>> {
+    public static class Ranged<DATUM extends Comparable<DATUM>> extends Criterion {
 
         protected final DATUM maxValue;
         protected final DATUM minValue;
         protected final Comparable<DATUM> comparable;
-        public Ranged(Variant<?> variant, String label, String description, DATUM maxValue, DATUM minValue, Comparable<DATUM> comparable) {
-            super(variant,label,description);
+        public Ranged(String label, String description, String rangedClassName, Purpose[] purposes, DATUM maxValue, DATUM minValue, Comparable<DATUM> comparable) {
+            super(label,description,rangedClassName,purposes);
             this.maxValue = maxValue;
             this.minValue = minValue;
             this.comparable = comparable;
@@ -96,19 +89,15 @@ public abstract class Criterion<C extends Criterion<C>> implements Meta_I<C> {
             return comparable;
         }
     }
-    public static class Chronological<DATUM> extends Criterion<Chronological<DATUM>> {
+    public static class Chronological<DATUM> extends Criterion {
         public Chronological(Variant variant, String label,String description) {
             super(variant,label,description);
         }
     }
-    public static class OnCountdown<DATUM> extends Criterion<OnCountdown<DATUM>> {
+    public static class OnCountdown<DATUM> extends Criterion {
         public OnCountdown(Variant variant,String label,String description) {
             super(variant,label,description);
         }
-    }
-
-    public final Variant<?> getVariant() {
-        return variant;
     }
 
     @Override
@@ -121,20 +110,6 @@ public abstract class Criterion<C extends Criterion<C>> implements Meta_I<C> {
         return description;
     }
 
-    @Override
-    public int compareTo(C that) {
-        int isZero = this.label.compareTo(that.label);
-        if (isZero == 0) {
-            isZero = this.internetClass.compareTo(that.internetClass);
-            if (isZero == 0) {
-                isZero = this.description.compareTo(that.description);
-                if (isZero == 0) {
-
-                }
-            }
-        }
-        return isZero;
-    }
 
     /**
      * https://stackoverflow.com/questions/2473597/bitset-to-and-from-integer-long

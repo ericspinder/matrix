@@ -1,6 +1,6 @@
 package dev.inward.matrix.resources;
 
-import dev.inward.matrix.NotionStartupException;
+import dev.inward.matrix.MatrixException;
 import dev.inward.matrix.fact.*;
 import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.matter.Indicia;
@@ -28,7 +28,7 @@ public class Supplier<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID ext
             return busClass.getDeclaredConstructor(operationalClass).newInstance(operational);
         }
         catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-            throw new NotionStartupException(NotionStartupException.Type.ReflectiveOperationFailed,this.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Exceptional,e);
+            throw new MatrixException(MatrixException.Type.ReflectiveOperationFailed,this.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Exceptional,e);
         }
     }
     public R buildRepresentative(F fact, NI containerId, ReferenceQueue<F> referenceQueue) {
@@ -36,7 +36,7 @@ public class Supplier<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID ext
             return representativeClass.getDeclaredConstructor(factClass,referenceQueue.getClass(),busClass,operationalClass).newInstance(fact,referenceQueue,bus,operational);
         }
         catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-            throw new NotionStartupException(NotionStartupException.Type.ReflectiveOperationFailed,this.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Exceptional,e);
+            throw new MatrixException(MatrixException.Type.ReflectiveOperationFailed,this.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Exceptional,e);
         }
     }
 }
