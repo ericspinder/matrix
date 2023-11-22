@@ -1,8 +1,8 @@
 package dev.inward.matrix.fact.datum.time;
 
 import dev.inward.matrix.fact.datum.Envoy;
-import dev.inward.matrix.fact.authoritative.Identity;
-import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.Identity;
+import dev.inward.matrix.Context;
 
 import java.time.Instant;
 

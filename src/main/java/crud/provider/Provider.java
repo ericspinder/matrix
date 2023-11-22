@@ -1,6 +1,6 @@
 package crud.provider;
 
-import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.Identity;
 import dev.inward.matrix.fact.Bus;
 import dev.inward.matrix.fact.Fact;
 import dev.inward.matrix.fact.Factory;

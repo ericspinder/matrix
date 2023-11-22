@@ -1,9 +1,9 @@
 package dev.inward.matrix.resources;
 
-import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.Identity;
 import dev.inward.matrix.fact.datum.Standard;
 import dev.inward.matrix.fact.authoritative.notion.*;
-import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.Context;
 
 import java.util.HashMap;
 import java.util.Map;

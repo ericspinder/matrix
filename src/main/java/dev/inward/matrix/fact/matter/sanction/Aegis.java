@@ -1,6 +1,6 @@
 package dev.inward.matrix.fact.matter.sanction;
 
-import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.Identity;
 import dev.inward.matrix.fact.matter.Indicia;
 import dev.inward.matrix.fact.matter.messaging.Fingerprint;
 import dev.inward.matrix.fact.matter.messaging.issuer.Issuer;
@@ -16,7 +16,7 @@ public class Aegis extends Fingerprint {
     protected String authorityKeyIdentifier;
     protected String[] subjectAltNames; // *.example.com
 
-    public Aegis(UUID uuid, Identity.SuperEgo topicId, Instant createInstant, Indicia indicia, PublicKey publicKey, String subjectKeyIdentifier, Issuer issuer) {
+    public Aegis(UUID uuid, Identity.Gate topicId, Instant createInstant, Indicia indicia, PublicKey publicKey, String subjectKeyIdentifier, Issuer issuer) {
         super(uuid, topicId, createInstant, indicia, publicKey, subjectKeyIdentifier, issuer);
     }
 }

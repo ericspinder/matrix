@@ -1,16 +1,18 @@
 package dev.inward.matrix.fact;
 
+import dev.inward.matrix.Context;
+import dev.inward.matrix.Scheme;
+import dev.inward.matrix.Library;
 import dev.inward.matrix.engine.Engine;
-import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.Identity;
+import dev.inward.matrix.fact.authoritative.notion.concept.Protocol;
 import dev.inward.matrix.resources.Resources;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.locks.StampedLock;
 
-public class Factory<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<X>,O extends Operational<F,I,ID,X>> extends ClassLoader implements Serializable {
+public class Factory<S extends Scheme<S,L,PATH>,L extends Library<S,L,PATH>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Identity.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>>  extends ClassLoader implements Comparable<Factory<S,L,PATH,ID,T,C>> {
 
     private Engine<F,I,ID,X,O,S> engine = null;
     protected StampedLock gate = new StampedLock();
@@ -44,7 +46,7 @@ public class Factory<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID exte
 
 
     @Override
-    public int compareTo(Y that) {
+    public int compareTo(Factory<S,L,PATH,ID,T,C> that) {
         return this.uuid.compareTo(that.uuid);
     }
     public Resources<F,I,X,R,NI,NX> getResources() {

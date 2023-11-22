@@ -1,28 +1,22 @@
 package dev.inward.matrix.engine;
 
-import dev.inward.matrix.authority.Domain;
-import dev.inward.matrix.authority.Authority;
-import dev.inward.matrix.fact.authoritative.notion.authority.Clerk;
+import dev.inward.matrix.Scheme;
+import dev.inward.matrix.Library;
+import dev.inward.matrix.fact.authoritative.notion.Notion;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.security.CodeSource;
 
-public class Variant extends CodeSource {
+public class Variant<S extends Scheme<S,L>,L extends Library<S,L>> extends CodeSource {
 
-    protected final Authority authority;
-    protected final Domain domain;
+    protected final L library;
 
-    public Variant(@Nonnull Authority authority, @Nullable Domain domain) {
-        super(authority.getURL(domain), authority.getCodeSigners(domain));
-        this.authority = authority;
-        this.domain = domain;
+    public Variant(@Nonnull L library) {
+        super(library.getDomain().url, library.getCodeSigners());
+        this.library = library;
     }
 
-    public Domain getDomain() {
-        return domain;
+    public L getLibrary() {
+        return library;
     }
-
-    public static Variant Aforementened = new Variant(Clerk.Aforementioned,);
-
 }

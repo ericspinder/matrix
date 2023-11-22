@@ -1,13 +1,13 @@
 package dev.inward.matrix.fact.matter.messaging.issuer;
 
 import dev.inward.matrix.fact.Fact;
-import dev.inward.matrix.fact.authoritative.Identity;
-import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.Identity;
+import dev.inward.matrix.Context;
 
 
-public class Issuer extends Fact<Issuer,Identity.SuperEgo, Context.Path> {
+public class Issuer extends Fact<Issuer, Identity.Gate, Context.Path> {
 
-    public Issuer(Identity.SuperEgo id) {
+    public Issuer(Identity.Gate id) {
         super(id);
     }
 }

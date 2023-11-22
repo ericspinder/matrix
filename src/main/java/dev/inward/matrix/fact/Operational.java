@@ -1,19 +1,25 @@
 package dev.inward.matrix.fact;
 
-import com.google.common.collect.Ordering;
-import dev.inward.matrix.engine.Zone;
-import dev.inward.matrix.fact.authoritative.Identity;
-import dev.inward.matrix.fact.authoritative.Reaper;
+import dev.inward.matrix.Context;
+import dev.inward.matrix.Scheme;
+import dev.inward.matrix.Identity;
+import dev.inward.matrix.Library;
+import dev.inward.matrix.fact.authoritative.notion.Notion;
+import dev.inward.matrix.fact.authoritative.notion.concept.Protocol;
+import dev.inward.matrix.fact.authoritative.notion.concept.Matrix;
+import dev.inward.matrix.fact.authoritative.notion.concept.Construct;
+import dev.inward.matrix.resources.Resources;
 
-public class Operational<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<X>> {
+public abstract class Operational<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Identity.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,O extends Operational<S,L,PATH,ID,T,C,O>> {
 
-    protected final Specification<F,I,ID,X> specification;
-
-    public Operational(Zone zone, Specification<F,I,ID,X> specification) {
+    protected final Specification specification;
+    protected final Resources<S,L,PATH,ID,T,C> resources;
+    public Operational(Specification specification,Resources<S,L,PATH,ID,I,C,N> resources) {
         this.specification = specification;
+        this.resources = resources;
     }
 
-    public Specification<F,I,ID,X> specification() {
+    public Specification specification() {
         return this.specification;
     }
 

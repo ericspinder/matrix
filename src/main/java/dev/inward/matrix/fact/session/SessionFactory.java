@@ -3,8 +3,8 @@ package dev.inward.matrix.fact.session;
 import dev.inward.matrix.fact.Factory;
 import dev.inward.matrix.fact.Model;
 import dev.inward.matrix.fact.Predictable;
-import dev.inward.matrix.fact.authoritative.Identity;
-import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.Identity;
+import dev.inward.matrix.Context;
 
 import java.util.List;
 import java.util.Map;

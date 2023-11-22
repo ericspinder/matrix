@@ -1,8 +1,8 @@
 package dev.inward.matrix.fact.authoritative.yard;
 
-import dev.inward.matrix.authority.ResourceRecord;
-import dev.inward.matrix.authority.ResourceRecordType;
-import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.authority.dns.resourceRecord.ResourceRecord;
+import dev.inward.matrix.authority.dns.resourceRecord.ResourceRecordType;
+import dev.inward.matrix.Identity;
 import dev.inward.matrix.fact.matter.Indicia;
 
 import javax.security.auth.Subject;
@@ -15,7 +15,7 @@ public class Tree implements Principal,Comparable<Tree> {
 
     protected final InetAddress inetAddress;
     protected Map<ResourceRecordType, ResourceRecord[]> resourceRecordTypeMap = new ConcurrentHashMap<>();
-    protected ConcurrentHashMap<Indicia, Identity.SuperEgo> matterCollectors;
+    protected ConcurrentHashMap<Indicia, Identity.Gate> matterCollectors;
 
     public Tree() {
         this.matterCollectors = matterCollectors;
@@ -30,11 +30,8 @@ public class Tree implements Principal,Comparable<Tree> {
     public boolean implies(Subject subject) {
         return Principal.super.implies(subject);
     }
-    public boolean implies(Tree tree) {
 
-    }
-
-    public Identity.SuperEgo getMatterCollector(Indicia indicia) {
+    public Identity.Gate getMatterCollector(Indicia indicia) {
         return this.matterCollectors.getOrDefault(indicia,defaultCollector);
     }
 

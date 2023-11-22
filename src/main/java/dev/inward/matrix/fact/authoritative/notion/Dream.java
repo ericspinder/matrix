@@ -1,18 +1,30 @@
 package dev.inward.matrix.fact.authoritative.notion;
 
+import dev.inward.matrix.Identity;
 import dev.inward.matrix.authority.Domain;
-import dev.inward.matrix.authority.InternetClass;
+import dev.inward.matrix.authority.dns.Terrene;
 import dev.inward.matrix.engine.Variant;
-import dev.inward.matrix.engine.Zone;
-import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.Context;
 import dev.inward.matrix.fact.Factory;
 import dev.inward.matrix.fact.authoritative.yard.Tree;
 import dev.inward.matrix.personality.Personality;
 
 import java.security.CodeSource;
+import java.util.UUID;
 
-public class Dream<VERSION extends Comparable<VERSION>,D extends Dream<VERSION,D,EXPIRE>,EXPIRE extends Comparable<EXPIRE>> extends Context.Governance<VERSION,D,EXPIRE> {
-    public Dream(CodeSource codesource, Personality personality, Factory factory, Tree[] trees, Domain domain, InternetClass internetClass, Zone zone, Variant variant, VERSION version, EXPIRE expire) {
-        super(codesource,personality,factory, trees,domain,internetClass,zone,variant,version,expire);
+public class Dream extends Notion<Dream> {
+
+    public Dream(Identity.Gate<S, L, PATH, N> id) {
+        super(id);
+    }
+
+    @Override
+    public Identity.Rule<UUID> getIdentity() {
+        return null;
+    }
+
+    @Override
+    public int compareTo(Identity.Rule<UUID> o) {
+        return 0;
     }
 }

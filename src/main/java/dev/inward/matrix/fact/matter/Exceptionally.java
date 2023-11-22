@@ -1,13 +1,15 @@
 package dev.inward.matrix.fact.matter;
 
-import dev.inward.matrix.fact.Context;
-import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.Context;
+import dev.inward.matrix.Identity;
+import dev.inward.matrix.Library;
+import dev.inward.matrix.Scheme;
 
 import java.util.UUID;
 
-public interface Exceptionally<X extends Context<X>> {
+public interface Exceptionally {
 
     UUID getId();
-    X getContext();
+    Context getContext();
     Indicia getIndicia();
 }

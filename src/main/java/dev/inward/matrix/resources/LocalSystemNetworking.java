@@ -1,19 +1,21 @@
 package dev.inward.matrix.resources;
 
 import dev.inward.matrix.MatrixException;
-import dev.inward.matrix.authority.InternetClass;
-import dev.inward.matrix.fact.Context;
-import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.authority.dns.Terrene;
+import dev.inward.matrix.Context;
+import dev.inward.matrix.Identity;
 import dev.inward.matrix.fact.matter.Indicia;
 import dev.inward.matrix.fact.matter.report.DefaultFailure;
-import dev.inward.matrix.fact.threshold.Threshold;
+import dev.inward.matrix.fact.threshold.SocketAddress;
 
+import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.time.Instant;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.StampedLock;
 
 public class LocalSystemNetworking {
@@ -33,50 +35,58 @@ public class LocalSystemNetworking {
         }
         return INSTANCE;
     }
-    private Instant updateInstant;
-    private StampedLock gate = new StampedLock();
 
-    List<Threshold> externalActiveInterfaces = new ArrayList<>();
-    List<Threshold> loopbackActiveInterfaces = new ArrayList<>();
-    List<Threshold> inactiveInterfaces = new ArrayList<>();
+    Map<NetworkMapping,Instant> externalActiveInterfaces = new ConcurrentHashMap<>();
+    Map<NetworkMapping,Instant> loopbackActiveInterfaces = new ConcurrentHashMap<>();
+    Map<NetworkMapping,Instant> inactiveInterfaces = new ConcurrentHashMap<>();
 
-    public final List<Threshold> getExternalActiveInterfaces() {
-        long readLock = gate.readLock();
-        try {
-            return this.externalActiveInterfaces;
-        } finally {
-            gate.unlockRead(readLock);
+    public static final class NetworkMapping implements Comparable<NetworkMapping> {
+
+        protected final InterfaceAddress interfaceAddress;
+        protected final BigInteger bytes;
+        protected final NetworkInterface networkInterface;
+
+        public NetworkMapping(final InterfaceAddress interfaceAddress, final NetworkInterface networkInterface) {
+            this.interfaceAddress = interfaceAddress;
+            this.networkInterface = networkInterface;
+            this.bytes = new BigInteger(1,interfaceAddress.getAddress().getAddress());
+        }
+        public final BigInteger getBytes() {
+            return this.bytes;
+        }
+
+        public InterfaceAddress getInterfaceAddress() {
+            return interfaceAddress;
+        }
+
+        public NetworkInterface getNetworkInterface() {
+            return networkInterface;
+        }
+
+        @Override
+        public int compareTo(NetworkMapping that) {
+            return this.bytes.compareTo(that.bytes);
         }
     }
 
-    public final List<Threshold> getLoopbackActiveInterfaces() {
-        long readLock = gate.readLock();
-        try {
-            return this.loopbackActiveInterfaces;
-        } finally {
-            gate.unlockRead(readLock);
-        }
+    public final Map<NetworkMapping,Instant> getExternalActiveInterfaces() {
+        return this.externalActiveInterfaces;
     }
 
-    public final List<Threshold> getInactiveInterfaces() {
-        long readLock = gate.readLock();
-        try {
-            return this.inactiveInterfaces;
-        } finally {
-            gate.unlockRead(readLock);
-        }
+    public final Map<NetworkMapping,Instant> getLoopbackActiveInterfaces() {
+        return this.loopbackActiveInterfaces;
+    }
+
+    public final Map<NetworkMapping,Instant> getInactiveInterfaces() {
+        return this.inactiveInterfaces;
     }
 
     public final void refresh() {
-        long writeLock = gate.writeLock();
         try {
             enrollPlatformInterfaceAddresses();
         }
         catch (SocketException se) {
             throw new MatrixException(MatrixException.Type.NetworkUnavailable_No_Return, this.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Exceptional, se);
-        }
-        finally {
-            gate.unlockWrite(writeLock);
         }
     }
 
@@ -88,32 +98,24 @@ public class LocalSystemNetworking {
                     this.parseInetAddresses(1, networkInterface);
                 }
             }
-            this.updateInstant = Instant.now();
     }
 
     private final void parseInetAddresses(int layer, NetworkInterface networkInterface) throws SocketException {
         if (layer > 3) {
-            Map<String, Object> details = new HashMap<>();
-            details.put("error","recursion");
-            details.put("networkInterface.getName()", networkInterface.getName());
-            DefaultFailure defaultFailure = new DefaultFailure(Identity.Ego.Aforementioned,Instant.now(),"", InternetClass.Aforementioned, details);
-        }
-        Enumeration<InetAddress> inetAddressEnumeration = networkInterface.getInetAddresses();
-        while (inetAddressEnumeration.hasMoreElements()) {
-            InetAddress inetAddress = inetAddressEnumeration.nextElement();
+            throw new MatrixException(MatrixException.Type.Recursion,this.getClass(), Indicia.Focus.Assembly, Indicia.Severity.Unexpected, new Exception("Layer: " + layer));
         }
         for (InterfaceAddress ifAddress : networkInterface.getInterfaceAddresses()) {
             if (networkInterface.isLoopback()) {
                 if (ifAddress.getBroadcast() != null) {
-                    this.loopbackActiveInterfaces.add(new Threshold(new Identity.Ego(Context.Ethereal.Aforementioned),ifAddress,networkInterface));
+                    this.loopbackActiveInterfaces.put(new NetworkMapping(ifAddress,networkInterface),Instant.now());
                 } else {
-                    this.inactiveInterfaces.add(new Threshold(new Identity.Ego(Context.Ethereal.Aforementioned),ifAddress, networkInterface));
+                    this.inactiveInterfaces.put(new NetworkMapping(ifAddress,networkInterface),Instant.now());
                 }
             } else {
                 if (ifAddress.getBroadcast() != null) {
-                    this.externalActiveInterfaces.add(new Threshold(new Identity.Ego(Context.Ethereal.Aforementioned),ifAddress, networkInterface));
+                    this.externalActiveInterfaces.put(new NetworkMapping(ifAddress,networkInterface),Instant.now());
                 } else {
-                    this.inactiveInterfaces.add(new Threshold(new Identity.Ego(Context.Ethereal.Aforementioned),ifAddress, networkInterface));
+                    this.inactiveInterfaces.put(new NetworkMapping(ifAddress,networkInterface),Instant.now());
                 }
             }
         }

@@ -1,47 +1,40 @@
 package dev.inward.matrix.personality;
 
-import crud.rubric.Blocker;
-import dev.inward.matrix.MatrixException;
-import dev.inward.matrix.fact.matter.Indicia;
+import dev.inward.matrix.Identity;
+import dev.inward.matrix.Library;
+import dev.inward.matrix.Profile;
+import dev.inward.matrix.Scheme;
+import dev.inward.matrix.fact.Concept;
+import dev.inward.matrix.fact.Fact;
+import dev.inward.matrix.fact.Model;
+import dev.inward.matrix.fact.authoritative.notion.Notion;
+import dev.inward.matrix.fact.authoritative.notion.house.House;
 
-import java.security.Permission;
+import javax.security.auth.Subject;
+import java.nio.file.FileSystem;
+import java.nio.file.Path;
+import java.nio.file.attribute.UserPrincipal;
 import java.security.cert.CertPath;
 import java.util.Objects;
-import java.util.stream.Stream;
 
-public class Persona extends Permission {
+public class Persona<S extends Scheme<S,L>,L extends Library<S,L>,P extends Persona<S,L,P,H>,H extends House<S,L,H>> extends Concept<S,L,Path,Character, Identity.Tangible.Ego<S,L,P,H>,P> {
 
-    protected char persona;
-    protected final String description;
+    protected String description;
+    protected Monitor<CertPath>[] credentialMonitor;
 
-    public Persona(char persona, String name, String description) {
-        super(name);
-        this.persona = persona;
+    public Persona(Identity.Tangible.Ego<S,L,P,H> ego, String description) {
+        super(ego);
         this.description = description;
     }
 
     @Override
-    public void checkGuard(Object object) throws Blocker {
-
-        throw new MatrixException(MatrixException.Type.NotImplemented,this.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Exceptional,null);
-    }
-    @Override
-    public boolean implies(Permission permission) {
-        if (permission instanceof  Persona) {
-            return this.persona == ((Persona)permission).persona;
-        }
-        else if(permission instanceof Psyche) {
-            return Stream.of(((Psyche)permission).psyche).anyMatch(chars -> chars.equals(this.persona));
-        }
-        return false;
+    public FileSystem getFileSystem() {
+        return null;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Persona)) return false;
-        Persona that = (Persona) o;
-        return this.persona == that.persona && this.description.equals(that.description) && this.getName().equals(that.getName());
+    public Path getParent() {
+        return null;
     }
 
     @Override
@@ -50,28 +43,12 @@ public class Persona extends Permission {
     }
 
     @Override
-    public String getActions() {
-        return this.description;
-    }
-    public String getDescription() {
-        return this.description;
+    public String getName() {
+        return identity.getId();
     }
 
-    public static class Credentialed extends Persona {
-
-        protected final CertPath credential;
-        public Credentialed(char persona, String name, String description, CertPath credential) {
-            super(persona,name,description);
-            this.credential = credential;
-
-        }
-
-        public CertPath getCredential() {
-            return credential;
-        }
-    }
-
-    public char getPersona() {
-        return persona;
+    @Override
+    public boolean implies(Subject subject) {
+        return UserPrincipal.super.implies(subject);
     }
 }

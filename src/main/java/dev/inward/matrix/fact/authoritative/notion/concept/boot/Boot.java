@@ -1,11 +1,11 @@
 package dev.inward.matrix.fact.authoritative.notion.concept.boot;
 
-import dev.inward.matrix.fact.authoritative.Identity;
-import dev.inward.matrix.fact.authoritative.notion.concept.Concept;
-import dev.inward.matrix.fact.authoritative.notion.authority.matrix.ziggurat.Startup;
+import dev.inward.matrix.Identity;
+import dev.inward.matrix.fact.authoritative.notion.concept.Protocol;
+import dev.inward.matrix.fact.authoritative.notion.authority.source.ziggurat.Startup;
 import dev.inward.matrix.fact.operational.IntegerDefaultOption;
 
-public final class Boot extends Concept<Boot> {
+public final class Boot extends Protocol<Boot> {
 
     @IntegerDefaultOption.IntegerDefault(IntegerDefaultOption.DnsTimeout)
 

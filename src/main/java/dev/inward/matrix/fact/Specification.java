@@ -2,10 +2,8 @@ package dev.inward.matrix.fact;
 
 import crud.rubric.Roller;
 import dev.inward.matrix.Meta_I;
-import dev.inward.matrix.authority.ServerRecord;
+import dev.inward.matrix.authority.dns.resourceRecord.ServerRecord;
 import dev.inward.matrix.engine.Variant;
-import dev.inward.matrix.engine.Zone;
-import dev.inward.matrix.fact.authoritative.Identity;
 import dev.inward.matrix.fact.datum.Standard;
 import dev.inward.matrix.fact.matter.Indicia;
 import dev.inward.matrix.fact.matter.Matter;
@@ -14,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Specification<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<X>,S extends Specification<F,I,ID,X,S>> extends Standard<S> {
+public class Specification extends Standard {
 
     protected final Map<String, DefaultOption<?,?>> options;
     protected final Map<Indicia.Focus, ServerRecord[]> focusServerMap;

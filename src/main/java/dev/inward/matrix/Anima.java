@@ -1,0 +1,16 @@
+package dev.inward.matrix;
+
+import dev.inward.matrix.director.library.Memory;
+
+public class Anima extends Scheme<Anima,Soul,Identity.SuperEgo> {
+
+    public Anima() {
+        super("anima");
+    }
+
+    @Override
+    public long initTotalSpace(Memory memory) {
+        return 0;
+    }
+
+}

@@ -1,32 +1,21 @@
 package dev.inward.matrix.fact;
 
-import dev.inward.matrix.fact.authoritative.Identity;
-import dev.inward.matrix.personality.Personality;
+import dev.inward.matrix.Scheme;
+import dev.inward.matrix.Identity;
+import dev.inward.matrix.Library;
 
-import java.io.Serializable;
+public abstract class Fact<S extends Scheme<S,L>,L extends Library<S,L>,N extends Identity.Tangible.Named<S,L,N,F>,F extends Fact<S,L,N,F>> extends Concept<S,L,String,String,N,F> {
 
-public abstract class Fact<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<X>> implements Comparable<F>, Serializable {
+    protected final short fidelity;
 
-    protected final I identity;
-
-    public Fact(I identity) {
-        this.identity = identity;
+    public Fact(N identity, short fidelity) {
+        super(identity);
+        this.fidelity = fidelity;
     }
 
-    public I getIdentity() {
-        return this.identity;
+    public short getFidelity() {
+        return fidelity;
     }
 
-    @Override
-    public int compareTo(F that) {
-        return this.identity.compareTo(that.identity);
-    }
 
-    public final I identity() {
-        return this.identity;
-    }
-
-    public Personality getPersonality() {
-        return (Personality) this.getClass().getProtectionDomain().getPermissions();
-    }
 }

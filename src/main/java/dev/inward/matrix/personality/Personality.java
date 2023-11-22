@@ -1,50 +1,93 @@
 package dev.inward.matrix.personality;
 
 import dev.inward.matrix.MatrixException;
-import dev.inward.matrix.fact.Context;
-import dev.inward.matrix.fact.authoritative.Identity;
-import dev.inward.matrix.fact.authoritative.notion.Notion;
+import dev.inward.matrix.Context;
 import dev.inward.matrix.fact.matter.Indicia;
 
 import java.security.Permission;
 import java.security.PermissionCollection;
+import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.Map;
 import java.util.Vector;
+import java.util.concurrent.locks.StampedLock;
 
-public class Personality<N extends Notion<N,VERSION,V,ID,EXPIRE,G>,VERSION extends Comparable<VERSION>,V extends Identity.Versioned<VERSION,V,ID,EXPIRE,G>,ID extends Comparable<ID>,EXPIRE extends Comparable<EXPIRE>,G extends Context.Governance<EXPIRE,G>> extends PermissionCollection {
+public class Personality<EXPIRE extends Comparable<EXPIRE>,G extends Context.Governance<EXPIRE,G>> extends PermissionCollection {
 
-    private Vector<Persona> personas = new Vector<>();
+    public static final Personality Aforementioned = new Personality();
 
-    public void add(Persona persona) {
-        if (personas.contains(persona)) {
+    private final StampedLock personaGate = new StampedLock();
+    protected final Map<Persona,> knownPersonas = new Vector<>();
+    protected  registeredPersonas = null;
+    protected final Vector<Psyche> activePsyches = new Vector<>();
+    protected final Vector<Session> offeredSessions = new Vector<>();
+    protected Psyche psyche;
 
-        }
-    }
     @Override
     public void add(Permission permission) {
         if (permission instanceof Persona) {
-            this.personas.add((Persona)permission);
+            long lock = personaGate.writeLock();
+            try {
+                this.knownPersonas.add((Persona) permission);
+
+                return;
+            }
+            finally {
+                personaGate.unlockWrite(lock);
+            }
         }
-        throw new MatrixException(MatrixException.Type.ClassCastException,this.getClass(), Indicia.Focus.Assembly, Indicia.Severity.Critical,new Exception("Must be Persona"));
+        if (permission instanceof Psyche) {
+            this.activePsyches.add((Psyche)permission);
+            return;
+        }
+        if (permission instanceof Session) {
+            this.offeredSessions.add((Session)permission);
+            return;
+        }
+        throw new MatrixException(MatrixException.Type.ClassCastException,this.getClass(), Indicia.Focus.Assembly, Indicia.Severity.Critical,new Exception("Must be a Persona, Psyche or Session"));
     }
 
+    /**
+     * A Persona will return true if it's persona char value matches of the known personas; false otherwise
+     * A Psyche will return true if it's
+     * @param permission
+     * @return
+     * @throws SecurityException
+     */
     @Override
     public boolean implies(Permission permission) throws SecurityException {
         if (permission instanceof Persona) {
-            return personas.stream().anyMatch(i -> (i.persona == (((Persona) permission).persona)));
+            return ((Persona)knownPermission).persona == ((Persona)permission).persona;
+                if (knownPermission instanceof Psyche) {
+                    return Arrays.binarySearch(((Psyche)knownPermission).personas,((Persona) permission).persona) >= 0;
+                }
+                if (knownPermission instanceof Sessio
         }
         if (permission instanceof Psyche) {
-            for (char psychePersona: ((Psyche) permission).psyche) {
-                for (Persona persona: this.personas) {
-                    if (persona.persona == psychePersona) return true;
+            for (Permission knownPermission: knownPermissions) {
+                if (knownPermission instanceof  Persona) {
+                    return Arrays.compare(((Psyche)knownPermission).personas,((Psyche) permission).personas) >= 0;
+                }
+                if (knownPermission instanceof Psyche) {
+
+                }
+                if (knownPermission instanceof Session) {
+
                 }
             }
+            for (char psychePersona: ((Psyche) permission).personas) {
+                for (Permission personaRaw: this.personas) {
+                    if (((Persona)personaRaw).persona == psychePersona) return true;
+                }
+            }
+            return false;
         }
-        return false;
+        return personas.
     }
 
     @Override
     public Enumeration<Permission> elements() {
-        return personas.elements();
+        return this.personas.elements();
     }
+
 }

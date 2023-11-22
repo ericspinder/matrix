@@ -1,78 +1,32 @@
 package dev.inward.matrix.authority;
 
-import dev.inward.matrix.engine.Zone;
+import dev.inward.matrix.*;
+import dev.inward.matrix.fact.matter.Indicia;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.channels.AsynchronousChannel;
-import java.nio.file.FileStore;
-import java.nio.file.FileSystem;
-import java.util.Objects;
 
-public abstract class Domain<Z extends Zone<Z>,CHANNEL extends AsynchronousChannel,A extends Authority<Z,CHANNEL,A>,D extends Domain<Z,CHANNEL,A,D>> implements Comparable<D> {
+public class Domain implements Comparable<Domain> {
 
-    protected final Z zone;
-    protected final A parent;
-    protected final String name;
-    protected final URL url;
-    protected final FileStore fileStore;
+    protected transient final URL url;
 
-    public Domain(@Nonnull Z zone,@Nonnull A parent, @Nullable String name) {
-        this.zone = zone;
-        this.parent = parent;
-        this.name = name;
-        url = this.zone.createUrl(this);
+    public Domain(@Nonnull String domain) {
+        try {
+            this.url = new URL(domain);
+        }
+        catch (MalformedURLException malformedURLException) {
+            throw new MatrixException(MatrixException.Type.Domain_not_initialized_malformed_URL,"unable to create domain", Indicia.Focus.Assembly, Indicia.Severity.Exceptional,malformedURLException);
+        }
     }
 
-    public FILESYSTEM getFileSystem() {
-        return this.parent.getFileSystem();
+    public URL getUrl() {
+        return url;
     }
 
     @Override
-    @SuppressWarnings("all")
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Domain)) return false;
-        D that = (D) o;
-        return Objects.equals(this.parent,that.parent) && this.name.equals(that.name);
+    public int compareTo(Domain that) {
+        return this.url.toExternalForm().compareTo(that.url.toExternalForm());
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(parent, name);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public int compareTo(@Nonnull  D that) {
-        if (this.parent == null && that.parent == null) {
-            return this.name.compareTo(that.name);
-        }
-        if (this.parent == null) {
-            return -1;
-        }
-        if (that.parent == null) {
-            return 1;
-        }
-        int isZero = this.parent.compareTo(that.parent);
-        if (isZero == 0) {
-            return this.name.compareTo(that.name);
-        }
-        return isZero;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        if (parent != null) {
-             stringBuilder.append(this.parent);
-        }
-        stringBuilder.append(this.name);
-        return stringBuilder.toString();
-    }
 }

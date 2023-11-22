@@ -3,15 +3,18 @@ package dev.inward.matrix.fact.authoritative.notion.advisor;
 import crud.rubric.Roller;
 import dev.inward.matrix.fact.*;
 import dev.inward.matrix.fact.datum.Envoy;
-import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.Identity;
 import dev.inward.matrix.fact.authoritative.notion.Agent;
 import dev.inward.matrix.fact.authoritative.notion.Notion;
-import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.Context;
 
-import java.io.Serializable;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 
-public abstract class Manager<Y extends Factory<Y,F,O,I,X,B,R,N, NI, NX,A>,F extends Fact<F,I,X,R, NI, NX>,O extends Operational<Y,F,O,I,X,B,R,N, NI, NX,A>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,R>,R extends Representative<F,I,X,R, NI, NX>,N extends Notion<N, NI, NX,A>, NI extends Identity<NI, NX>, NX extends Context<NX>,A extends Agent<N, NI,NX,A>> implements Comparable<Manager<Y,F,O,I,X,B,R,N,NI,NX,A>>, Serializable {
+public abstract class Manager<F extends Fact<F,I,X,R, NI, NX>,O extends Operational<F,O,I,X,B,R,N, NI, NX,A>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,R>,R extends Representative<F,I,X,R, NI, NX>,N extends Notion<N, NI, NX,A>, NI extends Identity<NI, NX>, NX extends Context<NX>,A extends Agent<N, NI,NX,A>> implements Comparable {
 
     /**
      *
@@ -25,29 +28,30 @@ public abstract class Manager<Y extends Factory<Y,F,O,I,X,B,R,N, NI, NX,A>,F ext
     public abstract  <DATUM,D extends Datum<DATUM,D,V>,V extends Envoy<DATUM,D,V>> boolean handle(Roller roller,V envoy);
 
 }
-//    private class ExceptionCounterByDuration {
-//        private LinkedHashMap<Instant, Boolean> linkedHashMap = new LinkedHashMap<Instant, Boolean>() {
-//            @Override
-//            protected boolean removeEldestEntry(Map.Entry<Instant, Boolean> eldest) {
-//                return Instant.now().minus(qualifyingTime).isAfter(eldest.getKey());
-//            }
-//        };
-//        private final Duration qualifyingTime;
-//        private final int numberOfOccurrences;
-//
-//        public ExceptionCounterByDuration(Duration qualifyingTime, int numberOfOccurrences) {
-//            this.qualifyingTime = qualifyingTime;
-//            this.numberOfOccurrences = numberOfOccurrences;
-//
-//        }
-//        public Boolean addOne() {
-//            if (this.numberOfOccurrences > linkedHashMap.size()) {
-//                this.linkedHashMap.put(Instant.now(), true);
-//                return true;
-//            }
-//            this.linkedHashMap.put(Instant.now(), false);
-//            return false;
-//        }
+    class ExceptionCounterByDuration {
+        private LinkedHashMap<Instant, Boolean> linkedHashMap = new LinkedHashMap<Instant, Boolean>() {
+            @Override
+            protected boolean removeEldestEntry(Map.Entry<Instant, Boolean> eldest) {
+                return Instant.now().minus(qualifyingTime).isAfter(eldest.getKey());
+            }
+        };
+        private final Duration qualifyingTime;
+        private final int numberOfOccurrences;
+
+        public ExceptionCounterByDuration(Duration qualifyingTime, int numberOfOccurrences) {
+            this.qualifyingTime = qualifyingTime;
+            this.numberOfOccurrences = numberOfOccurrences;
+
+        }
+        public Boolean addOne() {
+            if (this.numberOfOccurrences > linkedHashMap.size()) {
+                this.linkedHashMap.put(Instant.now(), true);
+                return true;
+            }
+            this.linkedHashMap.put(Instant.now(), false);
+            return false;
+        }
+    }
 //    public <D extends Datum<Y,D,F,O,I,X,B,P>> D create() {
 //        throw new NotionStartupException(NotionStartupException.Type.MissingDefaultValue,this.getClass());
 //    }

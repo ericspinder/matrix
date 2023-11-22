@@ -1,6 +1,6 @@
 package dev.inward.matrix.fact.datum.host;
 
-import dev.inward.matrix.authority.ServerRecord;
+import dev.inward.matrix.authority.dns.resourceRecord.ServerRecord;
 
 public final class RemoteHost {
 

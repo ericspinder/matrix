@@ -1,8 +1,8 @@
 package dev.inward.matrix.fact.intialized.jdbc_driver;
 
-import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.Identity;
 import dev.inward.matrix.fact.intialized.Intialized;
-import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.Context;
 
 import java.sql.Connection;
 

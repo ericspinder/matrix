@@ -1,8 +1,8 @@
 package dev.inward.matrix.fact.authoritative.notion.interaction.http;
 
 import dev.inward.matrix.fact.Specification;
-import dev.inward.matrix.fact.authoritative.Identity;
-import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.Identity;
+import dev.inward.matrix.Context;
 import dev.inward.matrix.fact.authoritative.notion.interaction.Desk;
 import dev.inward.matrix.resources.Supplier;
 

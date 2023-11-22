@@ -1,21 +1,26 @@
 package dev.inward.matrix.engine;
 
+import dev.inward.matrix.Library;
+import dev.inward.matrix.Scheme;
+import dev.inward.matrix.director.library.Director;
 import dev.inward.matrix.fact.*;
+import dev.inward.matrix.fact.authoritative.notion.Notion;
 import dev.inward.matrix.fact.datum.Envoy;
-import dev.inward.matrix.fact.authoritative.Identity;
-import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.Identity;
+import dev.inward.matrix.Context;
 import dev.inward.matrix.resources.Resource;
 import dev.inward.matrix.resources.Resources;
+import dev.inward.matrix.route.Route;
 
 import java.time.Instant;
 import java.util.*;
 
-public class Engine<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<X>,O extends Operational<F,I,ID,X>,S extends Resources<F,I,ID,X>> {
+public class Engine<S extends Scheme<S,L,PATH,N>,L extends Library<S,L,PATH,N>,PATH extends Comparable<PATH>,F extends Fact<S,L,PATH,F,N>,M extends Model<S,L,PATH,F,M,N>,N extends Notion<S,L,PATH,N>,O extends Operational<S,L,PATH,F,O>,R extends Resources<S,L,PATH,F>> {
 
     public final Instant createInstant = Instant.now();
     protected final O operational;
-    protected List<Model<F,I,X,O,B,R,?,?,?,?>> modelList = new ArrayList<>();
-    protected final Map<String,Induction<Y,F,O,I,X,B,R,N,NI,NX,A,>> inductionMap = new HashMap<>();
+    protected List<M> modelList = new ArrayList<>();
+    protected final Map<String,Induction<>> inductionMap = new HashMap<>();
 
 
     public Engine(O operational, S resources) {

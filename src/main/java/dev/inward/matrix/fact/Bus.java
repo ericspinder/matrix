@@ -1,39 +1,45 @@
 package dev.inward.matrix.fact;
 
-import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.Context;
+import dev.inward.matrix.Scheme;
+import dev.inward.matrix.Library;
+import dev.inward.matrix.Range;
+import dev.inward.matrix.fact.authoritative.notion.Notion;
 import dev.inward.matrix.fact.datum.Complication;
 import dev.inward.matrix.fact.datum.Envoy;
 
-import java.security.Permission;
-import java.security.PermissionCollection;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
-public class Bus<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<X>,B extends Bus<F,I,ID,X,B>>  {
+public class Bus<S extends Scheme<S,L,PATH>,L extends Library<S,L,PATH>,PATH extends Comparable<PATH>,F extends Fact<S,L,PATH,F,N>,N extends Notion<N>> {
 
         protected final UUID uuid = UUID.randomUUID();
-        protected ConcurrentLinkedDeque<Representative<F,I,ID,X>> deque;
-        public <DATUM,E extends Envoy<DATUM>> E add(Passenger<DATUM> passenger) {
+        protected ConcurrentLinkedDeque<Representative<S,L,PATH,F>> deque;
+
+        public Bus(Range<PATH> range) {
 
         }
+
+        public <DATUM, E extends Envoy<DATUM>> E add(Passenger<DATUM> passenger) {
+                E envoy = new Envoy<DATUM>(passenger,((Context)passenger.getClass().getProtectionDomain()).getLibrary().getCatalog().register(passenger);
+        }
+
         /**
          * A map of the Complications currently affecting the bus, the value is the instant they were added
          */
-        protected Map<Complication<?,?,?,?,?>, Instant> complications = new ConcurrentHashMap<>();
+        protected Map<Complication<?,?,S,L,PATH,F,?,?,?>, Instant> complications = new ConcurrentHashMap<>();
 
-        public Bus(Complication<?,?,?,?,?>[] complications) {
-                Arrays.stream(complications).forEach(complication -> this.complications.put(complication,Instant.now()));
-        }
 
         public final void register(R representative) {
+
         }
+
         public final M calling() {
 
                 return null;
         }
-
 }
 //        public DATUM take(Proffer proffer, Task[] tasks, boolean isWriteLock) {
 //                long lock;

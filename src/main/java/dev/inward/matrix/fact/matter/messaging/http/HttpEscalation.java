@@ -1,9 +1,9 @@
 package dev.inward.matrix.fact.matter.messaging.http;
 
-import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.Identity;
 import dev.inward.matrix.fact.matter.Indicia;
 import dev.inward.matrix.fact.matter.messaging.Escalation;
-import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.Context;
 import dev.inward.matrix.fact.authoritative.notion.interaction.http.HttpRequest;
 import dev.inward.matrix.fact.authoritative.notion.interaction.http.HttpResponse;
 

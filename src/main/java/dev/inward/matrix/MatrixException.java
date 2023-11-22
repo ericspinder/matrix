@@ -1,6 +1,5 @@
 package dev.inward.matrix;
 
-import crud.rubric.Blocker;
 import dev.inward.matrix.fact.matter.Indicia;
 
 public class MatrixException extends Blocker {
@@ -10,10 +9,13 @@ public class MatrixException extends Blocker {
         ReflectiveOperationFailed("A reflective operation failed to instantiate class"),
         BadCastToGeneric("A bad cast when trying to retrieve a value"),
         Cannot_Update_Timer("Cannot update timer object with new finish time once set"),
+        Catalog_not_initialized("Catalog not initialized"),
         ConstructorProblem_Reflective("Unable to create needed constructor, reflective operation failed"),
         ConstructorProblem_WrongClass("Unable to find needed constructor, likely should be using a different class"),
         ClassCastException("Unable to cast to needed class"),
-        CodeSigners_not_initialized("Domain not initialized, getCodeSigner cannot be called before getUrl()"),
+        CodeSigners_not_initialized("Code Signer not initialized"),
+        Domain_not_initialized_malformed_URL("Domain not initialized, malformed URL"),
+        InSitu_already_init("InSitu already initialized, see Fidelity.Aforementioned"),
         MissingDefaultValue("Missing a default value"),
         MissMatchedOptionKey("Option key was not set for proper instance value"),
         NetworkUnavailable_No_Return("Problem gaining network details"),
@@ -26,8 +28,9 @@ public class MatrixException extends Blocker {
         Timeout_On_Non_Containerized_Notion("A timeout occurred ona non containerized Notion, which has been hard closed by default"),
         No_Failover_Available("No Connection Suppliers in failover stack"),
         UnableToParseOS("Unable to parse Operating using using the System Property: 'os.name'"),
-        UnableToChangeJXM("Unable to change JMX after it been loaded"),
+        Terrene_Not_Among_Known_Worlds("Terrene is not among known worlds"),
         UnableToStartJMX_className("JMX failed to start; class not found"),
+        UnknownHost("unknown host");
         ;
         private final String description;
         Type(String description) {
@@ -38,12 +41,10 @@ public class MatrixException extends Blocker {
         }
     }
     public final Type type;
-    public final Class where;
 
-    public MatrixException(Type type, Class where, Indicia.Focus focus, Indicia.Severity severity, Exception e) {
-        super(where.getCanonicalName(),focus,severity,e);
+    public MatrixException(Type type, String locus, Indicia.Focus focus, Indicia.Severity severity, Exception e) {
+        super(locus,focus,severity,e);
         this.type = type;
-        this.where = where;
     }
 
 

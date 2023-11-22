@@ -1,7 +1,7 @@
 package dev.inward.matrix.phenomenon.producer;
 
-import dev.inward.matrix.fact.authoritative.Identity;
-import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.Identity;
+import dev.inward.matrix.Context;
 import dev.inward.matrix.phenomenon.Phenomenon;
 
 import java.lang.ref.SoftReference;

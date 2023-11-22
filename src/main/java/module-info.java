@@ -7,11 +7,14 @@ module dev.inward.matrix {
     exports dev.inward.matrix.fact.datum;
     exports dev.inward.matrix.fact.matter;
     exports dev.inward.matrix.engine;
-    exports crud.rubric;
     exports dev.inward.matrix.fact;
-    exports dev.inward.matrix.fact.authoritative.notion.authority.matrix.ziggurat to java.instrument;
+    exports dev.inward.matrix.fact.authoritative.notion.authority.source.ziggurat to java.instrument;
     exports dev.inward.matrix.route;
-    exports dev.inward.matrix.fact.tracked;
+    //exports dev.inward.source.fact.tracked;
     exports dev.inward.matrix.fact.authoritative;
-    exports dev.inward.matrix.fact.datum.protocol;
+    exports dev.inward.matrix.resources;
+    exports dev.inward.matrix.director.library.catalog;
+    exports dev.inward.matrix.director.library;
+    exports dev.inward.matrix.director;
+    exports dev.inward.matrix;
 }

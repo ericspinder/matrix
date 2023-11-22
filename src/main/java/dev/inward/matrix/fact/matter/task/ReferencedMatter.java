@@ -1,8 +1,8 @@
 package dev.inward.matrix.fact.matter.task;
 
-import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.Identity;
 import dev.inward.matrix.fact.matter.Matter;
-import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.Context;
 
 import java.lang.ref.SoftReference;
 

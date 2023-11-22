@@ -1,12 +1,19 @@
 package dev.inward.matrix.policy;
 
+import dev.inward.matrix.Library;
+import dev.inward.matrix.Scheme;
+import dev.inward.matrix.fact.Concept;
 import dev.inward.matrix.fact.Fact;
 import dev.inward.matrix.fact.Representative;
-import dev.inward.matrix.fact.authoritative.Identity;
-import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.Identity;
+import dev.inward.matrix.Context;
+import dev.inward.matrix.fact.authoritative.notion.Notion;
+import dev.inward.matrix.fact.matter.Matter;
 
 import javax.annotation.Nonnull;
+import java.nio.file.FileVisitOption;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 /**
  * @param <BEHAVIOR> The object created during initialization
@@ -19,15 +26,11 @@ import java.util.Objects;
  * @param <NX> Containing Notion's Context
  * @param <P> This class - allows Comparable<P> to work
  */
-public abstract class Policy<BEHAVIOR,F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<X>,R extends Representative<F,I,ID,X>,NI extends Identity<NI,NX>,NX extends Context<NX>,P extends Policy<BEHAVIOR,CF,CI,CX,CR,NI,NX,P>> implements Comparable<P> {
+public abstract class Policy<BEHAVIOR extends Supplier<Matter<S,L,PATH,N,?>>,DATUM,S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Identity.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> implements Comparable<P> {
 
     protected final BEHAVIOR behavior;
 
-    public Policy(@Nonnull CR containingFact) {
-        this.behavior = this.initDefault(containingFact);
-    }
-
-    public Policy(BEHAVIOR BEHAVIOR) {
+    public Policy(FileVisitOption) {
         this.behavior = BEHAVIOR;
     }
 

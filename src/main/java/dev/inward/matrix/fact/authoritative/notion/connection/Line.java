@@ -1,8 +1,8 @@
 package dev.inward.matrix.fact.authoritative.notion.connection;
 
-import dev.inward.matrix.authority.ServerRecord;
+import dev.inward.matrix.authority.dns.resourceRecord.ServerRecord;
 import dev.inward.matrix.fact.authoritative.notion.Agent;
-import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.Context;
 import dev.inward.matrix.resources.MatrixProtectionDomain;
 
 import java.lang.ref.ReferenceQueue;

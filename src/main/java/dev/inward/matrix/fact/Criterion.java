@@ -1,43 +1,67 @@
 package dev.inward.matrix.fact;
 
 import dev.inward.matrix.Meta_I;
-import dev.inward.matrix.engine.Purpose;
-import dev.inward.matrix.engine.Variant;
+import dev.inward.matrix.Range;
+import dev.inward.matrix.engine.Zone;
 
+import java.nio.file.WatchEvent;
 import java.time.Duration;
+import java.time.Instant;
 import java.util.BitSet;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public abstract class Criterion implements Meta_I {
+public abstract class Criterion implements Comparable<Criterion>,Meta_I, WatchEvent.Modifier {
 
+    protected final Zone[] zones;
     protected final String label;
     protected final String description;
-    protected final String predictableClassName;
-    protected final Purpose[] purposes;
+    protected final transient String name;
 
-    public Criterion(String label, String description,String predictableClassName,Purpose[] purposes) {
+    @Override
+    public String name() {
+        return this.name;
+    }
+    protected String buildName() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.getClassName()).append('.').append(label).append('_').append('[');
+        for (Zone zone: zones) {
+            sb.append(zone.label).append(',');
+        }
+        sb.deleteCharAt(sb.length());
+        sb.append(']');
+        return sb.toString();
+    }
+
+    public Criterion(String label, String description, Zone[] zones) {
         this.label = label;
         this.description = description;
-        this.predictableClassName = predictableClassName;
-        this.purposes = purposes;
+        this.zones = zones;
+        this.name = buildName();
     }
 
     public static class Limiter extends Criterion {
 
         protected final int totalAllowed;
-        protected final int warnLevel;
+        protected final Map<Integer,Alert> warnLevels;
 
-        public Limiter(String label, String description,String limitedClassName, Purpose[] purposes,int totalAllowed, int warnLevel) {
-            super(label,description,limitedClassName,purposes);
+        public Limiter(String label, String description, Zone[] zones, int totalAllowed, Map<Integer,Alert> warnLevels) {
+            super(label,description, zones);
             this.totalAllowed = totalAllowed;
-            this.warnLevel = warnLevel;
+            this.warnLevels = warnLevels;
         }
+
+        @Override
+        public boolean repeat() {
+            return true;
+        }
+
         public int getTotalAllowed() {
             return totalAllowed;
         }
 
-        public int getWarnLevel() {
-            return warnLevel;
+        public Map<Integer, Alert> getWarnLevels() {
+            return warnLevels;
         }
 
     }
@@ -46,11 +70,17 @@ public abstract class Criterion implements Meta_I {
         protected final long timeout;
         protected final TimeUnit timeUnit;
 
-        public Timeout(String label, String description, String timeoutClassName, Purpose[] purposes, long timeout,TimeUnit timeUnit) {
-            super(label,description,timeoutClassName,purposes);
+        public Timeout(String label, String description, Zone[] zones, long timeout, TimeUnit timeUnit) {
+            super(label,description, zones);
             this.timeout = timeout;
             this.timeUnit = timeUnit;
         }
+
+        @Override
+        public boolean repeat() {
+            return true;
+        }
+
         public long getTimeout() {
             return timeout;
         }
@@ -63,54 +93,55 @@ public abstract class Criterion implements Meta_I {
             return Duration.of(timeout, timeUnit.toChronoUnit());
         }
 
+        public Instant whenFromNow() {
+            return Instant.now().plus(timeout,timeUnit.toChronoUnit());
+        }
+        public Instant whenFromThen(Instant then) {
+            return then.plus(timeout,timeUnit.toChronoUnit());
+        }
+
     }
 
     public static class Ranged<DATUM extends Comparable<DATUM>> extends Criterion {
 
-        protected final DATUM maxValue;
-        protected final DATUM minValue;
-        protected final Comparable<DATUM> comparable;
-        public Ranged(String label, String description, String rangedClassName, Purpose[] purposes, DATUM maxValue, DATUM minValue, Comparable<DATUM> comparable) {
-            super(label,description,rangedClassName,purposes);
-            this.maxValue = maxValue;
-            this.minValue = minValue;
-            this.comparable = comparable;
+        protected final Range range;
+        public Ranged(String label, String description, Zone[] zones, Range<DATUM> range) {
+            super(label,description, zones);
+            this.range = range;
         }
 
-        public DATUM getMaxValue() {
-            return maxValue;
+        @Override
+        public boolean repeat() {
+            return true;
         }
 
-        public DATUM getMinValue() {
-            return minValue;
-        }
-
-        public Comparable<DATUM> getComparable() {
-            return comparable;
-        }
     }
-    public static class Chronological<DATUM> extends Criterion {
-        public Chronological(Variant variant, String label,String description) {
-            super(variant,label,description);
+    public static class Timed extends Criterion {
+
+        protected final long count;
+        protected final TimeUnit timeUnit;
+
+        public Timed(String label, String description, Zone[] zones, long count, TimeUnit timeUnit) {
+            super(label,description, zones);
+            this.count = count;
+            this.timeUnit = timeUnit;
+        }
+
+        @Override
+        public boolean repeat() {
+            return false;
         }
     }
     public static class OnCountdown<DATUM> extends Criterion {
-        public OnCountdown(Variant variant,String label,String description) {
-            super(variant,label,description);
+        public OnCountdown(String label, String description, Zone[] zones) {
+            super(label, description, zones);
+        }
+
+        @Override
+        public boolean repeat() {
+            return false;
         }
     }
-
-    @Override
-    public final String getLabel() {
-        return label;
-    }
-
-    @Override
-    public final String getDescription() {
-        return description;
-    }
-
-
     /**
      * https://stackoverflow.com/questions/2473597/bitset-to-and-from-integer-long
      */
@@ -136,5 +167,20 @@ public abstract class Criterion implements Meta_I {
             }
             return value;
         }
+    }
+    public abstract boolean repeat();
+    @Override
+    public final String getLabel() {
+        return label;
+    }
+
+    @Override
+    public final String getDescription() {
+        return description;
+    }
+
+    @Override
+    public int compareTo(Criterion that) {
+        return this.name().compareTo(that.name());
     }
 }

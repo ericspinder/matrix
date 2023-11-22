@@ -1,14 +1,14 @@
 package dev.inward.matrix.fact.matter.signer;
 
-import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.Identity;
 import dev.inward.matrix.fact.matter.Indicia;
 import dev.inward.matrix.fact.matter.Matter;
-import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.Context;
 
 import java.security.CodeSigner;
 import java.util.UUID;
 
-public abstract class Signer<S extends Signer<S,CI,CX>,CI extends Identity<CI,CX>,CX extends Context<CX>> extends Matter<S,CI,CX> {
+public abstract class Signer<S extends Signer<S>> extends Matter<S> {
 
     protected final CodeSigner codeSigner;
 

@@ -1,31 +1,34 @@
 package dev.inward.matrix.engine;
 
+import dev.inward.matrix.Library;
+import dev.inward.matrix.Scheme;
 import dev.inward.matrix.fact.Bus;
+import dev.inward.matrix.fact.Concept;
 import dev.inward.matrix.fact.Fact;
 import dev.inward.matrix.fact.Representative;
 import dev.inward.matrix.route.Route;
 import dev.inward.matrix.fact.datum.Envoy;
-import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.Identity;
 import dev.inward.matrix.fact.matter.Matter;
 import dev.inward.matrix.fact.authoritative.notion.Agent;
 import dev.inward.matrix.fact.authoritative.notion.Notion;
-import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.Context;
 import dev.inward.matrix.phenomenon.Phenomenon;
-import dev.inward.matrix.phenomenon.Tolerances;
+import dev.inward.matrix.phenomenon.Tolerant;
 import dev.inward.matrix.resources.Resource;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public abstract class Induction<DATUM,V extends Envoy<DATUM,V>,F extends Fact<F,I,X>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<F,I,X,B,R>,R extends Representative<F,I,X,R,NI,NX>,N extends Notion<N,NI,NX,A>,NI extends Identity<NI,NX>,NX extends Context<NX>,A extends Agent<N,NI,NX,A>,U extends Route<F,I,X,B,R,N,NI,NX,A,U,P,M,T>,P extends Phenomenon<M,P,T>,M extends Matter<M,I,X>,T extends Tolerances<M,T>> {
+public abstract class Induction<DATUM,S extends Scheme<S,L,PATH,N>,L extends Library<S,L,PATH,N>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<S,L,PATH,ID,I,C>,C extends Concept<S,L,PATH,ID,I,C,N>,N extends Notion<S,L,PATH,N>> {
 
     protected final DatumVisitor<DATUM> datumVisitor;
-    protected final Resource<DATUM> resource;
+    protected final Resource<DATUM,S,L,PATH,ID,I,C,N> resource;
 
-    public Induction(@Nonnull Resource<DATUM> resource,@Nullable DatumVisitor<DATUM> datumVisitor) {
+    public Induction(@Nonnull Resource<DATUM,S,L,PATH,ID,I,C,N> resource,@Nullable DatumVisitor<DATUM> datumVisitor) {
         this.resource = resource;
         if (datumVisitor != null) {
-
+            datumVisitor = new DatumVisitor<DATUM>();
         }
     }
     public V engage(DATUM datum,R representative) {

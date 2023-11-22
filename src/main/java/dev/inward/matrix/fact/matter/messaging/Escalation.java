@@ -1,9 +1,9 @@
 package dev.inward.matrix.fact.matter.messaging;
 
-import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.Identity;
 import dev.inward.matrix.fact.matter.Indicia;
 import dev.inward.matrix.fact.matter.Matter;
-import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.Context;
 import dev.inward.matrix.phenomenon.producer.promise.Promise;
 
 import java.time.Instant;

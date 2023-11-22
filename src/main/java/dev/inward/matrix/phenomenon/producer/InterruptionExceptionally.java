@@ -1,6 +1,6 @@
 package dev.inward.matrix.phenomenon.producer;
 
-import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.Identity;
 import dev.inward.matrix.fact.matter.Exceptionally;
 import dev.inward.matrix.fact.matter.Indicia;
 

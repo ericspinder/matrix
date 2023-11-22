@@ -1,15 +1,15 @@
 package crud.rubric;
 
 import dev.inward.matrix.engine.Edition;
-import dev.inward.matrix.fact.authoritative.Identity;
-import dev.inward.matrix.fact.authoritative.notion.concept.Concept;
-import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.Identity;
+import dev.inward.matrix.fact.authoritative.notion.concept.Protocol;
+import dev.inward.matrix.Context;
 import dev.inward.matrix.fact.datum.Standard;
 
 import java.security.KeyStore;
 import java.util.Map;
 
-public class Prescript<C extends Concept<C,X,?>,X extends Context.Platform<X>,E extends Edition<E,X>> extends Rubric<C, Identity.Ego<X>,X,E> {
+public class Prescript<C extends Protocol<C,X,?>,X extends Context.Platform<X>,E extends Edition<E,X>> extends Rubric<C, Identity.Ego<X>,X,E> {
 
     private final KeyStore keyStore;
 

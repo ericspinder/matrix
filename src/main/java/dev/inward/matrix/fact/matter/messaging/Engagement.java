@@ -1,15 +1,15 @@
 package dev.inward.matrix.fact.matter.messaging;
 
-import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.Identity;
 import dev.inward.matrix.fact.matter.Indicia;
 import dev.inward.matrix.fact.matter.Matter;
-import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.Context;
 import dev.inward.matrix.fact.authoritative.yard.Tree;
 
 import java.lang.ref.SoftReference;
 import java.time.Instant;
 
-public class Engagement<E extends Engagement<E,F,P>, F extends Fingerprint,P extends Tree> extends Matter<E, Identity.SuperEgo, Context.Path> {
+public class Engagement<E extends Engagement<E,F,P>, F extends Fingerprint,P extends Tree> extends Matter<E, Identity.Gate, Context.Path> {
 
     private final F fingerprint;
     protected SoftReference<P> persona;

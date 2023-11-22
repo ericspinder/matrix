@@ -2,8 +2,8 @@ package dev.inward.matrix.fact.datum.creation;
 
 import dev.inward.matrix.fact.Fact;
 import dev.inward.matrix.fact.Model;
-import dev.inward.matrix.fact.authoritative.Identity;
-import dev.inward.matrix.fact.Context;
+import dev.inward.matrix.Identity;
+import dev.inward.matrix.Context;
 
 import java.time.Duration;
 import java.time.Instant;

@@ -1,44 +1,33 @@
 package dev.inward.matrix.route;
 
-import dev.inward.matrix.engine.Zone;
-import dev.inward.matrix.fact.Fact;
-import dev.inward.matrix.fact.Representative;
-import dev.inward.matrix.fact.authoritative.Identity;
-import dev.inward.matrix.fact.Context;
-import dev.inward.matrix.fact.intialized.Book;
-import dev.inward.matrix.phenomenon.Phenomenon;
-import dev.inward.matrix.phenomenon.Tolerances;
+import dev.inward.matrix.Clerk;
+import dev.inward.matrix.Librarian;
+import dev.inward.matrix.Library;
+import dev.inward.matrix.Scheme;
+import dev.inward.matrix.director.library.Director;
+import dev.inward.matrix.fact.matter.Matter;
 
-import java.security.Permission;
-import java.security.PermissionCollection;
-import java.util.Enumeration;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-public class Road<Z extends Zone<Z>,B extends Book> implements ThreadFactory {
+public class Road<S extends Scheme<S,L>,L extends Library<S,L>,D extends Director<S,L,D,R>,R extends Road<S,L,D,R>> extends ThreadPoolExecutor  {
 
-    protected final Tolerances tolerances;
-    public ConcurrentLinkedDeque<Driver<F,I,ID,X,?>> drivers;
-    protected final AtomicBoolean running = new AtomicBoolean();
-    protected final ConcurrentLinkedDeque<? super Phenomenon<?,T,?>> deque = new ConcurrentLinkedDeque();
-
-    protected Road(Tolerances tolerances) {
-        this.tolerances = tolerances;
-    }
-
-    public Tolerances getTolerances() {
-        return tolerances;
-    }
-
-    public void shutdown() {
-
+    protected final Dispatch<S,L,D,R> dispatch;
+    public Road(Dispatch<S,L,D,R> dispatch) {
+        super(dispatch.corePoolSize, dispatch.maximumPoolSize, dispatch.keepAliveTime, dispatch.unit, dispatch.workQueue,dispatch,dispatch);
+        this.dispatch = dispatch;
     }
 
     @Override
-    @SuppressWarnings("all")
-    public Driver newThread(Runnable r) {
-
-        return null;
+    protected void beforeExecute(Thread t, Runnable r) {
+        ;
     }
 
+    @Override
+    protected <T> RunnableFuture<T> newTaskFor(Runnable runnable, T value) {
+        return super.newTaskFor(runnable, value);
+    }
+
+    public Dispatch<S,L,D,R> getDispatch() {
+        return dispatch;
+    }
 }

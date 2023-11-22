@@ -1,7 +1,7 @@
 package dev.inward.matrix.fact.matter.report;
 
-import dev.inward.matrix.fact.Context;
-import dev.inward.matrix.fact.authoritative.Identity;
+import dev.inward.matrix.Context;
+import dev.inward.matrix.Identity;
 
 import java.time.Instant;
 import java.util.Map;
