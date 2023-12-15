@@ -16,12 +16,14 @@ import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.Watchable;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Complication<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Identity.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CRIT extends Criterion,P extends Predictable<S,L,PATH,ID,T,C,CRIT,P,COMP>,COMP extends Complication<S,L,PATH,ID,T,C,CRIT,P,COMP>> implements WatchKey {
 
     protected final CRIT criterion;
     protected final P predictable;
-    protected final Class<Aspect<S,L,PATH,ID,T,C>> aspect;
+    protected final ConcurrentHashMap<Class<Aspect<S,L,PATH,ID,T,C>>,Notion<S,L>> aspects;
 
 
     public Complication(CRIT criterion, P predictable,Class<Aspect<S,L,PATH,ID,T,C>> aspect) {
@@ -30,8 +32,6 @@ public class Complication<S extends Scheme<S,L>,L extends Library<S,L>,PATH exte
         this.callSite = predictable.registerCriterion(criterion);
     }
     public void engage(Bus<> bus, E envoy) throws ExecutionExceptionly {
-        MethodHandle methodHandle = callSite.getTarget();
-        predictable.complete(this.criterion, envoy, methodHandle);
 
     }
 

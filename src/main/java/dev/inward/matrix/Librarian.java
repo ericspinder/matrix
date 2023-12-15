@@ -16,12 +16,14 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Librarian<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,B extends Librarian<S,L,PATH,B>> implements Watchable {
+public abstract class Librarian<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,B extends Librarian<S,L,PATH,B>> implements Watchable, Comparable<B> {
 
+    protected final L library;
     protected final char initSigil;
     protected final Range<PATH> range;
 
-    public Librarian(char initSigil, Range<PATH> range) {
+    public Librarian(L library,char initSigil, Range<PATH> range) {
+        this.library = library;
         this.initSigil = initSigil;
         this.range = range;
     }
@@ -33,11 +35,20 @@ public abstract class Librarian<S extends Scheme<S,L>,L extends Library<S,L>,PAT
         return null;
     }
 
+    public L getLibrary() {
+        return library;
+    }
+
     public char getInitSigil() {
         return initSigil;
     }
 
     public Range<PATH> getRange() {
         return range;
+    }
+
+    @Override
+    public int compareTo(B that) {
+        return 0;
     }
 }

@@ -8,7 +8,7 @@ import dev.inward.matrix.fact.matter.Matter;
 
 import java.time.Instant;
 
-public abstract class Monitor<S extends Scheme<S,L,PATH,N>,L extends Library<S,L,PATH,N>,PATH extends Comparable<PATH>,N extends Notion<S,L,PATH,N>,M extends Matter<S,L,PATH,N,M>> {
+public abstract class Monitor<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,N extends Notion<S,L,PATH,N>,M extends Matter<S,L,PATH,N,M>> {
 
     protected final Indicia<S,L,PATH,N> indicia;
     protected final Instant createTime = Instant.now();

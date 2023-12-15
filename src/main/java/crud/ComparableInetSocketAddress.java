@@ -1,4 +1,4 @@
-package dev.inward.matrix.fact.authoritative.notion.concept;
+package crud;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;

@@ -1,39 +1,37 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.authority.Domain;
+import dev.inward.matrix.authority.Registrar;
 import dev.inward.matrix.authority.dns.Terrene;
 import dev.inward.matrix.director.library.Director;
 import dev.inward.matrix.director.library.Memory;
 import dev.inward.matrix.director.library.catalog.Catalog;
 import dev.inward.matrix.director.library.catalog.Gathering;
-import dev.inward.matrix.fact.Addressed;
 import dev.inward.matrix.fact.Concept;
-import dev.inward.matrix.fact.Fact;
 import dev.inward.matrix.fact.Model;
-import dev.inward.matrix.fact.authoritative.notion.Notion;
 import dev.inward.matrix.fact.matter.Indicia;
 
 import java.io.IOException;
 import java.net.URI;
-import java.net.URL;
 import java.nio.channels.SeekableByteChannel;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileAttribute;
 import java.nio.file.attribute.FileAttributeView;
-import java.nio.file.attribute.UserPrincipalLookupService;
 import java.nio.file.spi.FileSystemProvider;
 import java.security.CodeSigner;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Pattern;
 
-public abstract class Library<S extends Scheme<S,L>,L extends Library<S,L>> extends FileSystemProvider {
+public abstract class Library<S extends Scheme<S,L>,L extends Library<S,L>> extends FileSystemProvider implements Comparable<L> {
 
     protected final S scheme;
     protected final Terrene terrene;
     protected final Domain domain;
 
+    protected final Map<Registry<S,L>, Registrar<S,L>>
     protected final Map<Catalog<S,L,?,?,?,?,?>,Librarian<S,L,?,?>> catalogs = new ConcurrentHashMap<>();
     protected final Map<Model<S,L,?,?,?>, Director<S,L,?,?>> models = new ConcurrentHashMap<>();
 
@@ -55,6 +53,9 @@ public abstract class Library<S extends Scheme<S,L>,L extends Library<S,L>> exte
         this.terrene = terrene;
         this.domain = domain;
 
+    }
+    public final Map<Character, Model<S,L,PATH,?,?,?,?,?,?>> getSiglaModelMatching() {
+        return siglaModelMatching;
     }
 
     @Override
@@ -118,7 +119,7 @@ public abstract class Library<S extends Scheme<S,L>,L extends Library<S,L>> exte
     }
 
     @Override
-    public FileStore getFileStore(Path path) throws IOException {
+    public Memory<S,L,?> getFileStore(Path path) throws IOException {
         return null;
     }
 
@@ -147,8 +148,7 @@ public abstract class Library<S extends Scheme<S,L>,L extends Library<S,L>> exte
 
     }
 
-    public abstract boolean supports(Class<? extends Notion<S,L>> type);
-    protected abstract <ID extends Comparable<ID>,Q extends Query<S,L,PATH,ID,Q>,D extends Gathering<S,L,PATH,D,O,F>,O extends Notion<S,L,PATH,O>,N extends Identity.Tangible.Named<S,L,PATH,N,F>,F extends Fact<S,L,PATH,N,F>> Catalog<S,L,PATH,D,O,N,F> initCatalog(Library<S,L,PATH> library, Memory<S,L,PATH> memory, Identity.Ethereal<S,L,PATH,ID,Q> ethereal) throws CheckedException;
+    protected abstract <PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Identity.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CAT extends Catalog<S,L,PATH,ID,T,C,CAT>> C initCatalog(Memory<S,L,PATH> memory, Pattern separatorPattern, Map<PATH,Gathering<S,L,PATH,ID,T,C,CAT>> directoriesSeed) throws CheckedException;
 
     public CodeSigner[] getCodeSigners() {
 
@@ -163,9 +163,15 @@ public abstract class Library<S extends Scheme<S,L>,L extends Library<S,L>> exte
         return domain;
     }
 
-
-    public Catalog<S, L, PATH,N> getCatalog(PATH path)
+    @Override
+    public int compareTo(L that) {
+        int isZero = this.domain.compareTo(that.domain);
+        if (isZero == 0) {
+            isZero = this.scheme.compareTo(scheme);
+            if (isZero == 0) {
+                return this.terrene.compareTo(that.terrene);
+            }
+        }
+        return isZero;
     }
-
-
 }

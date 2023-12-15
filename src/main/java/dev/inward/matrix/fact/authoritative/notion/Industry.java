@@ -6,7 +6,7 @@ import dev.inward.matrix.Library;
 import dev.inward.matrix.fact.Factory;
 import dev.inward.matrix.Identity;
 import dev.inward.matrix.Context;
-import dev.inward.matrix.fact.authoritative.notion.concept.Protocol;
+import crud.Protocol;
 import dev.inward.matrix.resources.Resources;
 import dev.inward.matrix.resources.Storage;
 

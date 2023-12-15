@@ -1,13 +1,8 @@
 package dev.inward.matrix.fact;
 
-import dev.inward.matrix.Context;
 import dev.inward.matrix.Scheme;
 import dev.inward.matrix.Identity;
 import dev.inward.matrix.Library;
-import dev.inward.matrix.fact.authoritative.notion.Notion;
-import dev.inward.matrix.fact.authoritative.notion.concept.Protocol;
-import dev.inward.matrix.fact.authoritative.notion.concept.Matrix;
-import dev.inward.matrix.fact.authoritative.notion.concept.Construct;
 import dev.inward.matrix.resources.Resources;
 
 public abstract class Operational<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Identity.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,O extends Operational<S,L,PATH,ID,T,C,O>> {

@@ -1,7 +1,7 @@
 package dev.inward.matrix.fact.authoritative.notion.concept.evaluate;
 
 import dev.inward.matrix.Identity;
-import dev.inward.matrix.fact.authoritative.notion.concept.Protocol;
+import crud.Protocol;
 
 public class Evaluate extends Protocol<Evaluate,Existent> {
 

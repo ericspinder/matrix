@@ -13,15 +13,22 @@ public abstract class Gathering<S extends Scheme<S,L>,L extends Library<S,L>,PAT
 
     private transient final StampedLock gate = new StampedLock();
     protected final CAT catalog;
+    protected final PATH path;
     protected final Representative<S,L,PATH,ID,T,C> parent;
-    public Gathering(Representative<S,L,PATH,ID,T,C> parent, CAT catalog) {
+    public Gathering(Representative<S,L,PATH,ID,T,C> parent,PATH path, CAT catalog) {
         this.parent = parent;
+        this.path = path;
         this.catalog = catalog;
+    }
+
+    public PATH getPath() {
+        return path;
     }
 
     public CAT getCatalog() {
         return catalog;
     }
+
 
     public abstract Representative<S,L,PATH,ID,T,C> registerConcept(C concept);
 

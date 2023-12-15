@@ -1,7 +1,9 @@
 package dev.inward.matrix.personality;
 
+import dev.inward.matrix.Library;
 import dev.inward.matrix.MatrixException;
 import dev.inward.matrix.Context;
+import dev.inward.matrix.Scheme;
 import dev.inward.matrix.fact.matter.Indicia;
 
 import java.security.Permission;
@@ -12,13 +14,11 @@ import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.locks.StampedLock;
 
-public class Personality<EXPIRE extends Comparable<EXPIRE>,G extends Context.Governance<EXPIRE,G>> extends PermissionCollection {
+public class Personality<S extends Scheme<S,L>,L extends Library<S,L>,EXPIRE extends Comparable<EXPIRE>> extends PermissionCollection {
 
     public static final Personality Aforementioned = new Personality();
 
-    private final StampedLock personaGate = new StampedLock();
-    protected final Map<Persona,> knownPersonas = new Vector<>();
-    protected  registeredPersonas = null;
+    private final StampedLock gate = new StampedLock();
     protected final Vector<Psyche> activePsyches = new Vector<>();
     protected final Vector<Session> offeredSessions = new Vector<>();
     protected Psyche psyche;
@@ -55,7 +55,7 @@ public class Personality<EXPIRE extends Comparable<EXPIRE>,G extends Context.Gov
      * @throws SecurityException
      */
     @Override
-    public boolean implies(Permission permission) throws SecurityException {
+    public boolean implies(Permission permission) {
         if (permission instanceof Persona) {
             return ((Persona)knownPermission).persona == ((Persona)permission).persona;
                 if (knownPermission instanceof Psyche) {

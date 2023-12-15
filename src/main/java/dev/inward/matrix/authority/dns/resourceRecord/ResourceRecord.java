@@ -1,22 +1,20 @@
 package dev.inward.matrix.authority.dns.resourceRecord;
 
 import dev.inward.matrix.authority.Domain;
-import dev.inward.matrix.authority.Office;
 import dev.inward.matrix.authority.dns.Question;
 import dev.inward.matrix.authority.dns.Terrene;
-import dev.inward.matrix.fact.Concept;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.locks.StampedLock;
 
-public abstract class ResourceRecord<ID extends Comparable<ID>,RR extends ResourceRecord<ID,RR>> extends Concept<DNS, Office<ID,RR>,Question,ID,Answer,ResourceRecord<ID,RR>> implements Comparable<RR> {
+public abstract class ResourceRecord<RR extends ResourceRecord<RR>> extends Question implements Comparable<RR> {
 
     protected StampedLock gate = new StampedLock();
     protected int ttl;
 
     public ResourceRecord(Domain domain, ResourceRecordType type, Terrene terrene) {
-        super(domain,type,terrene);
+        super(domain, type, terrene);
     }
 
     public ByteBuffer getRData() {

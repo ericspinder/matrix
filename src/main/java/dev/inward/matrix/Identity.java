@@ -1,15 +1,11 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.authority.Domain;
-import dev.inward.matrix.authority.Registar;
+import dev.inward.matrix.authority.dns.Terrene;
+import dev.inward.matrix.director.library.catalog.Catalog;
 import dev.inward.matrix.director.library.catalog.Gathering;
-import dev.inward.matrix.fact.Addressed;
-import dev.inward.matrix.fact.Concept;
-import dev.inward.matrix.fact.Fact;
-import dev.inward.matrix.fact.Model;
-import dev.inward.matrix.fact.authoritative.notion.Aspect;
+import dev.inward.matrix.fact.*;
 import dev.inward.matrix.fact.authoritative.notion.Notion;
-import dev.inward.matrix.fact.authoritative.notion.house.House;
 import dev.inward.matrix.fact.datum.User;
 import dev.inward.matrix.fact.matter.Indicia;
 import dev.inward.matrix.fact.matter.Matter;
@@ -27,38 +23,46 @@ public abstract class Identity<S extends Scheme<S,L>,L extends Library<S,L>,PATH
 
     protected final ID id;
 
+    public abstract S getScheme();
+    public abstract Terrene getTerrene();
+    public abstract Domain getDomain();
+    public abstract char getSigil();
     public abstract PATH getPath();
-    public abstract L getLibrary();
     public abstract String toString();
 
     public static class Ethereal<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,Q extends Query<S,L,PATH,ID,Q>> extends Identity<S,L,PATH,ID,Ethereal<S,L,PATH,ID,Q>,Q> {
 
         protected final L library;
-        protected final PATH path;
-        protected final String fileName;
         protected final char sigil;
+        protected final PATH path;
         protected final String query;
 
-        public Ethereal(@Nonnull ID id, @Nonnull L library, @Nullable PATH path, @Nullable String fileName, @Nonnull char sigil, @Nullable String query) {
+        public Ethereal(@Nonnull ID id,@Nonnull L library, @Nonnull char sigil,@Nullable PATH path, @Nullable String fileName, @Nullable String query) {
             super(id);
             this.library = library;
-            this.path = path;
-            this.fileName = fileName;
             this.sigil = sigil;
+            this.path = path;
             this.query = query;
         }
 
-        @Override
-        public L getLibrary() {
-            return library;
-        }
         @Override
         public PATH getPath() {
             return this.path;
         }
 
-        public String getFileName() {
-            return fileName;
+        @Override
+        public S getScheme() {
+            return this.library.scheme;
+        }
+
+        @Override
+        public Terrene getTerrene() {
+            return this.library.terrene;
+        }
+
+        @Override
+        public Domain getDomain() {
+            return this.library.domain;
         }
 
         public char getSigil() {
@@ -76,9 +80,6 @@ public abstract class Identity<S extends Scheme<S,L>,L extends Library<S,L>,PATH
             if (this.path != null) {
                 stringBuilder.append(this.path);
             }
-            if (this.fileName != null) {
-                stringBuilder.append(this.fileName);
-            }
             if (this.sigil != Aforementioned || Character.isIdentifierIgnorable(this.sigil)) {
                 stringBuilder.append(this.sigil);
             }
@@ -94,13 +95,60 @@ public abstract class Identity<S extends Scheme<S,L>,L extends Library<S,L>,PATH
         }
     }
 
-    public abstract static class Constructed<S extends Scheme<S,L>,L extends Library<S,L>,P extends Profile<S,L,P,U>,U extends User<S,L,U>> extends Identity<S,L,Profile<S,L,?,U>,String,Constructed<S,L,P,U>, Aspect<S,L,P,U,?,?,?>> {
+    public static class Ego<S extends Scheme<S,L>,L extends Library<S,L>,P extends Persona<S,L,P>> extends Identity<S,L,Domain,Character, Ego<S,L,P>,P> {
 
-        public Constructed(String name) {
-            super(name);
+        protected final S scheme;
+        protected final Terrene terrene;
+        protected final Domain domain;
+
+        public Ego(Character persona, S scheme, Terrene terrene, Domain domain) {
+            super(persona);
+            this.scheme = scheme;
+            this.terrene = terrene;
+            this.domain = domain;
+        }
+
+        @Override
+        public S getScheme() {
+            return scheme;
+        }
+
+        @Override
+        public Terrene getTerrene() {
+            return terrene;
+        }
+
+        @Override
+        public char getSigil() {
+            return this.id;
+        }
+
+        @Override
+        public Domain getDomain() {
+            return this.domain;
+        }
+
+        @Override
+        public Domain getPath() {
+            return this.domain;
+        }
+
+        @Override
+        public String toString() {
+            return this.id + "@" + this.domain;
+        }
+
+        @Override
+        public int compareTo(Ego<S, L, P> that) {
+            int isZero = this.id.compareTo(that.id);
+            if (isZero == 0) {
+                return this.domain.compareTo(that.domain);
+            }
+            return isZero;
         }
     }
     public abstract static class Tangible<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> extends Identity<S,L,PATH,ID,T,C> {
+
         public Tangible(ID id) {
             super(id);
         }
@@ -109,16 +157,41 @@ public abstract class Identity<S extends Scheme<S,L>,L extends Library<S,L>,PATH
         public Context<S,L,PATH,ID,T,C,?> getContext() {
             return ((Context<S,L,PATH,ID,T,C,?>)this.id.getClass().getProtectionDomain());
         }
-
-        @Override
-        public L getLibrary() {
-            return this.getContext().;
+        public Catalog<S,L,PATH,ID,T,C,?> getCatalog() {
+            return this.getContext().catalog;
         }
 
-        public static class Alias<S extends Scheme<S,L>,L extends Library<S,L>,P extends Persona<S,L,P,H>,H extends House<S,L,H>> extends Tangible<S,L, Path,String, Alias<S,L,P,PROFILE>,P> {
+        @Override
+        public Domain getDomain() {
+            return this.getCatalog().getLibrary().getDomain();
+        }
+
+        @Override
+        public S getScheme() {
+            return this.getCatalog().getLibrary().scheme;
+        }
+
+        @Override
+        public char getSigil() {
+            return this.getCatalog().getSigil();
+        }
+
+        @Override
+        public PATH getPath() {
+            return ((Factory<S,L,PATH,ID,T,C>)this.getContext().getClassLoader()).getGathering().getPath();
+        }
+
+        @Override
+        public Terrene getTerrene() {
+            return this.getCatalog().getLibrary().getTerrene();
+        }
+
+        public static class Alias<S extends Scheme<S,L>,L extends Library<S,L>,P extends Persona<S,L,P,H>,H extends Identity.Ego<S,L,P>> extends Tangible<S,L, Path,String, Alias<S,L,P,PROFILE>,P> {
+
             protected char persona;
             protected String name;
             protected final Profile<S,L,?> profile;
+
             public Alias(char persona, String name,Profile<S,L,?> profile) {
                 super(name);
                 this.persona = persona;
@@ -167,6 +240,27 @@ public abstract class Identity<S extends Scheme<S,L>,L extends Library<S,L>,PATH
                 return null;
             }
         }
+        public static class Id2<S extends Scheme<S,L>,L extends Library<S,L>,P extends Persona<S,L,P,H>,H extends dev.inward.matrix.fact.authoritative.notion.house.House> extends Tangible<S,L,H,Character,Id2,P> {
+
+            public Id2(Character character) {
+                super(character);
+            }
+
+            @Override
+            public H getPath() {
+                return null;
+            }
+
+            @Override
+            public String toString() {
+                return null;
+            }
+
+            @Override
+            public int compareTo(Id2 o) {
+                return 0;
+            }
+        }
         public static class Id<S extends Scheme<S,L>,L extends Library<S,L>,N extends Named<S,L,N,F>,F extends Fact<S,L,N,F>,M extends Model<S,L,N,F,M>> extends Tangible<S,L,String,String,Id<S,L,N,F,M>,M> {
 
             protected final Individual<S,L,?> owner;
@@ -191,35 +285,6 @@ public abstract class Identity<S extends Scheme<S,L>,L extends Library<S,L>,PATH
             }
         }
 
-        public static class Ego<S extends Scheme<S,L>,L extends Library<S,L>,P extends Persona<S,L,P,H>,H extends House<S,L,H>> extends Tangible<S,L,H,Character,Ego<S,L,P,H>,P> {
-
-            protected final H house;
-
-            public Ego(char persona, H house) {
-                super(persona);
-                this.house = house;
-
-            }
-
-            @Override
-            public H getPath() {
-                return this.house;
-            }
-
-            @Override
-            public String toString() {
-                return null;
-            }
-
-            @Override
-            public int compareTo(Ego<S,L,P,H> that) {
-                int isZero = this.id.compareTo(that.id);
-                if(isZero == 0) {
-                    return this.persona - that.persona;
-                }
-                return isZero;
-            }
-        }
         public static class Gate<S extends Scheme<S,L>,L extends Library<S,L>> extends Tangible<S,L,Path,UUID,Gate<S,L>,Notion<S,L>> {
 
             public final Profile<S,L,?,?> profile;
@@ -360,17 +425,14 @@ public abstract class Identity<S extends Scheme<S,L>,L extends Library<S,L>,PATH
                 return this.id.compareTo(that.id);
             }
         }
-        public final static class Brand<S extends Scheme<S,L>,L extends Library<S,L>,H extends House<S,L,H>> extends Tangible<S,L,H,Domain,Brand<S,L,H>,H> {
+        public final static class Brand<S extends Scheme<S,L>,L extends Library<S,L>,> extends Tangible<S,L,String,String,Brand<S,L,> {
 
-            protected final Registar registar;
-
-            public Brand(Domain domain, Registar registar) {
+            public Brand(Domain domain) {
                 super(domain);
-                this.registar = registar;
             }
 
             @Override
-            public Registar getPath() {
+            public  getPath() {
                 return this.registar     ;
             }
 

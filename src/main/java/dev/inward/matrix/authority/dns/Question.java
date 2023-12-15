@@ -3,7 +3,7 @@ package dev.inward.matrix.authority.dns;
 import dev.inward.matrix.authority.Domain;
 import dev.inward.matrix.authority.dns.resourceRecord.ResourceRecordType;
 
-public class Question implements Comparable<Question> {
+public class Question {
 
     protected final Domain domain;
     protected final ResourceRecordType type;
@@ -27,15 +27,4 @@ public class Question implements Comparable<Question> {
         return terrene;
     }
 
-    @Override
-    public int compareTo(Question that) {
-        int isZero = this.domain.compareTo(that.domain);
-        if (isZero == 0) {
-            isZero = this.type.compareTo(that.type);
-            if (isZero == 0) {
-                return this.terrene.compareTo(that.terrene);
-            }
-        }
-        return isZero;
-    }
 }

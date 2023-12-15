@@ -1,6 +1,6 @@
 package dev.inward.matrix.fact.authoritative.notion.concept.evaluate;
 
-import dev.inward.matrix.fact.authoritative.notion.concept.Volume;
+import crud.Volume;
 
 public class Calc extends Volume<Bakery,Evaluate,Batch,Calc,Existent> {
 

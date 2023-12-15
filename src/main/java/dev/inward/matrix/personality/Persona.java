@@ -2,40 +2,26 @@ package dev.inward.matrix.personality;
 
 import dev.inward.matrix.Identity;
 import dev.inward.matrix.Library;
-import dev.inward.matrix.Profile;
 import dev.inward.matrix.Scheme;
-import dev.inward.matrix.fact.Concept;
-import dev.inward.matrix.fact.Fact;
-import dev.inward.matrix.fact.Model;
-import dev.inward.matrix.fact.authoritative.notion.Notion;
-import dev.inward.matrix.fact.authoritative.notion.house.House;
+import dev.inward.matrix.authority.Domain;
+import dev.inward.matrix.fact.Addressed;
 
 import javax.security.auth.Subject;
-import java.nio.file.FileSystem;
-import java.nio.file.Path;
+import java.nio.file.attribute.GroupPrincipal;
 import java.nio.file.attribute.UserPrincipal;
 import java.security.cert.CertPath;
 import java.util.Objects;
 
-public class Persona<S extends Scheme<S,L>,L extends Library<S,L>,P extends Persona<S,L,P,H>,H extends House<S,L,H>> extends Concept<S,L,Path,Character, Identity.Tangible.Ego<S,L,P,H>,P> {
+public abstract class Persona<S extends Scheme<S,L>,L extends Library<S,L>,P extends Persona<S,L,P>> implements GroupPrincipal, Addressed<S, L, Domain, Character, Identity.Ego<S, L, P>, P>, Comparable<P> {
 
+    protected char persona;
     protected String description;
     protected Monitor<CertPath>[] credentialMonitor;
 
-    public Persona(Identity.Tangible.Ego<S,L,P,H> ego, String description) {
-        super(ego);
+    public Persona(Identity.Ego<S,L,P> ego, String description) {
         this.description = description;
     }
 
-    @Override
-    public FileSystem getFileSystem() {
-        return null;
-    }
-
-    @Override
-    public Path getParent() {
-        return null;
-    }
 
     @Override
     public int hashCode() {
@@ -50,5 +36,23 @@ public class Persona<S extends Scheme<S,L>,L extends Library<S,L>,P extends Pers
     @Override
     public boolean implies(Subject subject) {
         return UserPrincipal.super.implies(subject);
+    }
+
+    @Override
+    public Identity.Ego<S, L, P> getIdentity() {
+        return null;
+    }
+
+    public char getPersona() {
+        return persona;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public int compareTo(P that) {
+        return this.perso;
     }
 }

@@ -2,7 +2,7 @@ package crud.rubric;
 
 import dev.inward.matrix.engine.Edition;
 import dev.inward.matrix.Identity;
-import dev.inward.matrix.fact.authoritative.notion.concept.Protocol;
+import crud.Protocol;
 import dev.inward.matrix.Context;
 import dev.inward.matrix.fact.datum.Standard;
 

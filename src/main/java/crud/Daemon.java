@@ -1,4 +1,4 @@
-package dev.inward.matrix.fact.authoritative.notion.concept;
+package crud;
 
 import dev.inward.matrix.Clerk;
 import dev.inward.matrix.fact.Criterion;

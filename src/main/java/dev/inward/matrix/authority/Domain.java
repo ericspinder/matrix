@@ -9,18 +9,22 @@ import java.net.URL;
 
 public class Domain implements Comparable<Domain> {
 
-    protected transient final URL url;
+    protected final String domain;
+    protected transient URL url = null;
 
     public Domain(@Nonnull String domain) {
-        try {
-            this.url = new URL(domain);
-        }
-        catch (MalformedURLException malformedURLException) {
-            throw new MatrixException(MatrixException.Type.Domain_not_initialized_malformed_URL,"unable to create domain", Indicia.Focus.Assembly, Indicia.Severity.Exceptional,malformedURLException);
-        }
+        this.domain = domain;
     }
 
     public URL getUrl() {
+        if (url == null) {
+            try {
+                this.url = new URL(domain);
+            }
+            catch (MalformedURLException malformedURLException) {
+                throw new MatrixException(MatrixException.Type.Domain_not_initialized_malformed_URL,"unable to create domain", Indicia.Focus.Assembly, Indicia.Severity.Exceptional,malformedURLException);
+            }
+        }
         return url;
     }
 

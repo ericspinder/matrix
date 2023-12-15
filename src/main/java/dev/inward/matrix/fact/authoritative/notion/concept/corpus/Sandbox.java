@@ -1,6 +1,6 @@
 package dev.inward.matrix.fact.authoritative.notion.concept.corpus;
 
-import dev.inward.matrix.fact.authoritative.notion.concept.Volume;
+import crud.Volume;
 import dev.inward.matrix.fact.authoritative.notion.house.Assembly;
 import dev.inward.matrix.fact.authoritative.notion.house.Steward;
 

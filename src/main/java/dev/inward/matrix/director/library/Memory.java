@@ -3,6 +3,7 @@ package dev.inward.matrix.director.library;
 import dev.inward.matrix.Library;
 import dev.inward.matrix.Range;
 import dev.inward.matrix.Scheme;
+import dev.inward.matrix.fact.authoritative.notion.Aspect;
 import dev.inward.matrix.fact.authoritative.notion.Notion;
 
 import javax.annotation.Nonnull;
@@ -18,7 +19,6 @@ import java.util.UUID;
 public abstract class Memory<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>> extends FileStore implements Comparable<Memory<S,L,PATH>> {
 
     protected final UUID uuid = UUID.randomUUID();
-    protected final L library;
     protected final char initSigil;
     protected final Range<PATH> range;
     protected final boolean readOnly;
@@ -88,7 +88,7 @@ public abstract class Memory<S extends Scheme<S,L>,L extends Library<S,L>,PATH e
     @Override
     public boolean supportsFileAttributeView(Class<? extends FileAttributeView> type) {
         if (type.isAssignableFrom(Notion.class))
-            return library.supports((Class<? extends Notion<S, L>>) type);
+            return library.supports((Class<? extends Aspect<S, L,PATH,?,?,?>>) type);
         return false;
     }
 

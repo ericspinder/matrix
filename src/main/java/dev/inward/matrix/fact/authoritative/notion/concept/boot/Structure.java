@@ -1,6 +1,6 @@
 package dev.inward.matrix.fact.authoritative.notion.concept.boot;
 
-import dev.inward.matrix.fact.authoritative.notion.concept.Volume;
+import crud.Volume;
 import dev.inward.matrix.fact.authoritative.notion.authority.source.ziggurat.Boot;
 import dev.inward.matrix.fact.authoritative.notion.authority.source.ziggurat.Init;
 import dev.inward.matrix.fact.authoritative.notion.authority.source.ziggurat.Root;

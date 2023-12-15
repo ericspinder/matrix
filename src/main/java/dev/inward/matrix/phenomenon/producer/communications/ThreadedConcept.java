@@ -1,6 +1,6 @@
 package dev.inward.matrix.phenomenon.producer.communications;
 
-import dev.inward.matrix.fact.authoritative.notion.concept.Protocol;
+import crud.Protocol;
 
 public class ThreadedConcept extends ThreadLocal<Protocol> {
 
