@@ -9,7 +9,7 @@ import dev.inward.matrix.fact.matter.Indicia;
 
 public class Garner extends Library<Log,Garner, Indicia> {
     @Override
-    protected <ID extends Comparable<ID>, Q extends Query<Log, Garner, Indicia, ID, Q>, D extends Gathering<Log, Garner, Indicia, D, O, F>, O extends Notion<Log, Garner, Indicia, O>, N extends Identity.Tangible.Named<Log, Garner, Indicia, N, F>, F extends Fact<Log, Garner, Indicia, N, F>> Catalog<Log, Garner, Indicia, D, O, N> initCatalog(Library<Log, Garner, Indicia> library, Memory<Log, Garner> memory, Identity.Ethereal<Log, Garner, Indicia, ID, Q> ethereal) throws CheckedException {
+    protected <ID extends Comparable<ID>, Q extends Manufacture<Log, Garner, Indicia, ID, Q>, D extends Gathering<Log, Garner, Indicia, D, O, F>, O extends Notion<Log, Garner, Indicia, O>, N extends Identity.Tangible.Named<Log, Garner, Indicia, N, F>, F extends Fact<Log, Garner, Indicia, N, F>> Catalog<Log, Garner, Indicia, D, O, N> initCatalog(Library<Log, Garner, Indicia> library, Memory<Log, Garner> memory, Identity.Ethereal<Log, Garner, Indicia, ID, Q> ethereal) throws CheckedException {
         return null;
     }
 

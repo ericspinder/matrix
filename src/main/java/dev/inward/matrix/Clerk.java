@@ -31,7 +31,7 @@ public abstract class Clerk<S extends Scheme<S,L>,L extends Library<S,L>,CHANNEL
         return library;
     }
 
-    public abstract <M extends Matter<S,L,M,C>,COMP extends Complication> boolean registerComplication(COMP complication);
+
 
     public abstract static class Network<S extends Scheme<S,L>,L extends Library<S,L>,H extends Host<H>,CHANNEL extends NetworkChannel & AsynchronousChannel,N extends Network<S,L,H,CHANNEL,N>> extends Clerk<S,L,CHANNEL,N> {
 

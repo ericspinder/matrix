@@ -88,7 +88,7 @@ public abstract class Scheme<S extends Scheme<S,L>,L extends Library<S,L>> exten
     @Override
     protected Clerk<S,L,?,?> openConnection(URL u) throws IOException {
         if(!u.getProtocol().equalsIgnoreCase(this.scheme))
-            throw new MatrixException(MatrixException.Type.ClassCastException,"clerk", Indicia.Focus.Assembly, Indicia.Severity.Critical, new Exception("stacktrace..."));
+            throw new MatrixException(MatrixException.Type.NotRightScheme,u.getProtocol() + " scheme_wrong", Indicia.Focus.Assembly, Indicia.Severity.Critical, new Exception("stacktrace..."));
         String authority = u.getAuthority();
         Director<S,L,?,?> director = this.directors.get(authority);
         if (director == null) {

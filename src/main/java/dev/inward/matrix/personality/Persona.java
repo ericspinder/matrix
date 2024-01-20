@@ -5,6 +5,7 @@ import dev.inward.matrix.Library;
 import dev.inward.matrix.Scheme;
 import dev.inward.matrix.authority.Domain;
 import dev.inward.matrix.fact.Addressed;
+import dev.inward.matrix.fact.datum.User;
 
 import javax.security.auth.Subject;
 import java.nio.file.attribute.GroupPrincipal;
@@ -12,13 +13,13 @@ import java.nio.file.attribute.UserPrincipal;
 import java.security.cert.CertPath;
 import java.util.Objects;
 
-public abstract class Persona<S extends Scheme<S,L>,L extends Library<S,L>,P extends Persona<S,L,P>> implements GroupPrincipal, Addressed<S, L, Domain, Character, Identity.Ego<S, L, P>, P>, Comparable<P> {
+public abstract class Persona<S extends Scheme<S,L>,L extends Library<S,L>> extends User<S, L, Identity.Ethereal.Id<S,L>,Persona<S,L>> {
 
     protected char persona;
     protected String description;
     protected Monitor<CertPath>[] credentialMonitor;
 
-    public Persona(Identity.Ego<S,L,P> ego, String description) {
+    public Persona(Identity.Ethereal.Id<S,L,P> ego, String description) {
         this.description = description;
     }
 
@@ -51,8 +52,4 @@ public abstract class Persona<S extends Scheme<S,L>,L extends Library<S,L>,P ext
         return description;
     }
 
-    @Override
-    public int compareTo(P that) {
-        return this.perso;
-    }
 }

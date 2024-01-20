@@ -1,5 +1,7 @@
 package dev.inward.matrix;
 
+import dev.inward.matrix.fact.datum.Coterie;
+import dev.inward.matrix.fact.datum.User;
 import dev.inward.matrix.personality.Persona;
 
 import java.io.IOException;
@@ -11,12 +13,12 @@ public class Directory<S extends Scheme<S,L>,L extends Library<S,L>,P extends Pe
 
 
     @Override
-    public UserPrincipal lookupPrincipalByName(String name) throws IOException {
+    public User<S,L,?,?> lookupPrincipalByName(String name) throws IOException {
         return null;
     }
 
     @Override
-    public P lookupPrincipalByGroupName(String group) throws IOException {
+    public Coterie<S,L> lookupPrincipalByGroupName(String group) throws IOException {
         return null;
     }
 }

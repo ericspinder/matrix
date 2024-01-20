@@ -9,6 +9,7 @@ import dev.inward.matrix.fact.authoritative.notion.Notion;
 import dev.inward.matrix.fact.datum.Complication;
 import dev.inward.matrix.fact.datum.Envoy;
 import dev.inward.matrix.fact.matter.Indicia;
+import dev.inward.matrix.fact.matter.Matter;
 import dev.inward.matrix.route.Road;
 
 import java.io.IOException;
@@ -27,11 +28,12 @@ public abstract class Librarian<S extends Scheme<S,L>,L extends Library<S,L>,PAT
         this.initSigil = initSigil;
         this.range = range;
     }
+    public abstract <M extends Matter<S,L,M>,COMP extends Complication<S,L,>> boolean registerComplication(COMP complication);
 
-    abstract void autoSettle(Clerk<?,?,S,L,PATH,?> clerk);
+    abstract <ID extends Comparable<ID>,T extends Identity.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CRIT extends Criterion,P extends Predictable<S,L,PATH,ID,T,C,CRIT,P,COMP>,COMP extends Complication<S,L,PATH,ID,T,C,CRIT,P,COMP>> void autoSettle(COMP complication);
 
     @Override
-    public <DATUM,E extends Envoy<DATUM,E,S,L,PATH,ID,T,C>,ID extends Comparable<ID>,T extends Identity.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CRIT extends Criterion,P extends Predictable<DATUM,E,S,L,PATH,ID,T,C,CRIT,P,COMP>,COMP extends Complication<DATUM,E,S,L,PATH,ID,T,C,CRIT,P,COMP>> Clerk register(P watcher, Indicia[] events, CRIT... modifiers) throws IOException {
+    public WatchKey register(WatchService watcher, WatchEvent<?> events, WatchEvent.Modifier... modifiers) throws IOException {
         return null;
     }
 

@@ -1,5 +1,6 @@
 package dev.inward.matrix.fact.authoritative.notion;
 
+import dev.inward.matrix.Profile;
 import dev.inward.matrix.Scheme;
 import dev.inward.matrix.Library;
 import dev.inward.matrix.fact.Addressed;
@@ -7,6 +8,7 @@ import dev.inward.matrix.fact.Concept;
 import dev.inward.matrix.Identity;
 import dev.inward.matrix.fact.authoritative.notion.concept.Construct;
 import dev.inward.matrix.fact.authoritative.notion.concept.Matrix;
+import dev.inward.matrix.fact.datum.User;
 import dev.inward.matrix.personality.Personality;
 import dev.inward.matrix.personality.Personas;
 
@@ -19,7 +21,7 @@ import java.time.Instant;
 import java.util.Map;
 import java.util.UUID;
 
-public abstract class Notion<S extends Scheme<S,L>,L extends Library<S,L>> extends Concept<S,L, Path,UUID, Identity.Tangible.Gate<S,L>,Notion<S,L>> {
+public abstract class Notion<S extends Scheme<S,L>,L extends Library<S,L>,P extends Profile<S,L,P,U>,U extends User<S,L,U>> extends Concept<S,L,P,UUID, Identity.Tangible.Gate<S,L,P,U>,Notion<S,L,P,U>> {
 
     protected Map<Personality, Personas>
 

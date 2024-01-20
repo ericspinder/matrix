@@ -6,6 +6,8 @@ import dev.inward.matrix.director.library.catalog.Catalog;
 import dev.inward.matrix.director.library.catalog.Gathering;
 import dev.inward.matrix.fact.*;
 import dev.inward.matrix.fact.authoritative.notion.Notion;
+import dev.inward.matrix.fact.datum.Coterie;
+import dev.inward.matrix.fact.datum.Individual;
 import dev.inward.matrix.fact.datum.User;
 import dev.inward.matrix.fact.matter.Indicia;
 import dev.inward.matrix.fact.matter.Matter;
@@ -28,26 +30,24 @@ public abstract class Identity<S extends Scheme<S,L>,L extends Library<S,L>,PATH
     public abstract Domain getDomain();
     public abstract char getSigil();
     public abstract PATH getPath();
+    public abstract String getFileName();
+    public abstract String getQuery();
     public abstract String toString();
 
-    public static class Ethereal<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,Q extends Query<S,L,PATH,ID,Q>> extends Identity<S,L,PATH,ID,Ethereal<S,L,PATH,ID,Q>,Q> {
+    public static abstract class Ethereal<S extends Scheme<S,L>,L extends Library<S,L>,E extends Ethereal<S,L,E,M>,M extends Manufacture<S,L,E,M>> extends Identity<S,L,Character,String,E,M> {
 
         protected final L library;
         protected final char sigil;
-        protected final PATH path;
-        protected final String query;
 
-        public Ethereal(@Nonnull ID id,@Nonnull L library, @Nonnull char sigil,@Nullable PATH path, @Nullable String fileName, @Nullable String query) {
+        public Ethereal(@Nonnull String id,@Nonnull L library, @Nonnull char sigil) {
             super(id);
             this.library = library;
             this.sigil = sigil;
-            this.path = path;
-            this.query = query;
         }
 
         @Override
-        public PATH getPath() {
-            return this.path;
+        public Character getPath() {
+            return this.sigil;
         }
 
         @Override
@@ -65,87 +65,108 @@ public abstract class Identity<S extends Scheme<S,L>,L extends Library<S,L>,PATH
             return this.library.domain;
         }
 
+        @Override
         public char getSigil() {
             return sigil;
-        }
-
-        public String getQuery() {
-            return query;
         }
 
         @Override
         public String toString() {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(library.scheme.scheme).append(library.terrene.getSchema()).append(library.domain.);
-            if (this.path != null) {
-                stringBuilder.append(this.path);
-            }
+            stringBuilder.append(library.scheme.scheme).append(library.terrene.getSchema()).append(library.domain);
             if (this.sigil != Aforementioned || Character.isIdentifierIgnorable(this.sigil)) {
                 stringBuilder.append(this.sigil);
             }
-            if (this.query != null) {
-                stringBuilder.append(this.query);
+            if (this.getPath() != null) {
+                stringBuilder.append(this.getPath());
+            }
+            if (this.getFileName() != null) {
+                stringBuilder.append(this.getFileName());
+            }
+            if (this.getQuery() != null) {
+                stringBuilder.append(this.getQuery());
             }
             return  stringBuilder.toString();
         }
 
         @Override
-        public int compareTo(Ethereal<S,L,PATH,ID,Q> that) {
+        public int compareTo(E that) {
             return 0;
         }
-    }
 
-    public static class Ego<S extends Scheme<S,L>,L extends Library<S,L>,P extends Persona<S,L,P>> extends Identity<S,L,Domain,Character, Ego<S,L,P>,P> {
+        public static class SuperEgo<S extends Scheme<S,L>,L extends Library<S,L>> extends Ethereal<S,L,SuperEgo<S,L>,Individual<S,L>> {
 
-        protected final S scheme;
-        protected final Terrene terrene;
-        protected final Domain domain;
-
-        public Ego(Character persona, S scheme, Terrene terrene, Domain domain) {
-            super(persona);
-            this.scheme = scheme;
-            this.terrene = terrene;
-            this.domain = domain;
-        }
-
-        @Override
-        public S getScheme() {
-            return scheme;
-        }
-
-        @Override
-        public Terrene getTerrene() {
-            return terrene;
-        }
-
-        @Override
-        public char getSigil() {
-            return this.id;
-        }
-
-        @Override
-        public Domain getDomain() {
-            return this.domain;
-        }
-
-        @Override
-        public Domain getPath() {
-            return this.domain;
-        }
-
-        @Override
-        public String toString() {
-            return this.id + "@" + this.domain;
-        }
-
-        @Override
-        public int compareTo(Ego<S, L, P> that) {
-            int isZero = this.id.compareTo(that.id);
-            if (isZero == 0) {
-                return this.domain.compareTo(that.domain);
+            public SuperEgo(@Nonnull String id,@Nonnull L library) {
+                super(id,library,Aforementioned);
             }
-            return isZero;
+
+            @Override
+            public int compareTo(SuperEgo<S,L> that) {
+                return this.id.compareTo(that.id);
+            }
+
+
+            @Override
+            public String getFileName() {
+                return null;
+            }
+
+            @Override
+            public String getQuery() {
+                return null;
+            }
         }
+
+        public static class Ego<S extends Scheme<S,L>,L extends Library<S,L>,C extends Coterie<S,L,C>> extends Ethereal<S,L,Ego<S,L,C>,C> {
+
+
+            public Ego(String id, L library, char sigil, S scheme, Terrene terrene, Domain domain) {
+                super(id, library, sigil);
+            }
+
+
+            @Override
+            public String getFileName() {
+                return null;
+            }
+
+            @Override
+            public String getQuery() {
+                return null;
+            }
+
+            @Override
+            public String toString() {
+                return this.id + "@" + this.library.domain;
+            }
+
+            @Override
+            public int compareTo(Ego<S, L, C> that) {
+                int isZero = this.id.compareTo(that.id);
+                if (isZero == 0) {
+                    return this.library.compareTo(that.library);
+                }
+                return isZero;
+            }
+        }
+
+        public class Id<S extends Scheme<S, L>, L extends Library<S, L>> extends Ethereal<S, L, Id<S, L>,Persona<S,L>> {
+
+            public Id(@Nonnull String id, @Nonnull L library, @Nonnull char sigil) {
+                super(id, library, sigil);
+            }
+
+            @Override
+            public String getFileName() {
+                return null;
+            }
+
+            @Override
+            public String getQuery() {
+                return null;
+            }
+        }
+
     }
     public abstract static class Tangible<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> extends Identity<S,L,PATH,ID,T,C> {
 
@@ -240,52 +261,8 @@ public abstract class Identity<S extends Scheme<S,L>,L extends Library<S,L>,PATH
                 return null;
             }
         }
-        public static class Id2<S extends Scheme<S,L>,L extends Library<S,L>,P extends Persona<S,L,P,H>,H extends dev.inward.matrix.fact.authoritative.notion.house.House> extends Tangible<S,L,H,Character,Id2,P> {
 
-            public Id2(Character character) {
-                super(character);
-            }
-
-            @Override
-            public H getPath() {
-                return null;
-            }
-
-            @Override
-            public String toString() {
-                return null;
-            }
-
-            @Override
-            public int compareTo(Id2 o) {
-                return 0;
-            }
-        }
-        public static class Id<S extends Scheme<S,L>,L extends Library<S,L>,N extends Named<S,L,N,F>,F extends Fact<S,L,N,F>,M extends Model<S,L,N,F,M>> extends Tangible<S,L,String,String,Id<S,L,N,F,M>,M> {
-
-            protected final Individual<S,L,?> owner;
-            public Id(String s, Individual<S,L,?> owner) {
-                super(s);
-                this.owner = owner;
-            }
-
-            @Override
-            public String getPath() {
-                return this.getContext().;
-            }
-
-            @Override
-            public String toString() {
-                return null;
-            }
-
-            @Override
-            public int compareTo(Id<S,L,N,F,M> that) {
-                return this.id.compareTo(that.id);
-            }
-        }
-
-        public static class Gate<S extends Scheme<S,L>,L extends Library<S,L>> extends Tangible<S,L,Path,UUID,Gate<S,L>,Notion<S,L>> {
+        public static class Gate<S extends Scheme<S,L>,L extends Library<S,L>,P extends Profile<S,L,P,U>,U extends User<S,L,U>> extends Tangible<S,L,P,UUID,Gate<S,L,P,U>,Notion<S,L,P,U>> {
 
             public final Profile<S,L,?,?> profile;
 
@@ -360,7 +337,7 @@ public abstract class Identity<S extends Scheme<S,L>,L extends Library<S,L>,PATH
 
 
         }
-        public final static class Individual<S extends Scheme<S,L>,L extends Library<S,L>,U extends User<S,L,U>> extends Tangible<S,L,String,String,Individual<S,L,U>,U>  {
+        public final static class Individual<S extends Scheme<S,L>,L extends Library<S,L>,P extends Profile<S,L,P,U>,U extends User<S,L,P,U>> extends Tangible<S,L,String,String,Individual<S,L,P,U>,U>  {
 
             public Individual(String name) {
                 super(name);
@@ -377,7 +354,7 @@ public abstract class Identity<S extends Scheme<S,L>,L extends Library<S,L>,PATH
             }
 
             @Override
-            public int compareTo(Individual<S,L,U> that) {
+            public int compareTo(Individual<S,L,P,U> that) {
                 return 0;
             }
         }
@@ -401,30 +378,7 @@ public abstract class Identity<S extends Scheme<S,L>,L extends Library<S,L>,PATH
                 return Map.copyOf(initializedMeta);
             }
         }
-        public static class SuperEgo<S extends Scheme<S,L>,L extends Library<S,L>, PROFILE extends Profile<S,L, PROFILE,U>,U extends User<S,L,U>> extends Tangible<S,L,Path,String,SuperEgo<S,L, PROFILE,U>, PROFILE> {
 
-            protected final U user;
-
-            public SuperEgo(String s,U user) {
-                super(s);
-                this.user = user;
-            }
-
-            @Override
-            public U getPath() {
-                return this.user;
-            }
-
-            @Override
-            public String toString() {
-                return this.id;
-            }
-
-            @Override
-            public int compareTo(SuperEgo<S,L, PROFILE,U> that) {
-                return this.id.compareTo(that.id);
-            }
-        }
         public final static class Brand<S extends Scheme<S,L>,L extends Library<S,L>,> extends Tangible<S,L,String,String,Brand<S,L,> {
 
             public Brand(Domain domain) {
@@ -459,48 +413,6 @@ public abstract class Identity<S extends Scheme<S,L>,L extends Library<S,L>,PATH
 
 
 
-
-
-
-//        public interface Indicate extends Meta_I {
-//            enum Default implements Indicate {
-//                Instructions("instructions", "Instructions for this Web object", true),
-//                Citation("citation", "A Web object cited by this Web object in a material way", false),
-//                Credit("credit", "Another Web object which shows for whom to give praise or general contact", true),
-//                Copyright("copyright", "The copyright of the Web object", true),
-//                Impute("impute", "How to complain about this Web object", true);
-//
-//                final String label;
-//                final String description;
-//                final boolean cascades;
-//
-//                /**
-//                 * @param label
-//                 * @param description
-//                 * @param cascades
-//                 */
-//                Default(String label, String description, boolean cascades) {
-//                    this.label = label;
-//                    this.description = description;
-//                    this.cascades = cascades;
-//                }
-//
-//                @Override
-//                public String getLabel() {
-//                    return this.label;
-//                }
-//
-//                @Override
-//                public String getDescription() {
-//                    return this.description;
-//                }
-//                @Override
-//                public boolean cascades() {
-//                    return this.cascades;
-//                }
-//            }
-//            boolean cascades();
-//        }
 //
 //        protected final Map<Indicate,Web> relativityMap;
 //

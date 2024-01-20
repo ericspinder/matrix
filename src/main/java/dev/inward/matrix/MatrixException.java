@@ -5,6 +5,7 @@ import dev.inward.matrix.fact.matter.Indicia;
 public class MatrixException extends Blocker {
 
     public enum Type {
+        NotRightScheme("Not the right scheme, mismatched"),
         VisitorFailed("Class Visitor failed to operate"),
         ReflectiveOperationFailed("A reflective operation failed to instantiate class"),
         BadCastToGeneric("A bad cast when trying to retrieve a value"),
