@@ -1,11 +1,9 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.fact.datum.User;
-
-public abstract class Profile<S extends Scheme<S,L>,L extends Library<S,L>,P extends Profile<S, L, P, U>,U extends User<S,L,P,U>> implements Comparable<P> {
+public abstract class Profile<S extends Scheme<S,L>,L extends Library<S,L>,P extends Profile<S, L, P, U>,U extends Dogma<S,L,U>> implements Comparable<P> {
 
     //protected final Map<U, AclEntryType>
-    public Profile(Identity.Ethereal.SuperEgo<S,L, P,U> identity) {
+    public Profile(Dogma.Ethereal<S,L,U> identity) {
         super(identity);
     }
 

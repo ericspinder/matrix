@@ -1,24 +1,23 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.fact.matter.Indicia;
+import dev.inward.matrix.concept.matter.Indicia;
 
-import java.time.format.DateTimeFormatter;
 import java.util.StringJoiner;
 
 @SuppressWarnings("all")
-public abstract class Range<VALUE extends Comparable<VALUE>> implements Comparable<Range<VALUE>> {
+public abstract class Range<PATH extends Comparable<PATH>> {
 
-    public abstract boolean eval(VALUE candidate);
+    public abstract boolean eval(PATH candidate);
     public abstract String toString();
 
     private Range() {}
 
-    public final static class All<VALUE extends Comparable<VALUE>> extends Range<VALUE> {
+    public final static class All<PATH extends Comparable<PATH>> extends Range<PATH> {
 
         public All() {}
 
         @Override
-        public boolean eval(VALUE candidate) {
+        public boolean eval(PATH candidate) {
             return true;
         }
 
@@ -26,165 +25,102 @@ public abstract class Range<VALUE extends Comparable<VALUE>> implements Comparab
         public String toString() {
             return "";
         }
+
     }
 
-    public final static class BelowSingleValue<VALUE extends Comparable<VALUE>> extends Range<VALUE> {
+    public final static class BelowPath<PATH extends Comparable<PATH>> extends Range<PATH> {
 
-        protected final VALUE upperValue;
+        protected final PATH upperPath;
 
-        public BelowSingleValue(VALUE upperValue) {
-            this.upperValue = upperValue;
+        public BelowPath(PATH upperPath) {
+            this.upperPath = upperPath;
         }
 
-        public VALUE getUpperValue() {
-            return upperValue;
+        public PATH getUpperPath() {
+            return upperPath;
         }
 
         @Override
-        public boolean eval(VALUE candidate) {
-            return upperValue.compareTo(candidate) > 0;
+        public boolean eval(PATH candidate) {
+            return upperPath.compareTo(candidate) > 0;
         }
 
         @Override
         public String toString() {
-            return upperValue.toString().intern();
+            return upperPath.toString().intern();
         }
     }
-    public final static class AboveSingleValue<VALUE extends Comparable<VALUE>> extends Range<VALUE> {
+    public final static class AbovePath<PATH extends Comparable<PATH>> extends Range<PATH> {
 
-        protected final VALUE lowerValue;
+        protected final PATH lowerPath;
 
-        public AboveSingleValue(VALUE lowerValue) {
-            this.lowerValue = lowerValue;
+        public AbovePath(PATH lowerPath) {
+            this.lowerPath = lowerPath;
         }
 
-        public VALUE getLowerValue() {
-            return lowerValue;
+        public PATH getLowerPath() {
+            return lowerPath;
         }
 
         @Override
-        public boolean eval(VALUE candidate) {
-            return candidate.compareTo(lowerValue) > 0;
+        public boolean eval(PATH candidate) {
+            return candidate.compareTo(this.lowerPath) > 0;
         }
 
         @Override
         public String toString() {
-            return lowerValue.toString().intern();
+            return lowerPath.toString().intern();
         }
+
     }
-    public final static class BetweenTwoValues<VALUE extends Comparable<VALUE>> extends Range<VALUE> {
+    public final static class BelowPath<PATH extends Comparable<PATH>> extends Range<PATH> {
 
-        protected final VALUE lowerValue;
-        protected final VALUE upperValue;
-        protected final String joined;
+        protected final PATH higherPath;
 
-        public BetweenTwoValues(VALUE lowerValue, VALUE upperValue) {
-            this(lowerValue,upperValue,new StringJoiner("_"));
-        }
-        public BetweenTwoValues(VALUE lowerValue, VALUE upperValue, StringJoiner stringJoiner) {
-            this.lowerValue = lowerValue;
-            this.upperValue = upperValue;
-            stringJoiner.add(lowerValue.toString()).add(upperValue.toString());
-            this.joined = stringJoiner.toString();
+        public BelowPath(PATH higherPath) {
+            this.higherPath = higherPath;
         }
 
-        public final VALUE getLowerValue() {
-            return this.lowerValue;
-        }
-
-        public final VALUE getUpperValue() {
-            return this.upperValue;
+        public PATH getHigherPath() {
+            return higherPath;
         }
 
         @Override
-        public boolean eval(VALUE candidate) {
-            return (upperValue.compareTo(candidate) > 0);
+        public boolean eval(PATH canidate) {
+            return canidate.compareTo(this.higherPath) > 0;
         }
 
         @Override
         public String toString() {
-            return this.joined;
+            return higherPath.toString().intern();
         }
     }
+    public final static class BetweenPaths<PATH extends Comparable<PATH>> extends Range<PATH> {
 
-    @Override
-    public int compareTo(Range<VALUE> that) {
-        if (that instanceof Range.All) {
-            if (this instanceof Range.All) {
-                return 0;
-            }
-            if (this instanceof Range.AboveSingleValue) {
-                return Integer.MIN_VALUE;
-            }
-            if (this instanceof Range.BelowSingleValue) {
-                return Integer.MAX_VALUE;
-            }
-            if (this instanceof Range.BetweenTwoValues) {
-                return 1;
-            }
+        protected final PATH lowerPath;
+        protected final PATH upperPath;
+
+        public BetweenPaths(PATH lowerPath, PATH upperPath) {
+            this.lowerPath = lowerPath;
+            this.upperPath = upperPath;
         }
-        if (that instanceof Range.AboveSingleValue) {
-            if (this instanceof Range.All) {
-                return Integer.MIN_VALUE;
-            }
-            if (this instanceof Range.AboveSingleValue) {
-               return ((AboveSingleValue<VALUE>) this).lowerValue.compareTo(((AboveSingleValue<VALUE>)that).lowerValue);
-            }
-            if (this instanceof Range.BelowSingleValue) {
-                return ((BelowSingleValue<VALUE>) this).upperValue.compareTo(((AboveSingleValue<VALUE>)that).lowerValue);
-            }
-            if (this instanceof Range.BetweenTwoValues) {
-                int isPositive = ((BetweenTwoValues<VALUE>) this).lowerValue.compareTo(((Range.AboveSingleValue<VALUE>)that).lowerValue);
-                if (isPositive >= 0) {
-                    return ((BetweenTwoValues<VALUE>) this).upperValue.compareTo(((AboveSingleValue<VALUE>)that).lowerValue);
-                }
-                return isPositive;
-            }
+
+        public final PATH getLowerPath() {
+            return this.lowerPath;
         }
-        if (that instanceof Range.BelowSingleValue) {
-            if (this instanceof Range.All) {
-                return Integer.MAX_VALUE;
-            }
-            if (this instanceof Range.AboveSingleValue) {
-                return ((AboveSingleValue<VALUE>) this).lowerValue.compareTo(((BelowSingleValue<VALUE>)that).upperValue);
-            }
-            if (this instanceof Range.BelowSingleValue) {
-                return ((BelowSingleValue<VALUE>) this).upperValue.compareTo(((BelowSingleValue<VALUE>)that).upperValue);
-            }
-            if (this instanceof Range.BetweenTwoValues) {
-                int isPositive = ((BetweenTwoValues<VALUE>) this).lowerValue.compareTo(((BelowSingleValue<VALUE>)that).upperValue);
-                if (isPositive >= 0) {
-                    return ((BetweenTwoValues<VALUE>) this).upperValue.compareTo(((BelowSingleValue<VALUE>)that).upperValue);
-                }
-                return isPositive;
-            }
+
+        public final PATH getUpperPath() {
+            return this.upperPath;
         }
-        if (that instanceof Range.BetweenTwoValues) {
-            if (this instanceof Range.All) {
-                return 0;
-            }
-            if (this instanceof Range.AboveSingleValue) {
-                int isPositive =  ((AboveSingleValue<VALUE>) this).lowerValue.compareTo(((BetweenTwoValues<VALUE>)that).lowerValue);
-                if (isPositive >= 0) {
-                    return ((AboveSingleValue)this).lowerValue.compareTo(((BetweenTwoValues<VALUE>)that).upperValue);
-                }
-                return isPositive;
-            }
-            if (this instanceof Range.BelowSingleValue) {
-                int isPositive = ((BelowSingleValue<VALUE>)this).upperValue.compareTo(((BetweenTwoValues<VALUE>)that).lowerValue);
-                if (isPositive >= 0) {
-                    return ((BelowSingleValue<VALUE>) this).upperValue.compareTo(((BetweenTwoValues<VALUE>)that).upperValue);
-                }
-                return isPositive;
-            }
-            if (this instanceof Range.BetweenTwoValues) {
-                int isPositive = ((BetweenTwoValues<VALUE>) this).lowerValue.compareTo(((BetweenTwoValues<VALUE>)that).lowerValue);
-                if (isPositive >= 0) {
-                    return ((BetweenTwoValues<VALUE>) this).upperValue.compareTo(((BetweenTwoValues<VALUE>)that).upperValue);
-                }
-                return isPositive;
-            }
+
+        @Override
+        public boolean eval(PATH candidate) {
+            return (upperPath.compareTo(candidate) > 0);
         }
-        throw new MatrixException(MatrixException.Type.Catalog_not_initialized,"Incomparable", Indicia.Focus.Admonitory, Indicia.Severity.Exceptional,new Exception("Should never happen because of a private default constructor"));
+
+        @Override
+        public String toString() {
+            return this.upperPath.toString() + '_' + this.lowerPath.toString();
+        }
     }
 }

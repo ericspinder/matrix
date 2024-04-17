@@ -1,13 +1,11 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.fact.Concept;
-import dev.inward.matrix.fact.Fact;
-import dev.inward.matrix.fact.Representative;
 
 import java.lang.ref.SoftReference;
 import java.nio.file.attribute.FileAttributeView;
 
-public abstract class View<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Identity.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> implements FileAttributeView, Comparable<View<S,L,PATH,ID,T,C>> {
+public abstract class View<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> implements FileAttributeView, Comparable<View<S,L,PATH,ID,T,C>> {
 
     protected final SoftReference<C> concept;
     protected final String name;

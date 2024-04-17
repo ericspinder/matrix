@@ -1,12 +1,11 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.fact.matter.Exceptionally;
-import dev.inward.matrix.fact.matter.Indicia;
+import dev.inward.matrix.concept.matter.Exceptionally;
+import dev.inward.matrix.concept.matter.Indicia;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.IOException;
-import java.time.Duration;
 import java.util.UUID;
 
 public class CheckedException extends IOException implements Exceptionally {

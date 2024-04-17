@@ -3,8 +3,8 @@ package dev.inward.matrix.personality;
 import dev.inward.matrix.Library;
 import dev.inward.matrix.Scheme;
 import dev.inward.matrix.fact.authoritative.notion.Notion;
-import dev.inward.matrix.fact.matter.Indicia;
-import dev.inward.matrix.fact.matter.Matter;
+import dev.inward.matrix.concept.matter.Indicia;
+import dev.inward.matrix.concept.matter.Matter;
 
 import java.time.Instant;
 

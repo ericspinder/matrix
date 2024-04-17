@@ -5,8 +5,8 @@ import dev.inward.matrix.Meta_I;
 import dev.inward.matrix.authority.dns.resourceRecord.ServerRecord;
 import dev.inward.matrix.engine.Variant;
 import dev.inward.matrix.fact.datum.Standard;
-import dev.inward.matrix.fact.matter.Indicia;
-import dev.inward.matrix.fact.matter.Matter;
+import dev.inward.matrix.concept.matter.Indicia;
+import dev.inward.matrix.concept.matter.Matter;
 
 import java.util.ArrayList;
 import java.util.List;

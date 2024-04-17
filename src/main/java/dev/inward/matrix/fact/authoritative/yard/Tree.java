@@ -3,7 +3,7 @@ package dev.inward.matrix.fact.authoritative.yard;
 import dev.inward.matrix.authority.dns.resourceRecord.ResourceRecord;
 import dev.inward.matrix.authority.dns.resourceRecord.ResourceRecordType;
 import dev.inward.matrix.Identity;
-import dev.inward.matrix.fact.matter.Indicia;
+import dev.inward.matrix.concept.matter.Indicia;
 
 import javax.security.auth.Subject;
 import java.net.InetAddress;

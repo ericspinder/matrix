@@ -1,9 +1,15 @@
 package dev.inward.matrix.authority.dns;
 
+import dev.inward.matrix.Library;
+import dev.inward.matrix.Scheme;
 import dev.inward.matrix.authority.Domain;
 import dev.inward.matrix.authority.dns.resourceRecord.ResourceRecordType;
+import dev.inward.matrix.director.library.catalog.Gathering;
+import dev.inward.matrix.fact.Fact;
 
-public class Question {
+import java.util.UUID;
+
+public class Question extends Gathering<Scheme.DNS, Library.DNS, Question, UUID,> {
 
     protected final Domain domain;
     protected final ResourceRecordType type;

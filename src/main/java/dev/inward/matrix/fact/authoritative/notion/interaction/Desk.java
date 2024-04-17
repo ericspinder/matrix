@@ -2,7 +2,7 @@ package dev.inward.matrix.fact.authoritative.notion.interaction;
 
 import dev.inward.matrix.fact.Specification;
 import dev.inward.matrix.Identity;
-import dev.inward.matrix.fact.matter.Matter;
+import dev.inward.matrix.concept.matter.Matter;
 import dev.inward.matrix.fact.authoritative.notion.Aspect;
 import dev.inward.matrix.Context;
 import dev.inward.matrix.resources.Supplier;

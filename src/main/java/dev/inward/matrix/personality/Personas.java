@@ -1,5 +1,7 @@
 package dev.inward.matrix.personality;
 
+import dev.inward.matrix.Dogma;
+
 import java.security.Permission;
 import java.util.Arrays;
 import java.util.Objects;
@@ -15,10 +17,10 @@ public class Personas extends Permission {
 
     @Override
     public boolean implies(Permission permission) {
-        if (permission instanceof Persona) {
+        if (permission instanceof Dogma.Persona) {
             boolean foundChar;
             for (Character persona : this.personas) {
-                foundChar = persona.equals(((Persona) permission).persona);
+                foundChar = persona.equals(((Dogma.Persona) permission).persona);
                 if (foundChar) return true;
             }
             return false;

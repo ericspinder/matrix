@@ -3,7 +3,7 @@ package dev.inward.matrix.fact.authoritative;
 import dev.inward.matrix.Identity;
 import dev.inward.matrix.fact.Operational;
 import dev.inward.matrix.fact.Specification;
-import dev.inward.matrix.fact.matter.sanction.RedTape;
+import dev.inward.matrix.concept.matter.sanction.RedTape;
 import dev.inward.matrix.Context;
 import dev.inward.matrix.resources.Supplier;
 

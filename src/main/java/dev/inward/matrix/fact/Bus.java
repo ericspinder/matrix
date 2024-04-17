@@ -13,7 +13,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
-public class Bus<S extends Scheme<S,L,PATH>,L extends Library<S,L,PATH>,PATH extends Comparable<PATH>,F extends Fact<S,L,PATH,F,N>,N extends Notion<N>> {
+public class Bus<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> {
 
         protected final UUID uuid = UUID.randomUUID();
         protected ConcurrentLinkedDeque<Representative<S,L,PATH,F>> deque;

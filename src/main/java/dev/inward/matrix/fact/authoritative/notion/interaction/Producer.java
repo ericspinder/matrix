@@ -2,7 +2,7 @@ package dev.inward.matrix.fact.authoritative.notion.interaction;
 
 import dev.inward.matrix.fact.Model;
 import dev.inward.matrix.Identity;
-import dev.inward.matrix.fact.matter.Matter;
+import dev.inward.matrix.concept.matter.Matter;
 import dev.inward.matrix.Context;
 
 import java.lang.ref.ReferenceQueue;

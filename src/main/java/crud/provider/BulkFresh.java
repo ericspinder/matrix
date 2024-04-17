@@ -1,6 +1,7 @@
 package crud.provider;
 
 import dev.inward.crud.Container;
+import dev.inward.matrix.Provider;
 import dev.inward.matrix.fact.Bus;
 import dev.inward.matrix.fact.Operational;
 

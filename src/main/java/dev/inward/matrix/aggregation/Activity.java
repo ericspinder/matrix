@@ -1,6 +1,6 @@
 package dev.inward.matrix.aggregation;
 
-import dev.inward.matrix.fact.matter.task.Result;
+import dev.inward.matrix.concept.matter.task.Result;
 
 public class Activity {
 

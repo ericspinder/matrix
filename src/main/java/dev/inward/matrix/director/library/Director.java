@@ -13,7 +13,7 @@ import java.net.URLStreamHandler;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Director<S extends Scheme<S,L>,L extends Library<S,L>,D extends Director<S,L,D,R>,R extends Road<S,L,D,R>> extends URLStreamHandler {
+public abstract class Director<S extends Scheme<S,L>,L extends Library<S,L>,D extends Director<S,L,D,R>,R extends Road<S,L,D,R>> extends URLStreamHandler {
 
     protected final S scheme;
     protected final R road;

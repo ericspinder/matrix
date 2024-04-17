@@ -3,12 +3,8 @@ package dev.inward.matrix.policy;
 import dev.inward.matrix.Library;
 import dev.inward.matrix.Scheme;
 import dev.inward.matrix.fact.Concept;
+import dev.inward.matrix.concept.matter.Matter;
 import dev.inward.matrix.fact.Fact;
-import dev.inward.matrix.fact.Representative;
-import dev.inward.matrix.Identity;
-import dev.inward.matrix.Context;
-import dev.inward.matrix.fact.authoritative.notion.Notion;
-import dev.inward.matrix.fact.matter.Matter;
 
 import javax.annotation.Nonnull;
 import java.nio.file.FileVisitOption;
@@ -26,7 +22,7 @@ import java.util.function.Supplier;
  * @param <NX> Containing Notion's Context
  * @param <P> This class - allows Comparable<P> to work
  */
-public abstract class Policy<BEHAVIOR extends Supplier<Matter<S,L,PATH,N,?>>,DATUM,S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Identity.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> implements Comparable<P> {
+public abstract class Policy<BEHAVIOR extends Supplier<Matter<S,L,PATH,N,?>>,DATUM,S extends Scheme<S,L>,L extends Library<S,L>,N extends Fact.Named<S,L,PATH,ID,T,>,C extends Concept<S,L,PATH,ID,T,C>> implements Comparable<P> {
 
     protected final BEHAVIOR behavior;
 

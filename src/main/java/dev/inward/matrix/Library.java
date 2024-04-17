@@ -7,9 +7,11 @@ import dev.inward.matrix.director.library.Director;
 import dev.inward.matrix.director.library.Memory;
 import dev.inward.matrix.director.library.catalog.Catalog;
 import dev.inward.matrix.director.library.catalog.Gathering;
+import dev.inward.matrix.engine.Zone;
 import dev.inward.matrix.fact.Concept;
 import dev.inward.matrix.fact.Model;
-import dev.inward.matrix.fact.matter.Indicia;
+import dev.inward.matrix.concept.matter.Indicia;
+import dev.inward.matrix.policy.Policy;
 
 import java.io.IOException;
 import java.net.URI;
@@ -23,27 +25,45 @@ import java.security.CodeSigner;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.regex.Pattern;
 
 public abstract class Library<S extends Scheme<S,L>,L extends Library<S,L>> extends FileSystemProvider implements Comparable<L> {
 
     protected final S scheme;
-    protected final Terrene terrene;
     protected final Domain domain;
 
-    protected final Map<Registry<S,L>, Registrar<S,L>>
+    protected final Map<Registry<S,L>, Registrar<S,L>> registrarMap = new ConcurrentHashMap<>();
     protected final Map<Catalog<S,L,?,?,?,?,?>,Librarian<S,L,?,?>> catalogs = new ConcurrentHashMap<>();
     protected final Map<Model<S,L,?,?,?>, Director<S,L,?,?>> models = new ConcurrentHashMap<>();
 
+    protected StringBuilder firstLimitReachedMessage(String className, long warnTotal, long hardLimit) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(className).append("warnTotal:").append(warnTotal).append(" hardLimit").append(hardLimit);
+        return stringBuilder;
+    }
+    protected String hardLimitReached(String className, long warnTotal, long hardLimit, AtomicLong count, String previousMessage) {
+        return firstLimitReachedMessage(className,warnTotal,hardLimit).append(' ').append(previousMessage).toString() ;
+    }
     public static class DNS extends Library<Scheme.DNS, Library.DNS> {
 
-        public DNS(Scheme.DNS dnsScheme, Terrene terrene,Domain domain) {
-            super(dnsScheme, terrene, domain);
+        public DNS(Terrene terrene,Domain domain) {
+            super(Scheme.DNS.Instance, terrene, domain);
+        }
+
+        @Override
+        protected <PATH extends Comparable<PATH>, ID extends Comparable<ID>, T extends Concept.Tangible<Scheme.DNS, DNS, PATH, ID, T, C>, C extends Concept<Scheme.DNS, DNS, PATH, ID, T, C>, CAT extends Catalog<Scheme.DNS, DNS, PATH, ID, T, C, CAT>> C initCatalog(Memory<Scheme.DNS, DNS, PATH> memory, Pattern separatorPattern, Map<PATH, Gathering<Scheme.DNS, DNS, PATH, ID, T, C, CAT>> directoriesSeed) throws CheckedException {
+            return null;
         }
     }
     public static class HTML extends Library<Scheme.HTML,HTML> {
-        public HTML(Scheme.HTML htmlScheme,Terrene terrene,Domain domain) {
-            super(htmlScheme,terrene,domain);
+        public HTML(Terrene terrene,Domain domain) {
+            super(Scheme.HTML.Instance,terrene,domain);
+        }
+
+        @Override
+        protected <PATH extends Comparable<PATH>, ID extends Comparable<ID>, T extends Concept.Tangible<Scheme.HTML, HTML, PATH, ID, T, C>, C extends Concept<Scheme.HTML, HTML, PATH, ID, T, C>, CAT extends Catalog<Scheme.HTML, HTML, PATH, ID, T, C, CAT>> C initCatalog(Memory<Scheme.HTML, HTML, PATH> memory, Pattern separatorPattern, Map<PATH, Gathering<Scheme.HTML, HTML, PATH, ID, T, C, CAT>> directoriesSeed) throws CheckedException {
+            return null;
         }
     }
 
@@ -63,6 +83,10 @@ public abstract class Library<S extends Scheme<S,L>,L extends Library<S,L>> exte
         return this.scheme.scheme;
     }
 
+    public S get_Scheme() {
+        return this.scheme;
+    }
+
     @Override
     public Catalog<S,L,?,?,?,?,?> newFileSystem(URI uri, Map<String, ?> env) throws IOException {
         return null;
@@ -74,7 +98,7 @@ public abstract class Library<S extends Scheme<S,L>,L extends Library<S,L>> exte
     }
 
     @Override
-    public Concept<S,L,?,?,?,?> getPath(URI uri) {
+    public ConceptPath<S,L,?,?,?,?> getPath(URI uri) {
         return null;
     }
 
@@ -100,7 +124,9 @@ public abstract class Library<S extends Scheme<S,L>,L extends Library<S,L>> exte
 
     @Override
     public void copy(Path source, Path target, CopyOption... options) throws IOException {
-
+    }
+    public <PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> void _copy(Concept<S,L,PATH,ID,T,C> concept, T target, StandardCopyOption... copyOptions) {
+        if ()
     }
 
     @Override
@@ -148,9 +174,9 @@ public abstract class Library<S extends Scheme<S,L>,L extends Library<S,L>> exte
 
     }
 
-    protected abstract <PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Identity.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CAT extends Catalog<S,L,PATH,ID,T,C,CAT>> C initCatalog(Memory<S,L,PATH> memory, Pattern separatorPattern, Map<PATH,Gathering<S,L,PATH,ID,T,C,CAT>> directoriesSeed) throws CheckedException;
+    protected abstract <PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CAT extends Catalog<S,L,PATH,ID,T,C,CAT>> C initCatalog(Memory<S,L,PATH> memory, Pattern separatorPattern, Map<PATH,Gathering<S,L,PATH,ID,T,C,CAT>> directoriesSeed) throws CheckedException;
 
-    public CodeSigner[] getCodeSigners() {
+    public CodeSigner[] getCodeSigners(Zone zone) {
 
         throw new MatrixException(MatrixException.Type.CodeSigners_not_initialized,"getCodeSigners() failed to create CodeSigner[] needed", Indicia.Focus.Assembly, Indicia.Severity.Critical,new Exception("StackTrace, should be calling getCodeSigner() only after calling getUrl()"));
     }
@@ -173,5 +199,29 @@ public abstract class Library<S extends Scheme<S,L>,L extends Library<S,L>> exte
             }
         }
         return isZero;
+    }
+
+    public static class LogLibrary extends Library<Scheme.Log, LogLibrary> {
+
+
+        public LogLibrary(Terrene terrene, Domain domain) {
+            super(Scheme.Log.Instance, terrene, domain);
+        }
+
+        @Override
+        protected <PATH extends Comparable<PATH>, ID extends Comparable<ID>, T extends Concept.Tangible<Scheme.Log, LogLibrary, PATH, ID, T, C>, C extends Concept<Scheme.Log, LogLibrary, PATH, ID, T, C>, CAT extends Catalog<Scheme.Log, LogLibrary, PATH, ID, T, C, CAT>> C initCatalog(Memory<Scheme.Log, LogLibrary, PATH> memory, Pattern separatorPattern, Map<PATH, Gathering<Scheme.Log, LogLibrary, PATH, ID, T, C, CAT>> directoriesSeed) throws CheckedException {
+            return null;
+        }
+    }
+    public static class InfoLibrary extends Library<Scheme.Info, InfoLibrary> {
+
+        public InfoLibrary(Terrene terrene, Domain domain) {
+            super(Scheme.Info.Instance, terrene, domain);
+        }
+
+        @Override
+        protected <PATH extends Comparable<PATH>, ID extends Comparable<ID>, T extends Concept.Tangible<Scheme.Info, InfoLibrary, PATH, ID, T, C>, C extends Concept<Scheme.Info, InfoLibrary, PATH, ID, T, C>, CAT extends Catalog<Scheme.Info, InfoLibrary, PATH, ID, T, C, CAT>> C initCatalog(Memory<Scheme.Info, InfoLibrary, PATH> memory, Pattern separatorPattern, Map<PATH, Gathering<Scheme.Info, InfoLibrary, PATH, ID, T, C, CAT>> directoriesSeed) throws CheckedException {
+            return null;
+        }
     }
 }

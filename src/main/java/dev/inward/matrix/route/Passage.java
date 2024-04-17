@@ -4,6 +4,7 @@ import dev.inward.matrix.Meta_I;
 
 public enum Passage implements Meta_I {
         NEW("new","Driver has not started his Route"),
+        First_Route("first route","new Driver"),
         COMPLETING("completing", "Driver is completing his route"),
         HOLD("hold","Waiting for work"),
         EXCEPTIONAL("exceptional","Exceptional"),

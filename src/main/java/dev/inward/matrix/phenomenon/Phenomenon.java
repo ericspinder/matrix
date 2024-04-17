@@ -4,7 +4,7 @@ import dev.inward.matrix.*;
 import dev.inward.matrix.fact.Bus;
 import dev.inward.matrix.fact.Fact;
 import dev.inward.matrix.fact.Model;
-import dev.inward.matrix.fact.matter.Matter;
+import dev.inward.matrix.concept.matter.Matter;
 
 import java.util.concurrent.Callable;
 

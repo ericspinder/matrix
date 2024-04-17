@@ -5,6 +5,7 @@ import dev.inward.matrix.*;
 import dev.inward.matrix.director.library.Memory;
 import dev.inward.matrix.fact.Concept;
 import dev.inward.matrix.fact.Representative;
+import dev.inward.matrix.fact.datum.Complication;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -18,36 +19,34 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.StampedLock;
 import java.util.regex.Pattern;
 
-public abstract class Catalog<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Identity.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CAT extends Catalog<S,L,PATH,ID,T,C,CAT>> extends FileSystem implements Comparable<CAT> {
+public abstract class Catalog<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CAT extends Catalog<S,L,PATH,ID,T,C,CAT>> extends FileSystem implements Comparable<CAT> {
 
     protected final L library;
-    protected final char sigil;
     protected final Range<PATH> range;
-    protected final Map<Memory<S,L,PATH>, Scheduler> memories;
+    protected boolean open = true;
+    protected final Map<Memory<S,L,PATH>, Scheduler<S,L,>> memories;
     protected final Map<Gathering<S,L,PATH,ID,T,C,CAT>,Update> directories;
 
 
-    public Catalog(L library, char sigil, @Nonnull Range<PATH> range, @Nullable Map<Memory<S,L,PATH>,Range<PATH>> memories, Pattern separatorPattern, List<Gathering<S,L,PATH,ID,T,C,CAT>> directoriesSeed) {
+    public Catalog(L library, @Nonnull Range<PATH> range, @Nullable Map<Memory<S,L,PATH>,Scheduler> memories, List<Gathering<S,L,PATH,ID,T,C,CAT>> directoriesSeed) {
         this.library = library;
-        this.sigil = sigil;
         this.range = range;
         this.memories = new ConcurrentHashMap<>(memories);
-        Comparator<Pattern> comparator = new Ordering<Pattern>() {
-            @Override
-            public int compare(Pattern left, Pattern right) {
-                return 0;
-            }
-        }
         this.directories = new ConcurrentHashMap<>();
+        for (Gathering<S,L,PATH,ID,T,C,CAT> gathering: directoriesSeed) {
+            this.directories.put(gathering,new Update());
+        }
+    }
+
+    public boolean processFailure(Complication<S,L,PATH,ID,T,C,?,?,?,?,?> complication, MatrixException matrixException) {
+
+        return true;
     }
 
     public L getLibrary() {
         return library;
     }
 
-    public char getSigil() {
-        return sigil;
-    }
     public Range<PATH> getRange() {
         return this.range;
     }
@@ -81,7 +80,7 @@ public abstract class Catalog<S extends Scheme<S,L>,L extends Library<S,L>,PATH 
 
     @Override
     public FileSystemProvider provider() {
-        return null;
+        return this.library;
     }
 
     @Override
@@ -91,17 +90,17 @@ public abstract class Catalog<S extends Scheme<S,L>,L extends Library<S,L>,PATH 
 
     @Override
     public boolean isOpen() {
-        return false;
+        return open;
     }
 
     @Override
     public boolean isReadOnly() {
-        return false;
+        ;
     }
 
     @Override
     public String getSeparator() {
-        return null;
+        return "/";
     }
 
     @Override

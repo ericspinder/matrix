@@ -1,7 +1,6 @@
 package dev.inward.matrix.authority;
 
 import dev.inward.matrix.CheckedException;
-import dev.inward.matrix.Identity;
 import dev.inward.matrix.Library;
 import dev.inward.matrix.Manufacture;
 import dev.inward.matrix.director.library.Memory;
@@ -9,7 +8,8 @@ import dev.inward.matrix.director.library.catalog.Catalog;
 import dev.inward.matrix.director.library.catalog.Gathering;
 import dev.inward.matrix.fact.Fact;
 import dev.inward.matrix.fact.authoritative.notion.Notion;
-import dev.inward.matrix.fact.matter.order.Autopsy;
+import dev.inward.matrix.Dogma;
+import dev.inward.matrix.concept.matter.order.Autopsy;
 
 import java.io.IOException;
 import java.nio.file.attribute.GroupPrincipal;
@@ -35,7 +35,7 @@ public class Office extends Library<DNS, Office> {
     }
 
     @Override
-    protected <ID extends Comparable<ID>, Q extends Manufacture<DNS, Office, PATH, ID, Q>, D extends Gathering<DNS, Office, PATH, D, O, F>, O extends Notion<DNS, Office, PATH, O>, N extends Identity.Tangible.Named<DNS, Office, PATH, N, F>, F extends Fact<DNS, Office, PATH, N, F>> Catalog<DNS, Office, PATH, D, O, N> initCatalog(Library<DNS, Office> library, Memory<DNS, Office, PATH> memory, Identity.Ethereal<DNS, Office, PATH, ID, Q> ethereal) throws CheckedException {
+    protected <ID extends Comparable<ID>, Q extends Manufacture<DNS, Office, PATH, ID, Q>, D extends Gathering<DNS, Office, PATH, D, O, F>, O extends Notion<DNS, Office, PATH, O>, N extends Fact.Named<DNS, Office, PATH, N, F>, F extends Fact<DNS, Office, PATH, N, F>> Catalog<DNS, Office, PATH, D, O, N> initCatalog(Library<DNS, Office> library, Memory<DNS, Office, PATH> memory, Dogma.Ethereal<DNS, Office, PATH, ID, Q> ethereal) throws CheckedException {
         return null;
     }
 

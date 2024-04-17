@@ -1,7 +1,7 @@
 package dev.inward.matrix.fact.threshold;
 
 import dev.inward.matrix.MatrixException;
-import dev.inward.matrix.fact.matter.Indicia;
+import dev.inward.matrix.concept.matter.Indicia;
 import dev.inward.matrix.resources.LocalSystemNetworking;
 
 import java.math.BigInteger;

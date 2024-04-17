@@ -2,7 +2,7 @@ package dev.inward.matrix.aggregation;
 
 import dev.inward.matrix.fact.datum.Envoy;
 import dev.inward.matrix.Identity;
-import dev.inward.matrix.fact.matter.messaging.Advice;
+import dev.inward.matrix.concept.matter.messaging.Advice;
 import dev.inward.matrix.fact.authoritative.notion.advisor.Advisor;
 import dev.inward.matrix.Context;
 import dev.inward.matrix.fact.authoritative.notion.concept.Ledger;

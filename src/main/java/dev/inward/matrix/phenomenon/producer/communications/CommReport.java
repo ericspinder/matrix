@@ -1,7 +1,7 @@
 package dev.inward.matrix.phenomenon.producer.communications;
 
 import dev.inward.matrix.Identity;
-import dev.inward.matrix.fact.matter.report.Report;
+import dev.inward.matrix.concept.matter.report.Report;
 import dev.inward.matrix.Context;
 
 import java.time.Instant;

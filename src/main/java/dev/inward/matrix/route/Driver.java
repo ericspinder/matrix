@@ -1,13 +1,12 @@
 package dev.inward.matrix.route;
 
 import dev.inward.matrix.*;
-import dev.inward.matrix.director.library.Director;
 
 import java.time.Instant;
 import java.util.UUID;
 import java.util.concurrent.locks.StampedLock;
 
-public class Driver<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,D extends Director<S,L,PATH,D,?>,R extends Route<S,L,PATH,D,?>,B extends Librarian<S,L,PATH,D,R,B,O>,O extends Road<S,L,PATH,D,R,B,O>> extends Thread implements Comparable<Driver<S,L,PATH,D,R,B,O>> {
+public class Driver<S extends Scheme<S,L>,L extends Library<S,L>,R extends Road<S,L,R>> extends Thread {
 
     protected final UUID uuid = UUID.randomUUID();
     protected final StampedLock gate = new StampedLock();
@@ -16,14 +15,14 @@ public class Driver<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Co
     protected Instant lastBeginning;
     protected Instant lastHealthCheck;
 
-    public Driver(Dispatch group, Runnable target, String name,
-                  long stackSize, boolean inheritThreadLocals) {
-        super(group,target,name,stackSize,inheritThreadLocals);
+    public Driver(Dispatch<S,L,R> group, Runnable target, String name,
+                  long stackSize) {
+        super(group,target,name,stackSize,false);
         passage = Passage.NEW;
     }
     @SuppressWarnings("unchecked")
-    public Dispatch<S,L,PATH,D,R,B,O> getDispatch() {
-        return (Dispatch<S,L,PATH,D,R,B,O>) this.getThreadGroup();
+    public Dispatch<S,L,R> getDispatch() {
+        return (Dispatch<S,L,R>) this.getThreadGroup();
     }
 
     public UUID getUuid() {
@@ -87,10 +86,5 @@ public class Driver<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Co
         finally {
             gate.unlockWrite(writeLock);
         }
-    }
-
-    @Override
-    public int compareTo(Driver<S, L, PATH, D, R, B, O> o) {
-        return 0;
     }
 }

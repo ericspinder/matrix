@@ -1,38 +1,51 @@
 package dev.inward.matrix.fact.datum;
 
-import dev.inward.matrix.Context;
-import dev.inward.matrix.Identity;
-import dev.inward.matrix.Library;
-import dev.inward.matrix.Scheme;
+import dev.inward.matrix.*;
 import dev.inward.matrix.fact.*;
-import dev.inward.matrix.fact.authoritative.notion.Aspect;
-import dev.inward.matrix.fact.authoritative.notion.Notion;
-import dev.inward.matrix.fact.matter.Matter;
-import dev.inward.matrix.phenomenon.producer.ExecutionExceptionly;
+import dev.inward.matrix.concept.matter.Indicia;
+import dev.inward.matrix.concept.matter.Matter;
+import dev.inward.matrix.concept.matter.limitReached.LimitReached;
+import dev.inward.matrix.ticket.Ticket;
 
-import java.io.Serializable;
-import java.lang.invoke.*;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
-import java.nio.file.Watchable;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.StampedLock;
+import java.util.function.Predicate;
 
-public class Complication<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Identity.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CRIT extends Criterion,P extends Predictable<S,L,PATH,ID,T,C,CRIT,P,COMP>,COMP extends Complication<S,L,PATH,ID,T,C,CRIT,P,COMP>> implements WatchKey {
+public abstract class Complication<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CRIT extends Criterion,P extends Predictable<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE>,COMP extends Complication<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE>,M extends Matter<S,L,M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> implements WatchKey, Runnable ,Callable<M> {
 
-    protected final CRIT criterion;
+    protected final StampedLock gate = new StampedLock();
     protected final P predictable;
-    protected final ConcurrentHashMap<Class<Aspect<S,L,PATH,ID,T,C>>,Notion<S,L>> aspects;
+    protected final CRIT criterion;
+    protected final Map<M, Ticket[]> mattersTickets = new ConcurrentHashMap<>();
+    protected final Provider<S,L,PATH,ID,T,C> provider;
 
 
-    public Complication(CRIT criterion, P predictable,Class<Aspect<S,L,PATH,ID,T,C>> aspect) {
-        this.criterion = criterion;
+    public Complication(P predictable, CRIT criterion, Provider<S,L,PATH,ID,T,C> provider) {
         this.predictable = predictable;
-        this.callSite = predictable.registerCriterion(criterion);
+        this.criterion = criterion;
+        this.provider = provider;
     }
-    public void engage(Bus<> bus, E envoy) throws ExecutionExceptionly {
 
+    public static class Limitation<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> extends Complication<S,L,PATH,ID,T,C, Criterion.Limiter,Predictable.Limited<S,L,PATH,ID,T,C>, Limitation<S,L,PATH,ID,T,C>, LimitReached<S,L,PATH,ID,T,C>> {
+
+        public Limitation(Predictable.Limited<S,L,PATH,ID,T,C> limited, Criterion.Limiter limiter, Provider<S,L,PATH,ID,T,C> provider) {
+            super(limited, limiter, provider);
+        }
+
+    }
+
+    public final void run() {
+        try {
+            M matter = this.call();
+            mattersTickets.put(matter,new Ticket[][]{});
+        }
+        catch (Throwable throwable) {
+            this.predictable.getCatalog().processFailure(this, new MatrixException(MatrixException.Type.RunProblem,this.getClass().getCanonicalName(), Indicia.Focus.Admonitory, Indicia.Severity.Exceptional,e));
+        }
     }
 
     /**
@@ -45,20 +58,30 @@ public class Complication<S extends Scheme<S,L>,L extends Library<S,L>,PATH exte
      */
     @Override
     public boolean isValid() {
-        return false;
+        return this.provider.isOn();
     }
 
-    /**
-     * Retrieves and removes all pending events for this watch key, returning
-     * a {@code List} of the events that were retrieved.
-     *
-     * <p> Note that this method does not wait if there are no events pending.
-     *
-     * @return the list of the events retrieved; may be empty
-     */
     @Override
     public List<WatchEvent<?>> pollEvents() {
-        return null;
+        return List.of((WatchEvent<?>) this.pollEvents("anyone").stream());
+    }
+    public List<M> pollEvents(String subscription) {
+        long readLock = gate.readLock();
+        try {
+            List<M> events = new ArrayList<>();
+            for (Map.Entry<M, String[]> matterEntry : mattersTickets.entrySet()) {
+                for (String value : matterEntry.getValue()) {
+                    if (value.equals(subscription) && matterEntry.getKey().isSettled()) {
+                        events.add(matterEntry.getKey());
+                        matterEntry.setValue((String[]) Arrays.stream(matterEntry.getValue()).dropWhile(Predicate.isEqual(subscription)).toArray());
+                    }
+                }
+            }
+            return events;
+        }
+        finally {
+            gate.unlockRead(readLock);
+        }
     }
 
     /**
@@ -77,7 +100,20 @@ public class Complication<S extends Scheme<S,L>,L extends Library<S,L>,PATH exte
      */
     @Override
     public boolean reset() {
-        return false;
+        if (this.isValid()) {
+            long writeLock = gate.writeLock();
+            try {
+                this.mattersTickets.forEach(Matter::setSettled);
+                this.mattersTickets.clear();
+                return true;
+            }
+            finally {
+                gate.unlockWrite(writeLock);
+            }
+        }
+        else {
+            return false;
+        }
     }
 
     /**
@@ -93,7 +129,7 @@ public class Complication<S extends Scheme<S,L>,L extends Library<S,L>,PATH exte
      */
     @Override
     public void cancel() {
-
+        this.provider.off();
     }
 
     /**
@@ -111,8 +147,8 @@ public class Complication<S extends Scheme<S,L>,L extends Library<S,L>,PATH exte
      * @return the object for which this watch key was created
      */
     @Override
-    public Watchable watchable() {
-        return this.predictable;
+    public C watchable() {
+        return this.provider.getConcept();
     }
 }
 //        suppressors("Suppressor",""),

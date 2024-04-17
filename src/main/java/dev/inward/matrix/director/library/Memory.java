@@ -18,8 +18,7 @@ import java.util.UUID;
 
 public abstract class Memory<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>> extends FileStore implements Comparable<Memory<S,L,PATH>> {
 
-    protected final UUID uuid = UUID.randomUUID();
-    protected final char initSigil;
+    protected final String name;
     protected final Range<PATH> range;
     protected final boolean readOnly;
     protected transient long totalSpace;
@@ -27,34 +26,24 @@ public abstract class Memory<S extends Scheme<S,L>,L extends Library<S,L>,PATH e
     protected transient long usableSpace;
 
     @SuppressWarnings("unchecked")
-    public Memory(@Nonnull L library,@Nonnull char initSigil, @Nonnull boolean readOnly, @Nullable Range<PATH> range) {
-        this.library = library;
-        this.initSigil = initSigil;
+    public Memory(@Nonnull String name, @Nonnull boolean readOnly, @Nullable Range<PATH> range) {
+        this.name = name;
         this.readOnly = readOnly;
         this.range = range;
+        this.initSpaces();
     }
-
-    public UUID getUuid() {
-        return uuid;
-    }
+    public abstract void initSpaces();
 
     @Override
     public int compareTo(Memory<S,L,PATH> that) {
-        return this.uuid.compareTo(that.uuid);
+        return this.name.compareTo(that.name);
     }
 
     @Override
     public String name() {
-        StringBuilder name = new StringBuilder();
-        if (this.range != null) {
-            name.append(this.range.toString());
-        }
-        return name.toString();
+        return name;
     }
 
-    public L getLibrary() {
-        return library;
-    }
 
     public Range<PATH> getRange() {
         return range;

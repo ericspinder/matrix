@@ -2,23 +2,12 @@ package dev.inward.matrix;
 
 import dev.inward.matrix.authority.dns.Terrene;
 import dev.inward.matrix.director.library.Director;
-import dev.inward.matrix.director.library.Memory;
-import dev.inward.matrix.director.library.catalog.Catalog;
-import dev.inward.matrix.fact.Fact;
-import dev.inward.matrix.fact.authoritative.notion.Notion;
-import dev.inward.matrix.fact.matter.Indicia;
+import dev.inward.matrix.concept.matter.Indicia;
 
 import java.io.IOException;
 import java.net.*;
-import java.net.spi.URLStreamHandlerProvider;
-import java.nio.channels.SeekableByteChannel;
-import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.nio.file.attribute.FileAttribute;
-import java.nio.file.attribute.FileAttributeView;
-import java.nio.file.spi.FileSystemProvider;
 import java.util.Map;
-import java.util.Set;
+import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class Scheme<S extends Scheme<S,L>,L extends Library<S,L>> extends URLStreamHandler implements Comparable<S> {
@@ -65,44 +54,84 @@ public abstract class Scheme<S extends Scheme<S,L>,L extends Library<S,L>> exten
         }
     }
     protected final String scheme;
+    protected final Terrene terrene;
     protected final Map<String,Director<S,L,?,?>> directors = new ConcurrentHashMap<>();
     protected volatile transient Director<S,L,?,?> defaultNewLibrary;
-    protected Scheme(String scheme) {
+    protected Scheme(String scheme,Terrene terrene) {
         this.scheme = scheme;
+        this.terrene = terrene;
     }
 
     public static class DNS extends Scheme<DNS,Library.DNS> {
-        public final static DNS Instance = new DNS();
-        private DNS() {
-            super("dns");
+        public final static DNS Earth = new DNS(Terrene.Earth);
+        public final static DNS Luna = new DNS(Terrene.Luna);
+
+        private final Map<Director<DNS,Librarian.DNS,Librarian<DNS,Library.DNS,?,?>> librarianMap = new WeakHashMap<>();
+
+        private DNS(Terrene terrene) {
+            super("dns",terrene);
         }
+
+        protected Director<DNS, Library.DNS,>
     }
     public static class HTML extends Scheme<HTML,Library.HTML> {
-        public final static HTML Instance = new HTML();
-        private HTML() {
-            super("html");
+        public final static HTML Earth = new HTML(Terrene.Earth);
+        public final static HTML Luna = new HTML(Terrene.Luna);
+        private HTML(Terrene terrene) {
+            super("html",terrene);
         }
     }
+    public static class Info extends Scheme<Info, Library.InfoLibrary> {
 
+        public static final Info Earth = new Info(Terrene.Earth);
+        public static final Info Luna = new Info(Terrene.Luna);
+        protected Info(Terrene terrene) {
+            super("info",terrene);
+        }
+        public static final Info Instance = new Info();
+
+    }
+    public static class Log extends Scheme<Log, Library.LogLibrary> {
+
+        public static final Log Earth = new Log(Terrene.Earth);
+        public static final Log Luna = new Log(Terrene.Luna);
+        protected Log(Terrene terrene) {
+            super("log",terrene);
+        }
+
+        @Override
+        protected Director<Log, Library.LogLibrary, ?, ?> getNewDirector(String authority) {
+            return null;
+        }
+    }
 
     @Override
     protected Clerk<S,L,?,?> openConnection(URL u) throws IOException {
-        if(!u.getProtocol().equalsIgnoreCase(this.scheme))
-            throw new MatrixException(MatrixException.Type.NotRightScheme,u.getProtocol() + " scheme_wrong", Indicia.Focus.Assembly, Indicia.Severity.Critical, new Exception("stacktrace..."));
-        String authority = u.getAuthority();
-        Director<S,L,?,?> director = this.directors.get(authority);
-        if (director == null) {
-            // is it a Server or Client connection?
-            // get DNS info
-            // init library
-            // init user(anonymous and userInfo if it exists)/catalogs/librarians
-            // init notions/facts/etc
+        if (!u.getProtocol().equalsIgnoreCase(this.scheme))
+            throw new MatrixException(MatrixException.Type.NotRightScheme, u.getProtocol() + " scheme_wrong", Indicia.Focus.Assembly, Indicia.Severity.Critical, new Exception("stacktrace..."));
+        try {
+            URI uri = u.toURI();
+            uri.getSchemeSpecificPart();
+
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         }
-        return null;
+        Director<S, L, ?, ?> director = this.directors.get(u.getAuthority());
+        if (director == null) {
+            director = this.getNewDirector(u.getAuthority());
+        }
+
+        // is it a Server or Client connection?
+        // get DNS info
+        // init library
+        // init user(anonymous and userInfo if it exists)/catalogs/librarians
+        // init notions/facts/etc
     }
+    protected abstract Director<S,L,?,?> getNewDirector(String authority);
 
     @Override
     public int compareTo(S that) {
         return this.scheme.compareTo(that.scheme);
     }
+
 }

@@ -4,14 +4,13 @@ import dev.inward.matrix.Scheme;
 import dev.inward.matrix.Library;
 import dev.inward.matrix.director.library.catalog.Gathering;
 import dev.inward.matrix.engine.Engine;
-import dev.inward.matrix.Identity;
 import dev.inward.matrix.resources.Resources;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.StampedLock;
 
-public class Factory<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Identity.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>>  extends ClassLoader implements Comparable<Factory<S,L,PATH,ID,T,C>> {
+public class Factory<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>>  extends ClassLoader implements Comparable<Factory<S,L,PATH,ID,T,C>> {
 
     private Engine<F,I,ID,X,O,S> engine = null;
     protected final Gathering<S,L,PATH,ID,T,C,?> gathering;

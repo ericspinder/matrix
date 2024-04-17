@@ -1,15 +1,17 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.fact.matter.Indicia;
+import dev.inward.matrix.concept.matter.Indicia;
 
 public class MatrixException extends Blocker {
 
     public enum Type {
+        RunProblem("Matter creation failed"),
+        CurrentNotSet("not settable because Provider.Current is closed"),
         NotRightScheme("Not the right scheme, mismatched"),
         VisitorFailed("Class Visitor failed to operate"),
         ReflectiveOperationFailed("A reflective operation failed to instantiate class"),
         BadCastToGeneric("A bad cast when trying to retrieve a value"),
-        Cannot_Update_Timer("Cannot update timer object with new finish time once set"),
+        Cannot_Update_Session_Expire("Cannot update session with new expire time, as it is already expired"),
         Catalog_not_initialized("Catalog not initialized"),
         ConstructorProblem_Reflective("Unable to create needed constructor, reflective operation failed"),
         ConstructorProblem_WrongClass("Unable to find needed constructor, likely should be using a different class"),
@@ -21,6 +23,7 @@ public class MatrixException extends Blocker {
         MissMatchedOptionKey("Option key was not set for proper instance value"),
         NetworkUnavailable_No_Return("Problem gaining network details"),
         NotImplemented("Not implemented"),
+        OverLimit("Over limit for Resource"),
         Pickup_Not_Set("The thread doesn't contain a fact when processing DATUM on Bus"),
         WAITED_TOO_LONG_FOR_CONNECTION("Waited too long for a connection"),
         SoftReference_Problem("SoftReference problem"),

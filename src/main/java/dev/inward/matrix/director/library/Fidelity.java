@@ -2,7 +2,7 @@ package dev.inward.matrix.director.library;
 
 import dev.inward.matrix.MatrixException;
 import dev.inward.matrix.engine.Zone;
-import dev.inward.matrix.fact.matter.Indicia;
+import dev.inward.matrix.concept.matter.Indicia;
 
 public abstract class Fidelity {
 

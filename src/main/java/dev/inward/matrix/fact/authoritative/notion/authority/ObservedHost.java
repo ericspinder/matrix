@@ -9,7 +9,7 @@ import dev.inward.matrix.authority.dns.resourceRecord.ResourceRecordType;
 import dev.inward.matrix.authority.dns.resourceRecord.ServerRecord;
 import dev.inward.matrix.Context;
 import dev.inward.matrix.Identity;
-import dev.inward.matrix.fact.matter.Indicia;
+import dev.inward.matrix.concept.matter.Indicia;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

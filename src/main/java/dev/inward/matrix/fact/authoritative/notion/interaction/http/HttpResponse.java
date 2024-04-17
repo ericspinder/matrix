@@ -1,8 +1,8 @@
 package dev.inward.matrix.fact.authoritative.notion.interaction.http;
 
 import dev.inward.matrix.Identity;
-import dev.inward.matrix.fact.matter.Indicia;
-import dev.inward.matrix.fact.matter.messaging.Response;
+import dev.inward.matrix.concept.matter.Indicia;
+import dev.inward.matrix.concept.matter.messaging.Response;
 import dev.inward.matrix.Context;
 
 import java.time.Instant;

@@ -1,7 +1,7 @@
 package dev.inward.matrix.authority;
 
 import dev.inward.matrix.*;
-import dev.inward.matrix.fact.matter.Indicia;
+import dev.inward.matrix.concept.matter.Indicia;
 
 import javax.annotation.Nonnull;
 import java.net.MalformedURLException;

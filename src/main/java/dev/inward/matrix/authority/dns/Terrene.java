@@ -5,7 +5,7 @@ import dev.inward.matrix.MatrixException;
 import dev.inward.matrix.authority.Domain;
 import dev.inward.matrix.authority.dns.resourceRecord.ServerRecord;
 import dev.inward.matrix.director.library.Director;
-import dev.inward.matrix.fact.matter.Indicia;
+import dev.inward.matrix.concept.matter.Indicia;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

@@ -1,22 +1,15 @@
 package dev.inward.matrix.resources;
 
 import dev.inward.matrix.MatrixException;
-import dev.inward.matrix.authority.dns.Terrene;
-import dev.inward.matrix.Context;
-import dev.inward.matrix.Identity;
-import dev.inward.matrix.fact.matter.Indicia;
-import dev.inward.matrix.fact.matter.report.DefaultFailure;
-import dev.inward.matrix.fact.threshold.SocketAddress;
+import dev.inward.matrix.concept.matter.Indicia;
 
 import java.math.BigInteger;
-import java.net.InetAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.locks.StampedLock;
 
 public class LocalSystemNetworking {
     

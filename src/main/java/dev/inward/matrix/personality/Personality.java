@@ -1,16 +1,12 @@
 package dev.inward.matrix.personality;
 
-import dev.inward.matrix.Library;
-import dev.inward.matrix.MatrixException;
-import dev.inward.matrix.Context;
-import dev.inward.matrix.Scheme;
-import dev.inward.matrix.fact.matter.Indicia;
+import dev.inward.matrix.*;
+import dev.inward.matrix.concept.matter.Indicia;
 
 import java.security.Permission;
 import java.security.PermissionCollection;
 import java.util.Arrays;
 import java.util.Enumeration;
-import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.locks.StampedLock;
 
@@ -25,10 +21,10 @@ public class Personality<S extends Scheme<S,L>,L extends Library<S,L>,EXPIRE ext
 
     @Override
     public void add(Permission permission) {
-        if (permission instanceof Persona) {
+        if (permission instanceof Dogma.Persona) {
             long lock = personaGate.writeLock();
             try {
-                this.knownPersonas.add((Persona) permission);
+                this.knownPersonas.add((Dogma.Persona) permission);
 
                 return;
             }
@@ -56,16 +52,16 @@ public class Personality<S extends Scheme<S,L>,L extends Library<S,L>,EXPIRE ext
      */
     @Override
     public boolean implies(Permission permission) {
-        if (permission instanceof Persona) {
-            return ((Persona)knownPermission).persona == ((Persona)permission).persona;
+        if (permission instanceof Dogma.Persona) {
+            return ((Dogma.Persona)knownPermission).persona == ((Dogma.Persona)permission).persona;
                 if (knownPermission instanceof Psyche) {
-                    return Arrays.binarySearch(((Psyche)knownPermission).personas,((Persona) permission).persona) >= 0;
+                    return Arrays.binarySearch(((Psyche)knownPermission).personas,((Dogma.Persona) permission).persona) >= 0;
                 }
                 if (knownPermission instanceof Sessio
         }
         if (permission instanceof Psyche) {
             for (Permission knownPermission: knownPermissions) {
-                if (knownPermission instanceof  Persona) {
+                if (knownPermission instanceof Dogma.Persona) {
                     return Arrays.compare(((Psyche)knownPermission).personas,((Psyche) permission).personas) >= 0;
                 }
                 if (knownPermission instanceof Psyche) {
@@ -77,7 +73,7 @@ public class Personality<S extends Scheme<S,L>,L extends Library<S,L>,EXPIRE ext
             }
             for (char psychePersona: ((Psyche) permission).personas) {
                 for (Permission personaRaw: this.personas) {
-                    if (((Persona)personaRaw).persona == psychePersona) return true;
+                    if (((Dogma.Persona)personaRaw).persona == psychePersona) return true;
                 }
             }
             return false;

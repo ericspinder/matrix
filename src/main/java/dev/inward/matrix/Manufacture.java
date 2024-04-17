@@ -1,18 +1,16 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.fact.Addressed;
-import dev.inward.matrix.fact.datum.User;
-import dev.inward.matrix.personality.Persona;
 
-public abstract class Manufacture<S extends Scheme<S,L>,L extends Library<S,L>,E extends Identity.Ethereal<S,L,E,M>,M extends Manufacture<S,L,E,M>> implements Addressed<S,L,Character,String,E,M> {
+public abstract class Manufacture<S extends Scheme<S,L>,L extends Library<S,L>,M extends Manufacture<S,L,M>> implements Addressed<S,L,Character,String, Dogma.Ethereal<S,L,M>,M> {
 
-    protected final E identity;
+    protected final Dogma.Ethereal<S,L,M> identity;
 
-    public Manufacture(E identity) {
+    public Manufacture(Dogma.Ethereal<S,L,M> identity) {
         this.identity = identity;
     }
     @Override
-    public E getIdentity() {
+    public Dogma.Ethereal<S,L,M> getIdentity() {
         return this.identity;
     }
 

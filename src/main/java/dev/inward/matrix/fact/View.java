@@ -3,7 +3,7 @@ package dev.inward.matrix.fact;
 import dev.inward.matrix.Context;
 import dev.inward.matrix.Identity;
 import dev.inward.matrix.fact.datum.Envoy;
-import dev.inward.matrix.fact.matter.Matter;
+import dev.inward.matrix.concept.matter.Matter;
 import dev.inward.matrix.resources.Resource;
 
 import java.util.Collection;
