@@ -20,7 +20,7 @@ public abstract class Complication<S extends Scheme<S,L>,L extends Library<S,L>,
     protected final StampedLock gate = new StampedLock();
     protected final P predictable;
     protected final CRIT criterion;
-    protected final Map<M, Ticket[]> mattersTickets = new ConcurrentHashMap<>();
+    protected final Map<M, Ticket<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE>[]> mattersTickets = new ConcurrentHashMap<>();
     protected final Provider<S,L,PATH,ID,T,C> provider;
 
 
@@ -65,13 +65,13 @@ public abstract class Complication<S extends Scheme<S,L>,L extends Library<S,L>,
     public List<WatchEvent<?>> pollEvents() {
         return List.of((WatchEvent<?>) this.pollEvents("anyone").stream());
     }
-    public List<M> pollEvents(String subscription) {
+    public List<M> pollEvents(Ticket<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE> ticketStub) {
         long readLock = gate.readLock();
         try {
             List<M> events = new ArrayList<>();
-            for (Map.Entry<M, String[]> matterEntry : mattersTickets.entrySet()) {
-                for (String value : matterEntry.getValue()) {
-                    if (value.equals(subscription) && matterEntry.getKey().isSettled()) {
+            for (Map.Entry<M, Ticket<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE>[]> matterEntry : mattersTickets.entrySet()) {
+                for (Ticket<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE> ticket : matterEntry.getValue()) {
+                    if (ticket.equals() && matterEntry.getKey().isSettled()) {
                         events.add(matterEntry.getKey());
                         matterEntry.setValue((String[]) Arrays.stream(matterEntry.getValue()).dropWhile(Predicate.isEqual(subscription)).toArray());
                     }
@@ -147,8 +147,8 @@ public abstract class Complication<S extends Scheme<S,L>,L extends Library<S,L>,
      * @return the object for which this watch key was created
      */
     @Override
-    public C watchable() {
-        return this.provider.getConcept();
+    public T watchable() {
+        return this.provider.getConcept().getIdentity();
     }
 }
 //        suppressors("Suppressor",""),

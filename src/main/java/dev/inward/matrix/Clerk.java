@@ -1,5 +1,7 @@
 package dev.inward.matrix;
 
+import dev.inward.matrix.route.Road;
+
 import java.io.IOException;
 import java.net.URLConnection;
 import java.nio.channels.*;
@@ -10,7 +12,8 @@ public abstract class Clerk<S extends Scheme<S,L>,L extends Library<S,L>,CHANNEL
 
     protected final StampedLock gate = new StampedLock();
     protected final L library;
-    protected final transient CHANNEL channel;
+    protected final Road<S,L,?> Road;
+    protected transient CHANNEL channel;
 
     public Clerk(L library ,CHANNEL channel) {
         super(library.domain.getUrl());
@@ -19,6 +22,17 @@ public abstract class Clerk<S extends Scheme<S,L>,L extends Library<S,L>,CHANNEL
     }
     public final L getLibrary() {
         return library;
+    }
+
+    public abstract static class File<S extends Scheme<S,L>,L extends Library<S,L>> extends Clerk<S,L,AsynchronousFileChannel,File<S,L>> {
+
+        public File(L library, AsynchronousFileChannel channel) {
+            super(library, channel);
+        }
+        @Override
+        public void connect() {
+            channel.lock();
+        }
     }
 
 
@@ -38,8 +52,10 @@ public abstract class Clerk<S extends Scheme<S,L>,L extends Library<S,L>,CHANNEL
                 super(library,channel,remoteHost);
             }
 
+
             @Override
             public void connect() throws IOException {
+                channel.connect();
 
             }
 
@@ -78,4 +94,5 @@ public abstract class Clerk<S extends Scheme<S,L>,L extends Library<S,L>,CHANNEL
         int isZero = this.library.domain.compareTo(that.library.domain);
 
     }
+
 }

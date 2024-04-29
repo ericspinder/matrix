@@ -11,16 +11,16 @@ public abstract class Gathering<S extends Scheme<S,L>,L extends Library<S,L>,PAT
 
     private transient final StampedLock gate = new StampedLock();
     protected final CAT catalog;
-    protected final Pathway<S,L,PATH> pathway;
+    protected final Pathway<S,L,PATH,?> pathway;
     protected final Representative<S,L,PATH,ID,T,C> parent;
     protected final Bus<S,L,PATH,ID,T,C> bus;
-    public Gathering(Representative<S,L,PATH,ID,T,C> parent, Pathway<S,L,PATH> pathway, CAT catalog) {
+    public Gathering(Representative<S,L,PATH,ID,T,C> parent, Pathway<S,L,PATH,?> pathway, CAT catalog) {
         this.parent = parent;
         this.pathway = pathway;
         this.catalog = catalog;
     }
 
-    public Pathway<S,L,PATH> getPathway() {
+    public Pathway<S,L,PATH,?> getPathway() {
         return pathway;
     }
 

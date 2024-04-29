@@ -6,24 +6,27 @@ import dev.inward.matrix.concept.matter.messaging.Response;
 import dev.inward.matrix.concept.matter.task.Request;
 import dev.inward.matrix.engine.Zone;
 import dev.inward.matrix.fact.Concept;
+import dev.inward.matrix.fact.datum.Complication;
+import dev.inward.matrix.ticket.Ticket;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.lang.ref.SoftReference;
 import java.nio.file.WatchEvent;
-import java.util.Arrays;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.LinkedTransferQueue;
 import java.util.concurrent.locks.StampedLock;
 
 public abstract class Matter<S extends Scheme<S,L>,L extends Library<S,L>,M extends Matter<S,L,M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> extends Concept<S,L,Indicia,UUID, Matter.Rubric<S,L,M,OCCURRENCE>,M> implements WatchEvent<Indicia> {
 
     private final StampedLock gate = new StampedLock();
     protected OCCURRENCE[] occurrences;
-    protected String[] subscriptions;
+    protected final SoftReference<Complication> complication;
 
-    public Matter(@Nonnull Rubric<S,L,M,OCCURRENCE> rubric, @Nullable OCCURRENCE[] occurrences, @Nullable String... subscriptions) {
+    public Matter(@Nonnull Rubric<S,L,M,OCCURRENCE> rubric, @Nullable OCCURRENCE[] occurrences, Complication<S,L,?,?,?,?,?,?,?,?,?> complication) {
         super(rubric);
         this.occurrences = occurrences;
-        this.subscriptions = subscriptions;
+        this.complication = new SoftReference<>(complication);
     }
 
     /**
@@ -38,7 +41,7 @@ public abstract class Matter<S extends Scheme<S,L>,L extends Library<S,L>,M exte
      *
      * @return the next (new?) active matter if it will exist, otherwise null
      */
-    public abstract Rubric<S,L,M,OCCURRENCE> setSettled();
+    public abstract void setSettled();
 
     @SuppressWarnings("unchecked")
     @Override

@@ -18,5 +18,6 @@ module dev.inward.matrix {
     exports dev.inward.matrix.director.library.catalog;
     exports dev.inward.matrix.director.library;
     exports dev.inward.matrix.director;
+    exports dev.inward.matrix.ticket;
     exports dev.inward.matrix;
 }

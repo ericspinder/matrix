@@ -66,19 +66,28 @@ public abstract class Scheme<S extends Scheme<S,L>,L extends Library<S,L>> exten
         public final static DNS Earth = new DNS(Terrene.Earth);
         public final static DNS Luna = new DNS(Terrene.Luna);
 
-        private final Map<Director<DNS,Librarian.DNS,Librarian<DNS,Library.DNS,?,?>> librarianMap = new WeakHashMap<>();
-
+//        private final Map<Director<DNS,Librarian.DNS,Librarian<DNS,Library.DNS,?,?>> librarianMap = new WeakHashMap<>();
         private DNS(Terrene terrene) {
             super("dns",terrene);
         }
 
-        protected Director<DNS, Library.DNS,>
+        @Override
+        protected Director<DNS, Library.DNS, ?, ?> getNewDirector(String authority) {
+            return null;
+        }
+
+//        protected Director<DNS, Library.DNS,>
     }
     public static class HTML extends Scheme<HTML,Library.HTML> {
         public final static HTML Earth = new HTML(Terrene.Earth);
         public final static HTML Luna = new HTML(Terrene.Luna);
         private HTML(Terrene terrene) {
             super("html",terrene);
+        }
+
+        @Override
+        protected Director<HTML, Library.HTML, ?, ?> getNewDirector(String authority) {
+            return null;
         }
     }
     public static class Info extends Scheme<Info, Library.InfoLibrary> {
@@ -88,8 +97,12 @@ public abstract class Scheme<S extends Scheme<S,L>,L extends Library<S,L>> exten
         protected Info(Terrene terrene) {
             super("info",terrene);
         }
-        public static final Info Instance = new Info();
 
+
+        @Override
+        protected Director<Info, Library.InfoLibrary, ?, ?> getNewDirector(String authority) {
+            return null;
+        }
     }
     public static class Log extends Scheme<Log, Library.LogLibrary> {
 

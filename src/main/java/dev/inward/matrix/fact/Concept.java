@@ -16,7 +16,7 @@ import java.nio.file.*;
 import java.util.UUID;
 import java.util.function.Consumer;
 
-public abstract class Concept<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> implements Addressed<S,L,PATH,ID,T,C>,Path  {
+public abstract class Concept<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> implements Addressed<S,L,PATH,ID,T,C>  {
 
     protected final T identity;
 
@@ -32,7 +32,7 @@ public abstract class Concept<S extends Scheme<S,L>,L extends Library<S,L>,PATH 
         return null;
     }
 
-    public abstract static class Tangible<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> extends Identity<S,L,PATH,ID,T,C> {
+    public abstract static class Tangible<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> extends Identity<S,L,PATH,ID,T,C> implements Path {
 
         private Representative<S,L,PATH,ID,T,C> representative;
         public Tangible(ID id) {
@@ -66,10 +66,6 @@ public abstract class Concept<S extends Scheme<S,L>,L extends Library<S,L>,PATH 
             return this.getCatalog().getLibrary().getTerrene();
         }
 
-        @Override
-        public void forEach(Consumer<? super Path> action) {
-            Path.super.forEach(action);
-        }
         @Override
         public Complication<S,L,PATH,ID,T,C,?,?,?,?,?> register(WatchService watcher, WatchEvent.Kind<?>... events) throws IOException {
             return null;

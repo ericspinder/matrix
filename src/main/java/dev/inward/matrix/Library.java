@@ -37,6 +37,8 @@ public abstract class Library<S extends Scheme<S,L>,L extends Library<S,L>> exte
     protected final Map<Catalog<S,L,?,?,?,?,?>,Librarian<S,L,?,?>> catalogs = new ConcurrentHashMap<>();
     protected final Map<Model<S,L,?,?,?>, Director<S,L,?,?>> models = new ConcurrentHashMap<>();
 
+    protected abstract <PATH extends Comparable<PATH>, ID extends Comparable<ID>, T extends Concept.Tangible<S,L,PATH,ID, T, C>, C extends Concept<S,L, PATH, ID, T, C>, CAT extends Catalog<S,L,PATH, ID, T, C, CAT>> CAT initCatalog(Memory<Scheme.DNS, DNS, PATH> memory, Map<PATH, Gathering<Scheme.DNS, DNS, PATH, ID, T, C, CAT>> directoriesSeed) throws CheckedException;
+
     protected StringBuilder firstLimitReachedMessage(String className, long warnTotal, long hardLimit) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(className).append("warnTotal:").append(warnTotal).append(" hardLimit").append(hardLimit);
@@ -52,7 +54,7 @@ public abstract class Library<S extends Scheme<S,L>,L extends Library<S,L>> exte
         }
 
         @Override
-        protected <PATH extends Comparable<PATH>, ID extends Comparable<ID>, T extends Concept.Tangible<Scheme.DNS, DNS, PATH, ID, T, C>, C extends Concept<Scheme.DNS, DNS, PATH, ID, T, C>, CAT extends Catalog<Scheme.DNS, DNS, PATH, ID, T, C, CAT>> C initCatalog(Memory<Scheme.DNS, DNS, PATH> memory, Pattern separatorPattern, Map<PATH, Gathering<Scheme.DNS, DNS, PATH, ID, T, C, CAT>> directoriesSeed) throws CheckedException {
+        protected <PATH extends Comparable<PATH>, ID extends Comparable<ID>, T extends Concept.Tangible<Scheme.DNS, DNS, PATH, ID, T, C>, C extends Concept<Scheme.DNS, DNS, PATH, ID, T, C>, CAT extends Catalog<Scheme.DNS, DNS, PATH, ID, T, C, CAT>> CAT initCatalog(Memory<Scheme.DNS, DNS, PATH> memory, Map<PATH, Gathering<Scheme.DNS, DNS, PATH, ID, T, C, CAT>> directoriesSeed) throws CheckedException {
             return null;
         }
     }
@@ -67,10 +69,9 @@ public abstract class Library<S extends Scheme<S,L>,L extends Library<S,L>> exte
         }
     }
 
-    public Library(S scheme, Terrene terrene, Domain domain) {
+    public Library(S scheme, Domain domain) {
         super();
         this.scheme = scheme;
-        this.terrene = terrene;
         this.domain = domain;
 
     }
@@ -174,7 +175,7 @@ public abstract class Library<S extends Scheme<S,L>,L extends Library<S,L>> exte
 
     }
 
-    protected abstract <PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CAT extends Catalog<S,L,PATH,ID,T,C,CAT>> C initCatalog(Memory<S,L,PATH> memory, Pattern separatorPattern, Map<PATH,Gathering<S,L,PATH,ID,T,C,CAT>> directoriesSeed) throws CheckedException;
+    protected abstract <PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CAT extends Catalog<S,L,PATH,ID,T,C,CAT>> CAT initCatalog(Memory<S,L,PATH> memory, Pattern separatorPattern, Gathering<S,L,PATH,ID,T,C,CAT> directoriesSeed) throws CheckedException;
 
     public CodeSigner[] getCodeSigners(Zone zone) {
 

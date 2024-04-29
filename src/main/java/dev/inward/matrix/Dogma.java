@@ -2,6 +2,7 @@ package dev.inward.matrix;
 
 import dev.inward.matrix.authority.Domain;
 import dev.inward.matrix.authority.dns.Terrene;
+import dev.inward.matrix.concept.matter.messaging.Engagement;
 import dev.inward.matrix.fact.Addressed;
 import dev.inward.matrix.fact.session.Session;
 
@@ -26,58 +27,32 @@ public abstract class Dogma<S extends Scheme<S,L>,L extends Library<S,L>> implem
 
     public static class House<S extends Scheme<S,L>,L extends Library<S,L>> extends Dogma<S,L> implements GroupPrincipal {
 
-        protected final Map<User<S,L>,Agent<S,L>> userRightsMap;
-        public House(Dogma.Ethereal<S, L> ethereal,Map<User<S,L>,AclEntry[]> userRightsMap) {
+        protected final Map<Persona<S,L>, AclEntry[]> personaRightsMap = new ConcurrentHashMap<>();
+        public House(Dogma.Ethereal<S, L> ethereal, Map<Persona<S,L>,AclEntry[]> personaRightsMap) {
             super(ethereal);
-            if (userRightsMap != null) {
-                this.userRightsMap = userRightsMap;
-            }
-            else {
-                this.userRightsMap = new HashMap<>();
+            if (personaRightsMap != null) {
+                this.personaRightsMap.putAll(personaRightsMap);
             }
         }
 
     }
+    public static class Agent<S extends Scheme<S,L>,L extends Library<S,L>> extends Dogma<S,L> implements UserPrincipal {
 
-    public static class User<S extends Scheme<S,L>,L extends Library<S,L>> extends Dogma<S,L> implements UserPrincipal {
-
-        protected final Map<Session<S,L>, Instant> sessionUpdateMap = new ConcurrentHashMap<>();
-
-        public User(Ethereal<S, L> ethereal,Session<S,L>... sessions) {
+        public final Map<House<S,L>,AclEntry[]> houseRightsMap = new ConcurrentHashMap<>();
+        public Agent(Ethereal<S, L> ethereal, Map<House<S,L>,AclEntry[]> houseRightsMap) {
             super(ethereal);
-            for (Session<S,L> session: sessions) {
-                sessionUpdateMap.put(session,Instant.now());
+            if (houseRightsMap != null) {
+                this.houseRightsMap.putAll(houseRightsMap);
             }
-
-        }
-
-    }
-    public static class Agent<S extends Scheme<S,L>,L extends Library<S,L>> extends Dogma<S,L> {
-
-        protected final Map<Persona<S,L>, AclEntryType> personaRightsMap = new ConcurrentHashMap<>();
-        public Agent(Ethereal<S, L> ethereal) {
-            super(ethereal);
-        }
-
-        public Map<Persona<S, L>, AclEntry[]> getPersonaRightsMap() {
-            return personaRightsMap;
         }
 
     }
     public abstract static class Persona<S extends Scheme<S,L>,L extends Library<S,L>> extends Dogma<S,L> {
 
-        protected final StampedLock gate = new StampedLock();
-        protected Map<AclEntry, Instant> aclEntryUpdateMap = new ConcurrentHashMap<>();
-        protected final char persona;
-        protected Map<String,Instant> hints;
+        public Map<Engagement<S,L,>>
 
-        public Persona(Ethereal<S,L> ethereal, char persona, Map<AclEntry, Instant> aclEntryUpdateMap, String... hints) {
+        public Persona(Ethereal<S,L> ethereal) {
             super(ethereal);
-            this.persona = persona;
-            this.aclEntryUpdateMap.putAll(aclEntryUpdateMap);
-            for (String hint: hints) {
-                this.hints.put(hint,Instant.now());
-            }
         }
 
         public CertPath[] getCertPaths() {
