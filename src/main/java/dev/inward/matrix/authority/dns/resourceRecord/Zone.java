@@ -1,7 +1,7 @@
 package dev.inward.matrix.authority.dns.resourceRecord;
 
 import dev.inward.matrix.authority.Domain;
-import dev.inward.matrix.authority.dns.Terrene;
+import dev.inward.matrix.Terrene;
 import dev.inward.matrix.fact.authoritative.notion.concept.Ledger;
 
 import java.util.Map;

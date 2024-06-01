@@ -1,7 +1,7 @@
 package dev.inward.matrix.authority.dns.resourceRecord;
 
 import dev.inward.matrix.authority.Domain;
-import dev.inward.matrix.authority.dns.Terrene;
+import dev.inward.matrix.Terrene;
 
 public class StartOfAuthority extends ResourceRecord<StartOfAuthority> {
 

@@ -1,7 +1,9 @@
 package dev.inward.matrix.fact;
 
+import dev.inward.matrix.Library;
 import dev.inward.matrix.Meta_I;
 import dev.inward.matrix.Range;
+import dev.inward.matrix.Scheme;
 import dev.inward.matrix.engine.Zone;
 
 import java.nio.file.WatchEvent;
@@ -11,17 +13,19 @@ import java.util.BitSet;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public abstract class Criterion implements Comparable<Criterion>,Meta_I, WatchEvent.Modifier {
+public abstract class Criterion<DATUM,S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> implements Comparable<Criterion>,Meta_I, WatchEvent.Modifier {
 
-    protected final Zone[] zones;
     protected final String label;
     protected final String description;
     protected final transient String name;
+    protected final Operational<DATUM,S,L,PATH,ID,T,C> operational;
 
     @Override
     public String name() {
         return this.name;
     }
+
+
     protected String buildName() {
         StringBuilder sb = new StringBuilder();
         sb.append(this.getClassName()).append('.').append(label).append('_').append('[');
@@ -33,10 +37,10 @@ public abstract class Criterion implements Comparable<Criterion>,Meta_I, WatchEv
         return sb.toString();
     }
 
-    public Criterion(String label, String description, Zone[] zones) {
+    public Criterion(String label, String description, Operational<DATUM,S,L,PATH,ID,T,C> operational) {
         this.label = label;
         this.description = description;
-        this.zones = zones;
+        this.operational = operational;
         this.name = buildName();
     }
 

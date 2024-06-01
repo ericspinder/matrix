@@ -2,7 +2,6 @@ package dev.inward.matrix;
 
 import dev.inward.matrix.authority.Domain;
 import dev.inward.matrix.authority.Registrar;
-import dev.inward.matrix.authority.dns.Terrene;
 import dev.inward.matrix.director.library.Director;
 import dev.inward.matrix.director.library.Memory;
 import dev.inward.matrix.director.library.catalog.Catalog;
@@ -11,7 +10,9 @@ import dev.inward.matrix.engine.Zone;
 import dev.inward.matrix.fact.Concept;
 import dev.inward.matrix.fact.Model;
 import dev.inward.matrix.concept.matter.Indicia;
-import dev.inward.matrix.policy.Policy;
+import dev.inward.matrix.resources.Contrivance;
+import dev.inward.matrix.resources.Resource;
+import dev.inward.matrix.resources.Resources;
 
 import java.io.IOException;
 import java.net.URI;
@@ -32,7 +33,6 @@ public abstract class Library<S extends Scheme<S,L>,L extends Library<S,L>> exte
 
     protected final S scheme;
     protected final Domain domain;
-
     protected final Map<Registry<S,L>, Registrar<S,L>> registrarMap = new ConcurrentHashMap<>();
     protected final Map<Catalog<S,L,?,?,?,?,?>,Librarian<S,L,?,?>> catalogs = new ConcurrentHashMap<>();
     protected final Map<Model<S,L,?,?,?>, Director<S,L,?,?>> models = new ConcurrentHashMap<>();
@@ -202,26 +202,26 @@ public abstract class Library<S extends Scheme<S,L>,L extends Library<S,L>> exte
         return isZero;
     }
 
-    public static class LogLibrary extends Library<Scheme.Log, LogLibrary> {
+    public static class Log extends Library<Scheme.Log, Log> {
 
 
-        public LogLibrary(Terrene terrene, Domain domain) {
+        public Log(Terrene terrene, Domain domain) {
             super(Scheme.Log.Instance, terrene, domain);
         }
 
         @Override
-        protected <PATH extends Comparable<PATH>, ID extends Comparable<ID>, T extends Concept.Tangible<Scheme.Log, LogLibrary, PATH, ID, T, C>, C extends Concept<Scheme.Log, LogLibrary, PATH, ID, T, C>, CAT extends Catalog<Scheme.Log, LogLibrary, PATH, ID, T, C, CAT>> C initCatalog(Memory<Scheme.Log, LogLibrary, PATH> memory, Pattern separatorPattern, Map<PATH, Gathering<Scheme.Log, LogLibrary, PATH, ID, T, C, CAT>> directoriesSeed) throws CheckedException {
+        protected <PATH extends Comparable<PATH>, ID extends Comparable<ID>, T extends Concept.Tangible<Scheme.Log, Log, PATH, ID, T, C>, C extends Concept<Scheme.Log, Log, PATH, ID, T, C>, CAT extends Catalog<Scheme.Log, Log, PATH, ID, T, C, CAT>> C initCatalog(Memory<Scheme.Log, Log, PATH> memory, Pattern separatorPattern, Map<PATH, Gathering<Scheme.Log, Log, PATH, ID, T, C, CAT>> directoriesSeed) throws CheckedException {
             return null;
         }
     }
-    public static class InfoLibrary extends Library<Scheme.Info, InfoLibrary> {
+    public static class Dogma extends Library<Scheme.Dogma, Dogma> {
 
-        public InfoLibrary(Terrene terrene, Domain domain) {
-            super(Scheme.Info.Instance, terrene, domain);
+        public Dogma(Terrene terrene, Domain domain) {
+            super(Scheme.Dogma.Instance, terrene, domain);
         }
 
         @Override
-        protected <PATH extends Comparable<PATH>, ID extends Comparable<ID>, T extends Concept.Tangible<Scheme.Info, InfoLibrary, PATH, ID, T, C>, C extends Concept<Scheme.Info, InfoLibrary, PATH, ID, T, C>, CAT extends Catalog<Scheme.Info, InfoLibrary, PATH, ID, T, C, CAT>> C initCatalog(Memory<Scheme.Info, InfoLibrary, PATH> memory, Pattern separatorPattern, Map<PATH, Gathering<Scheme.Info, InfoLibrary, PATH, ID, T, C, CAT>> directoriesSeed) throws CheckedException {
+        protected <PATH extends Comparable<PATH>, ID extends Comparable<ID>, T extends Concept.Tangible<Scheme.Dogma, Dogma, PATH, ID, T, C>, C extends Concept<Scheme.Dogma, Dogma, PATH, ID, T, C>, CAT extends Catalog<Scheme.Dogma, Dogma, PATH, ID, T, C, CAT>> C initCatalog(Memory<Scheme.Dogma, Dogma, PATH> memory, Pattern separatorPattern, Map<PATH, Gathering<Scheme.Dogma, Dogma, PATH, ID, T, C, CAT>> directoriesSeed) throws CheckedException {
             return null;
         }
     }

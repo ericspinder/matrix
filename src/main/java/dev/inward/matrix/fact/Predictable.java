@@ -12,6 +12,7 @@ import dev.inward.matrix.concept.matter.Matter;
 import dev.inward.matrix.phenomenon.producer.ExecutionExceptionly;
 import dev.inward.matrix.phenomenon.producer.InterruptionExceptionally;
 import dev.inward.matrix.phenomenon.producer.TimeoutExceptionally;
+import dev.inward.matrix.ticket.Ticket;
 
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
@@ -21,10 +22,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static dev.inward.matrix.fact.Criterion.*;
 
-public abstract class Predictable<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CRIT extends Criterion,P extends Predictable<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE>,COMP extends Complication<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE>,M extends Matter<S,L,M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> implements WatchService {
+public abstract class Predictable<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CRIT extends Criterion,P extends Predictable<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE>,COMP extends Complication<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> implements WatchService {
 
     protected final Catalog<S,L,PATH,ID,T,C,?> catalog;
-    protected final Map<COMP,M[]> complicationResultsCacheMapping = new ConcurrentHashMap<>();
+    protected final Map<M, Ticket<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE>> complicationResultsCacheMapping = new ConcurrentHashMap<>();
 
     public Predictable(Catalog<S,L,PATH,ID,T,C,?> catalog) {
         this.catalog = catalog;
@@ -65,7 +66,7 @@ public abstract class Predictable<S extends Scheme<S,L>,L extends Library<S,L>,P
     /**
      *
      */
-    public abstract Matter<S,L,?,?> complete(C concept) throws ExecutionExceptionly, InterruptionExceptionally, TimeoutExceptionally;
+    public abstract M complete(C concept) throws ExecutionExceptionly, InterruptionExceptionally, TimeoutExceptionally;
 
     public static class Limited<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> extends Predictable<S,L,PATH,ID,T,C,Criterion.Limiter,Predictable.Limited<S,L,PATH,ID,T,C>, Complication.Limitation<S,L,PATH,ID,T,C>> {
 

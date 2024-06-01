@@ -2,7 +2,7 @@ package dev.inward.matrix.authority.dns.resourceRecord;
 
 import dev.inward.matrix.authority.Domain;
 import dev.inward.matrix.authority.dns.Question;
-import dev.inward.matrix.authority.dns.Terrene;
+import dev.inward.matrix.Terrene;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;

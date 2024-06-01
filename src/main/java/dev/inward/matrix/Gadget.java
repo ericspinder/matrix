@@ -1,7 +1,6 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.authority.Domain;
-import dev.inward.matrix.authority.dns.Terrene;
 import dev.inward.matrix.fact.Addressed;
 
 import java.util.UUID;

@@ -1,7 +1,6 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.authority.Domain;
-import dev.inward.matrix.authority.dns.Terrene;
 import dev.inward.matrix.concept.matter.Matter;
 import dev.inward.matrix.director.library.Memory;
 import dev.inward.matrix.director.library.catalog.Catalog;

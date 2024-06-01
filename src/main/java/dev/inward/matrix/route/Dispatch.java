@@ -5,51 +5,71 @@ import dev.inward.matrix.concept.matter.Indicia;
 import dev.inward.matrix.director.library.Director;
 import dev.inward.matrix.fact.Predictable;
 
+import java.io.Closeable;
+import java.nio.channels.AsynchronousChannel;
+import java.nio.channels.AsynchronousFileChannel;
+import java.nio.channels.AsynchronousSocketChannel;
+import java.nio.channels.NetworkChannel;
+import java.util.Map;
+import java.util.WeakHashMap;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.locks.StampedLock;
 
-public abstract class Dispatch<S extends Scheme<S,L>,L extends Library<S,L>,R extends Road<S,L,R>> extends ThreadGroup implements ThreadFactory, RejectedExecutionHandler {
+public abstract class Dispatch<DISPATCH extends Dispatch<DISPATCH,R,D,RIDER>,R extends Road<DISPATCH,R,D,RIDER>,D extends Driver<DISPATCH,R,D,RIDER>,RIDER extends Closeable> extends ThreadGroup implements ThreadFactory, RejectedExecutionHandler {
 
-    protected int corePoolSize;
-    protected int maximumPoolSize;
-    protected long keepAliveTime;
-    protected TimeUnit unit;
-    protected long stackSize;
-    protected BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<>();
+    protected final StampedLock gate = new StampedLock();
+    protected volatile int corePoolSize;
+    protected volatile int maximumPoolSize;
+    protected volatile long keepAliveTime;
+    protected volatile TimeUnit defaultTimeUnit;
+    protected volatile long stackSize;
     protected AtomicLong driverNameCount;
 
-    public Dispatch(Dispatch parent, String name, int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit,long stackSize) {
+
+    public Dispatch(Dispatch parent, String name, int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit defaultTimeUnit,long stackSize) {
         super(parent,name);
         this.corePoolSize = corePoolSize;
         this.maximumPoolSize = maximumPoolSize;
         this.keepAliveTime = keepAliveTime;
-        this.unit = unit;
+        this.defaultTimeUnit = defaultTimeUnit;
         this.stackSize = stackSize;
     }
 
+    public abstract D newDriver(Runnable r);
     @Override
-    @SuppressWarnings("all")
-    public Driver<S,L,R> newThread(Runnable r) {
-        try {
-            Driver<S,L,R> driver = new Driver<>(this, r, this.getName() + driverNameCount.incrementAndGet(), this.stackSize);
-            if (r == null) {
-                driver.setPassage(Passage.NEW);
-            }
-            else {
-                driver.setPassage(Passage.COMPLETING);
-            }
-            return driver;
+    public D newThread(Runnable r) {
+        return this.newDriver(r);
+    }
+
+    public static class Controller<RIDER extends AsynchronousSocketChannel> extends Dispatch<Controller<RIDER>,Road.Way<RIDER>,Driver.Pilot<RIDER>,RIDER> {
+        public Controller(Dispatch dispatch, String name) {
+            super(dispatch,name,25,150,300,TimeUnit.SECONDS,1024000);
         }
-        catch (ClassCastException cce) {
-            throw new MatrixException(MatrixException.Type.ClassCastException,"new Driver", Indicia.Focus.Genesis, Indicia.Severity.Critical,new Exception("stacktrace"));
+
+        @Override
+        public Driver.Pilot newDriver(Runnable r) {
+            return new Driver.Pilot(this,r,String.format("%s_%s",this.getName(),this.driverNameCount.get()));
+        }
+    }
+    public static class Editor extends Dispatch<Dispatch.Editor,Road.Concrete,Driver.Scribe, AsynchronousFileChannel> {
+
+        public Editor(Dispatch parent, String name) {
+            super(parent, name, 25,150, 300,TimeUnit.SECONDS, 1024000);
+        }
+
+        @Override
+        public Driver.Scribe newDriver(Runnable r) {
+            return new Driver.Scribe(this,r,String.format("%s_%s",this.getName(),this.driverNameCount));
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
         if (executor instanceof Road) {
-            Road<S,L,?> road = (Road<S, L, ?>) executor;
-            road.purge();
+            R road = (R) executor;
+
         }
     }
 
@@ -57,20 +77,32 @@ public abstract class Dispatch<S extends Scheme<S,L>,L extends Library<S,L>,R ex
         return corePoolSize;
     }
 
+    public void setCorePoolSize(int corePoolSize) {
+        this.corePoolSize = corePoolSize;
+    }
+
     public int getMaximumPoolSize() {
         return maximumPoolSize;
+    }
+
+    public void setMaximumPoolSize(int maximumPoolSize) {
+        this.maximumPoolSize = maximumPoolSize;
     }
 
     public long getKeepAliveTime() {
         return keepAliveTime;
     }
 
-    public TimeUnit getUnit() {
-        return unit;
+    public void setKeepAliveTime(long keepAliveTime) {
+        this.keepAliveTime = keepAliveTime;
     }
 
-    public BlockingQueue<Runnable> getWorkQueue() {
-        return workQueue;
+    public TimeUnit getDefaultTimeUnit() {
+        return defaultTimeUnit;
+    }
+
+    public void setDefaultTimeUnit(TimeUnit defaultTimeUnit) {
+        this.defaultTimeUnit = defaultTimeUnit;
     }
 
     public ThreadFactory getThreadFactory() {

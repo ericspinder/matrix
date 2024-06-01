@@ -6,29 +6,42 @@ import dev.inward.matrix.Scheme;
 import dev.inward.matrix.concept.matter.Indicia;
 import dev.inward.matrix.concept.matter.Matter;
 
+import java.io.Closeable;
+import java.nio.channels.AsynchronousByteChannel;
+import java.nio.channels.AsynchronousChannel;
+import java.nio.channels.AsynchronousFileChannel;
+import java.nio.channels.AsynchronousSocketChannel;
+import java.util.Queue;
 import java.util.concurrent.*;
 
-public abstract class Road<S extends Scheme<S,L>,L extends Library<S,L>,R extends Road<S,L,R>> extends ThreadPoolExecutor  {
+public abstract class Road<DISPATCH extends Dispatch<DISPATCH,R,D,RIDER>,R extends Road<DISPATCH,R,D,RIDER>,D extends Driver<DISPATCH,R,D,RIDER>,RIDER extends Closeable> extends ThreadPoolExecutor implements Comparable<R>  {
 
-    protected final Dispatch<S,L,R> dispatch;
-    public Road(Dispatch<S,L,R> dispatch) {
-        super(dispatch.corePoolSize, dispatch.maximumPoolSize, dispatch.keepAliveTime, dispatch.unit, dispatch.workQueue,dispatch,dispatch);
+    protected final DISPATCH dispatch;
+
+
+    public Road(DISPATCH dispatch, BlockingQueue<Runnable> driverQueue) {
+        super(dispatch.corePoolSize, dispatch.maximumPoolSize, dispatch.keepAliveTime, dispatch.defaultTimeUnit,driverQueue, dispatch ,dispatch);
         this.dispatch = dispatch;
     }
 
+    public static class Way<RIDER extends AsynchronousSocketChannel> extends Road<Dispatch.Controller<RIDER>,Road.Way<RIDER>,Driver.Pilot<RIDER>, RIDER> {
+
+        public Way(Dispatch.Controller dispatch, BlockingQueue<Runnable> driverQueue) {
+            super(dispatch, driverQueue);
+        }
+    }
+    public static class Concrete extends Road<Dispatch.Editor,Road.Concrete,Driver.Scribe, AsynchronousFileChannel> {
+
+        public Concrete(Dispatch.Editor dispatch, BlockingQueue<Runnable> driverQueue) {
+            super(dispatch, driverQueue);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
     @Override
     protected void beforeExecute(Thread t, Runnable r) {
         try {
-            Driver<S,L,R> driver = (Driver<S, L, R>) t;
-            if (driver.getPassage().equals(Passage.NEW) ||driver.getPassage().equals(Passage.POOLED)) {
-                driver.setPassage(Passage.COMPLETING);
-            }
-            if (driver.getPassage().equals(Passage.COMPLETING) || driver.getPassage().equals(Passage.First_Route)) {
-                driver.setPassage(Passage.COMPLETING);
-            }
-            else {
-                System.out.println(driver.getPassage() + ", passage not expected");
-            }
+            D driver = (D) t;
             driver.setLastBeginning();
         }
         catch (ClassCastException classCastException) {
@@ -37,8 +50,10 @@ public abstract class Road<S extends Scheme<S,L>,L extends Library<S,L>,R extend
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     protected void afterExecute(Runnable r, Throwable t) {
-        super.afterExecute(r, t);
+        D driver = (D) Thread.currentThread();
+        driver.
     }
 
     @Override
@@ -51,7 +66,7 @@ public abstract class Road<S extends Scheme<S,L>,L extends Library<S,L>,R extend
     }
 
     @Override
-    public void shutdown() {
-        super.shutdown();
+    public int compareTo(R that) {
+        return 0;
     }
 }

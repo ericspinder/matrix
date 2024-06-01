@@ -42,7 +42,7 @@ public class Resource<DATUM,S extends Scheme<S,L>,L extends Library<S,L>,PATH ex
         long currentCount = this.count.incrementAndGet();
         if (currentCount < warnOnTotal) {
             if (limitReachedMessage == null) {
-                limitReachedMessage = library.limitReachedMessage(this.className,this.warnOnTotal,this.l.l);
+                limitReachedMessage = library.(this.className,this.warnOnTotal,this.l.l);
             }
             throw new MatrixException(MatrixException.Type.OverLimit,, Indicia.Focus.Admonitory, Indicia.Severity.Capacity);
         }

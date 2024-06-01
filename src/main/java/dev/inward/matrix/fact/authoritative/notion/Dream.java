@@ -1,15 +1,7 @@
 package dev.inward.matrix.fact.authoritative.notion;
 
 import dev.inward.matrix.Identity;
-import dev.inward.matrix.authority.Domain;
-import dev.inward.matrix.authority.dns.Terrene;
-import dev.inward.matrix.engine.Variant;
-import dev.inward.matrix.Context;
-import dev.inward.matrix.fact.Factory;
-import dev.inward.matrix.fact.authoritative.yard.Tree;
-import dev.inward.matrix.personality.Personality;
 
-import java.security.CodeSource;
 import java.util.UUID;
 
 public class Dream extends Notion<Dream> {

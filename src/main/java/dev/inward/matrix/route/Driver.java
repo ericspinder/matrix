@@ -2,50 +2,57 @@ package dev.inward.matrix.route;
 
 import dev.inward.matrix.*;
 
+import java.io.Closeable;
+import java.lang.ref.SoftReference;
+import java.nio.channels.AsynchronousChannel;
+import java.nio.channels.AsynchronousFileChannel;
+import java.nio.channels.AsynchronousSocketChannel;
 import java.time.Instant;
 import java.util.UUID;
 import java.util.concurrent.locks.StampedLock;
 
-public class Driver<S extends Scheme<S,L>,L extends Library<S,L>,R extends Road<S,L,R>> extends Thread {
+public abstract class Driver<DISPATCH extends Dispatch<DISPATCH,R,D,RIDER>,R extends Road<DISPATCH,R,D,RIDER>,D extends Driver<DISPATCH,R,D,RIDER>,RIDER extends Closeable> extends Thread {
 
+    protected SoftReference<RIDER> currentRider;
     protected final UUID uuid = UUID.randomUUID();
     protected final StampedLock gate = new StampedLock();
-    protected volatile Passage passage;
     protected final Instant createInstant = Instant.now();
     protected Instant lastBeginning;
     protected Instant lastHealthCheck;
 
-    public Driver(Dispatch<S,L,R> group, Runnable target, String name,
+    public Driver(DISPATCH group, Runnable target, String name,
                   long stackSize) {
         super(group,target,name,stackSize,false);
-        passage = Passage.NEW;
     }
+
+    public static class Pilot<RIDER extends AsynchronousSocketChannel> extends Driver<Dispatch.Controller<RIDER>,Road.Way<RIDER>,Pilot<RIDER>, RIDER>  {
+
+        public Pilot(Dispatch.Controller group, Runnable target,String name) {
+            super(group,target,name,group.stackSize);
+        }
+    }
+    public static class Scribe extends Driver<Dispatch.Editor,Road.Concrete,Driver.Scribe, AsynchronousFileChannel> {
+
+        public Scribe(Dispatch.Editor group, Runnable target, String name) {
+            super(group, target, name, group.stackSize);
+        }
+    }
+
+    public RIDER getCurrentRider() {
+        return this.currentRider.get();
+    }
+
+    public void setCurrentRider(RIDER currentRider) {
+        this.currentRider = new SoftReference<>(currentRider);
+    }
+
     @SuppressWarnings("unchecked")
-    public Dispatch<S,L,R> getDispatch() {
-        return (Dispatch<S,L,R>) this.getThreadGroup();
+    public DISPATCH getDispatch() {
+        return (DISPATCH) this.getThreadGroup();
     }
 
     public UUID getUuid() {
         return uuid;
-    }
-
-    public Passage getPassage() {
-        long readLock = gate.readLock();
-        try {
-            return passage;
-        }
-        finally {
-            gate.unlockRead(readLock);
-        }
-    }
-    public void setPassage(Passage passage) {
-        long writeLock = gate.writeLock();
-        try {
-            this.passage = passage;
-        }
-        finally {
-            gate.unlockWrite(writeLock);
-        }
     }
 
     public Instant getLastBeginning() {

@@ -13,7 +13,7 @@ import java.net.URLStreamHandler;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public abstract class Director<S extends Scheme<S,L>,L extends Library<S,L>,D extends Director<S,L,D,R>,R extends Road<S,L,D,R>> extends URLStreamHandler {
+public abstract class Director<S extends Scheme<S,L>,L extends Library<S,L>,D extends Director<S,L,D,R>,R extends Road<S,L,R>> {
 
     protected final S scheme;
     protected final R road;
@@ -40,16 +40,5 @@ public abstract class Director<S extends Scheme<S,L>,L extends Library<S,L>,D ex
     public Map<Library<?, ?>, Librarian<?, ?, ?, ?>> getLibrarians() {
         return librarians;
     }
-
-    @Override
-    protected URLConnection openConnection(URL url) throws IOException {
-        return this.open(url);
-    }
-
-    protected <C extends Clerk<S,L,?,C>> C open(URL url) throws IOException {
-        return null;
-    }
-
-
 
 }

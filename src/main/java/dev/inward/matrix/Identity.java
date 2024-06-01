@@ -1,7 +1,6 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.authority.Domain;
-import dev.inward.matrix.authority.dns.Terrene;
 import dev.inward.matrix.fact.*;
 
 public abstract class Identity<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<S,L,PATH,ID,I,A>,A extends Addressed<S,L,PATH,ID,I,A>> {

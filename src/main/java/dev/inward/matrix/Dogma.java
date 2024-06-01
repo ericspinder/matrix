@@ -1,34 +1,21 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.authority.Domain;
-import dev.inward.matrix.authority.dns.Terrene;
 import dev.inward.matrix.concept.matter.messaging.Engagement;
 import dev.inward.matrix.fact.Addressed;
-import dev.inward.matrix.fact.session.Session;
 
 import javax.annotation.Nonnull;
-import javax.security.auth.Subject;
 import java.nio.file.attribute.*;
-import java.security.Permission;
 import java.security.Principal;
-import java.security.cert.CertPath;
-import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.locks.StampedLock;
 
-public abstract class Dogma<S extends Scheme<S,L>,L extends Library<S,L>> implements Principal, Addressed<S,L,String,UUID,Dogma.Ethereal<S,L>,Dogma<S,L>> {
-    public static class Anonymous<S extends Scheme<S,L>,L extends Library<S,L>> extends Dogma<S,L> {
+public abstract class Dogma implements Principal, Addressed<Scheme.Dogma, Library.Dogma,String,UUID,Dogma.Ethereal,Dogma> {
 
-        public Anonymous(Ethereal<S,L> identity) {
-            super(identity);
-        }
-    }
+    public static class House extends Dogma implements GroupPrincipal {
 
-    public static class House<S extends Scheme<S,L>,L extends Library<S,L>> extends Dogma<S,L> implements GroupPrincipal {
-
-        protected final Map<Persona<S,L>, AclEntry[]> personaRightsMap = new ConcurrentHashMap<>();
-        public House(Dogma.Ethereal<S, L> ethereal, Map<Persona<S,L>,AclEntry[]> personaRightsMap) {
+        protected final Map<Persona, AclEntry[]> personaRightsMap = new ConcurrentHashMap<>();
+        public House(Dogma.Ethereal ethereal, Map<Persona,AclEntry[]> personaRightsMap) {
             super(ethereal);
             if (personaRightsMap != null) {
                 this.personaRightsMap.putAll(personaRightsMap);
@@ -36,10 +23,10 @@ public abstract class Dogma<S extends Scheme<S,L>,L extends Library<S,L>> implem
         }
 
     }
-    public static class Agent<S extends Scheme<S,L>,L extends Library<S,L>> extends Dogma<S,L> implements UserPrincipal {
+    public static class Agent extends Dogma implements UserPrincipal {
 
-        public final Map<House<S,L>,AclEntry[]> houseRightsMap = new ConcurrentHashMap<>();
-        public Agent(Ethereal<S, L> ethereal, Map<House<S,L>,AclEntry[]> houseRightsMap) {
+        public final Map<House,AclEntry[]> houseRightsMap = new ConcurrentHashMap<>();
+        public Agent(Ethereal ethereal, Map<House,AclEntry[]> houseRightsMap) {
             super(ethereal);
             if (houseRightsMap != null) {
                 this.houseRightsMap.putAll(houseRightsMap);
@@ -47,41 +34,20 @@ public abstract class Dogma<S extends Scheme<S,L>,L extends Library<S,L>> implem
         }
 
     }
-    public abstract static class Persona<S extends Scheme<S,L>,L extends Library<S,L>> extends Dogma<S,L> {
+    public abstract static class Persona extends Dogma {
 
-        public Map<Engagement<S,L,>>
+        public Map<Engagement<?,?,?>, Librarian<?,?,?,?>> engagementLibrarianMap;
 
-        public Persona(Ethereal<S,L> ethereal) {
+        public Persona(Ethereal ethereal) {
             super(ethereal);
         }
 
-        public CertPath[] getCertPaths() {
-            long readLock = gate.readLock();
-            try {
-                return Arrays.copyOf(certPaths,certPaths.length);
-            }
-            finally {
-                gate.unlockRead(readLock);
-            }
-        }
 
-        public char getPersona() {
-            return persona;
-        }
-
-        public String[] getHints() {
-            return hints;
-        }
-
-        public void setHints(String[] hints) {
-            this.hints = hints;
-        }
     }
 
-    protected final Ethereal<S,L> ethereal;
+    protected final Ethereal ethereal;
 
-    public Dogma(Ethereal<S,L> ethereal) {
-        super(ethereal.toString());
+    public Dogma(Ethereal ethereal) {
         this.ethereal = ethereal;
     }
 
@@ -124,25 +90,25 @@ public abstract class Dogma<S extends Scheme<S,L>,L extends Library<S,L>> implem
 
     }
 
-    public static class Ethereal<S extends Scheme<S,L>,L extends Library<S,L>> extends Identity<S,L,String,UUID,Ethereal<S,L>,Dogma<S,L>> {
+    public static class Ethereal extends Identity<Scheme.Dogma, Library.Dogma,String,UUID,Ethereal,Dogma> {
 
         protected final String userName;
-        protected final L library;
+        protected final Library.Dogma library;
 
-        public Ethereal(@Nonnull UUID uuid, String userName, @Nonnull L library) {
+        public Ethereal(@Nonnull UUID uuid, String userName, @Nonnull Library.Dogma library) {
             super(uuid);
             this.userName = userName;
             this.library = library;
         }
 
         @Override
-        public S getScheme() {
+        public Scheme.Dogma getScheme() {
             return this.library.scheme;
         }
 
         @Override
         public Terrene getTerrene() {
-            return this.library.terrene;
+            return this.library.scheme.terrene;
         }
 
         @Override
@@ -151,8 +117,8 @@ public abstract class Dogma<S extends Scheme<S,L>,L extends Library<S,L>> implem
         }
 
         @Override
-        public Pathway.UserPathway getPathway() {
-            return Pathway.UserPathway.INSTANCE;
+        public Pathway. getPathway() {
+            return Pathway.Dogma.INSTANCE;
         }
 
         @Override

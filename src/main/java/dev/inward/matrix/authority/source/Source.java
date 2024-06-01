@@ -1,6 +1,6 @@
 package dev.inward.matrix.authority.source;
 
-import dev.inward.matrix.authority.dns.Terrene;
+import dev.inward.matrix.Terrene;
 import dev.inward.matrix.authority.dns.resourceRecord.ResourceRecord;
 import dev.inward.matrix.authority.dns.resourceRecord.ResourceRecordType;
 import dev.inward.matrix.authority.dns.resourceRecord.ServerRecord;

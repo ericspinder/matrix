@@ -15,13 +15,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.StampedLock;
 import java.util.function.Predicate;
 
-public abstract class Complication<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CRIT extends Criterion,P extends Predictable<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE>,COMP extends Complication<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE>,M extends Matter<S,L,M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> implements WatchKey, Runnable ,Callable<M> {
+public abstract class Complication<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CRIT extends Criterion,P extends Predictable<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE>,COMP extends Complication<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> implements WatchKey, Runnable {
 
     protected final StampedLock gate = new StampedLock();
     protected final P predictable;
     protected final CRIT criterion;
-    protected final Map<M, Ticket<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE>[]> mattersTickets = new ConcurrentHashMap<>();
+    protected volatile M currentMatter;
+
     protected final Provider<S,L,PATH,ID,T,C> provider;
+
 
 
     public Complication(P predictable, CRIT criterion, Provider<S,L,PATH,ID,T,C> provider) {
@@ -39,14 +41,21 @@ public abstract class Complication<S extends Scheme<S,L>,L extends Library<S,L>,
     }
 
     public final void run() {
+        long writeLock = gate.writeLock();
         try {
             M matter = this.call();
-            mattersTickets.put(matter,new Ticket[][]{});
+            this.isSettled(matter);
+            mattersTickets.put(matter,);
         }
         catch (Throwable throwable) {
             this.predictable.getCatalog().processFailure(this, new MatrixException(MatrixException.Type.RunProblem,this.getClass().getCanonicalName(), Indicia.Focus.Admonitory, Indicia.Severity.Exceptional,e));
         }
+        finally {
+            gate.unlockWrite(writeLock);
+        }
     }
+
+    public abstract Ticket<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE>[] isSettled(M matter);
 
     /**
      * Tells whether or not this watch key is valid.

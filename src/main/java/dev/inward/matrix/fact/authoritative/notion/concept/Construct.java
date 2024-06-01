@@ -2,7 +2,7 @@ package dev.inward.matrix.fact.authoritative.notion.concept;
 
 import dev.inward.matrix.*;
 import dev.inward.matrix.authority.Domain;
-import dev.inward.matrix.authority.dns.Terrene;
+import dev.inward.matrix.Terrene;
 import dev.inward.matrix.Range;
 
 public abstract class Construct<PATH extends Comparable<PATH>> extends Library<Matrix<PATH>,Construct<PATH>, Range<PATH>> {

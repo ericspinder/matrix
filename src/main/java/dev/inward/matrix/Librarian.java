@@ -6,20 +6,19 @@ import dev.inward.matrix.fact.Criterion;
 import dev.inward.matrix.fact.Predictable;
 import dev.inward.matrix.fact.datum.Complication;
 import dev.inward.matrix.concept.matter.Matter;
+import dev.inward.matrix.resources.Contrivance;
 
 import java.io.IOException;
 import java.nio.file.*;
 
-public abstract class Librarian<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,B extends Librarian<S,L,PATH,B>> implements Watchable, Comparable<B> {
+public abstract class Librarian<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> implements Watchable, Comparable<Librarian<S,L,PATH,ID,T,C>> {
 
     protected final L library;
-    protected final char initSigil;
-    protected final Range<PATH> range;
+    protected Contrivance<S,L,PATH,ID,T,C,?,?> contrivance;
 
-    public Librarian(L library,char initSigil, Range<PATH> range) {
+    public Librarian(L library, Contrivance<S,L,PATH,ID,T,C,?,?> contrivance) {
         this.library = library;
-        this.initSigil = initSigil;
-        this.range = range;
+        this.contrivance = contrivance;
     }
     public static class DNS extends Librarian<DNS, Domain, Library.DNS,?,DNS> {
 

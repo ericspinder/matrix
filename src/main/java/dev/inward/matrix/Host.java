@@ -5,7 +5,7 @@ import dev.inward.matrix.fact.threshold.SocketAddress;
 import java.nio.channels.*;
 import java.util.concurrent.locks.StampedLock;
 
-public abstract class Host<H extends Host<H>> implements Comparable<H> {
+public abstract class Host implements Comparable<Host> {
 
     private final StampedLock gate = new StampedLock();
     private AsynchronousChannelGroup networkGroup;
@@ -15,7 +15,7 @@ public abstract class Host<H extends Host<H>> implements Comparable<H> {
         this.networkGroup = networkGroup;
         this.localSocket = socket;
     }
-    public static class Remote extends Host<Remote> {
+    public static class Remote extends Host {
 
         protected final SocketAddress.Remote remoteSocket;
 
@@ -28,25 +28,13 @@ public abstract class Host<H extends Host<H>> implements Comparable<H> {
             return remoteSocket;
         }
 
-        @Override
-        public int compareTo(Remote that) {
-            int isZero = this.localSocket.compareTo(that.localSocket);
-            if (isZero == 0) {
-                return this.remoteSocket.compareTo(that.remoteSocket);
-            }
-            return isZero;
-        }
     }
-    public static class Principal extends Host<Principal> {
+    public static class Principal extends Host {
 
         public Principal(final AsynchronousChannelGroup networkGroup, final SocketAddress.Local localSocket) {
             super(networkGroup,localSocket);
         }
 
-        @Override
-        public int compareTo(Principal that) {
-            return this.localSocket.compareTo(that.localSocket);
-        }
     }
 
     public final void setNetworkGroup(final AsynchronousChannelGroup networkGroup) {
@@ -66,5 +54,9 @@ public abstract class Host<H extends Host<H>> implements Comparable<H> {
         finally {
             gate.unlockRead(readLock);
         }
+    }
+    @Override
+    public int compareTo(Host that) {
+        return this.localSocket.compareTo(that.localSocket);
     }
 }

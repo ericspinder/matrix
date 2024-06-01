@@ -7,10 +7,12 @@ import dev.inward.matrix.fact.authoritative.yard.Tree;
 import dev.inward.matrix.fact.session.Session;
 
 import java.lang.ref.SoftReference;
+import java.net.InetAddress;
 import java.time.Instant;
 
-public class Engagement<S extends Scheme<S,L>,L extends Library<S,L>,SESSION extends Session<S,L>, E extends Engagement<S,L,SESSION,E,F,P>, F extends Fingerprint,P extends Tree> extends Matter<E, Identity.Gate, Context.Path> {
+public class Engagement<E extends Engagement<E,F,P>, F extends Fingerprint,P extends Tree> extends Matter<E, > {
 
+    protected final Dogma.Persona persona;
     private final F fingerprint;
     protected final SESSION session;
 

@@ -1,41 +1,46 @@
 package dev.inward.matrix.concept.matter;
 
 import dev.inward.matrix.Library;
+import dev.inward.matrix.Pathway;
 import dev.inward.matrix.Scheme;
-import dev.inward.matrix.concept.matter.messaging.Response;
-import dev.inward.matrix.concept.matter.task.Request;
-import dev.inward.matrix.engine.Zone;
+import dev.inward.matrix.concept.matter.messaging.Engagement;
 import dev.inward.matrix.fact.Concept;
 import dev.inward.matrix.fact.datum.Complication;
-import dev.inward.matrix.ticket.Ticket;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.io.Closeable;
 import java.lang.ref.SoftReference;
 import java.nio.file.WatchEvent;
+import java.time.Instant;
 import java.util.*;
-import java.util.concurrent.LinkedTransferQueue;
-import java.util.concurrent.locks.StampedLock;
 
-public abstract class Matter<S extends Scheme<S,L>,L extends Library<S,L>,M extends Matter<S,L,M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> extends Concept<S,L,Indicia,UUID, Matter.Rubric<S,L,M,OCCURRENCE>,M> implements WatchEvent<Indicia> {
+public abstract class Matter<M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> extends Concept<Scheme.Log, Library.Log, Pathway.LogPathway,UUID, Matter.Rubric<M,OCCURRENCE>,M> implements WatchEvent<Indicia>, Closeable {
 
-    private final StampedLock gate = new StampedLock();
     protected OCCURRENCE[] occurrences;
-    protected final SoftReference<Complication> complication;
+    protected final SoftReference<Complication<S,L,?,?,?,?,?,?,?,M,OCCURRENCE>> complication;
+    private boolean settled;
 
-    public Matter(@Nonnull Rubric<S,L,M,OCCURRENCE> rubric, @Nullable OCCURRENCE[] occurrences, Complication<S,L,?,?,?,?,?,?,?,?,?> complication) {
+    public Matter(@Nonnull Rubric<M,OCCURRENCE> rubric, @Nullable OCCURRENCE[] occurrences, Complication<S,L,?,?,?,?,?,?,?,M,OCCURRENCE> complication, boolean settled) {
         super(rubric);
         this.occurrences = occurrences;
-        this.complication = new SoftReference<>(complication);
+        if (complication != null) {
+            this.complication = new SoftReference<>(complication);
+            this.settled = settled;
+        }
+        else {
+            this.complication = null;
+            this.settled = true;
+        }
     }
 
-    /**
-     *
-     * @param subscriptions
-     * @return true if staging of subscriptions was successful.
-     */
-    public abstract boolean stageSubscriptions(String... subscriptions);
-    public abstract boolean isSettled();
+    public boolean isSettled() {
+        if (this.complication == null || this.complication.get() == null) {
+            return true;
+        }
+        return this.settled;
+
+    }
 
     /**
      *
@@ -46,7 +51,7 @@ public abstract class Matter<S extends Scheme<S,L>,L extends Library<S,L>,M exte
     @SuppressWarnings("unchecked")
     @Override
     public final Kind<Indicia> kind() {
-        return this.identity.getPath();
+        return this.identity.getPathway().getPath();
     }
 
     @Override
@@ -55,65 +60,25 @@ public abstract class Matter<S extends Scheme<S,L>,L extends Library<S,L>,M exte
     }
 
     public OCCURRENCE getInstance(int index) {
-        if (this.isSettled()) {
-            long readLock = gate.readLock();
-            try {
-                return this.occurrences[index];
-            } finally {
-                gate.unlockRead(readLock);
-            }
-        }
-        else {
-            return this.occurrences[index];
-        }
+        return this.occurrences[index];
     }
     public OCCURRENCE[] getAll() {
-        long readLock = gate.readLock();
-        try {
-            return Arrays.copyOf(this.occurrences, this.occurrences.length);
-        }
-        finally {
-            gate.unlockRead(readLock);
-        }
+        return Arrays.copyOf(this.occurrences,this.occurrences.length);
     }
 
-    /**
-     *
-     * @param occurrence
-     * @return null if the instant could not be saved
-     *         false if there is no new 'next matter'
-     *         or true if .
-     */
-    public Rubric<S,L,M,OCCURRENCE> add(OCCURRENCE occurrence, boolean overrideToSettled) {
-        if (this.isSettled()) {
-            return null;
-        }
-        long writeLock = gate.writeLock();
-        try {
-            if (this.identity.getPath().severity.autoSettleCount >= occurrences.length) {
-                this.occurrences = Arrays.copyOf(this.occurrences, occurrences.length + 1);
-                this.occurrences[occurrences.length - 1] = occurrence;
-                if (overrideToSettled || this.identity.getPath().severity.autoSettleCount == occurrences.length) {
-                    return this.setSettled();
-                }
-            }
-            return false;
-        }
-        finally {
-            gate.unlockWrite(writeLock);
-        }
-    }
     @Override
     public Indicia context() {
         return this.identity.getPathway().get;
     }
 
-    public static abstract class Rubric<S extends Scheme<S,L>,L extends Library<S,L>,M extends Matter<S,L,M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> extends Tangible<S,L,Indicia,UUID, Rubric<S,L,M,OCCURRENCE>,M> {
+    public static abstract class Rubric<M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> extends Tangible<Scheme.Log, Library.Log, Pathway.LogPathway,UUID, Rubric<M,OCCURRENCE>,M> {
 
-        protected final Indicia indicia;
-        public Rubric(UUID uuid, Indicia indicia) {
+        protected final Pathway.LogPathway logPathway;
+        protected final Instant createTime;
+        protected final Engagement engagement;
+        public Rubric(UUID uuid, Engagement engagement, Indicia indicia, Instant createTime) {
             super(uuid);
-            this.indicia = indicia;
+            this.logPathway = new Pathway.LogPathway(library, engagement.);
         }
 
         @Override
@@ -126,17 +91,6 @@ public abstract class Matter<S extends Scheme<S,L>,L extends Library<S,L>,M exte
                 }
             }
             return isZero;
-        }
-    }
-    public static class DNS extends Rubric<Scheme.DNS, Library.DNS, Response,String> {
-
-        public DNS(UUID uuid, Indicia indicia) {
-            super(uuid, indicia);
-        }
-
-        @Override
-        public String toString() {
-            return null;
         }
     }
 }

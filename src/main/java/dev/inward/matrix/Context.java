@@ -14,7 +14,7 @@ public class Context<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends C
     public Context(Variant<S,L> variant,
                    Personality personality,
                    Factory<S,L,PATH,ID,T,C> factory,
-                   Dogma.Persona<S,L>[] owners,
+                   Dogma.Agent[] owners,
                    CAT catalog
                    ) {
         super(variant,personality,factory,owners);

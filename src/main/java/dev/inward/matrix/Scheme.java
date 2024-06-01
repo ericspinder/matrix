@@ -1,16 +1,15 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.authority.dns.Terrene;
 import dev.inward.matrix.director.library.Director;
 import dev.inward.matrix.concept.matter.Indicia;
 
 import java.io.IOException;
 import java.net.*;
 import java.util.Map;
-import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class Scheme<S extends Scheme<S,L>,L extends Library<S,L>> extends URLStreamHandler implements Comparable<S> {
+
 
     public enum Reserved {
         Semicolon(';'),
@@ -53,10 +52,22 @@ public abstract class Scheme<S extends Scheme<S,L>,L extends Library<S,L>> exten
             return unwise;
         }
     }
+
+    public static Scheme parseScheme(String terreneScheme) {
+        if (terreneScheme.contains(".")) {
+            String[] parsed = terreneScheme.split("\\.");
+            Terrene terrene = Terrene.KnownWorlds.get(parsed[0]);
+            if (terrene != null) {
+                return terrene
+            }
+            return null;
+        }
+    }
     protected final String scheme;
     protected final Terrene terrene;
     protected final Map<String,Director<S,L,?,?>> directors = new ConcurrentHashMap<>();
     protected volatile transient Director<S,L,?,?> defaultNewLibrary;
+
     protected Scheme(String scheme,Terrene terrene) {
         this.scheme = scheme;
         this.terrene = terrene;
@@ -90,21 +101,21 @@ public abstract class Scheme<S extends Scheme<S,L>,L extends Library<S,L>> exten
             return null;
         }
     }
-    public static class Info extends Scheme<Info, Library.InfoLibrary> {
+    public static class Dogma extends Scheme<Dogma, Library.Dogma> {
 
-        public static final Info Earth = new Info(Terrene.Earth);
-        public static final Info Luna = new Info(Terrene.Luna);
-        protected Info(Terrene terrene) {
-            super("info",terrene);
+        public static final Dogma Earth = new Dogma(Terrene.Earth);
+        public static final Dogma Luna = new Dogma(Terrene.Luna);
+        protected Dogma(Terrene terrene) {
+            super("dogma",terrene);
         }
 
 
         @Override
-        protected Director<Info, Library.InfoLibrary, ?, ?> getNewDirector(String authority) {
+        protected Director<Dogma, Library.Dogma, ?, ?> getNewDirector(String authority) {
             return null;
         }
     }
-    public static class Log extends Scheme<Log, Library.LogLibrary> {
+    public static class Log extends Scheme<Log, Library.Log> {
 
         public static final Log Earth = new Log(Terrene.Earth);
         public static final Log Luna = new Log(Terrene.Luna);
@@ -113,13 +124,13 @@ public abstract class Scheme<S extends Scheme<S,L>,L extends Library<S,L>> exten
         }
 
         @Override
-        protected Director<Log, Library.LogLibrary, ?, ?> getNewDirector(String authority) {
+        protected Director<Log, Library.Log, ?, ?> getNewDirector(String authority) {
             return null;
         }
     }
 
     @Override
-    protected Clerk<S,L,?,?> openConnection(URL u) throws IOException {
+    protected ConceptConnection<S,L,?,?,?,?> openConnection(URL u) throws IOException {
         if (!u.getProtocol().equalsIgnoreCase(this.scheme))
             throw new MatrixException(MatrixException.Type.NotRightScheme, u.getProtocol() + " scheme_wrong", Indicia.Focus.Assembly, Indicia.Severity.Critical, new Exception("stacktrace..."));
         try {
@@ -139,6 +150,7 @@ public abstract class Scheme<S extends Scheme<S,L>,L extends Library<S,L>> exten
         // init library
         // init user(anonymous and userInfo if it exists)/catalogs/librarians
         // init notions/facts/etc
+        return director.getRoad().
     }
     protected abstract Director<S,L,?,?> getNewDirector(String authority);
 

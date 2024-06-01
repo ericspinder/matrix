@@ -4,6 +4,8 @@ import com.google.common.collect.Ordering;
 import dev.inward.matrix.*;
 import dev.inward.matrix.director.library.Memory;
 import dev.inward.matrix.fact.Concept;
+import dev.inward.matrix.fact.Criterion;
+import dev.inward.matrix.fact.Predictable;
 import dev.inward.matrix.fact.Representative;
 import dev.inward.matrix.fact.datum.Complication;
 
@@ -24,7 +26,7 @@ public abstract class Catalog<S extends Scheme<S,L>,L extends Library<S,L>,PATH 
     protected final L library;
     protected final Range<PATH> range;
     protected boolean open = true;
-    protected final Map<Memory<S,L,PATH>, Scheduler<S,L,>> memories;
+    protected final Map<Memory<S,L,PATH>, Clerk<S,L,?,?>> memories;
     protected final Map<Gathering<S,L,PATH,ID,T,C,CAT>,Update> directories;
 
 
@@ -149,7 +151,7 @@ public abstract class Catalog<S extends Scheme<S,L>,L extends Library<S,L>,PATH 
     }
 
     @Override
-    public WatchService newWatchService() throws IOException {
+    public Predictable<S,L,PATH,ID,T,C,?,?,?,?,?> newWatchService() throws IOException {
         return null;
     }
 

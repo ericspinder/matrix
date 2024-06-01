@@ -1,6 +1,6 @@
 package crud;
 
-import dev.inward.matrix.authority.dns.Terrene;
+import dev.inward.matrix.Terrene;
 import dev.inward.matrix.Scheme;
 import dev.inward.matrix.Library;
 import dev.inward.matrix.Context;

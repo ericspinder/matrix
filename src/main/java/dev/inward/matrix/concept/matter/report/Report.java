@@ -1,6 +1,6 @@
 package dev.inward.matrix.concept.matter.report;
 
-import dev.inward.matrix.authority.dns.Terrene;
+import dev.inward.matrix.Terrene;
 import dev.inward.matrix.Identity;
 import dev.inward.matrix.concept.matter.Indicia;
 import dev.inward.matrix.concept.matter.Matter;
