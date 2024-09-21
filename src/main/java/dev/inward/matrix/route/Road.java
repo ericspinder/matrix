@@ -2,6 +2,7 @@ package dev.inward.matrix.route;
 
 import dev.inward.matrix.Library;
 import dev.inward.matrix.MatrixException;
+import dev.inward.matrix.Policy;
 import dev.inward.matrix.Scheme;
 import dev.inward.matrix.concept.matter.Indicia;
 import dev.inward.matrix.concept.matter.Matter;
@@ -19,12 +20,12 @@ public abstract class Road<DISPATCH extends Dispatch<DISPATCH,R,D,RIDER>,R exten
     protected final DISPATCH dispatch;
 
 
-    public Road(DISPATCH dispatch, BlockingQueue<Runnable> driverQueue) {
+    public Road(DISPATCH dispatch, BlockingQueue<Policy> driverQueue) {
         super(dispatch.corePoolSize, dispatch.maximumPoolSize, dispatch.keepAliveTime, dispatch.defaultTimeUnit,driverQueue, dispatch ,dispatch);
         this.dispatch = dispatch;
     }
 
-    public static class Way<RIDER extends AsynchronousSocketChannel> extends Road<Dispatch.Controller<RIDER>,Road.Way<RIDER>,Driver.Pilot<RIDER>, RIDER> {
+    public static class Way<RIDER extends AsynchronousChannel> extends Road<Dispatch.Controller<RIDER>,Road.Way<RIDER>,Driver.Pilot<RIDER>, RIDER> {
 
         public Way(Dispatch.Controller dispatch, BlockingQueue<Runnable> driverQueue) {
             super(dispatch, driverQueue);

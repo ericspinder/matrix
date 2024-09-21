@@ -1,6 +1,5 @@
 package dev.inward.matrix.phenomenon.producer.promise;
 
-import dev.inward.matrix.Identity;
 import dev.inward.matrix.concept.matter.Indicia;
 import dev.inward.matrix.concept.matter.messaging.Request;
 import dev.inward.matrix.concept.matter.messaging.Response;

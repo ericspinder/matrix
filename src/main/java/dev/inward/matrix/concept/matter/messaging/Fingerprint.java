@@ -1,13 +1,9 @@
 package dev.inward.matrix.concept.matter.messaging;
 
-import dev.inward.matrix.Identity;
 import dev.inward.matrix.Library;
 import dev.inward.matrix.Scheme;
 import dev.inward.matrix.concept.matter.Indicia;
 import dev.inward.matrix.concept.matter.messaging.issuer.Issuer;
-import dev.inward.matrix.concept.matter.Matter;
-import dev.inward.matrix.Context;
-import dev.inward.matrix.fact.authoritative.yard.Tree;
 
 import java.security.PublicKey;
 import java.time.Instant;

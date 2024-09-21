@@ -1,6 +1,6 @@
 package dev.inward.matrix.fact.authoritative.notion.connection;
 
-import dev.inward.matrix.authority.dns.resourceRecord.ServerRecord;
+import dev.inward.matrix.dns.resourceRecord.ServerRecord;
 import dev.inward.matrix.fact.Specification;
 import dev.inward.matrix.fact.authoritative.notion.Aspect;
 import dev.inward.matrix.Context;

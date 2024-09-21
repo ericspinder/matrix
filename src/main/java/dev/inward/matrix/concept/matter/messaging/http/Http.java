@@ -1,6 +1,5 @@
 package dev.inward.matrix.concept.matter.messaging.http;
 
-import dev.inward.matrix.Identity;
 import dev.inward.matrix.concept.matter.messaging.Maker;
 import dev.inward.matrix.Context;
 import dev.inward.matrix.fact.authoritative.notion.interaction.http.HttpRequest;

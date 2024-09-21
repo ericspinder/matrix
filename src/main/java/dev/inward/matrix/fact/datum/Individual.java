@@ -10,8 +10,8 @@ public class Individual<S extends Scheme<S,L>,L extends Library<S,L>> extends Do
 
 
 
-    public Individual(Ethereal<S,L, User<S,L>> ethereal) {
-        super(ethereal);
+    public Individual(Id<S,L, User<S,L>> id) {
+        super(id);
     }
 
     @Override

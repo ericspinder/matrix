@@ -6,7 +6,7 @@ import dev.inward.matrix.Provider;
 import dev.inward.matrix.*;
 import dev.inward.matrix.director.library.catalog.Catalog;
 import dev.inward.matrix.fact.datum.Complication;
-import dev.inward.matrix.fact.datum.Envoy;
+import dev.inward.matrix.fact.datum.Ware;
 import dev.inward.matrix.fact.authoritative.notion.concept.*;
 import dev.inward.matrix.concept.matter.Matter;
 import dev.inward.matrix.phenomenon.producer.ExecutionExceptionly;
@@ -22,12 +22,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static dev.inward.matrix.fact.Criterion.*;
 
-public abstract class Predictable<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CRIT extends Criterion,P extends Predictable<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE>,COMP extends Complication<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> implements WatchService {
+public abstract class Predictable<PATH extends Comparable<PATH>,P extends Pathway<PATH,P>,ID extends Comparable<ID>,T extends Concept.Tangible<PATH,P,ID,T,C>,C extends Concept<PATH,P,ID,T,C>,CRIT extends Criterion<PATH,P,ID,T,C>,PRE extends Predictable<PATH,P,ID,T,C,CRIT,PRE,COMP,M,OCCURRENCE>,COMP extends Complication<PATH,P,ID,T,C,CRIT,PRE,COMP,M,OCCURRENCE>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> implements WatchService {
 
-    protected final Catalog<S,L,PATH,ID,T,C,?> catalog;
-    protected final Map<M, Ticket<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE>> complicationResultsCacheMapping = new ConcurrentHashMap<>();
+    protected final CAT catalog;
+    protected final Map<M, Ticket<P,ID,T,C,CAT>> complicationResultsCacheMapping = new ConcurrentHashMap<>();
 
-    public Predictable(Catalog<S,L,PATH,ID,T,C,?> catalog) {
+    public Predictable(CAT catalog) {
         this.catalog = catalog;
     }
     /**
@@ -37,7 +37,7 @@ public abstract class Predictable<S extends Scheme<S,L>,L extends Library<S,L>,P
      * @return the Complication that has been created
      */
     @SuppressWarnings("unchecked")
-    public COMP register(CRIT criterion, Provider<S,L,PATH,ID,T,C> provider) {
+    public COMP register(CRIT criterion, Provider<P,ID,T,C,CAT> provider) {
         COMP complication = this.createComplication((P)this,criterion,provider);
         if (complication.isValid()) {
 
@@ -68,7 +68,7 @@ public abstract class Predictable<S extends Scheme<S,L>,L extends Library<S,L>,P
      */
     public abstract M complete(C concept) throws ExecutionExceptionly, InterruptionExceptionally, TimeoutExceptionally;
 
-    public static class Limited<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> extends Predictable<S,L,PATH,ID,T,C,Criterion.Limiter,Predictable.Limited<S,L,PATH,ID,T,C>, Complication.Limitation<S,L,PATH,ID,T,C>> {
+    public static class Limited<P extends Pathway<P,CAT>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> extends Predictable<S,L,PATH,ID,T,C,Criterion.Limiter,Predictable.Limited<S,L,PATH,ID,T,C>, Complication.Limitation<S,L,PATH,ID,T,C>> {
 
         public Limited(Catalog<S,L,PATH,ID,T,C,?> catalog) {
             super(catalog);
@@ -100,7 +100,7 @@ public abstract class Predictable<S extends Scheme<S,L>,L extends Library<S,L>,P
         }
     }
 
-    public final static class Time<Y extends Factory<Y,F,O,I,X,B,P,FAB,C,T,V,M>,DATUM,D extends Datum<DATUM,D,E,F,I,X,P>,E extends Envoy<DATUM,D,E,F,I,X,P>,F extends Fact<F,I,X,P>,O extends Operational<Y,F,O,I,X,B,P>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,P>,P extends Model<Y,F,O,I,X,B,P>,FAB extends Fabrication<FAB,C,T,V,M>,C extends Protocol<C,M>,T extends Effect<FAB,C,T,V,M>,V extends Volume<FAB,C,T,V,M>,M extends Construct<FAB,C,T,V,M>> extends Predictable<Y,DATUM,D,E,F,O,I,X,B,P,FAB,C,T,V,M, Timed<DATUM,F,I,X>,Time<Y,DATUM,D,E,F,O,I,X,B,P,FAB,C,T,V,M>> {
+    public final static class Time<Y extends Factory<Y,F,O,I,X,B,P,FAB,C,T,V,M>,DATUM,D extends Datum<DATUM,D,E,F,I,X,P>,E extends Ware<DATUM,D,E,F,I,X,P>,F extends Fact<F,I,X,P>,O extends Operational<Y,F,O,I,X,B,P>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,P>,P extends Model<Y,F,O,I,X,B,P>,FAB extends Fabrication<FAB,C,T,V,M>,C extends Protocol<C,M>,T extends Effect<FAB,C,T,V,M>,V extends Volume<FAB,C,T,V,M>,M extends Construct<FAB,C,T,V,M>> extends Predictable<Y,DATUM,D,E,F,O,I,X,B,P,FAB,C,T,V,M, Timed<DATUM,F,I,X>,Time<Y,DATUM,D,E,F,O,I,X,B,P,FAB,C,T,V,M>> {
 
         @Override
         public <COMP extends Complication<Y, DATUM, D, E, F, O, I, X, B, P, FAB, C, T, V, M, COMP>> COMP registerCriterion(Timed<DATUM, F, I, X> criterion) {

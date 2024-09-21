@@ -1,12 +1,13 @@
 package dev.inward.matrix;
 
+import dev.inward.matrix.director.library.catalog.Catalog;
 import dev.inward.matrix.fact.*;
 import dev.inward.matrix.concept.matter.Indicia;
 
 import java.util.Queue;
 import java.util.concurrent.locks.StampedLock;
 
-public abstract class Provider<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>>  {
+public abstract class Provider<PATH extends Comparable<PATH>,P extends Pathway<PATH,P>,ID extends Comparable<ID>,T extends Concept.Tangible<PATH,P,ID,T,C>,C extends Concept<PATH,P,ID,T,C>>  {
 
     private boolean on = true;
     public Provider() {
@@ -22,7 +23,7 @@ public abstract class Provider<S extends Scheme<S,L>,L extends Library<S,L>,PATH
         return on;
     }
 
-    public static final class Provided<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> extends Provider<S,L,PATH,ID,T,C> {
+    public static final class Provided<PATH extends Comparable<PATH>,P extends Pathway<PATH,P>,ID extends Comparable<ID>,T extends Concept.Tangible<PATH,P,ID,T,C>,C extends Concept<PATH,P,ID,T,C>> extends Provider<PATH,P,ID,T,C> {
 
         protected final C concept;
 
@@ -38,23 +39,23 @@ public abstract class Provider<S extends Scheme<S,L>,L extends Library<S,L>,PATH
         }
 
     }
-    public static final class Soft<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> extends Provider<S,L,PATH,ID,T,C> {
+    public static final class Soft<PATH extends Comparable<PATH>,P extends Pathway<PATH,P>,ID extends Comparable<ID>,T extends Concept.Tangible<PATH,P,ID,T,C>,C extends Concept<PATH,P,ID,T,C>> extends Provider<PATH,P,ID,T,C> {
 
-        protected final Representative<S,L,PATH,ID,T,C> representative;
+        protected final T tangible;
 
-        public Soft(Representative<S,L,PATH,ID,T,C> representative) {
+        public Soft(T tangible) {
             super();
-            this.representative = representative;
+            this.tangible = tangible;
         }
 
         @Override
         public C getConcept() {
-            if (isOn()) return representative.get();
+            if (isOn()) return tangible.get();
             return null;
         }
 
     }
-    public static final class Current<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> extends Provider<S,L,PATH,ID,T,C> {
+    public static final class Current<PATH extends Comparable<PATH>,P extends Pathway<PATH,P>,ID extends Comparable<ID>,T extends Concept.Tangible<PATH,P,ID,T,C>,C extends Concept<PATH,P,ID,T,C>> extends Provider<PATH,P,ID,T,C> {
 
         private C concept;
         private final StampedLock gate = new StampedLock();
@@ -86,7 +87,7 @@ public abstract class Provider<S extends Scheme<S,L>,L extends Library<S,L>,PATH
             return null;
         }
     }
-    public static final class Chain<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> extends Provider<S,L,PATH,ID,T,C> {
+    public static final class Chain<PATH extends Comparable<PATH>,P extends Pathway<PATH,P>,ID extends Comparable<ID>,T extends Concept.Tangible<PATH,P,ID,T,C>,C extends Concept<PATH,P,ID,T,C>> extends Provider<PATH,P,ID,T,C> {
 
         protected final Queue<C> queue;
 

@@ -1,10 +1,9 @@
 package dev.inward.matrix.fact;
 
 import dev.inward.matrix.Context;
-import dev.inward.matrix.Identity;
-import dev.inward.matrix.fact.datum.Envoy;
+import dev.inward.matrix.fact.datum.Ware;
 import dev.inward.matrix.concept.matter.Matter;
-import dev.inward.matrix.resources.Resource;
+import dev.inward.matrix.Resource;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -12,7 +11,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiConsumer;
 
-public class View<DATUM,E extends Envoy<DATUM,E>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<X>> extends Thread implements Collection<View> {
+public class View<DATUM,E extends Ware<DATUM,E>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<X>> extends Thread implements Collection<View> {
 
     protected AtomicBoolean run;
     protected final LinkedBlockingDeque<Item> envoys = new LinkedBlockingDeque<>();

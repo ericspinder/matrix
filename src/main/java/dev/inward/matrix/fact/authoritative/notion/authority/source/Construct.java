@@ -1,11 +1,10 @@
 package dev.inward.matrix.fact.authoritative.notion.authority.source;
 
 import dev.inward.matrix.authority.source.Source;
-import dev.inward.matrix.Identity;
-import dev.inward.matrix.fact.datum.Standard;
+import dev.inward.matrix.Standard;
 import dev.inward.matrix.Context;
 import dev.inward.matrix.fact.authoritative.notion.concept.Fabrication;
-import dev.inward.matrix.resources.Resource;
+import dev.inward.matrix.Resource;
 import dev.inward.matrix.resources.Storage;
 
 import java.util.Map;

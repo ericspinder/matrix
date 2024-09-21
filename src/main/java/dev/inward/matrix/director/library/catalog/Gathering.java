@@ -4,36 +4,80 @@ import dev.inward.matrix.*;
 import dev.inward.matrix.fact.*;
 import dev.inward.matrix.Dogma;
 
-import java.net.URL;
+import java.nio.file.attribute.AclEntry;
+import java.nio.file.attribute.AclFileAttributeView;
+import java.nio.file.attribute.BasicFileAttributeView;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.time.Instant;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.StampedLock;
 
-public abstract class Gathering<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CAT extends Catalog<S,L,PATH,ID,T,C,CAT>> {
+public abstract class Gathering<PATH extends Comparable<PATH>,P extends Pathway<PATH,P,CAT>,ID extends Comparable<ID>,T extends Concept.Tangible<PATH,P,ID,T,C>,C extends Concept<PATH,P,ID,T,C>,CAT extends Catalog<PATH,P,CAT>> {
 
+    public static abstract class Meta<PATH extends Comparable<PATH>,P extends Pathway<PATH,P,CAT>,ID extends Comparable<ID>,T extends Concept.Tangible<PATH,P,ID,T,C>,C extends Concept<PATH,P,ID,T,C>,CAT extends Catalog<PATH,P,CAT>> implements AclFileAttributeView, BasicFileAttributeView {
+
+        protected Administration<PATH,P,ID,T,C,CAT> administration;
+        protected AtomicLong size;
+
+        public Meta(Administration<PATH,P,ID,T,C,CAT> administration) {
+            this.administration = administration;
+        }
+
+        public Administration<PATH, P, ID, T, C, CAT> getAdministration() {
+            return administration;
+        }
+
+        public void setAdministration(Administration<PATH, P, ID, T, C, CAT> administration) {
+            this.administration = administration;
+        }
+
+        @Override
+        public Dogma.Agent getOwner() {
+            return this.administration.getOwner();
+        }
+        @Override
+        public List<AclEntry> getAcl() {
+            return Arrays.asList(this.administration.getAclEntries());
+        }
+        @Override
+        public abstract BasicFileAttributes readAttributes();
+
+        public long getSize() {
+            return this.size.get();
+        }
+        public long add(long add) {
+            return this.size.addAndGet(add);
+        }
+        public long subtract(long subtract) {
+            return this.size.decrementAndGet();
+        }
+
+        public abstract Instant lastAccess();
+        public abstract Instant lastSync();
+
+    }
     private transient final StampedLock gate = new StampedLock();
+
+    protected final P pathway;
     protected final CAT catalog;
-    protected final Pathway<S,L,PATH,?> pathway;
-    protected final Representative<S,L,PATH,ID,T,C> parent;
-    protected final Bus<S,L,PATH,ID,T,C> bus;
-    public Gathering(Representative<S,L,PATH,ID,T,C> parent, Pathway<S,L,PATH,?> pathway, CAT catalog) {
-        this.parent = parent;
+    protected final Map<C, Meta> concepts = new ConcurrentHashMap<>();
+
+    public Gathering(Dogma.Agent owner, P pathway, CAT catalog, Map<C,Meta> conceptInitialize) {
         this.pathway = pathway;
         this.catalog = catalog;
+        this.concepts.putAll(conceptInitialize);
     }
 
-    public Pathway<S,L,PATH,?> getPathway() {
-        return pathway;
+    protected final Map<C,Meta> getConcepts() {
+        return this.concepts;
     }
 
     public CAT getCatalog() {
         return catalog;
     }
-
-
-    public abstract Representative<S,L,PATH,ID,T,C> registerConcept(C concept);
-
-    public abstract <P extends Profile<S,L,P,U>, U extends Dogma<S,L,U>> boolean evaluateAccess(Profile<S,L,P,U> profile, Context<S,L,PATH,ID,T,C,CAT> context, URL url) throws CheckedException;
-    public abstract <P extends Profile<S,L,P,U>, U extends Dogma<S,L,U>> boolean evaluateWrite(Profile<S,L,P,U> profile, Context<S,L,PATH,ID,T,C,CAT> context) throws CheckedException;
-    public abstract <P extends Profile<S,L,P,U>, U extends Dogma<S,L,U>> boolean evaluateModify(Profile<S,L,P,U> profile, Context<S,L,PATH,ID,T,C,CAT> context, C concept) throws CheckedException;
-    public abstract <P extends Profile<S,L,P,U>, U extends Dogma<S,L,U>> boolean evaluateDelete(Profile<S,L,P,U> profile, Context<S,L,PATH,ID,T,C,CAT> context, C concept) throws CheckedException;
 
 }

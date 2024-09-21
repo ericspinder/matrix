@@ -10,7 +10,7 @@ import java.lang.ref.SoftReference;
 import java.net.InetAddress;
 import java.time.Instant;
 
-public class Engagement<E extends Engagement<E,F,P>, F extends Fingerprint,P extends Tree> extends Matter<E, > {
+public class Engagement<E extends Engagement<E,F,P>, F extends Fingerprint,P extends Tree> extends Matter<E,> {
 
     protected final Dogma.Persona persona;
     private final F fingerprint;

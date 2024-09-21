@@ -3,10 +3,9 @@ package dev.inward.matrix.engine;
 import dev.inward.matrix.Library;
 import dev.inward.matrix.Scheme;
 import dev.inward.matrix.fact.Concept;
-import dev.inward.matrix.Identity;
 import dev.inward.matrix.fact.authoritative.notion.Agent;
-import dev.inward.matrix.fact.authoritative.notion.Notion;
-import dev.inward.matrix.resources.Resource;
+import dev.inward.matrix.Notion;
+import dev.inward.matrix.Resource;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

@@ -1,7 +1,6 @@
 package dev.inward.matrix.fact.authoritative.notion.authority;
 
 import dev.inward.matrix.Host;
-import dev.inward.matrix.Identity;
 import dev.inward.matrix.fact.authoritative.notion.Agent;
 import dev.inward.matrix.Context;
 import dev.inward.matrix.resources.MatrixProtectionDomain;

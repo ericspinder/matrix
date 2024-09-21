@@ -1,39 +1,42 @@
 package dev.inward.matrix.fact;
 
 import dev.inward.matrix.*;
+import dev.inward.matrix.fact.authoritative.notion.authority.source.ziggurat.Startup;
+import dev.inward.matrix.Policy;
+import dev.inward.matrix.resources.Supplier;
 
-import java.net.URL;
-import java.util.function.Predicate;
+import java.util.HashMap;
+import java.util.Map;
 
-public abstract class Fact<S extends Scheme<S,L>,L extends Library<S,L>,N extends Fact.Named<S,L,N,F>,F extends Fact<S,L,N,F>> extends Concept<S,L,String,String,N,F> {
+public abstract class Fact<N extends Fact.Named<N,F,M>,F extends Fact<N,F,M>,M extends Model<N,F,M>> extends Concept<String, Fact.Pathway,String,N,F> {
 
-    protected final short fidelity;
-
-    public Fact(N identity, short fidelity) {
+    public Fact(N identity) {
         super(identity);
-        this.fidelity = fidelity;
     }
 
-    public short getFidelity() {
-        return fidelity;
-    }
+    public final static class Pathway extends dev.inward.matrix.Pathway<String,Pathway> {
 
-    public Fact<S,L,N,F> F reduce(Fact<S,L,N,F> next...) {
-
-    }
-    public static class Query<S extends Scheme<S,L>,L extends Library<S,L>,Q extends Query<S,L,Q,F>,F extends Fact<S,L,Q,F>> extends Tangible<S,L,URL,String,Q,F> {
-
-    }
-
-
-    public abstract static class Named<S extends Scheme<S,L>,L extends Library<S,L>,N extends Named<S,L,N,F>,F extends Fact<S,L,N,F>> extends Tangible<S,L,String,String,N,F> {
-
-        protected final char persona;
-        public Named(String name, char persona) {
-            super(name);
-            this.persona = persona;
+        public Pathway(Ledger<String,Pathway> ledger, String path) {
+            super(ledger,path);
         }
-        public static class DotExtension<S extends Scheme<S,L>,L extends Library<S,L>,F extends Fact<S,L,DotExtension<S,L,F>,F>> extends Named<S,L,DotExtension<S,L,F>,F> {
+
+        @Override
+        public String getPathString() {
+            return this.path;
+        }
+    }
+    public abstract static class Named<N extends Named<N,F,M>,F extends Fact<N,F,M>,M extends Model<N,F,M>> extends Tangible<String,Pathway,String,N,F> {
+
+        protected final M model;
+
+        public Named(String name) {
+            super(name);
+        }
+
+        public abstract String getName();
+
+
+        public static class DotExtension<F extends Fact<DotExtension<F>,F>> extends Named<DotExtension<F>,F> {
 
             protected final String extension;
 
@@ -43,35 +46,43 @@ public abstract class Fact<S extends Scheme<S,L>,L extends Library<S,L>,N extend
             }
 
             @Override
-            public String toString() {
-                return this.id + '.' + this.extension;
+            public String getName() {
+                return this.getId() + '.' + this.extension;
             }
 
-            @Override
-            public int compareTo(DotExtension<S, L, F> that) {
-                int isZero = this.id.compareTo(that.id);
-                if (isZero == 0) {
-                    return this.extension.compareTo(that.extension);
-                }
-                return isZero;
-            }
         }
         public static class Simple<S extends Scheme<S,L>,L extends Library<S,L>,F extends Fact<S,L,Simple<S,L,F>,F>> extends Named<S,L,Simple<S,L,F>,F> {
 
-            public Simple(String name) {
-                super(name);
+            public Simple(String name,char persona) {
+                super(name,persona);
             }
 
             @Override
-            public String toString() {
-                return this.id.toString();
+            public String getName() {
+                return this.id;
             }
 
-            @Override
-            public int compareTo(Simple<S, L, F> that) {
-                return this.id.compareTo(that.id);
+        }
+
+    }
+
+    public abstract static class Resource<N extends Named<N,F,M>,F extends Fact<N,F,M>,M extends Model<N,F,M>> extends Concept.Resource<Scheme.HTML,Library.HTML, Fact.Pathway,String,N,F, CardCatalog<N,F>> {
+
+        private Supplier supplier;
+        private final Map<String,? super dev.inward.matrix.Resource<?,S,L,PATH,C>> datumMap = new HashMap<>();
+
+        public Resource(Policy[] policies) {
+            super(policies);
+        }
+
+        @SuppressWarnings("unchecked")
+        public <DATUM> dev.inward.matrix.Resource<DATUM,S,L,PATH,F> getResource(Class<DATUM> datumClass) {
+            dev.inward.matrix.Resource<DATUM,S,L,PATH,F> resource = (dev.inward.matrix.Resource<DATUM,S,L,PATH,F>) datumMap.get(datumClass.getCanonicalName());
+            if (resource == null) {
+                datumMap.put(Startup.root().get().newResource(datumClass)
             }
         }
+
 
     }
 }

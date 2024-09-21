@@ -2,8 +2,7 @@ package dev.inward.matrix.concept.matter.order;
 
 import dev.inward.matrix.concept.matter.Indicia;
 import dev.inward.matrix.fact.Specification;
-import dev.inward.matrix.Identity;
-import dev.inward.matrix.fact.authoritative.notion.Notion;
+import dev.inward.matrix.Notion;
 import dev.inward.matrix.Context;
 
 import java.time.Instant;

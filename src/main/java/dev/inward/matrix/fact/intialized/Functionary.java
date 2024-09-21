@@ -2,7 +2,6 @@ package dev.inward.matrix.fact.intialized;
 
 import dev.inward.matrix.fact.Operational;
 import dev.inward.matrix.fact.Specification;
-import dev.inward.matrix.Identity;
 import dev.inward.matrix.Context;
 import dev.inward.matrix.resources.Supplier;
 

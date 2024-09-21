@@ -1,8 +1,7 @@
 package dev.inward.matrix;
 
 import com.google.common.collect.ImmutableList;
-import dev.inward.matrix.authority.Domain;
-import dev.inward.matrix.authority.dns.resourceRecord.ServerRecord;
+import dev.inward.matrix.dns.resourceRecord.ServerRecord;
 import dev.inward.matrix.concept.matter.Indicia;
 
 import java.net.InetAddress;

@@ -2,7 +2,7 @@ package dev.inward.matrix.fact.authoritative.notion.house;
 
 import dev.inward.matrix.*;
 import dev.inward.matrix.authority.Registrar;
-import dev.inward.matrix.authority.dns.resourceRecord.ResourceRecord;
+import dev.inward.matrix.dns.resourceRecord.ResourceRecord;
 import dev.inward.matrix.engine.Zone;
 
 public abstract class House<S extends Scheme<S,L>,L extends Library<S,L>,H extends House<S,L,H,P>,P extends Dogma.Persona<S,L,P>> implements Comparable<H> {

@@ -1,6 +1,5 @@
 package dev.inward.matrix.fact.authoritative.notion.concept.boot;
 
-import dev.inward.matrix.Identity;
 import crud.Protocol;
 import dev.inward.matrix.fact.authoritative.notion.authority.source.ziggurat.Startup;
 import dev.inward.matrix.fact.operational.IntegerDefaultOption;

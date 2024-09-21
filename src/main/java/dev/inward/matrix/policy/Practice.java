@@ -1,8 +1,8 @@
 package dev.inward.matrix.policy;
 
-import dev.inward.matrix.Identity;
+import dev.inward.matrix.Policy;
 import dev.inward.matrix.fact.authoritative.notion.Agent;
-import dev.inward.matrix.fact.authoritative.notion.Notion;
+import dev.inward.matrix.Notion;
 import dev.inward.matrix.Context;
 
 import javax.annotation.Nonnull;

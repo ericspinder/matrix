@@ -1,6 +1,7 @@
 @SuppressWarnings({ "requires-automatic", "requires-transitive-automatic" })
 module dev.inward.matrix {
     requires transitive java.instrument;
+    requires transitive java.sql;
     requires transitive org.objectweb.asm;
     requires transitive com.google.common;
     requires jsr305;
@@ -20,4 +21,5 @@ module dev.inward.matrix {
     exports dev.inward.matrix.director;
     exports dev.inward.matrix.ticket;
     exports dev.inward.matrix;
+    exports dev.inward.matrix.memory;
 }

@@ -1,6 +1,5 @@
 package dev.inward.matrix.concept.matter.sanction;
 
-import dev.inward.matrix.Identity;
 import dev.inward.matrix.concept.matter.Indicia;
 import dev.inward.matrix.concept.matter.messaging.Fingerprint;
 import dev.inward.matrix.concept.matter.messaging.issuer.Issuer;

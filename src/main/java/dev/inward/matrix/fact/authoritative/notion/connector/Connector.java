@@ -1,8 +1,7 @@
 package dev.inward.matrix.fact.authoritative.notion.connector;
 
-import dev.inward.matrix.Identity;
 import dev.inward.matrix.concept.matter.Matter;
-import dev.inward.matrix.fact.authoritative.notion.Notion;
+import dev.inward.matrix.Notion;
 import dev.inward.matrix.Context;
 import dev.inward.matrix.phenomenon.producer.promise.Promise;
 

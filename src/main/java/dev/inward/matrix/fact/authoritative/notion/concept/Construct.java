@@ -1,7 +1,7 @@
 package dev.inward.matrix.fact.authoritative.notion.concept;
 
 import dev.inward.matrix.*;
-import dev.inward.matrix.authority.Domain;
+import dev.inward.matrix.Domain;
 import dev.inward.matrix.Terrene;
 import dev.inward.matrix.Range;
 

@@ -1,18 +1,45 @@
 package dev.inward.matrix.fact;
 
 import dev.inward.matrix.*;
-import dev.inward.matrix.fact.authoritative.notion.Aspect;
-import dev.inward.matrix.fact.matter.Named;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
-import java.util.concurrent.ConcurrentHashMap;
 
-public abstract class Model<S extends Scheme<S,L>,L extends Library<S,L>,N extends Fact.Named<S,L,N,F>,F extends Fact<S,L,N,F>,M extends Model<S,L,N,F,M>> extends Concept<S,L,String,String, Concept.Tangible.Id<S,L,N,F,M>,M> {
+public abstract class Model<N extends Fact.Named<N,F,M>,F extends Fact<N,F,M>,M extends Model<N,F,M>> extends Concept<String, Model.Pathway,String,Model.Id<N,F,M>,M> {
 
+    public static class Pathway extends dev.inward.matrix.Pathway<String,Pathway> {
+
+        public Pathway(Ledger<String, Pathway> ledger, String s) {
+            super(ledger, s);
+        }
+
+        @Override
+        public String getPathString() {
+            return null;
+        }
+    }
+    public static class Id<N extends Fact.Named<N,F,M>,F extends Fact<N,F,M>,M extends Model<N,F,M>> extends Concept.Tangible<String, Model.Pathway,String,Id<N,F,M>,M> {
+
+        public Id(String s) {
+            super(s);
+        }
+
+
+        @Override
+        public M get() {
+            return null;
+        }
+
+        @Override
+        public int compareTo(Id o) {
+            return 0;
+        }
+    }
     @SuppressWarnings("unchecked")
-    protected final Class<F> factClass = ((Class<F>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[3]);
+    protected final Class<F> factClass = ((Class<F>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[1]);
     @SuppressWarnings("unchecked")
     protected final Constructor<F>[] factConstructors = (Constructor<F>[])factClass.getConstructors();
     protected final ConcurrentHashMap<Aspect<S,L,String,String,N,F>,> aspects
@@ -22,28 +49,28 @@ public abstract class Model<S extends Scheme<S,L>,L extends Library<S,L>,N exten
 
     }
 
-    public boolean isCreate() {
-        return create;
-    }
-
-    public F create(Identity.Ego<S,L,PATH,F,N> ego) {
-        Dogma.Persona persona = ego.getGetPersona();
-        if (create) {
-            try {
-                return factConstructors[0].newInstance(ego);
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
-    public F read(Identity.Ego<S,L,PATH,F,N> ego) {
-
-    }
+//    public boolean isCreate() {
+//        return create;
+//    }
+//
+//    public F create(Identity.Ego<S,L,PATH,F,N> ego) {
+//        Dogma.Persona persona = ego.getGetPersona();
+//        if (create) {
+//            try {
+//                return factConstructors[0].newInstance(ego);
+//            } catch (InstantiationException e) {
+//                e.printStackTrace();
+//            } catch (IllegalAccessException e) {
+//                e.printStackTrace();
+//            } catch (InvocationTargetException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        return null;
+//    }
+//    public F read(Identity.Ego<S,L,PATH,F,N> ego) {
+//
+//    }
 
 
 //    @Override

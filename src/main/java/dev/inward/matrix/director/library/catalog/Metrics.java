@@ -2,7 +2,6 @@ package dev.inward.matrix.director.library.catalog;
 
 import dev.inward.matrix.concept.matter.Matter;
 import dev.inward.matrix.concept.matter.Indicia;
-import dev.inward.matrix.Identity;
 
 import java.time.Instant;
 

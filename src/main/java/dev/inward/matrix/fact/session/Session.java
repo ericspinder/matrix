@@ -1,15 +1,13 @@
 package dev.inward.matrix.fact.session;
 
 import dev.inward.matrix.*;
-import dev.inward.matrix.authority.dns.Question;
 import dev.inward.matrix.concept.matter.Indicia;
 
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.Year;
 import java.util.UUID;
 
-public abstract class Session<S extends Scheme<S,L>,L extends Library<S,L>> extends Gadget<S,L, Dogma.Agent<S,L>, Session.Id<S,L>,Session<S,L>> {
+public abstract class Session extends Gadget<Dogma.Agent<S,L>, Session.Id<S,L>,Session<S,L>> {
     protected final char year;
     protected final UUID passepartout;
     protected Instant expire;

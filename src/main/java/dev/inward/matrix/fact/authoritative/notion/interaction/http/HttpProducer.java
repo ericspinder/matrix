@@ -1,6 +1,5 @@
 package dev.inward.matrix.fact.authoritative.notion.interaction.http;
 
-import dev.inward.matrix.Identity;
 import dev.inward.matrix.Context;
 import dev.inward.matrix.fact.authoritative.notion.interaction.Producer;
 

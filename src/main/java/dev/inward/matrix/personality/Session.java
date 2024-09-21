@@ -1,7 +1,5 @@
 package dev.inward.matrix.personality;
 
-import dev.inward.matrix.Identity;
-
 import java.security.Permission;
 
 public class Session extends Permission {

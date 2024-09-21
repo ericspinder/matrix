@@ -1,9 +1,8 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.authority.Domain;
 import dev.inward.matrix.director.HttpScheme;
-import dev.inward.matrix.director.library.Memory;
 import dev.inward.matrix.director.library.catalog.Catalog;
+import dev.inward.matrix.memory.Memory;
 
 import java.nio.file.Path;
 

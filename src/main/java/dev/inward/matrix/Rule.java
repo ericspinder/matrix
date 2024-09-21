@@ -1,11 +1,9 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.concept.matter.Matter;
-
 import java.nio.file.attribute.AclEntry;
 import java.security.Permission;
 
-public class Rule<S extends Scheme<S, L>, L extends Library<S, L>,M extends Matter<S,L,M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> extends Permission {
+public class Rule extends Permission {
 
     protected AclEntry aclEntry;
 

@@ -1,7 +1,6 @@
 package dev.inward.matrix.fact.authoritative.notion.house;
 
 import dev.inward.matrix.Context;
-import dev.inward.matrix.Identity;
 import dev.inward.matrix.fact.authoritative.notion.Omnibus;
 import dev.inward.matrix.fact.authoritative.notion.concept.Construct;
 

@@ -25,11 +25,6 @@ public class Blocker extends RuntimeException implements Exceptionally {
     }
 
     @Override
-    public StackTraceElement[] getStackTrace() {
-        return null;
-    }
-
-    @Override
     public String getMessage() {
         return indicia.toString();
     }

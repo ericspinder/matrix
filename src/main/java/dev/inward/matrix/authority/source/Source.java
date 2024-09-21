@@ -1,10 +1,9 @@
 package dev.inward.matrix.authority.source;
 
 import dev.inward.matrix.Terrene;
-import dev.inward.matrix.authority.dns.resourceRecord.ResourceRecord;
-import dev.inward.matrix.authority.dns.resourceRecord.ResourceRecordType;
-import dev.inward.matrix.authority.dns.resourceRecord.ServerRecord;
-import dev.inward.matrix.Identity;
+import dev.inward.matrix.dns.resourceRecord.ResourceRecord;
+import dev.inward.matrix.dns.resourceRecord.ResourceRecordType;
+import dev.inward.matrix.dns.resourceRecord.ServerRecord;
 import dev.inward.matrix.concept.matter.Indicia;
 import dev.inward.matrix.concept.matter.report.DefaultFailure;
 import dev.inward.matrix.Host;

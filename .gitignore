@@ -2,7 +2,7 @@
 *.class
 
 # Log file
-*.log
+*.id
 
 # BlueJ files
 *.ctxt
@@ -19,7 +19,7 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# virtual machine crash ids, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
 # Eclipse
@@ -36,7 +36,7 @@ hs_err_pid*
 .DS_Store
 
 # Maven
-log/
+id/
 target/
 pom.xml.tag
 pom.xml.releaseBackup

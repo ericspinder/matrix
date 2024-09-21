@@ -1,6 +1,5 @@
 package dev.inward.matrix.fact.authoritative.notion.concept.corpus;
 
-import dev.inward.matrix.Identity;
 import crud.Protocol;
 import dev.inward.matrix.fact.authoritative.notion.house.Steward;
 

@@ -1,7 +1,6 @@
 package dev.inward.matrix.fact.setting;
 
 import dev.inward.matrix.fact.Fact;
-import dev.inward.matrix.Identity;
 import dev.inward.matrix.concept.matter.sanction.Sanction;
 import dev.inward.matrix.Context;
 import dev.inward.matrix.fact.authoritative.notion.concept.dataSupplier.Unspoken;

@@ -1,14 +1,11 @@
 package dev.inward.matrix.authority;
 
-import dev.inward.matrix.CheckedException;
-import dev.inward.matrix.Library;
-import dev.inward.matrix.Manufacture;
-import dev.inward.matrix.director.library.Memory;
+import dev.inward.matrix.*;
+import dev.inward.matrix.memory.Memory;
 import dev.inward.matrix.director.library.catalog.Catalog;
 import dev.inward.matrix.director.library.catalog.Gathering;
 import dev.inward.matrix.fact.Fact;
-import dev.inward.matrix.fact.authoritative.notion.Notion;
-import dev.inward.matrix.Dogma;
+import dev.inward.matrix.Notion;
 import dev.inward.matrix.concept.matter.order.Autopsy;
 
 import java.io.IOException;

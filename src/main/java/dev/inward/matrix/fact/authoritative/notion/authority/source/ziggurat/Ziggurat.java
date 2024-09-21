@@ -2,11 +2,10 @@ package dev.inward.matrix.fact.authoritative.notion.authority.source.ziggurat;
 
 import dev.inward.matrix.CommandLine;
 import dev.inward.matrix.Context;
-import dev.inward.matrix.Identity;
 import dev.inward.matrix.Host;
 import dev.inward.matrix.authority.source.Source;
 import dev.inward.matrix.resources.LocalSystemNetworking;
-import dev.inward.matrix.resources.Resource;
+import dev.inward.matrix.Resource;
 
 import java.lang.instrument.Instrumentation;
 import java.util.HashMap;

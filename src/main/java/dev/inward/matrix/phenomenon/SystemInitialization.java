@@ -1,7 +1,6 @@
 package dev.inward.matrix.phenomenon;
 
 import dev.inward.matrix.Context;
-import dev.inward.matrix.Identity;
 import dev.inward.matrix.concept.matter.Indicia;
 import dev.inward.matrix.concept.matter.order.Autopsy;
 

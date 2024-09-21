@@ -1,7 +1,6 @@
 package dev.inward.matrix.fact.authoritative.notion.interaction;
 
-import dev.inward.matrix.Identity;
-import dev.inward.matrix.fact.datum.Standard;
+import dev.inward.matrix.Standard;
 import dev.inward.matrix.concept.matter.Matter;
 import dev.inward.matrix.fact.authoritative.notion.Industry;
 import dev.inward.matrix.Context;
@@ -10,7 +9,7 @@ import dev.inward.matrix.fact.authoritative.notion.concept.corpus.Mechanical;
 import dev.inward.matrix.fact.authoritative.notion.concept.corpus.Sandbox;
 import dev.inward.matrix.fact.authoritative.notion.house.Assembly;
 import dev.inward.matrix.fact.authoritative.notion.house.Steward;
-import dev.inward.matrix.resources.Resource;
+import dev.inward.matrix.Resource;
 import dev.inward.matrix.resources.Storage;
 
 import java.util.Map;

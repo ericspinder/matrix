@@ -1,14 +1,13 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.authority.Domain;
-import dev.inward.matrix.director.library.Memory;
+import crud.Anima;
 import dev.inward.matrix.director.library.catalog.Catalog;
 import dev.inward.matrix.director.library.catalog.Gathering;
 import dev.inward.matrix.fact.Fact;
 import dev.inward.matrix.fact.authoritative.notion.Dream;
-import dev.inward.matrix.fact.authoritative.notion.Notion;
+import dev.inward.matrix.memory.Memory;
 
-public abstract class Soul extends Library<Anima,Soul, Dogma.Ethereal.SuperEgo>  {
+public abstract class Soul extends Library<Anima,Soul, Dogma.Id.SuperEgo>  {
 
     public Soul(Anima scheme, Terrene terrene, Domain domain, Memory<Dogma.Ethereal.SuperEgo, Dream>... memories) {
         super(scheme, terrene, domain, memories);

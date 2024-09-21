@@ -1,12 +1,10 @@
 package dev.inward.matrix.director.library.catalog;
 
-import com.google.common.collect.Ordering;
 import dev.inward.matrix.*;
-import dev.inward.matrix.director.library.Memory;
-import dev.inward.matrix.fact.Concept;
-import dev.inward.matrix.fact.Criterion;
+import dev.inward.matrix.memory.Memory;
+import dev.inward.matrix.fact.Addressed;
 import dev.inward.matrix.fact.Predictable;
-import dev.inward.matrix.fact.Representative;
+import dev.inward.matrix.fact.Rider;
 import dev.inward.matrix.fact.datum.Complication;
 
 import javax.annotation.Nonnull;
@@ -21,21 +19,27 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.StampedLock;
 import java.util.regex.Pattern;
 
-public abstract class Catalog<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CAT extends Catalog<S,L,PATH,ID,T,C,CAT>> extends FileSystem implements Comparable<CAT> {
+public abstract class Catalog<PATH extends Comparable<PATH>,P extends Pathway<PATH,P>> extends FileSystem implements Addressed.Ledger<PATH,P> {
 
-    protected final L library;
-    protected final Range<PATH> range;
+    protected final Map<Clerk<?,?,?,?,?>,Domain> domains = HashMap.newHashMap(1);
     protected boolean open = true;
-    protected final Map<Memory<S,L,PATH>, Clerk<S,L,?,?>> memories;
-    protected final Map<Gathering<S,L,PATH,ID,T,C,CAT>,Update> directories;
+    protected final Map<> memories;
+    protected final Map<Gathering<PATH,P,?,?,?,CAT>,Update> directories;
+
+    protected final Library<?> library;
+
+    public abstract Librarian<P,?,?,?,CAT> getLibrarian();
 
 
-    public Catalog(L library, @Nonnull Range<PATH> range, @Nullable Map<Memory<S,L,PATH>,Scheduler> memories, List<Gathering<S,L,PATH,ID,T,C,CAT>> directoriesSeed) {
+
+    public final Range<P> range;
+
+    public Catalog(Library<?> library, @Nonnull Range<P> range, @Nullable Map<Memory<P>,Clerk<?,?,?,?,?>[]> memories, List<Gathering<P,?,?,?,CAT>> directoriesSeed) {
         this.library = library;
         this.range = range;
         this.memories = new ConcurrentHashMap<>(memories);
         this.directories = new ConcurrentHashMap<>();
-        for (Gathering<S,L,PATH,ID,T,C,CAT> gathering: directoriesSeed) {
+        for (Gathering<P,?,?,?,CAT> gathering: directoriesSeed) {
             this.directories.put(gathering,new Update());
         }
     }
@@ -45,15 +49,15 @@ public abstract class Catalog<S extends Scheme<S,L>,L extends Library<S,L>,PATH 
         return true;
     }
 
-    public L getLibrary() {
+    public Library<?> getLibrary() {
         return library;
     }
 
-    public Range<PATH> getRange() {
+    public Range<P> getRange() {
         return this.range;
     }
 
-    public Representative<S,L,PATH,ID,T,C> register(C concept, Gathering<S,L,PATH,ID,T,C,CAT> gathering) {
+    public Rider<S,L,PATH,ID,T,C> register(C concept, Gathering<S,L,PATH,ID,T,C,CAT> gathering) {
         gathering
     }
 

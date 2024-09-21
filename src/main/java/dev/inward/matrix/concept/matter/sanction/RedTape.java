@@ -1,7 +1,6 @@
 package dev.inward.matrix.concept.matter.sanction;
 
 import dev.inward.matrix.fact.Bus;
-import dev.inward.matrix.Identity;
 import dev.inward.matrix.fact.authoritative.Regulated;
 import dev.inward.matrix.fact.authoritative.Regulator;
 import dev.inward.matrix.Context;

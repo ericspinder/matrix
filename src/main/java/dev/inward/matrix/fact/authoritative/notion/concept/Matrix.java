@@ -1,17 +1,35 @@
 package dev.inward.matrix.fact.authoritative.notion.concept;
 
-import dev.inward.matrix.Scheme;
-import dev.inward.matrix.director.library.Memory;
-import dev.inward.matrix.Range;
+import dev.inward.matrix.fact.Concept;
 
-public class Matrix<PATH extends Comparable<PATH>> extends Scheme<Matrix<PATH>,Construct<PATH>, Range<PATH>> {
+public abstract class Matrix extends Concept<String,Matrix.Pathway,String,Matrix.Id,Matrix> {
 
-    public Matrix() {
-        super("matrix");
+    public static class Pathway extends dev.inward.matrix.Pathway<String,Matrix.Pathway> {
+
+        protected final String branch;
+        public Pathway(Ledger<String, Pathway> ledger, String s, String branch) {
+            super(ledger, s);
+            this.branch = branch;
+        }
+
+        @Override
+        public String getPathString() {
+            StringBuilder stringBuilder = new StringBuilder();
+            if (this.branch != null && !this.branch.isBlank()) {
+                stringBuilder.append('/').append(this.branch).append('/');
+            }
+        }
+    }
+    public static class Id extends Tangible<String,Pathway,String,Id,Matrix> {
+
+        public Id(String s) {
+            super(s);
+        }
+
     }
 
-    @Override
-    public long initTotalSpace(Memory memory) {
-        return 0;
+    public Matrix(Matrix.Id id) {
+        super(id);
     }
+
 }

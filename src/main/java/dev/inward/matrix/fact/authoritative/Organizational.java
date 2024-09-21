@@ -1,8 +1,7 @@
 package dev.inward.matrix.fact.authoritative;
 
-import dev.inward.matrix.authority.Domain;
+import dev.inward.matrix.Domain;
 import dev.inward.matrix.Terrene;
-import dev.inward.matrix.Identity;
 import dev.inward.matrix.engine.Variant;
 import dev.inward.matrix.Context;
 import dev.inward.matrix.fact.Factory;

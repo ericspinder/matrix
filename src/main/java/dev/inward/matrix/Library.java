@@ -1,18 +1,13 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.authority.Domain;
-import dev.inward.matrix.authority.Registrar;
 import dev.inward.matrix.director.library.Director;
-import dev.inward.matrix.director.library.Memory;
 import dev.inward.matrix.director.library.catalog.Catalog;
 import dev.inward.matrix.director.library.catalog.Gathering;
 import dev.inward.matrix.engine.Zone;
 import dev.inward.matrix.fact.Concept;
 import dev.inward.matrix.fact.Model;
 import dev.inward.matrix.concept.matter.Indicia;
-import dev.inward.matrix.resources.Contrivance;
-import dev.inward.matrix.resources.Resource;
-import dev.inward.matrix.resources.Resources;
+import dev.inward.matrix.memory.Memory;
 
 import java.io.IOException;
 import java.net.URI;
@@ -29,15 +24,14 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.regex.Pattern;
 
-public abstract class Library<S extends Scheme<S,L>,L extends Library<S,L>> extends FileSystemProvider implements Comparable<L> {
+public class Library<S extends Scheme<S>> extends FileSystemProvider implements Comparable<Library<S>> {
 
     protected final S scheme;
-    protected final Domain domain;
-    protected final Map<Registry<S,L>, Registrar<S,L>> registrarMap = new ConcurrentHashMap<>();
-    protected final Map<Catalog<S,L,?,?,?,?,?>,Librarian<S,L,?,?>> catalogs = new ConcurrentHashMap<>();
+    protected final Map<Registry<S>, Librarian<?,?>[]> registrarMap = new ConcurrentHashMap<>();
+    protected final Map<Catalog<S,L,?,?,?,?,?>,Librarian<S,L,?>> catalogs = new ConcurrentHashMap<>();
     protected final Map<Model<S,L,?,?,?>, Director<S,L,?,?>> models = new ConcurrentHashMap<>();
 
-    protected abstract <PATH extends Comparable<PATH>, ID extends Comparable<ID>, T extends Concept.Tangible<S,L,PATH,ID, T, C>, C extends Concept<S,L, PATH, ID, T, C>, CAT extends Catalog<S,L,PATH, ID, T, C, CAT>> CAT initCatalog(Memory<Scheme.DNS, DNS, PATH> memory, Map<PATH, Gathering<Scheme.DNS, DNS, PATH, ID, T, C, CAT>> directoriesSeed) throws CheckedException;
+    protected abstract <P extends Pathway<P,CAT>,CAT extends Catalog<P,CAT>> CAT initCatalog(Memory<Scheme.DNS, DNS, PATH> memory, Map<PATH, Gathering<Scheme.DNS, DNS, PATH, ID, T, C, CAT>> directoriesSeed) throws CheckedException;
 
     protected StringBuilder firstLimitReachedMessage(String className, long warnTotal, long hardLimit) {
         StringBuilder stringBuilder = new StringBuilder();

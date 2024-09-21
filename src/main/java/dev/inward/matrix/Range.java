@@ -1,126 +1,130 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.concept.matter.Indicia;
-
-import java.util.StringJoiner;
+import dev.inward.matrix.fact.Addressed;
 
 @SuppressWarnings("all")
 public abstract class Range<PATH extends Comparable<PATH>> {
-
-    public abstract boolean eval(PATH candidate);
+    /**
+     *
+     * @return the lowest PATH value, may be null.
+     */
+    abstract PATH getLowestPath();
+    /**
+     * @return a value which is higher than this range, may be null.
+     */
+    abstract PATH getHigherPath();
+    /**
+     *
+     * @param candidate
+     * @return true if the cantidate PATH exactly matches a the lowest path or is below (but not inclusive of) a the higherPath.
+     */
+    public final boolean eval(PATH candidate) {
+        if (getLowestPath() != null) {
+            if (!(candidate.compareTo(getLowestPath()) >=0)) {
+                return false;
+            }
+        }
+        if (getHigherPath() != null) {
+            if (candidate.compareTo(getHigherPath()) < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
     public abstract String toString();
 
-    private Range() {}
-
-    public final static class All<PATH extends Comparable<PATH>> extends Range<PATH> {
-
-        public All() {}
+    public final static class AllPaths<PATH extends Comparable<PATH>> extends Range<PATH> {
+        public AllPaths() {}
 
         @Override
-        public boolean eval(PATH candidate) {
-            return true;
+        PATH getHigherPath() {
+            return null;
         }
-
         @Override
-        public String toString() {
-            return "";
+        PATH getLowestPath() {
+            return null;
         }
-
-    }
-
-    public final static class BelowPath<PATH extends Comparable<PATH>> extends Range<PATH> {
-
-        protected final PATH upperPath;
-
-        public BelowPath(PATH upperPath) {
-            this.upperPath = upperPath;
-        }
-
-        public PATH getUpperPath() {
-            return upperPath;
-        }
-
-        @Override
-        public boolean eval(PATH candidate) {
-            return upperPath.compareTo(candidate) > 0;
-        }
-
         @Override
         public String toString() {
-            return upperPath.toString().intern();
+            return "AllPaths";
         }
     }
-    public final static class AbovePath<PATH extends Comparable<PATH>> extends Range<PATH> {
-
-        protected final PATH lowerPath;
-
-        public AbovePath(PATH lowerPath) {
-            this.lowerPath = lowerPath;
-        }
-
-        public PATH getLowerPath() {
-            return lowerPath;
-        }
-
-        @Override
-        public boolean eval(PATH candidate) {
-            return candidate.compareTo(this.lowerPath) > 0;
-        }
-
-        @Override
-        public String toString() {
-            return lowerPath.toString().intern();
-        }
-
-    }
-    public final static class BelowPath<PATH extends Comparable<PATH>> extends Range<PATH> {
+    public final static class BelowPathway<PATH extends Comparable<PATH>> extends Range<PATH> {
 
         protected final PATH higherPath;
 
-        public BelowPath(PATH higherPath) {
+        public BelowPathway(PATH higherPath) {
             this.higherPath = higherPath;
         }
 
-        public PATH getHigherPath() {
+        @Override
+        PATH getHigherPath() {
             return higherPath;
         }
-
         @Override
-        public boolean eval(PATH canidate) {
-            return canidate.compareTo(this.higherPath) > 0;
+        PATH getLowestPath() {
+            return null;
         }
 
         @Override
         public String toString() {
-            return higherPath.toString().intern();
+            final StringBuilder sb = new StringBuilder("BelowPathway{");
+            sb.append("higherPath=").append(higherPath);
+            sb.append('}');
+            return sb.toString();
         }
     }
-    public final static class BetweenPaths<PATH extends Comparable<PATH>> extends Range<PATH> {
+    public final static class AbovePathway<PATH extends Comparable<PATH>> extends Range<PATH> {
 
-        protected final PATH lowerPath;
-        protected final PATH upperPath;
+        protected final PATH lowestPath;
 
-        public BetweenPaths(PATH lowerPath, PATH upperPath) {
-            this.lowerPath = lowerPath;
-            this.upperPath = upperPath;
-        }
-
-        public final PATH getLowerPath() {
-            return this.lowerPath;
-        }
-
-        public final PATH getUpperPath() {
-            return this.upperPath;
+        public AbovePathway(PATH lowestPath) {
+            this.lowestPath = lowestPath;
         }
 
         @Override
-        public boolean eval(PATH candidate) {
-            return (upperPath.compareTo(candidate) > 0);
+        PATH getLowestPath() {
+            return lowestPath;
+        }
+        @Override
+        PATH getHigherPath() {
+            return null;
+        }
+        @Override
+        public String toString() {
+        final StringBuilder sb = new StringBuilder("AbovePathway{");
+        sb.append("lowestPath=").append(lowestPath);
+        sb.append('}');
+        return sb.toString();
+        }
+    }
+    public final static class BetweenPathways<PATH extends Comparable<PATH>> extends Range<PATH> {
+
+        protected final PATH lowestPath;
+        protected final PATH higherPath;
+
+        public BetweenPathways(PATH lowestPath,PATH higherPath) {
+            this.lowestPath = lowestPath;
+            this.higherPath = higherPath;
+        }
+
+        @Override
+        PATH getLowestPath() {
+            return this.lowestPath;
+        }
+
+        @Override
+        PATH getHigherPath() {
+            return this.higherPath;
         }
 
         @Override
         public String toString() {
-            return this.upperPath.toString() + '_' + this.lowerPath.toString();
+            final StringBuilder sb = new StringBuilder("BetweenPathways{");
+            sb.append("lowestPath=").append(lowestPath);
+            sb.append(", higherPath=").append(higherPath);
+            sb.append('}');
+            return sb.toString();
         }
     }
 }

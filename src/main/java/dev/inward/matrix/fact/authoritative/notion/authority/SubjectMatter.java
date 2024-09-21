@@ -1,7 +1,7 @@
 package dev.inward.matrix.fact.authoritative.notion.authority;
 
 import dev.inward.matrix.Terrene;
-import dev.inward.matrix.authority.dns.resourceRecord.ServerRecord;
+import dev.inward.matrix.dns.resourceRecord.ServerRecord;
 import dev.inward.matrix.concept.matter.Indicia;
 
 import java.time.Instant;

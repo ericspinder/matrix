@@ -2,9 +2,8 @@ package dev.inward.matrix.fact;
 
 import crud.rubric.Roller;
 import dev.inward.matrix.Meta_I;
-import dev.inward.matrix.authority.dns.resourceRecord.ServerRecord;
-import dev.inward.matrix.engine.Variant;
-import dev.inward.matrix.fact.datum.Standard;
+import dev.inward.matrix.dns.resourceRecord.ServerRecord;
+import dev.inward.matrix.Standard;
 import dev.inward.matrix.concept.matter.Indicia;
 import dev.inward.matrix.concept.matter.Matter;
 
@@ -14,12 +13,14 @@ import java.util.Map;
 
 public class Specification extends Standard {
 
+    protected final String hash;
     protected final Map<String, DefaultOption<?,?>> options;
     protected final Map<Indicia.Focus, ServerRecord[]> focusServerMap;
     protected final Standard[] standards;
 
-    public Specification(Variant variant, final String className, final String label, final String description, final String transformerClassName, final String[] inductionClassNames, final Criterion[] criteria, final Map<String, DefaultOption<?,?>> optionMap, Map<Indicia.Focus, ServerRecord[]> focusServerMap, Standard<?>[] standards) {
-        super(variant,className,label,description,transformerClassName,inductionClassNames,criteria);
+    public Specification(Standard.Identity identity, final String description, final String transformerClassName, final String[] inductionClassNames, final Criterion<?,?,?,?,?>[] demonCriteria, final String hash, final Map<String, DefaultOption<?,?>> optionMap, Map<Indicia.Focus, ServerRecord[]> focusServerMap, Standard[] standards) {
+        super(identity,description,transformerClassName,inductionClassNames,demonCriteria);
+        this.hash = hash;
         this.options = optionMap;
         this.focusServerMap = focusServerMap;
         this.standards = standards;

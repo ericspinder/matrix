@@ -1,6 +1,6 @@
 package dev.inward.matrix.fact.authoritative.notion;
 
-import dev.inward.matrix.Identity;
+import dev.inward.matrix.Notion;
 
 import java.util.UUID;
 

@@ -11,8 +11,8 @@ public abstract class Signed<S extends Scheme<S,L>,L extends Library<S,L>,SIGNER
 
     protected final CodeSigner codeSigner;
 
-    public Signed(Rubric<S,L,SIGNER> rubric, Instant[] occurrences, boolean settled, CodeSigner codeSigner) {
-        super(rubric, occurrences, settled);
+    public Signed(Id<S,L,SIGNER> id, Instant[] occurrences, boolean settled, CodeSigner codeSigner) {
+        super(id, occurrences, settled);
         this.codeSigner = codeSigner;
     }
     public CodeSigner getCodeSigner() {

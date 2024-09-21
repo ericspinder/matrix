@@ -8,8 +8,8 @@ import java.time.Instant;
 
 public class Sacrosanct<S extends Scheme<S,L>,L extends Library<S,L>, SACROSANCT extends Sacrosanct<S,L,SACROSANCT>> extends Matter<S,L,SACROSANCT, Instant> {
 
-    public Sacrosanct(Rubric<S, L, SACROSANCT, Instant> rubric, Instant[] instants) {
-        super(rubric, instants);
+    public Sacrosanct(Id<S, L, SACROSANCT, Instant> id, Instant[] instants) {
+        super(id, instants);
     }
 
     @Override

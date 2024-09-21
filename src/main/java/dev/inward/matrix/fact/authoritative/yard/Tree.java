@@ -1,8 +1,7 @@
 package dev.inward.matrix.fact.authoritative.yard;
 
-import dev.inward.matrix.authority.dns.resourceRecord.ResourceRecord;
-import dev.inward.matrix.authority.dns.resourceRecord.ResourceRecordType;
-import dev.inward.matrix.Identity;
+import dev.inward.matrix.dns.resourceRecord.ResourceRecord;
+import dev.inward.matrix.dns.resourceRecord.ResourceRecordType;
 import dev.inward.matrix.concept.matter.Indicia;
 
 import javax.security.auth.Subject;

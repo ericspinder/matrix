@@ -3,7 +3,6 @@ package dev.inward.matrix.fact.authoritative.notion.concept;
 import crud.Protocol;
 import crud.Volume;
 import dev.inward.matrix.Context;
-import dev.inward.matrix.Identity;
 import dev.inward.matrix.fact.authoritative.notion.Industry;
 import dev.inward.matrix.resources.Storage;
 

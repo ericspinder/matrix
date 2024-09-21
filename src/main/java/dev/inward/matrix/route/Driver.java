@@ -25,7 +25,7 @@ public abstract class Driver<DISPATCH extends Dispatch<DISPATCH,R,D,RIDER>,R ext
         super(group,target,name,stackSize,false);
     }
 
-    public static class Pilot<RIDER extends AsynchronousSocketChannel> extends Driver<Dispatch.Controller<RIDER>,Road.Way<RIDER>,Pilot<RIDER>, RIDER>  {
+    public static class Pilot<RIDER extends AsynchronousChannel> extends Driver<Dispatch.Controller<RIDER>,Road.Way<RIDER>,Pilot<RIDER>, RIDER>  {
 
         public Pilot(Dispatch.Controller group, Runnable target,String name) {
             super(group,target,name,group.stackSize);

@@ -1,20 +1,17 @@
 package dev.inward.matrix.engine;
 
-import dev.inward.matrix.Library;
-import dev.inward.matrix.Scheme;
+import dev.inward.matrix.Pathway;
 import dev.inward.matrix.fact.*;
-import dev.inward.matrix.fact.authoritative.notion.Notion;
-import dev.inward.matrix.fact.datum.Envoy;
-import dev.inward.matrix.resources.Resource;
-import dev.inward.matrix.resources.Resources;
+import dev.inward.matrix.fact.datum.Ware;
+import dev.inward.matrix.Resource;
 
 import java.time.Instant;
 import java.util.*;
 
-public class Engine<S extends Scheme<S,L>,L extends Library<S,L>,N extends Fact.Named<S,L,N,F>,F extends Fact<S,L,N,F>,M extends Model<S,L,N,F,M>,N extends Notion<S,L,PATH,N>,O extends Operational<S,L,PATH,F,O>,R extends Resources<S,L,PATH,F>> {
+public class Engine<PATH extends Comparable<PATH>,P extends Pathway<PATH,P>,ID extends Comparable<ID>,T extends Concept.Tangible<PATH,P,ID,T,C>,C extends Concept<PATH,P,ID,T,C>> {
 
     public final Instant createInstant = Instant.now();
-    protected final O operational;
+    protected final Operational<PATH,P,ID,T,C> operational;
     protected List<M> modelList = new ArrayList<>();
     protected final Map<String,Induction<>> inductionMap = new HashMap<>();
 
@@ -29,13 +26,13 @@ public class Engine<S extends Scheme<S,L>,L extends Library<S,L>,N extends Fact.
         return operational;
     }
 
-    public <DATUM,D extends Datum<DATUM,D>> Envoy<DATUM,D,?> buildEnvoy(DATUM datum) {
+    public <DATUM,D extends Datum<DATUM,D>> Ware<DATUM,D,?> buildEnvoy(DATUM datum) {
         Induction<> induction = (Induction<Y,DATUM,D,V,F,I,X,>) operational.specification().getStandards().get(datum.getClass());
         return induction.createEnvoy(datum,factory
         );
     }
     @SuppressWarnings("unchecked")
-    public <DATUM,D extends Datum<DATUM,D,V>,V extends Envoy<DATUM,D,V>> V add(DATUM datum) {
+    public <DATUM,D extends Datum<DATUM,D,V>,V extends Ware<DATUM,D,V>> V add(DATUM datum) {
         try {
             Resource<DATUM> resource = (Resource<DATUM>) this.producer.get(((D) datum).getClass());
             return this.defineClass()add(datum,this);

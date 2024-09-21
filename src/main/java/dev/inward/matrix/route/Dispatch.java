@@ -42,7 +42,8 @@ public abstract class Dispatch<DISPATCH extends Dispatch<DISPATCH,R,D,RIDER>,R e
         return this.newDriver(r);
     }
 
-    public static class Controller<RIDER extends AsynchronousSocketChannel> extends Dispatch<Controller<RIDER>,Road.Way<RIDER>,Driver.Pilot<RIDER>,RIDER> {
+    public static class SQL extends Dispatch<SQL,Road.Rational,Driver.>
+    public static class Controller<RIDER extends AsynchronousChannel> extends Dispatch<Controller<RIDER>,Road.Way<RIDER>,Driver.Pilot<RIDER>,RIDER> {
         public Controller(Dispatch dispatch, String name) {
             super(dispatch,name,25,150,300,TimeUnit.SECONDS,1024000);
         }

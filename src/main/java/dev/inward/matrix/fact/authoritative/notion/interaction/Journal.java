@@ -1,6 +1,5 @@
 package dev.inward.matrix.fact.authoritative.notion.interaction;
 
-import dev.inward.matrix.Identity;
 import dev.inward.matrix.concept.matter.Matter;
 import dev.inward.matrix.fact.authoritative.notion.Omnibus;
 import dev.inward.matrix.Context;

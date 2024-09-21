@@ -7,8 +7,8 @@ import java.time.Instant;
 
 public class Endorsement<S extends Scheme<S,L>,L extends Library<S,L>> extends Sacrosanct<S,L,Endorsement<S,L>> {
 
-    public Endorsement(Rubric<S, L, Endorsement<S, L>, Instant> rubric, Instant[] instants) {
-        super(rubric, instants);
+    public Endorsement(Id<S, L, Endorsement<S, L>, Instant> id, Instant[] instants) {
+        super(id, instants);
     }
 
 }

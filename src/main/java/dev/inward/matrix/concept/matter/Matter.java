@@ -1,57 +1,40 @@
 package dev.inward.matrix.concept.matter;
 
-import dev.inward.matrix.Library;
-import dev.inward.matrix.Pathway;
-import dev.inward.matrix.Scheme;
-import dev.inward.matrix.concept.matter.messaging.Engagement;
+import dev.inward.matrix.director.library.catalog.Catalog;
 import dev.inward.matrix.fact.Concept;
-import dev.inward.matrix.fact.datum.Complication;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.Closeable;
-import java.lang.ref.SoftReference;
 import java.nio.file.WatchEvent;
 import java.time.Instant;
 import java.util.*;
 
-public abstract class Matter<M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> extends Concept<Scheme.Log, Library.Log, Pathway.LogPathway,UUID, Matter.Rubric<M,OCCURRENCE>,M> implements WatchEvent<Indicia>, Closeable {
+public abstract class Matter<M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> extends Concept<Matter.Pathway,UUID, Matter.Id<M,OCCURRENCE>,M> implements WatchEvent<Indicia>, Closeable {
 
+    protected final Instant createTime;
     protected OCCURRENCE[] occurrences;
-    protected final SoftReference<Complication<S,L,?,?,?,?,?,?,?,M,OCCURRENCE>> complication;
     private boolean settled;
 
-    public Matter(@Nonnull Rubric<M,OCCURRENCE> rubric, @Nullable OCCURRENCE[] occurrences, Complication<S,L,?,?,?,?,?,?,?,M,OCCURRENCE> complication, boolean settled) {
-        super(rubric);
+    public Matter(@Nonnull Id<M,OCCURRENCE> id, @Nonnull Instant createTime, @Nullable OCCURRENCE[] occurrences, boolean settled) {
+        super(id);
+        this.createTime = createTime;
         this.occurrences = occurrences;
-        if (complication != null) {
-            this.complication = new SoftReference<>(complication);
-            this.settled = settled;
-        }
-        else {
-            this.complication = null;
-            this.settled = true;
-        }
+        this.settled = settled;
     }
 
     public boolean isSettled() {
-        if (this.complication == null || this.complication.get() == null) {
-            return true;
-        }
         return this.settled;
 
     }
-
-    /**
-     *
-     * @return the next (new?) active matter if it will exist, otherwise null
-     */
-    public abstract void setSettled();
+    public void settle() {
+        this.settled = true;
+    }
 
     @SuppressWarnings("unchecked")
     @Override
     public final Kind<Indicia> kind() {
-        return this.identity.getPathway().getPath();
+        return this.identity.getPathway().indicia;
     }
 
     @Override
@@ -68,29 +51,41 @@ public abstract class Matter<M extends Matter<M,OCCURRENCE>,OCCURRENCE extends C
 
     @Override
     public Indicia context() {
-        return this.identity.getPathway().get;
+        return this.identity.getPathway().indicia;
     }
 
-    public static abstract class Rubric<M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> extends Tangible<Scheme.Log, Library.Log, Pathway.LogPathway,UUID, Rubric<M,OCCURRENCE>,M> {
+    public static abstract class Id<M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> extends Tangible<Pathway,UUID,Id<M,OCCURRENCE>,M> {
 
-        protected final Pathway.LogPathway logPathway;
-        protected final Instant createTime;
-        protected final Engagement engagement;
-        public Rubric(UUID uuid, Engagement engagement, Indicia indicia, Instant createTime) {
+        protected final Pathway pathway;
+        public Id(UUID uuid, Pathway pathway) {
             super(uuid);
-            this.logPathway = new Pathway.LogPathway(library, engagement.);
+            this.pathway = pathway;
+
+        }
+        @Override
+        public String toString() {
+            return null;
         }
 
         @Override
-        public int compareTo(Rubric<S,L,M,OCCURRENCE> that) {
-            int isZero = this.getDomain().compareTo(that.getDomain());
-            if (isZero == 0) {
-                isZero = this.indicia.compareTo(that.indicia);
-                if (isZero == 0) {
-                    return this.id.compareTo(that.id);
-                }
-            }
-            return isZero;
+        public int compareTo(Id<M, OCCURRENCE> o) {
+            return 0;
+        }
+    }
+
+    public static class Pathway extends dev.inward.matrix.Pathway<Pathway,Catalog> {
+
+        protected final Indicia indicia;
+
+        public Pathway(Catalog catalog, Indicia indicia) {
+            super(catalog);
+            this.indicia = indicia;
+        }
+
+
+        @Override
+        public String getPathString() {
+            return null;
         }
     }
 }

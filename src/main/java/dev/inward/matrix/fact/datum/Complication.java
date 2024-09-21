@@ -1,6 +1,7 @@
 package dev.inward.matrix.fact.datum;
 
 import dev.inward.matrix.*;
+import dev.inward.matrix.director.library.catalog.Catalog;
 import dev.inward.matrix.fact.*;
 import dev.inward.matrix.concept.matter.Indicia;
 import dev.inward.matrix.concept.matter.Matter;
@@ -14,36 +15,33 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.StampedLock;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
-public abstract class Complication<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CRIT extends Criterion,P extends Predictable<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE>,COMP extends Complication<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> implements WatchKey, Runnable {
+public abstract class Complication<PATH extends Comparable<PATH>,P extends Pathway<PATH,P>,ID extends Comparable<ID>,T extends Concept.Tangible<PATH,P,ID,T,C,R>,C extends Concept<PATH,P,ID,T,C,R>,R extends Rider<PATH,P,ID,T,C,R>,CRIT extends Criterion,PRE extends Predictable<PATH,P,ID,T,C,CRIT,PRE,COMP,M,OCCURRENCE>,COMP extends Complication<PATH,P,ID,T,C,CRIT,PRE,COMP,M,OCCURRENCE>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> implements WatchKey {
 
     protected final StampedLock gate = new StampedLock();
     protected final P predictable;
     protected final CRIT criterion;
     protected volatile M currentMatter;
+    protected final Provider<PATH,P,ID,T,C> provider;
 
-    protected final Provider<S,L,PATH,ID,T,C> provider;
+    protected final Supplier<M> matterSupplier;
 
 
-
-    public Complication(P predictable, CRIT criterion, Provider<S,L,PATH,ID,T,C> provider) {
+    public Complication(P predictable, CRIT criterion, Provider<PATH,P,ID,T,C> provider, Supplier<M> matterSupplier) {
         this.predictable = predictable;
         this.criterion = criterion;
         this.provider = provider;
-    }
-
-    public static class Limitation<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> extends Complication<S,L,PATH,ID,T,C, Criterion.Limiter,Predictable.Limited<S,L,PATH,ID,T,C>, Limitation<S,L,PATH,ID,T,C>, LimitReached<S,L,PATH,ID,T,C>> {
-
-        public Limitation(Predictable.Limited<S,L,PATH,ID,T,C> limited, Criterion.Limiter limiter, Provider<S,L,PATH,ID,T,C> provider) {
-            super(limited, limiter, provider);
-        }
-
+        this.matterSupplier = matterSupplier;
     }
 
     public final void run() {
         long writeLock = gate.writeLock();
         try {
-            M matter = this.call();
+            M matter = currentMatter;
+            if (currentMatter == null || currentMatter.isSettled()) {
+                matter =
+            }
             this.isSettled(matter);
             mattersTickets.put(matter,);
         }

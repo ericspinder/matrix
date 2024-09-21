@@ -2,7 +2,7 @@ package dev.inward.matrix.personality;
 
 import dev.inward.matrix.Library;
 import dev.inward.matrix.Scheme;
-import dev.inward.matrix.fact.authoritative.notion.Notion;
+import dev.inward.matrix.Notion;
 import dev.inward.matrix.concept.matter.Indicia;
 import dev.inward.matrix.concept.matter.Matter;
 

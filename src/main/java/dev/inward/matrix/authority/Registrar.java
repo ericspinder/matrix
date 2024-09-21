@@ -3,8 +3,7 @@ package dev.inward.matrix.authority;
 import dev.inward.matrix.Clerk;
 import dev.inward.matrix.Library;
 import dev.inward.matrix.Scheme;
-import dev.inward.matrix.authority.dns.resourceRecord.ResourceRecord;
-import dev.inward.matrix.fact.Concept;
+import dev.inward.matrix.dns.resourceRecord.ResourceRecord;
 
 import java.io.IOException;
 import java.nio.file.WatchEvent;
@@ -15,7 +14,7 @@ import java.time.Instant;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Registrar<S extends Scheme<S,L>,L extends Library<S,L>> implements Watchable {
+public class Registrar<S extends Scheme<S,L>,L extends Library<S,L>>{
 
     protected final S scheme;
 

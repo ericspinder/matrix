@@ -2,24 +2,23 @@ package dev.inward.matrix.fact.authoritative.notion;
 
 import dev.inward.matrix.*;
 import dev.inward.matrix.fact.*;
-import dev.inward.matrix.resources.Resources;
 
 import java.lang.invoke.CallSite;
-import java.nio.file.attribute.FileAttribute;
+import java.nio.file.attribute.FileAttributeView;
 import java.util.concurrent.locks.StampedLock;
 
-public abstract class Aspect<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> implements FileAttribute<C> {
+public abstract class Aspect<PATH extends Comparable<PATH>,P extends Pathway<PATH,P>> implements FileAttributeView {
 
     protected StampedLock gate = new StampedLock();
 
     protected final String name;
-    protected final Resources<S,L,PATH,ID,T,C> resources;
+    protected final Fact.Resource<S,L,PATH,ID,T,C> resource;
     protected transient final CallSite callSite;
 
-    public Aspect(String name, CallSite callSite, Resources<S,L,PATH,ID,T,C> resources) {
+    public Aspect(String name, CallSite callSite, Fact.Resource<S,L,PATH,ID,T,C> resource) {
         this.name = name;
         this.callSite = callSite;
-        this.resources = resources;
+        this.resource = resource;
     }
 
     @Override
@@ -27,12 +26,12 @@ public abstract class Aspect<S extends Scheme<S,L>,L extends Library<S,L>,PATH e
         return this.name;
     }
 
-    public Representative<S,L,PATH,ID,T,C> getRepresentative() {
+    public Rider<S,L,PATH,ID,T,C> getRepresentative() {
         long writeLock = gate.writeLock();
         try {
             C value = this.value();
             if (value != null) {
-                return new Representative<>(value,this.resources);
+                return new Rider<>(value,this.resource);
             }
             return null;
         }

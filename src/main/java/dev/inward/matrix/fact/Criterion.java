@@ -1,9 +1,7 @@
 package dev.inward.matrix.fact;
 
-import dev.inward.matrix.Library;
-import dev.inward.matrix.Meta_I;
-import dev.inward.matrix.Range;
-import dev.inward.matrix.Scheme;
+import dev.inward.matrix.*;
+import dev.inward.matrix.director.library.catalog.Catalog;
 import dev.inward.matrix.engine.Zone;
 
 import java.nio.file.WatchEvent;
@@ -13,12 +11,12 @@ import java.util.BitSet;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public abstract class Criterion<DATUM,S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> implements Comparable<Criterion>,Meta_I, WatchEvent.Modifier {
+public abstract class Criterion implements Meta_I, WatchEvent.Modifier {
 
     protected final String label;
     protected final String description;
     protected final transient String name;
-    protected final Operational<DATUM,S,L,PATH,ID,T,C> operational;
+    protected final Operational operational;
 
     @Override
     public String name() {
@@ -37,7 +35,7 @@ public abstract class Criterion<DATUM,S extends Scheme<S,L>,L extends Library<S,
         return sb.toString();
     }
 
-    public Criterion(String label, String description, Operational<DATUM,S,L,PATH,ID,T,C> operational) {
+    public Criterion(String label, String description, Operational<P,ID,T,C> operational) {
         this.label = label;
         this.description = description;
         this.operational = operational;

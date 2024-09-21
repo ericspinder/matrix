@@ -1,6 +1,5 @@
 package dev.inward.matrix.concept.matter.messaging.http;
 
-import dev.inward.matrix.Identity;
 import dev.inward.matrix.concept.matter.Indicia;
 import dev.inward.matrix.concept.matter.messaging.Escalation;
 import dev.inward.matrix.Context;

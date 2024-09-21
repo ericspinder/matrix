@@ -1,101 +1,58 @@
 package dev.inward.matrix.fact;
 
-import dev.inward.matrix.Context;
-import dev.inward.matrix.Scheme;
-import dev.inward.matrix.Library;
-import dev.inward.matrix.Range;
-import dev.inward.matrix.fact.authoritative.notion.Notion;
-import dev.inward.matrix.fact.datum.Complication;
-import dev.inward.matrix.fact.datum.Envoy;
+import dev.inward.matrix.*;
+import dev.inward.matrix.fact.datum.Ware;
 
-import java.time.Instant;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedDeque;
 
-public class Bus<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> {
+public class Bus<DATUM, R extends Ware<DATUM, R,P,ID,T,C,?>,P extends Pathway<P,?>,ID extends Comparable<ID>,T extends Concept.Tangible<P,ID,T,C,?>,C extends Concept<P,ID,T,C,?>> {
 
+//        E envoy = new Envoy<DATUM>(passenger,((Context)passenger.getClass().getProtectionDomain()).getLibrary().getCatalog().register(passenger);
+        public enum Schedule implements Meta_I {
+                Timed("Timed",""),
+                Reload("Reload","When the datum is reloaded, before determining duplicate or update"),
+                ReloadChange("ReloadChange","When the datum reload has a change"),
+                NoChangeReload("NoChangeReload", "When datum is reloaded without any changes"),
+                Write("Write","On creation or update of the datum"),
+                Creation("Creation","On creation of datum"),
+                Updated("Updated","When datum is updated"),
+                SoftDelete("SoftDelete","Reference Queue returned datum"),
+                Delete("Delete","When the datum is permanently deleted"),
+                ;
+                final String label;
+                final String description;
+                Schedule(String label,String description) {
+                        this.label = label;
+                        this.description = description;
+                }
+
+                @Override
+                public String getLabel() {
+                        return label;
+                }
+
+                @Override
+                public String getDescription() {
+                        return description;
+                }
+        }
         protected final UUID uuid = UUID.randomUUID();
-        protected ConcurrentLinkedDeque<Representative<S,L,PATH,F>> deque;
+        protected final Deque<R> deque;
+        protected final Context<P,ID,T,C,?> context;
 
-        public Bus(Range<PATH> range) {
-
+        public Bus(Deque<R> deque, Context<P,ID,T,C,?> context) {
+                this.deque = deque;
+                this.context = context;
         }
 
-        public <DATUM, E extends Envoy<DATUM>> E add(Passenger<DATUM> passenger) {
-                E envoy = new Envoy<DATUM>(passenger,((Context)passenger.getClass().getProtectionDomain()).getLibrary().getCatalog().register(passenger);
+        public Deque<R> getDeque() {
+                return this.deque;
         }
-
-        /**
-         * A map of the Complications currently affecting the bus, the value is the instant they were added
-         */
-        protected Map<Complication<?,?,S,L,PATH,F,?,?,?>, Instant> complications = new ConcurrentHashMap<>();
 
 
         public final void register(R representative) {
 
         }
-
-        public final M calling() {
-
-                return null;
-        }
 }
-//        public DATUM take(Proffer proffer, Task[] tasks, boolean isWriteLock) {
-//                long lock;
-//                if(!isWriteLock) lock = memberGate.readLock();
-//                else lock = memberGate.writeLock();
-//                try {
-//                        N wrapped = this.provider.getWrappedReady();
-//                        if (wrapped.getContainer().checkout(advisor.add(wrapped,tasks))) {
-//                                return (DATUM) wrapped;
-//                        }
-//                        return null;
-//                }
-//                finally {
-//                        if(isWriteLock) memberGate.unlockWrite(lock);
-//                        memberGate.unlockRead(lock);
-//                }
-//        }
-//
-//        public Promise<DATUM> get(Task[] tasks, boolean isWriteLock) {
-//                long lock;
-//                if(isWriteLock) lock = memberGate.writeLock();
-//                else lock = memberGate.readLock();
-//                try {
-//
-//                }
-//                finally {
-//                        if(!isWriteLock) memberGate.unlockRead(lock);
-//                        else memberGate.unlockWrite(lock);
-//                }
-//                return null;
-//        }
-//        public DATUM get(Promise<DATUM> producer) {
-//                long lock = memberGate.readLock();
-//                try {
-//
-//                }
-//                finally {
-//                        memberGate.unlockRead(lock);
-//                }
-//                return null;
-//        }
-//        /**
-//         * Wraps an existing delegate into a notion. It will be set as Situation.Closed_Failure if not suitable for use.
-//         * @param DATUM the delegate
-//         * @param args an array of Objects for the constructor, Strings may sometimes be assumed by default, they should match the forth and such constructor parameters
-//         * @param tasks the tasks to be associated with this notion. Cleanup instructions
-//         * @return The wrapped delegate, but it might be closed, check to see if Situation.Open before use, unless you're feeling lucky or irrelevant.
-//         */
-//        @SuppressWarnings("unchecked")
-//        public N wrap(DATUM DATUM, Object[] args, Task[] tasks) {
-//                C container = (C) notionSupplier.getNewContainer(operational);
-//                N wrapped = notion.wrapNotion(container, DATUM, args);
-//                if (!wrapped.getContainer().checkout(advisor.add(wrapped, tasks))) {
-//                        logger.error("delegate was not suitable for wrapping or just unneeded, let it go");
-//                }
-//                return wrapped;
-//        }
 
 

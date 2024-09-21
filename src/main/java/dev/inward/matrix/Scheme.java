@@ -8,8 +8,7 @@ import java.net.*;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public abstract class Scheme<S extends Scheme<S,L>,L extends Library<S,L>> extends URLStreamHandler implements Comparable<S> {
-
+public abstract class Scheme<S extends Scheme<S>> extends URLStreamHandler implements Comparable<S> {
 
     public enum Reserved {
         Semicolon(';'),
@@ -53,16 +52,7 @@ public abstract class Scheme<S extends Scheme<S,L>,L extends Library<S,L>> exten
         }
     }
 
-    public static Scheme parseScheme(String terreneScheme) {
-        if (terreneScheme.contains(".")) {
-            String[] parsed = terreneScheme.split("\\.");
-            Terrene terrene = Terrene.KnownWorlds.get(parsed[0]);
-            if (terrene != null) {
-                return terrene
-            }
-            return null;
-        }
-    }
+
     protected final String scheme;
     protected final Terrene terrene;
     protected final Map<String,Director<S,L,?,?>> directors = new ConcurrentHashMap<>();
@@ -73,61 +63,6 @@ public abstract class Scheme<S extends Scheme<S,L>,L extends Library<S,L>> exten
         this.terrene = terrene;
     }
 
-    public static class DNS extends Scheme<DNS,Library.DNS> {
-        public final static DNS Earth = new DNS(Terrene.Earth);
-        public final static DNS Luna = new DNS(Terrene.Luna);
-
-//        private final Map<Director<DNS,Librarian.DNS,Librarian<DNS,Library.DNS,?,?>> librarianMap = new WeakHashMap<>();
-        private DNS(Terrene terrene) {
-            super("dns",terrene);
-        }
-
-        @Override
-        protected Director<DNS, Library.DNS, ?, ?> getNewDirector(String authority) {
-            return null;
-        }
-
-//        protected Director<DNS, Library.DNS,>
-    }
-    public static class HTML extends Scheme<HTML,Library.HTML> {
-        public final static HTML Earth = new HTML(Terrene.Earth);
-        public final static HTML Luna = new HTML(Terrene.Luna);
-        private HTML(Terrene terrene) {
-            super("html",terrene);
-        }
-
-        @Override
-        protected Director<HTML, Library.HTML, ?, ?> getNewDirector(String authority) {
-            return null;
-        }
-    }
-    public static class Dogma extends Scheme<Dogma, Library.Dogma> {
-
-        public static final Dogma Earth = new Dogma(Terrene.Earth);
-        public static final Dogma Luna = new Dogma(Terrene.Luna);
-        protected Dogma(Terrene terrene) {
-            super("dogma",terrene);
-        }
-
-
-        @Override
-        protected Director<Dogma, Library.Dogma, ?, ?> getNewDirector(String authority) {
-            return null;
-        }
-    }
-    public static class Log extends Scheme<Log, Library.Log> {
-
-        public static final Log Earth = new Log(Terrene.Earth);
-        public static final Log Luna = new Log(Terrene.Luna);
-        protected Log(Terrene terrene) {
-            super("log",terrene);
-        }
-
-        @Override
-        protected Director<Log, Library.Log, ?, ?> getNewDirector(String authority) {
-            return null;
-        }
-    }
 
     @Override
     protected ConceptConnection<S,L,?,?,?,?> openConnection(URL u) throws IOException {

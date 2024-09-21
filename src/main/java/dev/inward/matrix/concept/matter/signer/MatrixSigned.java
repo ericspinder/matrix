@@ -1,7 +1,6 @@
 package dev.inward.matrix.concept.matter.signer;
 
 import dev.inward.matrix.engine.Edition;
-import dev.inward.matrix.Identity;
 import dev.inward.matrix.Context;
 
 import java.security.CodeSigner;

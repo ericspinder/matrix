@@ -2,7 +2,6 @@ package dev.inward.matrix.fact.authoritative.notion.authority.source;
 
 import dev.inward.matrix.authority.source.Source;
 import dev.inward.matrix.fact.Specification;
-import dev.inward.matrix.Identity;
 import dev.inward.matrix.Context;
 import dev.inward.matrix.fact.authoritative.notion.concept.Effect;
 import dev.inward.matrix.resources.Supplier;

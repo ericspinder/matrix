@@ -1,7 +1,7 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.director.library.Memory;
 import dev.inward.matrix.fact.matter.Named;
+import dev.inward.matrix.memory.Memory;
 
 public class Vagor extends Scheme<Vagor,Arena, Named> {
 

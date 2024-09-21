@@ -10,7 +10,7 @@ import java.util.Enumeration;
 import java.util.Vector;
 import java.util.concurrent.locks.StampedLock;
 
-public class Personality<S extends Scheme<S,L>,L extends Library<S,L>,EXPIRE extends Comparable<EXPIRE>> extends PermissionCollection {
+public class Personality extends PermissionCollection {
 
     public static final Personality Aforementioned = new Personality();
 

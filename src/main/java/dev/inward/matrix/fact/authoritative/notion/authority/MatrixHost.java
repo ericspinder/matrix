@@ -2,9 +2,8 @@ package dev.inward.matrix.fact.authoritative.notion.authority;
 
 import dev.inward.matrix.Host;
 import dev.inward.matrix.Terrene;
-import dev.inward.matrix.authority.dns.resourceRecord.ResourceRecord;
-import dev.inward.matrix.authority.dns.resourceRecord.ResourceRecordType;
-import dev.inward.matrix.Identity;
+import dev.inward.matrix.dns.resourceRecord.ResourceRecord;
+import dev.inward.matrix.dns.resourceRecord.ResourceRecordType;
 
 import java.time.Instant;
 

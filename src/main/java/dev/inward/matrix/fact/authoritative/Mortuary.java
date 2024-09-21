@@ -1,6 +1,6 @@
 package dev.inward.matrix.fact.authoritative;
 
-import dev.inward.matrix.director.library.Memory;
+import dev.inward.matrix.memory.Memory;
 
 import java.util.Objects;
 import java.util.function.BiConsumer;

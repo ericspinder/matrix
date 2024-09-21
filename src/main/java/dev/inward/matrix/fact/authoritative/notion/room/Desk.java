@@ -1,7 +1,6 @@
 package dev.inward.matrix.fact.authoritative.notion.room;
 
 import dev.inward.matrix.fact.Specification;
-import dev.inward.matrix.Identity;
 import dev.inward.matrix.fact.authoritative.notion.Aspect;
 import dev.inward.matrix.Context;
 import dev.inward.matrix.resources.Supplier;

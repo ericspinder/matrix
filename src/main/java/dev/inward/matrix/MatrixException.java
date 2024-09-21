@@ -51,5 +51,8 @@ public class MatrixException extends Blocker {
         this.type = type;
     }
 
-
+    @Override
+    public StackTraceElement[] getStackTrace() {
+        return null;
+    }
 }
