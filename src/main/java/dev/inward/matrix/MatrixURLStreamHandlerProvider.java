@@ -5,7 +5,7 @@ import java.net.spi.URLStreamHandlerProvider;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class MatrixURLStreamHandler extends URLStreamHandlerProvider {
+public class MatrixURLStreamHandlerProvider extends URLStreamHandlerProvider {
 
     private static final Map<String,URLStreamHandler> protocolUrlStreamHandler = new ConcurrentHashMap<>();
 
