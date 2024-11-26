@@ -1,20 +1,50 @@
 package dev.inward.matrix;
 
+import dev.inward.matrix.concept.matter.Matter;
+import dev.inward.matrix.personality.Personality;
+
+import java.io.IOException;
 import java.nio.file.attribute.AclEntry;
-import java.security.Permission;
 
-public class Rule extends Permission {
+public abstract class Rule extends Personality.Ego {
 
+    public static class Occurrence implements Comparable<Occurrence> {
+
+        @Override
+        public int compareTo(Occurrence o) {
+            return 0;
+        }
+    }
+    public static class Matter extends dev.inward.matrix.concept.matter.Matter<Matter,Occurrence> {
+
+        @Override
+        public Dogma userInfo() {
+            return null;
+        }
+
+        @Override
+        public Permit.Notion getAdministration() {
+            return null;
+        }
+
+        @Override
+        public void close() throws IOException {
+
+        }
+
+        @Override
+        public int compareTo(Matter o) {
+            return 0;
+        }
+    }
+
+    protected Class<? extends Rule.Matter> matterClass;
     protected AclEntry aclEntry;
 
-    public Rule(String name) {
+    public Rule(Library library, String name, AclEntry aclEntry) {
         super(name);
     }
 
-    @Override
-    public boolean implies(Permission permission) {
-        return false;
-    }
 
     @Override
     public boolean equals(Object obj) {
@@ -29,5 +59,9 @@ public class Rule extends Permission {
     @Override
     public String getActions() {
         return null;
+    }
+
+    public AclEntry getAclEntry() {
+        return aclEntry;
     }
 }

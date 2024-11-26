@@ -1,16 +1,16 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.fact.Addressed;
+import dev.inward.matrix.concept.matter.Indicia;
 
 @SuppressWarnings("all")
-public abstract class Range<PATH extends Comparable<PATH>> {
+public abstract class Range<PATH extends Comparable<PATH>> implements Comparable<Range<PATH>> {
     /**
      *
      * @return the lowest PATH value, may be null.
      */
     abstract PATH getLowestPath();
     /**
-     * @return a value which is higher than this range, may be null.
+     * @return a value which is 'just barely' higher than found in this range's paths but not inclusive in it, may be null.
      */
     abstract PATH getHigherPath();
     /**
@@ -31,7 +31,83 @@ public abstract class Range<PATH extends Comparable<PATH>> {
         }
         return true;
     }
+
+    @Override
+    public int compareTo(Range<PATH> that) {
+        Integer thatInt = this.compare(that);
+        if (thatInt != null) {
+            return thatInt;
+        }
+        throw new MatrixException(MatrixException.Type.Range_Mismatch,"comparison", Indicia.Focus.Evaluation, Indicia.Severity.Critical,new Exception("Pathway of " + this.toString() + " cannot be evaluated with an Pathway of" + that.toString()));
+    }
+
+    /**
+     *
+     * @param that
+     * @return
+     */
+    public Integer compare(Range<PATH> that) {
+        if (this instanceof Range.AllPaths<PATH>) {
+            if (that instanceof Range.AllPaths<PATH>) {
+                return 0;
+            }
+            else {
+                return null;
+            }
+        }
+        if (this instanceof Range.BelowPath<PATH>) {
+            if (that instanceof Range.AbovePath<PATH> || that instanceof Range.BetweenPaths<PATH>) {
+                int isZeroOrBetter = this.getHigherPath().compareTo(that.getLowestPath());
+                if (isZeroOrBetter >= 0) {
+                    return isZeroOrBetter;
+                }
+            }
+            if (that instanceof Range.BelowPath<PATH> && that.getHigherPath().compareTo(this.getHigherPath())== 0) {
+                return 0;
+            }
+            return null;
+        }
+        if (this instanceof Range.AbovePath<PATH>) {
+            if (that instanceof Range.BelowPath<PATH> || that instanceof Range.BetweenPaths<PATH>) {
+                int isZeroOrBetter = that.getLowestPath().compareTo(this.getLowestPath());
+                if (isZeroOrBetter >= 0) {
+                    return isZeroOrBetter;
+                }
+            }
+            return null;
+        }
+        if (this instanceof Range.BetweenPaths<PATH>) {
+            if (that instanceof Range.BetweenPaths<PATH>) {
+                int isZeroOrBetter = this.getLowestPath().compareTo(that.getHigherPath());
+                    // this may be higher
+                if (isZeroOrBetter >= 0) {
+                    isZeroOrBetter = this.getHigherPath().compareTo(that.getLowestPath());
+                    if (isZeroOrBetter > 0) {
+                        return isZeroOrBetter;
+                    }
+                }
+                isZeroOrBetter = that.getLowestPath().compareTo(this.getHigherPath());
+                if (isZeroOrBetter >= 0) {
+                    // that may be higher
+                    isZeroOrBetter = that.getHigherPath().compareTo(this.getLowestPath());
+                    if (isZeroOrBetter >= 0) {
+                        return isZeroOrBetter;
+                    }
+                }
+                return null;
+            }
+            if (that instanceof Range.AbovePath<PATH>) {
+                return this.getLowestPath().compareTo(that.getHigherPath());
+            }
+            if (that instanceof Range.BelowPath<PATH>) {
+                return this.getHigherPath().compareTo(that.getLowestPath());
+            }
+        }
+        return null;
+    }
+
     public abstract String toString();
+
 
     public final static class AllPaths<PATH extends Comparable<PATH>> extends Range<PATH> {
         public AllPaths() {}
@@ -48,12 +124,17 @@ public abstract class Range<PATH extends Comparable<PATH>> {
         public String toString() {
             return "AllPaths";
         }
+
+        @Override
+        public int compareTo(Range<PATH> that) {
+            return 0;
+        }
     }
-    public final static class BelowPathway<PATH extends Comparable<PATH>> extends Range<PATH> {
+    public final static class BelowPath<PATH extends Comparable<PATH>> extends Range<PATH> {
 
         protected final PATH higherPath;
 
-        public BelowPathway(PATH higherPath) {
+        public BelowPath(PATH higherPath) {
             this.higherPath = higherPath;
         }
 
@@ -73,12 +154,13 @@ public abstract class Range<PATH extends Comparable<PATH>> {
             sb.append('}');
             return sb.toString();
         }
+
     }
-    public final static class AbovePathway<PATH extends Comparable<PATH>> extends Range<PATH> {
+    public final static class AbovePath<PATH extends Comparable<PATH>> extends Range<PATH> {
 
         protected final PATH lowestPath;
 
-        public AbovePathway(PATH lowestPath) {
+        public AbovePath(PATH lowestPath) {
             this.lowestPath = lowestPath;
         }
 
@@ -98,12 +180,12 @@ public abstract class Range<PATH extends Comparable<PATH>> {
         return sb.toString();
         }
     }
-    public final static class BetweenPathways<PATH extends Comparable<PATH>> extends Range<PATH> {
+    public final static class BetweenPaths<PATH extends Comparable<PATH>> extends Range<PATH> {
 
         protected final PATH lowestPath;
         protected final PATH higherPath;
 
-        public BetweenPathways(PATH lowestPath,PATH higherPath) {
+        public BetweenPaths(PATH lowestPath, PATH higherPath) {
             this.lowestPath = lowestPath;
             this.higherPath = higherPath;
         }

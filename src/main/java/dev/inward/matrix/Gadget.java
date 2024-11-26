@@ -1,11 +1,8 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.fact.Addressed;
-import dev.inward.matrix.fact.Concept;
-
 import java.util.UUID;
 
-public abstract class Gadget<D extends Dogma<D>,A extends Gadget.Address<D,A,G>,G extends Gadget<S,L,D,A,G>> extends Concept<String,Gadget.Pathway,UUID, > {
+public abstract class Gadget<D extends Dogma<D>,A extends Gadget.Address<D,A,G>,G extends Gadget<S,L,D,A,G>> extends Materialization {
 
     protected final A identity;
 

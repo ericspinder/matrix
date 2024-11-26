@@ -1,97 +1,53 @@
 package dev.inward.matrix.route;
 
-import dev.inward.matrix.*;
-
-import java.io.Closeable;
-import java.lang.ref.SoftReference;
-import java.nio.channels.AsynchronousChannel;
-import java.nio.channels.AsynchronousFileChannel;
-import java.nio.channels.AsynchronousSocketChannel;
+import javax.crypto.Cipher;
+import javax.crypto.NoSuchPaddingException;
+import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.locks.StampedLock;
 
-public abstract class Driver<DISPATCH extends Dispatch<DISPATCH,R,D,RIDER>,R extends Road<DISPATCH,R,D,RIDER>,D extends Driver<DISPATCH,R,D,RIDER>,RIDER extends Closeable> extends Thread {
+public class Driver<D extends Dispatch<D,R>,R extends Road<D,R>> extends Thread implements Comparable<Driver<D,R>> {
 
-    protected SoftReference<RIDER> currentRider;
     protected final UUID uuid = UUID.randomUUID();
-    protected final StampedLock gate = new StampedLock();
     protected final Instant createInstant = Instant.now();
-    protected Instant lastBeginning;
-    protected Instant lastHealthCheck;
+    protected Map<String, Cipher> initializedCiphers;
 
-    public Driver(DISPATCH group, Runnable target, String name,
+    public Driver(D group, Runnable target, String name,
                   long stackSize) {
         super(group,target,name,stackSize,false);
     }
-
-    public static class Pilot<RIDER extends AsynchronousChannel> extends Driver<Dispatch.Controller<RIDER>,Road.Way<RIDER>,Pilot<RIDER>, RIDER>  {
-
-        public Pilot(Dispatch.Controller group, Runnable target,String name) {
-            super(group,target,name,group.stackSize);
+    public synchronized Cipher getCipher(String cipherString) throws NoSuchPaddingException, NoSuchAlgorithmException {
+        if (initializedCiphers.containsKey(cipherString)) {
+            return initializedCiphers.get(cipherString);
         }
+        Cipher cipher = Cipher.getInstance(cipherString);
+        this.initializedCiphers.put(cipherString,cipher);
+        return cipher;
     }
-    public static class Scribe extends Driver<Dispatch.Editor,Road.Concrete,Driver.Scribe, AsynchronousFileChannel> {
-
-        public Scribe(Dispatch.Editor group, Runnable target, String name) {
-            super(group, target, name, group.stackSize);
-        }
-    }
-
-    public RIDER getCurrentRider() {
-        return this.currentRider.get();
-    }
-
-    public void setCurrentRider(RIDER currentRider) {
-        this.currentRider = new SoftReference<>(currentRider);
-    }
-
     @SuppressWarnings("unchecked")
-    public DISPATCH getDispatch() {
-        return (DISPATCH) this.getThreadGroup();
+    public D getDispatch() {
+        return (D) this.getThreadGroup();
+    }
+    public Set<String> listInitializedCyphers() {
+        return this.initializedCiphers.keySet();
     }
 
     public UUID getUuid() {
         return uuid;
     }
 
-    public Instant getLastBeginning() {
-        long readLock = gate.readLock();
-        try {
-            return lastBeginning;
+    @Override
+    public int compareTo(Driver<D, R> that) {
+        int isZero = this.getDispatch().compareTo(that.getDispatch());
+        if (isZero == 0) {
+            isZero = this.getName().compareTo(that.getName());
+            if (isZero == 0) {
+                return this.uuid.compareTo(that.uuid);
+            }
         }
-        finally {
-            gate.unlockRead(readLock);
-        }
-    }
-
-    public void setLastBeginning() {
-        long writeLock = gate.writeLock();
-        try {
-            this.lastBeginning = Instant.now();
-        }
-        finally {
-            gate.unlockWrite(writeLock);
-        }
-    }
-
-    public Instant getLastHealthCheck() {
-        long readLock = gate.readLock();
-        try {
-            return lastHealthCheck;
-        }
-        finally {
-            gate.unlockRead(readLock);
-        }
-    }
-
-    public void setLastHealthCheck() {
-        long writeLock = gate.writeLock();
-        try {
-            this.lastHealthCheck = Instant.now();
-        }
-        finally {
-            gate.unlockWrite(writeLock);
-        }
+        return isZero;
     }
 }

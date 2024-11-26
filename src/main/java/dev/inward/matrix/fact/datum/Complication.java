@@ -1,59 +1,122 @@
 package dev.inward.matrix.fact.datum;
 
 import dev.inward.matrix.*;
-import dev.inward.matrix.director.library.catalog.Catalog;
 import dev.inward.matrix.fact.*;
 import dev.inward.matrix.concept.matter.Indicia;
 import dev.inward.matrix.concept.matter.Matter;
-import dev.inward.matrix.concept.matter.limitReached.LimitReached;
 import dev.inward.matrix.ticket.Ticket;
 
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
+import java.nio.file.Watchable;
+import java.time.Instant;
 import java.util.*;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.locks.StampedLock;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-public abstract class Complication<PATH extends Comparable<PATH>,P extends Pathway<PATH,P>,ID extends Comparable<ID>,T extends Concept.Tangible<PATH,P,ID,T,C,R>,C extends Concept<PATH,P,ID,T,C,R>,R extends Rider<PATH,P,ID,T,C,R>,CRIT extends Criterion,PRE extends Predictable<PATH,P,ID,T,C,CRIT,PRE,COMP,M,OCCURRENCE>,COMP extends Complication<PATH,P,ID,T,C,CRIT,PRE,COMP,M,OCCURRENCE>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> implements WatchKey {
+public abstract class Complication<PATH extends Comparable<PATH>,W extends Watchable,C extends Complication<PATH,W,C,M,OCCURRENCE>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> implements WatchKey {
 
     protected final StampedLock gate = new StampedLock();
-    protected final P predictable;
-    protected final CRIT criterion;
     protected volatile M currentMatter;
-    protected final Provider<PATH,P,ID,T,C> provider;
+    protected final ConcurrentLinkedDeque<M> competedMatters = new ConcurrentLinkedDeque<>();
+    protected volatile OCCURRENCE currentOccurrence;
+    private final Provider<W> provider;
+    private final Supplier<M> matterSupplier;
+    protected final List<Criterion> criteria = new ArrayList<>();
 
-    protected final Supplier<M> matterSupplier;
+    protected Boolean working;
 
+    protected int maxMattersToDistribute = 500;
 
-    public Complication(P predictable, CRIT criterion, Provider<PATH,P,ID,T,C> provider, Supplier<M> matterSupplier) {
-        this.predictable = predictable;
-        this.criterion = criterion;
-        this.provider = provider;
-        this.matterSupplier = matterSupplier;
+    /**
+     * This default implementation takes every Criterion based on the results of the accept(Criterion) method. An accepted Criterion is queried about it's 'singleCustomer' field if true then it will recommend removal.
+     * @param criterion the instructions
+     * @return true if it should be removed from the list of criteria for the 'next' complication created, if there is another Indicia to process
+     */
+    protected boolean bogart(Criterion criterion) {
+        return this.accept(criterion) && criterion.isSingleCustomer();
     }
 
+    /**
+     * This default implementation will accept any Criterion which either matches complicationClassName or is blank.
+     * @param criterion the criteria to be accepted
+     * @return true if has been accepted, false otherwise
+     */
+    protected boolean accept(Criterion criterion) {
+        if (criterion.getComplicationClassName().equals(this.getClass().getCanonicalName()) || criterion.getComplicationClassName().isEmpty()) {
+            this.criteria.add(criterion);
+            return true;
+        }
+        return false;
+    }
+
+    public int getMaxMattersToDistribute() {
+        return maxMattersToDistribute;
+    }
+
+    public void setMaxMattersToDistribute(int maxMattersToDistribute) {
+        this.maxMattersToDistribute = maxMattersToDistribute;
+    }
+
+    protected abstract Policy<? extends Function<C,OCCURRENCE>,PATH,W,C,M,OCCURRENCE>[] policies();
+
+    public Complication(Provider<W> provider, Supplier<M> matterSupplier, Iterator<Criterion> criteria, boolean autostart) {
+        this.provider = provider;
+        this.matterSupplier = matterSupplier;
+        while(criteria.hasNext()) {
+            if (bogart(criteria.next())) {
+                criteria.remove();
+            }
+        }
+        if (autostart) {
+            this.working = start();
+        }
+    }
+    protected Boolean start() {
+        boolean setUp = this.setUp(true);
+        if (!setUp) {
+            return null;
+        }
+        else {
+            return true;
+        }
+    }
+    protected abstract boolean setUp(boolean first);
+
+    @SuppressWarnings("unchecked")
     public final void run() {
+        if (working == null || working) throw new MatrixException(MatrixException.Type.RunProblem,"Complication was set as working or cancelled", Indicia.Focus.Assembly, Indicia.Severity.Critical,new Exception("stack trace..."));
         long writeLock = gate.writeLock();
         try {
+            this.working = true;
             M matter = currentMatter;
-            if (currentMatter == null || currentMatter.isSettled()) {
-                matter =
+            if (currentMatter == null) {
+                matter = matterSupplier.get();
             }
-            this.isSettled(matter);
-            mattersTickets.put(matter,);
+            for (Policy<? extends Function<C,OCCURRENCE>,PATH,W,C,M,OCCURRENCE> policy: policies()) {
+                OCCURRENCE occurrence_response = policy.getBehavior().apply((C)this);
+                if (occurrence_response != null) {
+                    this.currentOccurrence = occurrence_response;
+                }
+            }
+            if (this.currentOccurrence !=null) {
+
+            }
+            this.working = false;
         }
         catch (Throwable throwable) {
-            this.predictable.getCatalog().processFailure(this, new MatrixException(MatrixException.Type.RunProblem,this.getClass().getCanonicalName(), Indicia.Focus.Admonitory, Indicia.Severity.Exceptional,e));
+            this.predictable.getCatalog().processFailure(this, new MatrixException(MatrixException.Type.RunProblem,this.getClass().getCanonicalName(), Indicia.Focus.Admonitory, Indicia.Severity.Exceptional,throwable));
         }
         finally {
             gate.unlockWrite(writeLock);
         }
     }
-
-    public abstract Ticket<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE>[] isSettled(M matter);
 
     /**
      * Tells whether or not this watch key is valid.
@@ -65,29 +128,14 @@ public abstract class Complication<PATH extends Comparable<PATH>,P extends Pathw
      */
     @Override
     public boolean isValid() {
-        return this.provider.isOn();
+        return this.working != null;
     }
 
     @Override
     public List<WatchEvent<?>> pollEvents() {
-        return List.of((WatchEvent<?>) this.pollEvents("anyone").stream());
-    }
-    public List<M> pollEvents(Ticket<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE> ticketStub) {
-        long readLock = gate.readLock();
-        try {
-            List<M> events = new ArrayList<>();
-            for (Map.Entry<M, Ticket<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE>[]> matterEntry : mattersTickets.entrySet()) {
-                for (Ticket<S,L,PATH,ID,T,C,CRIT,P,COMP,M,OCCURRENCE> ticket : matterEntry.getValue()) {
-                    if (ticket.equals() && matterEntry.getKey().isSettled()) {
-                        events.add(matterEntry.getKey());
-                        matterEntry.setValue((String[]) Arrays.stream(matterEntry.getValue()).dropWhile(Predicate.isEqual(subscription)).toArray());
-                    }
-                }
-            }
-            return events;
-        }
-        finally {
-            gate.unlockRead(readLock);
+        List<WatchEvent<?>> events = new ArrayList<>();
+        while(!competedMatters.isEmpty() && events.size() < ) {
+
         }
     }
 
@@ -110,8 +158,7 @@ public abstract class Complication<PATH extends Comparable<PATH>,P extends Pathw
         if (this.isValid()) {
             long writeLock = gate.writeLock();
             try {
-                this.mattersTickets.forEach(Matter::setSettled);
-                this.mattersTickets.clear();
+
                 return true;
             }
             finally {
@@ -136,7 +183,7 @@ public abstract class Complication<PATH extends Comparable<PATH>,P extends Pathw
      */
     @Override
     public void cancel() {
-        this.provider.off();
+        this.working = null;
     }
 
     /**
@@ -154,8 +201,8 @@ public abstract class Complication<PATH extends Comparable<PATH>,P extends Pathw
      * @return the object for which this watch key was created
      */
     @Override
-    public T watchable() {
-        return this.provider.getConcept().getIdentity();
+    public W watchable() {
+        return this.provider.next();
     }
 }
 //        suppressors("Suppressor",""),

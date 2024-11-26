@@ -1,26 +1,36 @@
 package dev.inward.matrix.engine;
 
-import dev.inward.matrix.concept.matter.signer.MatrixSigned;
+import dev.inward.matrix.Dogma;
+import dev.inward.matrix.Concept;
+import dev.inward.matrix.fact.Fact;
 
-import java.net.URL;
-import java.security.CodeSigner;
-import java.security.CodeSource;
+public abstract class Edition<SERIAL extends Comparable<SERIAL>,N extends Fact.Identity<N,E,M>,E extends Edition<SERIAL,N,E,M>,M extends Edition.Model<SERIAL,N,E,M>> extends Fact<N,E,M> {
 
-public class Edition extends CodeSource implements Comparable<Edition> {
+    public static class Model<SERIAL extends Comparable<SERIAL>,N extends Identity<N,E,M>,E extends Edition<SERIAL,N,E,M>,M extends Edition.Model<SERIAL,N,E,M>> extends dev.inward.matrix.fact.Model<N,E,M> {
 
-    protected final Variant variant;
-    protected final MatrixSigned matrixSigner;
 
-    public Edition(URL url, Variant variant, MatrixSigned matrixSigner) {
-        super(url,new CodeSigner[] {matrixSigner.getCodeSigner()});
-        this.variant = variant;
-        this.matrixSigner = matrixSigner;
+        public Model(Concept.Identity.Id<S, L, N, F, M> id, Aspect<S, L, String, String, N, F>[] aspects) {
+            super(id, aspects);
+        }
+
+        @Override
+        public Dogma userInfo() {
+            return null;
+        }
+
+        @Override
+        public int compareTo(M o) {
+            return 0;
+        }
     }
-    public MatrixSigned matrixSigner() {
-        return this.matrixSigner;
+    protected final SERIAL serial;
+    public Edition(N identity, SERIAL serial) {
+        super(identity);
+        this.serial = serial;
     }
 
-    public int compareTo(Edition that) {
-        return this.variant.compareTo(that.variant);
+    public SERIAL getSerial() {
+        return serial;
     }
+
 }

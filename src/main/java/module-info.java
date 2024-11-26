@@ -1,4 +1,4 @@
-@SuppressWarnings({ "requires-automatic", "requires-transitive-automatic" })
+@SuppressWarnings({ "requires-automatic"})
 module dev.inward.matrix {
     requires transitive java.instrument;
     requires transitive java.sql;
@@ -22,4 +22,5 @@ module dev.inward.matrix {
     exports dev.inward.matrix.ticket;
     exports dev.inward.matrix;
     exports dev.inward.matrix.memory;
+    exports  dev.inward.matrix.dns.resourceRecord;
 }

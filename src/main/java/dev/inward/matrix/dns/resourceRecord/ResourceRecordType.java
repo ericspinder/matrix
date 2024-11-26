@@ -8,6 +8,7 @@ public enum ResourceRecordType implements Meta_I {
     nameServer("NS",2,"RFC 1035[1] - Name server record - Delegates a DNS zone to use the given authoritative name servers"),
     cName("CNAME",5,"RFC 1035[1] - Canonical name record - Alias of one name to another: the DNS lookup will continue by retrying the lookup with the new name."),
     StartOfAuthority("SOA",6,"RFC 1035[1] and RFC 2308[11] - Start of [a zone of] authority record	Specifies authoritative information about a DNS zone, including the primary name server, the email of the authority administrator, the authority serial number, and several timers relating to refreshing the zone."),
+    indexRecord("INDEX",8, "Matrix Index record"),
     pointer("PTR",12,"RFC 1035[1] - PTR Resource Record [de] - Pointer to a canonical name. Unlike a CNAME, DNS processing stops and just the name is returned. The most common use is for implementing reverse DNS lookups, but other uses include such things as DNS-SD."),
     hostInfo("HINFO",13,"RFC 8482 - Host Information - Providing Minimal-Sized Responses to DNS Queries That Have QTYPE=ANY"),
     mailExchange("MX",15,"RFC 1035[1] and RFC 7505 - Mail exchange record - Maps a authority name to a list of message transfer agents for that authority"),

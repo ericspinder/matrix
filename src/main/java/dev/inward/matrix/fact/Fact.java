@@ -1,47 +1,55 @@
 package dev.inward.matrix.fact;
 
-import dev.inward.matrix.*;
-import dev.inward.matrix.fact.authoritative.notion.authority.source.ziggurat.Startup;
-import dev.inward.matrix.Policy;
-import dev.inward.matrix.resources.Supplier;
+import java.io.IOException;
+import java.lang.ref.Reference;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
+import java.time.Instant;
+import java.util.Properties;
+import java.util.function.Function;
 
-import java.util.HashMap;
-import java.util.Map;
+public abstract class Fact<PATH extends Comparable<PATH>,I extends Fact.Identity<PATH,I,F,R>,F extends Fact<PATH,I,F,R>,R extends Fact.Representitive<PATH,I,F,R>> extends Addressed<PATH,String,I,F,R> {
 
-public abstract class Fact<N extends Fact.Named<N,F,M>,F extends Fact<N,F,M>,M extends Model<N,F,M>> extends Concept<String, Fact.Pathway,String,N,F> {
-
-    public Fact(N identity) {
+    public Fact(I identity) {
         super(identity);
     }
 
-    public final static class Pathway extends dev.inward.matrix.Pathway<String,Pathway> {
+    public static class Representitive<PATH extends Comparable<PATH>,I extends Fact.Identity<PATH,I,F,R>,F extends Fact<PATH,I,F,R>,R extends Representitive<PATH,I,F,R>> extends dev.inward.matrix.Representitive<PATH,String,I,F,R> {
 
-        public Pathway(Ledger<String,Pathway> ledger, String path) {
-            super(ledger,path);
+        public Representitive(F addressed, Fact.Resource<PATH,I,F,R> resource, Addressed<PATH,?,?,?,?> parent, boolean hold, Properties properties) {
+            super(addressed, resource, parent, hold, properties);
         }
 
         @Override
-        public String getPathString() {
-            return this.path;
+        public Instant lastSync() {
+            return null;
+        }
+
+        @Override
+        public BasicFileAttributes readAttributes() throws IOException {
+            return null;
+        }
+
+        @Override
+        public void setTimes(FileTime lastModifiedTime, FileTime lastAccessTime, FileTime createTime) throws IOException {
+
         }
     }
-    public abstract static class Named<N extends Named<N,F,M>,F extends Fact<N,F,M>,M extends Model<N,F,M>> extends Tangible<String,Pathway,String,N,F> {
+    public abstract static class Identity<PATH extends Comparable<PATH>,I extends Fact.Identity<PATH,I,F,R>,F extends Fact<PATH,I,F,R>,R extends Representitive<PATH,I,F,R>> extends dev.inward.matrix.Identity<PATH,String,I,F,R> {
 
-        protected final M model;
-
-        public Named(String name) {
-            super(name);
+        public Identity(String id) {
+            super(id);
         }
 
         public abstract String getName();
 
 
-        public static class DotExtension<F extends Fact<DotExtension<F>,F>> extends Named<DotExtension<F>,F> {
+        public static class DotExtension<PATH extends Comparable<PATH>,F extends Fact<PATH,DotExtension<PATH,F,R>,F,R>,R extends Representitive<PATH,DotExtension<PATH,F,R>,F,R>> extends Identity<PATH,DotExtension<PATH,F,R>,F,R> {
 
             protected final String extension;
 
-            public DotExtension(String name, String extension) {
-                super(name);
+            public DotExtension(String id, String extension) {
+                super(id);
                 this.extension = extension;
             }
 
@@ -51,10 +59,10 @@ public abstract class Fact<N extends Fact.Named<N,F,M>,F extends Fact<N,F,M>,M e
             }
 
         }
-        public static class Simple<S extends Scheme<S,L>,L extends Library<S,L>,F extends Fact<S,L,Simple<S,L,F>,F>> extends Named<S,L,Simple<S,L,F>,F> {
+        public static class Simple<PATH extends Comparable<PATH>,F extends Fact<PATH,Simple<PATH,F,R>,F,R>,R extends Representitive<PATH,Simple<PATH,F,R>,F,R>> extends Identity<PATH,Simple<PATH,F,R>,F,R> {
 
-            public Simple(String name,char persona) {
-                super(name,persona);
+            public Simple(String name) {
+                super(name);
             }
 
             @Override
@@ -66,22 +74,19 @@ public abstract class Fact<N extends Fact.Named<N,F,M>,F extends Fact<N,F,M>,M e
 
     }
 
-    public abstract static class Resource<N extends Named<N,F,M>,F extends Fact<N,F,M>,M extends Model<N,F,M>> extends Concept.Resource<Scheme.HTML,Library.HTML, Fact.Pathway,String,N,F, CardCatalog<N,F>> {
-
-        private Supplier supplier;
-        private final Map<String,? super dev.inward.matrix.Resource<?,S,L,PATH,C>> datumMap = new HashMap<>();
-
-        public Resource(Policy[] policies) {
-            super(policies);
+    public abstract static class Resource<PATH extends Comparable<PATH>,I extends Fact.Identity<PATH,I,F,R>,F extends Fact<PATH,I,F,R>,R extends Representitive<PATH,I,F,R>> extends Addressed.Resource<PATH,String,I,F,R> {
+        public Resource(dev.inward.matrix.Representitive<PATH, ?, ?, ?, ?> parent, String className, long warnOnTotal, long hardLimit, Function<Reference<? extends F>, Reference<? extends F>> graveDigger) {
+            super(parent, className, warnOnTotal, hardLimit, graveDigger);
         }
 
-        @SuppressWarnings("unchecked")
-        public <DATUM> dev.inward.matrix.Resource<DATUM,S,L,PATH,F> getResource(Class<DATUM> datumClass) {
-            dev.inward.matrix.Resource<DATUM,S,L,PATH,F> resource = (dev.inward.matrix.Resource<DATUM,S,L,PATH,F>) datumMap.get(datumClass.getCanonicalName());
-            if (resource == null) {
-                datumMap.put(Startup.root().get().newResource(datumClass)
-            }
-        }
+
+//        @SuppressWarnings("unchecked")
+//        public <DATUM> dev.inward.matrix.Resource<DATUM,S,L,PATH,F> getResource(Class<DATUM> datumClass) {
+//            dev.inward.matrix.Resource<DATUM,S,L,PATH,F> resource = (dev.inward.matrix.Resource<DATUM,S,L,PATH,F>) datumMap.get(datumClass.getCanonicalName());
+//            if (resource == null) {
+//                datumMap.put(Startup.root().get().newResource(datumClass)
+//            }
+//        }
 
 
     }

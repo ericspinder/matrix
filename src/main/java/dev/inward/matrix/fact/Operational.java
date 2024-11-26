@@ -4,18 +4,23 @@ import dev.inward.matrix.*;
 import dev.inward.matrix.fact.intialized.jdbc_driver.ConnectionState;
 import dev.inward.matrix.setting.Security;
 
+import java.security.cert.CertPath;
 import java.sql.Connection;
 import java.util.Properties;
 
 public abstract class Operational {
 
-    protected final Security security;
+    protected final CertPath[] certPaths;
 
     // protected final Options
     protected final Properties properties;
-    public Operational(Security security Properties properties) {
-        this.security = security;
+    public Operational(CertPath[] certPaths, Properties properties) {
+        this.certPaths = certPaths;
         this.properties = properties;
+    }
+
+    public CertPath[] getCertPaths() {
+        return certPaths;
     }
 
     public Properties getProperties() {
@@ -24,8 +29,8 @@ public abstract class Operational {
 
     public static class JDBCOperational<C extends Connection> extends Operational {
 
-        public JDBCOperational(Properties properties) {
-            super(properties);
+        public JDBCOperational(CertPath[] certPaths, Properties properties) {
+            super(certPaths, properties);
         }
     }
 }

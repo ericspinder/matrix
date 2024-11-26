@@ -1,53 +1,47 @@
 package dev.inward.matrix.memory;
 
-import dev.inward.matrix.Pathway;
-import dev.inward.matrix.Range;
-import dev.inward.matrix.Standard;
-import dev.inward.matrix.engine.Engine;
-import dev.inward.matrix.fact.Concept;
+import dev.inward.matrix.*;
+import dev.inward.matrix.Aspect;
 import dev.inward.matrix.fact.Factory;
-import dev.inward.matrix.fact.Operational;
-import dev.inward.matrix.fact.Rider;
-import dev.inward.matrix.fact.authoritative.notion.Aspect;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.io.IOException;
 import java.nio.file.FileStore;
 import java.nio.file.attribute.FileAttributeView;
 import java.nio.file.attribute.FileStoreAttributeView;
 import java.util.Map;
+import java.util.Properties;
 
-public abstract class Memory<PATH extends Comparable<PATH>,P extends Pathway<PATH,P>> extends FileStore implements Comparable<Memory<PATH,P>> {
+public abstract class Memory<C extends Operation<PATH,?,?,?,?,?>,PATH extends Comparable<PATH>> extends FileStore implements Comparable<Memory<C,PATH>> {
 
-    protected final String name;
+    protected final Library<?,?,PATH> library;
     protected final Range<PATH> range;
-    protected Map<Class<? extends Concept<PATH,P,?,?,?>>, Factory<PATH,P,?,?,?>> conceptClassFactoryMap;
-    protected transient long totalSpace;
-    protected transient long unallocatedSpace;
-    protected transient long usableSpace;
+    protected final Properties properties;
+    protected Map<Class<? extends Representitive<PATH,D,?,?,?,?>>, Factory<PATH,D,?,?,?,?>> conceptClassFactoryMap;
 
     @SuppressWarnings("unchecked")
-    public Memory(@Nonnull String name, @Nullable Range<PATH> range, Standard[] standards) {
-        this.name = name;
+    public Memory(Library<?,?,PATH> library, @Nonnull Range<PATH> range, @Nonnull Properties properties) {
+        this.library = library;
         this.range = range;
-        this.conceptClassFactoryMap = this.initSpaces(standards);
+        this.properties = new Properties(properties);
     }
-    public abstract Map<Class<? extends Concept<PATH,P,?,?,?>>,Factory<PATH,P,?,?,?>> initSpaces(Standard[] standards);
+    public abstract Factory<PATH,?,?,?,?,?,?>[] initContainers(Standard<>[] standards);
+
+    public Library<?, ?, PATH> getLibrary() {
+        return library;
+    }
+
+    public Range<PATH> getRange() {
+        return range;
+    }
 
     @Override
-    public int compareTo(Memory<PATH,P> that) {
+    public int compareTo(Memory<PATH> that) {
         return this.name.compareTo(that.name);
     }
 
     @Override
     public String name() {
         return name;
-    }
-
-
-    public Range<PATH> getRange() {
-        return range;
     }
 
     @Override
@@ -58,7 +52,7 @@ public abstract class Memory<PATH extends Comparable<PATH>,P extends Pathway<PAT
 
     @Override
     public boolean supportsFileAttributeView(Class<? extends FileAttributeView> type) {
-         return type.isAssignableFrom(Rider.class) || type.isAssignableFrom(Aspect.class);
+         return type.isAssignableFrom(Representitive.class) || type.isAssignableFrom(Aspect.class);
     }
 
     @Override
@@ -67,13 +61,13 @@ public abstract class Memory<PATH extends Comparable<PATH>,P extends Pathway<PAT
     }
 
     @Override
-    public Object getAttribute(String attribute) throws IOException {
-        return null;
+    public Object getAttribute(String attribute) {
+        return this.properties.get(attribute);
     }
 
     @Override
     public boolean supportsFileAttributeView(String name) {
-        return false;
+        return name.equalsIgnoreCase("matrix");
     }
 
 

@@ -1,32 +1,75 @@
-package dev.inward.matrix.fact;
+package dev.inward.matrix;
 
-import dev.inward.matrix.*;
-import dev.inward.matrix.director.library.catalog.Catalog;
 import dev.inward.matrix.engine.Zone;
+import dev.inward.matrix.fact.Alert;
+import dev.inward.matrix.fact.Operational;
 
 import java.nio.file.WatchEvent;
+import java.nio.file.Watchable;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.BitSet;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public abstract class Criterion implements Meta_I, WatchEvent.Modifier {
 
     protected final String label;
     protected final String description;
-    protected final transient String name;
-    protected final Operational operational;
+    protected final String i18n;
+    protected final Zone[] zones;
+    protected final boolean singleCustomer;
+    protected final String complicationClassName;
 
-    @Override
-    public String name() {
-        return this.name;
+    public Criterion(String label, String description, Zone[] zones, String i18n, String complicationClassName, boolean singleCustomer) {
+        this.label = label;
+        this.description = description;
+        this.zones = zones;
+        if (i18n != null) {
+            this.i18n = i18n;
+        }
+        else {
+            this.i18n = this.parseDefaultI18n();
+        }
+        this.complicationClassName = complicationClassName;
+        this.singleCustomer = singleCustomer;
+    }
+    public Criterion(String label, String description, Zone[] zones) {
+        this(label,description,zones,null,"",false);
     }
 
+    public abstract boolean repeat();
+    @Override
+    public String name() {
+        return this.label;
+    }
 
-    protected String buildName() {
+    @Override
+    public String getI18n() {
+        return i18n;
+    }
+    @Override
+    public final String getLabel() {
+        return label;
+    }
+
+    @Override
+    public final String getDescription() {
+        return description;
+    }
+
+    public String getComplicationClassName() {
+        return complicationClassName;
+    }
+
+    public boolean isSingleCustomer() {
+        return singleCustomer;
+    }
+
+    public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(this.getClassName()).append('.').append(label).append('_').append('[');
+        sb.append(this.getClassName()).append('.').append(label).append('_').append(description).append('_').append('[');
         for (Zone zone: zones) {
             sb.append(zone.label).append(',');
         }
@@ -35,20 +78,16 @@ public abstract class Criterion implements Meta_I, WatchEvent.Modifier {
         return sb.toString();
     }
 
-    public Criterion(String label, String description, Operational<P,ID,T,C> operational) {
-        this.label = label;
-        this.description = description;
-        this.operational = operational;
-        this.name = buildName();
-    }
-
     public static class Limiter extends Criterion {
 
         protected final int totalAllowed;
-        protected final Map<Integer,Alert> warnLevels;
+        protected final Map<Integer, Alert> warnLevels;
 
+        public Limiter(Zone[] zones, int totalAllowed, Map<Integer,Alert> warnLevels) {
+            this("limiter","generates Alerts based on the count of either",zones,totalAllowed,warnLevels);
+        }
         public Limiter(String label, String description, Zone[] zones, int totalAllowed, Map<Integer,Alert> warnLevels) {
-            super(label,description, zones);
+            super(label,description,zones);
             this.totalAllowed = totalAllowed;
             this.warnLevels = warnLevels;
         }
@@ -72,8 +111,11 @@ public abstract class Criterion implements Meta_I, WatchEvent.Modifier {
         protected final long timeout;
         protected final TimeUnit timeUnit;
 
-        public Timeout(String label, String description, Zone[] zones, long timeout, TimeUnit timeUnit) {
-            super(label,description, zones);
+        public Timeout(Zone[] zones, long timeout, TimeUnit timeUnit) {
+            this("Timeout", "Timeout criteria with convince methods to describe it from 'now'", zones,null,false,timeout,timeUnit);
+        }
+        public Timeout(String label, String description, Zone[] zones, String i18n, boolean singleCustomer, int timeout, TimeUnit timeUnit) {
+            super(label,description, zones,i18n,singleCustomer,);
             this.timeout = timeout;
             this.timeUnit = timeUnit;
         }
@@ -106,9 +148,13 @@ public abstract class Criterion implements Meta_I, WatchEvent.Modifier {
 
     public static class Ranged<DATUM extends Comparable<DATUM>> extends Criterion {
 
-        protected final Range range;
-        public Ranged(String label, String description, Zone[] zones, Range<DATUM> range) {
-            super(label,description, zones);
+        protected final Range<DATUM> range;
+
+        public Ranged(Zone[] zones,Range<DATUM> range) {
+            this("Ranged","ranged datum of declared type, probably a PATH of the declared type",zones,null,false,range);
+        }
+        public Ranged(String label, String description, Zone[] zones,String i18n,boolean singleCustomer,Range<DATUM> range) {
+            super(label,description, zones,i18n,singleCustomer);
             this.range = range;
         }
 
@@ -123,8 +169,11 @@ public abstract class Criterion implements Meta_I, WatchEvent.Modifier {
         protected final long count;
         protected final TimeUnit timeUnit;
 
-        public Timed(String label, String description, Zone[] zones, long count, TimeUnit timeUnit) {
-            super(label,description, zones);
+        public Timed(Zone[] zones, long count, TimeUnit timeUnit) {
+            this("Timed", "Criteria based on time",zones, null,false, count,timeUnit);
+        }
+        public Timed(String label, String description, Zone[] zones, String i18n,boolean singleCustomer, long count, TimeUnit timeUnit) {
+            super(label,description, zones,i18n,singleCustomer);
             this.count = count;
             this.timeUnit = timeUnit;
         }
@@ -135,8 +184,8 @@ public abstract class Criterion implements Meta_I, WatchEvent.Modifier {
         }
     }
     public static class OnCountdown<DATUM> extends Criterion {
-        public OnCountdown(String label, String description, Zone[] zones) {
-            super(label, description, zones);
+        public OnCountdown(String label, String description, Zone[] zones, String i18n,boolean singleCustomer) {
+            super(label, description, zones, i18n, singleCustomer);
         }
 
         @Override
@@ -170,19 +219,6 @@ public abstract class Criterion implements Meta_I, WatchEvent.Modifier {
             return value;
         }
     }
-    public abstract boolean repeat();
-    @Override
-    public final String getLabel() {
-        return label;
-    }
 
-    @Override
-    public final String getDescription() {
-        return description;
-    }
 
-    @Override
-    public int compareTo(Criterion that) {
-        return this.name().compareTo(that.name());
-    }
 }

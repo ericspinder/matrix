@@ -12,12 +12,16 @@ public class Indicia implements Comparable<Indicia>, WatchEvent.Kind<Indicia> {
     protected final Focus focus;
     protected final Severity severity;
     protected final short series;
+    protected final String complicationClassName;
+    protected final String criteriaClassName;
 
-    public Indicia(@Nonnull String locus,@Nonnull Focus focus,@Nonnull Severity severity, short series) {
+    public Indicia(@Nonnull String locus,@Nonnull Focus focus,@Nonnull Severity severity, short series,String complicationClassName,String criteriaClassName) {
         this.locus = locus;
         this.focus = focus;
         this.severity = severity;
         this.series = series;
+        this.complicationClassName = complicationClassName;
+        this.criteriaClassName = criteriaClassName;
     }
 
 
@@ -69,6 +73,14 @@ public class Indicia implements Comparable<Indicia>, WatchEvent.Kind<Indicia> {
 
     public final Severity getSeverity() {
         return severity;
+    }
+
+    public String getComplicationClassName() {
+        return complicationClassName;
+    }
+
+    public String getCriteriaClassName() {
+        return criteriaClassName;
     }
 
     public enum Severity implements Meta_I {
@@ -138,8 +150,12 @@ public class Indicia implements Comparable<Indicia>, WatchEvent.Kind<Indicia> {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        return sb.append('/').append(locus).append('/').append(focus).append('/').append(severity).append(this.getClass().getCanonicalName()).append(series).toString();
-
+        return "Indicia{" + "locus='" + locus + '\'' +
+                ", focus=" + focus +
+                ", severity=" + severity +
+                ", series=" + series +
+                ", complicationClassName='" + complicationClassName + '\'' +
+                ", criteriaClassName='" + criteriaClassName + '\'' +
+                '}';
     }
 }

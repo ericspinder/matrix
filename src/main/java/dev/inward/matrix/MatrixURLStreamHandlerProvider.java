@@ -7,12 +7,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class MatrixURLStreamHandlerProvider extends URLStreamHandlerProvider {
 
-    private static final Map<String,URLStreamHandler> protocolUrlStreamHandler = new ConcurrentHashMap<>();
+    private static final Map<String,URLStreamHandler> protocolUrlStreamHandlers = new ConcurrentHashMap<>();
 
     static {
         String enables = System.getenv().get("m_enable");
         if
-        protocolUrlStreamHandler.put("")
+        protocolUrlStreamHandlers.put("dns", Scheme.DNS.Instance());
     }
     @Override
     public URLStreamHandler createURLStreamHandler(String protocol) {

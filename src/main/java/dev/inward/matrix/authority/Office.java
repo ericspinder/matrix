@@ -2,7 +2,7 @@ package dev.inward.matrix.authority;
 
 import dev.inward.matrix.*;
 import dev.inward.matrix.memory.Memory;
-import dev.inward.matrix.director.library.catalog.Catalog;
+import dev.inward.matrix.director.library.catalog.Ledger;
 import dev.inward.matrix.director.library.catalog.Gathering;
 import dev.inward.matrix.fact.Fact;
 import dev.inward.matrix.Notion;
@@ -32,7 +32,7 @@ public class Office extends Library<DNS, Office> {
     }
 
     @Override
-    protected <ID extends Comparable<ID>, Q extends Manufacture<DNS, Office, PATH, ID, Q>, D extends Gathering<DNS, Office, PATH, D, O, F>, O extends Notion<DNS, Office, PATH, O>, N extends Fact.Named<DNS, Office, PATH, N, F>, F extends Fact<DNS, Office, PATH, N, F>> Catalog<DNS, Office, PATH, D, O, N> initCatalog(Library<DNS, Office> library, Memory<DNS, Office, PATH> memory, Dogma.Ethereal<DNS, Office, PATH, ID, Q> ethereal) throws CheckedException {
+    protected <ID extends Comparable<ID>, Q extends Manufacture<DNS, Office, PATH, ID, Q>, D extends Gathering<DNS, Office, PATH, D, O, F>, O extends Notion<DNS, Office, PATH, O>, N extends Fact.Identity<DNS, Office, PATH, N, F>, F extends Fact<DNS, Office, PATH, N, F>> Ledger<DNS, Office, PATH, D, O, N> initCatalog(Library<DNS, Office> library, Memory<DNS, Office, PATH> memory, Dogma.Ethereal<DNS, Office, PATH, ID, Q> ethereal) throws CheckedException {
         return null;
     }
 

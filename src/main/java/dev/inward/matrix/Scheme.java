@@ -5,10 +5,9 @@ import dev.inward.matrix.concept.matter.Indicia;
 
 import java.io.IOException;
 import java.net.*;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public abstract class Scheme<S extends Scheme<S>> extends URLStreamHandler implements Comparable<S> {
+public class Scheme<S extends Scheme<S,L,PATH>,L extends Library<S,L,PATH>,PATH extends Comparable<PATH>> extends URLStreamHandler implements Comparable<S> {
 
     public enum Reserved {
         Semicolon(';'),
@@ -52,46 +51,56 @@ public abstract class Scheme<S extends Scheme<S>> extends URLStreamHandler imple
         }
     }
 
-
-    protected final String scheme;
     protected final Terrene terrene;
-    protected final Map<String,Director<S,L,?,?>> directors = new ConcurrentHashMap<>();
-    protected volatile transient Director<S,L,?,?> defaultNewLibrary;
+    protected final Protocol<PATH> protocol;
+    protected final String scheme;
+    protected final int defaultPort;
 
-    protected Scheme(String scheme,Terrene terrene) {
+    protected Scheme(String scheme, int defaultPort) {
+        this.terrene = Terrene.Parse(scheme.substring(0,scheme.lastIndexOf(".")));
+        this.protocol = Protocol.GetProtocol(scheme.substring(scheme.lastIndexOf(".")));
         this.scheme = scheme;
-        this.terrene = terrene;
+        this.defaultPort = defaultPort;
     }
 
 
-    @Override
-    protected ConceptConnection<S,L,?,?,?,?> openConnection(URL u) throws IOException {
-        if (!u.getProtocol().equalsIgnoreCase(this.scheme))
-            throw new MatrixException(MatrixException.Type.NotRightScheme, u.getProtocol() + " scheme_wrong", Indicia.Focus.Assembly, Indicia.Severity.Critical, new Exception("stacktrace..."));
+    @SuppressWarnings("unchecked")
+    protected Clerk.Network.Client obtainClerk(URL u) throws IOException {
         try {
-            URI uri = u.toURI();
-            uri.getSchemeSpecificPart();
-
+            return Domain.getInstance(u.toURI().getHost()).getLibrary((S)this).getClient(this, u);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
-        Director<S, L, ?, ?> director = this.directors.get(u.getAuthority());
-        if (director == null) {
-            director = this.getNewDirector(u.getAuthority());
-        }
-
-        // is it a Server or Client connection?
-        // get DNS info
-        // init library
-        // init user(anonymous and userInfo if it exists)/catalogs/librarians
-        // init notions/facts/etc
-        return director.getRoad().
     }
-    protected abstract Director<S,L,?,?> getNewDirector(String authority);
 
     @Override
-    public int compareTo(S that) {
+    protected URLConnection openConnection(URL u) throws IOException {
+        return null;
+    }
+
+    @Override
+    protected URLConnection openConnection(URL u, Proxy p) throws IOException {
+        return super.openConnection(u, p);
+    }
+
+    @Override
+    public int compareTo(Scheme that) {
         return this.scheme.compareTo(that.scheme);
     }
 
+    @Override
+    public int getDefaultPort() {
+        return defaultPort;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Scheme{");
+        sb.append("terrene=").append(terrene);
+        sb.append(", scheme='").append(scheme).append('\'');
+        sb.append(", defaultPort=").append(defaultPort);
+        sb.append(", domainStringLibraryMap=").append(domainStringLibraryMap);
+        sb.append('}');
+        return sb.toString();
+    }
 }

@@ -12,19 +12,14 @@ public class ServerRecord extends ResourceRecord<ServerRecord> {
     protected final InetAddress inetAddress;
     protected transient final BigInteger asBytes;
 
-    public ServerRecord(Domain domain, InetAddress inetAddress, Terrene terrene) {
-        super(domain,(inetAddress instanceof Inet4Address)? ResourceRecordType.ipV4Address:ResourceRecordType.ipV6Address, terrene);
+    public ServerRecord(Terrene terrene, Domain domain, InetAddress inetAddress,int ttl) {
+        super(terrene,domain,(inetAddress instanceof Inet4Address)? ResourceRecordType.ipV4Address:ResourceRecordType.ipV6Address,ttl);
         this.inetAddress = inetAddress;
         this.asBytes = new BigInteger(1,this.inetAddress.getAddress());
     }
 
     public InetAddress getInetAddress() {
         return this.inetAddress;
-    }
-
-    @Override
-    protected String rData() {
-        return new String(this.inetAddress.getAddress());
     }
 
     @Override

@@ -4,31 +4,31 @@ import crud.Protocol;
 import crud.Volume;
 import dev.inward.matrix.Provider;
 import dev.inward.matrix.*;
-import dev.inward.matrix.director.library.catalog.Catalog;
-import dev.inward.matrix.fact.datum.Complication;
-import dev.inward.matrix.fact.datum.Ware;
-import dev.inward.matrix.fact.authoritative.notion.concept.*;
+import dev.inward.matrix.concept.matter.Indicia;
 import dev.inward.matrix.concept.matter.Matter;
-import dev.inward.matrix.phenomenon.producer.ExecutionExceptionly;
-import dev.inward.matrix.phenomenon.producer.InterruptionExceptionally;
-import dev.inward.matrix.phenomenon.producer.TimeoutExceptionally;
+import dev.inward.matrix.director.library.catalog.Ledger;
+import dev.inward.matrix.fact.datum.Complication;
 import dev.inward.matrix.ticket.Ticket;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.ParameterizedType;
+import java.nio.file.ClosedWatchServiceException;
+import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
+import java.nio.file.Watchable;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
-import static dev.inward.matrix.fact.Criterion.*;
+public class Predictable<PATH extends Comparable<PATH>> implements WatchService {
 
-public abstract class Predictable<PATH extends Comparable<PATH>,P extends Pathway<PATH,P>,ID extends Comparable<ID>,T extends Concept.Tangible<PATH,P,ID,T,C>,C extends Concept<PATH,P,ID,T,C>,CRIT extends Criterion<PATH,P,ID,T,C>,PRE extends Predictable<PATH,P,ID,T,C,CRIT,PRE,COMP,M,OCCURRENCE>,COMP extends Complication<PATH,P,ID,T,C,CRIT,PRE,COMP,M,OCCURRENCE>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> implements WatchService {
-
-    protected final CAT catalog;
-    protected final Map<M, Ticket<P,ID,T,C,CAT>> complicationResultsCacheMapping = new ConcurrentHashMap<>();
-
-    public Predictable(CAT catalog) {
-        this.catalog = catalog;
+    protected final Ledger<PATH> ledger;
+    protected boolean open;
+    public Predictable(Ledger<PATH> ledger) {
+        this.ledger = ledger;
     }
     /**
      *
@@ -37,88 +37,52 @@ public abstract class Predictable<PATH extends Comparable<PATH>,P extends Pathwa
      * @return the Complication that has been created
      */
     @SuppressWarnings("unchecked")
-    public COMP register(CRIT criterion, Provider<P,ID,T,C,CAT> provider) {
-        COMP complication = this.createComplication((P)this,criterion,provider);
-        if (complication.isValid()) {
+    public <W extends Watchable, C extends Complication<PATH,W,C,M,OCCURRENCE>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> C register(W watchable, Indicia[] indiciaArray, Criterion... criteria) throws IOException {
+        if (!this.open) throw new ClosedWatchServiceException();
+        for (Indicia indicia: indiciaArray) {
+            try {
+                Class<Provider<W>> providerClass = (Class<Provider<W>>)watchable.getClass().getClassLoader().loadClass(indicia.getComplicationClassName());
+                providerClass.getDeclaredConstructor()
+                Class<C> complicationClass = (Class<C>)Class.forName(indicia.getComplicationClassName());
+                Constructor<C> complicationConstructor = complicationClass.getDeclaredConstructor(Provider.class, Supplier.class, Iterator.class, Boolean.class);
+                C complication = complicationConstructor.
 
-        }
-        else {
-            return null;
-        }
+            }
+            catch (ClassNotFoundException| NoSuchMethodException e) {
 
+            }
+        }
     }
-    protected abstract COMP createComplication(P predictable, CRIT criteria, Provider<S,L,PATH,ID,T,C> provider);
 
-    @Override
-    public COMP poll() {
+    public <W extends Watchable,C extends Complication<PATH,W,C,M,?>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> C poll_() {
         return null;
     }
 
-    public Catalog<S, L, PATH, ID, T, C, ?> getCatalog() {
-        return catalog;
-    }
 
-    @SuppressWarnings("unchecked")
-    public Class<C> getConceptClass() {
-        return ((Class<C>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[5]);
-    }
-
-    /**
-     *
-     */
-    public abstract M complete(C concept) throws ExecutionExceptionly, InterruptionExceptionally, TimeoutExceptionally;
-
-    public static class Limited<P extends Pathway<P,CAT>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>> extends Predictable<S,L,PATH,ID,T,C,Criterion.Limiter,Predictable.Limited<S,L,PATH,ID,T,C>, Complication.Limitation<S,L,PATH,ID,T,C>> {
-
-        public Limited(Catalog<S,L,PATH,ID,T,C,?> catalog) {
-            super(catalog);
-        }
-
-        @Override
-        public Complication.Limitation<S,L,PATH,ID,T,C> createComplication(Limited<S,L,PATH,ID,T,C> limited, Limiter limiter, Provider<S,L,PATH,ID,T,C> provider) {
-            return new Complication.Limitation<>(this,limiter, provider);
-        }
-
-
-        @Override
-        public Boolean complete() throws ExecutionExceptionly, InterruptionExceptionally, TimeoutExceptionally {
-            return null;
-        }
-
-    }
-    public final static class Handled<S extends Scheme<S,L>,L extends Library<S,L>,PATHWAY extends Pathway<?>,ID extends Comparable<ID>,T extends Concept.Tangible<S,L,PATHWAY,ID,T,C>,C extends Concept<S,L,PATHWAY,ID,T,C>> {
-
-
-        @Override
-        public <COMP extends Complication<Y, DATUM, D, E, F, O, I, X, B, P, FAB, C, T, V, M, COMP>> COMP registerCriterion(Wrapped<DATUM, F, I, X> criterion) {
-            return null;
-        }
-
-        @Override
-        public int compareTo(Handled<Y, DATUM, D, E, F, O, I, X, B, P, FAB, C, T, V, M> o) {
-            return 0;
-        }
-    }
-
-    public final static class Time<Y extends Factory<Y,F,O,I,X,B,P,FAB,C,T,V,M>,DATUM,D extends Datum<DATUM,D,E,F,I,X,P>,E extends Ware<DATUM,D,E,F,I,X,P>,F extends Fact<F,I,X,P>,O extends Operational<Y,F,O,I,X,B,P>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,P>,P extends Model<Y,F,O,I,X,B,P>,FAB extends Fabrication<FAB,C,T,V,M>,C extends Protocol<C,M>,T extends Effect<FAB,C,T,V,M>,V extends Volume<FAB,C,T,V,M>,M extends Construct<FAB,C,T,V,M>> extends Predictable<Y,DATUM,D,E,F,O,I,X,B,P,FAB,C,T,V,M, Timed<DATUM,F,I,X>,Time<Y,DATUM,D,E,F,O,I,X,B,P,FAB,C,T,V,M>> {
-
-        @Override
-        public <COMP extends Complication<Y, DATUM, D, E, F, O, I, X, B, P, FAB, C, T, V, M, COMP>> COMP registerCriterion(Timed<DATUM, F, I, X> criterion) {
-            return null;
-        }
-
--        @Override
-        public int compareTo(Time<Y, DATUM, D, E, F, O, I, X, B, P, FAB, C, T, V, M> o) {
-            return 0;
-        }
-    }
-    public final static class Downer<DATUM,S extends Scheme<S,L,PATH>,L extends Library<S,L,PATH>,PATH extends Comparable<PATH>,F extends Fact<S,L,PATH,F>,CRIT extends Criterion,P extends Predictable<DATUM,S,L,PATH,F,CRIT,P>>extends Predictable<DATUM,S,L,PATH,F,CRIT,OnCountdown<DATUM,F,I,X>,Downer<Y,DATUM,D,E,F,O,I,X,B,P,FAB,C,T,V,M>> {
-
+    @Override
+    public WatchKey poll() {
+        return this.poll_();
     }
 
     @Override
     public void close() throws IOException {
-
+        this.open = false;
     }
+
+    @Override
+    public WatchKey poll(long timeout, TimeUnit unit) throws InterruptedException {
+        return null;
+    }
+
+    @Override
+    public WatchKey take() throws InterruptedException {
+        return null;
+    }
+
+
+//    @SuppressWarnings("unchecked")
+//    public Class<C> getConceptClass() {
+//        return ((Class<C>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[5]);
+//    }
 
 }

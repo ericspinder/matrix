@@ -1,35 +1,46 @@
 package dev.inward.matrix.fact;
 
-import dev.inward.matrix.Administration;
-import dev.inward.matrix.Dogma;
-import dev.inward.matrix.Pathway;
-import dev.inward.matrix.Range;
-import dev.inward.matrix.director.library.Director;
+import dev.inward.matrix.*;
 
-public interface Addressed<PATH extends Comparable<PATH>,D extends Addressed.Directory<PATH,D>,ID extends Comparable<ID>,I extends Addressed.Identity<PATH,D,ID,I,A>,A extends Addressed<PATH,D,ID,I,A>> extends Comparable<A> {
+import java.lang.ref.Reference;
+import java.util.function.Function;
 
-    Dogma userInfo();
-    I getIdentity();
-    D getDirectory();
+public abstract class Addressed<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<PATH,ID,I,A,R,PR>,A extends Addressed<PATH,ID,I,A,R,PR>,R extends Representitive<PATH,ID,I,A,R,PR>,PR extends Representitive<PATH,?,?,?,PR,?>> implements Datum<A,A,R,PR>, Comparable<A> {
 
-    interface Identity<PATH extends Comparable<PATH>,D extends Directory<PATH,D>,ID extends Comparable<ID>,I extends Identity<PATH,D,ID,I,A>,A extends Addressed<PATH,D,ID,I,A>> extends Comparable<I> {
+    protected final I identity;
 
-        ID getId();
-        PATH getPath();
-        A get();
+    public Addressed(I identity) {
+        this.identity = identity;
     }
 
-    interface Ledger<PATH extends Comparable<PATH>,D extends Directory<PATH,D>> extends Comparable<Ledger<PATH,D>> {
-
-        Range<PATH> getRange();
-        Addressed<PATH,D,?,?,?> resolve(String path_s);
+    public I getIdentity() {
+        return identity;
     }
-    interface Directory<PATH extends Comparable<PATH>,D extends Directory<PATH,D>> extends Comparable<D> {
 
-        Administration getAdministration();
-        Ledger<PATH,D> getLedger();
-        PATH getPath();
+    public static class Resource<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<PATH,ID,I,A,R,PR>,A extends Addressed<PATH,ID,I,A,R,PR>,R extends Representitive<PATH,ID,I,A,R,PR>,PR extends Representitive<PATH,?,?,?,PR,?>> extends dev.inward.matrix.Resource<A,A,R,PR> {
+
+        public Resource(PR parent, String className, long warnOnTotal, long hardLimit, Function<Reference<? extends A>,Reference<? extends A>> graveDigger) {
+            super(parent, className, warnOnTotal, hardLimit, graveDigger);
+        }
     }
-    interface Administration<> extends Comparable<>
+
+
+//    interface Permit<P extends Permit<P,SUBJECT>,SUBJECT> extends Comparable<P> {
+//
+//        String PERMIT_PROPERTY = "permit";
+//        UUID getUuid();
+//        Dogma.Agent getOwner();
+//        Dogma.House getHouse();
+//
+//        List<Rule> getRules();
+//
+//        boolean allowAccess(Dogma.Persona persona, AclEntryPermission requestedPermission);
+//        void notify(Noted noted);
+//        void process(Exception exception);
+//    }
+//
+//    interface Noted {
+//        String getNote();
+//    }
 
 }

@@ -1,54 +1,77 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.concept.matter.Indicia;
-import dev.inward.matrix.fact.Concept;
+import dev.inward.matrix.fact.datum.Envoy;
 
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
 
-public class Resource<DATUM> extends ReferenceQueue<DATUM> {
+public class Resource<DATUM,W extends Ware<DATUM,W,PR>,PR extends Representitive<?,?,?,?,PR,?>> extends ReferenceQueue<DATUM> {
 
-    public final Concept.Resource<?,?,?,?> parent;
+    public final Representitive<?,?,?,?,PR,?> parent;
     protected final String className;
-    protected final AtomicLong count = new AtomicLong();
-    private long warnOnTotal;
-    private long hardLimit;
-    private String limitReachedMessage = null;
+    protected final AtomicLong sequence = new AtomicLong();
+    protected final AtomicLong removed = new AtomicLong();
+    protected long warnOnTotal;
+    protected long hardLimit;
+    protected String limitReachedMessage = null;
 
-    public Resource(Concept.Resource<?,?,?,?> parent, String className, long warnOnTotal, long hardLimit) {
+    public W getWare
+
+    protected Function<Reference<? extends DATUM>,Reference<? extends DATUM>> graveDigger;
+
+    /**
+     *
+     * @param parent
+     * @param className
+     * @param warnOnTotal
+     * @param hardLimit
+     * @param graveDigger
+     */
+    public Resource(Representitive<?,?,?,?,PR,?> parent, String className, long warnOnTotal, long hardLimit, Function<Reference<? extends DATUM>,Reference<? extends DATUM>> graveDigger) {
         this.parent = parent;
         this.className = className;
         this.warnOnTotal = warnOnTotal;
         this.hardLimit = hardLimit;
+        this.graveDigger = graveDigger;
     }
 
     public String getClassName() {
         return className;
     }
 
-    public void increment() throws MatrixException {
-        long currentCount = this.count.incrementAndGet();
+    public long incrementAndGet() throws MatrixException {
+        long currentCount = this.sequence.incrementAndGet();
         if (currentCount < warnOnTotal) {
             if (limitReachedMessage == null) {
-                limitReachedMessage = parent.get().;
+//                limitReachedMessage = parent.;
             }
-            throw new MatrixException(MatrixException.Type.OverLimit,, Indicia.Focus.Admonitory, Indicia.Severity.Capacity);
+            throw new MatrixException(MatrixException.Type.OverLimit,"over limit", Indicia.Focus.Admonitory, Indicia.Severity.Capacity,null);
         }
+        return currentCount;
     }
-    protected String createHardLimitMessage()
-
+    /**
+     *
+     * @return
+     */
     @Override
     public final Reference<? extends DATUM> poll() {
         Reference<? extends DATUM> bringOutYourDead = super.poll();
         if (bringOutYourDead != null) {
-            this.count.decrementAndGet();
+            this.removed.incrementAndGet();
         }
-        return bringOutYourDead;
+        return this.graveDigger.apply(bringOutYourDead);
     }
-    public long getCount() {
-        return count.get();
+    public long getSequence() {
+        return sequence.get();
+    }
+    public long getRemoved() {
+        return removed.get();
+    }
+    public long estimateCount() {
+        return this.sequence.get() - this.removed.get();
     }
 
 
@@ -69,7 +92,7 @@ public class Resource<DATUM> extends ReferenceQueue<DATUM> {
 
     }
 
-    public Policy<? super Function<DATUM,?>,DATUM,P,ID,T,C,CAT,?,?,?,?,?>[] getPolicies() {
-        return policies;
-    }
+//    public Policy<? super Function<DATUM,?>,DATUM,P,ID,T,C,CAT,?,?,?,?,?>[] getPolicies() {
+//        return policies;
+//    }
 }

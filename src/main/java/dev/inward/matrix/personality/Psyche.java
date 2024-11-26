@@ -1,36 +1,59 @@
 package dev.inward.matrix.personality;
 
+import dev.inward.matrix.Dogma;
+import dev.inward.matrix.Library;
 import dev.inward.matrix.Rule;
 
+import java.math.BigInteger;
 import java.nio.file.attribute.AclEntry;
+import java.nio.file.attribute.AclEntryPermission;
+import java.nio.file.attribute.AclEntryType;
 import java.nio.file.attribute.UserPrincipal;
 import java.security.Permission;
+import java.time.Instant;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class Psyche extends Permission {
+public class Psyche extends Personality.Ego {
 
-    protected final String description;
-    protected UserPrincipal[] userPrincipals;
+    protected Dogma.Persona persona;
+    protected Dogma.Agent[] agents;
+    protected static class Experience {
+        protected final AclEntryType aclEntryType;
+        protected final AtomicInteger count = new AtomicInteger();
+        protected Instant lastUpdate = Instant.now();
 
-    public Psyche(String name, String description,UserPrincipal[] userPrincipals) {
-        super(name);
-        this.description = description;
-        this.userPrincipals = userPrincipals;
-    }
-
-    @Override
-    public boolean implies(Permission permission) {
-        if (permission instanceof Psyche) {
-            Psyche that = (Psyche) permission;
-            if (that == null) {
-                return false;
-            }
-            return Arrays.equals(this.userPrincipals,that.userPrincipals);
+        public Experience(AclEntryType aclEntryType) {
+            this.aclEntryType = aclEntryType;
         }
-        if (permission instanceof Rule<?,?,?,?>)
 
+        public AclEntryType getAclEntryType() {
+            return aclEntryType;
+        }
+
+        public AtomicInteger getCount() {
+            return count;
+        }
+
+        public Instant getLastUpdate() {
+            return lastUpdate;
+        }
+        public void resetLastUpdate() {
+            this.lastUpdate = Instant.now();
+        }
     }
+
+    protected Map<AclEntryPermission, Experience> permissionExperienceMap = new ConcurrentHashMap<>();
+
+    public Psyche(Personality personality, Dogma.Persona persona, Dogma.Agent[] agents) {
+        super(personality, persona.getName());
+        this.persona = persona;
+        this.agents = agents;
+    }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -44,6 +67,14 @@ public class Psyche extends Permission {
 
     @Override
     public String getActions() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+        int count = 0;
+        for (Map.Entry<AclEntryPermission,Experience> entry: permissionExperienceMap.entrySet()) {
+            stringBuilder.append(entry.getKey().name());
+            if (++count != permissionExperienceMap.size()) {
+                stringBuilder.append(',');
+            }
+        }
+        return stringBuilder.toString();
     }
 }

@@ -1,73 +1,65 @@
 package dev.inward.matrix.route;
 
-import dev.inward.matrix.Library;
-import dev.inward.matrix.MatrixException;
-import dev.inward.matrix.Policy;
-import dev.inward.matrix.Scheme;
-import dev.inward.matrix.concept.matter.Indicia;
-import dev.inward.matrix.concept.matter.Matter;
-
-import java.io.Closeable;
-import java.nio.channels.AsynchronousByteChannel;
-import java.nio.channels.AsynchronousChannel;
-import java.nio.channels.AsynchronousFileChannel;
-import java.nio.channels.AsynchronousSocketChannel;
-import java.util.Queue;
+import java.io.IOException;
+import java.nio.channels.AsynchronousChannelGroup;
+import java.util.UUID;
 import java.util.concurrent.*;
 
-public abstract class Road<DISPATCH extends Dispatch<DISPATCH,R,D,RIDER>,R extends Road<DISPATCH,R,D,RIDER>,D extends Driver<DISPATCH,R,D,RIDER>,RIDER extends Closeable> extends ThreadPoolExecutor implements Comparable<R>  {
+public abstract class Road<D extends Dispatch<D,R>,R extends Road<D,R>> extends ThreadPoolExecutor implements Comparable<R>  {
 
-    protected final DISPATCH dispatch;
+    protected final D dispatch;
+    protected final UUID uuid = UUID.randomUUID();
+
+    public static class Network extends Road<Dispatch.Network, Network> {
+
+        protected final AsynchronousChannelGroup group;
+
+        public Network(Dispatch.Network dispatch, BlockingQueue<Runnable> driverQueue, Dispatch.DriverFactory<Dispatch.Network, Network> driverFactory) throws IOException {
+            super(dispatch, driverQueue,driverFactory);
+            this.group = AsynchronousChannelGroup.withThreadPool(this);
+        }
+
+        public AsynchronousChannelGroup getGroup() {
+            return group;
+        }
+    }
+    public static class Policy extends Road<Dispatch.Policy,Road.Policy> {
+
+        public Policy(Dispatch.Policy dispatch, BlockingQueue<Runnable> driverQueue, Dispatch.DriverFactory<Dispatch.Policy, Policy> driverFactory) {
+            super(dispatch, driverQueue, driverFactory);
+        }
+    }
 
 
-    public Road(DISPATCH dispatch, BlockingQueue<Policy> driverQueue) {
-        super(dispatch.corePoolSize, dispatch.maximumPoolSize, dispatch.keepAliveTime, dispatch.defaultTimeUnit,driverQueue, dispatch ,dispatch);
+    public Road(D dispatch, BlockingQueue<Runnable> driverQueue, Dispatch.DriverFactory<D,R> driverFactory) {
+        super(dispatch.corePoolSize, dispatch.maximumPoolSize, dispatch.keepAliveTime, dispatch.defaultTimeUnit,driverQueue,driverFactory, dispatch);
         this.dispatch = dispatch;
     }
 
-    public static class Way<RIDER extends AsynchronousChannel> extends Road<Dispatch.Controller<RIDER>,Road.Way<RIDER>,Driver.Pilot<RIDER>, RIDER> {
-
-        public Way(Dispatch.Controller dispatch, BlockingQueue<Runnable> driverQueue) {
-            super(dispatch, driverQueue);
-        }
-    }
-    public static class Concrete extends Road<Dispatch.Editor,Road.Concrete,Driver.Scribe, AsynchronousFileChannel> {
-
-        public Concrete(Dispatch.Editor dispatch, BlockingQueue<Runnable> driverQueue) {
-            super(dispatch, driverQueue);
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    protected void beforeExecute(Thread t, Runnable r) {
-        try {
-            D driver = (D) t;
-            driver.setLastBeginning();
-        }
-        catch (ClassCastException classCastException) {
-            throw new MatrixException(MatrixException.Type.ClassCastException,"Road Creation", Indicia.Focus.Genesis, Indicia.Severity.Unexpected,new Exception("stacktrace"));
-        }
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    protected void afterExecute(Runnable r, Throwable t) {
-        D driver = (D) Thread.currentThread();
-        driver.
-    }
-
-    @Override
-    protected <T> RunnableFuture<T> newTaskFor(Runnable runnable, T value) {
-        return super.newTaskFor(runnable, value);
-    }
-
-    public Dispatch<S,L,R> getDispatch() {
+    public D getDispatch() {
         return dispatch;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public int compareTo(R that) {
-        return 0;
+        int isZero = this.dispatch.compareTo(that.dispatch);
+        if (isZero == 0) {
+            isZero = ((Dispatch.DriverFactory<D,R>)this.getThreadFactory()).getRoadName().compareTo(((Dispatch.DriverFactory<D,R>)that.getThreadFactory()).getRoadName());
+            if (isZero == 0) {
+                return this.uuid.compareTo(that.uuid);
+            }
+        }
+        return isZero;
+    }
+
+    @Override
+    protected void beforeExecute(Thread t, Runnable r) {
+        super.beforeExecute(t, r);
+    }
+
+    @Override
+    protected void terminated() {
+        super.terminated();
     }
 }

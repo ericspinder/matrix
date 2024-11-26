@@ -12,18 +12,23 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingDeque;
 
-public class Ziggurat extends Source {
+public final class Ziggurat {
 
-    protected final LocalSystemNetworking localSystemNetworking = LocalSystemNetworking.getInstance();
-    protected final CommandLine commandLine;
-    protected final Instrumentation instrumentation;
+    private static Ziggurat Instance = null;
 
-    protected final Map<Context.Ethereal, Host> etherealAuthorityMap = new HashMap<>();
+    public static Ziggurat getInstance() {
+        return Instance;
+    }
 
-    protected Map<String,? super Resource<?>> datumMap = new HashMap<>();
+    private final LocalSystemNetworking localSystemNetworking = LocalSystemNetworking.getInstance();
+    private final CommandLine commandLine;
+    private final Instrumentation instrumentation;
 
-    public Ziggurat(Identity.Ghost ghost, CommandLine commandLine, Instrumentation instrumentation) {
-        super(ghost,null,null,null);
+    private final Map<> etherealAuthorityMap = new HashMap<>();
+
+    private Map<String,? super Resource<?>> datumMap = new HashMap<>();
+
+    private Ziggurat(CommandLine commandLine, Instrumentation instrumentation) {
         this.commandLine = commandLine;
         this.instrumentation = instrumentation;
     }
@@ -45,8 +50,7 @@ public class Ziggurat extends Source {
     }
 
     public static void premain(String agentArgs, Instrumentation instrumentation) throws InstantiationException {
-        LinkedBlockingDeque<Init> deque = new LinkedBlockingDeque<>();
-        Startup startup = new Startup(new CommandLine(agentArgs), instrumentation);
+        Instance = new Ziggurat(new CommandLine(agentArgs),instrumentation);
 
 //        deque.add(new Init(new Specification(), new Context.Demarc, agentArgs));
 

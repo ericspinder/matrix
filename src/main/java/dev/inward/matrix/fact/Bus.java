@@ -1,11 +1,11 @@
 package dev.inward.matrix.fact;
 
 import dev.inward.matrix.*;
-import dev.inward.matrix.fact.datum.Ware;
+import dev.inward.matrix.fact.datum.Envoy;
 
 import java.util.*;
 
-public class Bus<DATUM, R extends Ware<DATUM, R,P,ID,T,C,?>,P extends Pathway<P,?>,ID extends Comparable<ID>,T extends Concept.Tangible<P,ID,T,C,?>,C extends Concept<P,ID,T,C,?>> {
+public class Bus<DATUM, R extends Envoy<DATUM, R,P,ID,T,C,?>,P extends Pathway<P,?>,ID extends Comparable<ID>,T extends Concept.Identity<P,ID,T,C,?>,C extends Concept<P,ID,T,C,?>> {
 
 //        E envoy = new Envoy<DATUM>(passenger,((Context)passenger.getClass().getProtectionDomain()).getLibrary().getCatalog().register(passenger);
         public enum Schedule implements Meta_I {

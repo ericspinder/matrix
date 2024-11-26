@@ -1,41 +1,36 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.director.library.catalog.Catalog;
 import dev.inward.matrix.engine.Variant;
-import dev.inward.matrix.fact.Concept;
+import dev.inward.matrix.fact.Addressed;
+import dev.inward.matrix.fact.Fact;
 import dev.inward.matrix.fact.Factory;
-import dev.inward.matrix.fact.Rider;
 import dev.inward.matrix.personality.Personality;
 
-import java.nio.file.Path;
+import javax.annotation.Nullable;
 import java.security.Principal;
 import java.security.ProtectionDomain;
 
-public class Context<PATH extends Comparable<PATH>,P extends Pathway<PATH,P>,ID extends Comparable<ID>,T extends Concept.Tangible<PATH,P,ID,T,C,R>,C extends Concept<PATH,P,ID,T,C,R>,R extends Rider<PATH,P,ID,T,C,R>> extends ProtectionDomain {
+public abstract class Context<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<PATH,ID,I,A,R>,A extends Addressed<PATH,ID,I,A,R>,R extends Representitive<PATH,ID,I,A,R>,F extends Fact<?,F,?>> extends ProtectionDomain {
 
-    protected final P pathway;
-    public Context(Variant<PATH,P,ID,T,C> variant,
-                   Personality personality,
-                   Factory<PATH,P,ID,T,C> factory,
-                   Dogma.Agent owner, Dogma.House group,P pathway) {
+    protected final F parent;
+    public Context(Variant variant, Personality personality, Factory<PATH,X,ID,I,C,R> factory, Dogma.Agent owner, Dogma.House group, @Nullable F parent) {
         super(variant,personality,factory,new Principal[] {owner,group});
-        this.pathway = pathway;
+        this.parent = parent;
     }
 
-    public P getPathway() {
-        return this.pathway;
+    @SuppressWarnings("unchecked")
+    public Variant getVariant() {
+        return (Variant) this.getCodeSource();
     }
     @SuppressWarnings("unchecked")
-    public Variant<PATH,P,ID,T,C> getVariant() {
-        return (Variant<PATH,P,ID,T,C>) this.getCodeSource();
+    public Personality getPersonality() {
+        return (Personality)this.getPermissions();
     }
     @SuppressWarnings("unchecked")
-    public Personality<S,L,?> getPersonality() {
-        return (Personality<S,L,?>)this.getPermissions();
+    public Factory<PATH,ID,I,A,R,F> getFactory() {
+        return (Factory<PATH,X,ID,I,C,R>) this.getClassLoader();
     }
-    @SuppressWarnings("unchecked")
-    public Factory<PATH,P,ID,T,C> getFactory() {
-        return (Factory<PATH,P,ID,T,C>) this.getClassLoader();
-    }
+
+    public abstract F getAuthority();
 
 }

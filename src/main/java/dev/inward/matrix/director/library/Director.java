@@ -1,34 +1,36 @@
 package dev.inward.matrix.director.library;
 
-import dev.inward.matrix.Clerk;
 import dev.inward.matrix.Librarian;
 import dev.inward.matrix.Library;
 import dev.inward.matrix.Scheme;
+import dev.inward.matrix.route.Dispatch;
+import dev.inward.matrix.route.Driver;
 import dev.inward.matrix.route.Road;
 
-import java.io.IOException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLStreamHandler;
+import java.io.Closeable;
+import java.nio.channels.AsynchronousChannel;
+import java.nio.channels.AsynchronousFileChannel;
 import java.util.Map;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
-public abstract class Director<S extends Scheme<S,L>,L extends Library<S,L>,D extends Director<S,L,D,R>,R extends Road<S,L,R>> {
+public abstract class Director<D extends Dispatch<D,R>,R extends Road<D,R>> {
 
-    protected final S scheme;
+    protected final Scheme scheme;
     protected final R road;
-    protected final Map<Library<?,?>,Librarian<?,?,?,?>> librarians;
+    protected final Map<Library,Librarian<?,?,?,?,?,?>> librarians;
 
-    public Director(S scheme,R road) {
+    public Director(Scheme scheme,R road) {
         this(scheme,road,new ConcurrentHashMap<>());
     }
-    public Director(S scheme, R road, Map<Library<?,?>,Librarian<?,?,?,?>> librarians) {
+    public Director(Scheme scheme, R road, Map<Library,Librarian<?,?,?,?,?,?>> librarians) {
         this.scheme = scheme;
         this.road = road;
         this.librarians = librarians;
     }
 
-    public S getScheme() {
+    public Scheme getScheme() {
         return scheme;
     }
 
@@ -37,7 +39,7 @@ public abstract class Director<S extends Scheme<S,L>,L extends Library<S,L>,D ex
     }
 
 
-    public Map<Library<?, ?>, Librarian<?, ?, ?, ?>> getLibrarians() {
+    public Map<Library, Librarian<?,?,?,?,?,?>> getLibrarians() {
         return librarians;
     }
 

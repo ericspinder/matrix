@@ -7,11 +7,11 @@ import java.time.Instant;
 import java.time.Year;
 import java.util.UUID;
 
-public abstract class Session extends Gadget<Dogma.Agent<S,L>, Session.Id<S,L>,Session<S,L>> {
-    protected final char year;
+public abstract class Session extends Gadget<> {
+    protected final Instant createInstant;
     protected final UUID passepartout;
     protected Instant expire;
-    protected Dogma.Agent<S,L> agent;
+    protected Dogma.Agent agent;
     protected final static char CurrentYear() {
         return Character.forDigit(Year.now().getValue() - 1992,10);
     }

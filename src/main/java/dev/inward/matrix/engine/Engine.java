@@ -1,38 +1,37 @@
 package dev.inward.matrix.engine;
 
+import dev.inward.matrix.*;
 import dev.inward.matrix.Pathway;
 import dev.inward.matrix.fact.*;
-import dev.inward.matrix.fact.datum.Ware;
-import dev.inward.matrix.Resource;
+import dev.inward.matrix.fact.datum.Envoy;
 
 import java.time.Instant;
 import java.util.*;
 
-public class Engine<PATH extends Comparable<PATH>,P extends Pathway<PATH,P>,ID extends Comparable<ID>,T extends Concept.Tangible<PATH,P,ID,T,C>,C extends Concept<PATH,P,ID,T,C>> {
+public class Engine<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<PATH,ID,I,A,R,PR>,A extends Addressed<PATH,ID,I,A,R,PR>,R extends Representitive<PATH,ID,I,A,R,PR>,PR extends Representitive<PATH,?,?,?,PR,?>> {
 
     public final Instant createInstant = Instant.now();
-    protected final Operational<PATH,P,ID,T,C> operational;
-    protected List<M> modelList = new ArrayList<>();
+    protected final Operational operational;
     protected final Map<String,Induction<>> inductionMap = new HashMap<>();
 
 
-    public Engine(O operational, S resources) {
+    public Engine(Operational operational, Addressed.Resource<PATH,ID,I,A,R,PR> resources) {
         this.operational = operational;
-        this.operational.specification().getStandards(resources)
+        resources.specification().getStandards(resources)
         Arrays.stream(operational.specification).forEach(i ->this.inductionMap.put(i.getDatumClassName(),i));
     }
 
-    public O getOperational() {
+    public Operational getOperational() {
         return operational;
     }
 
-    public <DATUM,D extends Datum<DATUM,D>> Ware<DATUM,D,?> buildEnvoy(DATUM datum) {
+    public <DATUM,D extends Datum<DATUM,D>> Envoy<DATUM,D,?> buildEnvoy(DATUM datum) {
         Induction<> induction = (Induction<Y,DATUM,D,V,F,I,X,>) operational.specification().getStandards().get(datum.getClass());
         return induction.createEnvoy(datum,factory
         );
     }
     @SuppressWarnings("unchecked")
-    public <DATUM,D extends Datum<DATUM,D,V>,V extends Ware<DATUM,D,V>> V add(DATUM datum) {
+    public <DATUM,D extends Datum<DATUM,D,V>,V extends Envoy<DATUM,D,V>> V add(DATUM datum) {
         try {
             Resource<DATUM> resource = (Resource<DATUM>) this.producer.get(((D) datum).getClass());
             return this.defineClass()add(datum,this);

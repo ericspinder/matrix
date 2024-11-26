@@ -1,16 +1,13 @@
 package dev.inward.matrix.engine;
 
-import dev.inward.matrix.Library;
-import dev.inward.matrix.Scheme;
-import dev.inward.matrix.fact.Concept;
+import dev.inward.matrix.*;
+import dev.inward.matrix.Concept;
 import dev.inward.matrix.fact.authoritative.notion.Agent;
-import dev.inward.matrix.Notion;
-import dev.inward.matrix.Resource;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public abstract class Induction<DATUM,S extends Scheme<S,L,PATH,N>,L extends Library<S,L,PATH,N>,PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<S,L,PATH,ID,I,C>,C extends Concept<S,L,PATH,ID,I,C,N>,N extends Notion<S,L,PATH,N>> {
+public abstract class Induction<DATUM,PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<PATH,D,ID,I,C>,C extends Concept<PATH,D,ID,I,C,R>,R extends Representitive<PATH,D,ID,I,C,R> {
 
     protected final DatumVisitor<DATUM> datumVisitor;
     protected final Resource<DATUM,S,L,PATH,ID,I,C,N> resource;

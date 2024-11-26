@@ -1,24 +1,22 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.director.library.catalog.Catalog;
-import dev.inward.matrix.fact.Concept;
+import dev.inward.matrix.director.library.catalog.Ledger;
 
-public abstract class Librarian<P extends Pathway<P,CAT>,ID extends Comparable<ID>,T extends Concept.Tangible<P,ID,T,C,CAT>,C extends Concept<P,ID,T,C,CAT>,CAT extends Catalog<P,CAT>> implements Comparable<Librarian<P,ID,T,C,CAT>> {
+public abstract class Librarian<PATH extends Comparable<PATH>,X extends Context<PATH,X,ID,I,C,R>,ID extends Comparable<ID>,I extends Concept.Identity<PATH,X,ID,I,C,R>,C extends Concept<PATH,X,ID,I,C,R>,R extends Representitive<PATH,X,ID,I,C,R>> {
 
-    protected final Library<?> library;
-    protected Concept.Resource<P,ID,T,C,CAT> resource;
+    protected final Ledger<PATH> ledger;
+    protected Concept.Resource<PATH,D,ID,T,C,R> resource;
 
-    public Librarian(Library<?> library, Concept.Resource<P,ID,T,C,CAT> resource) {
-        this.library = library;
+    public Librarian(Ledger<PATH,D> ledger, Concept.Resource<PATH,D,ID,T,C,R> resource) {
+        this.ledger = ledger;
         this.resource = resource;
     }
 
-    public Range<PATH> getRange() {
-        return range;
+    public Ledger<PATH, D> getCatalog() {
+        return ledger;
     }
 
-    @Override
-    public int compareTo(B that) {
-        return 0;
+    public Concept.Resource<PATH,D,ID,T,C,R> getResource() {
+        return this.resource;
     }
 }

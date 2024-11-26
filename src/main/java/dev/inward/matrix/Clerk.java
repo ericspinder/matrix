@@ -1,103 +1,112 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.route.Dispatch;
-import dev.inward.matrix.route.Driver;
+import dev.inward.matrix.fact.authoritative.notion.authority.source.ziggurat.Ziggurat;
 import dev.inward.matrix.route.Road;
 
-import java.io.Closeable;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.SocketOption;
+import java.net.URI;
 import java.nio.channels.*;
-import java.util.WeakHashMap;
+import java.nio.charset.Charset;
+import java.sql.Connection;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.locks.StampedLock;
 
-public abstract class Clerk<DISPATCH extends Dispatch<DISPATCH,R,D, REMOTE>,R extends Road<DISPATCH,R,D, REMOTE>,D extends Driver<DISPATCH,R,D, REMOTE>, REMOTE extends Closeable,C extends Clerk<DISPATCH,R,D, REMOTE,C>> implements Comparable<C> {
+public abstract class Clerk {
 
+    protected final Library<?,?,?> library;
 
     protected final StampedLock gate = new StampedLock();
-    protected transient WeakHashMap<REMOTE,  D> engagedRiders;
 
-    protected abstract R getRoad();
-
-    public Clerk() {
+    public Clerk(Library<?,?,?> library) {
+        this.library = library;
     }
 
-    public abstract REMOTE makeConnection() throws IOException;
+    public abstract static class File extends Clerk {
 
-    public abstract static class File extends Clerk<Dispatch.Editor,Road.Concrete,Driver.Scribe,AsynchronousFileChannel,File> {
-
-        public File(Road.Concrete road) {
-
+        public File(Library<?,?,?> library) {
+            super(library);
         }
     }
 
-    public static class JDBC extends Clerk<Dispatch.SQL> {
+    public abstract static class JDBC extends Clerk {
 
-    }
+        protected final Connection connection;
 
-    public abstract static class Network<H extends Host, RIDER extends AsynchronousChannel,N extends Network<H, RIDER,N>> extends Clerk<Dispatch.Controller<RIDER>,Road.Way<RIDER>,Driver.Pilot<RIDER>,RIDER,N> {
-
-        protected final H host;
-
-        @SuppressWarnings("ReassignedVariable")
-        public Network(H host) {
-            this.host = host;
+        public JDBC(Library<?,?,?> library, Connection connection) {
+            super(library);
+            this.connection = connection;
         }
 
+        public Connection getConnection() {
+            return connection;
+        }
+    }
 
+    public abstract static class Network<H extends Host<S>,S extends SocketAddress,C extends AsynchronousChannel & NetworkChannel> extends Clerk {
 
-        public static class Client extends Network<Host.Remote,AsynchronousSocketChannel,Client> {
+        protected final H source;
+        protected final C channel;
+        protected final Charset charset;
+        public Network(Library<?,?,?> library, H source, C channel, Map<SocketOption<Object>,Object> socketOptions,Charset charset) throws IOException {
+            super(library);
+            this.source = source;
+            this.channel = channel;
+            for (SocketOption<Object> socketOption: socketOptions.keySet()) {
+                this.channel.setOption(socketOption,socketOptions.get(socketOption));
+            }
+            this.charset = charset;
+        }
 
-            public Host.Principal localSocket;
-            public Client(Road.Way<AsynchronousSocketChannel> road,Host.Remote remoteHost, Host.Principal localSocket) {
-                super(road,remoteHost);
+        public Charset getCharset() {
+            return charset;
+        }
 
+        public static class Client extends Network<Host.Remote,SocketAddress.Remote,AsynchronousSocketChannel> {
+
+            public Client(Library<?,?,?> library, Host.Remote remoteHost, AsynchronousChannelGroup group, SocketAddress socketAddress, Map<SocketOption<Object>,Object> socketOptions, Charset charset, URI uri) throws IOException, ExecutionException, InterruptedException {
+                super(library, remoteHost,AsynchronousSocketChannel.open(group),socketOptions,charset);
+                (this.channel.connect(socketAddress.inetSocketAddress)).get();
+                uri.get
             }
 
-            @Override
-            public AsynchronousSocketChannel makeConnection() throws IOException {
+            public OutputStream getOutputStream() throws IOException {
+                this.channel.write(outputStream,(int) source.properties.getOrDefault("timeout_value",5),);
+            }
+
+            public InputStream getInputStream() throws IOException {
                 return null;
             }
 
-            @Override
-            public int compareTo(Client that) {
-                int isZero = this.road.compareTo(that.road);
-                if (isZero == 0) {
-                    isZero = this.host.compareTo(that.host);
-                    if (isZero == 0) {
-                        return this.localSocket.compareTo(that.localSocket);
-                    }
-                }
-                return isZero;
+            public static class Request {
 
-            }
+                protected final Library library;
+                protected final Host.Remote remote;
+                public Request(URI uri) {
+                    Ziggurat.Instance().
 
-            public static class NameServer extends Client {
-
-                public NameServer(Road.Way road, Host.Remote remoteHost, Host.Principal localSocket) {
-                    super(road, remoteHost, localSocket);
                 }
             }
+
         }
-        public static class Server extends Network<Host.Principal,AsynchronousServerSocketChannel,Server> {
+        public static class Server extends Network<Host.LocalHost, SocketAddress.Local,AsynchronousServerSocketChannel> {
 
             private SelectionKey selectionKey;
 
-            public Server(Road.Way<AsynchronousServerSocketChannel> road, Host.Principal principalHost) {
-                super(road,principalHost);
-            }
-
-            @Override
-            public AsynchronousServerSocketChannel makeConnection() throws IOException {
-                return null;
-            }
-
-            @Override
-            public int compareTo(Server o) {
-                return 0;
+            public Server(Library<?,?,?> library, Host.LocalHost localHost, Road.Network<?> network, Map<SocketOption<Object>,Object> socketOptions, Charset charset, int backlog) throws IOException {
+                super(library,localHost,AsynchronousServerSocketChannel.open(network.getGroup()),socketOptions,charset);
+                this.channel.bind(localHost.socketAddresses.inetSocketAddress,backlog);
+                this.channel.
             }
         }
-        public H getHost() {
-            return host;
+        public H getSource() {
+            return source;
+        }
+        public C getChannel() {
+            return channel;
         }
     }
 }

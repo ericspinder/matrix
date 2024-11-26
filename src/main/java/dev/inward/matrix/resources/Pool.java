@@ -1,7 +1,7 @@
 package dev.inward.matrix.resources;
 
 import dev.inward.matrix.Resource;
-import dev.inward.matrix.fact.datum.Ware;
+import dev.inward.matrix.fact.datum.Envoy;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -11,7 +11,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 
-public class Pool<DATUM,D extends Datum<DATUM,D,V>, V extends Ware<DATUM,D,V>> extends Resource<DATUM,D,V> {
+public class Pool<DATUM,D extends Datum<DATUM,D,V>, V extends Envoy<DATUM,D,V>> extends Resource<DATUM,D,V> {
 
     /**
      * Default timeout when loaned out

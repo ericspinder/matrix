@@ -22,7 +22,7 @@ public class LocalSystemNetworking {
                 newInstance.enrollPlatformInterfaceAddresses();
             }
             catch (SocketException se) {
-                throw new MatrixException(MatrixException.Type.NetworkUnavailable_No_Return, newInstance.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Exceptional,se);
+                throw new MatrixException(MatrixException.Type.NetworkUnavailable_No_Return,"Local System Networking", Indicia.Focus.Admonitory, Indicia.Severity.Exceptional,se);
             }
             INSTANCE = newInstance;
         }
@@ -30,7 +30,7 @@ public class LocalSystemNetworking {
     }
 
     Map<NetworkMapping,Instant> externalActiveInterfaces = new ConcurrentHashMap<>();
-    Map<NetworkMapping,Instant> loopbackActiveInterfaces = new ConcurrentHashMap<>();
+    Map<NetworkMapping,Instant> loopBackActiveInterfaces = new ConcurrentHashMap<>();
     Map<NetworkMapping,Instant> inactiveInterfaces = new ConcurrentHashMap<>();
 
     public static final class NetworkMapping implements Comparable<NetworkMapping> {
@@ -66,8 +66,8 @@ public class LocalSystemNetworking {
         return this.externalActiveInterfaces;
     }
 
-    public final Map<NetworkMapping,Instant> getLoopbackActiveInterfaces() {
-        return this.loopbackActiveInterfaces;
+    public final Map<NetworkMapping,Instant> getLoopBackActiveInterfaces() {
+        return this.loopBackActiveInterfaces;
     }
 
     public final Map<NetworkMapping,Instant> getInactiveInterfaces() {
@@ -95,12 +95,12 @@ public class LocalSystemNetworking {
 
     private final void parseInetAddresses(int layer, NetworkInterface networkInterface) throws SocketException {
         if (layer > 3) {
-            throw new MatrixException(MatrixException.Type.Recursion,this.getClass(), Indicia.Focus.Assembly, Indicia.Severity.Unexpected, new Exception("Layer: " + layer));
+            throw new MatrixException(MatrixException.Type.Recursion,"Local Systems Networking", Indicia.Focus.Assembly, Indicia.Severity.Unexpected, new Exception("Layer: " + layer));
         }
         for (InterfaceAddress ifAddress : networkInterface.getInterfaceAddresses()) {
             if (networkInterface.isLoopback()) {
                 if (ifAddress.getBroadcast() != null) {
-                    this.loopbackActiveInterfaces.put(new NetworkMapping(ifAddress,networkInterface),Instant.now());
+                    this.loopBackActiveInterfaces.put(new NetworkMapping(ifAddress,networkInterface),Instant.now());
                 } else {
                     this.inactiveInterfaces.put(new NetworkMapping(ifAddress,networkInterface),Instant.now());
                 }
@@ -113,7 +113,7 @@ public class LocalSystemNetworking {
             }
         }
         Enumeration<java.net.NetworkInterface> subInterfacesEnumeration = networkInterface.getSubInterfaces();
-        if (subInterfacesEnumeration != null && subInterfacesEnumeration.hasMoreElements()) {
+        if (subInterfacesEnumeration.hasMoreElements()) {
             while (subInterfacesEnumeration.hasMoreElements()) {
                 this.parseInetAddresses(layer + 1, subInterfacesEnumeration.nextElement());
             }
@@ -122,7 +122,7 @@ public class LocalSystemNetworking {
     private OS parseOS() {
         String osName = System.getProperty("os.name");
         if (osName == null) {
-            throw new MatrixException(MatrixException.Type.UnableToParseOS, this.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Unexpected,null);
+            throw new MatrixException(MatrixException.Type.UnableToParseOS, "Local Systems Networking", Indicia.Focus.Admonitory, Indicia.Severity.Unexpected, new Exception("\"os.name\" system property not found"));
         }
         osName = osName.toLowerCase(Locale.ENGLISH);
         if (osName.contains("windows")) {

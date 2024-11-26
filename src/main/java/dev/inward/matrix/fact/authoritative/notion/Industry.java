@@ -1,6 +1,7 @@
 package dev.inward.matrix.fact.authoritative.notion;
 
 
+import dev.inward.matrix.Aspect;
 import dev.inward.matrix.Scheme;
 import dev.inward.matrix.Library;
 import dev.inward.matrix.fact.Fact;

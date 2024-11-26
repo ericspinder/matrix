@@ -1,7 +1,7 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.director.HttpScheme;
-import dev.inward.matrix.director.library.catalog.Catalog;
+import dev.inward.matrix.director.library.catalog.Ledger;
 import dev.inward.matrix.memory.Memory;
 
 import java.nio.file.Path;
@@ -13,7 +13,7 @@ public class HttpLibrary extends Library<HttpScheme,HttpLibrary,String> {
     }
 
     @Override
-    protected Catalog<HttpScheme, HttpLibrary, String> initCatalog(HttpLibrary library, Memory<String>... memories) {
+    protected Ledger<HttpScheme, HttpLibrary, String> initCatalog(HttpLibrary library, Memory<String>... memories) {
         return null;
     }
 

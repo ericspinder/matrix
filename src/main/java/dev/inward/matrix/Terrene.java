@@ -12,19 +12,18 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Terrene implements Comparable<Terrene> {
-    public static final Terrene Earth = new Terrene("IN","earth","in");
-    public static final Terrene Luna = new Terrene("LN","luna","moon","ln");
-    public static final Terrene Helios = new Terrene("HS","helios","hs");
-    public static final Terrene Chaosnet = new Terrene("CS","chaosnet","cs");
+    public static final Terrene Earth = new Terrene("IN","earth");
+    public static final Terrene Luna = new Terrene("LN","luna.earth");
+    public static final Terrene Helios = new Terrene("HS","helios");
+    public static final Terrene Chaosnet = new Terrene("CS","chaosnet");
     public static final Terrene Aforementioned = new Terrene('\u0000',"Aforementioned");
 
     protected static final Map<String,Terrene> KnownWorlds = new ConcurrentHashMap<>();
 
-    public static final Terrene Parse(String alias) {
-        if (alias == null) {
-            return Earth;
-        }
-        return KnownWorlds.get(alias);
+    public static Terrene Parse(String alias) {
+        Terrene terrene = KnownWorlds.get(alias);
+        if (terrene == null) return Earth;
+        return terrene;
     }
 
     public final char terrene;
@@ -58,19 +57,19 @@ public class Terrene implements Comparable<Terrene> {
 
     public final static class EarthRoots {
 
-        public final Domain com_a = new Domain("com.a");
-        public final Domain com_b = new Domain("com.b");
-        public final Domain com_c = new Domain("com.c");
-        public final Domain com_d = new Domain("com.d");
-        public final Domain com_e = new Domain("com.e");
-        public final Domain com_f = new Domain("com.f");
-        public final Domain com_g = new Domain("com.g");
-        public final Domain com_h = new Domain("com.h");
-        public final Domain com_i = new Domain("com.i");
-        public final Domain com_j = new Domain("com.j");
-        public final Domain com_k = new Domain("com.k");
-        public final Domain com_l = new Domain("com.l");
-        public final Domain com_m = new Domain("com.m");
+        public final Domain com_a = new Domain(Earth,"com.a");
+        public final Domain com_b = new Domain(Earth,"com.b");
+        public final Domain com_c = new Domain(Earth,"com.c");
+        public final Domain com_d = new Domain(Earth, "com.d");
+        public final Domain com_e = new Domain(Earth, "com.e");
+        public final Domain com_f = new Domain(Earth, "com.f");
+        public final Domain com_g = new Domain(Earth, "com.g");
+        public final Domain com_h = new Domain(Earth, "com.h");
+        public final Domain com_i = new Domain(Earth, "com.i");
+        public final Domain com_j = new Domain(Earth, "com.j");
+        public final Domain com_k = new Domain(Earth, "com.k");
+        public final Domain com_l = new Domain(Earth, "com.l");
+        public final Domain com_m = new Domain(Earth, "com.m");
 
         protected final List<ServerRecord> serverRecords;
 

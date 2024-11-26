@@ -6,22 +6,19 @@ import dev.inward.matrix.concept.matter.Indicia;
 
 public abstract class Fidelity {
 
-    public static final InSitu Aforementioned = new InSitu();
-
-    public static final Default Jail = new Default(Short.MIN_VALUE);
-    public static final Default Notary = new Default((short)1);
-    public static final Default Hoard = new Default((short)10001);
-    public static final Default Storage = new Default((short)15001);
-    public static final Default Cache = new Default((short)20001);
-
     private static class InSitu extends Fidelity {
+        public static final InSitu Aforementioned = new InSitu();
 
         public InSitu() {
             super((short)0);
         }
     }
     public static class Default extends Fidelity {
-
+        public static final Default Jail = new Default(Short.MIN_VALUE);
+        public static final Default Notary = new Default((short)1);
+        public static final Default Hoard = new Default((short)10001);
+        public static final Default Storage = new Default((short)15001);
+        public static final Default Cache = new Default((short)20001);
         public Default(short fidelity) {
             super(fidelity);
             if (fidelity == (short)0) {

@@ -1,8 +1,8 @@
 package dev.inward.matrix.personality;
 
-import java.security.Permission;
+import dev.inward.matrix.Dogma;
 
-public class Screw extends Personas {
+public class Screw extends Dogma.Persona {
 
     public Screw(String name, char[] personas) {
         super(name, personas);

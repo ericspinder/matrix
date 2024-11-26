@@ -1,12 +1,9 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.fact.Concept;
-
 import java.lang.ref.SoftReference;
 import java.nio.file.attribute.AclFileAttributeView;
-import java.nio.file.attribute.FileAttributeView;
 
-public abstract class View<PATH extends Comparable<PATH>,P extends Pathway<PATH,P>,ID extends Comparable<ID>,T extends Concept.Tangible<PATH,P,ID,T,C>,C extends Concept<PATH,P,ID,T,C>> implements AclFileAttributeView, Comparable<View<PATH,P,ID,T,C>> {
+public abstract class View<PATH extends Comparable<PATH>,P extends Pathway<PATH,P>,ID extends Comparable<ID>,T extends Concept.Identity<PATH,P,ID,T,C>,C extends Concept<PATH,P,ID,T,C>> implements AclFileAttributeView, Comparable<View<PATH,P,ID,T,C>> {
 
     protected final SoftReference<C> concept;
     protected final String name;

@@ -1,35 +1,56 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.concept.matter.Indicia;
+import java.util.Map;
+import java.util.WeakHashMap;
 
-import javax.annotation.Nonnull;
-import java.net.MalformedURLException;
-import java.net.URL;
+public final class Domain implements Comparable<Domain> {
 
-public class Domain implements Comparable<Domain> {
+    private final static Map<String,Domain> All_Known_Domains = new WeakHashMap<>();
 
-    protected final String domain;
-    protected transient URL url = null;
-
-    public Domain(@Nonnull String domain) {
-        this.domain = domain;
+    public synchronized static Domain getInstance(String domain_string) {
+        Domain domain = All_Known_Domains.get(domain_string);
+        if (domain != null) return domain;
+        All_Known_Domains.put(domain_string, new Domain(domain_string));
+        return All_Known_Domains.get(domain_string);
     }
+    private final String domain;
+    private final Map<String,Library<?,?,?>> schemeLibrary = new WeakHashMap<>();
 
-    public URL getUrl() {
-        if (url == null) {
-            try {
-                this.url = new URL(domain);
-            }
-            catch (MalformedURLException malformedURLException) {
-                throw new MatrixException(MatrixException.Type.Domain_not_initialized_malformed_URL,"unable to create domain", Indicia.Focus.Assembly, Indicia.Severity.Exceptional,malformedURLException);
-            }
-        }
-        return url;
+    public Domain(String domain) {
+        this.domain = domain;
+        All_Known_Domains.put(domain, this);
     }
 
     @Override
     public int compareTo(Domain that) {
-        return this.url.toExternalForm().compareTo(that.url.toExternalForm());
+        return this.domain.compareTo(that.domain);
     }
 
+    public String domain() {
+        return domain;
+    }
+
+    @SuppressWarnings("unchecked")
+    public synchronized <S extends Scheme<S,L,PATH>,L extends Library<S,L,PATH>,PATH extends Comparable<PATH>> L getLibrary(S scheme) {
+        L library = (L) schemeLibrary.get(scheme.scheme);
+        if (library != null) return library;
+        schemeLibrary.put(scheme.scheme, new Library<>(scheme,this));
+        return (L) schemeLibrary.get(scheme.scheme);
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Domain{");
+        sb.append("domain='").append(domain).append('\'');
+        sb.append(", schemeLibrary=");
+        for (Map.Entry<String,Library<?,?,?>> schemaLibrary: schemeLibrary.entrySet()) {
+            sb.append(schemaLibrary.getKey()).append(" bound for ").append(schemaLibrary.getValue().)
+        }
+        sb.append('}');
+        return sb.toString();
+    }
 }

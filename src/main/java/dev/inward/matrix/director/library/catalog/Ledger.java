@@ -4,10 +4,8 @@ import dev.inward.matrix.*;
 import dev.inward.matrix.memory.Memory;
 import dev.inward.matrix.fact.Addressed;
 import dev.inward.matrix.fact.Predictable;
-import dev.inward.matrix.fact.Rider;
 import dev.inward.matrix.fact.datum.Complication;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.nio.file.*;
@@ -17,31 +15,21 @@ import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.StampedLock;
-import java.util.regex.Pattern;
+import java.util.function.Supplier;
 
-public abstract class Catalog<PATH extends Comparable<PATH>,P extends Pathway<PATH,P>> extends FileSystem implements Addressed.Ledger<PATH,P> {
+public abstract class Ledger<PATH extends Comparable<PATH>> extends FileSystem implements Comparable<Ledger<PATH>> {
 
-    protected final Map<Clerk<?,?,?,?,?>,Domain> domains = HashMap.newHashMap(1);
-    protected boolean open = true;
-    protected final Map<> memories;
-    protected final Map<Gathering<PATH,P,?,?,?,CAT>,Update> directories;
+    protected boolean open;
+    protected final Map<String,Gathering<PATH,?,?,?,?,?,?>[]> directoriesByClass;
 
-    protected final Library<?> library;
+    protected final Library<?,?,PATH> library;
+    protected Range<PATH> range;
 
-    public abstract Librarian<P,?,?,?,CAT> getLibrarian();
+    protected abstract Librarian<PATH,?,?,?,?,?> getLibrarian();
 
-
-
-    public final Range<P> range;
-
-    public Catalog(Library<?> library, @Nonnull Range<P> range, @Nullable Map<Memory<P>,Clerk<?,?,?,?,?>[]> memories, List<Gathering<P,?,?,?,CAT>> directoriesSeed) {
+    public Ledger(Library<?,?,PATH> library, @Nullable Map<Memory<?,PATH>, Supplier<Clerk>> memorySupplierMap, Map<Addressed.Resource<PATH,?,?,?,?,?>,Gathering<PATH,?,?,?,?,?,?>[]> directoriesSeed) {
         this.library = library;
-        this.range = range;
-        this.memories = new ConcurrentHashMap<>(memories);
-        this.directories = new ConcurrentHashMap<>();
-        for (Gathering<P,?,?,?,CAT> gathering: directoriesSeed) {
-            this.directories.put(gathering,new Update());
-        }
+        this.directoriesByClass = new ConcurrentHashMap<>(directoriesSeed);
     }
 
     public boolean processFailure(Complication<S,L,PATH,ID,T,C,?,?,?,?,?> complication, MatrixException matrixException) {
@@ -49,34 +37,16 @@ public abstract class Catalog<PATH extends Comparable<PATH>,P extends Pathway<PA
         return true;
     }
 
-    public Library<?> getLibrary() {
+    public Library<?,?,?> getLibrary() {
         return library;
     }
 
-    public Range<P> getRange() {
+    public Range<PATH> getRange() {
         return this.range;
     }
 
-    public Rider<S,L,PATH,ID,T,C> register(C concept, Gathering<S,L,PATH,ID,T,C,CAT> gathering) {
-        gathering
-    }
-
-    public final Pattern getBarrierSigilPattern() {
-        return barrierSigilPattern;
-    }
-
-
-
-    public final Map<Range<PATH>, Memory<S,L,PATH>> getPathsMemoryMatching() {
-        return pathsMemoryMatching;
-    }
-
-    public final Map<PATH, Map<Gathering.Index<S,L,PATH,?,?,?,?,?>,Instant>> getDirectoriesLastUpdated() {
-        return directoriesLastUpdated;
-    }
-
     @Override
-    public int compareTo(C that) {
+    public int compareTo(Ledger<PATH> that) {
         int isZero = this.library.compareTo(that.library);
         if (isZero == 0) {
             isZero = this.memory.compareTo(that.memory);
@@ -155,7 +125,7 @@ public abstract class Catalog<PATH extends Comparable<PATH>,P extends Pathway<PA
     }
 
     @Override
-    public Predictable<S,L,PATH,ID,T,C,?,?,?,?,?> newWatchService() throws IOException {
+    public Predictable<PATH,?,?,?,?,?> newWatchService() throws IOException {
         return null;
     }
 

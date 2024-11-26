@@ -3,21 +3,93 @@ package dev.inward.matrix.personality;
 import dev.inward.matrix.*;
 import dev.inward.matrix.concept.matter.Indicia;
 
+import java.io.IOException;
+import java.lang.ref.SoftReference;
+import java.nio.file.attribute.AclEntry;
+import java.nio.file.attribute.AclEntryPermission;
+import java.nio.file.attribute.AclEntryType;
 import java.security.Permission;
 import java.security.PermissionCollection;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.Vector;
+import java.util.*;
 import java.util.concurrent.locks.StampedLock;
 
 public class Personality extends PermissionCollection {
 
-    public static final Personality Aforementioned = new Personality();
+    public abstract static class Ego extends Permission {
+
+        protected final SoftReference<Personality> personality;
+        public Ego(Personality personality, String name) {
+            super(name);
+            this.personality = new SoftReference<>(personality);
+        }
+        @Override
+        public final boolean implies(Permission that) {
+            if (that instanceof Ego) {
+                if (that instanceof Psyche && this instanceof Rule) {
+                    return this.process((Psyche) that,(Rule)this);
+                }
+                if (that instanceof Rule && this instanceof Psyche) {
+                    return this.process((Psyche)this,(Rule)that);
+                }
+                if (that instanceof Psyche && this instanceof Psyche) {
+                    return that.getName().equals(this.getName());
+                }
+                if (that instanceof Rule && this instanceof Rule) {
+                    return that.getName().equals(this.getName());
+                }
+            }
+            return false;
+        }
+        public final boolean process(Psyche psyche, Rule rule) {
+            AclEntry ruleEntry = rule.getAclEntry();
+            List<AclEntryPermission>
+            if (Arrays.stream(psyche.agents).anyMatch(k -> k.equals(ruleEntry.principal()))) {
+                if (ruleEntry.type().equals(AclEntryType.ALLOW)) {
+                    for (AclEntryPermission rulePermission : ruleEntry.permissions()) {
+                        for (AclEntryPermission psychePermission: psyche.entryPermissionCountMap.keySet()) {
+
+                        }
+                    }
+                }
+                if (ruleEntry.type().equals(AclEntryType.ALARM)) {
+
+                }
+                if (ruleEntry.type().equals(AclEntryType.AUDIT)) {
+
+                }
+                if (ruleEntry.type().equals(AclEntryType.DENY)) {
+
+                }
+            };
+        }
+    }
 
     private final StampedLock gate = new StampedLock();
-    protected final Vector<Psyche> activePsyches = new Vector<>();
-    protected final Vector<Session> offeredSessions = new Vector<>();
-    protected Psyche psyche;
+    protected final Map<Psyche,AclEntryType[]> activePsyches = new WeakHashMap<>();
+
+    public final void add(Psyche psyche, AclEntryType aclEntryType) {
+        long write = gate.writeLock();
+        List<AclEntryType> aclEntryTypeList = new ArrayList<>();
+        try {
+            if (!this.activePsyches.containsKey(psyche)) {
+                this.activePsyches.put(psyche, new AclEntryType[] {aclEntryType});
+                return;
+            }
+            AclEntryType[] oldTypes = this.activePsyches.get(psyche);
+            for (AclEntryType oldType: oldTypes) {
+                if (!((oldType.equals(AclEntryType.ALLOW) && aclEntryType.equals(AclEntryType.DENY)) || (oldType.equals(AclEntryType.DENY) && aclEntryType.equals(AclEntryType.ALLOW)))) {
+                    aclEntryTypeList.add();
+                }
+            }
+            AclEntryType[] newTypes = Arrays.copyOf(oldTypes, oldTypes.length + 1);
+            newTypes[oldTypes.length] = aclEntryType;
+            activePsyches.put(psyche, newTypes);
+
+        }
+        finally {
+            gate.unlockWrite(write);
+        }
+    }
 
     @Override
     public void add(Permission permission) {

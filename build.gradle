@@ -12,9 +12,10 @@ repositories {
 
 dependencies {
     api group: 'org.ow2.asm', name: 'asm', version: '9.2'
-    api group: 'com.google.guava', name:'guava', version: '31.1-jre'
-    testImplementation group: 'com.fasterxml.jackson.core', name:'jackson-databind', version: '2.11.1'
-    testImplementation group: 'com.h2database', name: 'h2', version: '1.4.199'
+    api group: 'org.ow2.asm', name: 'asm-util', version:'9.2'
+    api group: 'com.google.guava', name:'guava', version: '32.0.0-android'
+//    testImplementation group: 'com.fasterxml.jackson.core', name:'jackson-databind', version: ' 2.13.4.2'
+//    testImplementation group: 'com.h2database', name: 'h2', version: ' 2.2.220'
     testImplementation platform('org.junit:junit-bom:5.8.1')
     testImplementation('org.junit.jupiter:junit-jupiter')
     implementation(files('src/scratch'))

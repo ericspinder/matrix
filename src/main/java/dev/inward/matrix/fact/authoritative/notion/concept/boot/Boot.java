@@ -1,7 +1,6 @@
 package dev.inward.matrix.fact.authoritative.notion.concept.boot;
 
 import crud.Protocol;
-import dev.inward.matrix.fact.authoritative.notion.authority.source.ziggurat.Startup;
 import dev.inward.matrix.fact.operational.IntegerDefaultOption;
 
 public final class Boot extends Protocol<Boot> {

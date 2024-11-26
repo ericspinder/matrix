@@ -1,6 +1,7 @@
 package dev.inward.matrix.fact;
 
 import crud.rubric.Roller;
+import dev.inward.matrix.Criterion;
 import dev.inward.matrix.Meta_I;
 import dev.inward.matrix.dns.resourceRecord.ServerRecord;
 import dev.inward.matrix.Standard;

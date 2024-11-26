@@ -1,104 +1,149 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.director.library.catalog.Catalog;
-import dev.inward.matrix.fact.*;
-import dev.inward.matrix.concept.matter.Indicia;
-
+import java.nio.file.Watchable;
+import java.util.Iterator;
 import java.util.Queue;
 import java.util.concurrent.locks.StampedLock;
+import java.util.function.Function;
 
-public abstract class Provider<PATH extends Comparable<PATH>,P extends Pathway<PATH,P>,ID extends Comparable<ID>,T extends Concept.Tangible<PATH,P,ID,T,C>,C extends Concept<PATH,P,ID,T,C>>  {
+public abstract class Provider<W extends Watchable> implements Iterator<W> {
 
-    private boolean on = true;
-    public Provider() {
 
+    public Provider(W watched) {
+        this.setInitialValue(watched);
     }
 
-    public abstract C getConcept();
+    protected abstract void setInitialValue(W watched);
+    abstract boolean reset();
 
-    public final void off() {
-        this.on = false;
-    }
-    public final boolean isOn() {
-        return on;
-    }
+    public static class Finder<W extends Watchable> extends Provider<W> {
 
-    public static final class Provided<PATH extends Comparable<PATH>,P extends Pathway<PATH,P>,ID extends Comparable<ID>,T extends Concept.Tangible<PATH,P,ID,T,C>,C extends Concept<PATH,P,ID,T,C>> extends Provider<PATH,P,ID,T,C> {
-
-        protected final C concept;
-
-        public Provided(C concept) {
-            super();
-            if (concept == null) throw new NullPointerException("Provided Context is null");
-            this.concept = concept;
-        }
-        @Override
-        public C getConcept() {
-            if (isOn()) return this.concept;
-            return null;
-        }
-
-    }
-    public static final class Soft<PATH extends Comparable<PATH>,P extends Pathway<PATH,P>,ID extends Comparable<ID>,T extends Concept.Tangible<PATH,P,ID,T,C>,C extends Concept<PATH,P,ID,T,C>> extends Provider<PATH,P,ID,T,C> {
-
-        protected final T tangible;
-
-        public Soft(T tangible) {
-            super();
-            this.tangible = tangible;
+        public Finder(W watched) {
+            super(watched);
         }
 
         @Override
-        public C getConcept() {
-            if (isOn()) return tangible.get();
+        public boolean hasNext() {
+            return false;
+        }
+
+        @Override
+        public W next() {
             return null;
         }
 
-    }
-    public static final class Current<PATH extends Comparable<PATH>,P extends Pathway<PATH,P>,ID extends Comparable<ID>,T extends Concept.Tangible<PATH,P,ID,T,C>,C extends Concept<PATH,P,ID,T,C>> extends Provider<PATH,P,ID,T,C> {
+        @Override
+        public void remove() {
+            super.remove();
+        }
 
-        private C concept;
+        @Override
+        protected void setInitialValue(W watched) {
+
+        }
+
+        @Override
+        boolean reset() {
+            return false;
+        }
+    }
+
+    public static class Provided<W extends Watchable> extends Provider<W> {
+
+        protected W watched;
+
+        public Provided(W watched) {
+            super(watched);
+        }
+
+        @Override
+        public void setInitialValue(W watched) {
+            this.watched = watched;
+        }
+
+        @Override
+        boolean reset() {
+            return false;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return false;
+        }
+
+        @Override
+        public W next() {
+            return watched;
+        }
+    }
+
+    public static class Current<W extends Watchable> extends Provider<W> {
+
+        protected W watched;
         private final StampedLock gate = new StampedLock();
 
-        public Current(C concept) {
-            super();
-            this.setConcept(concept);
+        public Current(W watched) {
+            super(watched);
         }
-        public void setConcept(C concept) {
-            if (isOn()) {
-                long writeLock = gate.writeLock();
-                try {
-                    this.concept = concept;
-                } finally {
-                    gate.unlockWrite(writeLock);
-                }
+        public void setWatched(W watched) {
+            long writeLock = gate.writeLock();
+            try {
+                this.rider = rider;
+            } finally {
+                gate.unlockWrite(writeLock);
             }
-            throw new MatrixException(MatrixException.Type.CurrentNotSet,"Current",Indicia.Focus.Admonitory, Indicia.Severity.Critical,new Exception(concept.getIdentity().toString()));
         }
         @Override
-        public C getConcept() {
+        public R getRider() {
             long readLock = gate.readLock();
             try {
-                if (isOn()) return this.concept;
+                return this.rider;
             }
             finally {
                 gate.unlockRead(readLock);
             }
-            return null;
         }
     }
-    public static final class Chain<PATH extends Comparable<PATH>,P extends Pathway<PATH,P>,ID extends Comparable<ID>,T extends Concept.Tangible<PATH,P,ID,T,C>,C extends Concept<PATH,P,ID,T,C>> extends Provider<PATH,P,ID,T,C> {
 
-        protected final Queue<C> queue;
+    public static class Chain<W extends Watchable> extends Provider<W> {
 
-        public Chain(Queue<C> queue) {
+        protected final Queue<R> queue;
+
+        public Chain(Policy<? extends Function<M,OCCURRENCE>,PATH,X,ID,I,C,R,M,OCCURRENCE>[] policies,Queue<R> queue) {
+            super(policies);
             this.queue = queue;
         }
 
         @Override
-        public C getConcept() {
-            if (isOn()) return this.queue.peek();
-            return null;
+        public R getRider() {
+            return this.queue.peek();
+        }
+        public Queue<R> getQueue() {
+            return this.queue;
         }
     }
+
+    public static final class Soft<W extends Watchable> extends Provider<W> {
+
+        protected final R rider;
+        protected final boolean tryRefreshIfNull;
+
+        public Soft(Policy<? extends Fu nction<M,OCCURRENCE>, PATH, X, ID, I, C, R, M, OCCURRENCE>[] policies,R rider,boolean tryRefreshIfNull) {
+            super(policies);
+            this.rider = rider;
+            this.tryRefreshIfNull = tryRefreshIfNull;
+        }
+
+        @Override
+        public R getRider() {
+            C concept = rider.get();
+            if (concept == null && tryRefreshIfNull) {
+                rider.tryRefreshIfNull(null);
+            }
+            return rider;
+        }
+
+    }
+}
+
 }

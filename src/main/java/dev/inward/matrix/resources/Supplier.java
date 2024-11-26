@@ -1,6 +1,7 @@
 package dev.inward.matrix.resources;
 
 import dev.inward.matrix.MatrixException;
+import dev.inward.matrix.Representitive;
 import dev.inward.matrix.fact.*;
 import dev.inward.matrix.concept.matter.Indicia;
 import dev.inward.matrix.concept.matter.Matter;
@@ -14,7 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 
 @SuppressWarnings("unchecked")
-public class Supplier<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<X>,O extends Operational<F,I,X,O,?,?>,B extends Bus<F,I,ID,VERSION,X,R,?>,R extends Rider<F,I,ID,VERSION,X,R,NI>,N extends Notion<N,NI,NX,?,?,?>,NI extends Identity<NI,>,NX extends Context<NX>,M extends Matter<M,I,X>,T extends Tolerant<M,T>,P extends Phenomenon<M,T,P>> {
+public class Supplier<F extends Fact<F,I,ID,X>,I extends Identity<I,ID,X>,ID extends Comparable<ID>,X extends Context<X>,O extends Operational<F,I,X,O,?,?>,B extends Bus<F,I,ID,VERSION,X,R,?>,R extends Representitive<F,I,ID,VERSION,X,R,NI>,N extends Notion<N,NI,NX,?,?,?>,NI extends Identity<NI,>,NX extends Context<NX>,M extends Matter<M,I,X>,T extends Tolerant<M,T>,P extends Phenomenon<M,T,P>> {
 
     public final Class<Y> factoryClass = ((Class<Y>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[0]);
     public final Class<F> factClass = ((Class<F>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[1]);

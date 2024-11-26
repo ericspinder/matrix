@@ -1,8 +1,9 @@
 package dev.inward.matrix.fact.authoritative.notion.advisor;
 
 import crud.rubric.Roller;
+import dev.inward.matrix.Representitive;
 import dev.inward.matrix.fact.*;
-import dev.inward.matrix.fact.datum.Ware;
+import dev.inward.matrix.fact.datum.Envoy;
 import dev.inward.matrix.fact.authoritative.notion.Agent;
 import dev.inward.matrix.Notion;
 import dev.inward.matrix.Context;
@@ -13,7 +14,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 
-public abstract class Manager<F extends Fact<F,I,X,R, NI, NX>,O extends Operational<F,O,I,X,B,R,N, NI, NX,A>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,R>,R extends Rider<F,I,X,R, NI, NX>,N extends Notion<N, NI, NX,A>, NI extends Identity<NI, NX>, NX extends Context<NX>,A extends Agent<N, NI,NX,A>> implements Comparable {
+public abstract class Manager<F extends Fact<F,I,X,R, NI, NX>,O extends Operational<F,O,I,X,B,R,N, NI, NX,A>,I extends Identity<I,X>,X extends Context<X>,B extends Bus<Y,F,O,I,X,B,R>,R extends Representitive<F,I,X,R, NI, NX>,N extends Notion<N, NI, NX,A>, NI extends Identity<NI, NX>, NX extends Context<NX>,A extends Agent<N, NI,NX,A>> implements Comparable {
 
     /**
      *
@@ -24,7 +25,7 @@ public abstract class Manager<F extends Fact<F,I,X,R, NI, NX>,O extends Operatio
      * @param <V>
      * @return try again?
      */
-    public abstract  <DATUM,D extends Datum<DATUM,D,V>,V extends Ware<DATUM,D,V>> boolean handle(Roller roller, V envoy);
+    public abstract  <DATUM,D extends Datum<DATUM,D,V>,V extends Envoy<DATUM,D,V>> boolean handle(Roller roller, V envoy);
 
 }
     class ExceptionCounterByDuration {

@@ -1,6 +1,6 @@
 package dev.inward.matrix.fact.authoritative.notion.concept;
 
-import dev.inward.matrix.fact.Concept;
+import dev.inward.matrix.Concept;
 
 public abstract class Matrix extends Concept<String,Matrix.Pathway,String,Matrix.Id,Matrix> {
 
@@ -20,7 +20,7 @@ public abstract class Matrix extends Concept<String,Matrix.Pathway,String,Matrix
             }
         }
     }
-    public static class Id extends Tangible<String,Pathway,String,Id,Matrix> {
+    public static class Id extends Identity<String,Pathway,String,Id,Matrix> {
 
         public Id(String s) {
             super(s);
