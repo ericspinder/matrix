@@ -7,9 +7,9 @@ import java.nio.file.attribute.*;
 import java.time.Instant;
 import java.util.*;
 
-public abstract class Representitive<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<PATH,ID,I,A,R,PR>,A extends Addressed<PATH,ID,I,A,R,PR>,R extends Representitive<PATH,ID,I,A,R,PR>,PR extends Representitive<PATH,?,?,?,PR,?>> extends Envoy<A,A,R,PR> implements BasicFileAttributeView {
+public abstract class Representitive<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<PATH,ID,I,A,R>,A extends Addressed<PATH,ID,I,A,R>,R extends Representitive<PATH,ID,I,A,R>> extends Envoy<A,R> implements BasicFileAttributeView {
 
-    public Representitive(A datum, Resource<A,A,R,PR> resource) {
+    public Representitive(A datum, Resource<A,R> resource) {
         super(datum, resource);
     }
 

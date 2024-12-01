@@ -3,7 +3,6 @@ package dev.inward.matrix.fact.authoritative.notion.authority.source.ziggurat;
 import dev.inward.matrix.fact.Specification;
 import dev.inward.matrix.Context;
 import dev.inward.matrix.fact.authoritative.notion.concept.Effect;
-import dev.inward.matrix.fact.authoritative.notion.concept.boot.Structure;
 import dev.inward.matrix.resources.Supplier;
 
 import java.security.ProtectionDomain;

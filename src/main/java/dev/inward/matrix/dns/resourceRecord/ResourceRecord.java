@@ -12,7 +12,7 @@ import java.time.Instant;
 import java.util.Properties;
 import java.util.UUID;
 
-public abstract class ResourceRecord<RR extends ResourceRecord<RR>> extends Addressed<ResourceRecord.Pathway, UUID, ResourceRecord.Identity<RR>,RR, ResourceRecord.Representitive<RR>> {
+public abstract class ResourceRecord<RR extends ResourceRecord<RR,RP>,RP extends ResourceRecord<RR,RP>> extends Addressed<ResourceRecord.Pathway, UUID, ResourceRecord.Identity<RR,RP>,RR, ResourceRecord.Representitive<RR,RP>,ResourceRecord.Representitive<?,?>> {
 
     protected int ttl;
 
@@ -21,7 +21,7 @@ public abstract class ResourceRecord<RR extends ResourceRecord<RR>> extends Addr
         this.ttl = ttl;
     }
 
-    public static class Identity<RR extends ResourceRecord<RR>> extends dev.inward.matrix.Identity<Pathway,UUID,Identity<RR>,RR, Representitive<RR>> {
+    public static class Identity<RR extends ResourceRecord<RR,RP>,RP extends ResourceRecord<RR,RP>> extends dev.inward.matrix.Identity<Pathway,UUID,Identity<RR,RP>,RR, Representitive<RR,RP>,Representitive<?,?>> {
 
 
         @SafeVarargs
@@ -54,7 +54,7 @@ public abstract class ResourceRecord<RR extends ResourceRecord<RR>> extends Addr
             return isZero;
         }
     }
-    public static class Representitive<RR extends ResourceRecord<RR>> extends dev.inward.matrix.Representitive<Pathway,UUID,Identity<RR>,RR, Representitive<RR>> {
+    public static class Representitive<RR extends ResourceRecord<RR,RP>,RP extends ResourceRecord<RR,RP>> extends dev.inward.matrix.Representitive<Pathway,UUID,Identity<RR,RP>,RR, Representitive<RR,RP>, Representitive<,?>> {
 
         public Representitive(RR addressed, Resource<Pathway, UUID, Identity<RR>, RR, Representitive<RR>> resource, Addressed<Pathway,?,?,?,?> parent, boolean hold, Properties properties) {
             super(addressed, resource, parent, hold, properties);

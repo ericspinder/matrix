@@ -1,17 +1,16 @@
 package dev.inward.matrix.fact;
 
 import dev.inward.matrix.*;
-import dev.inward.matrix.fact.intialized.jdbc_driver.ConnectionState;
-import dev.inward.matrix.setting.Security;
 
 import java.security.cert.CertPath;
-import java.sql.Connection;
 import java.util.Properties;
+import java.util.function.Supplier;
 
-public abstract class Operational {
+public abstract class Operational<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<PATH,ID,I,A,R,PR>,A extends Addressed<PATH,ID,I,A,R,PR>,R extends Representitive<PATH,ID,I,A,R,PR>,PR extends Representitive<PATH,?,?,?,PR,?>> {
 
     protected final CertPath[] certPaths;
 
+    protected final Specification specification;
     // protected final Options
     protected final Properties properties;
     public Operational(CertPath[] certPaths, Properties properties) {
@@ -27,10 +26,12 @@ public abstract class Operational {
         return properties;
     }
 
-    public static class JDBCOperational<C extends Connection> extends Operational {
-
-        public JDBCOperational(CertPath[] certPaths, Properties properties) {
-            super(certPaths, properties);
+    @SuppressWarnings("unchecked")
+    public java.util.function.Supplier<A> getNewSupplier() {
+        Supplier<A> supplier = (Supplier<A>) this.properties.get("AddressedSupplier");
+        if (supplier == null) {
+            specification
         }
     }
+
 }

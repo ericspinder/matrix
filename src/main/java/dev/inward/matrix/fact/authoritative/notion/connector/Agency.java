@@ -4,7 +4,6 @@ import dev.inward.matrix.Standard;
 import dev.inward.matrix.fact.authoritative.notion.Agent;
 import dev.inward.matrix.fact.authoritative.notion.Industry;
 import dev.inward.matrix.Context;
-import dev.inward.matrix.fact.authoritative.notion.concept.boot.Structure;
 import dev.inward.matrix.fact.authoritative.notion.authority.source.ziggurat.Boot;
 import dev.inward.matrix.fact.authoritative.notion.authority.source.ziggurat.Init;
 import dev.inward.matrix.fact.authoritative.notion.authority.source.ziggurat.Root;

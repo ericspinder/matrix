@@ -20,13 +20,13 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-public abstract class Complication<PATH extends Comparable<PATH>,W extends Watchable,C extends Complication<PATH,W,C,M,OCCURRENCE>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> implements WatchKey {
+public abstract class Complication<PATH extends Comparable<PATH>,D extends Datum<D,E>,E extends Envoy<D,E>,C extends Complication<PATH,D,E,C,M,OCCURRENCE>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> implements WatchKey {
 
     protected final StampedLock gate = new StampedLock();
     protected volatile M currentMatter;
     protected final ConcurrentLinkedDeque<M> competedMatters = new ConcurrentLinkedDeque<>();
     protected volatile OCCURRENCE currentOccurrence;
-    private final Provider<W> provider;
+    private final Provider<D> provider;
     private final Supplier<M> matterSupplier;
     protected final List<Criterion> criteria = new ArrayList<>();
 
@@ -64,9 +64,9 @@ public abstract class Complication<PATH extends Comparable<PATH>,W extends Watch
         this.maxMattersToDistribute = maxMattersToDistribute;
     }
 
-    protected abstract Policy<? extends Function<C,OCCURRENCE>,PATH,W,C,M,OCCURRENCE>[] policies();
+    protected abstract Policy<? extends Function<C,OCCURRENCE>,PATH,D,E,C,M,OCCURRENCE>[] policies();
 
-    public Complication(Provider<W> provider, Supplier<M> matterSupplier, Iterator<Criterion> criteria, boolean autostart) {
+    public Complication(Provider<D> provider, Supplier<M> matterSupplier, Iterator<Criterion> criteria, boolean autostart) {
         this.provider = provider;
         this.matterSupplier = matterSupplier;
         while(criteria.hasNext()) {

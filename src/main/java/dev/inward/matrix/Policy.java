@@ -2,6 +2,7 @@ package dev.inward.matrix;
 
 import dev.inward.matrix.concept.matter.Matter;
 import dev.inward.matrix.fact.datum.Complication;
+import dev.inward.matrix.fact.datum.Envoy;
 
 import java.lang.ref.SoftReference;
 import java.nio.file.Watchable;
@@ -16,7 +17,7 @@ import java.util.function.Function;
  * @param <W>
  * @param <OCCURRENCE>
  */
-public class Policy<BEHAVIOR extends Function<C, OCCURRENCE>,PATH extends Comparable<PATH>,W extends Watchable,C extends Complication<PATH,W,C,M,OCCURRENCE>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> {
+public class Policy<BEHAVIOR extends Function<C, OCCURRENCE>,PATH extends Comparable<PATH>,D extends Datum<D,E>,E extends Envoy<D,E>,C extends Complication<PATH,D,E,C,M,OCCURRENCE>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> {
 
     protected final BEHAVIOR behavior;
     public Policy(BEHAVIOR behavior) {
@@ -27,7 +28,7 @@ public class Policy<BEHAVIOR extends Function<C, OCCURRENCE>,PATH extends Compar
         return this.behavior;
     }
 
-    public static class Singleton<BEHAVIOR extends Function<W, OCCURRENCE>,W extends Watchable, OCCURRENCE extends Comparable<OCCURRENCE>> extends Policy<BEHAVIOR,W,OCCURRENCE> {
+    public static class Singleton<BEHAVIOR extends Function<D, OCCURRENCE>,PATH extends Comparable<PATH>,D extends Datum<D,E>,E extends Envoy<D,E>,C extends Complication<PATH,D,E,C,M,OCCURRENCE>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> extends Policy<BEHAVIOR,D,E,C,OCCURRENCE> {
         private final StampedLock gate = new StampedLock();
 
         public Singleton(BEHAVIOR behavior) {

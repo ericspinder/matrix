@@ -5,7 +5,7 @@ import dev.inward.matrix.*;
 import java.lang.ref.Reference;
 import java.util.function.Function;
 
-public abstract class Addressed<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<PATH,ID,I,A,R,PR>,A extends Addressed<PATH,ID,I,A,R,PR>,R extends Representitive<PATH,ID,I,A,R,PR>,PR extends Representitive<PATH,?,?,?,PR,?>> implements Datum<A,A,R,PR>, Comparable<A> {
+public abstract class Addressed<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<PATH,ID,I,A,R>,A extends Addressed<PATH,ID,I,A,R>,R extends Representitive<PATH,ID,I,A,R>> implements Datum<A,R>, Comparable<A> {
 
     protected final I identity;
 
@@ -17,9 +17,9 @@ public abstract class Addressed<PATH extends Comparable<PATH>,ID extends Compara
         return identity;
     }
 
-    public static class Resource<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<PATH,ID,I,A,R,PR>,A extends Addressed<PATH,ID,I,A,R,PR>,R extends Representitive<PATH,ID,I,A,R,PR>,PR extends Representitive<PATH,?,?,?,PR,?>> extends dev.inward.matrix.Resource<A,A,R,PR> {
+    public static class Resource<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<PATH,ID,I,A,R>,A extends Addressed<PATH,ID,I,A,R>,R extends Representitive<PATH,ID,I,A,R>> extends dev.inward.matrix.Resource<A,R> {
 
-        public Resource(PR parent, String className, long warnOnTotal, long hardLimit, Function<Reference<? extends A>,Reference<? extends A>> graveDigger) {
+        public Resource(Representitive<?,?,?,?,?> parent, String className, long warnOnTotal, long hardLimit, Function<Reference<? extends A>,Reference<? extends A>> graveDigger) {
             super(parent, className, warnOnTotal, hardLimit, graveDigger);
         }
     }

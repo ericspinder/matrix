@@ -14,7 +14,6 @@ import java.util.Map;
 
 public class Specification extends Standard {
 
-    protected final String hash;
     protected final Map<String, DefaultOption<?,?>> options;
     protected final Map<Indicia.Focus, ServerRecord[]> focusServerMap;
     protected final Standard[] standards;

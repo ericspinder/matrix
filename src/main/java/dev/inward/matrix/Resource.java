@@ -8,9 +8,9 @@ import java.lang.ref.ReferenceQueue;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
 
-public class Resource<DATUM,W extends Ware<DATUM,W,PR>,PR extends Representitive<?,?,?,?,PR,?>> extends ReferenceQueue<DATUM> {
+public class Resource<DATUM,W extends Ware<DATUM,W>> extends ReferenceQueue<DATUM> {
 
-    public final Representitive<?,?,?,?,PR,?> parent;
+    public final Representitive<?,?,?,?,?> parent;
     protected final String className;
     protected final AtomicLong sequence = new AtomicLong();
     protected final AtomicLong removed = new AtomicLong();
@@ -18,9 +18,8 @@ public class Resource<DATUM,W extends Ware<DATUM,W,PR>,PR extends Representitive
     protected long hardLimit;
     protected String limitReachedMessage = null;
 
-    public W getWare
 
-    protected Function<Reference<? extends DATUM>,Reference<? extends DATUM>> graveDigger;
+    protected Function<W,W> graveDigger;
 
     /**
      *
@@ -30,7 +29,7 @@ public class Resource<DATUM,W extends Ware<DATUM,W,PR>,PR extends Representitive
      * @param hardLimit
      * @param graveDigger
      */
-    public Resource(Representitive<?,?,?,?,PR,?> parent, String className, long warnOnTotal, long hardLimit, Function<Reference<? extends DATUM>,Reference<? extends DATUM>> graveDigger) {
+    public Resource(Representitive<?,?,?,?,?> parent, String className, long warnOnTotal, long hardLimit, Function<W,W> graveDigger) {
         this.parent = parent;
         this.className = className;
         this.warnOnTotal = warnOnTotal;
@@ -52,13 +51,10 @@ public class Resource<DATUM,W extends Ware<DATUM,W,PR>,PR extends Representitive
         }
         return currentCount;
     }
-    /**
-     *
-     * @return
-     */
+    @SuppressWarnings("unchecked")
     @Override
-    public final Reference<? extends DATUM> poll() {
-        Reference<? extends DATUM> bringOutYourDead = super.poll();
+    public final W poll() {
+        W bringOutYourDead = (W) super.poll();
         if (bringOutYourDead != null) {
             this.removed.incrementAndGet();
         }

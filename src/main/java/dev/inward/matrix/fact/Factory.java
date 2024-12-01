@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.StampedLock;
 
-public class Factory<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<PATH,ID,I,A,R,PR>,A extends Addressed<PATH,ID,I,A,R,PR>,R extends Representitive<PATH,ID,I,A,R,PR>,PR extends Representitive<PATH,?,?,?,PR,?>> extends URLClassLoader implements Comparable<Factory<PATH,ID,I,A,R,PR>> {
+public class Factory<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<PATH,ID,I,A,R,PR>,A extends Addressed<PATH,ID,I,A,R,PR>,R extends Representitive<PATH,ID,I,A,R,PR>,PR extends Representitive<PATH,?,?,?,PR,?>> extends ClassLoader{
 
     private Engine<PATH,ID,I,A,R,PR> engine = null;
     protected final Gathering<PATH,ID,I,A,R,PR> gathering;
@@ -26,7 +26,7 @@ public class Factory<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I e
         this.resource = resource;
     }
     @SuppressWarnings("unchecked")
-    public <O extends Operational<PATH,ID,I,A,R>> void installEngine(O operational) {
+    public <O extends Operational<PATH,ID,I,A,R,PR>> void installEngine(O operational) {
         long writeLock = gate.writeLock();
         try {
             boolean isNew = (this.engine == null); // Editions cannot be rolled
@@ -37,7 +37,7 @@ public class Factory<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I e
         }
     }
 
-    public Engine<PATH,X,ID,I,C,R> getEngine() {
+    public Engine<PATH,ID,I,A,R,PR> getEngine() {
         long readLock = gate.readLock();
         try {
             return this.engine;
@@ -52,10 +52,6 @@ public class Factory<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I e
 
     public <DATUM, D extends Datum<DATUM,D,E>,E extends Envoy<DATUM,D,E>> E add(D datum) {
         return null;
-    }
-    @Override
-    public int compareTo(Factory<PATH,X,ID,I,C,R> that) {
-        return this.uuid.compareTo(that.uuid);
     }
     public Fact.Resource<S,L,PATH,ID,T,C> getResources() {
         return this.resource;
