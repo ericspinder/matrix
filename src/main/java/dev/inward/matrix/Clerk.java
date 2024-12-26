@@ -1,6 +1,5 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.fact.authoritative.notion.authority.source.ziggurat.Ziggurat;
 import dev.inward.matrix.route.Road;
 
 import java.io.IOException;

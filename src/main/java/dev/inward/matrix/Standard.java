@@ -1,33 +1,32 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.engine.Variant;
-import dev.inward.matrix.fact.Addressed;
-import dev.inward.matrix.fact.Operational;
+import dev.inward.matrix.code.Code;
+import dev.inward.matrix.code.Path_ofCode;
+import dev.inward.matrix.log.Indicia;
+import dev.inward.matrix.predictable.Criterion;
 
 import java.io.IOException;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.nio.file.attribute.FileTime;
-import java.util.function.Consumer;
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
+import java.util.function.Function;
 
-public class Standard extends Addressed<Branched,String,Standard.Identity,Standard, Standard.Representitive, Standard.Representitive> {
+public class Standard extends Code<Standard.Identity,Standard,Standard.Representative,Standard.StandardAttributes> {
 
     protected final String description;
-    protected final Criterion[] demonCriteria;
+    protected final String modelMakerClass;
+    protected final Aspect[] aspects;
 
-    public Standard(final Identity identity, final String description, Criterion[] demonCriteria) {
+    protected long warnOnTotal;
+    protected long hardLimit;
+
+    public Standard(final Identity identity, final String description, String modelMakerClass, Aspect[] aspects, long warnOnTotal, long hardLimit) {
         super(identity);
         this.description = description;
-        this.demonCriteria = demonCriteria;
-    }
-
-    @Override
-    public Representitive getWare() {
-        return null;
-    }
-
-    @Override
-    public Representitive setWare() {
-        return null;
+        this.modelMakerClass = modelMakerClass;
+        this.aspects = aspects;
+        this.warnOnTotal = warnOnTotal;
+        this.hardLimit = hardLimit;
     }
 
     @Override
@@ -35,83 +34,56 @@ public class Standard extends Addressed<Branched,String,Standard.Identity,Standa
         return 0;
     }
 
-    public static class Identity extends dev.inward.matrix.Identity<Branched,String,Identity,Standard,Representitive,Representitive> {
+    public static class Identity extends Code.Identity<Identity,Standard,Representative,StandardAttributes> {
 
-        protected final String className;
-        public Identity(String s, String className) {
-            super(s);
-            this.className = className;
+        protected final String targetClassName;
+        public Identity(String s, Query query, String targetClassName) {
+            super(s,query);
+            this.targetClassName = targetClassName;
         }
 
-        public String getClassName() {
-            return className;
+        public String getTargetClassName() {
+            return targetClassName;
         }
 
         public String toString() {
-            return this.className + '_' + this.id;
+            return this.targetClassName + '_' + this.id;
         }
-        public String toJSONString() {
-            final StringBuilder sb = new StringBuilder("dev.inward.matrix.Standard.Identity{");
-            sb.append("className='").append(className).append('\'');
-            sb.append(", id=").append(id);
-            sb.append(", indices=");
-            indices.forEach(branchedIndex -> {
-                StringBuilder stringBuilder = sb.append('[').append(branchedIndex.toString()).append(']');
-                if (!branchedIndex.equals(indices.getLast())) {
-                    stringBuilder.append(',');
-                }
-            });
-            sb.append('}');
-            return sb.toString();
-        }
-    }
-    public static class Representitive extends dev.inward.matrix.Representitive<Branched,String,Identity,Standard,Representitive,Representitive> {
 
-        public Representitive(Standard datum, dev.inward.matrix.Resource<Standard, Representitive, Representitive> resource) {
+    }
+    public static class Representative extends Code.Representative<Identity,Standard, Representative, StandardAttributes> {
+
+        public Representative(Standard datum, Resource resource) {
             super(datum, resource);
         }
 
-        @Override
-        public String getPathString() {
-            return null;
-        }
+    }
+    public static class StandardAttributes extends Code.CodeAttributes<Identity,Standard,Representative,StandardAttributes> {
 
-        @Override
-        public BasicFileAttributes readAttributes() throws IOException {
-            return null;
-        }
-
-        @Override
-        public void setTimes(FileTime lastModifiedTime, FileTime lastAccessTime, FileTime createTime) throws IOException {
-
+        public StandardAttributes(Standard datum) {
+            super(datum);
         }
     }
+    public static class Resource extends Code.Resource<Identity,Standard,Representative,StandardAttributes> {
 
-    public Variant getVariant() {
-        return variant;
+        public Resource(dev.inward.matrix.Representative<?, ?, ?, ?, ?, ?> parent, String className, long warnOnTotal, long hardLimit, Function<Representative,Representative> graveDigger) {
+            super(parent, className, warnOnTotal, hardLimit, graveDigger);
+        }
+    }
+    public long getWarnOnTotal() {
+        return warnOnTotal;
     }
 
-    public String getClassName() {
-        return className;
+    public void setWarnOnTotal(long warnOnTotal) {
+        this.warnOnTotal = warnOnTotal;
     }
 
-    public String getDescription() {
-        return description;
+    public long getHardLimit() {
+        return hardLimit;
     }
 
-    public String getLabel() {
-        return label;
-    }
+    public void setHardLimit(long hardLimit) {
+        this.hardLimit = hardLimit;
 
-    public String getTransformerClassName() {
-        return transformerClassName;
-    }
-
-    public String[] getInductionClassNames() {
-        return inductionClassNames;
-    }
-
-    public Criterion[] getCriteria() {
-        return criteria;
     }
 }

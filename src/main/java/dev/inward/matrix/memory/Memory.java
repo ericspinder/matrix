@@ -2,7 +2,8 @@ package dev.inward.matrix.memory;
 
 import dev.inward.matrix.*;
 import dev.inward.matrix.Aspect;
-import dev.inward.matrix.fact.Factory;
+import dev.inward.matrix.Factory;
+import dev.inward.matrix.Library;
 
 import javax.annotation.Nonnull;
 import java.nio.file.FileStore;
@@ -11,15 +12,15 @@ import java.nio.file.attribute.FileStoreAttributeView;
 import java.util.Map;
 import java.util.Properties;
 
-public abstract class Memory<C extends Operation<PATH,?,?,?,?,?>,PATH extends Comparable<PATH>> extends FileStore implements Comparable<Memory<C,PATH>> {
+public abstract class Memory<S extends Scheme<S,L,PATH>,L extends Library<S,L,PATH>,PATH extends Comparable<PATH>,O extends Operation<PATH,?,?,?>> extends FileStore implements Comparable<Memory<S,L,PATH,O>> {
 
-    protected final Library<?,?,PATH> library;
+    protected final Library<S,L,PATH> library;
     protected final Range<PATH> range;
     protected final Properties properties;
-    protected Map<Class<? extends Representitive<PATH,D,?,?,?,?>>, Factory<PATH,D,?,?,?,?>> conceptClassFactoryMap;
+    protected Map<Class<? extends Representative<PATH,?,?,?,?,?>>, Factory<PATH,?,?,?,?,?>> conceptClassFactoryMap;
 
     @SuppressWarnings("unchecked")
-    public Memory(Library<?,?,PATH> library, @Nonnull Range<PATH> range, @Nonnull Properties properties) {
+    public Memory(Library<S,L,PATH> library, @Nonnull Range<PATH> range, @Nonnull Properties properties) {
         this.library = library;
         this.range = range;
         this.properties = new Properties(properties);
@@ -35,7 +36,7 @@ public abstract class Memory<C extends Operation<PATH,?,?,?,?,?>,PATH extends Co
     }
 
     @Override
-    public int compareTo(Memory<PATH> that) {
+    public int compareTo(Memory<O,PATH> that) {
         return this.name.compareTo(that.name);
     }
 
@@ -52,7 +53,7 @@ public abstract class Memory<C extends Operation<PATH,?,?,?,?,?>,PATH extends Co
 
     @Override
     public boolean supportsFileAttributeView(Class<? extends FileAttributeView> type) {
-         return type.isAssignableFrom(Representitive.class) || type.isAssignableFrom(Aspect.class);
+         return type.isAssignableFrom(Ware.class);
     }
 
     @Override

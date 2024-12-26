@@ -1,17 +1,12 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.concept.matter.Matter;
-import dev.inward.matrix.director.library.Director;
-import dev.inward.matrix.director.library.catalog.Ledger;
-import dev.inward.matrix.director.library.catalog.Gathering;
-import dev.inward.matrix.dns.resourceRecord.MatrixAuthority;
-import dev.inward.matrix.dns.resourceRecord.ResourceRecord;
+import dev.inward.matrix.dns.resourceRecord.ServiceLocationRecord;
 import dev.inward.matrix.engine.Zone;
-import dev.inward.matrix.fact.Addressed;
-import dev.inward.matrix.fact.Model;
-import dev.inward.matrix.concept.matter.Indicia;
-import dev.inward.matrix.fact.Predictable;
-import dev.inward.matrix.fact.datum.Complication;
+import dev.inward.matrix.predictable.Complication;
+import dev.inward.matrix.predictable.Criterion;
+import dev.inward.matrix.predictable.Matter;
+import dev.inward.matrix.predictable.Predictable;
+import dev.inward.matrix.log.Indicia;
 import dev.inward.matrix.memory.Memory;
 
 import java.io.IOException;
@@ -26,22 +21,20 @@ import java.security.CodeSigner;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.regex.Pattern;
 
-public class Library<S extends Scheme<S,L,PATH>,L extends Library<S,L,PATH>,PATH extends Comparable<PATH>> extends FileSystemProvider implements Comparable<L>,Watchable {
+public abstract class Library<S extends Scheme<S,L,PATH>,L extends Library<S,L,PATH>,PATH extends Comparable<PATH>> extends FileSystemProvider implements Comparable<L>  {
 
     protected final S scheme;
 
     protected final Domain domain;
 
-    protected final Map<Notion<String,String, ResourceRecord.Query<>,MatrixAuthority>,Experience>
-
-    protected final Map<Host<?>,Experience> hostExperienceMap;
-    protected final Map<Registry<S>, Librarian<>[]> registrarMap = new ConcurrentHashMap<>();
+    protected final Map<ServiceLocationRecord,Experience> hostExperienceMap = new ConcurrentHashMap<>();
     protected final Map<Ledger<PATH>,Librarian<PATH,?,?,?,?,?>[]> catalogs = new ConcurrentHashMap<>();
     protected final Map<Model<S,L,?,?,?>, Director<S,L,?,?>> models = new ConcurrentHashMap<>();
 
-    protected <ID extends Comparable<ID>,I extends Identity<PATH,ID,I,A,R,PR>,A extends Addressed<PATH,ID,I,A,R,PR>,R extends Representitive<PATH,ID,I,A,R,PR>,PR extends Representitive<PATH,?,?,?,PR,?>,C extends Operation<PATH,ID,I,A,R,PR>,L extends Ledger<PATH>> L initLedger(Memory<C,PATH> memory, Map<PATH, Gathering<PATH,ID,I,A,R,PR,C>> directoriesSeed) throws CheckedException;
+    protected <ID extends Comparable<ID>, I extends Identity<PATH, ID, I, A, R, PR>, A extends Addressed<PATH, ID, I, A, R, PR>, R extends Representative<PATH, ID, I, A, R, PR>, PR extends Representative<PATH, ?, ?, ?, PR, ?>, C extends Operation<PATH, ID, I, A, R, PR>, L extends Ledger<PATH>> L initLedger(Memory<C, PATH> memory, Map<PATH, Gathering<PATH, ID, I, A, R, PR, C>> directoriesSeed) throws CheckedException {
+        return null;
+    }
 
     protected StringBuilder firstLimitReachedMessage(String className, long warnTotal, long hardLimit) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -53,7 +46,9 @@ public class Library<S extends Scheme<S,L,PATH>,L extends Library<S,L,PATH>,PATH
     }
 
     public Library(S scheme, Domain domain) {
-        super();
+        if (scheme.terrene != domain.getTerrene()) {
+            throw new RuntimeException("Scheme and Domain need to match terrene");
+        }
         this.scheme = scheme;
         this.domain = domain;
     }
@@ -61,18 +56,11 @@ public class Library<S extends Scheme<S,L,PATH>,L extends Library<S,L,PATH>,PATH
         Host.Remote remote = new Host.Remote()
         return new Clerk.Network.Client(this,)
     }
-    public <C extends Complication<PATH,Library<?,?,PATH>,C,M,OCCURRENCE>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> C register_(Predictable<PATH> watcher, Indicia[] events, Criterion... modifiers) throws IOException {
+    public <C extends Complication<PATH,C,M,OCCURRENCE>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> C register_(Predictable<PATH,F> watcher, Indicia[] events, Criterion... modifiers) throws IOException {
         return watcher.register(this,events,modifiers);
     }
 
-    public static class Envoy<S extends Scheme<S,L,PATH>,L extends Library<S,L,PATH>,PATH extends Comparable<PATH>> extends dev.inward.matrix.fact.datum.Envoy<Library<S,L,PATH>, Envoy<S,L,PATH>> {
-
-        public Envoy(Library<S, L, PATH> slpathLibrary, Resource<Library<S, L, PATH>> resource) {
-            super(slpathLibrary, resource);
-        }
-    }
-
-
+    @SuppressWarnings("unchecked")
     @Override
     public String getScheme() {
         return this.scheme.scheme;
@@ -137,7 +125,7 @@ public class Library<S extends Scheme<S,L,PATH>,L extends Library<S,L,PATH>,PATH
     }
 
     @Override
-    public Memory<PATH> getFileStore(Path path) throws IOException {
+    public Memory<S,L,PATH,?> getFileStore(Path path) throws IOException {
         return null;
     }
 
@@ -166,7 +154,7 @@ public class Library<S extends Scheme<S,L,PATH>,L extends Library<S,L,PATH>,PATH
 
     }
 
-    protected abstract <PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Identity<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CAT extends Ledger<S,L,PATH,ID,T,C,CAT>> CAT initCatalog(Memory<S,L,PATH> memory, Pattern separatorPattern, Gathering<S,L,PATH,ID,T,C,CAT> directoriesSeed) throws CheckedException;
+    //protected abstract <PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Identity<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CAT extends Ledger<S,L,PATH,ID,T,C,CAT>> CAT initCatalog(Memory<S,L,PATH> memory, Pattern separatorPattern, Gathering<S,L,PATH,ID,T,C,CAT> directoriesSeed) throws CheckedException;
 
     public CodeSigner[] getCodeSigners(Zone zone) {
 
@@ -189,27 +177,5 @@ public class Library<S extends Scheme<S,L,PATH>,L extends Library<S,L,PATH>,PATH
         return isZero;
     }
 
-    public static class Log extends Library<Scheme.Log, Log> {
 
-
-        public Log(Terrene terrene, Domain domain) {
-            super(Scheme.Log.Instance, terrene, domain);
-        }
-
-        @Override
-        protected <PATH extends Comparable<PATH>, ID extends Comparable<ID>, T extends Concept.Identity<Scheme.Log, Log, PATH, ID, T, C>, C extends Concept<Scheme.Log, Log, PATH, ID, T, C>, CAT extends Ledger<Scheme.Log, Log, PATH, ID, T, C, CAT>> C initCatalog(Memory<Scheme.Log, Log, PATH> memory, Pattern separatorPattern, Map<PATH, Gathering<Scheme.Log, Log, PATH, ID, T, C, CAT>> directoriesSeed) throws CheckedException {
-            return null;
-        }
-    }
-    public static class Dogma extends Library<Scheme.Dogma, Dogma> {
-
-        public Dogma(Terrene terrene, Domain domain) {
-            super(Scheme.Dogma.Instance, terrene, domain);
-        }
-
-        @Override
-        protected <PATH extends Comparable<PATH>, ID extends Comparable<ID>, T extends Concept.Identity<Scheme.Dogma, Dogma, PATH, ID, T, C>, C extends Concept<Scheme.Dogma, Dogma, PATH, ID, T, C>, CAT extends Ledger<Scheme.Dogma, Dogma, PATH, ID, T, C, CAT>> C initCatalog(Memory<Scheme.Dogma, Dogma, PATH> memory, Pattern separatorPattern, Map<PATH, Gathering<Scheme.Dogma, Dogma, PATH, ID, T, C, CAT>> directoriesSeed) throws CheckedException {
-            return null;
-        }
-    }
 }

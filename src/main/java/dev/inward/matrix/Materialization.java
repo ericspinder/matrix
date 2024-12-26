@@ -1,7 +1,5 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.fact.Addressed;
-
 import java.util.Map;
 import java.util.UUID;
 

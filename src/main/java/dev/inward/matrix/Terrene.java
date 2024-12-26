@@ -2,7 +2,7 @@ package dev.inward.matrix;
 
 import com.google.common.collect.ImmutableList;
 import dev.inward.matrix.dns.resourceRecord.ServerRecord;
-import dev.inward.matrix.concept.matter.Indicia;
+import dev.inward.matrix.log.Indicia;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -14,6 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Terrene implements Comparable<Terrene> {
     public static final Terrene Earth = new Terrene("IN","earth");
     public static final Terrene Luna = new Terrene("LN","luna.earth");
+    public static final Terrene Mars = new Terrene("MR", "mars");
     public static final Terrene Helios = new Terrene("HS","helios");
     public static final Terrene Chaosnet = new Terrene("CS","chaosnet");
     public static final Terrene Aforementioned = new Terrene('\u0000',"Aforementioned");

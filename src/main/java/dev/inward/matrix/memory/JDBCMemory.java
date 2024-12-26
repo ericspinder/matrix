@@ -5,7 +5,7 @@ import dev.inward.matrix.Range;
 import dev.inward.matrix.Standard;
 import dev.inward.matrix.engine.Variant;
 import dev.inward.matrix.Concept;
-import dev.inward.matrix.fact.Factory;
+import dev.inward.matrix.Factory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

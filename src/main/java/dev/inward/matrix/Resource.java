@@ -1,60 +1,62 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.concept.matter.Indicia;
-import dev.inward.matrix.fact.datum.Envoy;
+import dev.inward.matrix.predictable.Complication;
+import dev.inward.matrix.predictable.Matter;
 
-import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
+import java.util.Properties;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
 
-public class Resource<DATUM,W extends Ware<DATUM,W>> extends ReferenceQueue<DATUM> {
+public abstract class Resource<DATUM,W extends Ware<DATUM,W,A>,A extends Attributes<DATUM,W,A>> extends ReferenceQueue<DATUM> {
 
-    public final Representitive<?,?,?,?,?> parent;
-    protected final String className;
+    protected final Standard standard;
     protected final AtomicLong sequence = new AtomicLong();
     protected final AtomicLong removed = new AtomicLong();
-    protected long warnOnTotal;
-    protected long hardLimit;
     protected String limitReachedMessage = null;
-
-
     protected Function<W,W> graveDigger;
+
+
+    @SuppressWarnings("unchecked")
+    protected A createAttributes(DATUM datum) {
+        try {
+            return ((Class<A>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[2]).getDeclaredConstructor(Resource.class,Object.class).newInstance(this, datum);
+        } catch (ClassCastException | InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    protected Model getModel(Class<DATUM> datumClass) {
+
+    }
+    protected void populate(Properties properties, DATUM datum) {
+
+    }
 
     /**
      *
-     * @param parent
-     * @param className
-     * @param warnOnTotal
-     * @param hardLimit
+     * @param standard
      * @param graveDigger
      */
-    public Resource(Representitive<?,?,?,?,?> parent, String className, long warnOnTotal, long hardLimit, Function<W,W> graveDigger) {
-        this.parent = parent;
-        this.className = className;
-        this.warnOnTotal = warnOnTotal;
-        this.hardLimit = hardLimit;
+    public <M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> Resource(Standard standard, Function<W,W> graveDigger) {
+        this.standard = standard;
         this.graveDigger = graveDigger;
     }
 
-    public String getClassName() {
-        return className;
-    }
-
-    public long incrementAndGet() throws MatrixException {
+    public long incrementAndGet() {
         long currentCount = this.sequence.incrementAndGet();
-        if (currentCount < warnOnTotal) {
+        if (currentCount < standard.getWarnOnTotal()) {
             if (limitReachedMessage == null) {
 //                limitReachedMessage = parent.;
             }
-            throw new MatrixException(MatrixException.Type.OverLimit,"over limit", Indicia.Focus.Admonitory, Indicia.Severity.Capacity,null);
+            //throw new MatrixException(MatrixException.Type.OverLimit,"over limit", Indicia.Focus.Admonitory, Indicia.Severity.Capacity,null);
         }
         return currentCount;
     }
     @SuppressWarnings("unchecked")
-    @Override
-    public final W poll() {
-        W bringOutYourDead = (W) super.poll();
+    public final W poll2() {
+        W bringOutYourDead = (W) poll();
         if (bringOutYourDead != null) {
             this.removed.incrementAndGet();
         }
@@ -71,22 +73,7 @@ public class Resource<DATUM,W extends Ware<DATUM,W>> extends ReferenceQueue<DATU
     }
 
 
-    public long getWarnOnTotal() {
-        return warnOnTotal;
-    }
 
-    public void setWarnOnTotal(long warnOnTotal) {
-        this.warnOnTotal = warnOnTotal;
-    }
-
-    public long getHardLimit() {
-        return hardLimit;
-    }
-
-    public void setHardLimit(long hardLimit) {
-        this.hardLimit = hardLimit;
-
-    }
 
 //    public Policy<? super Function<DATUM,?>,DATUM,P,ID,T,C,CAT,?,?,?,?,?>[] getPolicies() {
 //        return policies;

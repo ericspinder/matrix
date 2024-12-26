@@ -1,6 +1,6 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.concept.matter.Indicia;
+import dev.inward.matrix.log.Indicia;
 
 import java.util.Arrays;
 import java.util.Map;

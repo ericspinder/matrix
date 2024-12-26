@@ -1,5 +1,8 @@
 package dev.inward.matrix.fact;
 
+import dev.inward.matrix.Addressed;
+import dev.inward.matrix.Datum;
+
 import java.io.IOException;
 import java.lang.ref.Reference;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -8,15 +11,15 @@ import java.time.Instant;
 import java.util.Properties;
 import java.util.function.Function;
 
-public abstract class Fact<PATH extends Comparable<PATH>,I extends Fact.Identity<PATH,I,F,R>,F extends Fact<PATH,I,F,R>,R extends Fact.Representitive<PATH,I,F,R>> extends Addressed<PATH,String,I,F,R> {
+public abstract class Fact<I extends Fact.Identity<I,F,R,A>,F extends Fact<I,F,R,A>,R extends Fact.Representative<I,F,R,A>,A extends Fact.FileAttributes<I,F,R,A>> extends Addressed<String,String,I,F,R,A> {
 
     public Fact(I identity) {
         super(identity);
     }
 
-    public static class Representitive<PATH extends Comparable<PATH>,I extends Fact.Identity<PATH,I,F,R>,F extends Fact<PATH,I,F,R>,R extends Representitive<PATH,I,F,R>> extends dev.inward.matrix.Representitive<PATH,String,I,F,R> {
+    public static class Representative<I extends Fact.Identity<I,F,R,A>,F extends Fact<I,F,R,A>,R extends Fact.Representative<I,F,R,A>,A extends Fact.FileAttributes<I,F,R,A>> extends dev.inward.matrix.Representative<String,String,I,F,R,A> {
 
-        public Representitive(F addressed, Fact.Resource<PATH,I,F,R> resource, Addressed<PATH,?,?,?,?> parent, boolean hold, Properties properties) {
+        public Representative(F addressed, Fact.Resource<I,F,R,A> resource, Addressed<?,?,?,?,?,?> parent, boolean hold, Properties properties) {
             super(addressed, resource, parent, hold, properties);
         }
 
@@ -35,16 +38,22 @@ public abstract class Fact<PATH extends Comparable<PATH>,I extends Fact.Identity
 
         }
     }
-    public abstract static class Identity<PATH extends Comparable<PATH>,I extends Fact.Identity<PATH,I,F,R>,F extends Fact<PATH,I,F,R>,R extends Representitive<PATH,I,F,R>> extends dev.inward.matrix.Identity<PATH,String,I,F,R> {
+    public abstract static class Identity<I extends Fact.Identity<I,F,R,A>,F extends Fact<I,F,R,A>,R extends Fact.Representative<I,F,R,A>,A extends Fact.FileAttributes<I,F,R,A>> extends dev.inward.matrix.Identity<String,String,I,F,R,A> {
 
-        public Identity(String id) {
+        protected final boolean queryIdentifier;
+        public Identity(String id, boolean queryIdentifier) {
             super(id);
+            this.queryIdentifier = queryIdentifier;
         }
 
         public abstract String getName();
 
+        public boolean isQueryIdentifier() {
+            return queryIdentifier;
+        }
 
-        public static class DotExtension<PATH extends Comparable<PATH>,F extends Fact<PATH,DotExtension<PATH,F,R>,F,R>,R extends Representitive<PATH,DotExtension<PATH,F,R>,F,R>> extends Identity<PATH,DotExtension<PATH,F,R>,F,R> {
+
+        public static class DotExtension<PATH extends Comparable<PATH>,F extends Fact<PATH,DotExtension<PATH,F,R>,F,R>,R extends Representative<PATH,DotExtension<PATH,F,R>,F,R>> extends Identity<PATH,DotExtension<PATH,F,R>,F,R> {
 
             protected final String extension;
 
@@ -59,7 +68,7 @@ public abstract class Fact<PATH extends Comparable<PATH>,I extends Fact.Identity
             }
 
         }
-        public static class Simple<PATH extends Comparable<PATH>,F extends Fact<PATH,Simple<PATH,F,R>,F,R>,R extends Representitive<PATH,Simple<PATH,F,R>,F,R>> extends Identity<PATH,Simple<PATH,F,R>,F,R> {
+        public static class Simple<PATH extends Comparable<PATH>,F extends Fact<PATH,Simple<PATH,F,R>,F,R>,R extends Representative<PATH,Simple<PATH,F,R>,F,R>> extends Identity<PATH,Simple<PATH,F,R>,F,R> {
 
             public Simple(String name) {
                 super(name);
@@ -74,8 +83,8 @@ public abstract class Fact<PATH extends Comparable<PATH>,I extends Fact.Identity
 
     }
 
-    public abstract static class Resource<PATH extends Comparable<PATH>,I extends Fact.Identity<PATH,I,F,R>,F extends Fact<PATH,I,F,R>,R extends Representitive<PATH,I,F,R>> extends Addressed.Resource<PATH,String,I,F,R> {
-        public Resource(dev.inward.matrix.Representitive<PATH, ?, ?, ?, ?> parent, String className, long warnOnTotal, long hardLimit, Function<Reference<? extends F>, Reference<? extends F>> graveDigger) {
+    public abstract static class Resource<I extends Fact.Identity<I,F,R,A>,F extends Fact<I,F,R,A>,R extends Representative<I,F,R,A>,A extends Fact.FileAttributes<I,F,R,A>> extends Addressed.Resource<String,String,I,F,R,A> {
+        public Resource(dev.inward.matrix.Representative<PATH, ?, ?, ?, ?> parent, String className, long warnOnTotal, long hardLimit, Function<Reference<? extends F>, Reference<? extends F>> graveDigger) {
             super(parent, className, warnOnTotal, hardLimit, graveDigger);
         }
 
@@ -89,5 +98,12 @@ public abstract class Fact<PATH extends Comparable<PATH>,I extends Fact.Identity
 //        }
 
 
+    }
+
+    public static class FileAttributes<I extends Fact.Identity<I,F,R,A>,F extends Fact<I,F,R,A>,R extends Fact.Representative<I,F,R,A>,A extends Fact.FileAttributes<I,F,R,A>> extends Addressed.FileAttributes<String,String,I,F,R,A> {
+
+        public FileAttributes(F fact) {
+            super(fact);
+        }
     }
 }

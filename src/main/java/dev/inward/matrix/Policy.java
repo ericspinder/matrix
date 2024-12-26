@@ -1,51 +1,82 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.concept.matter.Matter;
-import dev.inward.matrix.fact.datum.Complication;
-import dev.inward.matrix.fact.datum.Envoy;
-
-import java.lang.ref.SoftReference;
-import java.nio.file.Watchable;
 import java.util.Objects;
-import java.util.concurrent.locks.StampedLock;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 
-/**
- *
- * @param <BEHAVIOR>
- * @param <W>
- * @param <OCCURRENCE>
- */
-public class Policy<BEHAVIOR extends Function<C, OCCURRENCE>,PATH extends Comparable<PATH>,D extends Datum<D,E>,E extends Envoy<D,E>,C extends Complication<PATH,D,E,C,M,OCCURRENCE>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> {
 
-    protected final BEHAVIOR behavior;
-    public Policy(BEHAVIOR behavior) {
-        this.behavior = behavior;
-    }
+public abstract class Policy<PATH extends Comparable<PATH>,K extends FileKey<PATH,K>,OCCURRENCE extends Comparable<OCCURRENCE>> implements Function<K, OCCURRENCE> {
 
-    public BEHAVIOR getBehavior() {
-        return this.behavior;
-    }
+    public abstract static class Design implements Meta_I {
 
-    public static class Singleton<BEHAVIOR extends Function<D, OCCURRENCE>,PATH extends Comparable<PATH>,D extends Datum<D,E>,E extends Envoy<D,E>,C extends Complication<PATH,D,E,C,M,OCCURRENCE>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> extends Policy<BEHAVIOR,D,E,C,OCCURRENCE> {
-        private final StampedLock gate = new StampedLock();
-
-        public Singleton(BEHAVIOR behavior) {
-            super(behavior);
+        /**
+         *
+         * @return  less than zero - don't do again, not a damon
+         *          zero - no wait damon, do again immediately
+         *          more than zero - number of TimeUnit values to wait before looping, default is seconds.
+         */
+        public abstract int getDamonSleep();
+        public abstract int getThreadCount();
+        public TimeUnit getDamonTimeUnit() {
+            return TimeUnit.SECONDS;
+        }
+        public boolean isDamon() {
+            return getDamonSleep() > 0;
+        }
+        public boolean isSingleton() {
+            return getThreadCount() == 1;
         }
 
-        public BEHAVIOR getBehavior() {
-            long read
-            try {
+        @Override
+        public String getLabel() {
+            return "Anonymous Design";
+        }
 
+        @Override
+        public String getDescription() {
+            return ((isDamon())?"Damon Sleep: " + getDamonSleep() + getDamonTimeUnit().toString():"Not a Damon") + ", Thread count: " + getThreadCount();
+        }
+
+        public static class SuperSingleton extends Design {
+
+            @Override
+            public int getDamonSleep() {
+                return -1;
             }
-            finally {
-                gate.unlockWrite();
+
+            @Override
+            public int getThreadCount() {
+                return 1;
+            }
+
+            @Override
+            public String getLabel() {
+                return "Super Singleton";
+            }
+
+            @Override
+            public String getDescription() {
+                return "Not a Damon, Single thread";
             }
         }
     }
+    protected final L library;
+    protected final Design design;
 
+
+    public Policy(L library, Design design) {
+        this.library = library;
+        this.design = design;
+    }
+
+    public L getLibrary() {
+        return this.library;
+    }
+
+    public Design getDesign() {
+        return design;
+    }
 
     @Override
     public boolean equals(Object o) {

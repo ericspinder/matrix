@@ -1,25 +1,33 @@
 package dev.inward.matrix;
 
-import java.nio.file.Watchable;
+import dev.inward.matrix.predictable.Criterion;
+
+import javax.annotation.Nullable;
+import java.util.Deque;
 import java.util.Iterator;
-import java.util.Queue;
-import java.util.concurrent.locks.StampedLock;
-import java.util.function.Function;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
-public abstract class Provider<W extends Watchable> implements Iterator<W> {
+public abstract class Provider<PATH extends Comparable<PATH>,K extends FileKey<PATH,K>> implements Iterator<K> {
 
+    protected final Criterion criterion;
 
-    public Provider(W watched) {
-        this.setInitialValue(watched);
+    public Provider(@Nullable K watched,@Nullable Criterion criterion) {
+        this.setInitialValue(watched,criterion);
+        this.criterion = criterion;
     }
 
-    protected abstract void setInitialValue(W watched);
+    public Criterion getCriterion() {
+        return criterion;
+    }
+
+    protected abstract void setInitialValue(@Nullable K watched, @Nullable Criterion criterion);
     abstract boolean reset();
 
-    public static class Finder<W extends Watchable> extends Provider<W> {
+    public static class Finder<PATH extends Comparable<PATH>,K extends FileKey<PATH,K>> extends Provider<PATH,K> {
 
-        public Finder(W watched) {
-            super(watched);
+        public Finder(@Nullable K watched, @Nullable Criterion criterion) {
+            super(watched, criterion);
         }
 
         @Override
@@ -28,7 +36,7 @@ public abstract class Provider<W extends Watchable> implements Iterator<W> {
         }
 
         @Override
-        public W next() {
+        public K next() {
             return null;
         }
 
@@ -38,7 +46,7 @@ public abstract class Provider<W extends Watchable> implements Iterator<W> {
         }
 
         @Override
-        protected void setInitialValue(W watched) {
+        protected void setInitialValue(@Nullable K watched, @Nullable Criterion criterion) {
 
         }
 
@@ -48,16 +56,16 @@ public abstract class Provider<W extends Watchable> implements Iterator<W> {
         }
     }
 
-    public static class Provided<W extends Watchable> extends Provider<W> {
+    public static class Provided<PATH extends Comparable<PATH>,K extends FileKey<PATH,K>> extends Provider<PATH,K> {
 
-        protected W watched;
+        protected K watched;
 
-        public Provided(W watched) {
-            super(watched);
+        public Provided(@Nullable K watched, @Nullable Criterion criterion) {
+            super(watched,criterion);
         }
 
         @Override
-        public void setInitialValue(W watched) {
+        protected void setInitialValue(@Nullable K watched, @Nullable Criterion criterion) {
             this.watched = watched;
         }
 
@@ -72,78 +80,87 @@ public abstract class Provider<W extends Watchable> implements Iterator<W> {
         }
 
         @Override
-        public W next() {
+        public K next() {
             return watched;
         }
     }
 
-    public static class Current<W extends Watchable> extends Provider<W> {
+    public static class Current<PATH extends Comparable<PATH>,K extends FileKey<PATH,K>> extends Provider<PATH,K> {
 
-        protected W watched;
-        private final StampedLock gate = new StampedLock();
+        protected K watched;
+        protected boolean next;
+        private final Lock gate = new ReentrantLock();
 
-        public Current(W watched) {
-            super(watched);
+        public Current(@Nullable K watched, @Nullable Criterion criterion) {
+            super(watched,criterion);
         }
-        public void setWatched(W watched) {
-            long writeLock = gate.writeLock();
+
+        @Override
+        protected void setInitialValue(@Nullable K watched, @Nullable Criterion criterion) {
+            this.watched = watched;
+            next = watched != null;
+        }
+
+        @Override
+        boolean reset() {
+            return false;
+        }
+
+        public void setWatched(K watched) {
+            gate.lock();
             try {
-                this.rider = rider;
+                this.watched = watched;
+                this.next = true;
             } finally {
-                gate.unlockWrite(writeLock);
+                gate.unlock();
             }
         }
+
         @Override
-        public R getRider() {
-            long readLock = gate.readLock();
+        public boolean hasNext() {
+            return next;
+        }
+
+        @Override
+        public K next() {
+            gate.lock();
             try {
-                return this.rider;
+                this.next = false;
+                return this.watched;
             }
             finally {
-                gate.unlockRead(readLock);
+                gate.unlock();
             }
         }
     }
 
-    public static class Chain<W extends Watchable> extends Provider<W> {
+    public static class Chain<PATH extends Comparable<PATH>,K extends FileKey<PATH,K>> extends Provider<PATH,K> {
 
-        protected final Queue<R> queue;
+        protected final Deque<K> deque;
 
-        public Chain(Policy<? extends Function<M,OCCURRENCE>,PATH,X,ID,I,C,R,M,OCCURRENCE>[] policies,Queue<R> queue) {
-            super(policies);
-            this.queue = queue;
+        public Chain(Deque<K> deque, @Nullable Criterion criterion) {
+            super(deque.getFirst(),criterion);
+            this.deque = deque;
         }
 
         @Override
-        public R getRider() {
-            return this.queue.peek();
-        }
-        public Queue<R> getQueue() {
-            return this.queue;
-        }
-    }
+        protected void setInitialValue(K watched, @Nullable Criterion criterion) {
 
-    public static final class Soft<W extends Watchable> extends Provider<W> {
-
-        protected final R rider;
-        protected final boolean tryRefreshIfNull;
-
-        public Soft(Policy<? extends Fu nction<M,OCCURRENCE>, PATH, X, ID, I, C, R, M, OCCURRENCE>[] policies,R rider,boolean tryRefreshIfNull) {
-            super(policies);
-            this.rider = rider;
-            this.tryRefreshIfNull = tryRefreshIfNull;
         }
 
         @Override
-        public R getRider() {
-            C concept = rider.get();
-            if (concept == null && tryRefreshIfNull) {
-                rider.tryRefreshIfNull(null);
-            }
-            return rider;
+        boolean reset() {
+            return true;
         }
 
-    }
-}
+        @Override
+        public boolean hasNext() {
+            return !this.deque.isEmpty();
+        }
 
+        @Override
+        public K next() {
+            return deque.pop();
+        }
+    }
 }

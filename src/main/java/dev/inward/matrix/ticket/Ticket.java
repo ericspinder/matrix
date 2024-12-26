@@ -2,9 +2,9 @@ package dev.inward.matrix.ticket;
 
 import dev.inward.matrix.*;
 import dev.inward.matrix.Concept;
-import dev.inward.matrix.fact.session.Session;
+import dev.inward.crud.Session;
 
-public abstract class Ticket<PATH extends Comparable<PATH>,D extends Index<PATH,D>,ID extends Comparable<ID>,T extends Concept.Identity<PATH,D,ID,T,C,R>,C extends Concept<PATH,D,ID,T,C,R>,R extends Representitive<PATH,D,ID,T,C,R>> implements Comparable<Ticket<PATH,D,ID,T,C,R>> {
+public abstract class Ticket<PATH extends Comparable<PATH>,D extends Index<PATH,D>,ID extends Comparable<ID>,T extends Concept.Identity<PATH,D,ID,T,C,R>,C extends Concept<PATH,D,ID,T,C,R>,R extends Representative<PATH,D,ID,T,C,R>> implements Comparable<Ticket<PATH,D,ID,T,C,R>> {
 
     protected final Session session;
     public Ticket(Session<S,L> session) {

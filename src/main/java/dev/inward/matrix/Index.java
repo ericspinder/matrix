@@ -1,22 +1,12 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.director.library.catalog.Ledger;
-import dev.inward.matrix.fact.Addressed;
-import dev.inward.matrix.fact.Expire;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributeView;
 import java.time.Instant;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Consumer;
 
-public abstract class Index<PATH extends Comparable<PATH>,I extends Index<PATH,I>> implements Comparable<I>, BasicFileAttributeView {
+public abstract class Index<PATH extends Comparable<PATH>,I extends Index<PATH,I>> implements FileKey<PATH,I> {
 
+    protected final boolean symbolic;
     protected final Ledger<PATH> ledger;
     protected final FileAttributes fileAttributes;
 
@@ -26,16 +16,22 @@ public abstract class Index<PATH extends Comparable<PATH>,I extends Index<PATH,I
 
     protected AtomicInteger conceptsAdded;
 
-    public Index(Ledger<PATH> ledger, PATH path, Properties properties) {
+    public Index(Ledger<PATH> ledger, PATH path) {
         this.ledger = ledger;
         this.path = path;
         this.fileAttributes = new FileAttributes(properties);
     }
+    public Ledger<PATH> getLedger() {
+        return this.ledger;
+    }
+    public PATH getPath() {
+        return this.path;
+    }
 
-    public static class FileAttributes extends dev.inward.matrix.FileAttributes {
+    public static class FileAttributes<PATH extends Comparable<PATH>,I extends Index<PATH,I>> extends dev.inward.matrix.FileAttributes<PATH,I,> {
 
-        public FileAttributes(Properties properties) {
-            super(properties);
+        public FileAttributes(I identity) {
+            super(identity);
         }
 
         @Override

@@ -1,6 +1,5 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.concept.matter.Matter;
 import dev.inward.matrix.personality.Personality;
 
 import java.io.IOException;
@@ -15,7 +14,7 @@ public abstract class Rule extends Personality.Ego {
             return 0;
         }
     }
-    public static class Matter extends dev.inward.matrix.concept.matter.Matter<Matter,Occurrence> {
+    public static class Matter extends dev.inward.matrix.predictable.Matter<Matter,Occurrence> {
 
         @Override
         public Dogma userInfo() {

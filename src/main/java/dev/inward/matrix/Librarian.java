@@ -1,22 +1,21 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.director.library.catalog.Ledger;
+import java.net.URL;
 
-public abstract class Librarian<PATH extends Comparable<PATH>,X extends Context<PATH,X,ID,I,C,R>,ID extends Comparable<ID>,I extends Concept.Identity<PATH,X,ID,I,C,R>,C extends Concept<PATH,X,ID,I,C,R>,R extends Representitive<PATH,X,ID,I,C,R>> {
+public abstract class Librarian<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<PATH,ID,I,A,R>,A extends Addressed<PATH,ID,I,A,R>,R extends Representative<PATH,ID,I,A,R>> {
 
-    protected final Ledger<PATH> ledger;
-    protected Concept.Resource<PATH,D,ID,T,C,R> resource;
+    protected Addressed.Resource<PATH,ID,I,A,R> resource;
 
-    public Librarian(Ledger<PATH,D> ledger, Concept.Resource<PATH,D,ID,T,C,R> resource) {
-        this.ledger = ledger;
+    public Librarian(Addressed.Resource<PATH,ID,I,A,R> resource) {
         this.resource = resource;
     }
 
-    public Ledger<PATH, D> getCatalog() {
-        return ledger;
-    }
-
-    public Concept.Resource<PATH,D,ID,T,C,R> getResource() {
+    public Addressed.Resource<PATH,ID,I,A,R> getResource() {
         return this.resource;
     }
+
+    public A getAddressedNotion(URL url) {
+        Notion<PATH,ID,I,A,R,>
+    }
+
 }

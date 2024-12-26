@@ -1,9 +1,8 @@
 package dev.inward.matrix.personality;
 
 import dev.inward.matrix.*;
-import dev.inward.matrix.concept.matter.Indicia;
+import dev.inward.matrix.log.Indicia;
 
-import java.io.IOException;
 import java.lang.ref.SoftReference;
 import java.nio.file.attribute.AclEntry;
 import java.nio.file.attribute.AclEntryPermission;

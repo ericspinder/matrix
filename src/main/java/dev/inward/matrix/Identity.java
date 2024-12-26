@@ -1,10 +1,6 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.concept.matter.Indicia;
-import dev.inward.matrix.concept.matter.Matter;
-import dev.inward.matrix.fact.Addressed;
-import dev.inward.matrix.fact.Predictable;
-import dev.inward.matrix.fact.datum.Complication;
+import dev.inward.matrix.predictable.Predictable;
 
 import java.io.IOException;
 import java.net.URI;
@@ -13,14 +9,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class Identity<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<PATH,ID,I,A,R>,A extends Addressed<PATH,ID,I,A,R>,R extends Representitive<PATH,ID,I,A,R>> implements Path {
+public abstract class Identity<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<PATH,ID,I,A,R,F>,A extends Addressed<PATH,ID,I,A,R,F>,R extends Representative<PATH,ID,I,A,R,F>,F extends Addressed.FileAttributes<PATH,ID,I,A,R,F>> extends FileKey<PATH,I,A,R,F> {
 
     protected final ID id;
     protected R rider;
     protected final List<Index<PATH,?>> indices = new ArrayList<>();
 
     @SafeVarargs
-    public Identity(ID id, Index<PATH,?>... indices) {
+    public Identity(ID id, Query query, Index<PATH,?>... indices) {
+        super(query);
         this.id = id;
         this.indices.addAll(Arrays.asList(indices));
     }
@@ -43,16 +40,39 @@ public abstract class Identity<PATH extends Comparable<PATH>,ID extends Comparab
         return null;
     }
 
+    @Override
+    public Library<?,?,PATH> getLibrary() {
+        return this.getFileSystem(this.indices.getFirst()).library;
+    }
+
     @SuppressWarnings("unchecked")
     public Index<PATH, ?>[] getIndices() {
         return (Index<PATH,?>[]) this.indices.toArray(new Index[indices.size()]);
     }
 
     @Override
+    public Range<PATH> getRange() {
+        return this.getRange(this.indices.getFirst());
+    }
+
+    @Override
+    public Predictable<PATH, I, A, R, F> newWatchService() {
+        return null;
+    }
+    @Override
+    public WatchKey register(WatchService watcher, WatchEvent.Kind<?>[] events, WatchEvent.Modifier... modifiers) throws IOException {
+        return null;
+    }
+
+    public Range<PATH> getRange(Index<PATH,?> index) {
+        return index.ledger.getRange();
+    }
+
+    @Override
     public FileSystem getFileSystem() {
         return this.getFileSystem(indices.getFirst());
     }
-    public FileSystem getFileSystem(Index<PATH,?> index) {
+    public Ledger<PATH> getFileSystem(Index<PATH,?> index) {
         return index.ledger;
     }
 
@@ -63,11 +83,17 @@ public abstract class Identity<PATH extends Comparable<PATH>,ID extends Comparab
 
     @Override
     public Path getRoot() {
-        return this.getRoot(indices.getFirst());
+        Path path = (Path) rider.attributes.properties.get("root");
+        if (path == null) {
+            path = findRoot();
+            if (path != null) {
+                rider.attributes.properties.put("root",path);
+            }
+        }
+        return path;
     }
-    public Path getRoot(Index<PATH,?> index) {
-        A addressed = this.getAddressed();
-        addressed.
+    protected Path findRoot() {
+        return null;
     }
 
     @Override
@@ -196,20 +222,7 @@ public abstract class Identity<PATH extends Comparable<PATH>,ID extends Comparab
         return index.ledger.getLibrary().getScheme().startsWith(other);
     }
 
-    @SuppressWarnings("unchecked")
-    public <C extends Complication<PATH,I,C,M,OCCURRENCE>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> C register_(Predictable<PATH> watcher, Indicia[] events, Criterion... modifiers) throws IOException {
-        return (C) watcher.register(this,events,modifiers);
-    }
 
-    @Override
-    public WatchKey register(WatchService watcher, WatchEvent.Kind<?>[] events, WatchEvent.Modifier... modifiers) throws IOException {
-        try {
-            return this.register_((Predictable<PATH>) watcher,(Indicia[]) events,(Criterion[]) modifiers);
-        }
-        catch (ClassCastException cce) {
-            throw new MatrixException(MatrixException.Type.RunProblem,"registration by Identity", Indicia.Focus.Assembly, Indicia.Severity.Critical,cce);
-        }
-    }
 
     @SuppressWarnings("unchecked")
     @Override
@@ -228,4 +241,5 @@ public abstract class Identity<PATH extends Comparable<PATH>,ID extends Comparab
     public int compareTo(I index, Path other) {
         return 0;
     }
+
 }

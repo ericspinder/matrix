@@ -1,24 +1,26 @@
 package dev.inward.matrix;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 
 public final class Domain implements Comparable<Domain> {
 
-    private final static Map<String,Domain> All_Known_Domains = new WeakHashMap<>();
+    private final static Map<String,Domain> All_Known_Domains = new HashMap<>();
 
-    public synchronized static Domain getInstance(String domain_string) {
-        Domain domain = All_Known_Domains.get(domain_string);
+    public synchronized static Domain getInstance(Terrene terrene, String domain_string) {
+        Domain domain = All_Known_Domains.get(terrene.toString() + '_' + domain_string);
         if (domain != null) return domain;
-        All_Known_Domains.put(domain_string, new Domain(domain_string));
+        All_Known_Domains.put(terrene.toString() + '_' + domain_string, new Domain(terrene, domain_string));
         return All_Known_Domains.get(domain_string);
     }
+    private final Terrene terrene;
     private final String domain;
-    private final Map<String,Library<?,?,?>> schemeLibrary = new WeakHashMap<>();
 
-    public Domain(String domain) {
+    private Domain(Terrene terrene, String domain) {
+        this.terrene = terrene;
         this.domain = domain;
-        All_Known_Domains.put(domain, this);
+        All_Known_Domains.put(terrene.toString() + '_' + domain, this);
     }
 
     @Override
@@ -30,16 +32,12 @@ public final class Domain implements Comparable<Domain> {
         return domain;
     }
 
-    @SuppressWarnings("unchecked")
-    public synchronized <S extends Scheme<S,L,PATH>,L extends Library<S,L,PATH>,PATH extends Comparable<PATH>> L getLibrary(S scheme) {
-        L library = (L) schemeLibrary.get(scheme.scheme);
-        if (library != null) return library;
-        schemeLibrary.put(scheme.scheme, new Library<>(scheme,this));
-        return (L) schemeLibrary.get(scheme.scheme);
-    }
-
     public String getDomain() {
         return domain;
+    }
+
+    public Terrene getTerrene() {
+        return terrene;
     }
 
     @Override

@@ -1,8 +1,8 @@
 package dev.inward.matrix.fact;
 
 import dev.inward.matrix.Context;
-import dev.inward.matrix.fact.datum.Envoy;
-import dev.inward.matrix.concept.matter.Matter;
+import dev.inward.matrix.Envoy;
+import dev.inward.matrix.predictable.Matter;
 import dev.inward.matrix.Resource;
 
 import java.util.Collection;

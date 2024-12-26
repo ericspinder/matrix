@@ -1,5 +1,7 @@
 package dev.inward.matrix;
 
+import dev.inward.matrix.dns.Scheme_ofDNS;
+
 import java.net.URLStreamHandler;
 import java.net.spi.URLStreamHandlerProvider;
 import java.util.Map;
@@ -10,12 +12,11 @@ public class MatrixURLStreamHandlerProvider extends URLStreamHandlerProvider {
     private static final Map<String,URLStreamHandler> protocolUrlStreamHandlers = new ConcurrentHashMap<>();
 
     static {
-        String enables = System.getenv().get("m_enable");
-        if
-        protocolUrlStreamHandlers.put("dns", Scheme.DNS.Instance());
+        Terrene terrene = System.getenv().get("m_enable");
+        protocolUrlStreamHandlers.put("dns", Scheme_ofDNS.Instance());
     }
     @Override
     public URLStreamHandler createURLStreamHandler(String protocol) {
-
+        Scheme
     }
 }

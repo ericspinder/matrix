@@ -3,22 +3,19 @@ package dev.inward.matrix;
 import dev.inward.matrix.*;
 import dev.inward.matrix.fact.*;
 
+import javax.annotation.Nullable;
 import java.lang.invoke.CallSite;
 import java.nio.file.attribute.FileAttributeView;
 import java.util.concurrent.locks.StampedLock;
 
-public abstract class Aspect<DATUM> implements Meta_I {
+public abstract class Aspect implements Meta_I, Comparable<Aspect> {
 
     protected final String label;
     protected final String description;
-    protected final Resource<DATUM> resource;
-    protected transient final CallSite callSite;
 
-    public Aspect(String label, String description, CallSite callSite, Resource<DATUM> resource) {
+    public Aspect(String label, String description) {
         this.label = label;
         this.description = description;
-        this.callSite = callSite;
-        this.resource = resource;
     }
 
     @Override
@@ -31,5 +28,9 @@ public abstract class Aspect<DATUM> implements Meta_I {
         return this.description;
     }
 
+    @Override
+    public int compareTo(Aspect that) {
+        return this.label.compareTo(that.label);
+    }
 }
 

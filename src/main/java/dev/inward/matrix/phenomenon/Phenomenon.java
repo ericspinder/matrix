@@ -1,10 +1,12 @@
 package dev.inward.matrix.phenomenon;
 
 import dev.inward.matrix.*;
-import dev.inward.matrix.fact.Bus;
+import dev.inward.crud.Bus;
 import dev.inward.matrix.fact.Fact;
-import dev.inward.matrix.fact.Model;
-import dev.inward.matrix.concept.matter.Matter;
+import dev.inward.matrix.Model;
+import dev.inward.matrix.predictable.Matter;
+import dev.inward.matrix.Library;
+import dev.inward.matrix.Scheme;
 
 import java.util.concurrent.Callable;
 

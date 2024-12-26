@@ -1,7 +1,7 @@
 package dev.inward.matrix.phenomenon.producer;
 
 import dev.inward.matrix.concept.matter.Exceptionally;
-import dev.inward.matrix.concept.matter.Indicia;
+import dev.inward.matrix.log.Indicia;
 
 import java.util.UUID;
 import java.util.concurrent.TimeoutException;

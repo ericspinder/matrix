@@ -1,9 +1,11 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.concept.matter.Indicia;
+import dev.inward.matrix.log.Indicia;
 
 @SuppressWarnings("all")
 public abstract class Range<PATH extends Comparable<PATH>> implements Comparable<Range<PATH>> {
+
+    public static final Range.AllPaths ALL_PATHS = new AllPaths();
     /**
      *
      * @return the lowest PATH value, may be null.

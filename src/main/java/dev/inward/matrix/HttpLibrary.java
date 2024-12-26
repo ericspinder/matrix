@@ -1,7 +1,6 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.director.HttpScheme;
-import dev.inward.matrix.director.library.catalog.Ledger;
 import dev.inward.matrix.memory.Memory;
 
 import java.nio.file.Path;

@@ -1,12 +1,11 @@
 package dev.inward.matrix.fact;
 
-import crud.rubric.Roller;
-import dev.inward.matrix.Criterion;
+import dev.inward.matrix.predictable.Criterion;
 import dev.inward.matrix.Meta_I;
 import dev.inward.matrix.dns.resourceRecord.ServerRecord;
 import dev.inward.matrix.Standard;
-import dev.inward.matrix.concept.matter.Indicia;
-import dev.inward.matrix.concept.matter.Matter;
+import dev.inward.matrix.log.Indicia;
+import dev.inward.matrix.predictable.Matter;
 
 import java.util.ArrayList;
 import java.util.List;

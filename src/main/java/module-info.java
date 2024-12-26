@@ -6,7 +6,6 @@ module dev.inward.matrix {
     requires transitive com.google.common;
     requires jsr305;
     requires transitive jdk.security.auth;
-    exports dev.inward.matrix.fact.datum;
     exports dev.inward.matrix.concept.matter;
     exports dev.inward.matrix.engine;
     exports dev.inward.matrix.fact;
@@ -23,4 +22,13 @@ module dev.inward.matrix {
     exports dev.inward.matrix;
     exports dev.inward.matrix.memory;
     exports  dev.inward.matrix.dns.resourceRecord;
+    exports dev.inward.matrix.scheme;
+    exports dev.inward.matrix.library;
+    exports dev.inward.matrix.code;
+    exports dev.inward.matrix.dns;
+    exports dev.inward.matrix.https;
+    exports dev.inward.matrix.log;
+    exports dev.inward.crud;
+    exports dev.inward.matrix.info;
+    exports dev.inward.matrix.predictable;
 }

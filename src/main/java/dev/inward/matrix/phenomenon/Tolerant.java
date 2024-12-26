@@ -1,6 +1,6 @@
 package dev.inward.matrix.phenomenon;
 
-import dev.inward.matrix.director.library.catalog.Metrics;
+import dev.inward.matrix.Metrics;
 
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;

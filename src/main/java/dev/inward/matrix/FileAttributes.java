@@ -1,18 +1,20 @@
 package dev.inward.matrix;
 
+
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
-import java.util.Properties;
 import java.util.concurrent.atomic.AtomicLong;
 
-public abstract class FileAttributes implements BasicFileAttributes {
+public abstract class FileAttributes<PATH extends Comparable<PATH>,K extends FileKey<PATH,K,FILE,R,F>,FILE extends MatrixFile<PATH,K,FILE,R,F>,R extends Registar<PATH,K,FILE,R,F>,F extends FileAttributes<PATH,K,FILE,R,F>> extends DatumAttributes<FILE,R,F> implements BasicFileAttributes {
 
-    protected final Properties properties;
+    protected final K fileKey;
     protected AtomicLong size;
 
-    public FileAttributes(Properties properties) {
-        this.properties = new Properties(properties);
+    public FileAttributes(FILE file) {
+        super(file);
+        this.fileKey = file.getFileKey();
     }
+
     @Override
     public FileTime lastModifiedTime() {
         return (FileTime) this.properties.get("lastModifiedTime");
@@ -28,18 +30,17 @@ public abstract class FileAttributes implements BasicFileAttributes {
         return (FileTime) this.properties.get("creationTime");
     }
 
-
     @Override
-    public long size() {
+    public final long size() {
         return size.get();
     }
 
-    public AtomicLong getSize() {
+    public final AtomicLong getSize() {
         return size;
     }
 
     @Override
-    public Object fileKey() {
-        return null;
+    public final K fileKey() {
+        return this.fileKey;
     }
 }

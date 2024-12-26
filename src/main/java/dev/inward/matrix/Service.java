@@ -1,29 +1,28 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.concept.matter.Matter;
-import dev.inward.matrix.fact.Predictable;
-import dev.inward.matrix.fact.datum.Complication;
+import dev.inward.matrix.info.Path_ofInfo;
+import dev.inward.matrix.predictable.Complication;
 
-public class Service<PATH extends Comparable<PATH>,X extends Context<PATH,X,ID,I,C,R>,ID extends Comparable<ID>,I extends Concept.Identity<PATH,X,ID,I,C,R>,C extends Concept<PATH,X,ID,I,C,R>,R extends Representitive<PATH,X,ID,I,C,R>,CRIT extends Criterion,PRE extends Predictable<PATH,X,ID,I,C,R,CRIT,PRE,COMP,M,OCCURRENCE>,COMP extends Complication<PATH,X,ID,I,C,R,CRIT,PRE,COMP,M,OCCURRENCE>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> implements Comparable<Service<PATH,X,ID,I,C,R,CRIT,PRE,COMP,M,OCCURRENCE>> {
+public class Service<K extends Info<Path_ofInfo>> implements Comparable<Service<K>> {
 
     protected final String name;
-    protected COMP complication;
+    protected Complication<Service<K>,K,?,?,?> complication;
 
-    public Service(String name, COMP complication) {
+    public Service(String name, Complication<Service<K>,K,?,?,?> complication) {
         this.name = name;
         this.complication = complication;
     }
 
-    public COMP getComplication() {
+    public Complication<Service<K>,K,?,?,?> getComplication() {
         return complication;
     }
 
-    public void setComplication(COMP complication) {
+    public void setComplication(Complication<Service<K>,K,?,?,?> complication) {
         this.complication = complication;
     }
 
     @Override
-    public int compareTo(Service<PATH,X,ID,I,C,R,CRIT,PRE,COMP,M,OCCURRENCE> that) {
+    public int compareTo(Service<K> that) {
         return this.name.compareTo(that.name);
     }
 }

@@ -2,20 +2,19 @@ package dev.inward.matrix.engine;
 
 import dev.inward.matrix.*;
 import dev.inward.matrix.Pathway;
-import dev.inward.matrix.fact.*;
-import dev.inward.matrix.fact.datum.Envoy;
+import dev.inward.matrix.Envoy;
 
 import java.time.Instant;
 import java.util.*;
 
-public class Engine<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<PATH,ID,I,A,R,PR>,A extends Addressed<PATH,ID,I,A,R,PR>,R extends Representitive<PATH,ID,I,A,R,PR>,PR extends Representitive<PATH,?,?,?,PR,?>> {
+public class Engine<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<PATH,ID,I,A,R,F>,A extends Addressed<PATH,ID,I,A,R,F>,R extends Representative<PATH,ID,I,A,R,F>,F extends Addressed.FileAttributes<PATH,ID,I,A,R,F>> {
 
     public final Instant createInstant = Instant.now();
-    protected final Operational operational;
+    protected final Operational<PATH,ID,I,A,R,F> operational;
     protected final Map<String,Induction<>> inductionMap = new HashMap<>();
 
 
-    public Engine(Operational operational, Addressed.Resource<PATH,ID,I,A,R,PR> resources) {
+    public Engine(Operational<PATH,ID,I,A,R,F> operational, Addressed.Resource<PATH,ID,I,A,R,F> resources) {
         this.operational = operational;
         resources.specification().getStandards(resources)
         Arrays.stream(operational.specification).forEach(i ->this.inductionMap.put(i.getDatumClassName(),i));
