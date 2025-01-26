@@ -15,9 +15,9 @@ Ledgers contain Gatherings which hold Addressed objects
 Predictable is the manager of Matrix objects when creating Complications
 
     dev.inward.matrix.predictable.Complication implements java.nio.file.WatchKey
-Complications are the runnable, which are configured by Criterion
+Complications are the runnable, which are configured by Criterion and produce Matters
 
-    dev.inward.matrix.log.Matter implements java.nio.file.WatchEvent<Indicia> 
+    dev.inward.matrix.log.Matter extends dev.inward.mattrix.Addressed implements java.nio.file.WatchEvent<Indicia> 
 Matters are sent to/kept in the 'log' scheme, the concept is to push all logs off the system almost immediately, both for processing externally and to keep them safe from any malfeasance that might occur on a front end system (killing the logs is the first sign of a 'hacked' system)
 
     dev.inward.matrix.log.Indica implements java.nio.file.WatchEvent.Kind<Indicia> 
@@ -74,6 +74,6 @@ Representative is the Registar extension for Addressed objects
     dev.inward.matrix.Addressed.FileAttributes
 Addressed.FileAttributes is the attributes for the Addressed Objects
 
-
+Much more....
 
 
