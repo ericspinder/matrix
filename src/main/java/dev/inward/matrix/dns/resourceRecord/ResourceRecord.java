@@ -12,7 +12,7 @@ import java.nio.file.attribute.FileTime;
 import java.util.Properties;
 import java.util.UUID;
 
-public abstract class ResourceRecord<RR extends ResourceRecord<RR>> extends Addressed<Path_ofDNS,UUID,ResourceRecord.Identity<RR>,RR,ResourceRecord.Representative<RR>> {
+public abstract class ResourceRecord<RR extends ResourceRecord<RR>> extends Addressed<Path_ofDNS,UUID,ResourceRecord.Identity<RR>,RR,ResourceRecord.Representative<RR>,ResourceRecord.DNSAttributes<RR>> {
 
     protected int ttl;
 
@@ -21,18 +21,13 @@ public abstract class ResourceRecord<RR extends ResourceRecord<RR>> extends Addr
         this.ttl = ttl;
     }
 
-    public static class Identity<RR extends ResourceRecord<RR>> extends dev.inward.matrix.Identity<Pathway,UUID,Identity<RR>,RR, Representative<RR>> {
-
+    public static class Identity<RR extends ResourceRecord<RR>> extends dev.inward.matrix.Identity<Path_ofDNS,UUID,Identity<RR>,RR, Representative<RR>,DNSAttributes<RR>> {
 
         @SafeVarargs
-        public Identity(UUID uuid, Index<Pathway, ?>... index) {
-            super(uuid,index);
+        public Identity(UUID uuid, Index<Path_ofDNS, ?>... indexes) {
+            super(uuid,null,indexes);
         }
 
-        @Override
-        public int compareTo(RR o) {
-            return 0;
-        }
 
         @Override
         public WatchKey register(WatchService watcher, WatchEvent.Kind<?>[] events, WatchEvent.Modifier... modifiers) throws IOException {
@@ -41,25 +36,26 @@ public abstract class ResourceRecord<RR extends ResourceRecord<RR>> extends Addr
     }
 
 
-    public static class Representative<RR extends ResourceRecord<RR>> extends dev.inward.matrix.Representative<Pathway,UUID,Identity<RR>,RR, Representative<RR>> {
+    public static class Representative<RR extends ResourceRecord<RR>> extends dev.inward.matrix.Representative<Path_ofDNS,UUID,Identity<RR>,RR, Representative<RR>,DNSAttributes<RR>> {
 
-        public Representative(RR addressed, Resource<Pathway, UUID, Identity<RR>, RR, Representative<RR>> resource, Properties properties) {
-            super(addressed, resource, properties);
-        }
-
-        @Override
-        public void setTimes(FileTime lastModifiedTime, FileTime lastAccessTime, FileTime createTime) throws IOException {
-
+        public Representative(RR addressed, Resource<Path_ofDNS, UUID, Identity<RR>, RR, Representative<RR>,DNSAttributes<RR>> resource, DNSAttributes<RR> properties) {
+            super(addressed, resource);
         }
     }
-//    public ByteBuffer getRData() {
-//        return StandardCharsets.UTF_8.encode(rData());
-//    }
+    public static class DNSAttributes<RR extends ResourceRecord<RR>> extends FileAttributes<Path_ofDNS,UUID,Identity<RR>,RR,Representative<RR>,DNSAttributes<RR>> {
 
+        public DNSAttributes(RR datum) {
+            super(datum);
+        }
+    }
 
     @Override
     public int compareTo(RR that) {
-        return this.identity.compareTo(that.identity);
+        return this.fileKey.compareTo(that.fileKey);
     }
+    //    public ByteBuffer getRData() {
+//        return StandardCharsets.UTF_8.encode(rData());
+//    }
+
 
 }

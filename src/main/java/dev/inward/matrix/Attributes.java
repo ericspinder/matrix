@@ -4,17 +4,21 @@ import java.util.Properties;
 
 public class Attributes<DATUM,W extends Ware<DATUM,W,A>,A extends Attributes<DATUM,W,A>> {
 
-    protected Model model;
+    protected Model<DATUM,W,A> model;
     protected final Properties properties = new Properties();
 
-    public Attributes(Resource<DATUM,W,A> resource, DATUM datum) {
-        this.model = this.initProperties(resource, datum);
+    public Attributes(Model<DATUM,W,A> model) {
+        this.model = model;
     }
-    protected Model initProperties(Resource<DATUM,W,A> resource, DATUM datum) {
-        // properties.put("initSize", Ziggurat.getInstance().getInstrumentation().getObjectSize(datum));
-        resource.populate(properties,datum);
-        return resource.getDefaultModel(datum);
+
+    public void setModel(Model<DATUM, W, A> model) {
+        this.model = model;
     }
+
+    public Model<DATUM, W, A> getModel() {
+        return model;
+    }
+
 
     public Properties getProperties() {
         return properties;

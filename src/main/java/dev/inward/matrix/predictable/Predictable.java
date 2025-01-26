@@ -6,6 +6,7 @@ import dev.inward.matrix.log.Indicia;
 import dev.inward.matrix.ChainSupplier;
 import dev.inward.matrix.Library;
 import dev.inward.matrix.log.Library_ofLog;
+import dev.inward.matrix.log.Matter;
 import dev.inward.matrix.log.Scheme_ofLog;
 
 import java.io.IOException;

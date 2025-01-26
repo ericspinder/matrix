@@ -4,7 +4,10 @@ import dev.inward.matrix.code.Scheme_ofCode;
 import dev.inward.matrix.dns.Scheme_ofDNS;
 import dev.inward.matrix.http.Scheme_ofHttp;
 import dev.inward.matrix.https.Scheme_ofHttps;
+import dev.inward.matrix.info.Scheme_ofInfo;
+import dev.inward.matrix.gate.Scheme_ofGate;
 import dev.inward.matrix.log.Scheme_ofLog;
+import dev.inward.matrix.realm.Scheme_ofRealm;
 
 import java.io.IOException;
 import java.net.*;
@@ -14,12 +17,16 @@ import java.util.Map;
 public abstract class Scheme<S extends Scheme<S,L,PATH>,L extends Library<S,L,PATH>,PATH extends Comparable<PATH>> extends URLStreamHandler implements Comparable<S> {
 
 
-    protected static Map<String,Scheme<?,?,?>> ALL_KNOW_SCHEMES = new HashMap<>();
+    protected static Map<String,Scheme<?,?,?>> ALL_KNOWN_SCHEMES = new HashMap<>();
     protected static Map<String,Library<?,?,?>> ALL_FOUND_LIBRARIES = new HashMap<>();
     public static Scheme<?,?,?> findSchemeByString(String scheme_s) {
-        Scheme<?,?,?> scheme = ALL_KNOW_SCHEMES.get(scheme_s);
+        Scheme<?,?,?> scheme = ALL_KNOWN_SCHEMES.get(scheme_s);
         if (scheme == null && scheme_s.indexOf('.') == -1) {
-            scheme = ALL_KNOW_SCHEMES.get(Terrene.Earth.toString() + '_' + scheme_s);
+            findSchemeByString(Terrene.Earth.toString() + '.' + scheme_s);
+        }
+        else {
+            Terrene terrene = Terrene.Parse(scheme_s);
+            scheme =
         }
         return scheme;
     }
@@ -31,9 +38,12 @@ public abstract class Scheme<S extends Scheme<S,L,PATH>,L extends Library<S,L,PA
     public enum Protocol implements Meta_I {
         CODE("code","Code Repository",8, Scheme_ofCode.class),
         DNS("dns","Domain Name System",53, Scheme_ofDNS.class),
+        INFO("info", "Information about personas", 12, Scheme_ofInfo.class),
+        GATE("gate", "House gate",6, Scheme_ofGate.class),
         HTTP("http","Unsecure File Service", 80, Scheme_ofHttp.class),
         HTTPS("https","Secure File Service",443, Scheme_ofHttps.class),
         LOG("log","Completed Matters",10, Scheme_ofLog.class),
+        REALM("realm", "Secure login Service", 88, Scheme_ofRealm.class)
         ;
         private final String label;
         private final String description;

@@ -21,10 +21,6 @@ public final class Ziggurat implements URLStreamHandlerFactory {
     private final CommandLine commandLine;
     private final Instrumentation instrumentation;
 
-    private final Map<> etherealAuthorityMap = new HashMap<>();
-
-    private Map<String,? super DatumResource<?>> datumMap = new HashMap<>();
-
     private Ziggurat(CommandLine commandLine, Instrumentation instrumentation) {
         this.commandLine = commandLine;
         this.instrumentation = instrumentation;
@@ -42,16 +38,13 @@ public final class Ziggurat implements URLStreamHandlerFactory {
         return instrumentation;
     }
 
-    public Map<Context.Ethereal, Host> getEtherealAuthorityMap() {
-        return etherealAuthorityMap;
-    }
 
     public static void premain(String agentArgs, Instrumentation instrumentation) throws InstantiationException {
         try {
-            if (Instance != null) {
-                throw new InstantiationException("Ziggurat has already been instantiated");
+            if (Instance == null) {
+                Instance = new Ziggurat(new CommandLine(agentArgs), instrumentation);
             }
-            Instance = new Ziggurat(new CommandLine(agentArgs), instrumentation);
+
         }
         catch (IOException e) {
             System.out.println(e.toString());
@@ -71,6 +64,6 @@ public final class Ziggurat implements URLStreamHandlerFactory {
 
     @Override
     public URLStreamHandler createURLStreamHandler(String protocol) {
-            Scheme;
+            return Scheme.findSchemeByString(protocol);
     }
 }

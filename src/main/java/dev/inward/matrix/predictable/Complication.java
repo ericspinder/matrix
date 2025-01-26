@@ -2,6 +2,7 @@ package dev.inward.matrix.predictable;
 
 import dev.inward.matrix.*;
 import dev.inward.matrix.log.Indicia;
+import dev.inward.matrix.log.Matter;
 
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;

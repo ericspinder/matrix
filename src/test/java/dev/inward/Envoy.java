@@ -3,6 +3,7 @@ package dev.inward;
 import java.io.Serializable;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
+import java.net.URL;
 import java.util.UUID;
 
 public abstract class Envoy<DATUM,D extends Datum<DATUM,D,V>, V extends Envoy<DATUM,D,V>> extends SoftReference<DATUM> implements Comparable<V>, Serializable {

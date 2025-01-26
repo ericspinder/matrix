@@ -12,8 +12,8 @@ public class ServerRecord extends ResourceRecord<ServerRecord> {
     protected final InetAddress inetAddress;
     protected transient final BigInteger asBytes;
 
-    public ServerRecord(Terrene terrene, Domain domain, InetAddress inetAddress,int ttl) {
-        super(terrene,domain,(inetAddress instanceof Inet4Address)? ResourceRecordType.ipV4Address:ResourceRecordType.ipV6Address,ttl);
+    public ServerRecord(ResourceRecord.Identity<ServerRecord> identity, InetAddress inetAddress,int ttl) {
+        super(identity,ttl);
         this.inetAddress = inetAddress;
         this.asBytes = new BigInteger(1,this.inetAddress.getAddress());
     }
@@ -27,12 +27,4 @@ public class ServerRecord extends ResourceRecord<ServerRecord> {
         return null;
     }
 
-    @Override
-    public int compareTo(ServerRecord that) {
-        int isZero = super.compareTo(that);
-        if (isZero == 0) {
-            return this.asBytes.compareTo(that.asBytes);
-        }
-        return isZero;
-    }
 }

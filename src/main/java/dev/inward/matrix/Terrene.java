@@ -58,19 +58,19 @@ public class Terrene implements Comparable<Terrene> {
 
     public final static class EarthRoots {
 
-        public final Domain com_a = new Domain(Earth,"com.a");
-        public final Domain com_b = new Domain(Earth,"com.b");
-        public final Domain com_c = new Domain(Earth,"com.c");
-        public final Domain com_d = new Domain(Earth, "com.d");
-        public final Domain com_e = new Domain(Earth, "com.e");
-        public final Domain com_f = new Domain(Earth, "com.f");
-        public final Domain com_g = new Domain(Earth, "com.g");
-        public final Domain com_h = new Domain(Earth, "com.h");
-        public final Domain com_i = new Domain(Earth, "com.i");
-        public final Domain com_j = new Domain(Earth, "com.j");
-        public final Domain com_k = new Domain(Earth, "com.k");
-        public final Domain com_l = new Domain(Earth, "com.l");
-        public final Domain com_m = new Domain(Earth, "com.m");
+        public final Domain com_a = Domain.getInstance(Earth,"com.a");
+        public final Domain com_b = Domain.getInstance(Earth,"com.b");
+        public final Domain com_c = Domain.getInstance(Earth,"com.c");
+        public final Domain com_d = Domain.getInstance(Earth, "com.d");
+        public final Domain com_e = Domain.getInstance(Earth, "com.e");
+        public final Domain com_f = Domain.getInstance(Earth, "com.f");
+        public final Domain com_g = Domain.getInstance(Earth, "com.g");
+        public final Domain com_h = Domain.getInstance(Earth, "com.h");
+        public final Domain com_i = Domain.getInstance(Earth, "com.i");
+        public final Domain com_j = Domain.getInstance(Earth, "com.j");
+        public final Domain com_k = Domain.getInstance(Earth, "com.k");
+        public final Domain com_l = Domain.getInstance(Earth, "com.l");
+        public final Domain com_m = Domain.getInstance(Earth, "com.m");
 
         protected final List<ServerRecord> serverRecords;
 

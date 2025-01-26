@@ -9,9 +9,9 @@ public final class Domain implements Comparable<Domain> {
     private final static Map<String,Domain> All_Known_Domains = new HashMap<>();
 
     public synchronized static Domain getInstance(Terrene terrene, String domain_string) {
-        Domain domain = All_Known_Domains.get(terrene.toString() + '_' + domain_string);
+        Domain domain = All_Known_Domains.get(terrene.toString() + '.' + domain_string);
         if (domain != null) return domain;
-        All_Known_Domains.put(terrene.toString() + '_' + domain_string, new Domain(terrene, domain_string));
+        All_Known_Domains.put(terrene.toString() + '.' + domain_string, new Domain(terrene, domain_string));
         return All_Known_Domains.get(domain_string);
     }
     private final Terrene terrene;

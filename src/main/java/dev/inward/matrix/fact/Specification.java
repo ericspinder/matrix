@@ -5,7 +5,7 @@ import dev.inward.matrix.Meta_I;
 import dev.inward.matrix.dns.resourceRecord.ServerRecord;
 import dev.inward.matrix.Standard;
 import dev.inward.matrix.log.Indicia;
-import dev.inward.matrix.predictable.Matter;
+import dev.inward.matrix.log.Matter;
 
 import java.util.ArrayList;
 import java.util.List;

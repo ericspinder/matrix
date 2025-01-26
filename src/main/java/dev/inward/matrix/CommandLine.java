@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class        CommandLine {
+public class CommandLine {
 
     protected Map<String,String> keyedStringValues = new HashMap<>();
     protected List<String> unmatchedStringList = new ArrayList<>();

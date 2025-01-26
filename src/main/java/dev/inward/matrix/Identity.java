@@ -12,7 +12,7 @@ import java.util.List;
 public abstract class Identity<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<PATH,ID,I,A,R,F>,A extends Addressed<PATH,ID,I,A,R,F>,R extends Representative<PATH,ID,I,A,R,F>,F extends Addressed.FileAttributes<PATH,ID,I,A,R,F>> extends FileKey<PATH,I,A,R,F> {
 
     protected final ID id;
-    protected R rider;
+    protected transient R rider;
     protected final List<Index<PATH,?>> indices = new ArrayList<>();
 
     @SafeVarargs

@@ -1,12 +1,8 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.predictable.Complication;
-import dev.inward.matrix.predictable.Matter;
-
 import java.lang.ref.ReferenceQueue;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
-import java.util.Properties;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
 
@@ -17,21 +13,26 @@ public abstract class Resource<DATUM,W extends Ware<DATUM,W,A>,A extends Attribu
     protected final AtomicLong removed = new AtomicLong();
     protected String limitReachedMessage = null;
     protected Function<W,W> graveDigger;
-
+    protected final Function<DATUM,Model<DATUM,W,A>> modelMaker;
 
     @SuppressWarnings("unchecked")
     protected A createAttributes(DATUM datum) {
         try {
-            return ((Class<A>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[2]).getDeclaredConstructor(Resource.class,Object.class).newInstance(this, datum);
+            A attributes = ((Class<A>)((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[2]).getDeclaredConstructor(Model.class).newInstance(this.modelMaker.apply(datum));
+            this.populate(attributes,datum);
+            return attributes;
         } catch (ClassCastException | InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
     }
-    protected Model getModel(Class<DATUM> datumClass) {
 
-    }
-    protected void populate(Properties properties, DATUM datum) {
-
+    /**
+     * Override this method to populate the attributes of the datum instance being wrapped
+     * @param attributes the new Attributes
+     * @param datum the datum instance being wrapped
+     */
+    protected void populate(A attributes, DATUM datum) {
+        //this space deliberately left blank
     }
 
     /**
@@ -39,9 +40,21 @@ public abstract class Resource<DATUM,W extends Ware<DATUM,W,A>,A extends Attribu
      * @param standard
      * @param graveDigger
      */
-    public <M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> Resource(Standard standard, Function<W,W> graveDigger) {
+    @SuppressWarnings("unchecked")
+    public Resource(Standard standard, Function<W,W> graveDigger, Function<DATUM,Model<DATUM,W,A>> modelMaker) {
         this.standard = standard;
         this.graveDigger = graveDigger;
+        if (modelMaker == null) {
+            try {
+                this.modelMaker = (Function<DATUM, Model<DATUM,W,A>>) Class.forName(this.standard.modelMakerClass).getConstructor().newInstance();
+            } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException |
+                     InvocationTargetException | InstantiationException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else {
+            this.modelMaker = modelMaker;
+        }
     }
 
     public long incrementAndGet() {
@@ -72,10 +85,4 @@ public abstract class Resource<DATUM,W extends Ware<DATUM,W,A>,A extends Attribu
         return this.sequence.get() - this.removed.get();
     }
 
-
-
-
-//    public Policy<? super Function<DATUM,?>,DATUM,P,ID,T,C,CAT,?,?,?,?,?>[] getPolicies() {
-//        return policies;
-//    }
 }

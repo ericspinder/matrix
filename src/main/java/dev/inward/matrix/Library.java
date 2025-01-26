@@ -4,7 +4,7 @@ import dev.inward.matrix.dns.resourceRecord.ServiceLocationRecord;
 import dev.inward.matrix.engine.Zone;
 import dev.inward.matrix.predictable.Complication;
 import dev.inward.matrix.predictable.Criterion;
-import dev.inward.matrix.predictable.Matter;
+import dev.inward.matrix.log.Matter;
 import dev.inward.matrix.predictable.Predictable;
 import dev.inward.matrix.log.Indicia;
 import dev.inward.matrix.memory.Memory;

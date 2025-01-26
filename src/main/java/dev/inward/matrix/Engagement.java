@@ -2,7 +2,7 @@ package dev.inward.matrix;
 
 import dev.inward.matrix.fact.authoritative.yard.Tree;
 import dev.inward.matrix.log.Indicia;
-import dev.inward.matrix.predictable.Matter;
+import dev.inward.matrix.log.Matter;
 
 import java.time.Instant;
 

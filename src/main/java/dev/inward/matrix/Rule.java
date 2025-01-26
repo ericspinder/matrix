@@ -14,7 +14,7 @@ public abstract class Rule extends Personality.Ego {
             return 0;
         }
     }
-    public static class Matter extends dev.inward.matrix.predictable.Matter<Matter,Occurrence> {
+    public static class Matter extends dev.inward.matrix.log.Matter<Matter,Occurrence> {
 
         @Override
         public Dogma userInfo() {
