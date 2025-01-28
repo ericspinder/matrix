@@ -1,6 +1,6 @@
 package dev.inward.crud.operational;
 
-import dev.inward.matrix.fact.Specification;
+import dev.inward.matrix.Specification;
 import dev.inward.matrix.fact.datum.time.InstantDatum;
 
 public abstract class MaxValueTime implements Specification.MaxValue<InstantDatum, MaxValueTime> {

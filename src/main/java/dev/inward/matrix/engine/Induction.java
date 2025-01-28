@@ -1,7 +1,7 @@
 package dev.inward.matrix.engine;
 
 import dev.inward.matrix.*;
-import dev.inward.matrix.Concept;
+import dev.inward.matrix.operation.Concept;
 import dev.inward.matrix.fact.authoritative.notion.Agent;
 
 import javax.annotation.Nonnull;

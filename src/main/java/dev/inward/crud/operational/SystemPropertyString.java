@@ -1,6 +1,6 @@
 package dev.inward.crud.operational;
 
-import dev.inward.matrix.fact.Specification;
+import dev.inward.matrix.Specification;
 
 public enum SystemPropertyString implements Specification.SystemProperty<String, SystemPropertyString> {
     IP_4_Prefer("java.net.preferIPv4Stack","false","If IPv6 is available on the operating system the underlying native socket will be an IPv6 socket. This allows Java(tm) applications to connect too, and accept connections from, both IPv4 and IPv6 hosts. If an application has a preference to only use IPv4 sockets then this property can be set to true. The implication is that the application will not be able to communicate with IPv6 hosts."),

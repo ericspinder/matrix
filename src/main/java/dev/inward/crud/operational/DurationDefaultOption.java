@@ -1,6 +1,6 @@
 package dev.inward.crud.operational;
 
-import dev.inward.matrix.fact.Specification;
+import dev.inward.matrix.Specification;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;

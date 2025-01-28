@@ -1,7 +1,7 @@
 package dev.inward.matrix.engine;
 
 import dev.inward.matrix.Pathway;
-import dev.inward.matrix.fact.Specification;
+import dev.inward.matrix.Specification;
 
 import java.net.URL;
 import java.security.CodeSigner;

@@ -1,6 +1,5 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.fact.Specification;
 import dev.inward.matrix.concept.matter.messaging.Scratch;
 import dev.inward.matrix.resources.Supplier;
 

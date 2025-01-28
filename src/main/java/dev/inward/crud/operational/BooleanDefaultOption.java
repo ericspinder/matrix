@@ -1,6 +1,6 @@
 package dev.inward.crud.operational;
 
-import dev.inward.matrix.fact.Specification;
+import dev.inward.matrix.Specification;
 
 public enum BooleanDefaultOption implements Specification.DefaultOption<Boolean, BooleanDefaultOption> {
 

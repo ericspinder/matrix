@@ -1,6 +1,7 @@
 package dev.inward.matrix.personality;
 
-import dev.inward.matrix.Dogma;
+import dev.inward.matrix.info.Agent;
+import dev.inward.matrix.info.Persona;
 
 import java.nio.file.attribute.AclEntryPermission;
 import java.nio.file.attribute.AclEntryType;
@@ -11,8 +12,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Psyche extends Personality.Ego {
 
-    protected Dogma.Persona persona;
-    protected Dogma.Agent[] agents;
+    protected Persona persona;
+    protected Agent[] agents;
     protected static class Experience {
         protected final AclEntryType aclEntryType;
         protected final AtomicInteger count = new AtomicInteger();
@@ -40,7 +41,7 @@ public class Psyche extends Personality.Ego {
 
     protected Map<AclEntryPermission, Experience> permissionExperienceMap = new ConcurrentHashMap<>();
 
-    public Psyche(Personality personality, Dogma.Persona persona, Dogma.Agent[] agents) {
+    public Psyche(Personality personality, Persona persona, Agent[] agents) {
         super(personality, persona.getName());
         this.persona = persona;
         this.agents = agents;

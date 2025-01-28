@@ -2,7 +2,7 @@ package dev.inward.matrix;
 
 import dev.inward.matrix.Pathway;
 import dev.inward.matrix.engine.Engine;
-import dev.inward.matrix.fact.Fact;
+import dev.inward.matrix.http.Fact;
 
 import java.util.HashMap;
 import java.util.Map;

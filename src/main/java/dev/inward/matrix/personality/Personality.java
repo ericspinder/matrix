@@ -1,6 +1,7 @@
 package dev.inward.matrix.personality;
 
 import dev.inward.matrix.*;
+import dev.inward.matrix.info.Persona;
 import dev.inward.matrix.log.Indicia;
 
 import java.lang.ref.SoftReference;
@@ -92,10 +93,10 @@ public class Personality extends PermissionCollection {
 
     @Override
     public void add(Permission permission) {
-        if (permission instanceof Dogma.Persona) {
+        if (permission instanceof Persona) {
             long lock = personaGate.writeLock();
             try {
-                this.knownPersonas.add((Dogma.Persona) permission);
+                this.knownPersonas.add((Persona) permission);
 
                 return;
             }
@@ -123,16 +124,16 @@ public class Personality extends PermissionCollection {
      */
     @Override
     public boolean implies(Permission permission) {
-        if (permission instanceof Dogma.Persona) {
-            return ((Dogma.Persona)knownPermission).persona == ((Dogma.Persona)permission).persona;
+        if (permission instanceof Persona) {
+            return ((Persona)knownPermission).persona == ((Persona)permission).persona;
                 if (knownPermission instanceof Psyche) {
-                    return Arrays.binarySearch(((Psyche)knownPermission).personas,((Dogma.Persona) permission).persona) >= 0;
+                    return Arrays.binarySearch(((Psyche)knownPermission).personas,((Persona) permission).persona) >= 0;
                 }
                 if (knownPermission instanceof Sessio
         }
         if (permission instanceof Psyche) {
             for (Permission knownPermission: knownPermissions) {
-                if (knownPermission instanceof Dogma.Persona) {
+                if (knownPermission instanceof Persona) {
                     return Arrays.compare(((Psyche)knownPermission).personas,((Psyche) permission).personas) >= 0;
                 }
                 if (knownPermission instanceof Psyche) {
@@ -144,7 +145,7 @@ public class Personality extends PermissionCollection {
             }
             for (char psychePersona: ((Psyche) permission).personas) {
                 for (Permission personaRaw: this.personas) {
-                    if (((Dogma.Persona)personaRaw).persona == psychePersona) return true;
+                    if (((Persona)personaRaw).persona == psychePersona) return true;
                 }
             }
             return false;

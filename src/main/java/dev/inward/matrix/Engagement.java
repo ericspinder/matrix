@@ -1,6 +1,7 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.fact.authoritative.yard.Tree;
+import dev.inward.matrix.info.Persona;
 import dev.inward.matrix.log.Indicia;
 import dev.inward.matrix.log.Matter;
 
@@ -8,7 +9,7 @@ import java.time.Instant;
 
 public class Engagement<E extends Engagement<E,F,P>, F extends Fingerprint,P extends Tree> extends Matter<E,> {
 
-    protected final Dogma.Persona persona;
+    protected final Persona persona;
     private final F fingerprint;
     protected final SESSION session;
 

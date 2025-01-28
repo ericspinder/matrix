@@ -1,6 +1,7 @@
 package dev.inward.matrix.https;
 
 import dev.inward.matrix.Domain;
+import dev.inward.matrix.MatrixURLStreamHandlerProvider;
 import dev.inward.matrix.Scheme;
 import dev.inward.matrix.Terrene;
 
@@ -15,16 +16,17 @@ public class Scheme_ofHttps extends Scheme<Scheme_ofHttps, Library_ofHttps, Stri
 
 
     protected Scheme_ofHttps(Terrene terrene) {
-        super(terrene,Protocol.HTTPS);
+        super(terrene, MatrixURLStreamHandlerProvider.Protocol.HTTPS);
     }
 
-    @Override
-    public Library_ofHttps buildNewLibrary(URI uri) {
-        return new Library_ofHttps(this, Domain.getInstance(terrene,uri.getHost()));
-    }
 
     @Override
     public int compareTo(Scheme_ofHttps that) {
         return 0;
+    }
+
+    @Override
+    protected Library_ofHttps buildNewLibrary(Domain domain, int port) {
+        return new Library_ofHttps(this, domain,port);
     }
 }

@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
 
 public class Library_ofInfo extends Library<Scheme_ofInfo, Library_ofInfo,Path_ofInfo> {
 
-    public Library_ofInfo(Scheme_ofInfo scheme, Domain domain) {
-        super(scheme, domain);
+    public Library_ofInfo(Scheme_ofInfo scheme, Domain domain, int port) {
+        super(scheme, domain,port);
     }
 
 }

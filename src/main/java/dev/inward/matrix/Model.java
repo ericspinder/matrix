@@ -7,9 +7,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Model<DATUM,W extends Ware<DATUM,W,A>,A extends Attributes<DATUM,W,A>> {
+public abstract class Model<DATUM,W extends Ware<DATUM,W,A>,A extends Attributes<DATUM,W,A>> {
 
     protected final Map<String,Aspect> labeledAspects = new ConcurrentHashMap<>();
 
@@ -29,9 +30,8 @@ public class Model<DATUM,W extends Ware<DATUM,W,A>,A extends Attributes<DATUM,W,
             throw new RuntimeException(e);
         }
     }
-    public void delete(W datum, Objects... objects) {
-
-    }
+    public abstract Properties getIntitalProperties(DATUM datum);
+    public abstract void delete(W datum);
 
     public Map<String, Aspect> getLabeledAspects() {
         return labeledAspects;

@@ -2,6 +2,7 @@ package dev.inward.matrix;
 
 import dev.inward.matrix.dns.resourceRecord.ServiceLocationRecord;
 import dev.inward.matrix.engine.Zone;
+import dev.inward.matrix.operation.Operation;
 import dev.inward.matrix.predictable.Complication;
 import dev.inward.matrix.predictable.Criterion;
 import dev.inward.matrix.log.Matter;
@@ -27,10 +28,10 @@ public abstract class Library<S extends Scheme<S,L,PATH>,L extends Library<S,L,P
     protected final S scheme;
 
     protected final Domain domain;
+    protected final int port;
 
     protected final Map<ServiceLocationRecord,Experience> hostExperienceMap = new ConcurrentHashMap<>();
-    protected final Map<Ledger<PATH>,Librarian<PATH,?,?,?,?,?>[]> catalogs = new ConcurrentHashMap<>();
-    protected final Map<Model<S,L,?,?,?>, Director<S,L,?,?>> models = new ConcurrentHashMap<>();
+    protected final Map<Ledger<PATH>,Librarian<PATH,?,?,?,?>[]> catalogs = new ConcurrentHashMap<>();
 
     protected <ID extends Comparable<ID>, I extends Identity<PATH, ID, I, A, R, PR>, A extends Addressed<PATH, ID, I, A, R, PR>, R extends Representative<PATH, ID, I, A, R, PR>, PR extends Representative<PATH, ?, ?, ?, PR, ?>, C extends Operation<PATH, ID, I, A, R, PR>, L extends Ledger<PATH>> L initLedger(Memory<C, PATH> memory, Map<PATH, Gathering<PATH, ID, I, A, R, PR, C>> directoriesSeed) throws CheckedException {
         return null;
@@ -45,12 +46,10 @@ public abstract class Library<S extends Scheme<S,L,PATH>,L extends Library<S,L,P
         return firstLimitReachedMessage(className,warnTotal,hardLimit).append(' ').append(previousMessage).toString() ;
     }
 
-    public Library(S scheme, Domain domain) {
-        if (scheme.terrene != domain.getTerrene()) {
-            throw new RuntimeException("Scheme and Domain need to match terrene");
-        }
+    public Library(S scheme, Domain domain, int port) {
         this.scheme = scheme;
         this.domain = domain;
+        this.port = port;
     }
     public Clerk.Network.Client getClient(URI uri) {
         Host.Remote remote = new Host.Remote()

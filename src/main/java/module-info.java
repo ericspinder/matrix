@@ -10,7 +10,6 @@ module dev.inward.matrix {
     exports dev.inward.matrix.route;
     exports dev.inward.matrix.personality;
     exports dev.inward.matrix.ticket;
-    exports dev.inward.matrix to java.instrument;
     exports dev.inward.matrix.memory;
     exports  dev.inward.matrix.dns.resourceRecord;
     exports dev.inward.matrix.code;
@@ -20,4 +19,7 @@ module dev.inward.matrix {
     exports dev.inward.crud;
     exports dev.inward.matrix.info;
     exports dev.inward.matrix.predictable;
+    exports dev.inward.matrix.operation to java.instrument;
+    exports dev.inward.matrix;
+    exports dev.inward.matrix.http;
 }

@@ -1,8 +1,8 @@
 package dev.inward.crud;
 
-import dev.inward.matrix.Dogma;
-import dev.inward.matrix.Concept;
-import dev.inward.matrix.fact.Fact;
+import dev.inward.matrix.info.Dogma;
+import dev.inward.matrix.operation.Concept;
+import dev.inward.matrix.http.Fact;
 
 public abstract class Edition<SERIAL extends Comparable<SERIAL>,N extends Fact.Identity<N,E,M>,E extends Edition<SERIAL,N,E,M>,M extends Edition.Model<SERIAL,N,E,M>> extends Fact<N,E,M> {
 

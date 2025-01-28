@@ -1,4 +1,6 @@
-package dev.inward.matrix;
+package dev.inward.matrix.info;
+
+import dev.inward.matrix.Materialization;
 
 import java.util.UUID;
 

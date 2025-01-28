@@ -1,39 +1,32 @@
-package dev.inward.matrix.fact;
+package dev.inward.matrix;
 
-import dev.inward.matrix.predictable.Criterion;
-import dev.inward.matrix.Meta_I;
+import dev.inward.matrix.code.Code;
+import dev.inward.matrix.code.Path_ofCode;
 import dev.inward.matrix.dns.resourceRecord.ServerRecord;
-import dev.inward.matrix.Standard;
+import dev.inward.matrix.dns.resourceRecord.Zone;
 import dev.inward.matrix.log.Indicia;
-import dev.inward.matrix.log.Matter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Specification extends Standard {
+public class Specification extends Code<Path_ofCode,Specification,> {
 
     protected final Map<String, DefaultOption<?,?>> options;
     protected final Map<Indicia.Focus, ServerRecord[]> focusServerMap;
+
     protected final Standard[] standards;
 
-    public Specification(Standard.Identity identity, final String description, final String transformerClassName, final String[] inductionClassNames, final Criterion<?,?,?,?,?>[] demonCriteria, final String hash, final Map<String, DefaultOption<?,?>> optionMap, Map<Indicia.Focus, ServerRecord[]> focusServerMap, Standard[] standards) {
-        super(identity,description,transformerClassName,inductionClassNames,demonCriteria);
-        this.hash = hash;
+    public Specification(final Identity identity, final String description, Standard[] standards) {
+        super(identity);
         this.options = optionMap;
         this.focusServerMap = focusServerMap;
         this.standards = standards;
     }
 
-    public static void setDefaultValues(DefaultOption<?,?>[] optionsLoad, Map<String, DefaultOption<?,?>> options) throws Roller {
-        if (optionsLoad == null) return;
-        for (DefaultOption<?,?> option: optionsLoad) {
-            options.put(option.getI18n(), option);
-        }
-    }
 
-    public Map<Indicia, ServerRecord[]> getIndiciaServerMap() {
-        return indiciaServerMap;
+    public Map<Indicia.Focus, ServerRecord[]> getIndiciaServerMap() {
+        return focusServerMap;
     }
 
     public List<Standard<X,?>> getStandards(Zone zone) {

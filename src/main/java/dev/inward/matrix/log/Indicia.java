@@ -13,17 +13,6 @@ public final class Indicia implements Comparable<Indicia>, WatchEvent.Kind<Indic
     private final Focus focus;
     private final Severity severity;
     private final short series;
-    private final String complicationClassName;
-    private final String complicationCriterionClassName;
-    private final String providerClassName;
-    private final String providerCriterionClassName;
-    private final String supplierClassName;
-    private final String supplierCriterionClassName;
-    private final String policyClassName;
-    private final String policyCriterionClassName;
-    private final String dateTimeFormaterClassName;
-    private final String[] defaultIndexClassNames;
-
 
 
     public Indicia(@Nonnull String terrine, @Nonnull String locus, @Nonnull Focus focus, @Nonnull Severity severity, short series, String complicationClassName, String complicationCriterionClassName, String providerClassName, String providerCriterionClassName, String supplierClassName, String supplierCriterionClassName, String policyClassName, String policyCriterionClassName, String dateTimeFormaterClassName, String[] defaultIndexClassNames) {

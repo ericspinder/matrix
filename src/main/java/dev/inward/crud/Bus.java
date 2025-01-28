@@ -2,6 +2,7 @@ package dev.inward.crud;
 
 import dev.inward.matrix.*;
 import dev.inward.matrix.Envoy;
+import dev.inward.matrix.operation.Concept;
 
 import java.util.*;
 

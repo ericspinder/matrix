@@ -1,30 +1,14 @@
 package dev.inward.matrix;
 
+import java.nio.file.Path;
 import java.util.function.Function;
 
-public abstract class MatrixFile<PATH extends Comparable<PATH>,K extends FileKey<PATH,K,FILE,R,F>,FILE extends MatrixFile<PATH,K,FILE,R,F>,R extends Registar<PATH,K,FILE,R,F>,F extends FileAttributes<PATH,K,FILE,R,F>> implements Datum<FILE,R,F>, Comparable<FILE> {
+public interface MatrixFile<PATH extends Comparable<PATH>,K extends FileKey<PATH,K,FILE,F>,FILE extends MatrixFile<PATH,K,FILE,F>,F extends FileAttributes<PATH,K,FILE,F>> extends Comparable<FILE> {
 
-    protected final K fileKey;
+    public K getFileKey();
 
-    public MatrixFile(K fileKey) {
-        this.fileKey = fileKey;
+    default int compareTo(FILE that) {
+        return this.getFileKey().compareTo(that.getFileKey());
     }
 
-    public K getFileKey() {
-        return fileKey;
-    }
-
-    public static class Resource<PATH extends Comparable<PATH>,K extends FileKey<PATH,K,FILE,R,F>,FILE extends MatrixFile<PATH,K,FILE,R,F>,R extends Registar<PATH,K,FILE,R,F>,F extends FileAttributes<PATH,K,FILE,R,F>> extends DatumResource<FILE,R,F> {
-
-        /**
-         * @param parent
-         * @param className
-         * @param warnOnTotal
-         * @param hardLimit
-         * @param graveDigger
-         */
-        public Resource(Representative<?, ?, ?, ?, ?, ?> parent, String className, long warnOnTotal, long hardLimit, Function<R, R> graveDigger) {
-            super(parent, className, warnOnTotal, hardLimit, graveDigger);
-        }
-    }
 }

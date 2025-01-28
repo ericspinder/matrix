@@ -3,7 +3,6 @@ package dev.inward.matrix.predictable;
 import dev.inward.matrix.Meta_I;
 import dev.inward.matrix.Range;
 import dev.inward.matrix.engine.Zone;
-import dev.inward.matrix.fact.Alert;
 
 import java.nio.file.WatchEvent;
 import java.time.Duration;
@@ -77,15 +76,11 @@ public abstract class Criterion implements Meta_I, WatchEvent.Modifier {
     public static class Limiter extends Criterion {
 
         protected final int totalAllowed;
-        protected final Map<Integer, Alert> warnLevels;
+        //protected final Map<Integer, Alert> warnLevels;
 
-        public Limiter(Zone[] zones, int totalAllowed, Map<Integer,Alert> warnLevels) {
-            this("limiter","generates Alerts based on the count of either",zones,null,true,true,null,totalAllowed,warnLevels);
-        }
-        public Limiter(String label, String description, Zone[] zones, String i18n, boolean autoStart, boolean singleCustomer, String targetClassName, int totalAllowed, Map<Integer,Alert> warnLevels) {
-            super(label,description,zones,i18n,autoStart,singleCustomer,targetClassName);
+        public Limiter(String label, String description, Zone[] zones, String i18n, boolean autoStart, boolean singleCustomer, int totalAllowed) {
+            super(label,description,zones,i18n,autoStart,singleCustomer);
             this.totalAllowed = totalAllowed;
-            this.warnLevels = warnLevels;
         }
 
         @Override
@@ -97,9 +92,9 @@ public abstract class Criterion implements Meta_I, WatchEvent.Modifier {
             return totalAllowed;
         }
 
-        public Map<Integer, Alert> getWarnLevels() {
-            return warnLevels;
-        }
+//        public Map<Integer, Alert> getWarnLevels() {
+//            return warnLevels;
+//        }
 
     }
     public static class Timeout extends Criterion {
@@ -146,11 +141,8 @@ public abstract class Criterion implements Meta_I, WatchEvent.Modifier {
 
         protected final Range<DATUM> range;
 
-        public Ranged(Zone[] zones,Range<DATUM> range) {
-            this("Ranged","ranged datum of declared type, probably a PATH of the declared type",zones,null,false,range);
-        }
-        public Ranged(String label, String description, Zone[] zones,String i18n,boolean singleCustomer,Range<DATUM> range) {
-            super(label,description, zones,i18n,singleCustomer);
+        public Ranged(String label, String description, Zone[] zones, String i18n, boolean autoStart, boolean singleCustomer,Range<DATUM> range) {
+            super(label,description, zones,i18n,autoStart,singleCustomer);
             this.range = range;
         }
 
@@ -165,11 +157,8 @@ public abstract class Criterion implements Meta_I, WatchEvent.Modifier {
         protected final long count;
         protected final TimeUnit timeUnit;
 
-        public Timed(Zone[] zones, long count, TimeUnit timeUnit) {
-            this("Timed", "Criteria based on time",zones, null,false, count,timeUnit);
-        }
-        public Timed(String label, String description, Zone[] zones, String i18n,boolean singleCustomer, long count, TimeUnit timeUnit) {
-            super(label,description, zones,i18n,singleCustomer);
+        public Timed(String label, String description, Zone[] zones, String i18n, boolean autoStart, boolean singleCustomer, long count, TimeUnit timeUnit) {
+            super(label,description, zones,i18n,autoStart,singleCustomer);
             this.count = count;
             this.timeUnit = timeUnit;
         }
@@ -180,8 +169,11 @@ public abstract class Criterion implements Meta_I, WatchEvent.Modifier {
         }
     }
     public static class OnCountdown<DATUM> extends Criterion {
-        public OnCountdown(String label, String description, Zone[] zones, String i18n,boolean singleCustomer) {
-            super(label, description, zones, i18n, singleCustomer);
+
+        protected final int openingValue;
+        public OnCountdown(String label, String description, Zone[] zones, String i18n, boolean autoStart, boolean singleCustomer, int openingValue) {
+            super(label, description, zones, i18n,autoStart, singleCustomer);
+            this.openingValue = openingValue;
         }
 
         @Override

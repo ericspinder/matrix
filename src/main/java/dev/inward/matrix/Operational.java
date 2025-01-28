@@ -1,8 +1,5 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.*;
-import dev.inward.matrix.fact.Specification;
-
 import java.security.cert.CertPath;
 import java.util.Properties;
 import java.util.function.Supplier;

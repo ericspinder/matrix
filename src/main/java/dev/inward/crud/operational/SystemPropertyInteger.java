@@ -1,6 +1,6 @@
 package dev.inward.crud.operational;
 
-import dev.inward.matrix.fact.Specification;
+import dev.inward.matrix.Specification;
 
 public enum SystemPropertyInteger implements Specification.SystemProperty<Integer, SystemPropertyInteger> {
     NameService_Cache("networkaddress.cache.ttl",10,"Specified in java.security to indicate the caching policy for successful name lookups from the name service. The value is specified as integer to indicate the number of seconds to cache the successful lookup. A value of -1 indicates \"cache forever\". The default behavior is to cache forever when a security manager is installed, and to cache for an implementation specific period of time, when a security manager is not installed."),

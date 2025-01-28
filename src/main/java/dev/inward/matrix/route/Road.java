@@ -14,9 +14,14 @@ public abstract class Road<D extends Dispatch<D,R>,R extends Road<D,R>> extends 
 
         protected final AsynchronousChannelGroup group;
 
-        public Network(Dispatch.Network dispatch, BlockingQueue<Runnable> driverQueue, Dispatch.DriverFactory<Dispatch.Network, Network> driverFactory) throws IOException {
+        public Network(Dispatch.Network dispatch, BlockingQueue<Runnable> driverQueue, Dispatch.DriverFactory<Dispatch.Network, Network> driverFactory) {
             super(dispatch, driverQueue,driverFactory);
-            this.group = AsynchronousChannelGroup.withThreadPool(this);
+            try {
+                this.group = AsynchronousChannelGroup.withThreadPool(this);
+            }
+            catch (IOException ioe) {
+                throw new RuntimeException(ioe);
+            }
         }
 
         public AsynchronousChannelGroup getGroup() {

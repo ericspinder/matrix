@@ -7,7 +7,7 @@ public abstract class Envoy<D extends Datum<D,E,A>, E extends Envoy<D,E,A>, A ex
         super(datum, resource);
     }
 
-    protected void doIncrementFailure(D datum, Addressed.Resource<?,?,?,?,?,?> resource, MatrixException matrixException) {
+    protected void doIncrementFailure(D datum, MatrixException matrixException) {
         datum.getClass().getProtectionDomain();
 
     }

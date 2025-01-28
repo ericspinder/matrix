@@ -1,18 +1,20 @@
 package dev.inward.matrix;
 
+import dev.inward.matrix.operation.Concept;
+
+import java.nio.file.attribute.FileTime;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public abstract class Index<PATH extends Comparable<PATH>,I extends Index<PATH,I>> implements FileKey<PATH,I> {
+public abstract class Index<PATH extends Comparable<PATH>> implements MatrixFile<PATH,Directory<PATH>,Index<PATH>, Index.IndexAttributes<PATH>> {
 
-    protected final boolean symbolic;
     protected final Ledger<PATH> ledger;
-    protected final FileAttributes fileAttributes;
+    protected final IndexAttributes indexAttributes;
 
     protected final PATH path;
-    protected final Map<Concept.Gathering<PATH,?,?,?,?,?>, Instant> conceptsLastGathered = new HashMap<>();
-    protected final Map<Notion.Gathering<PATH,?,?,?,?,?>,Instant> notionsLastGathered = new WeakHashMap<>();
+    protected final Map<Concept.Gathering<PATH,?,?,?,?,?,?>, Instant> conceptsLastGathered = new HashMap<>();
+    protected final Map<Notion.Gathering<PATH,?,?,?,?,?,?,?>,Instant> notionsLastGathered = new WeakHashMap<>();
 
     protected AtomicInteger conceptsAdded;
 
@@ -28,10 +30,26 @@ public abstract class Index<PATH extends Comparable<PATH>,I extends Index<PATH,I
         return this.path;
     }
 
-    public static class FileAttributes<PATH extends Comparable<PATH>,I extends Index<PATH,I>> extends dev.inward.matrix.FileAttributes<PATH,I,> {
+    public static class IndexAttributes<PATH extends Comparable<PATH>> extends dev.inward.matrix.FileAttributes<PATH,Directory<PATH>,Index<PATH>,IndexAttributes<PATH>> {
 
-        public FileAttributes(I identity) {
-            super(identity);
+        protected final Properties properties;
+        public IndexAttributes() {
+            ;
+        }
+
+        @Override
+        public FileTime lastModifiedTime() {
+            return null;
+        }
+
+        @Override
+        public FileTime lastAccessTime() {
+            return null;
+        }
+
+        @Override
+        public FileTime creationTime() {
+            return null;
         }
 
         @Override
@@ -52,6 +70,16 @@ public abstract class Index<PATH extends Comparable<PATH>,I extends Index<PATH,I
         @Override
         public boolean isOther() {
             return false;
+        }
+
+        @Override
+        public long size() {
+            return 0;
+        }
+
+        @Override
+        public Object fileKey() {
+            return null;
         }
     }
 //    public static class Branched<PATH extends Comparable<PATH>> extends Index<PATH,Branched<PATH>> {

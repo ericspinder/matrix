@@ -39,7 +39,7 @@ public abstract class SocketAddress implements Comparable<SocketAddress> {
                 }
                 return false;
             } catch (SocketException se) {
-                throw new MatrixException(MatrixException.Type.NetworkUnavailable_No_Return, this.getClass().toString(), Indicia.Focus.Assembly, Indicia.Severity.Exceptional, se);
+                throw new RuntimeException(se);
             }
         }
     }

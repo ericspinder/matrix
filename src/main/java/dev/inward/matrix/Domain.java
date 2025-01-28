@@ -1,5 +1,8 @@
 package dev.inward.matrix;
 
+import dev.inward.matrix.route.Dispatch;
+import dev.inward.matrix.route.Road;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -8,19 +11,20 @@ public final class Domain implements Comparable<Domain> {
 
     private final static Map<String,Domain> All_Known_Domains = new HashMap<>();
 
-    public synchronized static Domain getInstance(Terrene terrene, String domain_string) {
-        Domain domain = All_Known_Domains.get(terrene.toString() + '.' + domain_string);
+
+    public synchronized static Domain getInstance(String domain_string) {
+        Domain domain = All_Known_Domains.get(domain_string);
         if (domain != null) return domain;
-        All_Known_Domains.put(terrene.toString() + '.' + domain_string, new Domain(terrene, domain_string));
+        All_Known_Domains.put(domain_string, new Domain(domain_string));
         return All_Known_Domains.get(domain_string);
     }
-    private final Terrene terrene;
     private final String domain;
 
-    private Domain(Terrene terrene, String domain) {
-        this.terrene = terrene;
+    private Director.Network networkDirector;
+    private Domain(String domain) {
         this.domain = domain;
-        All_Known_Domains.put(terrene.toString() + '_' + domain, this);
+        All_Known_Domains.put(domain, this);
+        this.networkDirector = Ziggurat.getInstance().getNetworkDirector();
     }
 
     @Override
@@ -36,19 +40,16 @@ public final class Domain implements Comparable<Domain> {
         return domain;
     }
 
-    public Terrene getTerrene() {
-        return terrene;
+    public void setNetworkDirector(Director.Network networkDirector) {
+        this.networkDirector = networkDirector;
+    }
+
+    public Director.Network getNetworkDirector() {
+        return networkDirector;
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Domain{");
-        sb.append("domain='").append(domain).append('\'');
-        sb.append(", schemeLibrary=");
-        for (Map.Entry<String,Library<?,?,?>> schemaLibrary: schemeLibrary.entrySet()) {
-            sb.append(schemaLibrary.getKey()).append(" bound for ").append(schemaLibrary.getValue().)
-        }
-        sb.append('}');
-        return sb.toString();
+        return "Domain{ domain = " + domain + '}';
     }
 }

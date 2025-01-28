@@ -8,11 +8,11 @@ import java.time.Instant;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public class Library_ofLog extends Library<Scheme_ofLog, Library_ofLog, Library_ofLog.Pathway> {
+public class Library_ofLog extends Library<Scheme_ofLog, Library_ofLog, Indicia> {
 
 
-    public Library_ofLog(Terrene terrene, Domain domain) {
-        super(Scheme_ofLog.Instance, terrene, domain);
+    public Library_ofLog(Scheme_ofLog scheme, Domain domain, int port) {
+        super(scheme, domain,port);
     }
 
 

@@ -1,5 +1,7 @@
-package dev.inward.matrix;
+package dev.inward.crud;
 
+import dev.inward.matrix.Fingerprint;
+import dev.inward.matrix.Identity;
 import dev.inward.matrix.log.Indicia;
 
 import java.security.PrivateKey;

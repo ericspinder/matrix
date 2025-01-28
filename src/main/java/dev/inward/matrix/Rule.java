@@ -1,5 +1,6 @@
 package dev.inward.matrix;
 
+import dev.inward.matrix.info.Dogma;
 import dev.inward.matrix.personality.Personality;
 
 import java.io.IOException;

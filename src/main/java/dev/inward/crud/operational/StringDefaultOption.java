@@ -1,6 +1,6 @@
 package dev.inward.crud.operational;
 
-import dev.inward.matrix.fact.Specification;
+import dev.inward.matrix.Specification;
 
 public enum StringDefaultOption implements Specification.DefaultOption<String, StringDefaultOption> {
     Management_JMX("com.notionds.jmx.management", "JMX management mBean Implementation", "dev.inward.source.datum.fact.notion.concept.dataSupplier.jmx.NotionDsBean"),

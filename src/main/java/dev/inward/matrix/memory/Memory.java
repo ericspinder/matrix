@@ -1,9 +1,9 @@
 package dev.inward.matrix.memory;
 
 import dev.inward.matrix.*;
-import dev.inward.matrix.Aspect;
 import dev.inward.matrix.Factory;
 import dev.inward.matrix.Library;
+import dev.inward.matrix.operation.Operation;
 
 import javax.annotation.Nonnull;
 import java.nio.file.FileStore;

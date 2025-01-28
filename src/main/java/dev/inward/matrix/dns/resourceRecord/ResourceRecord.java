@@ -3,6 +3,7 @@ package dev.inward.matrix.dns.resourceRecord;
 import dev.inward.matrix.*;
 import dev.inward.matrix.dns.Path_ofDNS;
 import dev.inward.matrix.Addressed;
+import dev.inward.matrix.predictable.Predictable;
 
 import java.io.IOException;
 import java.nio.file.WatchEvent;
@@ -24,13 +25,14 @@ public abstract class ResourceRecord<RR extends ResourceRecord<RR>> extends Addr
     public static class Identity<RR extends ResourceRecord<RR>> extends dev.inward.matrix.Identity<Path_ofDNS,UUID,Identity<RR>,RR, Representative<RR>,DNSAttributes<RR>> {
 
         @SafeVarargs
-        public Identity(UUID uuid, Index<Path_ofDNS, ?>... indexes) {
+        public Identity(UUID uuid, Index<Path_ofDNS>... indexes) {
             super(uuid,null,indexes);
         }
 
 
+
         @Override
-        public WatchKey register(WatchService watcher, WatchEvent.Kind<?>[] events, WatchEvent.Modifier... modifiers) throws IOException {
+        public Predictable<Path_ofDNS, Identity<RR>, RR, DNSAttributes<RR>> newWatchService() {
             return null;
         }
     }
@@ -44,14 +46,14 @@ public abstract class ResourceRecord<RR extends ResourceRecord<RR>> extends Addr
     }
     public static class DNSAttributes<RR extends ResourceRecord<RR>> extends FileAttributes<Path_ofDNS,UUID,Identity<RR>,RR,Representative<RR>,DNSAttributes<RR>> {
 
-        public DNSAttributes(RR datum) {
-            super(datum);
+        public DNSAttributes(Properties properties, long size) {
+            super(properties, size);
         }
     }
 
     @Override
     public int compareTo(RR that) {
-        return this.fileKey.compareTo(that.fileKey);
+        return this.getFileKey().compareTo(that.getFileKey());
     }
     //    public ByteBuffer getRData() {
 //        return StandardCharsets.UTF_8.encode(rData());

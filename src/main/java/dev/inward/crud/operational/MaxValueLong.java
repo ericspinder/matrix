@@ -1,6 +1,6 @@
 package dev.inward.crud.operational;
 
-import dev.inward.matrix.fact.Specification;
+import dev.inward.matrix.Specification;
 
 public enum MaxValueLong implements Specification.MaxValue<Long, MaxValueLong> {
 

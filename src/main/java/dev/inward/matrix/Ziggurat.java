@@ -1,5 +1,8 @@
 package dev.inward.matrix;
 
+import dev.inward.matrix.route.Dispatch;
+import dev.inward.matrix.route.Road;
+
 import java.io.IOException;
 import java.lang.instrument.Instrumentation;
 import java.net.URLStreamHandler;
@@ -7,6 +10,8 @@ import java.net.URLStreamHandlerFactory;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 public final class Ziggurat implements URLStreamHandlerFactory {
 
@@ -21,9 +26,15 @@ public final class Ziggurat implements URLStreamHandlerFactory {
     private final CommandLine commandLine;
     private final Instrumentation instrumentation;
 
+    private final Dispatch.Network networkDispatch = new Dispatch.Network(null, "networkDispatch", "top level dispatch", 10,100,1, TimeUnit.HOURS,500);
+    private final Dispatch.DriverFactory<Dispatch.Network,Road.Network> networkDriverFactory = new Dispatch.DriverFactory<>(networkDispatch, "network");
+    private final Road.Network networkRoad = new Road.Network(networkDispatch,new LinkedBlockingQueue<>(),networkDriverFactory);
+    private final Director.Network networkDirector = new Director.Network(networkRoad);
+
     private Ziggurat(CommandLine commandLine, Instrumentation instrumentation) {
         this.commandLine = commandLine;
         this.instrumentation = instrumentation;
+
     }
 
     public LocalSystemNetworking getLocalSystemNetworking() {
@@ -36,6 +47,10 @@ public final class Ziggurat implements URLStreamHandlerFactory {
 
     public Instrumentation getInstrumentation() {
         return instrumentation;
+    }
+
+    public Director.Network getNetworkDirector() {
+        return networkDirector;
     }
 
 

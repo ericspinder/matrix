@@ -2,7 +2,7 @@ package dev.inward.matrix.phenomenon;
 
 import dev.inward.matrix.*;
 import dev.inward.crud.Bus;
-import dev.inward.matrix.fact.Fact;
+import dev.inward.matrix.http.Fact;
 import dev.inward.matrix.Model;
 import dev.inward.matrix.log.Matter;
 import dev.inward.matrix.Library;

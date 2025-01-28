@@ -5,7 +5,13 @@ import dev.inward.matrix.log.Indicia;
 
 import java.util.UUID;
 
-public class Blocker extends RuntimeException implements Exceptionally {
+public class Blocker extends RuntimeException implements Blocker.Exceptionally {
+
+    public interface Exceptionally {
+        UUID getUUID();
+        Indicia getIndicia();
+
+    }
 
     protected final Indicia indicia;
 
@@ -15,7 +21,7 @@ public class Blocker extends RuntimeException implements Exceptionally {
     }
 
     @Override
-    public UUID getId() {
+    public UUID getUUID() {
         return null;
     }
 

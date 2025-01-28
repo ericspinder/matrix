@@ -9,17 +9,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class Identity<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<PATH,ID,I,A,R,F>,A extends Addressed<PATH,ID,I,A,R,F>,R extends Representative<PATH,ID,I,A,R,F>,F extends Addressed.FileAttributes<PATH,ID,I,A,R,F>> extends FileKey<PATH,I,A,R,F> {
+public abstract class Identity<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends Identity<PATH,ID,I,A,R,F>,A extends Addressed<PATH,ID,I,A,R,F>,R extends Representative<PATH,ID,I,A,R,F>,F extends Addressed.FileAttributes<PATH,ID,I,A,R,F>> extends FileKey<PATH, I, A, F> {
 
     protected final ID id;
     protected transient R rider;
-    protected final List<Index<PATH,?>> indices = new ArrayList<>();
 
-    @SafeVarargs
-    public Identity(ID id, Query query, Index<PATH,?>... indices) {
-        super(query);
+    public Identity(Index<PATH> index, Query query, ID id) {
+        super(index,query);
         this.id = id;
-        this.indices.addAll(Arrays.asList(indices));
     }
 
     public void setRider(R rider) {
@@ -42,23 +39,14 @@ public abstract class Identity<PATH extends Comparable<PATH>,ID extends Comparab
 
     @Override
     public Library<?,?,PATH> getLibrary() {
-        return this.getFileSystem(this.indices.getFirst()).library;
-    }
-
-    @SuppressWarnings("unchecked")
-    public Index<PATH, ?>[] getIndices() {
-        return (Index<PATH,?>[]) this.indices.toArray(new Index[indices.size()]);
+        return this.getFileSystem(this.index).library;
     }
 
     @Override
     public Range<PATH> getRange() {
-        return this.getRange(this.indices.getFirst());
+        return this.getRange(this.index);
     }
 
-    @Override
-    public Predictable<PATH, I, A, R, F> newWatchService() {
-        return null;
-    }
     @Override
     public WatchKey register(WatchService watcher, WatchEvent.Kind<?>[] events, WatchEvent.Modifier... modifiers) throws IOException {
         return null;
@@ -70,7 +58,7 @@ public abstract class Identity<PATH extends Comparable<PATH>,ID extends Comparab
 
     @Override
     public FileSystem getFileSystem() {
-        return this.getFileSystem(indices.getFirst());
+        return this.getFileSystem(this.index);
     }
     public Ledger<PATH> getFileSystem(Index<PATH,?> index) {
         return index.ledger;
@@ -103,7 +91,7 @@ public abstract class Identity<PATH extends Comparable<PATH>,ID extends Comparab
 
     @Override
     public Path getParent() {
-        return this.getParent(indices.getFirst());
+        return this.getParent(this.index);
     }
     public Path getParent(Index<PATH,?> index) {
         return this;
@@ -111,7 +99,7 @@ public abstract class Identity<PATH extends Comparable<PATH>,ID extends Comparab
 
     @Override
     public int getNameCount() {
-        return this.getNameCount(indices.getFirst());
+        return this.getNameCount(this.index);
     }
 
     public int getNameCount(Index<PATH,?> index) {
@@ -120,7 +108,7 @@ public abstract class Identity<PATH extends Comparable<PATH>,ID extends Comparab
 
     @Override
     public Path getName(int index) {
-        return this.getName(indices.getFirst(),index);
+        return this.getName(this.index,index);
     }
 
     public Path getName(Index<PATH,?> index, int index_) {
@@ -129,7 +117,7 @@ public abstract class Identity<PATH extends Comparable<PATH>,ID extends Comparab
 
     @Override
     public Path subpath(int beginIndex, int endIndex) {
-        return this.subpath(indices.getFirst(),beginIndex,endIndex);
+        return this.subpath(this.index,beginIndex,endIndex);
     }
 
     public Path subpath(Index<PATH,?> index, int beginIndex, int endIndex) {
@@ -138,7 +126,7 @@ public abstract class Identity<PATH extends Comparable<PATH>,ID extends Comparab
 
     @Override
     public boolean startsWith(Path other) {
-        return this.startsWith(indices.getFirst(),other);
+        return this.startsWith(this.index,other);
     }
 
     public boolean startsWith(Index<PATH,?> index, Path other) {
@@ -147,7 +135,7 @@ public abstract class Identity<PATH extends Comparable<PATH>,ID extends Comparab
 
     @Override
     public boolean endsWith(Path other) {
-        return this.endsWith(indices.getFirst(),other);
+        return this.endsWith(this.index,other);
     }
 
     public boolean endsWith(Index<PATH,?> index, Path other) {
@@ -156,7 +144,7 @@ public abstract class Identity<PATH extends Comparable<PATH>,ID extends Comparab
 
     @Override
     public Path normalize() {
-        return this.normalize(indices.getFirst());
+        return this.normalize(this.index);
     }
 
     public Path normalize(Index<PATH,?> index) {
@@ -165,7 +153,7 @@ public abstract class Identity<PATH extends Comparable<PATH>,ID extends Comparab
 
     @Override
     public Path resolve(Path other) {
-        return this.resolve(indices.getFirst(), other);
+        return this.resolve(this.index, other);
     }
 
     public Path resolve(Index<PATH,?> index, Path other) {
@@ -174,7 +162,7 @@ public abstract class Identity<PATH extends Comparable<PATH>,ID extends Comparab
 
     @Override
     public Path relativize(Path other) {
-        return this.resolve(indices.getFirst(),other);
+        return this.resolve(this.index,other);
     }
 
     public Path relativize(Index<PATH,?> index, Path other) {
@@ -183,30 +171,21 @@ public abstract class Identity<PATH extends Comparable<PATH>,ID extends Comparab
 
     @Override
     public URI toUri() {
-        return this.toUri(indices.getFirst());
+        URI uri = new URI(index.getLedger().getLibrary().getScheme(),index.getLedger().getLibrary().domain,index.getLedger().getLibrary().getPort());
     }
 
-    public URI toUri(Index<PATH,?> index) {
-        return null;
-    }
 
     @Override
     public Path toAbsolutePath() {
-        return this.toAbsolutePath(indices.getFirst());
-    }
-
-    public Path toAbsolutePath(Index<PATH,?> index) {
-        return null;
+        return this;
     }
 
     @Override
     public Path toRealPath(LinkOption... options) throws IOException {
-        return this.toRealPath(indices.getFirst(),options);
-    }
-
-    public Path toRealPath(Index<PATH,?> index, LinkOption... options) throws IOException {
         return null;
     }
+
+
 
     @Override
     public boolean endsWith(String other) {
@@ -215,12 +194,9 @@ public abstract class Identity<PATH extends Comparable<PATH>,ID extends Comparab
 
     @Override
     public boolean startsWith(String other) {
-        return this.startsWith(indices.getFirst(), other);
+        return this.startsWith(this.index, other);
     }
 
-    public boolean startsWith(Index<PATH,?> index, String other) {
-        return index.ledger.getLibrary().getScheme().startsWith(other);
-    }
 
 
 

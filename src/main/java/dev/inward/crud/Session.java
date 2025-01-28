@@ -1,6 +1,8 @@
 package dev.inward.crud;
 
 import dev.inward.matrix.*;
+import dev.inward.matrix.info.Agent;
+import dev.inward.matrix.info.Gadget;
 import dev.inward.matrix.log.Indicia;
 import dev.inward.matrix.Library;
 import dev.inward.matrix.Scheme;
@@ -13,13 +15,13 @@ public abstract class Session extends Gadget<> {
     protected final Instant createInstant;
     protected final UUID passepartout;
     protected Instant expire;
-    protected Dogma.Agent agent;
+    protected Agent agent;
     protected final static char CurrentYear() {
         return Character.forDigit(Year.now().getValue() - 1992,10);
     }
-    public static class Id<S extends Scheme<S,L>,L extends Library<S,L>> extends Gadget.Address<S,L,Dogma.Agent<S,L>,Id<S,L>,Session<S,L>> {
+    public static class Id<S extends Scheme<S,L>,L extends Library<S,L>> extends Gadget.Address<S,L, Agent<S,L>,Id<S,L>,Session<S,L>> {
 
-        public Id(String s, UUID instance, Dogma.Agent<S, L> dogma) {
+        public Id(String s, UUID instance, Agent<S, L> dogma) {
             super(s, instance, dogma);
         }
 

@@ -3,6 +3,7 @@ package dev.inward.matrix;
 import java.lang.ref.ReferenceQueue;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
+import java.util.Properties;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
 
@@ -13,26 +14,15 @@ public abstract class Resource<DATUM,W extends Ware<DATUM,W,A>,A extends Attribu
     protected final AtomicLong removed = new AtomicLong();
     protected String limitReachedMessage = null;
     protected Function<W,W> graveDigger;
-    protected final Function<DATUM,Model<DATUM,W,A>> modelMaker;
+    protected final Model<DATUM,W,A> model;
 
     @SuppressWarnings("unchecked")
     protected A createAttributes(DATUM datum) {
         try {
-            A attributes = ((Class<A>)((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[2]).getDeclaredConstructor(Model.class).newInstance(this.modelMaker.apply(datum));
-            this.populate(attributes,datum);
-            return attributes;
+            return  ((Class<A>)((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[2]).getDeclaredConstructor(Properties.class).newInstance(this.model.getIntitalProperties(datum));
         } catch (ClassCastException | InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    /**
-     * Override this method to populate the attributes of the datum instance being wrapped
-     * @param attributes the new Attributes
-     * @param datum the datum instance being wrapped
-     */
-    protected void populate(A attributes, DATUM datum) {
-        //this space deliberately left blank
     }
 
     /**
@@ -41,19 +31,14 @@ public abstract class Resource<DATUM,W extends Ware<DATUM,W,A>,A extends Attribu
      * @param graveDigger
      */
     @SuppressWarnings("unchecked")
-    public Resource(Standard standard, Function<W,W> graveDigger, Function<DATUM,Model<DATUM,W,A>> modelMaker) {
+    public Resource(Standard standard, Function<W,W> graveDigger) {
         this.standard = standard;
         this.graveDigger = graveDigger;
-        if (modelMaker == null) {
-            try {
-                this.modelMaker = (Function<DATUM, Model<DATUM,W,A>>) Class.forName(this.standard.modelMakerClass).getConstructor().newInstance();
-            } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException |
-                     InvocationTargetException | InstantiationException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        else {
-            this.modelMaker = modelMaker;
+        try {
+            this.model = (Model<DATUM,W,A>) Class.forName(this.standard.modelClass).getConstructor().newInstance();
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException |
+                 InvocationTargetException | InstantiationException e) {
+            throw new RuntimeException(e);
         }
     }
 

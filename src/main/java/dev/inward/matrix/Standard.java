@@ -1,29 +1,22 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.code.Code;
-import dev.inward.matrix.code.Path_ofCode;
-import dev.inward.matrix.log.Indicia;
-import dev.inward.matrix.predictable.Criterion;
 
-import java.io.IOException;
-import java.nio.file.WatchEvent;
-import java.nio.file.WatchKey;
-import java.nio.file.WatchService;
 import java.util.function.Function;
 
 public class Standard extends Code<Standard.Identity,Standard,Standard.Representative,Standard.StandardAttributes> {
 
     protected final String description;
-    protected final String modelMakerClass;
+    protected final String modelClass;
     protected final Aspect[] aspects;
 
     protected long warnOnTotal;
     protected long hardLimit;
 
-    public Standard(final Identity identity, final String description, String modelMakerClass, Aspect[] aspects, long warnOnTotal, long hardLimit) {
+    public Standard(final Identity identity, final String description, String modelClass, Aspect[] aspects, long warnOnTotal, long hardLimit) {
         super(identity);
         this.description = description;
-        this.modelMakerClass = modelMakerClass;
+        this.modelClass = modelClass;
         this.aspects = aspects;
         this.warnOnTotal = warnOnTotal;
         this.hardLimit = hardLimit;

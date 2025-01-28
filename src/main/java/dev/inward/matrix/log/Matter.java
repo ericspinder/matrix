@@ -1,8 +1,6 @@
 package dev.inward.matrix.log;
 
-import dev.inward.matrix.Addressed;
-import dev.inward.matrix.Index;
-import dev.inward.matrix.Representative;
+import dev.inward.matrix.*;
 import dev.inward.matrix.predictable.Criterion;
 
 import javax.annotation.Nonnull;
@@ -16,51 +14,52 @@ import java.time.Instant;
 import java.util.*;
 import java.util.function.Function;
 
-public abstract class Matter<M extends Matter<M,OCCURRENCE,R,F>,OCCURRENCE extends Comparable<OCCURRENCE>,R extends Matter.Representative<M,OCCURRENCE,R,F>,F extends Matter.FileAttributes<M,OCCURRENCE,R,F>> extends Addressed<Indicia,UUID, Matter.Identity<M,OCCURRENCE,R,F>,M,R,F> implements WatchEvent<Indicia>, Closeable {
+public abstract class Matter<M extends Matter<M,OCCURRENCE,R,A>,OCCURRENCE extends Comparable<OCCURRENCE>,R extends Matter.Representative<M,OCCURRENCE,R,A>,A extends Matter.MatterAttributes<M,OCCURRENCE,R,A>> extends Addressed<Indicia,UUID, Matter.Identity<M,OCCURRENCE,R,A>,M,R,A> implements WatchEvent<Indicia>, Closeable {
 
-    protected OCCURRENCE[] occurrences;
+    protected final List<OCCURRENCE> occurrences;
+    protected final Instant createTime;
 
-    public Matter(@Nonnull Identity<M,OCCURRENCE,R,F> id, @Nonnull Instant createTime, @Nullable OCCURRENCE[] occurrences) {
+    public Matter(@Nonnull Identity<M,OCCURRENCE,R,A> id, @Nonnull Instant createTime, @Nonnull OCCURRENCE[] occurrences) {
         super(id);
         this.createTime = createTime;
-        this.occurrences = occurrences;
+        this.occurrences = Collections.synchronizedList(Arrays.stream(occurrences).toList());
     }
 
     @Override
     public final Kind<Indicia> kind() {
-        return this.identity.getIndices()[0].getPath();
+        return this.identity.;
     }
-    public final <I extends Index<Indicia,I>> Kind<Indicia> kind(I index) {
+    public final Kind<Indicia> kind(Index<Indicia> index) {
         return index.getPath();
     }
 
     @Override
     public final int count() {
-        return this.occurrences.length;
+        return this.occurrences.size();
     }
 
     public boolean add(OCCURRENCE occurrence) {
-
+        return this.occurrences.add(occurrence);
     }
     public OCCURRENCE getInstance(int index) {
-        return this.occurrences[index];
+        return this.occurrences.get(index);
     }
-    public OCCURRENCE[] getAll() {
-        return Arrays.copyOf(this.occurrences,this.occurrences.length);
+    public List<OCCURRENCE> getAll() {
+        return this.occurrences;
     }
 
     @Override
     public Indicia context() {
         return this.identity.getIndices()[0].getPath();
     }
-    public <I extends Index<Indicia,I>> Indicia context(I index) {
+    public Indicia context(Index<Indicia> index) {
         return index.getPath();
     }
 
-    public static class Representative<M extends Matter<M,OCCURRENCE,R,F>,OCCURRENCE extends Comparable<OCCURRENCE>,R extends Representative<M,OCCURRENCE,R,F>,F extends FileAttributes<M,OCCURRENCE,R,F>> extends dev.inward.matrix.Representative<Indicia,UUID,Identity<M,OCCURRENCE,R,F>,M,R,F> {
+    public static class Representative<M extends Matter<M,OCCURRENCE,R,A>,OCCURRENCE extends Comparable<OCCURRENCE>,R extends Representative<M,OCCURRENCE,R,A>,A extends MatterAttributes<M,OCCURRENCE,R,A>> extends dev.inward.matrix.Representative<Indicia,UUID,Identity<M,OCCURRENCE,R,A>,M,R,A> {
 
-        public Representative(M concept, Matter.Resource<M,OCCURRENCE,R,F> resource, boolean hold, Properties properties) {
-            super(concept, resource, hold, properties);
+        public Representative(M concept, Matter.Resource<M,OCCURRENCE,R,A> resource) {
+            super(concept, resource);
         }
 
     }
@@ -71,46 +70,27 @@ public abstract class Matter<M extends Matter<M,OCCURRENCE,R,F>,OCCURRENCE exten
 //        }
 //
 //    }
-    public static class Resource<M extends Matter<M,OCCURRENCE,R,F>,OCCURRENCE extends Comparable<OCCURRENCE>,R extends Representative<M,OCCURRENCE,R,F>,F extends FileAttributes<M,OCCURRENCE,R,F>> extends Addressed.Resource<Indicia,UUID,Identity<M,OCCURRENCE,R,F>,M,R,F> {
+    public static class Resource<M extends Matter<M,OCCURRENCE,R,A>,OCCURRENCE extends Comparable<OCCURRENCE>,R extends Representative<M,OCCURRENCE,R,A>,A extends MatterAttributes<M,OCCURRENCE,R,A>> extends Addressed.Resource<Indicia,UUID,Identity<M,OCCURRENCE,R,A>,M,R,A> {
 
-        public Resource(dev.inward.matrix.Representative<?,?,?,?,?,?> parent, String className, long warnOnTotal, long hardLimit, Function<R,R> graveDigger) {
-            super(parent, className, warnOnTotal, hardLimit, graveDigger);
+        public Resource(Standard standard, Function<R, R> graveDigger, Specification specification) {
+            super(standard, graveDigger, specification);
         }
     }
-    public static class FileAttributes<M extends Matter<M,OCCURRENCE,R,F>,OCCURRENCE extends Comparable<OCCURRENCE>,R extends Representative<M,OCCURRENCE,R,F>,F extends FileAttributes<M,OCCURRENCE,R,F>> extends Addressed.FileAttributes<Indicia,UUID,Identity<M,OCCURRENCE,R,F>,M,R,F> {
-        public FileAttributes(M datum) {
-            super(datum);
+    public static class MatterAttributes<M extends Matter<M,OCCURRENCE,R,A>,OCCURRENCE extends Comparable<OCCURRENCE>,R extends Representative<M,OCCURRENCE,R,A>,A extends MatterAttributes<M,OCCURRENCE,R,A>> extends Addressed.FileAttributes<Indicia,UUID,Identity<M,OCCURRENCE,R,A>,M,R,A> {
+        public MatterAttributes(Properties properties, long size) {
+            super(properties, size);
         }
     }
 
-    public static class Identity<M extends Matter<M,OCCURRENCE,R,F>,OCCURRENCE extends Comparable<OCCURRENCE>,R extends Representative<M,OCCURRENCE,R,F>,F extends FileAttributes<M,OCCURRENCE,R,F>> extends dev.inward.matrix.Identity<Indicia,UUID, Identity<M,OCCURRENCE,R,F>,M,R,F> {
-        protected final Instant createTime;
-        @SafeVarargs
-        public Identity(UUID uuid, Instant createTime, Index<Indicia,?>... indices) {
-            super(uuid, null, indices);
-            this.createTime = createTime;
-        }
-        public Instant getCreateTime() {
-            return this.createTime;
+    public static class Identity<M extends Matter<M,OCCURRENCE,R,A>,OCCURRENCE extends Comparable<OCCURRENCE>,R extends Representative<M,OCCURRENCE,R,A>,A extends MatterAttributes<M,OCCURRENCE,R,A>> extends dev.inward.matrix.Identity<Indicia,UUID, Identity<M,OCCURRENCE,R,A>,M,R,A> {
+        public Identity(Instant createTime, Index<Indicia> index,UUID uuid) {
+            super(index, null, uuid);
         }
 
-        @Override
-        public WatchKey register(WatchService watcher, Kind<?>[] events, Modifier... modifiers) throws IOException {
-            return null;
-        }
 
         @Override
         public String toString() {
             return null;
-        }
-
-        @Override
-        public int compareTo(Matter.Identity<M,OCCURRENCE,R,F> that) {
-            int isZero = this.createTime.compareTo(that.createTime);
-            if (isZero == 0) {
-                return this.id.compareTo(that.id);
-            }
-            return isZero;
         }
     }
 

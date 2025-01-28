@@ -1,9 +1,9 @@
 package dev.inward.matrix.http;
 
 import dev.inward.matrix.Domain;
+import dev.inward.matrix.MatrixURLStreamHandlerProvider;
 import dev.inward.matrix.Scheme;
 import dev.inward.matrix.Terrene;
-import dev.inward.matrix.https.Library_ofHttps;
 
 import java.net.URI;
 
@@ -16,7 +16,7 @@ public class Scheme_ofHttp extends Scheme<Scheme_ofHttp, Library_ofHttp, String>
 
 
     protected Scheme_ofHttp(Terrene terrene) {
-        super(terrene,Protocol.HTTP);
+        super(terrene, MatrixURLStreamHandlerProvider.Protocol.HTTP);
     }
 
     @Override

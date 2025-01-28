@@ -1,7 +1,6 @@
-package dev.inward.matrix.fact;
+package dev.inward.matrix.http;
 
 import dev.inward.matrix.Addressed;
-import dev.inward.matrix.Datum;
 
 import java.io.IOException;
 import java.lang.ref.Reference;

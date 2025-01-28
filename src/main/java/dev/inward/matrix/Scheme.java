@@ -1,83 +1,27 @@
 package dev.inward.matrix;
 
-import dev.inward.matrix.code.Scheme_ofCode;
-import dev.inward.matrix.dns.Scheme_ofDNS;
-import dev.inward.matrix.http.Scheme_ofHttp;
-import dev.inward.matrix.https.Scheme_ofHttps;
-import dev.inward.matrix.info.Scheme_ofInfo;
-import dev.inward.matrix.gate.Scheme_ofGate;
-import dev.inward.matrix.log.Scheme_ofLog;
-import dev.inward.matrix.realm.Scheme_ofRealm;
-
 import java.io.IOException;
 import java.net.*;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class Scheme<S extends Scheme<S,L,PATH>,L extends Library<S,L,PATH>,PATH extends Comparable<PATH>> extends URLStreamHandler implements Comparable<S> {
 
-
-    protected static Map<String,Scheme<?,?,?>> ALL_KNOWN_SCHEMES = new HashMap<>();
-    protected static Map<String,Library<?,?,?>> ALL_FOUND_LIBRARIES = new HashMap<>();
-    public static Scheme<?,?,?> findSchemeByString(String scheme_s) {
-        Scheme<?,?,?> scheme = ALL_KNOWN_SCHEMES.get(scheme_s);
-        if (scheme == null && scheme_s.indexOf('.') == -1) {
-            findSchemeByString(Terrene.Earth.toString() + '.' + scheme_s);
-        }
-        else {
-            Terrene terrene = Terrene.Parse(scheme_s);
-            scheme =
-        }
-        return scheme;
+    private final Map<String, Library<S,L,PATH>> schemeLibraries = new ConcurrentHashMap<>();
+    @SuppressWarnings("unchecked")
+    public L findLibrary(URI uri) {
+        int port = (uri.getPort() > 0) ? uri.getPort(): getDefaultPort();
+        String library_key = scheme + "://" + uri.getHost() + ':' + port;
+        return schemeLibraries.containsKey(library_key) ? (L) schemeLibraries.get(library_key): this.buildNewLibrary(library_key,uri.getHost(),port);
     }
-    public static Library<?,?,?> findLibrary(URI uri,Scheme<?,?,?> scheme) {
-        String authority = scheme.terrene.toString() + '.' + scheme.scheme + ((uri.getPort() == -1) ? uri.getAuthority(): uri.getHost() + ':' + scheme.defaultPort);
-        return ALL_FOUND_LIBRARIES.containsKey(authority) ? ALL_FOUND_LIBRARIES.get(authority): scheme.buildNewLibrary(uri);
-    }
-
-    public enum Protocol implements Meta_I {
-        CODE("code","Code Repository",8, Scheme_ofCode.class),
-        DNS("dns","Domain Name System",53, Scheme_ofDNS.class),
-        INFO("info", "Information about personas", 12, Scheme_ofInfo.class),
-        GATE("gate", "House gate",6, Scheme_ofGate.class),
-        HTTP("http","Unsecure File Service", 80, Scheme_ofHttp.class),
-        HTTPS("https","Secure File Service",443, Scheme_ofHttps.class),
-        LOG("log","Completed Matters",10, Scheme_ofLog.class),
-        REALM("realm", "Secure login Service", 88, Scheme_ofRealm.class)
-        ;
-        private final String label;
-        private final String description;
-        private final int defaultPort;
-
-        private final Class<? extends Scheme<?,?,?>> schemeClass;
-        Protocol(final String label, final String description, int defaultPort,Class<? extends Scheme<?,?,?>> schemeClass) {
-            this.label = label;
-            this.description = description;
-            this.defaultPort = defaultPort;
-            this.schemeClass = schemeClass;
+    @SuppressWarnings("unchecked")
+    public synchronized L buildNewLibrary(String library_key,String host,int port) {
+        if (schemeLibraries.containsKey(library_key)) {
+            return (L) schemeLibraries.get(library_key);
         }
-        Protocol valueOfIgnoreCase(String protocolString) {
-            return Protocol.valueOf(protocolString.toUpperCase());
-        }
-
-
-        @Override
-        public final String getLabel() {
-            return this.label;
-        }
-
-        @Override
-        public final String getDescription() {
-            return this.description;
-        }
-
-        public int getDefaultPort() {
-            return defaultPort;
-        }
-
-        public Class<? extends Scheme<?, ?, ?>> getSchemeClass() {
-            return schemeClass;
-        }
+        L newLibrary = this.buildNewLibrary(Domain.getInstance(host),port);
+        this.schemeLibraries.put(library_key, newLibrary);
+        return newLibrary;
     }
     public enum Reserved {
         Semicolon(';'),
@@ -122,46 +66,41 @@ public abstract class Scheme<S extends Scheme<S,L,PATH>,L extends Library<S,L,PA
     }
 
     protected final Terrene terrene;
-    protected final Protocol protocol;
+    protected final MatrixURLStreamHandlerProvider.Protocol protocol;
     protected final String scheme;
-    protected final int defaultPort;
 
     protected Scheme(String scheme) {
         this.terrene = Terrene.Parse(scheme.substring(0,scheme.lastIndexOf(".")));
-        this.protocol = Protocol.valueOf(scheme.substring(scheme.lastIndexOf(".")));
+        this.protocol = MatrixURLStreamHandlerProvider.Protocol.valueOf(scheme.substring(scheme.lastIndexOf(".")));
         this.scheme = scheme;
-        this.defaultPort = protocol.defaultPort;
     }
-    protected Scheme(Terrene terrene,Protocol protocol) {
+    public Scheme(Terrene terrene, MatrixURLStreamHandlerProvider.Protocol protocol) {
         this.terrene = terrene;
         this.protocol = protocol;
         this.scheme = terrene.toString() + '.' + protocol;
-        this.defaultPort = protocol.defaultPort;
-        ALL_KNOW_SCHEMES.put(terrene.toString() + '_' + protocol,this);
     }
 
     public Terrene getTerrene() {
         return terrene;
     }
 
-    public Protocol getProtocol() {
+    public MatrixURLStreamHandlerProvider.Protocol getProtocol() {
         return protocol;
     }
 
     public String getScheme() {
         return scheme;
     }
+    protected abstract L buildNewLibrary(Domain domain, int port);
 
-    public abstract L buildNewLibrary(URI uri);
-
-    @SuppressWarnings("unchecked")
-    protected Clerk.Network.Client obtainClerk(URL u) throws IOException {
-        try {
-            return Domain.getInstance(Terrene..toURI().getHost()).getLibrary((S)this).getClient(u.toURI());
-        } catch (URISyntaxException e) {
-            throw new IOException(e);
-        }
-    }
+//    @SuppressWarnings("unchecked")
+//    protected Clerk.Network.Client obtainClerk(URL u) throws IOException {
+//        try {
+//            return Domain.getInstance(Terrene.Parse(u.getProtocol()),u.getHost());
+//        } catch (URISyntaxException e) {
+//            throw new IOException(e);
+//        }
+//    }
 
     @Override
     protected URLConnection openConnection(URL u) throws IOException {
@@ -180,7 +119,7 @@ public abstract class Scheme<S extends Scheme<S,L,PATH>,L extends Library<S,L,PA
 
     @Override
     public int getDefaultPort() {
-        return defaultPort;
+        return this.protocol.getDefaultPort();
     }
 
     @Override
@@ -188,8 +127,7 @@ public abstract class Scheme<S extends Scheme<S,L,PATH>,L extends Library<S,L,PA
         final StringBuilder sb = new StringBuilder("Scheme{");
         sb.append("terrene=").append(terrene);
         sb.append(", scheme='").append(scheme).append('\'');
-        sb.append(", defaultPort=").append(defaultPort);
-        sb.append(", domainStringLibraryMap=").append(domainStringLibraryMap);
+        sb.append(", defaultPort=").append(this.protocol.getDefaultPort());
         sb.append('}');
         return sb.toString();
     }

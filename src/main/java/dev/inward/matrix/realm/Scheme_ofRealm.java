@@ -1,5 +1,6 @@
 package dev.inward.matrix.realm;
 
+import dev.inward.matrix.MatrixURLStreamHandlerProvider;
 import dev.inward.matrix.Scheme;
 import dev.inward.matrix.Terrene;
 
@@ -7,7 +8,7 @@ import java.net.URI;
 
 public class Scheme_ofRealm extends Scheme<Scheme_ofRealm, Library_ofRealm,String> {
     protected Scheme_ofRealm(Terrene terrene) {
-        super(terrene,Protocol.REALM);
+        super(terrene, MatrixURLStreamHandlerProvider.Protocol.REALM);
     }
 
     @Override

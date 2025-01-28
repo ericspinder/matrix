@@ -1,6 +1,7 @@
 package dev.inward.matrix.code;
 
 import dev.inward.matrix.*;
+import dev.inward.matrix.predictable.Predictable;
 
 import java.util.function.Function;
 
@@ -14,8 +15,13 @@ public abstract class Code<I extends Code.Identity<I,C,R,A>,C extends Code<I,C,R
     public static class Identity<I extends Identity<I,C,R,A>,C extends Code<I,C,R,A>,R extends Representative<I,C,R,A>,A extends CodeAttributes<I,C,R,A>> extends dev.inward.matrix.Identity<Path_ofCode,String,I,C,R,A> {
 
         @SafeVarargs
-        public Identity(String s, Query query, Index<Path_ofCode, ?>... indices) {
-            super(s, query, indices);
+        public Identity(String s, Query query, Index<Path_ofCode> index) {
+            super(s, query, index);
+        }
+
+        @Override
+        public Predictable newWatchService() {
+            return null;
         }
     }
 

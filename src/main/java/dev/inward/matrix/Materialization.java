@@ -1,5 +1,7 @@
 package dev.inward.matrix;
 
+import dev.inward.matrix.info.Dogma;
+
 import java.util.Map;
 import java.util.UUID;
 

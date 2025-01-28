@@ -1,16 +1,19 @@
 package dev.inward.matrix;
 
+import dev.inward.matrix.info.Agent;
+import dev.inward.matrix.info.House;
+
 import java.util.List;
 import java.util.UUID;
 
 public abstract class Permission<P extends Permission<P,SUBJECT>,SUBJECT> implements Addressed.Permit<P,SUBJECT> {
 
     protected final UUID uuid;
-    protected final Dogma.Agent owner;
-    protected final Dogma.House house;
+    protected final Agent owner;
+    protected final House house;
     protected final List<Rule> rules;
 
-    public Permission(UUID uuid, Dogma.Agent owner, Dogma.House house, List<Rule> rules) {
+    public Permission(UUID uuid, Agent owner, House house, List<Rule> rules) {
         this.uuid = uuid;
         this.owner = owner;
         this.house = house;
@@ -24,11 +27,11 @@ public abstract class Permission<P extends Permission<P,SUBJECT>,SUBJECT> implem
     }
 
     @Override
-    public Dogma.Agent getOwner() {
+    public Agent getOwner() {
         return this.owner;
     }
     @Override
-    public Dogma.House getHouse() {
+    public House getHouse() {
         return this.house;
     }
     @Override

@@ -1,5 +1,7 @@
 package dev.inward.matrix.code;
 
+import dev.inward.matrix.Domain;
+import dev.inward.matrix.MatrixURLStreamHandlerProvider;
 import dev.inward.matrix.Scheme;
 import dev.inward.matrix.Terrene;
 
@@ -12,6 +14,17 @@ public class Scheme_ofCode extends Scheme<Scheme_ofCode,Library_ofCode,Path_ofCo
     public static final Scheme_ofCode HELIOS_SCHEME_OF_CODE = new Scheme_ofCode(Terrene.Helios);
 
     protected Scheme_ofCode(Terrene terrene) {
-        super(terrene,Protocol.CODE);
+        super(terrene, MatrixURLStreamHandlerProvider.Protocol.CODE);
+    }
+
+
+    @Override
+    protected Library_ofCode buildNewLibrary(Domain domain, int port) {
+        return new Library_ofCode(this, domain, port);
+    }
+
+    @Override
+    public int compareTo(Scheme_ofCode o) {
+        return 0;
     }
 }
