@@ -21,16 +21,7 @@ public final class Indicia implements Comparable<Indicia>, WatchEvent.Kind<Indic
         this.focus = focus;
         this.severity = severity;
         this.series = series;
-        this.complicationClassName = complicationClassName;
-        this.complicationCriterionClassName = complicationCriterionClassName;
-        this.providerClassName = providerClassName;
-        this.providerCriterionClassName = providerCriterionClassName;
-        this.supplierClassName = supplierClassName;
-        this.supplierCriterionClassName = supplierCriterionClassName;
-        this.policyClassName = policyClassName;
-        this.policyCriterionClassName = policyCriterionClassName;
-        this.dateTimeFormaterClassName = dateTimeFormaterClassName;
-        this.defaultIndexClassNames = defaultIndexClassNames;
+
     }
 
 

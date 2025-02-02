@@ -15,6 +15,7 @@ public class Specification extends Code<Path_ofCode,Specification,> {
     protected final Map<String, DefaultOption<?,?>> options;
     protected final Map<Indicia.Focus, ServerRecord[]> focusServerMap;
 
+
     protected final Standard[] standards;
 
     public Specification(final Identity identity, final String description, Standard[] standards) {
