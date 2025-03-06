@@ -1,20 +1,24 @@
+/*
+ *  Copyright (c) © 2025. Pinder's Matrix  by Eric S Pinder is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+ */
+
 package dev.inward.matrix;
 
-import dev.inward.matrix.fact.authoritative.yard.Tree;
-import dev.inward.matrix.info.Persona;
-import dev.inward.matrix.log.Indicia;
-import dev.inward.matrix.log.Matter;
+import dev.inward.matrix.file.addressed.AddressedKey;
+import dev.inward.matrix.file.addressed.info.Persona;
+import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
+import dev.inward.matrix.file.addressed.log.Matter;
 
 import java.time.Instant;
 
-public class Engagement<E extends Engagement<E,F,P>, F extends Fingerprint,P extends Tree> extends Matter<E,> {
+public class Engagement extends Matter {
 
     protected final Persona persona;
     private final F fingerprint;
     protected final SESSION session;
 
-    public Engagement(Identity.Ego ego, P persona, Instant createDateTime, Indicia indicia, F fingerprint) {
-        super(ego,persona.getIdentity(), createDateTime, indicia);
+    public Engagement(AddressedKey.Ego ego, P persona, Instant createDateTime, IndiciaKey indiciaKey, F fingerprint) {
+        super(ego,persona.getIdentity(), createDateTime, indiciaKey);
         this.fingerprint = fingerprint;
     }
 
@@ -24,4 +28,5 @@ public class Engagement<E extends Engagement<E,F,P>, F extends Fingerprint,P ext
     public P getPersona() {
         return this.persona.get();
     }
+
 }

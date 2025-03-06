@@ -1,50 +1,45 @@
+/*
+ *  Copyright (c) © 2025. Pinder's Matrix  by Eric S Pinder is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+ */
+
 package dev.inward.matrix;
 
 import java.lang.ref.ReferenceQueue;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
-import java.util.Properties;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
 
-public abstract class Resource<DATUM,W extends Ware<DATUM,W,A>,A extends Attributes<DATUM,W,A>> extends ReferenceQueue<DATUM> {
+public abstract class Resource<DATUM,R extends Reference<DATUM,R,A,RESOURCE,M>,A extends Attributes<DATUM,R,A,RESOURCE,M>,RESOURCE extends Resource<DATUM,R,A,RESOURCE,M>,M extends Model<DATUM,R,A,RESOURCE,M>> extends ReferenceQueue<DATUM> {
 
-    protected final Standard standard;
     protected final AtomicLong sequence = new AtomicLong();
     protected final AtomicLong removed = new AtomicLong();
     protected String limitReachedMessage = null;
-    protected Function<W,W> graveDigger;
-    protected final Model<DATUM,W,A> model;
+    protected Function<R,R> graveDigger;
+    protected final M model;
 
     @SuppressWarnings("unchecked")
-    protected A createAttributes(DATUM datum) {
+    protected A createAttributes(DATUM item) {
         try {
-            return  ((Class<A>)((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[2]).getDeclaredConstructor(Properties.class).newInstance(this.model.getIntitalProperties(datum));
+            return  ((Class<A>)((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[5]).getDeclaredConstructor(Map.class).newInstance(this.model.getInitialProperties(item));
         } catch (ClassCastException | InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
     }
 
     /**
-     *
-     * @param standard
      * @param graveDigger
      */
     @SuppressWarnings("unchecked")
-    public Resource(Standard standard, Function<W,W> graveDigger) {
-        this.standard = standard;
+    public Resource(Function<R,R> graveDigger,M model) {
         this.graveDigger = graveDigger;
-        try {
-            this.model = (Model<DATUM,W,A>) Class.forName(this.standard.modelClass).getConstructor().newInstance();
-        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException |
-                 InvocationTargetException | InstantiationException e) {
-            throw new RuntimeException(e);
-        }
+        this.model = model;
     }
 
     public long incrementAndGet() {
         long currentCount = this.sequence.incrementAndGet();
-        if (currentCount < standard.getWarnOnTotal()) {
+        if (currentCount < model.getWarnOnTotal()) {
             if (limitReachedMessage == null) {
 //                limitReachedMessage = parent.;
             }
@@ -53,12 +48,15 @@ public abstract class Resource<DATUM,W extends Ware<DATUM,W,A>,A extends Attribu
         return currentCount;
     }
     @SuppressWarnings("unchecked")
-    public final W poll2() {
-        W bringOutYourDead = (W) poll();
-        if (bringOutYourDead != null) {
-            this.removed.incrementAndGet();
-        }
-        return this.graveDigger.apply(bringOutYourDead);
+//    public final W poll2() {
+//        W bringOutYourDead = (W) poll();
+//        if (bringOutYourDead != null) {
+//            this.removed.incrementAndGet();
+//        }
+//        return this.graveDigger.apply(bringOutYourDead);
+//    }
+    public M getModel() {
+        return this.model;
     }
     public long getSequence() {
         return sequence.get();

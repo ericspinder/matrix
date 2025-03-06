@@ -1,3 +1,10 @@
+/*
+ * * Pinder's Matrix © 2025 by Eric S Pinder is licensed under Creative Commons
+ *  Attribution-NonCommercial-NoDerivatives 4.0 International. To view a copy of this
+ *  license, visit https://creativecommons.org/licenses/by-nc-nd/4.0/
+ * /
+ */
+
 package dev.inward.crud;
 
 import dev.inward.matrix.Recommendation;
@@ -41,7 +48,7 @@ public enum ConnectionState {
     SqlState28("07006","X", "006","restricted data type attribute violation", SqlClass.DynamicSqlError),
     SqlState29("07007","X", "007","using clause required for result fields", SqlClass.DynamicSqlError),
     SqlState30("07008","X", "008","invalid descriptor count", SqlClass.DynamicSqlError),
-    SqlState31("07009","X", "009","invalid descriptor index", SqlClass.DynamicSqlError),
+    SqlState31("07009","X", "009","invalid descriptor directory", SqlClass.DynamicSqlError),
     SqlState32("0700B","X", "00B","data type transform function violation", SqlClass.DynamicSqlError),
     SqlState33("0700C","X", "00C","undefined DATA value", SqlClass.DynamicSqlError),
     SqlState34("0700D","X", "00D","invalid DATA target", SqlClass.DynamicSqlError),
@@ -250,7 +257,7 @@ public enum ConnectionState {
     SqlState237("HV009","X", "009","invalid use of null pointer","SQL/MED", SqlClass.FDW_SpecificCondition),
     SqlState238("HV00A","X", "00A","invalid string format","SQL/MED", SqlClass.FDW_SpecificCondition),
     SqlState239("HV00B","X", "00B","invalid handle","SQL/MED", SqlClass.FDW_SpecificCondition),
-    SqlState240("HV00C","X", "00C","invalid option index","SQL/MED", SqlClass.FDW_SpecificCondition),
+    SqlState240("HV00C","X", "00C","invalid option directory","SQL/MED", SqlClass.FDW_SpecificCondition),
     SqlState241("HV00D","X", "00D","invalid option name","SQL/MED", SqlClass.FDW_SpecificCondition),
     SqlState242("HV00J","X", "00J","option name not found","SQL/MED", SqlClass.FDW_SpecificCondition),
     SqlState243("HV00K","X", "00K","reply handle","SQL/MED", SqlClass.FDW_SpecificCondition),
@@ -277,7 +284,7 @@ public enum ConnectionState {
     SqlState264("HY009","X", "009","invalid use of null pointer" ,"SQL/CLI", SqlClass.CLI_SpecificCondition),
     SqlState265("HY010","X", "010","function sequence error" ,"SQL/CLI", SqlClass.CLI_SpecificCondition),
     SqlState266("HY011","X", "011","attribute cannot be set now" ,"SQL/CLI", SqlClass.CLI_SpecificCondition),
-    SqlState267("HY012","X", "012","invalid transaction operation code" ,"SQL/CLI", SqlClass.CLI_SpecificCondition),
+    SqlState267("HY012","X", "012","invalid transaction operation depot" ,"SQL/CLI", SqlClass.CLI_SpecificCondition),
     SqlState268("HY013","X", "013","memory management error" ,"SQL/CLI", SqlClass.CLI_SpecificCondition),
     SqlState269("HY014","X", "014","limit on number of handles exceeded" ,"SQL/CLI", SqlClass.CLI_SpecificCondition),
     SqlState270("HY017","X", "017","invalid use of automatically-allocated descriptor handle" ,"SQL/CLI", SqlClass.CLI_SpecificCondition),
@@ -296,7 +303,7 @@ public enum ConnectionState {
     SqlState283("HY097","X", "097","column type out of range" ,"SQL/CLI", SqlClass.CLI_SpecificCondition),
     SqlState284("HY098","X", "098","scope out of range" ,"SQL/CLI", SqlClass.CLI_SpecificCondition),
     SqlState285("HY099","X", "099","nullable type out of range" ,"SQL/CLI", SqlClass.CLI_SpecificCondition),
-    SqlState286("HY103","X", "103","invalid retrieval code" ,"SQL/CLI", SqlClass.CLI_SpecificCondition),
+    SqlState286("HY103","X", "103","invalid retrieval depot" ,"SQL/CLI", SqlClass.CLI_SpecificCondition),
     SqlState287("HY104","X", "104","invalid LengthPrecision value" ,"SQL/CLI", SqlClass.CLI_SpecificCondition),
     SqlState288("HY105","X", "105","invalid parameter mode" ,"SQL/CLI", SqlClass.CLI_SpecificCondition),
     SqlState289("HY106","X", "106","invalid fetch orientation" ,"SQL/CLI", SqlClass.CLI_SpecificCondition),
@@ -357,7 +364,7 @@ public enum ConnectionState {
         TransactionRollback("40","transaction rollback"),
         SyntaxErrorOrAccessRuleViolation("42","syntax error or access rule violation"),
         WithCheckOptionViolation("44","with check option violation"),
-        UnhandledUserDefinedException("45","unhandled user-defined exception"),
+        UnhandledUserDefinedException("45","unhandled info-defined exception"),
         OLB_SpecificError("46","OLB-specific error"),
         JavaDDL("46","Java DDL"),
         DataLinkException("HW","datalink exception"),
@@ -390,10 +397,10 @@ public enum ConnectionState {
     private final String sqlPart;
     private final SqlClass sqlClass;
 
-    private ConnectionState(String code, String category, String subClass, String subClassText, SqlClass sqlClass) {
+    ConnectionState(String code, String category, String subClass, String subClassText, SqlClass sqlClass) {
         this(code, category, subClass, subClassText, "", sqlClass);
     }
-    private ConnectionState(String code, String category, String subClass, String subClassText, String sqlPart, SqlClass sqlClass) {
+    ConnectionState(String code, String category, String subClass, String subClassText, String sqlPart, SqlClass sqlClass) {
         this.code = code;
         this.category = category;
         this.subClass = subClass;

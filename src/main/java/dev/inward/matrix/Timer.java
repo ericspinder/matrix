@@ -1,3 +1,7 @@
+/*
+ *  Copyright (c) © 2025. Pinder's Matrix  by Eric S Pinder is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+ */
+
 package dev.inward.matrix;
 
 
@@ -41,8 +45,6 @@ public class Timer {
         return this.start.plus(this.duration);
     }
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(", startTime=").append(this.start).append(", duration=").append(this.duration);
-        return stringBuilder.toString();
+        return ", startTime=" + this.start + ", duration=" + this.duration;
     }
 }

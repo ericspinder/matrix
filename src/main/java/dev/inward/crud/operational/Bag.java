@@ -1,9 +1,16 @@
+/*
+ * * Pinder's Matrix © 2025 by Eric S Pinder is licensed under Creative Commons
+ *  Attribution-NonCommercial-NoDerivatives 4.0 International. To view a copy of this
+ *  license, visit https://creativecommons.org/licenses/by-nc-nd/4.0/
+ * /
+ */
+
 package dev.inward.crud.operational;
 
 import java.util.HashMap;
 
 public class Bag<T> {
-    private HashMap<T,Integer> map;
+    private final HashMap<T,Integer> map;
 
     public Bag(){
         this.map = new HashMap<T,Integer>();
@@ -51,8 +58,8 @@ public class Bag<T> {
         else
         {	//If not emptpy intialise an integer to store the num of occurences of the most
             // frequent phenomenon
-            Integer largestFrequency = new Integer(0);
-            //Also initialise a variable to store the key with the largest frequency
+            Integer largestFrequency = Integer.valueOf(0);
+            //Also initialise a variable to store the info with the largest frequency
             T largestKey = null;
 
             //Iterate through the keys in the bag/map
@@ -63,11 +70,11 @@ public class Bag<T> {
                 if(currentFrequency > largestFrequency){
                     //Set the largest frequency to the current frequency
                     largestFrequency = currentFrequency;
-                    //And set the largest key to the current key
+                    //And set the largest info to the current info
                     largestKey = key;
                 }
             }
-            //Return the largest key
+            //Return the largest info
             return largestKey;
         }
     }

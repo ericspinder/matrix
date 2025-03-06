@@ -1,3 +1,10 @@
+/*
+ * * Pinder's Matrix © 2025 by Eric S Pinder is licensed under Creative Commons
+ *  Attribution-NonCommercial-NoDerivatives 4.0 International. To view a copy of this
+ *  license, visit https://creativecommons.org/licenses/by-nc-nd/4.0/
+ * /
+ */
+
 package crud.management;
 
 import org.apache.logging.log4j.LogManager;
@@ -15,7 +22,7 @@ public class NotionDsMBean extends NotificationBroadcasterSupport implements Dyn
 
 
     List<String> allowedClassNamesForInvoke = new ArrayList<>();
-    private Management management;
+    private final Management management;
 
     public NotionDsMBean() {
         this.management = new Management.Default_JMX();
@@ -77,7 +84,7 @@ public class NotionDsMBean extends NotificationBroadcasterSupport implements Dyn
         return resultList;
     }
 
-    public Object invoke(String operationName, Object params[], String signatures[])  throws MBeanException, ReflectionException {
+    public Object invoke(String operationName, Object[] params, String[] signatures)  throws MBeanException, ReflectionException {
         if (operationName == null || operationName.isBlank()) throw new RuntimeOperationsException( new IllegalArgumentException("Operation name cannot be null or blank"), "Cannot invoke a null operation in " + dClassName);
         for (String signature: signatures) {
             if (signature == null || signature.isBlank()) {
@@ -170,16 +177,16 @@ public class NotionDsMBean extends NotificationBroadcasterSupport implements Dyn
     private int nbChanges = 0;
     private int nbResets = 0;
 
-    private String dClassName = this.getClass().getName();
-    private String dDescription = "Simple implementation of a dynamic MBean.";
+    private final String dClassName = this.getClass().getName();
+    private final String dDescription = "Simple implementation of a dynamic MBean.";
 
-    private MBeanAttributeInfo[] dAttributes =
+    private final MBeanAttributeInfo[] dAttributes =
             new MBeanAttributeInfo[2];
-    private MBeanConstructorInfo[] dConstructors =
+    private final MBeanConstructorInfo[] dConstructors =
             new MBeanConstructorInfo[1];
-    private MBeanNotificationInfo[] dNotifications =
+    private final MBeanNotificationInfo[] dNotifications =
             new MBeanNotificationInfo[1];
-    private MBeanOperationInfo[] dOperations =
+    private final MBeanOperationInfo[] dOperations =
             new MBeanOperationInfo[1];
     private MBeanInfo dMBeanInfo = null;
 

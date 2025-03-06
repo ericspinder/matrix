@@ -1,9 +1,15 @@
+/*
+ * * Pinder's Matrix © 2025 by Eric S Pinder is licensed under Creative Commons
+ *  Attribution-NonCommercial-NoDerivatives 4.0 International. To view a copy of this
+ *  license, visit https://creativecommons.org/licenses/by-nc-nd/4.0/
+ * /
+ */
+
 package dev.inward;
 
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
-import java.net.URL;
 import java.nio.file.spi.FileSystemProvider;
 import java.util.List;
 

@@ -1,28 +1,21 @@
+/*
+ *  Copyright (c) © 2025. Pinder's Matrix  by Eric S Pinder is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+ */
+
 package dev.inward.matrix;
 
-import dev.inward.matrix.log.Indicia;
+import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
+import dev.inward.matrix.file.addressed.log.Matter;
 
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.locks.StampedLock;
 
 public abstract class Host<S extends SocketAddress> implements Comparable<Host<S>> {
 
-    protected final Library<?,?,?> library;
-    private final StampedLock gate = new StampedLock();
-    protected final Map<S,Experience> socketAddresses;
+    protected final Map<S, HostExperience> socketAddresses;
 
-    protected final Properties properties;
-
-    public Host(Library<?,?,?> library, String target, S[] socketAddresses, Properties properties) {
-        this.library = library;
+    public Host(String target, S[] socketAddresses) {
         this.socketAddresses = socketAddresses;
-        this.properties = properties;
-    }
-
-    public Properties getProperties() {
-        return properties;
     }
 
     public S[] getSocketAddresses() {
@@ -31,14 +24,14 @@ public abstract class Host<S extends SocketAddress> implements Comparable<Host<S
 
     public static class Remote extends Host<SocketAddress.Remote> {
 
-        public Remote(Library<?,?,?> library, String target, final SocketAddress.Remote[] remoteSockets, Properties properties) {
-            super(library, target, remoteSockets, properties);
+        public Remote(String target, final SocketAddress.Remote[] remoteSockets) {
+            super(target, remoteSockets);
         }
     }
     public static class LocalHost extends Host<SocketAddress.Local> {
 
-        public LocalHost(Library<?,?,?> library, String target, final SocketAddress.Local[] localSockets, Properties properties) {
-            super(library, target, localSockets, properties);
+        public LocalHost(String target, final SocketAddress.Local[] localSockets) {
+            super(target, localSockets);
         }
     }
     @Override
@@ -51,7 +44,7 @@ public abstract class Host<S extends SocketAddress> implements Comparable<Host<S
                 if (isZero == 0) {
                     return isZero;
                 }
-                throw new MatrixException(MatrixException.Type.Host_Target_Match_Array_Mismatch,"Host CompareTo", Indicia.Focus.Assembly, Indicia.Severity.Critical,new Exception("stack trace..."));
+                throw new MatrixException(MatrixException.Type.Host_Target_Match_Array_Mismatch,"Host CompareTo", IndiciaKey.Focus.Assembly, Matter.Severity.Critical,new Exception("stack trace..."));
             }
         }
         return isZero;

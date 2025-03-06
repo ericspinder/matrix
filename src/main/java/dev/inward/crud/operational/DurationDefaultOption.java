@@ -1,6 +1,13 @@
+/*
+ * * Pinder's Matrix © 2025 by Eric S Pinder is licensed under Creative Commons
+ *  Attribution-NonCommercial-NoDerivatives 4.0 International. To view a copy of this
+ *  license, visit https://creativecommons.org/licenses/by-nc-nd/4.0/
+ * /
+ */
+
 package dev.inward.crud.operational;
 
-import dev.inward.matrix.Specification;
+import dev.inward.matrix.file.addressed.depot.specification.Specification;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
@@ -36,7 +43,7 @@ public enum DurationDefaultOption implements Specification.DefaultOption<Duratio
         return this.defaultValue;
     }
 
-    public static @interface DurationDefault {
+    public @interface DurationDefault {
 
         DurationDefaultOption lowVariation();
         DurationDefaultOption value();

@@ -1,12 +1,16 @@
+/*
+ *  Copyright (c) © 2025. Pinder's Matrix  by Eric S Pinder is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+ */
+
 package dev.inward.matrix;
 
-import dev.inward.matrix.code.Scheme_ofCode;
-import dev.inward.matrix.dns.Scheme_ofDNS;
-import dev.inward.matrix.http.Scheme_ofHttp;
-import dev.inward.matrix.https.Scheme_ofHttps;
-import dev.inward.matrix.info.Scheme_ofInfo;
-import dev.inward.matrix.log.Scheme_ofLog;
-import dev.inward.matrix.realm.Scheme_ofRealm;
+import dev.inward.matrix.file.addressed.depot.DepotScheme;
+import dev.inward.matrix.file.addressed.dns.DnsScheme;
+import dev.inward.matrix.file.addressed.http.HttpScheme;
+import dev.inward.matrix.file.addressed.https.HttpsScheme;
+import dev.inward.matrix.file.addressed.info.InfoScheme;
+import dev.inward.matrix.file.addressed.log.LogScheme;
+import dev.inward.matrix.realm.RealmScheme;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
@@ -14,75 +18,85 @@ import java.net.URLStreamHandler;
 import java.net.spi.URLStreamHandlerProvider;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Objects;
 
 public class MatrixURLStreamHandlerProvider extends URLStreamHandlerProvider {
 
-    private static final Map<String,URLStreamHandler> protocolUrlStreamHandlers = new ConcurrentHashMap<>();
 
-    protected static final Map<String,Scheme<?,?,?>> ALL_KNOWN_SCHEMES = new HashMap<>();
+    protected static final Map<String,Scheme<?,?,?,?,?,?,?,?,?,?,?,?>> ALL_KNOWN_SCHEMES = new HashMap<>();
 
-    public static Scheme<?,?,?> findSchemeByString(String scheme_s) {
-        Scheme<?,?,?> scheme = ALL_KNOWN_SCHEMES.get(scheme_s);
-        if (scheme == null && scheme_s.indexOf('.') == -1) {
-            findSchemeByString(Terrene.Earth.toString() + '.' + scheme_s);
+
+    public static Scheme<?,?,?,?,?,?,?,?,?,?,?,?> findSchemeForProtocolHost(Protocol protocol, URI uri) {
+        if (uri.getScheme().indexOf('.') == -1) {
+            return findSchemeByString(Terrene.Earth.toString() + '.' + protocol.label);
+        }
+        else {
+            return findSchemeByString( uri.getScheme().substring(0,uri.getScheme().lastIndexOf('.'))+ '.' + protocol.label);
+        }
+    }
+    public static Scheme<?,?,?,?,?,?,?,?,?,?,?,?> findSchemeByString(String scheme_s) {
+        String lowerCaseScheme = scheme_s.toLowerCase();
+        Scheme<?,?,?,?,?,?,?,?,?,?,?,?> scheme = ALL_KNOWN_SCHEMES.get(lowerCaseScheme);
+        if (scheme == null && lowerCaseScheme.indexOf('.') == -1) {
+            findSchemeByString(Terrene.Earth.toString() + '.' + lowerCaseScheme);
         }
         else {
             synchronized (ALL_KNOWN_SCHEMES) {
-                scheme = ALL_KNOWN_SCHEMES.get(scheme_s);
+                scheme = ALL_KNOWN_SCHEMES.get(lowerCaseScheme);
                 if (scheme == null) {
-                    Terrene terrene = Terrene.Parse(scheme_s);
+                    Terrene terrene = Terrene.Parse(lowerCaseScheme.substring(0,lowerCaseScheme.lastIndexOf('.')));
+                    String protocol_s = lowerCaseScheme.substring(lowerCaseScheme.lastIndexOf('.'));
                     for (Protocol protocol: Protocol.values()) {
-                        if (protocol.getLabel().equals(scheme_s.substring(scheme_s.lastIndexOf('.')))) {
+                        if (protocol.getLabel().equals(protocol_s)) {
                             try {
-                                scheme = protocol.schemeClass.getConstructor(Terrene.class).newInstance(terrene);
-                                ALL_KNOWN_SCHEMES.put(scheme_s,scheme);
+                                scheme = protocol.getSchemeClass().getConstructor(Terrene.class).newInstance(terrene);
+                                ALL_KNOWN_SCHEMES.put(lowerCaseScheme,scheme);
+                                return scheme;
                             } catch (NoSuchMethodException | IllegalAccessException | InstantiationException |
                                      InvocationTargetException e) {
                                 throw new RuntimeException(e);
                             }
                         }
                     }
+                    throw new RuntimeException("Protocol not found" + protocol_s);
                 }
             }
         }
         return scheme;
     }
 
-    static {
-        protocolUrlStreamHandlers.put("dns", Scheme_ofDNS.EARTH_SCHEME_OF_DNS);
-        protocolUrlStreamHandlers.put("earth.dns", Scheme_ofDNS.EARTH_SCHEME_OF_DNS);
-        protocolUrlStreamHandlers.put(Scheme_ofDNS.CHAOSNET_SCHEME_OF_DNS.scheme, Scheme_ofDNS.CHAOSNET_SCHEME_OF_DNS);
-    }
     @Override
     public URLStreamHandler createURLStreamHandler(String scheme) {
         return findSchemeByString(scheme);
     }
 
     public enum Protocol implements Meta_I {
-        CODE("code","Code Repository",8, Scheme_ofCode.class),
-        DNS("dns","Domain Name System",53, Scheme_ofDNS.class),
-        INFO("info", "Information about personas", 12, Scheme_ofInfo.class),
-        HTTP("http","Unsecure File Service", 80, Scheme_ofHttp.class),
-        HTTPS("https","Secure File Service",443, Scheme_ofHttps.class),
-        LOG("log","Completed Matters",10, Scheme_ofLog.class),
-        REALM("realm", "Secure login Service", 6, Scheme_ofRealm.class)
+        DEPOT("depot","Code Repository",8, DepotScheme.class),
+        DNS("dns","Domain Name System",53, DnsScheme.class),
+        INFO("info", "Information about personas", 12, InfoScheme.class),
+        HTTP("http","Unsecure File Service", 80, HttpScheme.class),
+        HTTPS("https","Secure File Service",443, HttpsScheme.class),
+        LOG("log","Completed Matters",10, LogScheme.class),
+        //REALM("realm", "Secure login Service", 6, RealmScheme.class)
         ;
         private final String label;
         private final String description;
         private final int defaultPort;
-
-        private final Class<? extends Scheme<?,?,?>> schemeClass;
-        Protocol(final String label, final String description, int defaultPort,Class<? extends Scheme<?,?,?>> schemeClass) {
+        private final Class<? extends Scheme<?,?,?,?,?,?,?,?,?,?,?,?>> schemeClass;
+        private final String separator;
+        Protocol(final String label, final String description, int defaultPort,Class<? extends Scheme<?,?,?,?,?,?,?,?,?,?,?,?>> schemeClass) {
+            this(label,description,defaultPort,schemeClass,null);
+        }
+        Protocol(final String label, final String description, int defaultPort,Class<? extends Scheme<?,?,?,?,?,?,?,?,?,?,?,?>> schemeClass, String separator) {
             this.label = label;
             this.description = description;
             this.defaultPort = defaultPort;
             this.schemeClass = schemeClass;
+            this.separator = Objects.requireNonNullElse(separator,"/");
         }
         Protocol valueOfIgnoreCase(String protocolString) {
             return Protocol.valueOf(protocolString.toUpperCase());
         }
-
 
         @Override
         public final String getLabel() {
@@ -98,8 +112,12 @@ public class MatrixURLStreamHandlerProvider extends URLStreamHandlerProvider {
             return defaultPort;
         }
 
-        public Class<? extends Scheme<?, ?, ?>> getSchemeClass() {
+        public Class<? extends Scheme<?,?,?,?,?,?,?,?,?,?,?,?>> getSchemeClass() {
             return schemeClass;
+        }
+
+        public String getSeparator() {
+            return separator;
         }
     }
 }

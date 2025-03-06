@@ -1,28 +1,41 @@
+/*
+ *  Copyright (c) © 2025. Pinder's Matrix  by Eric S Pinder is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+ */
+
 package dev.inward.matrix;
+
+import dev.inward.matrix.file.*;
 
 import java.io.IOException;
 import java.net.*;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public abstract class Scheme<S extends Scheme<S,L,PATH>,L extends Library<S,L,PATH>,PATH extends Comparable<PATH>> extends URLStreamHandler implements Comparable<S> {
+public abstract class Scheme<S extends Scheme<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,LK extends LibraryKey<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,L extends Library<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,PATH extends Comparable<PATH>,CK extends CatalogKey<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,C extends Catalog<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,DK extends DirectoryKey<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,D extends Directory<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,DR extends DirectoryReference<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,DA extends DirectoryAttributes<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,DRESOURCE extends DirectoryResource<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,DM extends DirectoryModel<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>> extends URLStreamHandler implements Comparable<S> {
 
-    private final Map<String, Library<S,L,PATH>> schemeLibraries = new ConcurrentHashMap<>();
+    protected final Map<String, L> schemeLibraries = new ConcurrentHashMap<>();
+
     @SuppressWarnings("unchecked")
     public L findLibrary(URI uri) {
         int port = (uri.getPort() > 0) ? uri.getPort(): getDefaultPort();
-        String library_key = scheme + "://" + uri.getHost() + ':' + port;
-        return schemeLibraries.containsKey(library_key) ? (L) schemeLibraries.get(library_key): this.buildNewLibrary(library_key,uri.getHost(),port);
+        String library_cache_key = scheme + "://" + uri.getHost() + ':' + port;
+        return schemeLibraries.containsKey(library_cache_key) ? (L) schemeLibraries.get(library_cache_key): this.buildLibrary(library_cache_key,uri.getHost(),port);
     }
     @SuppressWarnings("unchecked")
-    public synchronized L buildNewLibrary(String library_key,String host,int port) {
-        if (schemeLibraries.containsKey(library_key)) {
-            return (L) schemeLibraries.get(library_key);
+    public synchronized L buildLibrary(String library_cache_key, String host, int port) {
+        if (schemeLibraries.containsKey(library_cache_key)) {
+            return (L) schemeLibraries.get(library_cache_key);
         }
-        L newLibrary = this.buildNewLibrary(Domain.getInstance(host),port);
-        this.schemeLibraries.put(library_key, newLibrary);
-        return newLibrary;
+        L library = this.makeLibraryKey((S)this, Domain.getInstance(host), port,null).getLibrary();
+        this.schemeLibraries.put(library_cache_key, library);
+        return library;
     }
+    protected long getExceptionalSeries() {
+        return 0;
+    }
+
+    protected abstract LK makeLibraryKey(S scheme,Domain domain, int port,String separator);
+    protected abstract L buildLibrary(LK libraryKey);
     public enum Reserved {
         Semicolon(';'),
         Slash('/'),
@@ -69,11 +82,6 @@ public abstract class Scheme<S extends Scheme<S,L,PATH>,L extends Library<S,L,PA
     protected final MatrixURLStreamHandlerProvider.Protocol protocol;
     protected final String scheme;
 
-    protected Scheme(String scheme) {
-        this.terrene = Terrene.Parse(scheme.substring(0,scheme.lastIndexOf(".")));
-        this.protocol = MatrixURLStreamHandlerProvider.Protocol.valueOf(scheme.substring(scheme.lastIndexOf(".")));
-        this.scheme = scheme;
-    }
     public Scheme(Terrene terrene, MatrixURLStreamHandlerProvider.Protocol protocol) {
         this.terrene = terrene;
         this.protocol = protocol;
@@ -91,12 +99,11 @@ public abstract class Scheme<S extends Scheme<S,L,PATH>,L extends Library<S,L,PA
     public String getScheme() {
         return scheme;
     }
-    protected abstract L buildNewLibrary(Domain domain, int port);
 
 //    @SuppressWarnings("unchecked")
 //    protected Clerk.Network.Client obtainClerk(URL u) throws IOException {
 //        try {
-//            return Domain.getInstance(Terrene.Parse(u.getProtocol()),u.getHost());
+//
 //        } catch (URISyntaxException e) {
 //            throw new IOException(e);
 //        }
@@ -111,7 +118,6 @@ public abstract class Scheme<S extends Scheme<S,L,PATH>,L extends Library<S,L,PA
     protected URLConnection openConnection(URL u, Proxy p) throws IOException {
         throw new IOException("URLConnection not available use obtainClerk(URL url)");
     }
-
     @Override
     public int compareTo(Scheme that) {
         return this.scheme.compareTo(that.scheme);
@@ -124,12 +130,7 @@ public abstract class Scheme<S extends Scheme<S,L,PATH>,L extends Library<S,L,PA
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Scheme{");
-        sb.append("terrene=").append(terrene);
-        sb.append(", scheme='").append(scheme).append('\'');
-        sb.append(", defaultPort=").append(this.protocol.getDefaultPort());
-        sb.append('}');
-        return sb.toString();
+        return String.valueOf(terrene).toLowerCase() + '.' + scheme.toLowerCase();
     }
 
 }

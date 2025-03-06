@@ -1,12 +1,21 @@
+/*
+ * * Pinder's Matrix © 2025 by Eric S Pinder is licensed under Creative Commons
+ *  Attribution-NonCommercial-NoDerivatives 4.0 International. To view a copy of this
+ *  license, visit https://creativecommons.org/licenses/by-nc-nd/4.0/
+ * /
+ */
+
 package dev.inward.crud;
 
-import dev.inward.matrix.*;
-import dev.inward.matrix.Envoy;
+import dev.inward.matrix.Context;
+import dev.inward.matrix.DatumReference;
+import dev.inward.matrix.Meta_I;
 import dev.inward.matrix.operation.Concept;
 
-import java.util.*;
+import java.util.Deque;
+import java.util.UUID;
 
-public class Bus<DATUM, R extends Envoy<DATUM, R,P,ID,T,C,?>,P extends Pathway<P,?>,ID extends Comparable<ID>,T extends Concept.Identity<P,ID,T,C,?>,C extends Concept<P,ID,T,C,?>> {
+public class Bus<DATUM, R extends DatumReference<DATUM, R,P,ID,T,C,?>,P extends Pathway<P,?>,ID extends Comparable<ID>,T extends Concept.Identity<P,ID,T,C,?>,C extends Concept<P,ID,T,C,?>> {
 
 //        E envoy = new Envoy<DATUM>(passenger,((Context)passenger.getClass().getProtectionDomain()).getLibrary().getCatalog().register(passenger);
         public enum Schedule implements Meta_I {

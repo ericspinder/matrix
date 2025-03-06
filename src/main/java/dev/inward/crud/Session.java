@@ -1,11 +1,19 @@
+/*
+ * * Pinder's Matrix © 2025 by Eric S Pinder is licensed under Creative Commons
+ *  Attribution-NonCommercial-NoDerivatives 4.0 International. To view a copy of this
+ *  license, visit https://creativecommons.org/licenses/by-nc-nd/4.0/
+ * /
+ */
+
 package dev.inward.crud;
 
-import dev.inward.matrix.*;
-import dev.inward.matrix.info.Agent;
-import dev.inward.matrix.info.Gadget;
-import dev.inward.matrix.log.Indicia;
 import dev.inward.matrix.Library;
+import dev.inward.matrix.MatrixException;
 import dev.inward.matrix.Scheme;
+import dev.inward.matrix.file.addressed.info.Agent;
+import dev.inward.matrix.file.addressed.info.Gadget;
+import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
+import dev.inward.matrix.file.addressed.log.Matter;
 
 import java.time.Instant;
 import java.time.Year;
@@ -46,7 +54,7 @@ public abstract class Session extends Gadget<> {
             this.expire = expire;
             return;
         }
-        throw new MatrixException(MatrixException.Type.Cannot_Update_Session_Expire,"Session", Indicia.Focus.Regulatory, Indicia.Severity.Critical,new Exception());
+        throw new MatrixException(MatrixException.Type.Cannot_Update_Session_Expire,"Session", IndiciaKey.Focus.Regulatory, Matter.Severity.Critical,new Exception());
     }
 
     @Override

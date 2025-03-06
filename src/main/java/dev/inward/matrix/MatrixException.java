@@ -1,8 +1,15 @@
+/*
+ *  Copyright (c) © 2025. Pinder's Matrix  by Eric S Pinder is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+ */
+
 package dev.inward.matrix;
 
-import dev.inward.matrix.log.Indicia;
+import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
+import dev.inward.matrix.file.addressed.log.Occurrence;
 
-public class MatrixException extends Blocker {
+import java.util.UUID;
+
+public class MatrixException extends RuntimeException implements Exceptional {
 
     public enum Type {
         RunProblem("Matter creation failed"),
@@ -21,7 +28,7 @@ public class MatrixException extends Blocker {
         InSitu_already_init("InSitu already initialized, see Fidelity.Aforementioned"),
         Host_Target_Match_Array_Mismatch("Comparing two Hosts which has the same library, target but not the same socket array, Host objects should be unique"),
         MissingDefaultValue("Missing a default value"),
-        MissMatchedOptionKey("Option key was not set for proper instance value"),
+        MissMatchedOptionKey("Option info was not set for proper instance value"),
         NetworkUnavailable_No_Return("Problem gaining network details"),
         NotImplemented("Not implemented"),
         OverLimit("Over limit for Resource"),
@@ -37,7 +44,6 @@ public class MatrixException extends Blocker {
         Terrene_Not_Among_Known_Worlds("Terrene is not among known worlds"),
         UnableToStartJMX_className("JMX failed to start; class not found"),
         UnknownHost("unknown host");
-        ;
         private final String description;
         Type(String description) {
             this.description = description;
@@ -46,11 +52,24 @@ public class MatrixException extends Blocker {
             return this.description;
         }
     }
-    public final Type type;
-
-    public MatrixException(Type type, String locus, Indicia.Focus focus, Indicia.Severity severity, Exception e) {
-        super(locus,focus,severity,e);
+    protected final Type type;
+    protected final IndiciaKey indiciaKey;
+    protected final Occurrence occurrence;
+    public MatrixException(Type type, Exception e, IndiciaKey indiciaKey, Occurrence occurrence) {
+        super(type.description, e);
         this.type = type;
+        this.indiciaKey = indiciaKey;
+        this.occurrence = occurrence;
+    }
+
+    @Override
+    public UUID getUUID() {
+        return occurrence.getUUID();
+    }
+
+    @Override
+    public IndiciaKey getIndicia() {
+        return this.indiciaKey;
     }
 
     @Override

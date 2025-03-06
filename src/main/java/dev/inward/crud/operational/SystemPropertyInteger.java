@@ -1,6 +1,13 @@
+/*
+ * * Pinder's Matrix © 2025 by Eric S Pinder is licensed under Creative Commons
+ *  Attribution-NonCommercial-NoDerivatives 4.0 International. To view a copy of this
+ *  license, visit https://creativecommons.org/licenses/by-nc-nd/4.0/
+ * /
+ */
+
 package dev.inward.crud.operational;
 
-import dev.inward.matrix.Specification;
+import dev.inward.matrix.file.addressed.depot.specification.Specification;
 
 public enum SystemPropertyInteger implements Specification.SystemProperty<Integer, SystemPropertyInteger> {
     NameService_Cache("networkaddress.cache.ttl",10,"Specified in java.security to indicate the caching policy for successful name lookups from the name service. The value is specified as integer to indicate the number of seconds to cache the successful lookup. A value of -1 indicates \"cache forever\". The default behavior is to cache forever when a security manager is installed, and to cache for an implementation specific period of time, when a security manager is not installed."),
@@ -13,10 +20,10 @@ public enum SystemPropertyInteger implements Specification.SystemProperty<Intege
     CLIENT_Read_Timeout("sun.net.client.defaultReadTimeout",-1,"(default: -1) These properties specify the default read timeout for the protocol handler used by java.net.URLConnection."),
     SOCKS_PROXY_PORT("socksProxyPort",1080,"(default: 1080)"),
     ;
-    private String label;
-    private String description;
-    private Integer defaultValue;
-    private String systemPropKey;
+    private final String label;
+    private final String description;
+    private final Integer defaultValue;
+    private final String systemPropKey;
     SystemPropertyInteger(String systemPropKey,Integer defaultValue,String description) {
         label = this.name();
         this.systemPropKey = systemPropKey;

@@ -1,11 +1,15 @@
+/*
+ *  Copyright (c) © 2025. Pinder's Matrix  by Eric S Pinder is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+ */
+
 package dev.inward.matrix;
 
-import dev.inward.matrix.info.Dogma;
+import dev.inward.matrix.file.addressed.info.UserName;
 
-public abstract class Profile<S extends Scheme<S,L>,L extends Library<S,L>,P extends Profile<S, L, P, U>,U extends Dogma<S,L,U>> implements Comparable<P> {
+public abstract class Profile<S extends Scheme<S,L>,L extends Library<S,L>,P extends Profile<S, L, P, U>,U extends UserName<S,L,U>> implements Comparable<P> {
 
     //protected final Map<U, AclEntryType>
-    public Profile(Dogma.Id<S,L,U> identity) {
+    public Profile(UserName.Id<S,L,U> identity) {
         super(identity);
     }
 

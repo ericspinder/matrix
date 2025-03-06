@@ -1,7 +1,12 @@
+/*
+ *  Copyright (c) © 2025. Pinder's Matrix  by Eric S Pinder is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+ */
+
 package dev.inward.matrix;
 
-import dev.inward.matrix.info.Agent;
-import dev.inward.matrix.info.House;
+import dev.inward.matrix.file.addressed.Addressed;
+import dev.inward.matrix.file.addressed.info.Agent;
+import dev.inward.matrix.file.addressed.info.House;
 
 import java.util.List;
 import java.util.UUID;

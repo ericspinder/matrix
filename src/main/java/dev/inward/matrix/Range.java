@@ -1,11 +1,20 @@
+
+/*
+ *  Copyright (c) © 2025. Pinder's Matrix  by Eric S Pinder is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+ */
+
 package dev.inward.matrix;
 
-import dev.inward.matrix.log.Indicia;
+import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
+import dev.inward.matrix.file.addressed.log.Matter;
+import dev.inward.matrix.file.addressed.log.Occurrence;
+
+import java.time.Instant;
+import java.util.UUID;
 
 @SuppressWarnings("all")
 public abstract class Range<PATH extends Comparable<PATH>> implements Comparable<Range<PATH>> {
 
-    public static final Range.AllPaths ALL_PATHS = new AllPaths();
     /**
      *
      * @return the lowest PATH value, may be null.
@@ -40,7 +49,7 @@ public abstract class Range<PATH extends Comparable<PATH>> implements Comparable
         if (thatInt != null) {
             return thatInt;
         }
-        throw new MatrixException(MatrixException.Type.Range_Mismatch,"comparison", Indicia.Focus.Evaluation, Indicia.Severity.Critical,new Exception("Pathway of " + this.toString() + " cannot be evaluated with an Pathway of" + that.toString()));
+        throw new RuntimeException("Cannot compare ranges: " + this.getClass().getCanonicalName() + " to " + that.getClass().getCanonicalName());
     }
 
     /**
@@ -110,9 +119,11 @@ public abstract class Range<PATH extends Comparable<PATH>> implements Comparable
 
     public abstract String toString();
 
+//    public static <S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>> Catalog<S,L,PATH> GetCatlogForRange(L library, URL url) {
+//
+//    }
 
     public final static class AllPaths<PATH extends Comparable<PATH>> extends Range<PATH> {
-        public AllPaths() {}
 
         @Override
         PATH getHigherPath() {
@@ -124,7 +135,9 @@ public abstract class Range<PATH extends Comparable<PATH>> implements Comparable
         }
         @Override
         public String toString() {
-            return "AllPaths";
+            final StringBuilder sb = new StringBuilder();
+            sb.append("AllPaths {}");
+            return sb.toString();
         }
 
         @Override
@@ -152,8 +165,7 @@ public abstract class Range<PATH extends Comparable<PATH>> implements Comparable
         @Override
         public String toString() {
             final StringBuilder sb = new StringBuilder("BelowPathway{");
-            sb.append("higherPath=").append(higherPath);
-            sb.append('}');
+            sb.append(" higherPath = ").append(higherPath).append('}');
             return sb.toString();
         }
 
@@ -177,9 +189,8 @@ public abstract class Range<PATH extends Comparable<PATH>> implements Comparable
         @Override
         public String toString() {
         final StringBuilder sb = new StringBuilder("AbovePathway{");
-        sb.append("lowestPath=").append(lowestPath);
-        sb.append('}');
-        return sb.toString();
+            sb.append(" lowestPath = ").append(lowestPath).append('}');
+            return sb.toString();
         }
     }
     public final static class BetweenPaths<PATH extends Comparable<PATH>> extends Range<PATH> {
@@ -205,9 +216,8 @@ public abstract class Range<PATH extends Comparable<PATH>> implements Comparable
         @Override
         public String toString() {
             final StringBuilder sb = new StringBuilder("BetweenPathways{");
-            sb.append("lowestPath=").append(lowestPath);
-            sb.append(", higherPath=").append(higherPath);
-            sb.append('}');
+            sb.append(" lowestPath = ").append(lowestPath);
+            sb.append(", higherPath = ").append(higherPath).append('}');
             return sb.toString();
         }
     }

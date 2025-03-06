@@ -1,13 +1,10 @@
+/*
+ *  Copyright (c) © 2025. Pinder's Matrix  by Eric S Pinder is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+ */
+
 package dev.inward.matrix;
 
-import dev.inward.matrix.dns.resourceRecord.ServiceLocationRecord;
-import dev.inward.matrix.engine.Zone;
-import dev.inward.matrix.operation.Operation;
-import dev.inward.matrix.predictable.Complication;
-import dev.inward.matrix.predictable.Criterion;
-import dev.inward.matrix.log.Matter;
-import dev.inward.matrix.predictable.Predictable;
-import dev.inward.matrix.log.Indicia;
+import dev.inward.matrix.file.*;
 import dev.inward.matrix.memory.Memory;
 
 import java.io.IOException;
@@ -18,24 +15,18 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileAttribute;
 import java.nio.file.attribute.FileAttributeView;
 import java.nio.file.spi.FileSystemProvider;
-import java.security.CodeSigner;
-import java.util.*;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-public abstract class Library<S extends Scheme<S,L,PATH>,L extends Library<S,L,PATH>,PATH extends Comparable<PATH>> extends FileSystemProvider implements Comparable<L>  {
+public abstract class Library<S extends Scheme<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,LK extends LibraryKey<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,L extends Library<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,PATH extends Comparable<PATH>,CK extends CatalogKey<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,C extends Catalog<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,DK extends DirectoryKey<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,D extends Directory<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,DR extends DirectoryReference<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,DA extends DirectoryAttributes<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,DRESOURCE extends DirectoryResource<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,DM extends DirectoryModel<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>> extends FileSystemProvider implements Comparable<L>,MatrixItem<LK,L> {
 
-    protected final S scheme;
+    protected final LK libraryKey;
+    protected final Map<Range<PATH>,C> rangeCatalogMap = new ConcurrentHashMap<>();
 
-    protected final Domain domain;
-    protected final int port;
-
-    protected final Map<ServiceLocationRecord,Experience> hostExperienceMap = new ConcurrentHashMap<>();
-    protected final Map<Ledger<PATH>,Librarian<PATH,?,?,?,?>[]> catalogs = new ConcurrentHashMap<>();
-
-    protected <ID extends Comparable<ID>, I extends Identity<PATH, ID, I, A, R, PR>, A extends Addressed<PATH, ID, I, A, R, PR>, R extends Representative<PATH, ID, I, A, R, PR>, PR extends Representative<PATH, ?, ?, ?, PR, ?>, C extends Operation<PATH, ID, I, A, R, PR>, L extends Ledger<PATH>> L initLedger(Memory<C, PATH> memory, Map<PATH, Gathering<PATH, ID, I, A, R, PR, C>> directoriesSeed) throws CheckedException {
-        return null;
-    }
+    protected final Map<C, Memory<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>[]> catalogMemoryMap;
+    protected final Map<C,Librarian<?,?,?,?,?>[]> catalogs = new ConcurrentHashMap<>();
 
     protected StringBuilder firstLimitReachedMessage(String className, long warnTotal, long hardLimit) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -46,37 +37,66 @@ public abstract class Library<S extends Scheme<S,L,PATH>,L extends Library<S,L,P
         return firstLimitReachedMessage(className,warnTotal,hardLimit).append(' ').append(previousMessage).toString() ;
     }
 
-    public Library(S scheme, Domain domain, int port) {
-        this.scheme = scheme;
-        this.domain = domain;
-        this.port = port;
+    public Library(LK libraryKey) {
+        this.libraryKey = libraryKey;
+        this.catalogMemoryMap = this.initCatalogs();
     }
-    public Clerk.Network.Client getClient(URI uri) {
-        Host.Remote remote = new Host.Remote()
-        return new Clerk.Network.Client(this,)
+
+    public void initServer(HostExperience.Server serverExperience,C catalog) {
+
     }
-    public <C extends Complication<PATH,C,M,OCCURRENCE>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> C register_(Predictable<PATH,F> watcher, Indicia[] events, Criterion... modifiers) throws IOException {
-        return watcher.register(this,events,modifiers);
+
+    @Override
+    public LK getKey() {
+        return this.libraryKey;
     }
+
+    @Override
+    public int compareTo(L that) {
+        return this.libraryKey.compareTo(that.libraryKey);
+    }
+
+    protected abstract Map<C, Memory<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>[]> initCatalogs();
+//    public Clerk.Network.Client getClient(URI uri) {
+//        Host.Remote remote = new Host.Remote()
+//        return new Clerk.Network.Client(this,)
+//    }
+//    public <C extends Complication<PATH,C,M,OCCURRENCE>,M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> C register_(Predictable<PATH,F> watcher, Indicia[] events, Criterion... modifiers) throws IOException {
+//        return watcher.register(this,events,modifiers);
+//    }
 
     @SuppressWarnings("unchecked")
     @Override
     public String getScheme() {
-        return this.scheme.scheme;
+        return this.getKey().scheme.scheme;
     }
 
     public S get_Scheme() {
-        return this.scheme;
+        return this.libraryKey.scheme;
     }
 
+    private C findCatalog(PATH filePath) {
+        for (Range<PATH> range: this.rangeCatalogMap.keySet()) {
+            if (range.eval(filePath)) {
+                return this.rangeCatalogMap.get(range);
+            }
+        }
+        throw new RuntimeException("Cannot find catalog for " + filePath);
+    }
     @Override
-    public Ledger<PATH> newFileSystem(URI uri, Map<String, ?> env) throws IOException {
+    public synchronized C newFileSystem(URI uri, Map<String, ?> env) throws IOException {
+        if (uri.isAbsolute() && uri.getScheme().equals(this.getScheme()) && uri.getHost().equals(this.libraryKey.domain.getDomain()) && uri.getPort() == libraryKey.port) {
+            findCatalog()
+            if ()
+        }
         return null;
     }
 
     @Override
-    public Ledger<PATH> getFileSystem(URI uri) {
-        return null;
+    public C getFileSystem(URI uri) {
+        if (uri.isAbsolute() && uri.getScheme().equals(this.getScheme()) && uri.getHost().equals(this.libraryKey.domain.getDomain()) && uri.getPort() == libraryKey.port) {
+
+        }
     }
 
     @Override
@@ -124,7 +144,7 @@ public abstract class Library<S extends Scheme<S,L,PATH>,L extends Library<S,L,P
     }
 
     @Override
-    public Memory<S,L,PATH,?> getFileStore(Path path) throws IOException {
+    public Memory getFileStore(Path path) throws IOException {
         return null;
     }
 
@@ -155,26 +175,8 @@ public abstract class Library<S extends Scheme<S,L,PATH>,L extends Library<S,L,P
 
     //protected abstract <PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Identity<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CAT extends Ledger<S,L,PATH,ID,T,C,CAT>> CAT initCatalog(Memory<S,L,PATH> memory, Pattern separatorPattern, Gathering<S,L,PATH,ID,T,C,CAT> directoriesSeed) throws CheckedException;
 
-    public CodeSigner[] getCodeSigners(Zone zone) {
-
-        throw new MatrixException(MatrixException.Type.CodeSigners_not_initialized,"getCodeSigners() failed to create CodeSigner[] needed", Indicia.Focus.Assembly, Indicia.Severity.Critical,new Exception("StackTrace, should be calling getCodeSigner() only after calling getUrl()"));
-    }
-
-    public List<Domain> getDomains() {
-        return this.domains;
-    }
-
-    @Override
-    public int compareTo(L that) {
-        int isZero = this.domain.compareTo(that.domain);
-        if (isZero == 0) {
-            isZero = this.scheme.compareTo(scheme);
-            if (isZero == 0) {
-                return this.terrene.compareTo(that.terrene);
-            }
-        }
-        return isZero;
-    }
-
-
+//    public CodeSigner[] getCodeSigners(Zone zone) {
+//
+//        throw new MatrixException(MatrixException.Type.CodeSigners_not_initialized,new Exception("StackTrace, should be calling getCodeSigner() only after calling getUrl()"),new IndiciaKey("getCodeSigners() failed to create CodeSigner[] needed", libraryKey.getExceptionalSeries()),new Occurrence(UUID.randomUUID(),Instant.now(), Matter.Severity.Exceptional));
+//    }
 }

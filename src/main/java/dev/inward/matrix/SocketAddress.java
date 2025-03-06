@@ -1,18 +1,23 @@
+/*
+ *  Copyright (c) © 2025. Pinder's Matrix  by Eric S Pinder is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+ */
+
 package dev.inward.matrix;
 
-import dev.inward.matrix.dns.resourceRecord.ServerRecord;
-import dev.inward.matrix.log.Indicia;
+import dev.inward.matrix.file.addressed.dns.serverRecord.ServerRecord;
 
 import java.math.BigInteger;
-import java.net.*;
+import java.net.InetSocketAddress;
+import java.net.InterfaceAddress;
+import java.net.SocketException;
 
 public abstract class SocketAddress implements Comparable<SocketAddress> {
 
     protected final BigInteger bytes;
     protected final InetSocketAddress inetSocketAddress;
-    protected final ServerRecord serverRecord;
+    protected final ServerRecord<?,?,?,?,?,?> serverRecord;
 
-    public SocketAddress(ServerRecord serverRecord, int port) {
+    public SocketAddress(ServerRecord<?,?,?,?,?,?> serverRecord, int port) {
         this.inetSocketAddress = new InetSocketAddress(serverRecord.getInetAddress(),port);
         this.bytes = new BigInteger(1,serverRecord.getInetAddress().getAddress());
         this.serverRecord = serverRecord;
@@ -21,7 +26,7 @@ public abstract class SocketAddress implements Comparable<SocketAddress> {
 
         protected final LocalSystemNetworking.NetworkMapping networkMapping;
 
-        public Local(ServerRecord serverRecord, int port, LocalSystemNetworking.NetworkMapping networkMapping) {
+        public Local(ServerRecord<?,?,?,?,?,?> serverRecord, int port, LocalSystemNetworking.NetworkMapping networkMapping) {
             super(serverRecord, port);
             this.networkMapping = networkMapping;
         }
@@ -45,7 +50,7 @@ public abstract class SocketAddress implements Comparable<SocketAddress> {
     }
     public static class Remote extends SocketAddress {
 
-        public Remote(ServerRecord serverRecord, int port) {
+        public Remote(ServerRecord<?,?,?,?,?,?> serverRecord, int port) {
             super(serverRecord, port);
         }
     }

@@ -1,13 +1,20 @@
+/*
+ *  Copyright (c) © 2025. Pinder's Matrix  by Eric S Pinder is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+ */
+
 package dev.inward.matrix;
 
-import dev.inward.matrix.log.Indicia;
+import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
+import dev.inward.matrix.file.addressed.log.Matter;
 
 import java.math.BigInteger;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.time.Instant;
-import java.util.*;
+import java.util.Enumeration;
+import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class LocalSystemNetworking {
@@ -21,7 +28,8 @@ public class LocalSystemNetworking {
                 newInstance.enrollPlatformInterfaceAddresses();
             }
             catch (SocketException se) {
-                throw new MatrixException(MatrixException.Type.NetworkUnavailable_No_Return,"Local System Networking", Indicia.Focus.Admonitory, Indicia.Severity.Exceptional,se);
+                throw new RuntimeException("Socket Exception getting local IP addresses");
+                //throw new MatrixException(MatrixException.Type.NetworkUnavailable_No_Return,"Local System Networking", IndiciaKey.Focus.Admonitory, Matter.Severity.Exceptional,se);
             }
             INSTANCE = newInstance;
         }
@@ -34,16 +42,16 @@ public class LocalSystemNetworking {
 
     public static final class NetworkMapping implements Comparable<NetworkMapping> {
 
-        protected final InterfaceAddress interfaceAddress;
-        protected final BigInteger bytes;
-        protected final NetworkInterface networkInterface;
+        private final InterfaceAddress interfaceAddress;
+        private final BigInteger bytes;
+        private final NetworkInterface networkInterface;
 
         public NetworkMapping(final InterfaceAddress interfaceAddress, final NetworkInterface networkInterface) {
             this.interfaceAddress = interfaceAddress;
             this.networkInterface = networkInterface;
             this.bytes = new BigInteger(1,interfaceAddress.getAddress().getAddress());
         }
-        public final BigInteger getBytes() {
+        public BigInteger getBytes() {
             return this.bytes;
         }
 
@@ -78,7 +86,8 @@ public class LocalSystemNetworking {
             enrollPlatformInterfaceAddresses();
         }
         catch (SocketException se) {
-            throw new MatrixException(MatrixException.Type.NetworkUnavailable_No_Return, this.getClass(), Indicia.Focus.Admonitory, Indicia.Severity.Exceptional, se);
+            throw new RuntimeException("Problem enrolling platform Interfaces addresses", se);
+            //throw new MatrixException(MatrixException.Type.NetworkUnavailable_No_Return, this.getClass(), IndiciaKey.Focus.Admonitory, Matter.Severity.Exceptional, se);
         }
     }
 
@@ -94,7 +103,9 @@ public class LocalSystemNetworking {
 
     private final void parseInetAddresses(int layer, NetworkInterface networkInterface) throws SocketException {
         if (layer > 3) {
-            throw new MatrixException(MatrixException.Type.Recursion,"Local Systems Networking", Indicia.Focus.Assembly, Indicia.Severity.Unexpected, new Exception("Layer: " + layer));
+            System.err.println("Looks like recursion error on network interface = " + networkInterface.getDisplayName());
+            return;
+            //throw new MatrixException(MatrixException.Type.Recursion,"Local Systems Networking", IndiciaKey.Focus.Assembly, Matter.Severity.Unexpected, new Exception("Layer: " + layer));
         }
         for (InterfaceAddress ifAddress : networkInterface.getInterfaceAddresses()) {
             if (networkInterface.isLoopback()) {
@@ -121,7 +132,8 @@ public class LocalSystemNetworking {
     private OS parseOS() {
         String osName = System.getProperty("os.name");
         if (osName == null) {
-            throw new MatrixException(MatrixException.Type.UnableToParseOS, "Local Systems Networking", Indicia.Focus.Admonitory, Indicia.Severity.Unexpected, new Exception("\"os.name\" system property not found"));
+            osName = "other";
+            //throw new MatrixException(MatrixException.Type.UnableToParseOS, "Local Systems Networking", IndiciaKey.Focus.Admonitory, Matter.Severity.Unexpected, new Exception("\"os.name\" system property not found"));
         }
         osName = osName.toLowerCase(Locale.ENGLISH);
         if (osName.contains("windows")) {
@@ -152,7 +164,7 @@ public class LocalSystemNetworking {
         UNIX,
         POSIX_UNIX,
         MAC,
-        OTHER;
+        OTHER
     }
     protected final OS os;
 

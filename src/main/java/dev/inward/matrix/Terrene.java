@@ -1,8 +1,13 @@
+/*
+ *  Copyright (c) © 2025. Pinder's Matrix  by Eric S Pinder is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+ */
+
 package dev.inward.matrix;
 
 import com.google.common.collect.ImmutableList;
-import dev.inward.matrix.dns.resourceRecord.ServerRecord;
-import dev.inward.matrix.log.Indicia;
+import dev.inward.matrix.file.addressed.dns.serverRecord.ServerRecord;
+import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
+import dev.inward.matrix.file.addressed.log.Matter;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -17,13 +22,13 @@ public class Terrene implements Comparable<Terrene> {
     public static final Terrene Mars = new Terrene("MR", "mars");
     public static final Terrene Helios = new Terrene("HS","helios");
     public static final Terrene Chaosnet = new Terrene("CS","chaosnet");
-    public static final Terrene Aforementioned = new Terrene('\u0000',"Aforementioned");
+    public static final Terrene Aforementioned = new Terrene('\u0000',"aforementioned");
 
     protected static final Map<String,Terrene> KnownWorlds = new ConcurrentHashMap<>();
 
     public static Terrene Parse(String alias) {
         Terrene terrene = KnownWorlds.get(alias);
-        if (terrene == null) return Earth;
+        if (terrene == null) throw new RuntimeException("Terrene not found: " + alias);
         return terrene;
     }
 
@@ -72,7 +77,7 @@ public class Terrene implements Comparable<Terrene> {
         public final Domain com_l = Domain.getInstance(Earth, "com.l");
         public final Domain com_m = Domain.getInstance(Earth, "com.m");
 
-        protected final List<ServerRecord> serverRecords;
+        private final List<ServerRecord> serverRecords;
 
         public EarthRoots() {
             try {
@@ -108,7 +113,7 @@ public class Terrene implements Comparable<Terrene> {
                 builder.add(EARTH_ROOTS);
                 serverRecords = ImmutableList.<ServerRecord>builder().build();
             } catch (UnknownHostException unknownHostException) {
-                throw new MatrixException(MatrixException.Type.UnknownHost, "EarthRoots", Indicia.Focus.Assembly, Indicia.Severity.Exceptional, unknownHostException);
+                throw new MatrixException(MatrixException.Type.UnknownHost, "EarthRoots", IndiciaKey.Focus.Assembly, Matter.Severity.Exceptional, unknownHostException);
             }
         }
     }

@@ -1,3 +1,10 @@
+/*
+ * * Pinder's Matrix © 2025 by Eric S Pinder is licensed under Creative Commons
+ *  Attribution-NonCommercial-NoDerivatives 4.0 International. To view a copy of this
+ *  license, visit https://creativecommons.org/licenses/by-nc-nd/4.0/
+ * /
+ */
+
 package crud.asm;
 
 import dev.inward.crud.Container;
@@ -16,8 +23,8 @@ import java.util.concurrent.locks.StampedLock;
  */
 public class ASMFactWrapper<N,O extends Operational<N,W,T>,W extends Datum<N,O,T>, T extends Container<N,O,W>> extends Fact<N,O,W,T> {
 
-    private Map<Class, Class<Datum>> cache = new HashMap<>();
-    private StampedLock creationGate = new StampedLock();
+    private final Map<Class, Class<Datum>> cache = new HashMap<>();
+    private final StampedLock creationGate = new StampedLock();
 
     public ASMFactWrapper(O options, ClassLoader classLoader) {
         super(options, classLoader);

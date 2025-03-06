@@ -17,7 +17,7 @@ Predictable is the manager of Matrix objects when creating Complications
     dev.inward.matrix.predictable.Complication implements java.nio.file.WatchKey
 Complications are the runnable, which are configured by Criterion and produce Matters
 
-    dev.inward.matrix.log.Matter extends dev.inward.matrix.Addressed implements java.nio.file.WatchEvent<Indicia> 
+    dev.inward.matrix.file.log.addressed.Matter extends dev.inward.matrix.file.addressed.Addressed implements java.nio.file.WatchEvent<Indicia> 
 Matters are sent to/kept in the 'log' scheme, the concept is to push all logs off the system almost immediately, both for processing externally and to keep them safe from any malfeasance that might occur on a front end system (killing the logs is the first sign of a 'hacked' system)
 
     dev.inward.matrix.log.Indica implements java.nio.file.WatchEvent.Kind<Indicia> 
@@ -44,34 +44,34 @@ Aspect holds the friendly name of the field and it's description
     dev.inward.matrix.Datum
 Datum is an interface and the lowest level programmed file objects, all other files implement it. While it has both Envoy and DatumAttributes attached to it in generics it's otherwise empty and meant to be implemented by client code when required
 
-    dev.inward.matrix.Envoy extends Ware
+    dev.inward.matrix.DatumReference extends Ware
 Envoy is the Ware extension for Datum objects
 
     dev.inward.matrix.DatumAttributes extends Attributes
 DatumAttributes is the Attributes extension for Datum objects
 
-    dev.inward.matrix.FileKey implements java.nio.file.Watchable, java.file.Path
+    dev.inward.matrix.file.FileKey implements java.nio.file.Watchable, java.file.Path
 FileKey is the lowest identifiable file object
 
-    dev.inward.matrix.MatrixFile implements Datum
+    dev.inward.matrix.file.File implements Datum
 MatrixFile is the lowest object which may be created from parsing a FileKey. It branches commonality between directory and files.
 
     dev.inward.matrix.Registar extends Envoy
 Registar is the container for MatrixFile objects
 
-    dev.inward.matrix.FileAttributes extends DatumAttributes
+    dev.inward.matrix.file.FileAttributes extends DatumAttributes
 FileAttributes is the attributes for a MatrixFile object 
 
-    dev.inward.matrix.Identity
+    dev.inward.matrix.file.addressed.AddressedKey
 Identity is the lowest Matrix object which is generally addressable
 
-    dev.inward.matrix.Addressed
+    dev.inward.matrix.file.addressed.Addressed
 Addressed is what's created by the Identity, each of the schemes will extend this Object to present individual files
 
-    dev.inward.matrix.Representative
+    dev.inward.matrix.file.addressed.AddressedReference
 Representative is the Registar extension for Addressed objects
 
-    dev.inward.matrix.Addressed.FileAttributes
+    dev.inward.matrix.file.addressed.Addressed.AddressedAttributes
 Addressed.FileAttributes is the attributes for the Addressed Objects
 
 Much more....

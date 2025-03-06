@@ -1,8 +1,14 @@
+/*
+ *  Copyright (c) © 2025. Pinder's Matrix  by Eric S Pinder is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+ */
+
 package dev.inward.matrix.personality;
 
-import dev.inward.matrix.*;
-import dev.inward.matrix.info.Persona;
-import dev.inward.matrix.log.Indicia;
+import dev.inward.matrix.MatrixException;
+import dev.inward.matrix.Rule;
+import dev.inward.matrix.file.addressed.info.Persona;
+import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
+import dev.inward.matrix.file.addressed.log.Matter;
 
 import java.lang.ref.SoftReference;
 import java.nio.file.attribute.AclEntry;
@@ -60,7 +66,7 @@ public class Personality extends PermissionCollection {
                 if (ruleEntry.type().equals(AclEntryType.DENY)) {
 
                 }
-            };
+            }
         }
     }
 
@@ -112,7 +118,7 @@ public class Personality extends PermissionCollection {
             this.offeredSessions.add((Session)permission);
             return;
         }
-        throw new MatrixException(MatrixException.Type.ClassCastException,this.getClass(), Indicia.Focus.Assembly, Indicia.Severity.Critical,new Exception("Must be a Persona, Psyche or Session"));
+        throw new MatrixException(MatrixException.Type.ClassCastException,this.getClass(), IndiciaKey.Focus.Assembly, Matter.Severity.Critical,new Exception("Must be a Persona, Psyche or Session"));
     }
 
     /**
