@@ -6,7 +6,7 @@ package dev.inward.matrix.file.addressed.depot.source;
 
 import dev.inward.matrix.file.addressed.depot.DepotReference;
 
-public class SourceReference extends ConfigurationReference<SourceKey,Source,SourceReference,SourceAttributes,SourceResource,SourceModel> {
+public class SourceReference extends DepotReference<SourceKey,Source,SourceReference,SourceAttributes,SourceResource,SourceModel> {
     public SourceReference(Source addressed, SourceResource resource) {
         super(addressed, resource);
     }

@@ -45,7 +45,7 @@ public class Director {
     /**
      *
      * @param matrixKey the matrixKey for which the Complication will be tied, this implementation will only use it for the uri string value if a road is chosen
-     * @param chosenRoad it will associate the road with the MatrixKey for as long as it stays in memory
+     * @param chosenRoad it will associate the road with the MatrixKey for as long as it stays in bureau
      * @return the road to use
      * @param <K> MatrixKey
      * @param <I> MatrixItem

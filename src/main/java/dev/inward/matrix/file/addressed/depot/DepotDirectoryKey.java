@@ -4,11 +4,11 @@
 
 package dev.inward.matrix.file.addressed.depot;
 
-import dev.inward.matrix.file.addressed.AddressedDirectoryKey;
+import dev.inward.matrix.file.DirectoryKey;
 
 import java.net.URI;
 
-public class DepotDirectoryKey extends AddressedDirectoryKey<DepotScheme, DepotLibraryKey, DepotLibrary, DepotPath,DepotCatalogKey,DepotCatalog,DepotDirectoryKey,DepotDirectory,DepotDirectoryReference,DepotDirectoryAttributes,DepotDirectoryResource,DepotDirectoryModel> {
+public class DepotDirectoryKey extends DirectoryKey<DepotScheme, DepotLibraryKey, DepotLibrary, DepotPath,DepotCatalogKey,DepotCatalog,DepotDirectoryKey,DepotDirectory,DepotDirectoryReference,DepotDirectoryAttributes,DepotDirectoryResource,DepotDirectoryModel> {
     protected DepotDirectoryKey(URI uri, DepotCatalog catalog, DepotPath depotPath) {
         super(uri, catalog, depotPath);
     }

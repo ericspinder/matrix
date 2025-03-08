@@ -5,7 +5,6 @@
 package dev.inward.matrix.file.addressed.dns.serverRecord;
 
 import dev.inward.matrix.file.addressed.dns.DnsDirectoryKey;
-import dev.inward.matrix.file.addressed.dns.RRKey;
 import dev.inward.matrix.file.addressed.dns.ResourceRecordType;
 
 public class Ip6ServerRecordParser extends ServerRecordParser<Ip6ServerRecordKey,Ip6ServerRecord,Ip6ServerRecordReference,Ip6ServerRecordAttributes,Ip6ServerRecordResource,Ip6ServerRecordModel> {

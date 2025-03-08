@@ -4,12 +4,12 @@
 
 package dev.inward.matrix.file.addressed.log;
 
+import dev.inward.matrix.CatalogKey;
 import dev.inward.matrix.Range;
-import dev.inward.matrix.file.addressed.AddressedCatalogKey;
 
 import java.net.URI;
 
-public class LogCatalogKey extends AddressedCatalogKey<LogScheme,LogLibraryKey,LogLibrary,LogPath,LogCatalogKey,LogCatalog,LogDirectoryKey,LogDirectory,LogDirectoryReference,LogDirectoryAttributes,LogDirectoryResource,LogDirectoryModel> {
+public class LogCatalogKey extends CatalogKey<LogScheme,LogLibraryKey,LogLibrary,LogPath,LogCatalogKey,LogCatalog,LogDirectoryKey,LogDirectory,LogDirectoryReference,LogDirectoryAttributes,LogDirectoryResource,LogDirectoryModel> {
     public LogCatalogKey(URI uri, LogLibrary library, Range<LogPath> range) {
         super(uri, library, range);
     }

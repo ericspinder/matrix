@@ -5,11 +5,11 @@
 package dev.inward.matrix.file.addressed.info;
 
 import dev.inward.matrix.Domain;
-import dev.inward.matrix.file.addressed.AddressedLibraryKey;
+import dev.inward.matrix.LibraryKey;
 
 import java.net.URI;
 
-public class InfoLibraryKey extends AddressedLibraryKey<InfoScheme,InfoLibraryKey,InfoLibrary, InfoPath,InfoCatalogKey,InfoCatalog,InfoDirectoryKey,InfoDirectory,InfoDirectoryReference,InfoDirectoryAttributes,InfoDirectoryResource,InfoDirectoryModel> {
+public class InfoLibraryKey extends LibraryKey<InfoScheme,InfoLibraryKey,InfoLibrary, InfoPath,InfoCatalogKey,InfoCatalog,InfoDirectoryKey,InfoDirectory,InfoDirectoryReference,InfoDirectoryAttributes,InfoDirectoryResource,InfoDirectoryModel> {
     protected InfoLibraryKey(URI uri, InfoScheme scheme, Domain domain, int port, String separator) {
         super(uri, scheme, domain, port, separator);
     }

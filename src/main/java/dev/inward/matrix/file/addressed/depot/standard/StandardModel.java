@@ -7,7 +7,7 @@ package dev.inward.matrix.file.addressed.depot.standard;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.file.addressed.depot.DepotModel;
 
-public class StandardModel extends ConfigurationModel<StandardKey,Standard,StandardReference,StandardAttributes,StandardResource,StandardModel> {
+public class StandardModel extends DepotModel<StandardKey,Standard,StandardReference,StandardAttributes,StandardResource,StandardModel> {
     public StandardModel(Aspect[] labeledAspects, long warnOnTotal, long hardLimit) {
         super(labeledAspects, warnOnTotal, hardLimit);
     }

@@ -5,11 +5,11 @@
 package dev.inward.matrix.file.addressed.http;
 
 import dev.inward.matrix.Model;
-import dev.inward.matrix.file.addressed.AddressedDirectoryAttributes;
+import dev.inward.matrix.file.DirectoryAttributes;
 
 import java.util.Map;
 
-public class HttpDirectoryAttributes extends AddressedDirectoryAttributes<HttpScheme,HttpLibraryKey,HttpLibrary,String,HttpCatalogKey,HttpCatalog,HttpDirectoryKey,HttpDirectory,HttpDirectoryReference,HttpDirectoryAttributes,HttpDirectoryResource,HttpDirectoryModel> {
+public class HttpDirectoryAttributes extends DirectoryAttributes<HttpScheme,HttpLibraryKey,HttpLibrary,String,HttpCatalogKey,HttpCatalog,HttpDirectoryKey,HttpDirectory,HttpDirectoryReference,HttpDirectoryAttributes,HttpDirectoryResource,HttpDirectoryModel> {
     public HttpDirectoryAttributes(Map<String, Model.InstanceValue> properties) {
         super(properties);
     }

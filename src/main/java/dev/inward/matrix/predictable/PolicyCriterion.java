@@ -14,7 +14,7 @@ import dev.inward.matrix.file.addressed.log.Occurrence;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
-public abstract class PolicyCriterion<K extends MatrixKey<K,I>,I extends MatrixItem<K,I>,M extends Matter> extends Criterion<K,I> {
+public abstract class PolicyCriterion<PATH extends Comparable<PATH>,K extends MatrixKey<PATH,K,I>,I extends MatrixItem<PATH,K,I>,M extends Matter> extends Criterion<PATH,K,I> {
 
     protected final int threads;
     protected final boolean autoStart;

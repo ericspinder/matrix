@@ -4,7 +4,7 @@
 package dev.inward.matrix.file.addressed.http;
 
 import dev.inward.matrix.Library;
-import dev.inward.matrix.memory.Memory;
+import dev.inward.matrix.bureau.Bureau;
 
 import java.util.Map;
 
@@ -14,7 +14,7 @@ public class HttpLibrary extends Library<HttpScheme,HttpLibraryKey,HttpLibrary,S
     }
 
     @Override
-    protected Map<HttpCatalog, Memory<HttpScheme, HttpLibraryKey, HttpLibrary, String, HttpCatalogKey, HttpCatalog, HttpDirectoryKey, HttpDirectory, HttpDirectoryReference, HttpDirectoryAttributes, HttpDirectoryResource, HttpDirectoryModel>[]> initCatalogs() {
+    protected Map<HttpCatalog, Bureau<HttpScheme, HttpLibraryKey, HttpLibrary, String, HttpCatalogKey, HttpCatalog, HttpDirectoryKey, HttpDirectory, HttpDirectoryReference, HttpDirectoryAttributes, HttpDirectoryResource, HttpDirectoryModel>[]> initCatalogs() {
         return null;
     }
 }

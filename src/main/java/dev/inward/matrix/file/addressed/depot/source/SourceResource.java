@@ -4,11 +4,12 @@
 
 package dev.inward.matrix.file.addressed.depot.source;
 
+import dev.inward.matrix.file.addressed.depot.DepotResource;
 import dev.inward.matrix.file.addressed.depot.specification.Specification;
 
 import java.util.function.Function;
 
-public class SourceResource extends ConfigurationResource<SourceKey,Source,SourceReference,SourceAttributes,SourceResource,SourceModel> {
+public class SourceResource extends DepotResource<SourceKey,Source,SourceReference,SourceAttributes,SourceResource,SourceModel> {
     public SourceResource(Function<SourceReference, SourceReference> graveDigger, SourceModel model, Specification specification) {
         super(graveDigger, model, specification);
     }

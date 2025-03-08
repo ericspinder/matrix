@@ -3,8 +3,8 @@
  */
 package dev.inward.matrix.file.addressed.dns.catalogRecord;
 
-import dev.inward.matrix.file.addressed.dns.ResourceRecord;
 import dev.inward.matrix.engine.Zone;
+import dev.inward.matrix.file.addressed.dns.ResourceRecord;
 
 import java.util.concurrent.TimeUnit;
 

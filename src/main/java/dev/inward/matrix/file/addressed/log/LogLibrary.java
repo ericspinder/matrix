@@ -6,9 +6,8 @@ package dev.inward.matrix.file.addressed.log;
 
 import dev.inward.matrix.Library;
 import dev.inward.matrix.Ziggurat;
-import dev.inward.matrix.file.addressed.AddressedLibrary;
+import dev.inward.matrix.bureau.Bureau;
 import dev.inward.matrix.file.addressed.dns.catalogRecord.LogCatalogRecordParser;
-import dev.inward.matrix.memory.Memory;
 
 import java.net.URI;
 import java.util.Map;
@@ -20,7 +19,7 @@ public class LogLibrary extends Library<LogScheme,LogLibraryKey,LogLibrary,LogPa
     }
 
     @Override
-    protected Map<LogCatalog, Memory<LogScheme, LogLibraryKey, LogLibrary, LogPath, LogCatalogKey, LogCatalog, LogDirectoryKey, LogDirectory, LogDirectoryReference, LogDirectoryAttributes, LogDirectoryResource, LogDirectoryModel>[]> initCatalogs() {
+    protected Map<LogCatalog, Bureau<LogScheme, LogLibraryKey, LogLibrary, LogPath, LogCatalogKey, LogCatalog, LogDirectoryKey, LogDirectory, LogDirectoryReference, LogDirectoryAttributes, LogDirectoryResource, LogDirectoryModel>[]> initCatalogs() {
         URI uri = new URI(libraryKey.getUri() + "?startPath=*,endPath=*");
         LogCatalogRecordParser logCatalogRecordParser = new LogCatalogRecordParser();
         Ziggurat.getInstance().findRecords(libraryKey, logCatalogRecordParser);

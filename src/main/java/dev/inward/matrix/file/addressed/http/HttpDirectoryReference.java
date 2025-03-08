@@ -4,9 +4,9 @@
 
 package dev.inward.matrix.file.addressed.http;
 
-import dev.inward.matrix.file.addressed.AddressedDirectoryReference;
+import dev.inward.matrix.file.DirectoryReference;
 
-public class HttpDirectoryReference extends AddressedDirectoryReference<HttpScheme,HttpLibraryKey,HttpLibrary,String,HttpCatalogKey,HttpCatalog,HttpDirectoryKey,HttpDirectory,HttpDirectoryReference,HttpDirectoryAttributes,HttpDirectoryResource,HttpDirectoryModel> {
+public class HttpDirectoryReference extends DirectoryReference<HttpScheme,HttpLibraryKey,HttpLibrary,String,HttpCatalogKey,HttpCatalog,HttpDirectoryKey,HttpDirectory,HttpDirectoryReference,HttpDirectoryAttributes,HttpDirectoryResource,HttpDirectoryModel> {
     public HttpDirectoryReference(HttpDirectory referent, HttpDirectoryResource resource) {
         super(referent, resource);
     }

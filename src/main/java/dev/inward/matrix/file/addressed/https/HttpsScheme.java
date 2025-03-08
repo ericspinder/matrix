@@ -3,11 +3,8 @@
  */
 package dev.inward.matrix.file.addressed.https;
 
-import dev.inward.matrix.Domain;
 import dev.inward.matrix.MatrixURLStreamHandlerProvider;
-import dev.inward.matrix.Scheme;
 import dev.inward.matrix.Terrene;
-import dev.inward.matrix.file.addressed.http.HttpLibraryKey;
 import dev.inward.matrix.file.addressed.http.HttpScheme;
 
 public class HttpsScheme extends HttpScheme {

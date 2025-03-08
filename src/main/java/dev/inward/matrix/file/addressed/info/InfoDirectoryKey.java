@@ -4,12 +4,12 @@
 
 package dev.inward.matrix.file.addressed.info;
 
-import dev.inward.matrix.file.addressed.AddressedDirectoryKey;
+import dev.inward.matrix.file.DirectoryKey;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class InfoDirectoryKey extends AddressedDirectoryKey<InfoScheme,InfoLibraryKey,InfoLibrary,InfoPath,InfoCatalogKey,InfoCatalog,InfoDirectoryKey,InfoDirectory,InfoDirectoryReference,InfoDirectoryAttributes,InfoDirectoryResource,InfoDirectoryModel> {
+public class InfoDirectoryKey extends DirectoryKey<InfoScheme,InfoLibraryKey,InfoLibrary,InfoPath,InfoCatalogKey,InfoCatalog,InfoDirectoryKey,InfoDirectory,InfoDirectoryReference,InfoDirectoryAttributes,InfoDirectoryResource,InfoDirectoryModel> {
 
 
     protected InfoDirectoryKey(URI uri, InfoCatalog catalog, InfoPath infoPath) {

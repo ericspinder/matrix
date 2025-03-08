@@ -4,9 +4,9 @@
 
 package dev.inward.matrix.file.addressed.info;
 
-import dev.inward.matrix.file.addressed.AddressedDirectoryReference;
+import dev.inward.matrix.file.DirectoryReference;
 
-public class InfoDirectoryReference extends AddressedDirectoryReference<InfoScheme,InfoLibraryKey,InfoLibrary,InfoPath,InfoCatalogKey,InfoCatalog,InfoDirectoryKey,InfoDirectory,InfoDirectoryReference,InfoDirectoryAttributes,InfoDirectoryResource,InfoDirectoryModel> {
+public class InfoDirectoryReference extends DirectoryReference<InfoScheme,InfoLibraryKey,InfoLibrary,InfoPath,InfoCatalogKey,InfoCatalog,InfoDirectoryKey,InfoDirectory,InfoDirectoryReference,InfoDirectoryAttributes,InfoDirectoryResource,InfoDirectoryModel> {
     public InfoDirectoryReference(InfoDirectory referent, InfoDirectoryResource resource) {
         super(referent, resource);
     }

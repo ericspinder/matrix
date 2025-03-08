@@ -5,11 +5,11 @@
 package dev.inward.matrix.file.addressed.info;
 
 import dev.inward.matrix.Model;
-import dev.inward.matrix.file.addressed.AddressedDirectoryAttributes;
+import dev.inward.matrix.file.DirectoryAttributes;
 
 import java.util.Map;
 
-public class InfoDirectoryAttributes extends AddressedDirectoryAttributes<InfoScheme,InfoLibraryKey,InfoLibrary,InfoPath,InfoCatalogKey,InfoCatalog,InfoDirectoryKey,InfoDirectory,InfoDirectoryReference,InfoDirectoryAttributes,InfoDirectoryResource,InfoDirectoryModel> {
+public class InfoDirectoryAttributes extends DirectoryAttributes<InfoScheme,InfoLibraryKey,InfoLibrary,InfoPath,InfoCatalogKey,InfoCatalog,InfoDirectoryKey,InfoDirectory,InfoDirectoryReference,InfoDirectoryAttributes,InfoDirectoryResource,InfoDirectoryModel> {
     public InfoDirectoryAttributes(Map<String, Model.InstanceValue> properties) {
         super(properties);
     }

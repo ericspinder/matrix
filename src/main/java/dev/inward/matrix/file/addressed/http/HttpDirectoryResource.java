@@ -4,11 +4,11 @@
 
 package dev.inward.matrix.file.addressed.http;
 
-import dev.inward.matrix.file.addressed.AddressedDirectoryResource;
+import dev.inward.matrix.file.DirectoryResource;
 
 import java.util.function.Function;
 
-public class HttpDirectoryResource extends AddressedDirectoryResource<HttpScheme,HttpLibraryKey,HttpLibrary,String,HttpCatalogKey,HttpCatalog,HttpDirectoryKey,HttpDirectory,HttpDirectoryReference,HttpDirectoryAttributes,HttpDirectoryResource,HttpDirectoryModel> {
+public class HttpDirectoryResource extends DirectoryResource<HttpScheme,HttpLibraryKey,HttpLibrary,String,HttpCatalogKey,HttpCatalog,HttpDirectoryKey,HttpDirectory,HttpDirectoryReference,HttpDirectoryAttributes,HttpDirectoryResource,HttpDirectoryModel> {
     public HttpDirectoryResource(Function<HttpDirectoryReference, HttpDirectoryReference> graveDigger, HttpDirectoryModel model) {
         super(graveDigger, model);
     }

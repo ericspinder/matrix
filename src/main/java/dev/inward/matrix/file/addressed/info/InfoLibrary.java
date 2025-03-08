@@ -4,15 +4,16 @@
 
 package dev.inward.matrix.file.addressed.info;
 
-import dev.inward.matrix.Domain;
 import dev.inward.matrix.Library;
-import dev.inward.matrix.LibraryKey;
-import dev.inward.matrix.file.addressed.AddressedLibrary;
+import dev.inward.matrix.bureau.Bureau;
 
-public class InfoLibrary extends AddressedLibrary<InfoScheme,InfoLibraryKey,InfoLibrary,InfoPath,InfoCatalogKey,InfoCatalog,InfoDirectoryKey,InfoDirectory,InfoDirectoryReference,InfoDirectoryAttributes,InfoDirectoryResource,InfoDirectoryModel> {
+import java.util.Map;
+
+public class InfoLibrary extends Library<InfoScheme,InfoLibraryKey,InfoLibrary,InfoPath,InfoCatalogKey,InfoCatalog,InfoDirectoryKey,InfoDirectory,InfoDirectoryReference,InfoDirectoryAttributes,InfoDirectoryResource,InfoDirectoryModel> {
 
 
     public InfoLibrary(InfoLibraryKey libraryKey) {
         super(libraryKey);
     }
+
 }

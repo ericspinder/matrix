@@ -4,13 +4,12 @@
 
 package dev.inward.matrix.file.addressed.depot;
 
+import dev.inward.matrix.CatalogKey;
 import dev.inward.matrix.Range;
-import dev.inward.matrix.file.addressed.AddressedCatalogKey;
-import dev.inward.matrix.file.addressed.AddressedLibrary;
 
 import java.net.URI;
 
-public class DepotCatalogKey extends AddressedCatalogKey<DepotScheme, DepotLibraryKey,DepotLibrary, DepotPath,DepotCatalogKey,DepotCatalog,DepotDirectoryKey,DepotDirectory,DepotDirectoryReference,DepotDirectoryAttributes,DepotDirectoryResource,DepotDirectoryModel> {
+public class DepotCatalogKey extends CatalogKey<DepotScheme, DepotLibraryKey,DepotLibrary, DepotPath,DepotCatalogKey,DepotCatalog,DepotDirectoryKey,DepotDirectory,DepotDirectoryReference,DepotDirectoryAttributes,DepotDirectoryResource,DepotDirectoryModel> {
     public DepotCatalogKey(URI uri, DepotLibrary library, Range<DepotPath> range) {
         super(uri, library, range);
     }

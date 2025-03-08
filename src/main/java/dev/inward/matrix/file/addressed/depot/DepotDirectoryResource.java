@@ -4,11 +4,11 @@
 
 package dev.inward.matrix.file.addressed.depot;
 
-import dev.inward.matrix.file.addressed.AddressedDirectoryResource;
+import dev.inward.matrix.file.DirectoryResource;
 
 import java.util.function.Function;
 
-public class DepotDirectoryResource extends AddressedDirectoryResource<DepotScheme, DepotLibraryKey,DepotLibrary, DepotPath,DepotCatalogKey,DepotCatalog,DepotDirectoryKey,DepotDirectory,DepotDirectoryReference,DepotDirectoryAttributes,DepotDirectoryResource,DepotDirectoryModel> {
+public class DepotDirectoryResource extends DirectoryResource<DepotScheme, DepotLibraryKey,DepotLibrary, DepotPath,DepotCatalogKey,DepotCatalog,DepotDirectoryKey,DepotDirectory,DepotDirectoryReference,DepotDirectoryAttributes,DepotDirectoryResource,DepotDirectoryModel> {
     public DepotDirectoryResource(Function<DepotDirectoryReference, DepotDirectoryReference> graveDigger, DepotDirectoryModel model) {
         super(graveDigger, model);
     }

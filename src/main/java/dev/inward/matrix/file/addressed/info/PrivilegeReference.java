@@ -5,7 +5,6 @@
 package dev.inward.matrix.file.addressed.info;
 
 import dev.inward.matrix.file.addressed.AddressedReference;
-import dev.inward.matrix.file.addressed.http.Fact;
 
 public class PrivilegeReference<K extends PrivilegeKey<K,F,R,A,RESOURCE,M>,F extends Privilege<K,F,R,A,RESOURCE,M>,R extends PrivilegeReference<K,F,R,A,RESOURCE,M>,A extends PrivilegeAttributes<K,F,R,A,RESOURCE,M>,RESOURCE extends PrivilegeResource<K,F,R,A,RESOURCE,M>,M extends PrivilegeModel<K,F,R,A,RESOURCE,M>> extends AddressedReference<InfoScheme,InfoLibraryKey,InfoLibrary,InfoPath,InfoCatalogKey,InfoCatalog,InfoDirectoryKey,InfoDirectory,InfoDirectoryReference,InfoDirectoryAttributes,InfoDirectoryResource,InfoDirectoryModel,String,K,F,R,A,RESOURCE,M> {
     public PrivilegeReference(F addressed, RESOURCE resource) {

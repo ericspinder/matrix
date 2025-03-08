@@ -28,10 +28,10 @@ public abstract class Host<S extends SocketAddress> implements Comparable<Host<S
             super(target, remoteSockets);
         }
     }
-    public static class LocalHost extends Host<SocketAddress.Local> {
+    public static class LocalHost extends Host<SocketAddress.LocalHost> {
 
-        public LocalHost(String target, final SocketAddress.Local[] localSockets) {
-            super(target, localSockets);
+        public LocalHost(String target, final SocketAddress.LocalHost[] localHostSockets) {
+            super(target, localHostSockets);
         }
     }
     @Override

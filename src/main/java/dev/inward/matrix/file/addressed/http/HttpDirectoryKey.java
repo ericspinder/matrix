@@ -4,11 +4,11 @@
 
 package dev.inward.matrix.file.addressed.http;
 
-import dev.inward.matrix.file.addressed.AddressedDirectoryKey;
+import dev.inward.matrix.file.DirectoryKey;
 
 import java.net.URI;
 
-public class HttpDirectoryKey extends AddressedDirectoryKey<HttpScheme,HttpLibraryKey,HttpLibrary,String,HttpCatalogKey,HttpCatalog,HttpDirectoryKey,HttpDirectory,HttpDirectoryReference,HttpDirectoryAttributes,HttpDirectoryResource,HttpDirectoryModel> {
+public class HttpDirectoryKey extends DirectoryKey<HttpScheme,HttpLibraryKey,HttpLibrary,String,HttpCatalogKey,HttpCatalog,HttpDirectoryKey,HttpDirectory,HttpDirectoryReference,HttpDirectoryAttributes,HttpDirectoryResource,HttpDirectoryModel> {
     protected HttpDirectoryKey(URI uri, HttpCatalog catalog, String s) {
         super(uri, catalog, s);
     }

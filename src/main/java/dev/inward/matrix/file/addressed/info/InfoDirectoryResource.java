@@ -4,13 +4,11 @@
 
 package dev.inward.matrix.file.addressed.info;
 
-import dev.inward.matrix.Model;
-import dev.inward.matrix.file.addressed.AddressedDirectoryResource;
+import dev.inward.matrix.file.DirectoryResource;
 
-import java.util.Map;
 import java.util.function.Function;
 
-public class InfoDirectoryResource extends AddressedDirectoryResource<InfoScheme,InfoLibraryKey,InfoLibrary,InfoPath,InfoCatalogKey,InfoCatalog,InfoDirectoryKey,InfoDirectory,InfoDirectoryReference,InfoDirectoryAttributes,InfoDirectoryResource,InfoDirectoryModel> {
+public class InfoDirectoryResource extends DirectoryResource<InfoScheme,InfoLibraryKey,InfoLibrary,InfoPath,InfoCatalogKey,InfoCatalog,InfoDirectoryKey,InfoDirectory,InfoDirectoryReference,InfoDirectoryAttributes,InfoDirectoryResource,InfoDirectoryModel> {
 
     public InfoDirectoryResource(Function<InfoDirectoryReference, InfoDirectoryReference> graveDigger, InfoDirectoryModel model) {
         super(graveDigger, model);

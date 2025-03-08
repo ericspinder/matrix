@@ -8,7 +8,7 @@ module dev.inward.matrix {
     exports dev.inward.matrix.route;
     exports dev.inward.matrix.personality;
     exports dev.inward.matrix.ticket;
-    exports dev.inward.matrix.memory;
+    exports dev.inward.matrix.bureau;
     exports dev.inward.matrix.file.addressed.dns.nameServerRecord;
     exports dev.inward.matrix.file.addressed.depot;
     exports dev.inward.matrix.file.addressed.dns;

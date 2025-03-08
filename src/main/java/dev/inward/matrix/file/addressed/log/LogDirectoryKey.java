@@ -4,11 +4,11 @@
 
 package dev.inward.matrix.file.addressed.log;
 
-import dev.inward.matrix.file.addressed.AddressedDirectoryKey;
+import dev.inward.matrix.file.DirectoryKey;
 
 import java.net.URI;
 
-public class LogDirectoryKey extends AddressedDirectoryKey<LogScheme,LogLibraryKey,LogLibrary,LogPath,LogCatalogKey,LogCatalog,LogDirectoryKey,LogDirectory,LogDirectoryReference,LogDirectoryAttributes,LogDirectoryResource,LogDirectoryModel> {
+public class LogDirectoryKey extends DirectoryKey<LogScheme,LogLibraryKey,LogLibrary,LogPath,LogCatalogKey,LogCatalog,LogDirectoryKey,LogDirectory,LogDirectoryReference,LogDirectoryAttributes,LogDirectoryResource,LogDirectoryModel> {
     protected LogDirectoryKey(URI uri, LogCatalog catalog, LogPath logPath) {
         super(uri, catalog, logPath);
     }

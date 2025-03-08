@@ -10,7 +10,7 @@ import dev.inward.matrix.Meta_I;
  */
 public enum Zone implements Meta_I {
     InSitu("inSitu", "Represents the running system and is of the governance of the processes, synchronized with all remote inSitu systems"),
-    Notary("notary", "designated as system of record and the transactional participant, a notary cannot be deleted in memory until expired"),
+    Notary("notary", "designated as system of record and the transactional participant, a notary cannot be deleted in bureau until expired"),
     Hoard("hoard", "non authoritative records of the indexed domain, which is not synced with authoritative systems"),
     Cache("cache", "non authoritative records of the indexed domain which is synced with authoritative systems"),
     Presentation("presentation", "used to offload read requests from InSitu servers"),

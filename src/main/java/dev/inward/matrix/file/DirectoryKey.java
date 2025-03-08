@@ -27,7 +27,7 @@ public abstract class DirectoryKey<S extends Scheme<S,LK,L,PATH,CK,C,DK,D,DR,DA,
 
     @Override
     public L getLibrary() {
-        return this.catalog.getKey().library;
+        return this.catalog.getKey().getLibrary();
     }
 
     @Override
@@ -56,7 +56,7 @@ public abstract class DirectoryKey<S extends Scheme<S,LK,L,PATH,CK,C,DK,D,DR,DA,
         @Override
         protected URI makeUri() {
             try {
-                return new URI(this.catalog.getKey().getLibrary().getKey().getUri() + directoryPath.toString());
+                return new URI(this.catalog.getKey().getLibrary().getKey().getMatrixPath().toUri() + directoryPath.toString());
             } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
             }

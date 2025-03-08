@@ -5,9 +5,9 @@
 package dev.inward.matrix.file.addressed.log;
 
 import dev.inward.matrix.Aspect;
-import dev.inward.matrix.file.addressed.AddressedDirectoryModel;
+import dev.inward.matrix.file.DirectoryModel;
 
-public class LogDirectoryModel extends AddressedDirectoryModel<LogScheme,LogLibraryKey,LogLibrary,LogPath,LogCatalogKey,LogCatalog,LogDirectoryKey,LogDirectory,LogDirectoryReference,LogDirectoryAttributes,LogDirectoryResource,LogDirectoryModel> {
+public class LogDirectoryModel extends DirectoryModel<LogScheme,LogLibraryKey,LogLibrary,LogPath,LogCatalogKey,LogCatalog,LogDirectoryKey,LogDirectory,LogDirectoryReference,LogDirectoryAttributes,LogDirectoryResource,LogDirectoryModel> {
     public LogDirectoryModel(Aspect[] labeledAspects, long warnOnTotal, long hardLimit) {
         super(labeledAspects, warnOnTotal, hardLimit);
     }

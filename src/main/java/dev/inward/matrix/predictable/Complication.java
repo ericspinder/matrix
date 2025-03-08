@@ -16,32 +16,33 @@ import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.locks.StampedLock;
 
-public abstract class Complication<K extends MatrixKey<K,I>,I extends MatrixItem<K,I>> implements WatchKey {
+public abstract class Complication<PATH extends Comparable<PATH>,K extends MatrixKey<PATH,K,I>,I extends MatrixItem<PATH,K,I>> implements WatchKey {
 
     protected final StampedLock gate = new StampedLock();
     protected final UUID uuid = UUID.randomUUID();
     protected final ConcurrentLinkedDeque<Matter> competedMatters = new ConcurrentLinkedDeque<>();
     protected final Predictable predictable;
     protected final K matrixKey;
-    protected final ComplicationCriterion<K,I> complicationCriterion;
+    protected final ComplicationCriterion<PATH,K,I> complicationCriterion;
 
     protected Boolean working = null;
 
     protected int maxMattersToDistribute = 500;
 
-    protected Map<Policy<K,I,?>,Boolean> allActivePolicies = new HashMap<>();
+    protected Map<Policy<PATH,K,I,?>,Boolean> allActivePolicies = new HashMap<>();
 
 
-    public Complication(Predictable predictable, K matrixKey, ComplicationCriterion<K,I> complicationCriterion, Map<Indica,PolicyCriterion<K,I,?>> policyCriterionByIndicaMap) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    @SuppressWarnings("unchecked")
+    public Complication(Predictable predictable, K matrixKey, ComplicationCriterion<PATH,K,I> complicationCriterion, Map<Indica,PolicyCriterion<PATH,K,I,?>> policyCriterionByIndicaMap) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         this.predictable = predictable;
         this.matrixKey = matrixKey;
         this.complicationCriterion = complicationCriterion;
         for (Indica indica: policyCriterionByIndicaMap.keySet()) {
-            PolicyCriterion<K,I,?> policyCriterion = policyCriterionByIndicaMap.get(indica);
+            PolicyCriterion<PATH,K,I,?> policyCriterion = policyCriterionByIndicaMap.get(indica);
             if (!indica.getPolicyCriterionClassName().equals(policyCriterion.getClass().getCanonicalName())) {
                 throw new RuntimeException(indica + " has wrong policyClassName for " + policyCriterion.getClass().getCanonicalName());
             }
-            Policy<K,I,?> policy = (Policy<K, I,?>) Class.forName(indica.getPolicyClassName()).getConstructor(Complication.class, Indica.class,PolicyCriterion.class).newInstance(this,indica,policyCriterion);
+            Policy<PATH,K,I,?> policy = (Policy<PATH,K, I,?>) Class.forName(indica.getPolicyClassName()).getConstructor(Complication.class, Indica.class,PolicyCriterion.class).newInstance(this,indica,policyCriterion);
             if (policyCriterion.autoStart) {
                 complicationCriterion.getRoad(matrixKey,predictable.getDirector()).execute(policy);
             }

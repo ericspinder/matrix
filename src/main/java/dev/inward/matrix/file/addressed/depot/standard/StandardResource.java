@@ -4,11 +4,12 @@
 
 package dev.inward.matrix.file.addressed.depot.standard;
 
+import dev.inward.matrix.file.addressed.depot.DepotResource;
 import dev.inward.matrix.file.addressed.depot.specification.Specification;
 
 import java.util.function.Function;
 
-public class StandardResource extends ConfigurationResource<StandardKey,Standard,StandardReference,StandardAttributes,StandardResource,StandardModel> {
+public class StandardResource extends DepotResource<StandardKey,Standard,StandardReference,StandardAttributes,StandardResource,StandardModel> {
     public StandardResource(Function<StandardReference, StandardReference> graveDigger, StandardModel model, Specification specification) {
         super(graveDigger, model, specification);
     }

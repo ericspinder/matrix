@@ -3,18 +3,22 @@
  */
 package dev.inward.matrix.file.addressed.depot;
 
-import dev.inward.matrix.Domain;
 import dev.inward.matrix.Library;
-import dev.inward.matrix.LibraryKey;
-import dev.inward.matrix.file.addressed.AddressedLibrary;
+import dev.inward.matrix.bureau.Bureau;
 import dev.inward.matrix.file.addressed.depot.indica.Indica;
-import dev.inward.matrix.file.addressed.dns.*;
 
-public class DepotLibrary extends AddressedLibrary<DepotScheme,DepotLibraryKey,DepotLibrary, DepotPath,DepotCatalogKey,DepotCatalog,DepotDirectoryKey,DepotDirectory,DepotDirectoryReference,DepotDirectoryAttributes,DepotDirectoryResource,DepotDirectoryModel> {
+import java.util.Map;
+
+public class DepotLibrary extends Library<DepotScheme,DepotLibraryKey,DepotLibrary, DepotPath,DepotCatalogKey,DepotCatalog,DepotDirectoryKey,DepotDirectory,DepotDirectoryReference,DepotDirectoryAttributes,DepotDirectoryResource,DepotDirectoryModel> {
 
 
     public DepotLibrary(DepotLibraryKey libraryKey) {
         super(libraryKey);
+    }
+
+    @Override
+    protected Map<DepotCatalog, Bureau<DepotScheme, DepotLibraryKey, DepotLibrary, DepotPath, DepotCatalogKey, DepotCatalog, DepotDirectoryKey, DepotDirectory, DepotDirectoryReference, DepotDirectoryAttributes, DepotDirectoryResource, DepotDirectoryModel>[]> initCatalogs() {
+        return null;
     }
 
     public Indica matchIndicaKey(String indicaKeyName) {

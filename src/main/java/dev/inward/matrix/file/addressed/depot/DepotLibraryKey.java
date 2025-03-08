@@ -5,11 +5,11 @@
 package dev.inward.matrix.file.addressed.depot;
 
 import dev.inward.matrix.Domain;
-import dev.inward.matrix.file.addressed.AddressedLibraryKey;
+import dev.inward.matrix.LibraryKey;
 
 import java.net.URI;
 
-public class DepotLibraryKey extends AddressedLibraryKey<DepotScheme,DepotLibraryKey,DepotLibrary, DepotPath,DepotCatalogKey,DepotCatalog,DepotDirectoryKey,DepotDirectory,DepotDirectoryReference,DepotDirectoryAttributes,DepotDirectoryResource,DepotDirectoryModel> {
+public class DepotLibraryKey extends LibraryKey<DepotScheme,DepotLibraryKey,DepotLibrary, DepotPath,DepotCatalogKey,DepotCatalog,DepotDirectoryKey,DepotDirectory,DepotDirectoryReference,DepotDirectoryAttributes,DepotDirectoryResource,DepotDirectoryModel> {
     protected DepotLibraryKey(URI uri, DepotScheme scheme, Domain domain, int port, String separator) {
         super(uri, scheme, domain, port, separator);
     }

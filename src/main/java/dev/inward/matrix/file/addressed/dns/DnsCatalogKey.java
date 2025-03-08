@@ -4,12 +4,12 @@
 
 package dev.inward.matrix.file.addressed.dns;
 
+import dev.inward.matrix.CatalogKey;
 import dev.inward.matrix.Range;
-import dev.inward.matrix.file.addressed.AddressedCatalogKey;
 
 import java.net.URI;
 
-public class DnsCatalogKey extends AddressedCatalogKey<DnsScheme,DnsLibraryKey, DnsLibrary, DnsPath,DnsCatalogKey,DnsCatalog,DnsDirectoryKey,DnsDirectory,DnsDirectoryReference,DnsDirectoryAttributes,DnsDirectoryResource,DnsDirectoryModel> {
+public class DnsCatalogKey extends CatalogKey<DnsScheme,DnsLibraryKey, DnsLibrary, DnsPath,DnsCatalogKey,DnsCatalog,DnsDirectoryKey,DnsDirectory,DnsDirectoryReference,DnsDirectoryAttributes,DnsDirectoryResource,DnsDirectoryModel> {
     public DnsCatalogKey(URI uri,DnsLibrary dnsLibrary) {
         super(uri, dnsLibrary, new Range.AllPaths<>());
     }

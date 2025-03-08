@@ -4,8 +4,8 @@
 
 package dev.inward.matrix.file.addressed.dns;
 
-import dev.inward.matrix.file.addressed.AddressedAttributes;
 import dev.inward.matrix.Model;
+import dev.inward.matrix.file.addressed.AddressedAttributes;
 
 import java.util.Map;
 import java.util.UUID;

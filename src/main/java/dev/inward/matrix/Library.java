@@ -4,8 +4,9 @@
 
 package dev.inward.matrix;
 
+import dev.inward.matrix.bureau.FileView;
 import dev.inward.matrix.file.*;
-import dev.inward.matrix.memory.Memory;
+import dev.inward.matrix.bureau.Bureau;
 
 import java.io.IOException;
 import java.net.URI;
@@ -20,12 +21,12 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-public abstract class Library<S extends Scheme<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,LK extends LibraryKey<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,L extends Library<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,PATH extends Comparable<PATH>,CK extends CatalogKey<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,C extends Catalog<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,DK extends DirectoryKey<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,D extends Directory<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,DR extends DirectoryReference<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,DA extends DirectoryAttributes<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,DRESOURCE extends DirectoryResource<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,DM extends DirectoryModel<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>> extends FileSystemProvider implements Comparable<L>,MatrixItem<LK,L> {
+public abstract class Library<S extends Scheme<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,LK extends LibraryKey<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,L extends Library<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,PATH extends Comparable<PATH>,CK extends CatalogKey<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,C extends Catalog<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,DK extends DirectoryKey<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,D extends Directory<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,DR extends DirectoryReference<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,DA extends DirectoryAttributes<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,DRESOURCE extends DirectoryResource<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>,DM extends DirectoryModel<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>> extends FileSystemProvider implements Comparable<L>,MatrixItem<PATH,LK,L> {
 
     protected final LK libraryKey;
     protected final Map<Range<PATH>,C> rangeCatalogMap = new ConcurrentHashMap<>();
 
-    protected final Map<C, Memory<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>[]> catalogMemoryMap;
+    protected final Map<C, Bureau<?,?>[]> catalogMemoryMap;
     protected final Map<C,Librarian<?,?,?,?,?>[]> catalogs = new ConcurrentHashMap<>();
 
     protected StringBuilder firstLimitReachedMessage(String className, long warnTotal, long hardLimit) {
@@ -56,7 +57,7 @@ public abstract class Library<S extends Scheme<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESO
         return this.libraryKey.compareTo(that.libraryKey);
     }
 
-    protected abstract Map<C, Memory<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESOURCE,DM>[]> initCatalogs();
+    protected abstract Map<C, Bureau<?,?>[]> initCatalogs();
 //    public Clerk.Network.Client getClient(URI uri) {
 //        Host.Remote remote = new Host.Remote()
 //        return new Clerk.Network.Client(this,)
@@ -144,7 +145,7 @@ public abstract class Library<S extends Scheme<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESO
     }
 
     @Override
-    public Memory getFileStore(Path path) throws IOException {
+    public Bureau<?,?> getFileStore(Path path) throws IOException {
         return null;
     }
 
@@ -155,7 +156,10 @@ public abstract class Library<S extends Scheme<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESO
 
     @Override
     public <V extends FileAttributeView> V getFileAttributeView(Path path, Class<V> type, LinkOption... options) {
-        return null;
+        if (path.getFileSystem() instanceof Catalog<?,?,?,?,?,?,?,?,?,?,?,?>) {
+            path.
+        }
+        return this.getGenericFileAttributeView(path,type,options);
     }
 
     @Override
@@ -173,7 +177,7 @@ public abstract class Library<S extends Scheme<S,LK,L,PATH,CK,C,DK,D,DR,DA,DRESO
 
     }
 
-    //protected abstract <PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Identity<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CAT extends Ledger<S,L,PATH,ID,T,C,CAT>> CAT initCatalog(Memory<S,L,PATH> memory, Pattern separatorPattern, Gathering<S,L,PATH,ID,T,C,CAT> directoriesSeed) throws CheckedException;
+    //protected abstract <PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Identity<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CAT extends Ledger<S,L,PATH,ID,T,C,CAT>> CAT initCatalog(Memory<S,L,PATH> bureau, Pattern separatorPattern, Gathering<S,L,PATH,ID,T,C,CAT> directoriesSeed) throws CheckedException;
 
 //    public CodeSigner[] getCodeSigners(Zone zone) {
 //

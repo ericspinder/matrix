@@ -4,9 +4,7 @@
 
 package dev.inward.matrix.file;
 
-import dev.inward.matrix.Library;
-import dev.inward.matrix.LibraryKey;
-import dev.inward.matrix.Scheme;
+import dev.inward.matrix.*;
 
 import java.util.Map;
 import java.util.WeakHashMap;

@@ -6,7 +6,7 @@ package dev.inward.matrix;
 
 import java.net.URI;
 
-public class DomainKey extends MatrixKey<DomainKey,Domain> {
+public class DomainKey extends MatrixKey<String,DomainKey,Domain> {
 
     public DomainKey(String domain) {
         super(URI.create("d://%s".formatted(domain)));

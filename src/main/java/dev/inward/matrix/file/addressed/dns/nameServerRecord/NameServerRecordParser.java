@@ -5,7 +5,6 @@
 package dev.inward.matrix.file.addressed.dns.nameServerRecord;
 
 import dev.inward.matrix.file.addressed.dns.DnsDirectoryKey;
-import dev.inward.matrix.file.addressed.dns.RRKey;
 import dev.inward.matrix.file.addressed.dns.ResourceRecordParser;
 import dev.inward.matrix.file.addressed.dns.ResourceRecordType;
 

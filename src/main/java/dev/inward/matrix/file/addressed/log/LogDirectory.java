@@ -4,9 +4,9 @@
 
 package dev.inward.matrix.file.addressed.log;
 
-import dev.inward.matrix.file.addressed.AddressedDirectory;
+import dev.inward.matrix.file.Directory;
 
-public class LogDirectory extends AddressedDirectory<LogScheme,LogLibraryKey,LogLibrary,LogPath,LogCatalogKey,LogCatalog,LogDirectoryKey,LogDirectory,LogDirectoryReference,LogDirectoryAttributes,LogDirectoryResource,LogDirectoryModel> {
+public class LogDirectory extends Directory<LogScheme,LogLibraryKey,LogLibrary,LogPath,LogCatalogKey,LogCatalog,LogDirectoryKey,LogDirectory,LogDirectoryReference,LogDirectoryAttributes,LogDirectoryResource,LogDirectoryModel> {
     public LogDirectory(LogDirectoryKey directoryKey) {
         super(directoryKey);
     }

@@ -7,7 +7,6 @@ package dev.inward.matrix.file.addressed.dns.catalogRecord;
 import dev.inward.matrix.file.addressed.dns.DnsDirectoryKey;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.UUID;
 
 public class InfoCatalogRecordKey extends CatalogRecordKey<InfoCatalogRecordKey,InfoCatalogRecord,InfoCatalogRecordReference,InfoCatalogRecordAttributes,InfoCatalogRecordResource,InfoCatalogRecordModel> {

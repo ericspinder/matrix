@@ -9,7 +9,7 @@ import dev.inward.matrix.MatrixItem;
 import dev.inward.matrix.MatrixKey;
 import dev.inward.matrix.route.Road;
 
-public abstract class ComplicationCriterion<K extends MatrixKey<K,I>,I extends MatrixItem<K,I>> extends Criterion<K,I> {
+public abstract class ComplicationCriterion<PATH extends Comparable<PATH>,K extends MatrixKey<PATH,K,I>,I extends MatrixItem<PATH,K,I>> extends Criterion<PATH,K,I> {
     public ComplicationCriterion(String label, String description, String i18n) {
         super(label, description, i18n);
     }

@@ -4,16 +4,21 @@
 
 package dev.inward.matrix.file.addressed.depot.source;
 
+import dev.inward.matrix.file.addressed.depot.DepotDirectoryKey;
 import dev.inward.matrix.file.addressed.depot.DepotKey;
-import dev.inward.matrix.file.addressed.depot.DepotLibrary;
-import dev.inward.matrix.file.addressed.depot.DepotPath;
-import dev.inward.matrix.file.addressed.depot.DepotScheme;
-import dev.inward.matrix.file.DirectoryKey;
 
-import java.net.URL;
+import java.net.URI;
 
 public class SourceKey extends DepotKey<SourceKey,Source,SourceReference,SourceAttributes,SourceResource,SourceModel> {
-    public SourceKey(URL url, DirectoryKey<DepotScheme, DepotLibrary, DepotPath> parentDirectory, String s) {
-        super(url, parentDirectory, s);
+    protected SourceKey(URI uri, String id, DepotDirectoryKey directory) {
+        super(uri, id, directory);
+    }
+
+    public static class Builder extends DepotKey.Builder<SourceKey,Source,SourceReference,SourceAttributes,SourceResource,SourceModel> {
+
+        @Override
+        protected SourceKey newFileKey() {
+            return new SourceKey(this.uri,this.id,this.directoryKey);
+        }
     }
 }

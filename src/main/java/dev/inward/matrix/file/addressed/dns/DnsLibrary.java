@@ -3,9 +3,11 @@
  */
 package dev.inward.matrix.file.addressed.dns;
 
-import dev.inward.matrix.*;
-import dev.inward.matrix.file.addressed.AddressedLibrary;
-import dev.inward.matrix.memory.Memory;
+import dev.inward.matrix.HostExperience;
+import dev.inward.matrix.Library;
+import dev.inward.matrix.LocalSystemNetworking;
+import dev.inward.matrix.Ziggurat;
+import dev.inward.matrix.bureau.Bureau;
 
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
@@ -26,7 +28,7 @@ public class DnsLibrary extends Library<DnsScheme,DnsLibraryKey, DnsLibrary, Dns
     }
 
     @Override
-    protected Map<DnsCatalog, Memory<DnsScheme,DnsLibraryKey, DnsLibrary, DnsPath,DnsCatalogKey,DnsCatalog,DnsDirectoryKey,DnsDirectory,DnsDirectoryReference,DnsDirectoryAttributes,DnsDirectoryResource,DnsDirectoryModel>[]> initCatalogs() {
+    protected Map<DnsCatalog, Bureau<DnsScheme,DnsLibraryKey, DnsLibrary, DnsPath,DnsCatalogKey,DnsCatalog,DnsDirectoryKey,DnsDirectory,DnsDirectoryReference,DnsDirectoryAttributes,DnsDirectoryResource,DnsDirectoryModel>[]> initCatalogs() {
         try {
             DirContext dirContext = new InitialDirContext();
             NamingEnumeration<?> nameServerEnumeration = dirContext.getAttributes("dns:" + libraryKey.getDomain() + ".",new String[]{"NS"}).get("NS").getAll();

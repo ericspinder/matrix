@@ -11,7 +11,7 @@ import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
 import java.nio.file.WatchEvent;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.*;
+import java.util.UUID;
 
 public abstract class Matter extends Addressed<LogScheme,LogLibraryKey,LogLibrary,LogPath,LogCatalogKey,LogCatalog,LogDirectoryKey,LogDirectory,LogDirectoryReference,LogDirectoryAttributes,LogDirectoryResource,LogDirectoryModel,UUID, MatterKey, Matter,MatterReference,MatterAttributes,MatterResource,MatterModel> implements WatchEvent<IndiciaKey> {
 

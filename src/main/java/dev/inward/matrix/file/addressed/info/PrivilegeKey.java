@@ -4,7 +4,6 @@
 
 package dev.inward.matrix.file.addressed.info;
 
-import dev.inward.matrix.file.addressed.AddressedDirectoryKey;
 import dev.inward.matrix.file.addressed.AddressedKey;
 
 import java.net.URI;

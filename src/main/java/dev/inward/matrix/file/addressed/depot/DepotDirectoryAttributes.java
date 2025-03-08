@@ -5,11 +5,11 @@
 package dev.inward.matrix.file.addressed.depot;
 
 import dev.inward.matrix.Model;
-import dev.inward.matrix.file.addressed.AddressedDirectoryAttributes;
+import dev.inward.matrix.file.DirectoryAttributes;
 
 import java.util.Map;
 
-public class DepotDirectoryAttributes extends AddressedDirectoryAttributes<DepotScheme,DepotLibraryKey, DepotLibrary, DepotPath,DepotCatalogKey,DepotCatalog,DepotDirectoryKey,DepotDirectory,DepotDirectoryReference,DepotDirectoryAttributes,DepotDirectoryResource,DepotDirectoryModel> {
+public class DepotDirectoryAttributes extends DirectoryAttributes<DepotScheme,DepotLibraryKey, DepotLibrary, DepotPath,DepotCatalogKey,DepotCatalog,DepotDirectoryKey,DepotDirectory,DepotDirectoryReference,DepotDirectoryAttributes,DepotDirectoryResource,DepotDirectoryModel> {
     public DepotDirectoryAttributes(Map<String, Model.InstanceValue> properties) {
         super(properties);
     }

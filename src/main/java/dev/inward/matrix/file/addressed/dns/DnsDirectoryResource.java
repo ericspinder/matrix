@@ -4,11 +4,11 @@
 
 package dev.inward.matrix.file.addressed.dns;
 
-import dev.inward.matrix.file.addressed.AddressedDirectoryResource;
+import dev.inward.matrix.file.DirectoryResource;
 
 import java.util.function.Function;
 
-public class DnsDirectoryResource extends AddressedDirectoryResource<DnsScheme,DnsLibraryKey, DnsLibrary, DnsPath,DnsCatalogKey,DnsCatalog,DnsDirectoryKey,DnsDirectory,DnsDirectoryReference,DnsDirectoryAttributes,DnsDirectoryResource,DnsDirectoryModel> {
+public class DnsDirectoryResource extends DirectoryResource<DnsScheme,DnsLibraryKey, DnsLibrary, DnsPath,DnsCatalogKey,DnsCatalog,DnsDirectoryKey,DnsDirectory,DnsDirectoryReference,DnsDirectoryAttributes,DnsDirectoryResource,DnsDirectoryModel> {
     public DnsDirectoryResource(Function<DnsDirectoryReference, DnsDirectoryReference> graveDigger, DnsDirectoryModel model) {
         super(graveDigger, model);
     }

@@ -4,7 +4,6 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.file.CatalogKey;
 import dev.inward.matrix.route.Dispatch;
 import dev.inward.matrix.route.Road;
 

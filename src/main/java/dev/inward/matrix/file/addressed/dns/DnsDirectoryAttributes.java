@@ -5,11 +5,11 @@
 package dev.inward.matrix.file.addressed.dns;
 
 import dev.inward.matrix.Model;
-import dev.inward.matrix.file.addressed.AddressedDirectoryAttributes;
+import dev.inward.matrix.file.DirectoryAttributes;
 
 import java.util.Map;
 
-public class DnsDirectoryAttributes extends AddressedDirectoryAttributes<DnsScheme,DnsLibraryKey, DnsLibrary, DnsPath,DnsCatalogKey,DnsCatalog,DnsDirectoryKey,DnsDirectory,DnsDirectoryReference,DnsDirectoryAttributes,DnsDirectoryResource,DnsDirectoryModel> {
+public class DnsDirectoryAttributes extends DirectoryAttributes<DnsScheme,DnsLibraryKey, DnsLibrary, DnsPath,DnsCatalogKey,DnsCatalog,DnsDirectoryKey,DnsDirectory,DnsDirectoryReference,DnsDirectoryAttributes,DnsDirectoryResource,DnsDirectoryModel> {
     public DnsDirectoryAttributes(Map<String, Model.InstanceValue> properties) {
         super(properties);
     }

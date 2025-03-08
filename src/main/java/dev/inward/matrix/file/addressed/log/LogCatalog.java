@@ -4,12 +4,12 @@
 
 package dev.inward.matrix.file.addressed.log;
 
-import dev.inward.matrix.file.addressed.AddressedCatalog;
+import dev.inward.matrix.Catalog;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class LogCatalog extends AddressedCatalog<LogScheme,LogLibraryKey,LogLibrary,LogPath,LogCatalogKey,LogCatalog,LogDirectoryKey,LogDirectory,LogDirectoryReference,LogDirectoryAttributes,LogDirectoryResource,LogDirectoryModel> {
+public class LogCatalog extends Catalog<LogScheme,LogLibraryKey,LogLibrary,LogPath,LogCatalogKey,LogCatalog,LogDirectoryKey,LogDirectory,LogDirectoryReference,LogDirectoryAttributes,LogDirectoryResource,LogDirectoryModel> {
 
     public LogCatalog(LogCatalogKey catalogKey) {
         super(catalogKey);

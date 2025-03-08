@@ -4,8 +4,8 @@
 
 package dev.inward.matrix.file.addressed.log;
 
-import dev.inward.matrix.file.addressed.AddressedModel;
 import dev.inward.matrix.Aspect;
+import dev.inward.matrix.file.addressed.AddressedModel;
 
 import java.util.UUID;
 

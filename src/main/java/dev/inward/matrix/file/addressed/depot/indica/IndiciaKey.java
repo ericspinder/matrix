@@ -4,11 +4,8 @@
 
 package dev.inward.matrix.file.addressed.depot.indica;
 
-import dev.inward.matrix.file.DirectoryKey;
+import dev.inward.matrix.file.addressed.depot.DepotDirectoryKey;
 import dev.inward.matrix.file.addressed.depot.DepotKey;
-import dev.inward.matrix.file.addressed.depot.DepotLibrary;
-import dev.inward.matrix.file.addressed.depot.DepotPath;
-import dev.inward.matrix.file.addressed.depot.DepotScheme;
 
 import java.net.URI;
 import java.nio.file.WatchEvent;
@@ -29,8 +26,8 @@ public class IndiciaKey extends DepotKey<IndiciaKey,Indica, IndicaReference, Ind
     };
 
 
-    private IndiciaKey(URI uri, DirectoryKey<DepotScheme, DepotLibrary, DepotPath> parentDirectoryKey, String locus) {
-        super(uri,parentDirectoryKey,locus);
+    protected IndiciaKey(URI uri, String locus, DepotDirectoryKey directoryKey) {
+        super(uri,locus,directoryKey);
     }
 
 
@@ -66,15 +63,11 @@ public class IndiciaKey extends DepotKey<IndiciaKey,Indica, IndicaReference, Ind
     }
 
 
-    public static final class Builder {
-        private URI uri;
-        private DirectoryKey<DepotScheme,DepotLibrary,DepotPath> parentDirectoryKey;
+    public static final class Builder extends DepotKey.Builder<IndiciaKey,Indica, IndicaReference, IndicaAttributes,IndicaResource,IndicaModel> {
 
-        public Builder createUri(DepotLibrary depotLibrary) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(parentDirectoryKey.getUri().toString()).append("/")
+        @Override
+        protected IndiciaKey newFileKey() {
+            return new IndiciaKey(this.uri,this.id,this.directoryKey);
         }
-
-
     }
 }

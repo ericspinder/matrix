@@ -5,10 +5,11 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.file.addressed.depot.specification.Specification;
+import dev.inward.matrix.bureau.Clerk;
 
 import java.nio.channels.AsynchronousChannel;
 
-public class Scheduler<S extends Scheme<S,L>,L extends Library<S,L>,SCHEDULER extends Scheduler<S,L,SCHEDULER,CHANNEL,C>,CHANNEL extends AsynchronousChannel,C extends Clerk<S,L,CHANNEL,C> > {
+public class Scheduler<S extends Scheme<S,L>,L extends Library<S,L>,SCHEDULER extends Scheduler<S,L,SCHEDULER,CHANNEL,C>,CHANNEL extends AsynchronousChannel,C extends Clerk<S,L,CHANNEL,C>> {
 
 
     public Scheduler(Specification specification, tectionDomain protectionDomain) {

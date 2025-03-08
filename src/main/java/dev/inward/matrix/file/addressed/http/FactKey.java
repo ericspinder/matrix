@@ -4,8 +4,6 @@
 
 package dev.inward.matrix.file.addressed.http;
 
-import dev.inward.matrix.Query;
-import dev.inward.matrix.file.Directory;
 import dev.inward.matrix.file.addressed.AddressedKey;
 
 import java.net.URI;

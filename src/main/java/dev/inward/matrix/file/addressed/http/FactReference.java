@@ -4,7 +4,6 @@
 
 package dev.inward.matrix.file.addressed.http;
 
-import dev.inward.matrix.file.addressed.Addressed;
 import dev.inward.matrix.file.addressed.AddressedReference;
 
 

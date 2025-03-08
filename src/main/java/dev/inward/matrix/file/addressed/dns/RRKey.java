@@ -4,10 +4,8 @@
 package dev.inward.matrix.file.addressed.dns;
 
 import dev.inward.matrix.file.addressed.AddressedKey;
-import dev.inward.matrix.file.DirectoryKey;
 
 import java.net.URI;
-import java.net.URL;
 import java.util.UUID;
 
 public class RRKey<K extends RRKey<K,F,R,A,RESOURCE,M>,F extends ResourceRecord<K,F,R,A,RESOURCE,M>,R extends RRReference<K,F,R,A,RESOURCE,M>,A extends RRAttributes<K,F,R,A,RESOURCE,M>,RESOURCE extends RRResource<K,F,R,A,RESOURCE,M>,M extends RRModel<K,F,R,A,RESOURCE,M>> extends AddressedKey<DnsScheme, DnsLibraryKey,DnsLibrary, DnsPath,DnsCatalogKey,DnsCatalog,DnsDirectoryKey,DnsDirectory,DnsDirectoryReference,DnsDirectoryAttributes,DnsDirectoryResource,DnsDirectoryModel,UUID,K,F,R,A,RESOURCE,M> {

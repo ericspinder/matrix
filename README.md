@@ -2,6 +2,9 @@
 
 This is the not yet working code of a java agent which is a Java Files implementation which allows users to both retrieve a URL for a remote object and serve it with an ACL security. It will include schemas for 'dns', 'http','https', 'log' (events from the Matrix's worker threads), 'code' (a git like repository of addressable and versioned code for use ad hoc), 'realm' (Kerberos patterned secure login service) and 'info' (the client preference and server security details)
 
+I've made extensive changes, really going to town on generics. The file objects have now have individual Keys, attributes, models, resources, and references. Directories extend the file object while 'named' files extend Addressed.
+
+
 An extreme 'work in progress', which has changed significantly from the initial concept but the basic classes have been settled into:
 
     dev.inward.matrix.Scheme extends java.net.URLStreamHandler
@@ -20,8 +23,8 @@ Complications are the runnable, which are configured by Criterion and produce Ma
     dev.inward.matrix.file.log.addressed.Matter extends dev.inward.matrix.file.addressed.Addressed implements java.nio.file.WatchEvent<Indicia> 
 Matters are sent to/kept in the 'log' scheme, the concept is to push all logs off the system almost immediately, both for processing externally and to keep them safe from any malfeasance that might occur on a front end system (killing the logs is the first sign of a 'hacked' system)
 
-    dev.inward.matrix.log.Indica implements java.nio.file.WatchEvent.Kind<Indicia> 
-Indica acts as the 'Path' for the log scheme, other schemes have similar objects or are set to String (like HTTP/S) 
+    dev.inward.matrix.log.Indica 
+Indica acts is a depot object which defines events, it's key extends Watch
 
     dev.inward.matrix.Criterion implements java.nio.file.WatchEvent.Modifier
 Criterion is used by Predictable as the instruction for the WatchKey

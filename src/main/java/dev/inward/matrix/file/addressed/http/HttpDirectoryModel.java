@@ -5,9 +5,9 @@
 package dev.inward.matrix.file.addressed.http;
 
 import dev.inward.matrix.Aspect;
-import dev.inward.matrix.file.addressed.AddressedDirectoryModel;
+import dev.inward.matrix.file.DirectoryModel;
 
-public class HttpDirectoryModel extends AddressedDirectoryModel<HttpScheme,HttpLibraryKey,HttpLibrary,String,HttpCatalogKey,HttpCatalog,HttpDirectoryKey,HttpDirectory,HttpDirectoryReference,HttpDirectoryAttributes,HttpDirectoryResource,HttpDirectoryModel> {
+public class HttpDirectoryModel extends DirectoryModel<HttpScheme,HttpLibraryKey,HttpLibrary,String,HttpCatalogKey,HttpCatalog,HttpDirectoryKey,HttpDirectory,HttpDirectoryReference,HttpDirectoryAttributes,HttpDirectoryResource,HttpDirectoryModel> {
     public HttpDirectoryModel(Aspect[] labeledAspects, long warnOnTotal, long hardLimit) {
         super(labeledAspects, warnOnTotal, hardLimit);
     }

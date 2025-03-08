@@ -4,14 +4,22 @@
 
 package dev.inward.matrix.file.addressed.depot.specification;
 
-import dev.inward.matrix.file.addressed.depot.*;
-import dev.inward.matrix.file.DirectoryKey;
+import dev.inward.matrix.file.addressed.depot.DepotDirectoryKey;
+import dev.inward.matrix.file.addressed.depot.DepotKey;
 
 import java.net.URI;
 
 public class SpecificationKey extends DepotKey<SpecificationKey, Specification,SpecificationReference,SpecificationAttributes,SpecificationResource,SpecificationModel> {
 
-    protected SpecificationKey(URI uri, DirectoryKey<DepotScheme, DepotLibrary, DepotPath> parentDirectory, String canonicalClassName) {
-        super(uri, parentDirectory, canonicalClassName);
+    protected SpecificationKey(URI uri, String id, DepotDirectoryKey directory) {
+        super(uri, id, directory);
+    }
+
+    public static class Builder extends DepotKey.Builder<SpecificationKey, Specification,SpecificationReference,SpecificationAttributes,SpecificationResource,SpecificationModel> {
+
+        @Override
+        protected SpecificationKey newFileKey() {
+            return new SpecificationKey(this.uri,this.id,this.directoryKey);
+        }
     }
 }

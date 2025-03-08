@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Domain implements MatrixItem<DomainKey,Domain> {
+public class Domain implements MatrixItem<String,DomainKey,Domain> {
 
     private final static Map<String,Domain> All_Known_Domains = new HashMap<>();
 
@@ -40,7 +40,7 @@ public class Domain implements MatrixItem<DomainKey,Domain> {
         }
     }
     public void addNameServer(ServerRecord serverRecord,NameServerRecord nameServerRecord) {
-        nameServerRecordHostExperienceMap.add(new HostExperience.NameServer(serverRecord, 10, nameServerRecord));
+        //nameServerRecordHostExperienceMap.add(new HostExperience.Server(serverRecord, 10, nameServerRecord));
     }
     public void removeServer(HostExperience hostExperience) {
         nameServerRecordHostExperienceMap.remove(hostExperience);
@@ -77,7 +77,7 @@ public class Domain implements MatrixItem<DomainKey,Domain> {
     }
 
     public String getDomain() {
-        return domainKey.uri.getHost();
+        return domainKey.getMatrixPath().toUri().getHost();
     }
 
     public Director getDirector() {
@@ -86,6 +86,6 @@ public class Domain implements MatrixItem<DomainKey,Domain> {
 
     @Override
     public String toString() {
-        return "Domain{ domain = " + domainKey.uri.getHost() + '}';
+        return "Domain{ domain = " + domainKey.getMatrixPath().toUri().getHost() + '}';
     }
 }

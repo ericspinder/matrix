@@ -4,11 +4,11 @@
 
 package dev.inward.matrix.file.addressed.log;
 
-import dev.inward.matrix.file.addressed.AddressedDirectoryResource;
+import dev.inward.matrix.file.DirectoryResource;
 
 import java.util.function.Function;
 
-public class LogDirectoryResource extends AddressedDirectoryResource<LogScheme,LogLibraryKey,LogLibrary,LogPath,LogCatalogKey,LogCatalog,LogDirectoryKey,LogDirectory,LogDirectoryReference,LogDirectoryAttributes,LogDirectoryResource,LogDirectoryModel> {
+public class LogDirectoryResource extends DirectoryResource<LogScheme,LogLibraryKey,LogLibrary,LogPath,LogCatalogKey,LogCatalog,LogDirectoryKey,LogDirectory,LogDirectoryReference,LogDirectoryAttributes,LogDirectoryResource,LogDirectoryModel> {
     public LogDirectoryResource(Function<LogDirectoryReference, LogDirectoryReference> graveDigger, LogDirectoryModel model) {
         super(graveDigger, model);
     }

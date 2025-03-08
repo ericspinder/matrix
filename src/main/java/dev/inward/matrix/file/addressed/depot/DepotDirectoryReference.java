@@ -4,9 +4,9 @@
 
 package dev.inward.matrix.file.addressed.depot;
 
-import dev.inward.matrix.file.addressed.AddressedDirectoryReference;
+import dev.inward.matrix.file.DirectoryReference;
 
-public class DepotDirectoryReference extends AddressedDirectoryReference<DepotScheme, DepotLibraryKey, DepotLibrary, DepotPath,DepotCatalogKey,DepotCatalog,DepotDirectoryKey,DepotDirectory,DepotDirectoryReference,DepotDirectoryAttributes,DepotDirectoryResource,DepotDirectoryModel> {
+public class DepotDirectoryReference extends DirectoryReference<DepotScheme, DepotLibraryKey, DepotLibrary, DepotPath,DepotCatalogKey,DepotCatalog,DepotDirectoryKey,DepotDirectory,DepotDirectoryReference,DepotDirectoryAttributes,DepotDirectoryResource,DepotDirectoryModel> {
     public DepotDirectoryReference(DepotDirectory referent, DepotDirectoryResource resource) {
         super(referent, resource);
     }

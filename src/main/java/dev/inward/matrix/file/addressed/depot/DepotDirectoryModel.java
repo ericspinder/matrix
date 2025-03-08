@@ -5,9 +5,9 @@
 package dev.inward.matrix.file.addressed.depot;
 
 import dev.inward.matrix.Aspect;
-import dev.inward.matrix.file.addressed.AddressedDirectoryModel;
+import dev.inward.matrix.file.DirectoryModel;
 
-public class DepotDirectoryModel extends AddressedDirectoryModel<DepotScheme,DepotLibraryKey, DepotLibrary, DepotPath,DepotCatalogKey,DepotCatalog,DepotDirectoryKey,DepotDirectory,DepotDirectoryReference,DepotDirectoryAttributes,DepotDirectoryResource,DepotDirectoryModel> {
+public class DepotDirectoryModel extends DirectoryModel<DepotScheme,DepotLibraryKey, DepotLibrary, DepotPath,DepotCatalogKey,DepotCatalog,DepotDirectoryKey,DepotDirectory,DepotDirectoryReference,DepotDirectoryAttributes,DepotDirectoryResource,DepotDirectoryModel> {
     public DepotDirectoryModel(Aspect[] labeledAspects, long warnOnTotal, long hardLimit) {
         super(labeledAspects, warnOnTotal, hardLimit);
     }

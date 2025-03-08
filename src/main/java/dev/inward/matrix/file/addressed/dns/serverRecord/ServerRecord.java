@@ -3,7 +3,7 @@
  */
 package dev.inward.matrix.file.addressed.dns.serverRecord;
 
-import dev.inward.matrix.file.addressed.dns.*;
+import dev.inward.matrix.file.addressed.dns.ResourceRecord;
 
 import java.math.BigInteger;
 import java.net.InetAddress;

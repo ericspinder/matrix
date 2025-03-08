@@ -6,10 +6,10 @@ package dev.inward.matrix.file.addressed.info;
 
 import dev.inward.matrix.Domain;
 import dev.inward.matrix.MatrixURLStreamHandlerProvider;
+import dev.inward.matrix.Scheme;
 import dev.inward.matrix.Terrene;
-import dev.inward.matrix.file.addressed.AddressedScheme;
 
-public class InfoScheme extends AddressedScheme<InfoScheme,InfoLibraryKey,InfoLibrary, InfoPath,InfoCatalogKey,InfoCatalog,InfoDirectoryKey,InfoDirectory,InfoDirectoryReference,InfoDirectoryAttributes,InfoDirectoryResource,InfoDirectoryModel> {
+public class InfoScheme extends Scheme<InfoScheme,InfoLibraryKey,InfoLibrary, InfoPath,InfoCatalogKey,InfoCatalog,InfoDirectoryKey,InfoDirectory,InfoDirectoryReference,InfoDirectoryAttributes,InfoDirectoryResource,InfoDirectoryModel> {
     protected InfoScheme(Terrene terrene) {
         super(terrene, MatrixURLStreamHandlerProvider.Protocol.INFO);
     }

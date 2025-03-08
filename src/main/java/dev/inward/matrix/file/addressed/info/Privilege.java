@@ -17,23 +17,7 @@ public abstract class Privilege<K extends PrivilegeKey<K,F,R,A,RESOURCE,M>,F ext
 
     @Override
     public String getName() {
-        return userName.getName();
+        return key.getId();
     }
 
-    @Override
-    public int compareTo(Privilege that) {
-        int isZero = this.functionName.compareTo(that.functionName);
-        if (isZero == 0) {
-            return this.userName.compareTo(that.userName);
-        }
-        return isZero;
-    }
-
-    public UserName getUserName() {
-        return userName;
-    }
-
-    public String getFunctionName() {
-        return functionName;
-    }
 }

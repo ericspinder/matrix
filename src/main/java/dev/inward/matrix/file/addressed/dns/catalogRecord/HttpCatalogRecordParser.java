@@ -5,7 +5,6 @@
 package dev.inward.matrix.file.addressed.dns.catalogRecord;
 
 import dev.inward.matrix.file.addressed.dns.DnsDirectoryKey;
-import dev.inward.matrix.file.addressed.dns.RRKey;
 import dev.inward.matrix.file.addressed.dns.ResourceRecordType;
 
 public class HttpCatalogRecordParser extends CatalogRecordParser<HttpCatalogRecordKey,HttpCatalogRecord,HttpCatalogRecordReference,HttpCatalogRecordAttributes,HttpCatalogRecordResource,HttpCatalogRecordModel> {

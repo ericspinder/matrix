@@ -22,11 +22,11 @@ public abstract class SocketAddress implements Comparable<SocketAddress> {
         this.bytes = new BigInteger(1,serverRecord.getInetAddress().getAddress());
         this.serverRecord = serverRecord;
     }
-    public static class Local extends SocketAddress {
+    public static class LocalHost extends SocketAddress {
 
         protected final LocalSystemNetworking.NetworkMapping networkMapping;
 
-        public Local(ServerRecord<?,?,?,?,?,?> serverRecord, int port, LocalSystemNetworking.NetworkMapping networkMapping) {
+        public LocalHost(ServerRecord<?,?,?,?,?,?> serverRecord, int port, LocalSystemNetworking.NetworkMapping networkMapping) {
             super(serverRecord, port);
             this.networkMapping = networkMapping;
         }

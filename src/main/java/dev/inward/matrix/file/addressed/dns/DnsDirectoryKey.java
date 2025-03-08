@@ -4,18 +4,17 @@
 
 package dev.inward.matrix.file.addressed.dns;
 
-import dev.inward.matrix.file.addressed.AddressedDirectoryKey;
+import dev.inward.matrix.file.DirectoryKey;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
-public class DnsDirectoryKey extends AddressedDirectoryKey<DnsScheme,DnsLibraryKey, DnsLibrary, DnsPath,DnsCatalogKey,DnsCatalog,DnsDirectoryKey,DnsDirectory,DnsDirectoryReference,DnsDirectoryAttributes,DnsDirectoryResource,DnsDirectoryModel> {
+public class DnsDirectoryKey extends DirectoryKey<DnsScheme,DnsLibraryKey, DnsLibrary, DnsPath,DnsCatalogKey,DnsCatalog,DnsDirectoryKey,DnsDirectory,DnsDirectoryReference,DnsDirectoryAttributes,DnsDirectoryResource,DnsDirectoryModel> {
     protected DnsDirectoryKey(URI uri, DnsCatalog catalog, DnsPath dnsPath) {
         super(uri, catalog, dnsPath);
     }
 
 
-    public static class Builder extends AddressedDirectoryKey.Builder<DnsScheme,DnsLibraryKey, DnsLibrary, DnsPath,DnsCatalogKey,DnsCatalog,DnsDirectoryKey,DnsDirectory,DnsDirectoryReference,DnsDirectoryAttributes,DnsDirectoryResource,DnsDirectoryModel> {
+    public static class Builder extends DirectoryKey.Builder<DnsScheme,DnsLibraryKey, DnsLibrary, DnsPath,DnsCatalogKey,DnsCatalog,DnsDirectoryKey,DnsDirectory,DnsDirectoryReference,DnsDirectoryAttributes,DnsDirectoryResource,DnsDirectoryModel> {
 
         @Override
         protected DnsDirectoryKey newFileKey() {

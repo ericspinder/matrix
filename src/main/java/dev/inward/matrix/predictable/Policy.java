@@ -14,15 +14,15 @@ import java.util.concurrent.TimeUnit;
 
 
 
-public abstract class Policy<K extends MatrixKey<K,I>,I extends MatrixItem<K,I>,M extends Matter> implements Runnable {
+public abstract class Policy<PATH extends Comparable<PATH>,K extends MatrixKey<PATH,K,I>,I extends MatrixItem<PATH,K,I>,M extends Matter> implements Runnable {
 
     protected final UUID uuid = UUID.randomUUID();
-    protected final Complication<K,I> complication;
+    protected final Complication<PATH,K,I> complication;
     protected final Indica indica;
-    protected final PolicyCriterion<K,I,M> policyCriterion;
+    protected final PolicyCriterion<PATH,K,I,M> policyCriterion;
     protected M currentMatter;
 
-    public Policy(Complication<K,I> complication, Indica indica, PolicyCriterion<K,I,M> policyCriterion) {
+    public Policy(Complication<PATH,K,I> complication, Indica indica, PolicyCriterion<PATH,K,I,M> policyCriterion) {
         this.complication = complication;
         this.indica = indica;
         this.policyCriterion = policyCriterion;
@@ -37,7 +37,7 @@ public abstract class Policy<K extends MatrixKey<K,I>,I extends MatrixItem<K,I>,
     @Override
     public boolean equals(Object that) {
         if (this == that) return true;
-        if (that instanceof Policy<?,?,?> policy) {
+        if (that instanceof Policy<?,?,?,?> policy) {
             int isZero = this.getClass().getCanonicalName().compareTo(policy.getClass().getCanonicalName());
             if (isZero == 0) {
                 return this.uuid.compareTo(policy.uuid) == 0;
