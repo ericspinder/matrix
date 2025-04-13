@@ -9,7 +9,7 @@ import java.nio.file.attribute.GroupPrincipal;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class House extends Privilege<HouseKey,House,HouseReference,HouseAttributes,HouseResource,HouseModel> implements GroupPrincipal {
+public class House extends Privilege<HouseLibrarian,HouseKey,House,HouseView,HouseModel,HouseReference, HouseSteward> implements GroupPrincipal {
 
     protected final Map<Persona, AclEntry[]> personaRightsMap = new ConcurrentHashMap<>();
 

@@ -4,7 +4,7 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
+import dev.inward.matrix.file.addressed.depot.indica.IndicaKey;
 
 import java.util.UUID;
 
@@ -13,6 +13,6 @@ public interface Exceptional {
 
     UUID getUUID();
 
-    IndiciaKey getIndicia();
+    IndicaKey getIndicia();
 
 }

@@ -4,13 +4,10 @@
 
 package dev.inward.matrix.file.addressed.http;
 
-import dev.inward.matrix.Model;
 import dev.inward.matrix.file.DirectoryView;
 
-import java.util.Map;
-
-public class HttpDirectoryView extends DirectoryView<HttpScheme,HttpLibraryKey,HttpLibrary,String,HttpCatalogKey,HttpCatalog,HttpDirectoryKey,HttpDirectory,HttpDirectoryReference, HttpDirectoryView,HttpDirectoryResource,HttpDirectoryModel> {
-    public HttpDirectoryView(Map<String, Model.InstanceValue> properties) {
-        super(properties);
+public class HttpDirectoryView extends DirectoryView<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibrarySteward,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogSteward,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectorySteward> {
+    public HttpDirectoryView(HttpDirectory httpDirectory, HttpDirectoryModel httpDirectoryModel) {
+        super("HttpDirectoryView", httpDirectory, httpDirectoryModel);
     }
 }

@@ -2,8 +2,9 @@
  *  Copyright (c) © 2025. Pinder's Matrix  by Eric S Pinder is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
  */
 
-package dev.inward.matrix;
+package dev.inward.matrix.predictable;
 
+import dev.inward.matrix.*;
 import dev.inward.matrix.route.Dispatch;
 import dev.inward.matrix.route.Road;
 
@@ -14,25 +15,25 @@ import java.util.concurrent.TimeUnit;
 
 public class Director {
 
-    protected Road defaultRoad;
+    protected Road road;
 
     protected final Map<String,Road> roadByMatrixKeyPath = new WeakHashMap<>();
 
-    public Director(Road defaultRoad) {
-        if (defaultRoad == null) {
-            Dispatch dispatch = new Dispatch(null, "defaultDirector", "The default director", 2, 100, 10, TimeUnit.SECONDS, 0);
-            this.defaultRoad = new Road(dispatch, new LinkedBlockingQueue<>(), new Dispatch.DriverFactory(dispatch, "defaultRoad"));
+    public Director(Road road) {
+        if (road == null) {
+            Dispatch dispatch = new Dispatch(null, "Director's Dispatch", 2, 100, 10, TimeUnit.SECONDS, 0);
+            this.road = new Road(dispatch, new LinkedBlockingQueue<>(), new Dispatch.DriverFactory(dispatch, "Director's Road"));
         }
         else {
-            this.defaultRoad = defaultRoad;
+            this.road = road;
         }
     }
     /**
      *
      * @return the default road for this domain
      */
-    public Road getDefaultRoad() {
-        return defaultRoad;
+    public Road getRoad() {
+        return road;
     }
     /**
      *
@@ -42,7 +43,7 @@ public class Director {
      * @param <K> MatrixKey
      * @param <I> MatrixItem
      */
-    public <PATH extends Comparable<PATH>,K extends MatrixKey<PATH,K,I>,I extends MatrixItem<PATH,K,I>> Road getRoad(K matrixKey, Road chosenRoad) {
+    public <K extends MatrixKey<K,I,V,M,R, G>,I extends MatrixItem<K,I,V,M,R,G>,V extends View<I,M>,M extends Model<I>,R extends Reference<I,V,M,R,G>,G extends Steward<I,V,M,R,G>> Road getRoad(K matrixKey, Road chosenRoad) {
         String keyValue = matrixKey.toUri().toString();
         this.roadByMatrixKeyPath.put(keyValue, chosenRoad);
         return chosenRoad;
@@ -55,10 +56,10 @@ public class Director {
      * @param <K> matrixKey
      * @param <I> matrixItem
      */
-    public <PATH extends Comparable<PATH>,K extends MatrixKey<PATH,K,I>,I extends MatrixItem<PATH,K,I>> Road getRoad(K matrixKey) {
+    public <K extends MatrixKey<K,I,V,M,R, G>,I extends MatrixItem<K,I,V,M,R,G>,V extends View<I,M>,M extends Model<I>,R extends Reference<I,V,M,R,G>,G extends Steward<I,V,M,R,G>> Road getRoad(K matrixKey) {
         return this.roadByMatrixKeyPath.get(matrixKey.toUri().toString());
     }
-    public <PATH extends Comparable<PATH>,K extends MatrixKey<PATH,K,I>,I extends MatrixItem<PATH,K,I>> void close(K matrixKey) {
+    public <K extends MatrixKey<K,I,V,M,R, G>,I extends MatrixItem<K,I,V,M,R,G>,V extends View<I,M>,M extends Model<I>,R extends Reference<I,V,M,R,G>,G extends Steward<I,V,M,R,G>> void close(K matrixKey) {
         Road road = this.getRoad(matrixKey);
         if (road != null) {
             road.close();
@@ -69,6 +70,6 @@ public class Director {
             this.roadByMatrixKeyPath.get(matrixKeyPath).close();
             this.roadByMatrixKeyPath.remove(matrixKeyPath);
         }
-        defaultRoad.close();
+        road.close();
     }
 }

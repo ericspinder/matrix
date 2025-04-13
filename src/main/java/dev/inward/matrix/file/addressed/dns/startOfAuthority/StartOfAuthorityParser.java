@@ -8,7 +8,7 @@ import dev.inward.matrix.file.addressed.dns.DnsDirectoryKey;
 import dev.inward.matrix.file.addressed.dns.ResourceRecordParser;
 import dev.inward.matrix.file.addressed.dns.ResourceRecordType;
 
-public class StartOfAuthorityParser extends ResourceRecordParser<StartOfAuthorityKey,StartOfAuthority,StartOfAuthorityReference,StartOfAuthorityAttributes,StartOfAuthorityResource,StartOfAuthorityModel> {
+public class StartOfAuthorityParser extends ResourceRecordParser<StartOfAuthorityLibrarian,StartOfAuthorityKey,StartOfAuthority,StartOfAuthorityView,StartOfAuthorityModel,StartOfAuthorityReference, StartOfAuthoritySteward> {
 
     public StartOfAuthorityParser(DnsDirectoryKey dnsDirectoryKey) {
         super(dnsDirectoryKey);

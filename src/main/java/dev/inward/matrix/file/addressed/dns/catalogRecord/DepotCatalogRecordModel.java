@@ -6,8 +6,8 @@ package dev.inward.matrix.file.addressed.dns.catalogRecord;
 
 import dev.inward.matrix.Aspect;
 
-public class DepotCatalogRecordModel extends CatalogRecordModel<DepotCatalogRecordKey, DepotCatalogRecord, DepotCatalogRecordReference, DepotCatalogRecordAttributes, DepotCatalogRecordResource, DepotCatalogRecordModel> {
-    public DepotCatalogRecordModel(Aspect[] labeledAspects, long warnOnTotal, long hardLimit) {
-        super(labeledAspects, warnOnTotal, hardLimit);
+public class DepotCatalogRecordModel extends CatalogRecordModel<DepotCatalogRecordLibrarian,DepotCatalogRecordKey,DepotCatalogRecord,DepotCatalogRecordView,DepotCatalogRecordModel,DepotCatalogRecordReference, DepotCatalogRecordSteward> {
+    public DepotCatalogRecordModel(Aspect[] labeledAspects) {
+        super(labeledAspects);
     }
 }

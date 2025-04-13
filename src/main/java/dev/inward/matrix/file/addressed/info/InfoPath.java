@@ -18,6 +18,6 @@ public record InfoPath(String privilegeName, String functionName) implements Com
 
     @Override
     public String toString() {
-        return '/' + privilegeName + '/' + functionName + '/';
+        return '/' + privilegeName + '/' + ((functionName != null)?functionName + '/':"");
     }
 }

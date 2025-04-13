@@ -7,14 +7,14 @@
 package dev.inward.matrix.phenomenon;
 
 import dev.inward.matrix.Context;
-import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
+import dev.inward.matrix.file.addressed.depot.indica.IndicaKey;
 
 import java.time.Instant;
 import java.util.UUID;
 
 public class SystemInitialization extends Autopsy<SystemInitialization, Identity.Ghost, Context.Ethereal> {
 
-    public SystemInitialization(UUID uuid, Identity.Ghost ghost, Instant createInstant, IndiciaKey indiciaKey) {
-        super(uuid, ghost, createInstant, indiciaKey);
+    public SystemInitialization(UUID uuid, Identity.Ghost ghost, Instant createInstant, IndicaKey indicaKey) {
+        super(uuid, ghost, createInstant, indicaKey);
     }
 }

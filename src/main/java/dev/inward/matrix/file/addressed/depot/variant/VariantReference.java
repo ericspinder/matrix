@@ -6,8 +6,8 @@ package dev.inward.matrix.file.addressed.depot.variant;
 
 import dev.inward.matrix.file.addressed.depot.DepotReference;
 
-public class VariantReference extends DepotReference<VariantKey,Variant,VariantReference,VariantAttributes,VariantResource, VariantModel> {
-    public VariantReference(Variant addressed, VariantResource variantResource) {
+public class VariantReference extends DepotReference<VariantLibrarian,VariantKey,Variant,VariantView,VariantModel,VariantReference, VariantSteward> {
+    public VariantReference(Variant addressed, VariantSteward variantResource) {
         super(addressed, variantResource);
     }
 }

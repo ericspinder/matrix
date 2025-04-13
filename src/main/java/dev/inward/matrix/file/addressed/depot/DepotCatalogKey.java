@@ -4,13 +4,14 @@
 
 package dev.inward.matrix.file.addressed.depot;
 
-import dev.inward.matrix.CatalogKey;
+import dev.inward.matrix.container.catalog.CatalogKey;
 import dev.inward.matrix.Range;
+import dev.inward.matrix.engine.Zone;
 
 import java.net.URI;
 
-public class DepotCatalogKey extends CatalogKey<DepotScheme, DepotLibraryKey,DepotLibrary, DepotPath,DepotCatalogKey,DepotCatalog,DepotDirectoryKey,DepotDirectory,DepotDirectoryReference,DepotDirectoryAttributes,DepotDirectoryResource,DepotDirectoryModel> {
-    public DepotCatalogKey(URI uri, DepotLibrary library, Range<DepotPath> range) {
-        super(uri, library, range);
+public class DepotCatalogKey extends CatalogKey<DepotScheme,DepotLibraryKey,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibrarySteward,DepotPath,DepotCatalogKey,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference, DepotCatalogSteward,DepotDirectoryLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectorySteward> {
+    public DepotCatalogKey(URI uri, DepotLibrary library, Range<DepotPath> range, Zone zone) {
+        super(uri, library, range,zone);
     }
 }

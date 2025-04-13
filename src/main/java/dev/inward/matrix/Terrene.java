@@ -5,8 +5,9 @@
 package dev.inward.matrix;
 
 import com.google.common.collect.ImmutableList;
+import dev.inward.matrix.container.domain.DomainKey;
+import dev.inward.matrix.file.addressed.depot.indica.IndicaKey;
 import dev.inward.matrix.file.addressed.dns.serverRecord.ServerRecord;
-import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
 import dev.inward.matrix.file.addressed.log.Matter;
 
 import java.net.InetAddress;
@@ -28,7 +29,7 @@ public class Terrene implements Comparable<Terrene> {
 
     public static Terrene Parse(String alias) {
         Terrene terrene = KnownWorlds.get(alias);
-        if (terrene == null) throw new RuntimeException("Terrene not found: " + alias);
+        if (terrene == null) return Earth;
         return terrene;
     }
 
@@ -63,19 +64,19 @@ public class Terrene implements Comparable<Terrene> {
 
     public final static class EarthRoots {
 
-        public final Domain com_a = Domain.getInstance(Earth,"com.a");
-        public final Domain com_b = Domain.getInstance(Earth,"com.b");
-        public final Domain com_c = Domain.getInstance(Earth,"com.c");
-        public final Domain com_d = Domain.getInstance(Earth, "com.d");
-        public final Domain com_e = Domain.getInstance(Earth, "com.e");
-        public final Domain com_f = Domain.getInstance(Earth, "com.f");
-        public final Domain com_g = Domain.getInstance(Earth, "com.g");
-        public final Domain com_h = Domain.getInstance(Earth, "com.h");
-        public final Domain com_i = Domain.getInstance(Earth, "com.i");
-        public final Domain com_j = Domain.getInstance(Earth, "com.j");
-        public final Domain com_k = Domain.getInstance(Earth, "com.k");
-        public final Domain com_l = Domain.getInstance(Earth, "com.l");
-        public final Domain com_m = Domain.getInstance(Earth, "com.m");
+        public final DomainKey com_a = (new DomainKey.Builder()).setTerrene(Earth).setDomainName("com.a").buildMatrixKey();
+        public final DomainKey com_b = (new DomainKey.Builder()).setTerrene(Earth).setDomainName("com.b").buildMatrixKey();
+        public final DomainKey com_c = (new DomainKey.Builder()).setTerrene(Earth).setDomainName("com.c").buildMatrixKey();
+        public final DomainKey com_d = (new DomainKey.Builder()).setTerrene(Earth).setDomainName("com.d").buildMatrixKey();
+        public final DomainKey com_e = (new DomainKey.Builder()).setTerrene(Earth).setDomainName("com.e").buildMatrixKey();
+        public final DomainKey com_f = (new DomainKey.Builder()).setTerrene(Earth).setDomainName("com.f").buildMatrixKey();
+        public final DomainKey com_g = (new DomainKey.Builder()).setTerrene(Earth).setDomainName("com.g").buildMatrixKey();
+        public final DomainKey com_h = (new DomainKey.Builder()).setTerrene(Earth).setDomainName("com.h").buildMatrixKey();
+        public final DomainKey com_i = (new DomainKey.Builder()).setTerrene(Earth).setDomainName("com.i").buildMatrixKey();
+        public final DomainKey com_j = (new DomainKey.Builder()).setTerrene(Earth).setDomainName("com.j").buildMatrixKey();
+        public final DomainKey com_k = (new DomainKey.Builder()).setTerrene(Earth).setDomainName("com.k").buildMatrixKey();
+        public final DomainKey com_l = (new DomainKey.Builder()).setTerrene(Earth).setDomainName("com.l").buildMatrixKey();
+        public final DomainKey com_m = (new DomainKey.Builder()).setTerrene(Earth).setDomainName("com.m").buildMatrixKey();
 
         private final List<ServerRecord> serverRecords;
 
@@ -113,7 +114,7 @@ public class Terrene implements Comparable<Terrene> {
                 builder.add(EARTH_ROOTS);
                 serverRecords = ImmutableList.<ServerRecord>builder().build();
             } catch (UnknownHostException unknownHostException) {
-                throw new MatrixException(MatrixException.Type.UnknownHost, "EarthRoots", IndiciaKey.Focus.Assembly, Matter.Severity.Exceptional, unknownHostException);
+                throw new MatrixException(MatrixException.Type.UnknownHost, "EarthRoots", IndicaKey.Focus.Assembly, Matter.Severity.Exceptional, unknownHostException);
             }
         }
     }

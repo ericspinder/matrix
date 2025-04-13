@@ -10,34 +10,28 @@ import dev.inward.matrix.file.addressed.log.Matter;
 
 import java.util.Objects;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 
-
-public abstract class Policy<PATH extends Comparable<PATH>,K extends MatrixKey<PATH,K,I>,I extends MatrixItem<PATH,K,I>,M extends Matter> implements Runnable {
+public abstract class Policy<PK extends MatrixKey<PK,PI,PV,PM,PR,PG>,PI extends MatrixItem<PK,PI,PV,PM,PR,PG>,PV extends View<PI,PM>,PM extends Model<PI>,PR extends Reference<PI,PV,PM,PR,PG>,PG extends Steward<PI,PV,PM,PR,PG>, DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,G>,G extends Steward<DATUM,V,M,R,G>> {
 
     protected final UUID uuid = UUID.randomUUID();
-    protected final Complication<PATH,K,I> complication;
+    protected final Complication<PK,PI,PV,PM,PR,PG,DATUM,V,M,R,G> complication;
     protected final Indica indica;
-    protected final PolicyCriterion<PATH,K,I,M> policyCriterion;
+    protected final Criterion<PK,PI,PV,PM,PR,PG,DATUM,V,M,R,G> criterion;
     protected M currentMatter;
 
-    public Policy(Complication<PATH,K,I> complication, Indica indica, PolicyCriterion<PATH,K,I,M> policyCriterion) {
+    public Policy(Complication<PK,PI,PV,PM,PR,PG,DATUM,V,M,R,G> complication, Indica indica, Criterion<PK,PI,PV,PM,PR,PG,DATUM,V,M,R,G> criterion) {
         this.complication = complication;
         this.indica = indica;
-        this.policyCriterion = policyCriterion;
+        this.criterion = criterion;
     }
 
-    public final void run() {
-        if (currentMatter == null) {
-            this.policyCriterion.createNewMatter(complication.matrixKey);
-        }
-    }
+    public abstract Matter process(Bout<DATUM,V,M,R,G> bout);
 
     @Override
     public boolean equals(Object that) {
         if (this == that) return true;
-        if (that instanceof Policy<?,?,?,?> policy) {
+        if (that instanceof Policy<?,?,?,?,?,?,?,?,?,?,?> policy) {
             int isZero = this.getClass().getCanonicalName().compareTo(policy.getClass().getCanonicalName());
             if (isZero == 0) {
                 return this.uuid.compareTo(policy.uuid) == 0;

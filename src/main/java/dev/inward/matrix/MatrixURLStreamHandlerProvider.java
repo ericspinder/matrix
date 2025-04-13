@@ -10,7 +10,6 @@ import dev.inward.matrix.file.addressed.http.HttpScheme;
 import dev.inward.matrix.file.addressed.https.HttpsScheme;
 import dev.inward.matrix.file.addressed.info.InfoScheme;
 import dev.inward.matrix.file.addressed.log.LogScheme;
-import dev.inward.matrix.realm.RealmScheme;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
@@ -23,10 +22,10 @@ import java.util.Objects;
 public class MatrixURLStreamHandlerProvider extends URLStreamHandlerProvider {
 
 
-    protected static final Map<String,Scheme<?,?,?,?,?,?,?,?,?,?,?,?>> ALL_KNOWN_SCHEMES = new HashMap<>();
+    protected static final Map<String,Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>> ALL_KNOWN_SCHEMES = new HashMap<>();
 
 
-    public static Scheme<?,?,?,?,?,?,?,?,?,?,?,?> findSchemeForProtocolHost(Protocol protocol, URI uri) {
+    public static Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> findSchemeForProtocolHost(Protocol protocol, Terrene terrene) {
         if (uri.getScheme().indexOf('.') == -1) {
             return findSchemeByString(Terrene.Earth.toString() + '.' + protocol.label);
         }
@@ -34,9 +33,9 @@ public class MatrixURLStreamHandlerProvider extends URLStreamHandlerProvider {
             return findSchemeByString( uri.getScheme().substring(0,uri.getScheme().lastIndexOf('.'))+ '.' + protocol.label);
         }
     }
-    public static Scheme<?,?,?,?,?,?,?,?,?,?,?,?> findSchemeByString(String scheme_s) {
+    public static Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> findSchemeByString(String scheme_s) {
         String lowerCaseScheme = scheme_s.toLowerCase();
-        Scheme<?,?,?,?,?,?,?,?,?,?,?,?> scheme = ALL_KNOWN_SCHEMES.get(lowerCaseScheme);
+        Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> scheme = ALL_KNOWN_SCHEMES.get(lowerCaseScheme);
         if (scheme == null && lowerCaseScheme.indexOf('.') == -1) {
             findSchemeByString(Terrene.Earth.toString() + '.' + lowerCaseScheme);
         }
@@ -82,12 +81,13 @@ public class MatrixURLStreamHandlerProvider extends URLStreamHandlerProvider {
         private final String label;
         private final String description;
         private final int defaultPort;
-        private final Class<? extends Scheme<?,?,?,?,?,?,?,?,?,?,?,?>> schemeClass;
+        private final Class<? extends Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>> schemeClass;
         private final String separator;
-        Protocol(final String label, final String description, int defaultPort,Class<? extends Scheme<?,?,?,?,?,?,?,?,?,?,?,?>> schemeClass) {
+
+        Protocol(final String label, final String description, int defaultPort,Class<? extends Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>> schemeClass) {
             this(label,description,defaultPort,schemeClass,null);
         }
-        Protocol(final String label, final String description, int defaultPort,Class<? extends Scheme<?,?,?,?,?,?,?,?,?,?,?,?>> schemeClass, String separator) {
+        Protocol(final String label, final String description, int defaultPort,Class<? extends Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>> schemeClass, String separator) {
             this.label = label;
             this.description = description;
             this.defaultPort = defaultPort;
@@ -112,7 +112,7 @@ public class MatrixURLStreamHandlerProvider extends URLStreamHandlerProvider {
             return defaultPort;
         }
 
-        public Class<? extends Scheme<?,?,?,?,?,?,?,?,?,?,?,?>> getSchemeClass() {
+        public Class<? extends Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>> getSchemeClass() {
             return schemeClass;
         }
 

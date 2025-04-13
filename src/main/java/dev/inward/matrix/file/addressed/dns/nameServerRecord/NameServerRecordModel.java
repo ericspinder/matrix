@@ -7,8 +7,8 @@ package dev.inward.matrix.file.addressed.dns.nameServerRecord;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.file.addressed.dns.RRModel;
 
-public class NameServerRecordModel extends RRModel<NameServerRecordKey,NameServerRecord,NameServerRecordReference,NameServerRecordAttributes,NameServerRecordResource,NameServerRecordModel> {
-    public NameServerRecordModel(Aspect[] labeledAspects, long warnOnTotal, long hardLimit) {
-        super(labeledAspects, warnOnTotal, hardLimit);
+public class NameServerRecordModel extends RRModel<NameServerRecordLibrarian,NameServerRecordKey,NameServerRecord,NameServerRecordView,NameServerRecordModel,NameServerRecordReference, NameServerRecordSteward> {
+    public NameServerRecordModel(Aspect[] labeledAspects) {
+        super(labeledAspects);
     }
 }

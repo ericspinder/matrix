@@ -8,7 +8,7 @@ import dev.inward.matrix.file.addressed.dns.DnsDirectoryKey;
 import dev.inward.matrix.file.addressed.dns.RRKey;
 import dev.inward.matrix.file.addressed.dns.ResourceRecordType;
 
-public class DepotCatalogRecordParser extends CatalogRecordParser<DepotCatalogRecordKey, DepotCatalogRecord, DepotCatalogRecordReference, DepotCatalogRecordAttributes, DepotCatalogRecordResource, DepotCatalogRecordModel> {
+public class DepotCatalogRecordParser extends CatalogRecordParser<DepotCatalogRecordLibrarian,DepotCatalogRecordKey,DepotCatalogRecord,DepotCatalogRecordView,DepotCatalogRecordModel,DepotCatalogRecordReference, DepotCatalogRecordSteward> {
     public DepotCatalogRecordParser(DnsDirectoryKey directoryKey) {
         super(directoryKey);
     }
@@ -19,9 +19,11 @@ public class DepotCatalogRecordParser extends CatalogRecordParser<DepotCatalogRe
     }
 
     @Override
-    protected RRKey.Builder<DepotCatalogRecordKey, DepotCatalogRecord, DepotCatalogRecordReference, DepotCatalogRecordAttributes, DepotCatalogRecordResource, DepotCatalogRecordModel> newRRKeyBuilder() {
-        return new DepotCatalogRecordKey.Builder();
+    protected RRKey.Builder<DepotCatalogRecordLibrarian, DepotCatalogRecordKey, DepotCatalogRecord, DepotCatalogRecordView, DepotCatalogRecordModel, DepotCatalogRecordReference, DepotCatalogRecordSteward> newRRKeyBuilder() {
+        return null;
     }
+
+
 }
 
 

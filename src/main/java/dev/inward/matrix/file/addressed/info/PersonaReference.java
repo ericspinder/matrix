@@ -4,8 +4,8 @@
 
 package dev.inward.matrix.file.addressed.info;
 
-public class PersonaReference extends PrivilegeReference<PersonaKey,Persona,PersonaReference,PersonaAttributes,PersonaResource,PersonaModel> {
-    public PersonaReference(Persona addressed, PersonaResource resource) {
+public class PersonaReference extends PrivilegeReference<PersonaLibrarian,PersonaKey,Persona,PersonaView,PersonaModel,PersonaReference, PersonaSteward> {
+    public PersonaReference(Persona addressed, PersonaSteward resource) {
         super(addressed, resource);
     }
 }

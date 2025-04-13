@@ -4,11 +4,11 @@
 
 package dev.inward.matrix;
 
-public abstract class DatumReference<D extends Datum<D,R,A,RESOURCE,M>,R extends DatumReference<D,R,A,RESOURCE,M>,A extends DatumAttributes<D,R,A,RESOURCE,M>,RESOURCE extends DatumResource<D,R,A,RESOURCE,M>,M extends DatumModel<D,R,A,RESOURCE,M>> extends Reference<D,R,A,RESOURCE,M> {
+public abstract class DatumReference<LB extends DatumLibrarian<LB,D,V,M,R,G>,D extends Datum<LB,D,V,M,R,G>,V extends DatumView<LB,D,V,M,R,G>,M extends DatumModel<LB,D,V,M,R,G>,R extends DatumReference<LB,D,V,M,R,G>,G extends DatumSteward<LB,D,V,M,R,G>> extends Reference<D,V,M,R,G> {
 
 
-    public DatumReference(D datum, RESOURCE resource) {
-        super(datum, resource);
+    public DatumReference(D datum, G g) {
+        super(datum, g);
     }
 
     protected void doIncrementFailure(D datum, MatrixException matrixException) {

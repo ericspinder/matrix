@@ -4,117 +4,74 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.file.FileKey;
-import dev.inward.matrix.predictable.Criterion;
+import dev.inward.matrix.bureau.*;
+import dev.inward.matrix.memory.bureau.*;
 
-import javax.annotation.Nullable;
 import java.util.Deque;
 import java.util.Iterator;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public abstract class Provider<PATH extends Comparable<PATH>,K extends FileKey<PATH,K>> implements Iterator<K> {
+public abstract class Provider<DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,G>,G extends Steward<DATUM,V,M,R,G>> implements Iterator<DATUM> {
 
-    protected final Criterion criterion;
+    protected boolean autoReset;
+    protected boolean cancelWhenResetIsFalse;
 
-    public Provider(@Nullable K watched,@Nullable Criterion criterion) {
-        this.setInitialValue(watched,criterion);
-        this.criterion = criterion;
+    public Provider(boolean autoReset, boolean cancelWhenResetIsFalse) {
+        this.autoReset = autoReset;
+        this.cancelWhenResetIsFalse = cancelWhenResetIsFalse;
     }
 
-    public Criterion getCriterion() {
-        return criterion;
+    public boolean isAutoReset() {
+        return autoReset;
     }
+    public boolean isCancelWhenResetIsFalse() {
+        return cancelWhenResetIsFalse;
+}
+    public abstract DATUM current();
 
-    protected abstract void setInitialValue(@Nullable K watched, @Nullable Criterion criterion);
-    abstract boolean reset();
+    public static class Provided<DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,G>,G extends Steward<DATUM,V,M,R,G>> extends Provider<DATUM,V,M,R,G> {
 
-    public static class Finder<PATH extends Comparable<PATH>,K extends FileKey<PATH,K>> extends Provider<PATH,K> {
+        protected DATUM subject;
 
-        public Finder(@Nullable K watched, @Nullable Criterion criterion) {
-            super(watched, criterion);
+        public Provided(boolean autoReset, boolean cancelWhenResetIsFalse, DATUM subject) {
+            super(autoReset, cancelWhenResetIsFalse);
+            this.subject = subject;
         }
 
         @Override
         public boolean hasNext() {
-            return false;
+            return autoReset;
         }
 
         @Override
-        public K next() {
-            return null;
+        public DATUM next() {
+            return subject;
         }
 
         @Override
-        public void remove() {
-            super.remove();
-        }
-
-        @Override
-        protected void setInitialValue(@Nullable K watched, @Nullable Criterion criterion) {
-
-        }
-
-        @Override
-        boolean reset() {
-            return false;
+        public DATUM current() {
+            return subject;
         }
     }
 
-    public static class Provided<PATH extends Comparable<PATH>,K extends FileKey<PATH,K>> extends Provider<PATH,K> {
+    public static class Current<DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,G>,G extends Steward<DATUM,V,M,R,G>> extends Provider<DATUM,V,M,R,G> {
 
-        protected K watched;
-
-        public Provided(@Nullable K watched, @Nullable Criterion criterion) {
-            super(watched,criterion);
-        }
-
-        @Override
-        protected void setInitialValue(@Nullable K watched, @Nullable Criterion criterion) {
-            this.watched = watched;
-        }
-
-        @Override
-        boolean reset() {
-            return false;
-        }
-
-        @Override
-        public boolean hasNext() {
-            return false;
-        }
-
-        @Override
-        public K next() {
-            return watched;
-        }
-    }
-
-    public static class Current<PATH extends Comparable<PATH>,K extends FileKey<PATH,K>> extends Provider<PATH,K> {
-
-        protected K watched;
+        protected DATUM subject;
         protected boolean next;
+        protected boolean waitForMore;
         private final Lock gate = new ReentrantLock();
 
-        public Current(@Nullable K watched, @Nullable Criterion criterion) {
-            super(watched,criterion);
+        public Current(boolean autoReset, boolean cancelWhenResetIsFalse,DATUM subject) {
+            super(autoReset,cancelWhenResetIsFalse);
+            this.subject = subject;
         }
 
-        @Override
-        protected void setInitialValue(@Nullable K watched, @Nullable Criterion criterion) {
-            this.watched = watched;
-            next = watched != null;
-        }
 
-        @Override
-        boolean reset() {
-            return false;
-        }
-
-        public void setWatched(K watched) {
+        public void setSubject(DATUM subject) {
             gate.lock();
             try {
-                this.watched = watched;
+                this.subject = subject;
                 this.next = true;
             } finally {
                 gate.unlock();
@@ -127,35 +84,31 @@ public abstract class Provider<PATH extends Comparable<PATH>,K extends FileKey<P
         }
 
         @Override
-        public K next() {
+        public DATUM next() {
             gate.lock();
             try {
                 this.next = false;
-                return this.watched;
+                return this.subject;
             }
             finally {
                 gate.unlock();
             }
         }
+
+        @Override
+        public DATUM current() {
+            return this.subject;
+        }
     }
 
-    public static class Chain<PATH extends Comparable<PATH>,K extends FileKey<PATH,K>> extends Provider<PATH,K> {
+    public static class Chain<DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,G>,G extends Steward<DATUM,V,M,R,G>> extends Provider<DATUM,V,M,R,G> {
 
-        protected final Deque<K> deque;
+        protected final Deque<DATUM> deque;
+        protected boolean waitForMore;
 
-        public Chain(Deque<K> deque, @Nullable Criterion criterion) {
-            super(deque.getFirst(),criterion);
+        public Chain(boolean autoReset, boolean cancelWhenResetIsFalse, Deque<DATUM> deque) {
+            super(autoReset,cancelWhenResetIsFalse);
             this.deque = deque;
-        }
-
-        @Override
-        protected void setInitialValue(K watched, @Nullable Criterion criterion) {
-
-        }
-
-        @Override
-        boolean reset() {
-            return true;
         }
 
         @Override
@@ -164,8 +117,18 @@ public abstract class Provider<PATH extends Comparable<PATH>,K extends FileKey<P
         }
 
         @Override
-        public K next() {
+        public DATUM next() {
             return deque.pop();
+        }
+
+        @Override
+        public DATUM current() {
+            return deque.peek();
+        }
+    }
+    public static class KeyedSearch<BK extends BureauKey<BK,BI,BV,BM,BR,BG>,BI extends Bureau<BK,BI,BV,BM,BR,BG>,BV extends BureauView<BK,BI,BV,BM,BR,BG>,BM extends BureauModel<BK,BI,BV,BM,BR,BG>,BR extends BureauReference<BK,BI,BV,BM,BR,BG>,BG extends BureauSteward<BK,BI,BV,BM,BR,BG>, K extends MatrixKey<K,I,V,M,R, G>,I extends MatrixItem<K,I,V,M,R,G>,V extends View<I,M>,M extends Model<I>,R extends Reference<I,V,M,R,G>,G extends Steward<I,V,M,R,G>> extends Provider<I,V,M,R,G> {
+        public KeyedSearch(boolean autoReset, boolean cancelWhenResetIsFalse) {
+            super(autoReset, cancelWhenResetIsFalse);
         }
     }
 }

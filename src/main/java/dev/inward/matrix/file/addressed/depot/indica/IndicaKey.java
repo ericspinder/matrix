@@ -8,42 +8,13 @@ import dev.inward.matrix.file.addressed.depot.DepotDirectoryKey;
 import dev.inward.matrix.file.addressed.depot.DepotKey;
 
 import java.net.URI;
-import java.nio.file.WatchEvent;
 import java.util.Objects;
 
-public class IndiciaKey extends DepotKey<IndiciaKey,Indica, IndicaReference, IndicaView,IndicaResource,IndicaModel> implements WatchEvent.Kind<IndiciaKey> {
+public class IndicaKey extends DepotKey<IndicaLibrarian,IndicaKey,Indica,IndicaView,IndicaModel,IndicaReference, IndicaSteward> {
 
-    public static final WatchEvent.Kind<IndiciaKey> Kind = new WatchEvent.Kind<>() {
-        @Override
-        public String name() {
-            return "Indica";
-        }
-
-        @Override
-        public Class<IndiciaKey> type() {
-            return IndiciaKey.class;
-        }
-    };
-
-
-    protected IndiciaKey(URI uri, String locus, DepotDirectoryKey directoryKey) {
+    protected IndicaKey(URI uri, String locus, DepotDirectoryKey directoryKey) {
         super(uri,locus,directoryKey);
     }
-
-
-    @Override
-    public String name() {
-        return this.uri.toString();
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public Class<IndiciaKey> type() {
-        return (Class<IndiciaKey>) this.getClass();
-    }
-
-
-
 
     @Override
     public int hashCode() {
@@ -63,11 +34,11 @@ public class IndiciaKey extends DepotKey<IndiciaKey,Indica, IndicaReference, Ind
     }
 
 
-    public static final class Builder extends DepotKey.Builder<IndiciaKey,Indica, IndicaReference, IndicaView,IndicaResource,IndicaModel> {
+    public static final class Builder extends DepotKey.Builder<IndicaLibrarian,IndicaKey,Indica,IndicaView,IndicaModel,IndicaReference, IndicaSteward> {
 
         @Override
-        protected IndiciaKey newFileKey() {
-            return new IndiciaKey(this.uri,this.id,this.directoryKey);
+        protected IndicaKey newMatrixKey() {
+            return new IndicaKey(this.uri,this.id,this.directoryKey);
         }
     }
 }

@@ -5,8 +5,8 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.file.addressed.AddressedKey;
+import dev.inward.matrix.file.addressed.depot.indica.IndicaKey;
 import dev.inward.matrix.file.addressed.info.Persona;
-import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
 import dev.inward.matrix.file.addressed.log.Matter;
 
 import java.time.Instant;
@@ -17,8 +17,8 @@ public class Engagement extends Matter {
     private final F fingerprint;
     protected final SESSION session;
 
-    public Engagement(AddressedKey.Ego ego, P persona, Instant createDateTime, IndiciaKey indiciaKey, F fingerprint) {
-        super(ego,persona.getIdentity(), createDateTime, indiciaKey);
+    public Engagement(AddressedKey.Ego ego, P persona, Instant createDateTime, IndicaKey indicaKey, F fingerprint) {
+        super(ego,persona.getIdentity(), createDateTime, indicaKey);
         this.fingerprint = fingerprint;
     }
 

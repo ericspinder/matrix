@@ -5,10 +5,10 @@
 package dev.inward.matrix.operation;
 
 import dev.inward.matrix.file.addressed.Addressed;
-import dev.inward.matrix.file.addressed.AddressedAttributes;
+import dev.inward.matrix.file.addressed.AddressedView;
 import dev.inward.matrix.file.addressed.AddressedKey;
 import dev.inward.matrix.file.addressed.AddressedReference;
 
-public class Notion<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends AddressedKey<PATH,ID,I,A,R,F>,A extends Addressed<PATH,ID,I,A,R,F>,R extends AddressedReference<PATH,ID,I,A,R,F>,F extends AddressedAttributes<PATH,ID,I,A,R,F>,N extends Notion<PATH,ID,I,A,R,F,N>> extends Operation<PATH,ID,I,A,R,F,N> {
+public class Notion<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends AddressedKey<PATH,ID,I,A,R,F>,A extends Addressed<PATH,ID,I,A,R,F>,R extends AddressedReference<PATH,ID,I,A,R,F>,F extends AddressedView<PATH,ID,I,A,R,F>,N extends Notion<PATH,ID,I,A,R,F,N>> extends Operation<PATH,ID,I,A,R,F,N> {
 
 }

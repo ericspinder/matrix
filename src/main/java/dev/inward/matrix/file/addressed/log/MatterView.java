@@ -4,14 +4,12 @@
 
 package dev.inward.matrix.file.addressed.log;
 
-import dev.inward.matrix.Model;
 import dev.inward.matrix.file.addressed.AddressedView;
 
-import java.util.Map;
 import java.util.UUID;
 
-public class MatterView extends AddressedView<LogScheme,LogLibraryKey,LogLibrary,LogPath,LogCatalogKey,LogCatalog,LogDirectoryKey,LogDirectory,LogDirectoryReference, LogDirectoryView,LogDirectoryResource,LogDirectoryModel,UUID,MatterKey,Matter,MatterReference, MatterView,MatterResource,MatterModel> {
-    public MatterView(Map<String, Model.InstanceValue> properties, long fileSize) {
-        super(properties, fileSize);
+public class MatterView extends AddressedView<LogScheme,LogLibraryKey,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibrarySteward,LogPath,LogCatalogKey,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference, LogCatalogSteward,LogDirectoryLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference, LogDirectorySteward,MatterLibrarian,UUID,MatterKey,Matter,MatterView,MatterModel,MatterReference, MatterSteward> {
+    public MatterView(Matter matter,MatterModel matterModel) {
+        super("MatterView", matter, matterModel);
     }
 }

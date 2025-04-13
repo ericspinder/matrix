@@ -7,8 +7,8 @@ package dev.inward.matrix.file.addressed.depot.source;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.file.addressed.depot.DepotModel;
 
-public class SourceModel extends DepotModel<SourceKey,Source,SourceReference,SourceAttributes,SourceResource,SourceModel> {
-    public SourceModel(Aspect[] labeledAspects, long warnOnTotal, long hardLimit) {
-        super(labeledAspects, warnOnTotal, hardLimit);
+public class SourceModel extends DepotModel<SourceLibrarian,SourceKey,Source,SourceView,SourceModel,SourceReference, SourceSteward> {
+    public SourceModel(Aspect[] labeledAspects) {
+        super(labeledAspects);
     }
 }

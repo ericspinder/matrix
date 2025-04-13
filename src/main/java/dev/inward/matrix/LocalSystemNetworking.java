@@ -4,9 +4,6 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
-import dev.inward.matrix.file.addressed.log.Matter;
-
 import java.math.BigInteger;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;

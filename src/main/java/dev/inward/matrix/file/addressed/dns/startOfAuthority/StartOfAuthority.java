@@ -5,7 +5,7 @@ package dev.inward.matrix.file.addressed.dns.startOfAuthority;
 
 import dev.inward.matrix.file.addressed.dns.ResourceRecord;
 
-public class StartOfAuthority extends ResourceRecord<StartOfAuthorityKey,StartOfAuthority,StartOfAuthorityReference,StartOfAuthorityAttributes,StartOfAuthorityResource,StartOfAuthorityModel> {
+public class StartOfAuthority extends ResourceRecord<StartOfAuthorityLibrarian,StartOfAuthorityKey,StartOfAuthority,StartOfAuthorityView,StartOfAuthorityModel,StartOfAuthorityReference, StartOfAuthoritySteward> {
 
     protected final String responsibleEmailAddress;
     protected final int serial;

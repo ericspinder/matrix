@@ -4,7 +4,7 @@
 
 package dev.inward.matrix;
 
-public interface MatrixItem<PATH extends Comparable<PATH>,K extends MatrixKey<PATH,K,I>,I extends MatrixItem<PATH,K,I>> extends Comparable<I> {
+public interface MatrixItem<B extends Librarian<B,I,V,M,R,T>,K extends MatrixKey<B,K,I,V,M,R,T>,I extends MatrixItem<B,K,I,V,M,R,T>,V extends View<B,I,V,M,R,T>,M extends Model<I>,R extends Reference<B,I,V,M,R,T>,T extends Steward<B,I,V,M,R,T>> extends Comparable<I> {
 
     K getKey();
 

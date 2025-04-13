@@ -13,15 +13,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.StampedLock;
 
-public class Factory<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends AddressedKey<PATH,ID,I,A,R,F>,A extends Addressed<PATH,ID,I,A,R,F>,R extends AddressedReference<PATH,ID,I,A,R,F>,F extends AddressedAttributes<PATH,ID,I,A,R,F>> extends ClassLoader{
+public class Factory<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends AddressedKey<PATH,ID,I,A,R,F>,A extends Addressed<PATH,ID,I,A,R,F>,R extends AddressedReference<PATH,ID,I,A,R,F>,F extends AddressedView<PATH,ID,I,A,R,F>> extends ClassLoader{
 
     private Engine<PATH,ID,I,A,R,F> engine = null;
     protected final Gathering<PATH,ID,I,A,R,PR> gathering;
     protected StampedLock gate = new StampedLock();
-    protected final AddressedResource<PATH,ID,I,A,R,PR> resource;
+    protected final AddressedSteward<PATH,ID,I,A,R,PR> resource;
     protected final Map<> routeMap = new HashMap<>();
 
-    public Factory(Gathering<PATH,,ID,I,A,R,PR> gathering, AddressedResource<PATH,ID,I,A,R,PR> resource) {
+    public Factory(Gathering<PATH,,ID,I,A,R,PR> gathering, AddressedSteward<PATH,ID,I,A,R,PR> resource) {
         super();
         this.gathering = gathering;
         this.resource = resource;

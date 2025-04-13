@@ -9,29 +9,89 @@ import java.nio.file.attribute.FileTime;
 
 public abstract class Aspect implements Meta_I, Comparable<Aspect> {
 
-    protected final AspectType type;
+    protected final AspectType<?> type;
     protected final String label;
     protected final String description;
 
 
-    public Aspect(AspectType type, String label, String description) {
+    public Aspect(AspectType<?> type, String label, String description) {
         this.type = type;
         this.label = label;
         this.description = description;
     }
-    public interface AspectType extends Meta_I {
-        Class<?> getExpectedClass();
-    }
-    public Model.InstanceValue process(final Field field, Object datum) {
-        if (type.getExpectedClass().isAssignableFrom(field.getClass())) {
-            try {
-                return new Model.InstanceValue(this, Model.InstanceValue.Origin.Datum_onLoad, field.get(datum));
+    public abstract static class AspectType<T> implements Meta_I {
+
+        protected final String label;
+        protected final String description;
+        protected final Class<T> expectedClass;
+        protected final boolean allowNull;
+
+        public AspectType(String label, String description, Class<T> expectedClass, boolean allowNull) {
+            this.label = label;
+            this.description = description;
+            this.expectedClass = expectedClass;
+            this.allowNull = allowNull;
+        }
+
+        @Override
+        public String getLabel() {
+            return label;
+        }
+
+        @Override
+        public String getDescription() {
+            return description;
+        }
+
+        public Class<?> getExpectedClass() {
+            return expectedClass;
+        }
+        public static class PathAspectType<T> extends AspectType<T> {
+
+            protected final int position;
+            public PathAspectType(String label, String description, Class<T> expectedClass, boolean allowNull, int position) {
+                super(label, description, expectedClass, allowNull);
+                this.position = position;
             }
-            catch (IllegalAccessException e) {
-                return new Model.InstanceValue(this, Model.InstanceValue.Origin.Error_onLoad_illegalAccess, null);
+
+            public int getPosition() {
+                return position;
             }
         }
-        return new Model.InstanceValue(this, Model.InstanceValue.Origin.Error_onLoad_unAssignable, null);
+
+        public static class ObjectAspectType<T> extends AspectType<T> {
+
+            public static final ObjectAspectType<FileTime> Last_Modified_Time = new ObjectAspectType<>("lastModifiedTime","The last time the datum was modified", FileTime.class, true);
+
+            public static final ObjectAspectType<FileTime> Last_Accessed_Time = new ObjectAspectType<>("lastAccessTime", "The last time the datum was accessed", FileTime.class, true);
+            public static final ObjectAspectType<FileTime> Create_Time = new ObjectAspectType<>("createTime", "When the data was created", FileTime.class, true);
+            public ObjectAspectType(String label, String description, Class<T> expectedClass, boolean allowNull) {
+                super(label, description, expectedClass, allowNull);
+            }
+        }
+        public static class QueryAspectType<T> extends AspectType<T> {
+
+            public QueryAspectType(String label, String description, Class<T> expectedClass, boolean allowNull) {
+                super(label, description, expectedClass, allowNull);
+            }
+        }
+        public static class AnchorAspectType<T> extends AspectType<T> {
+
+            public AnchorAspectType(String label, String description, Class<T> expectedClass, boolean allowNull) {
+                super(label, description, expectedClass,allowNull);
+            }
+        }
+    }
+    public Model.InstanceValue<?> process(final Field field, Object datum) {
+        if (type.getExpectedClass().isAssignableFrom(field.getClass())) {
+            try {
+                return new Model.InstanceValue<>(this, Model.InstanceValue.Origin.Datum_onLoad, field.get(datum));
+            }
+            catch (IllegalAccessException e) {
+                return new Model.InstanceValue<>(this, Model.InstanceValue.Origin.Error_onLoad_illegalAccess, null);
+            }
+        }
+        return new Model.InstanceValue<>(this, Model.InstanceValue.Origin.Error_onLoad_unAssignable, null);
     }
 
     @Override
@@ -49,33 +109,5 @@ public abstract class Aspect implements Meta_I, Comparable<Aspect> {
         return this.label.compareTo(that.label);
     }
 
-    public enum DefaultAspectType implements AspectType {
-        LastModifiedTime("lastModifiedTime","The last time the datum was modified", FileTime.class),
-        LastAccessTime("lastAccessTime", "The last time the datum was accessed", FileTime.class),
-        CreateTime("createTime", "When the data was created", FileTime.class);
-        private final String label;
-        private final String description;
-        private final Class<?> expectedClass;
-        DefaultAspectType(String label, String description,Class<?> expectedClass) {
-            this.label = label;
-            this.description = description;
-            this.expectedClass = expectedClass;
-        }
-
-        @Override
-        public String getLabel() {
-            return label;
-        }
-
-        @Override
-        public String getDescription() {
-            return description;
-        }
-
-        @Override
-        public Class<?> getExpectedClass() {
-            return expectedClass;
-        }
-    }
 }
 

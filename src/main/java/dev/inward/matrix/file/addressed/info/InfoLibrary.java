@@ -4,16 +4,21 @@
 
 package dev.inward.matrix.file.addressed.info;
 
-import dev.inward.matrix.Library;
-import dev.inward.matrix.bureau.Bureau;
+import dev.inward.matrix.container.library.Library;
+import dev.inward.matrix.memory.bureau.Bureau;
 
 import java.util.Map;
 
-public class InfoLibrary extends Library<InfoScheme,InfoLibraryKey,InfoLibrary,InfoPath,InfoCatalogKey,InfoCatalog,InfoDirectoryKey,InfoDirectory,InfoDirectoryReference,InfoDirectoryAttributes,InfoDirectoryResource,InfoDirectoryModel> {
+public class InfoLibrary extends Library<InfoScheme,InfoLibraryKey,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference, InfoLibrarySteward,InfoPath,InfoCatalogKey,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference, InfoCatalogSteward,InfoDirectoryLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference, InfoDirectorySteward> {
 
 
     public InfoLibrary(InfoLibraryKey libraryKey) {
         super(libraryKey);
+    }
+
+    @Override
+    protected Map<InfoCatalog, Bureau<?, ?, ?, ?>[]> initCatalogs() {
+        return null;
     }
 
 }

@@ -4,46 +4,51 @@
 
 package dev.inward.matrix;
 
+import dev.inward.matrix.container.catalog.CatalogKey;
+import dev.inward.matrix.file.DirectoryKey;
+import dev.inward.matrix.file.FileKey;
+import dev.inward.matrix.file.addressed.AddressedKey;
 import dev.inward.matrix.file.addressed.depot.DepotLibrary;
 import dev.inward.matrix.file.addressed.depot.indica.Indica;
-import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
+import dev.inward.matrix.file.addressed.depot.indica.IndicaKey;
 import dev.inward.matrix.predictable.*;
 
 import java.io.IOException;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.*;
 import java.util.*;
 
-public abstract class MatrixKey<PATH extends Comparable<PATH>,K extends MatrixKey<PATH,K,I>,I extends MatrixItem<PATH,K,I>> implements Comparable<K>, Watchable {
+public abstract class MatrixKey<B extends Librarian<B,I,V,M,R, T>,K extends MatrixKey<B,K,I,V,M,R, T>,I extends MatrixItem<B,K,I,V,M,R, T>,V extends View<B,I,V,M,R, T>,M extends Model<I>,R extends Reference<B,I,V,M,R, T>, T extends Steward<B,I,V,M,R, T>> implements Path {
 
-    protected final MatrixPath<PATH,K,I> matrixPath;
-    @SuppressWarnings("unchecked")
+    protected final URI uri;
+    protected R itemReference;
+
     protected MatrixKey(URI uri) {
-        this.matrixPath = new MatrixPath<>(uri,(K)this);
+        this.uri = uri;
     }
-    public final MatrixPath<PATH,K,I> getMatrixPath() {
-        return this.matrixPath;
+
+    public R getItemReference() {
+        return this.itemReference;
+    }
+    public void setItemReference(R itemReference) {
+        if (this.itemReference == null) {
+            this.itemReference = itemReference;
+        }
     }
 
     @SuppressWarnings("unchecked")
-    protected Complication<PATH,K,I> registerEvents(WatchService watcher, List<WatchEvent.Kind<?>> events, List<WatchEvent.Modifier> modifiers) throws IOException {
-        Predictable predictable = (Predictable) watcher;
-        if (!predictable.getDomain().getDomain().equals(this.getMatrixPath().toUri().getHost())) {
-            throw new RuntimeException("MatrixKeys must be matched to correct domain and Predictable (WatchService) must be open");
-        }
+    protected void registerEvents(List<EventTarget> events, List<Criterion> modifiers) throws IOException {
+
         Director director = predictable.getDomain().getDirector();
-        String complicationClassName = null;
-        ComplicationCriterion<PATH,K,I> foundComplicationCriterion = null;
-        Map<Indica, PolicyCriterion<PATH,K,I,?>> policyCriteriaByIndica = new HashMap<>();
+        Map<Indica, Criterion<K,I,V,M>> policyCriteriaByIndica = new HashMap<>();
         Class<K> matrixKeyClass = (Class<K>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         for (WatchEvent.Kind<?> event: events) {
-            if (event instanceof IndiciaKey indiciaKey) {
+            if (event instanceof IndicaKey indicaKey) {
                 events.remove(event);
-                Indica indica = ((DepotLibrary)MatrixURLStreamHandlerProvider.findSchemeForProtocolHost(MatrixURLStreamHandlerProvider.Protocol.DEPOT, this.getMatrixPath().uri).findLibrary(this.getMatrixPath().toUri())).matchIndicaKey(indiciaKey.name());
+                Indica indica = ((DepotLibrary)MatrixURLStreamHandlerProvider.findSchemeForProtocolHost(MatrixURLStreamHandlerProvider.Protocol.DEPOT, this.uri).findLibrary(this.toUri())).matchIndicaKey(indicaKey.name());
                 if (complicationClassName == null) {
                     complicationClassName = indica.getComplicationClassName();
                 }
@@ -115,30 +120,159 @@ public abstract class MatrixKey<PATH extends Comparable<PATH>,K extends MatrixKe
         }
     }
 
-    /**
-     *
-     * @param watcher
-     *          the watch service to which this object is to be registered
-     * @param events IndicaKeys
-     *          the events for which this object should be registered
-     * @param modifiers at most one ComplicationCriterion which matches all the indicas passed and a policy criterion for each of them. If any of the criterion are not found then a 'no args' constructor for the configured classes will attempt to be instantiated.
-     *          the modifiers, if any, that modify how the object is registered
-     *
-     * @return
-     * @throws IOException if the complication or a default criterion cannot be instantiated
-     */
     @Override
-    public Complication<PATH,K,I> register(WatchService watcher, WatchEvent.Kind<?>[] events, WatchEvent.Modifier... modifiers) throws IOException {
-        return this.registerEvents(watcher,Arrays.asList(events),Arrays.asList(modifiers));
+    public WatchKey register(WatchService watcher, WatchEvent.Kind<?>[] events, WatchEvent.Modifier... modifiers) throws IOException {
+        return null;
+    }
+    @Override
+    public WatchKey register(WatchService watcher, WatchEvent.Kind<?>[] events) throws IOException {
+        return null;
     }
 
     @Override
-    public Complication<PATH,K,I> register(WatchService watcher, WatchEvent.Kind<?>[] events) throws IOException {
-        return this.registerEvents(watcher,Arrays.asList(events), new ArrayList<>());
+    public FileSystem getFileSystem() {
+        if (this instanceof FileKey<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fileKey) {
+            return fileKey.getCatalog();
+        }
+        return null;
     }
 
     @Override
-    public int compareTo(K that) {
-        return this.getMatrixPath().toUri().compareTo(that.getMatrixPath().toUri());
+    public boolean isAbsolute() {
+        return (this instanceof FileKey<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>);
+    }
+
+    @Override
+    public Path getRoot() {
+        if (this instanceof FileKey<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> fileKey) {
+            return fileKey.getLibrary().getKey();
+        }
+        return this;
+    }
+
+    @Override
+    public Path getFileName() {
+        if (this instanceof AddressedKey<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>) {
+            return this;
+        }
+        return null;
+    }
+
+    @Override
+    public Path getParent() {
+        if (this instanceof AddressedKey<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> addressedKey) {
+            return addressedKey.getDirectoryKey();
+        }
+        if (this instanceof DirectoryKey<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> directoryKey) {
+            return directoryKey.getCatalog().findDirectoryPath(directoryKey.getFilePath());
+        }
+        if (this instanceof CatalogKey<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> catalogKey) {
+            return catalogKey.getLibrary().getKey();
+        }
+        return null;
+    }
+
+    @Override
+    public int getNameCount() {
+        if (this instanceof AddressedKey<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> addressedKey) {
+            return addressedKey.getDirectoryKey().getNameCount() + 1;
+        }
+        if (this instanceof DirectoryKey<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> directoryKey) {
+            return directoryKey.getFilePath().toString().split("/").length;
+        }
+        return 0;
+    }
+
+    @Override
+    public Path getName(int index) {
+        return null;
+    }
+
+    @Override
+    public Path subpath(int beginIndex, int endIndex) {
+        return null;
+    }
+
+    @Override
+    public boolean startsWith(Path other) {
+        return false;
+    }
+
+    @Override
+    public boolean endsWith(Path other) {
+        return false;
+    }
+
+    @Override
+    public Path normalize() {
+        return this;
+    }
+
+    @Override
+    public Path resolve(Path other) {
+        return null;
+    }
+
+    @Override
+    public Path relativize(Path other) {
+        return null;
+    }
+
+    @Override
+    public URI toUri() {
+        return this.uri;
+    }
+
+    @Override
+    public Path toAbsolutePath() {
+        return this;
+    }
+
+    @Override
+    public Path toRealPath(LinkOption... options) throws IOException {
+        return this;
+    }
+
+    @Override
+    public int compareTo(Path other) {
+        if (other instanceof MatrixKey<?,?,?,?,?,?> that) {
+            return this.uri.compareTo(that.uri);
+        }
+        return -1;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MatrixKey<?,?,?,?,?,?> that = (MatrixKey<?,?,?,?,?,?>) o;
+        return Objects.equals(uri.toString(), that.uri.toString());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uri);
+    }
+
+    @Override
+    public String toString() {
+        return this.uri.toString();
+    }
+
+    public static abstract class Builder<K extends MatrixKey<K,I,V,M,R,G>,I extends MatrixItem<K,I,V,M,R,G>,V extends View<I,M>, M extends Model<I>,R extends Reference<I,V,M,R,G>,G extends Steward<I,V,M,R,G>> {
+
+        protected URI uri;
+
+        protected abstract URI makeUri() throws URISyntaxException;
+        public final synchronized K buildMatrixKey() {
+            try {
+                this.uri = this.makeUri();
+                return this.newMatrixKey();
+            }
+            catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        protected abstract K newMatrixKey();
     }
 }

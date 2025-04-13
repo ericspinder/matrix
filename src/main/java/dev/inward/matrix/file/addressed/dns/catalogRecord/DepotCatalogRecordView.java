@@ -4,12 +4,8 @@
 
 package dev.inward.matrix.file.addressed.dns.catalogRecord;
 
-import dev.inward.matrix.Model;
-
-import java.util.Map;
-
-public class DepotCatalogRecordView extends CatalogRecordView<DepotCatalogRecordKey, DepotCatalogRecord, DepotCatalogRecordReference, DepotCatalogRecordView, DepotCatalogRecordResource, DepotCatalogRecordModel> {
-    public DepotCatalogRecordView(Map<String, Model.InstanceValue> properties, long fileSize) {
-        super(properties, fileSize);
+public class DepotCatalogRecordView extends CatalogRecordView<DepotCatalogRecordLibrarian,DepotCatalogRecordKey,DepotCatalogRecord,DepotCatalogRecordView,DepotCatalogRecordModel,DepotCatalogRecordReference, DepotCatalogRecordSteward> {
+    public DepotCatalogRecordView(DepotCatalogRecord depotCatalogRecord, DepotCatalogRecordModel depotCatalogRecordModel) {
+        super("DepotCatalogRecordView", depotCatalogRecord, depotCatalogRecordModel);
     }
 }

@@ -4,7 +4,8 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
+import dev.inward.matrix.container.library.Library;
+import dev.inward.matrix.file.addressed.depot.indica.IndicaKey;
 
 import java.security.PublicKey;
 import java.time.Instant;
@@ -15,8 +16,8 @@ public abstract class Fingerprint<S extends Scheme<S,L>,L extends Library<S,L>,F
     protected final String subjectKeyIdentifier;
     protected final P issuer;
 
-    public Fingerprint(Instant createInstant, IndiciaKey indiciaKey, PublicKey publicKey, String subjectKeyIdentifier, Issuer issuer) {
-        super(ego, topicId, createInstant, indiciaKey);
+    public Fingerprint(Instant createInstant, IndicaKey indicaKey, PublicKey publicKey, String subjectKeyIdentifier, Issuer issuer) {
+        super(ego, topicId, createInstant, indicaKey);
         this.publicKey = publicKey;
         this.subjectKeyIdentifier = subjectKeyIdentifier;
         this.issuer = issuer;

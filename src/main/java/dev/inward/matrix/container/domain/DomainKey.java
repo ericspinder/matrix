@@ -2,14 +2,18 @@
  *  Pinder's Matrix © 2025. by Eric S Pinder is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
  */
 
-package dev.inward.matrix;
+package dev.inward.matrix.container.domain;
+
+import dev.inward.matrix.MatrixKey;
+import dev.inward.matrix.Terrene;
+import dev.inward.matrix.container.ContainerKey;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class DomainKey extends MatrixKey<DomainKey,Domain,DomainView,DomainModel,DomainReference,DomainGestalt> {
+public class DomainKey extends ContainerKey<DomainKey,Domain,DomainView,DomainModel,DomainReference, DomainSteward> {
 
     private final Terrene terrene;
     private final String domainName;
@@ -28,7 +32,7 @@ public class DomainKey extends MatrixKey<DomainKey,Domain,DomainView,DomainModel
         return domainName;
     }
 
-    public static class Builder extends MatrixKey.Builder<DomainKey,Domain,DomainView,DomainModel,DomainReference,DomainGestalt> {
+    public static class Builder extends MatrixKey.Builder<DomainKey,Domain,DomainView,DomainModel,DomainReference, DomainSteward> {
 
         protected final Map<String,DomainKey> ALL_KNOWN_DOMAINS = new ConcurrentHashMap<>();
 

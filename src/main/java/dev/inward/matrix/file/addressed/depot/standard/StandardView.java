@@ -4,13 +4,10 @@
 
 package dev.inward.matrix.file.addressed.depot.standard;
 
-import dev.inward.matrix.Model;
 import dev.inward.matrix.file.addressed.depot.DepotView;
 
-import java.util.Map;
-
-public class StandardView extends DepotView<StandardKey,Standard,StandardReference, StandardView,StandardResource,StandardModel> {
-    public StandardView(Map<String, Model.InstanceValue> properties, long fileSize) {
-        super(properties, fileSize);
+public class StandardView extends DepotView<StandardLibrarian,StandardKey,Standard,StandardView,StandardModel,StandardReference, StandardSteward> {
+    public StandardView(Standard standard, StandardModel standardModel) {
+        super("StandardView",standard, standardModel);
     }
 }

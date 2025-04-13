@@ -4,12 +4,12 @@
 
 package dev.inward.matrix.file.addressed.log;
 
-import dev.inward.matrix.Catalog;
+import dev.inward.matrix.container.catalog.Catalog;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class LogCatalog extends Catalog<LogScheme,LogLibraryKey,LogLibrary,LogPath,LogCatalogKey,LogCatalog,LogDirectoryKey,LogDirectory,LogDirectoryReference,LogDirectoryAttributes,LogDirectoryResource,LogDirectoryModel> {
+public class LogCatalog extends Catalog<LogScheme,LogLibraryKey,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibrarySteward,LogPath,LogCatalogKey,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference, LogCatalogSteward,LogDirectoryLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference, LogDirectorySteward> {
 
     public LogCatalog(LogCatalogKey catalogKey) {
         super(catalogKey);
@@ -23,7 +23,7 @@ public class LogCatalog extends Catalog<LogScheme,LogLibraryKey,LogLibrary,LogPa
     @Override
     protected LogDirectoryKey createDirectoryKey(LogPath logPath) {
         try {
-            return new LogDirectoryKey(new URI(this.getKey().getLibrary().getKey().getUri() + logPath.getPath()),this,logPath);
+            return new LogDirectoryKey(new URI(this.getKey().getLibrary().getKey().toUri() + logPath.toString()),this,logPath);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }

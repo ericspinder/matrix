@@ -4,7 +4,6 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.file.addressed.dns.serverRecord.ServerRecord;
 import dev.inward.matrix.file.addressed.log.Occurrence;
 
 import java.net.InetAddress;
@@ -12,15 +11,14 @@ import java.time.Instant;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public abstract class HostExperience {
+public abstract class HostExperience<S extends SocketAddress> {
 
-    protected final InetAddress inetAddress;
+    protected final S socketAddress;
     protected Instant lastUpdate = Instant.now();
 
-    public HostExperience(InetAddress inetAddress) {
-        this.inetAddress = inetAddress;
+    public HostExperience(S socketAddress) {
+        this.socketAddress = socketAddress;
     }
-
     public Instant getLastUpdate() {
         return lastUpdate;
     }
@@ -28,16 +26,14 @@ public abstract class HostExperience {
         this.lastUpdate = Instant.now();
     }
 
-    public static class Server extends HostExperience {
+    public static class Server extends HostExperience<SocketAddress.LocalHost> {
 
-        protected LocalSystemNetworking.NetworkMapping networkMapping;
-        public Server(LocalSystemNetworking.NetworkMapping networkMapping) {
-            super(networkMapping.getInterfaceAddress().getAddress());
-            this.networkMapping = networkMapping;
+        public Server(SocketAddress.LocalHost localHostSocketAddress) {
+            super(localHostSocketAddress);
         }
 
     }
-    public static class Client extends HostExperience {
+    public static class Client extends HostExperience<SocketAddress.Remote> {
 
         protected final Queue<Occurrence> occurrences = new ConcurrentLinkedQueue<>();
         protected int occurrencesToSave;

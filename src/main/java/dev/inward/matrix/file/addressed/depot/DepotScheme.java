@@ -4,12 +4,12 @@
 
 package dev.inward.matrix.file.addressed.depot;
 
-import dev.inward.matrix.Domain;
+import dev.inward.matrix.container.domain.Domain;
 import dev.inward.matrix.MatrixURLStreamHandlerProvider;
 import dev.inward.matrix.Scheme;
 import dev.inward.matrix.Terrene;
 
-public class DepotScheme extends Scheme<DepotScheme,DepotLibraryKey,DepotLibrary,DepotPath,DepotCatalogKey,DepotCatalog,DepotDirectoryKey,DepotDirectory,DepotDirectoryReference,DepotDirectoryAttributes,DepotDirectoryResource,DepotDirectoryModel> {
+public class DepotScheme extends Scheme<DepotScheme,DepotLibraryKey,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibrarySteward,DepotPath,DepotCatalogKey,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference, DepotCatalogSteward,DepotDirectoryLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectorySteward> {
 
     public static final DepotScheme EARTH_SCHEME_OF_CODE = new DepotScheme(Terrene.Earth);
     public static final DepotScheme LUNA_SCHEME_OF_CODE = new DepotScheme(Terrene.Luna);

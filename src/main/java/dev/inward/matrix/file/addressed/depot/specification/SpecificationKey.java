@@ -9,16 +9,16 @@ import dev.inward.matrix.file.addressed.depot.DepotKey;
 
 import java.net.URI;
 
-public class SpecificationKey extends DepotKey<SpecificationKey, Specification,SpecificationReference,SpecificationAttributes,SpecificationResource,SpecificationModel> {
+public class SpecificationKey extends DepotKey<SpecificationLibrarian,SpecificationKey,Specification,SpecificationView,SpecificationModel,SpecificationReference, SpecificationSteward> {
 
     protected SpecificationKey(URI uri, String id, DepotDirectoryKey directory) {
         super(uri, id, directory);
     }
 
-    public static class Builder extends DepotKey.Builder<SpecificationKey, Specification,SpecificationReference,SpecificationAttributes,SpecificationResource,SpecificationModel> {
+    public static class Builder extends DepotKey.Builder<SpecificationLibrarian,SpecificationKey,Specification,SpecificationView,SpecificationModel,SpecificationReference, SpecificationSteward> {
 
         @Override
-        protected SpecificationKey newFileKey() {
+        protected SpecificationKey newMatrixKey() {
             return new SpecificationKey(this.uri,this.id,this.directoryKey);
         }
     }

@@ -3,8 +3,11 @@
  */
 
 
-package dev.inward.matrix;
+package dev.inward.matrix.container.domain;
 
+import dev.inward.matrix.HostExperience;
+import dev.inward.matrix.Matrix;
+import dev.inward.matrix.container.ContainerItem;
 import dev.inward.matrix.file.addressed.dns.nameServerRecord.NameServerRecord;
 import dev.inward.matrix.file.addressed.dns.serverRecord.ServerRecord;
 import dev.inward.matrix.predictable.Director;
@@ -14,13 +17,12 @@ import javax.naming.NamingException;
 import javax.naming.directory.Attribute;
 import javax.naming.directory.InitialDirContext;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Domain implements MatrixItem<DomainKey,Domain,DomainView,DomainModel,DomainReference,DomainGestalt> {
+public class Domain implements ContainerItem<DomainKey,Domain,DomainView,DomainModel,DomainReference, DomainSteward> {
 
     private static final Map<String,Domain> ALL_BUILT_DOMAINS = new ConcurrentHashMap<>();
 

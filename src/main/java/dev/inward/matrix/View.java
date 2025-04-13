@@ -4,17 +4,29 @@
 
 package dev.inward.matrix;
 
-import java.util.Map;
+import java.nio.file.attribute.AttributeView;
 
-public class View<DATUM,R extends Reference<DATUM,R,A,RESOURCE,M>,A extends View<DATUM,R,A,RESOURCE,M>,RESOURCE extends Resource<DATUM,R,A,RESOURCE,M>,M extends Model<DATUM,R,A,RESOURCE,M>> {
+public abstract class View<B extends Librarian<B,DATUM,V,M,R,S>,DATUM,V extends View<B,DATUM,V,M,R,S>,M extends Model<DATUM>,R extends Reference<B,DATUM,V,M,R,S>,S extends Steward<B,DATUM,V,M,R,S>> implements AttributeView {
 
+    protected final String name;
+    protected final DATUM datum;
+    protected final R reference;
 
-
-    public View(Map<String,Model.InstanceValue> properties) {
-        this.properties = properties;
+    public View(String name, DATUM datum, R reference) {
+        this.name = name;
+        this.datum = datum;
+        this.reference = reference;
+    }
+    @Override
+    public String name() {
+        return null;
     }
 
-    public Map<String, Model.InstanceValue> getProperties() {
-        return properties;
+    public DATUM getDatum() {
+        return this.datum;
+    }
+
+    public R getReference() {
+        return reference;
     }
 }

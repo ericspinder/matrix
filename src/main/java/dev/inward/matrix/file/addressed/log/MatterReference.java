@@ -8,8 +8,8 @@ import dev.inward.matrix.file.addressed.AddressedReference;
 
 import java.util.UUID;
 
-public class MatterReference extends AddressedReference<LogScheme,LogLibraryKey,LogLibrary,LogPath,LogCatalogKey,LogCatalog,LogDirectoryKey,LogDirectory,LogDirectoryReference,LogDirectoryAttributes,LogDirectoryResource,LogDirectoryModel,UUID,MatterKey,Matter,MatterReference,MatterAttributes,MatterResource,MatterModel> {
-    public MatterReference(Matter addressed, MatterResource resource) {
+public class MatterReference extends AddressedReference<LogScheme,LogLibraryKey,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibrarySteward,LogPath,LogCatalogKey,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference, LogCatalogSteward,LogDirectoryLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference, LogDirectorySteward,MatterLibrarian,UUID,MatterKey,Matter,MatterView,MatterModel,MatterReference, MatterSteward> {
+    public MatterReference(Matter addressed, MatterSteward resource) {
         super(addressed, resource);
     }
 }

@@ -4,13 +4,10 @@
 
 package dev.inward.matrix.file.addressed.depot.specification;
 
-import dev.inward.matrix.Model;
 import dev.inward.matrix.file.addressed.depot.DepotView;
 
-import java.util.Map;
-
-public class SpecificationView extends DepotView<SpecificationKey, Specification,SpecificationReference, SpecificationView,SpecificationResource,SpecificationModel> {
-    public SpecificationView(Map<String, Model.InstanceValue> properties, long fileSize) {
-        super(properties, fileSize);
+public class SpecificationView extends DepotView<SpecificationLibrarian,SpecificationKey,Specification,SpecificationView,SpecificationModel,SpecificationReference, SpecificationSteward> {
+    public SpecificationView(Specification specification, SpecificationModel specificationModel) {
+        super("SpecificationView", specification, specificationModel);
     }
 }

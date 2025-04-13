@@ -4,25 +4,28 @@
 
 package dev.inward.matrix.file.addressed.log;
 
-import dev.inward.matrix.Library;
-import dev.inward.matrix.Ziggurat;
-import dev.inward.matrix.bureau.Bureau;
-import dev.inward.matrix.file.addressed.dns.catalogRecord.LogCatalogRecordParser;
+import dev.inward.matrix.container.library.Library;
+import dev.inward.matrix.memory.bureau.Bureau;
 
-import java.net.URI;
 import java.util.Map;
 
-public class LogLibrary extends Library<LogScheme,LogLibraryKey,LogLibrary,LogPath,LogCatalogKey,LogCatalog,LogDirectoryKey,LogDirectory,LogDirectoryReference,LogDirectoryAttributes,LogDirectoryResource,LogDirectoryModel> {
+public class LogLibrary extends Library<LogScheme,LogLibraryKey,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibrarySteward,LogPath,LogCatalogKey,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference, LogCatalogSteward,LogDirectoryLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference, LogDirectorySteward> {
 
     public LogLibrary(LogLibraryKey libraryKey) {
         super(libraryKey);
     }
 
     @Override
-    protected Map<LogCatalog, Bureau<LogScheme, LogLibraryKey, LogLibrary, LogPath, LogCatalogKey, LogCatalog, LogDirectoryKey, LogDirectory, LogDirectoryReference, LogDirectoryAttributes, LogDirectoryResource, LogDirectoryModel>[]> initCatalogs() {
-        URI uri = new URI(libraryKey.getUri() + "?startPath=*,endPath=*");
-        LogCatalogRecordParser logCatalogRecordParser = new LogCatalogRecordParser();
-        Ziggurat.getInstance().findRecords(libraryKey, logCatalogRecordParser);
+    protected Map<LogCatalog, Bureau<?, ?, ?, ?>[]> initCatalogs() {
         return null;
     }
+
+
+//    @Override
+//    protected Map<LogCatalog, Bureau<LogScheme, LogLibraryKey, LogLibrary, LogPath, LogCatalogKey, LogCatalog, LogDirectoryKey, LogDirectory, LogDirectoryReference, LogDirectoryView, LogDirectoryResource, LogDirectoryModel>[]> initCatalogs() {
+//        URI uri = new URI(libraryKey.getUri() + "?startPath=*,endPath=*");
+//        LogCatalogRecordParser logCatalogRecordParser = new LogCatalogRecordParser();
+//        Ziggurat.getInstance().findRecords(libraryKey, logCatalogRecordParser);
+//        return null;
+//    }
 }

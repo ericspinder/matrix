@@ -4,10 +4,10 @@
 package dev.inward.matrix.file.addressed.dns;
 
 import dev.inward.matrix.HostExperience;
-import dev.inward.matrix.Library;
+import dev.inward.matrix.container.library.Library;
 import dev.inward.matrix.LocalSystemNetworking;
 import dev.inward.matrix.Ziggurat;
-import dev.inward.matrix.bureau.Bureau;
+import dev.inward.matrix.memory.bureau.Bureau;
 
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
@@ -22,13 +22,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DnsLibrary extends Library<DnsScheme,DnsLibraryKey, DnsLibrary, DnsPath,DnsCatalogKey,DnsCatalog,DnsDirectoryKey,DnsDirectory,DnsDirectoryReference,DnsDirectoryAttributes,DnsDirectoryResource,DnsDirectoryModel> {
+public class DnsLibrary extends Library<DnsScheme,DnsLibraryKey,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibrarySteward,DnsPath,DnsCatalogKey,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference, DnsCatalogSteward,DnsDirectoryLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectorySteward> {
     public DnsLibrary(DnsLibraryKey libraryKey) {
         super(libraryKey);
     }
 
     @Override
-    protected Map<DnsCatalog, Bureau<DnsScheme,DnsLibraryKey, DnsLibrary, DnsPath,DnsCatalogKey,DnsCatalog,DnsDirectoryKey,DnsDirectory,DnsDirectoryReference,DnsDirectoryAttributes,DnsDirectoryResource,DnsDirectoryModel>[]> initCatalogs() {
+    protected Map<DnsCatalog, Bureau<?,?>[]> initCatalogs() {
         try {
             DirContext dirContext = new InitialDirContext();
             NamingEnumeration<?> nameServerEnumeration = dirContext.getAttributes("dns:" + libraryKey.getDomain() + ".",new String[]{"NS"}).get("NS").getAll();
@@ -40,7 +40,7 @@ public class DnsLibrary extends Library<DnsScheme,DnsLibraryKey, DnsLibrary, Dns
                     System.out.println("Unknown Name Server " + e);
                 }
             }
-            DnsCatalog dnsCatalog = new DnsCatalog(new DnsCatalogKey(new URI(libraryKey.getUri() + "?startPath=*,endPath=*"),this));
+            DnsCatalog dnsCatalog = new DnsCatalog(new DnsCatalogKey(new URI(libraryKey.toUri() + "?startPath=*,endPath=*"),this));
             List<HostExperience> hostExperiences = new ArrayList<>();
             for (LocalSystemNetworking.NetworkMapping networkMapping: Ziggurat.getInstance().getLocalSystemNetworking().getExternalActiveInterfaces().keySet()) {
                 if (nameServers.contains(networkMapping.getInterfaceAddress().getAddress())) {

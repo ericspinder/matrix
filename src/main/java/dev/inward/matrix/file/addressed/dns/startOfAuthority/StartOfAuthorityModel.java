@@ -7,8 +7,8 @@ package dev.inward.matrix.file.addressed.dns.startOfAuthority;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.file.addressed.dns.RRModel;
 
-public class StartOfAuthorityModel extends RRModel<StartOfAuthorityKey,StartOfAuthority,StartOfAuthorityReference,StartOfAuthorityAttributes,StartOfAuthorityResource,StartOfAuthorityModel> {
-    public StartOfAuthorityModel(Aspect[] labeledAspects, long warnOnTotal, long hardLimit) {
-        super(labeledAspects, warnOnTotal, hardLimit);
+public class StartOfAuthorityModel extends RRModel<StartOfAuthorityLibrarian,StartOfAuthorityKey,StartOfAuthority,StartOfAuthorityView,StartOfAuthorityModel,StartOfAuthorityReference, StartOfAuthoritySteward> {
+    public StartOfAuthorityModel(Aspect[] labeledAspects) {
+        super(labeledAspects);
     }
 }

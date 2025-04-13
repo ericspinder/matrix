@@ -4,5 +4,11 @@
 
 package dev.inward.matrix.file.addressed.http;
 
-public class HttpCatalogModel {
+import dev.inward.matrix.Aspect;
+import dev.inward.matrix.container.catalog.CatalogModel;
+
+public class HttpCatalogModel extends CatalogModel<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibrarySteward,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogSteward,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectorySteward> {
+    public HttpCatalogModel(Aspect[] labeledAspects) {
+        super(labeledAspects);
+    }
 }

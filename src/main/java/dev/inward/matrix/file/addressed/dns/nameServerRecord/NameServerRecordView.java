@@ -4,13 +4,10 @@
 
 package dev.inward.matrix.file.addressed.dns.nameServerRecord;
 
-import dev.inward.matrix.Model;
 import dev.inward.matrix.file.addressed.dns.RRView;
 
-import java.util.Map;
-
-public class NameServerRecordView extends RRView<NameServerRecordKey,NameServerRecord,NameServerRecordReference, NameServerRecordView,NameServerRecordResource,NameServerRecordModel> {
-    public NameServerRecordView(Map<String, Model.InstanceValue> properties, long fileSize) {
-        super(properties, fileSize);
+public class NameServerRecordView extends RRView<NameServerRecordLibrarian,NameServerRecordKey,NameServerRecord,NameServerRecordView,NameServerRecordModel,NameServerRecordReference, NameServerRecordSteward> {
+    public NameServerRecordView(NameServerRecord nameServerRecord, NameServerRecordModel nameServerRecordModel) {
+        super("NameServerRecordView", nameServerRecord, nameServerRecordModel);
     }
 }

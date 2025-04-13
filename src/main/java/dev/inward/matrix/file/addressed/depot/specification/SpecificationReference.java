@@ -6,8 +6,8 @@ package dev.inward.matrix.file.addressed.depot.specification;
 
 import dev.inward.matrix.file.addressed.depot.DepotReference;
 
-public class SpecificationReference extends DepotReference<SpecificationKey, Specification,SpecificationReference,SpecificationAttributes,SpecificationResource,SpecificationModel> {
-    public SpecificationReference(Specification addressed, SpecificationResource resource) {
+public class SpecificationReference extends DepotReference<SpecificationLibrarian,SpecificationKey,Specification,SpecificationView,SpecificationModel,SpecificationReference, SpecificationSteward> {
+    public SpecificationReference(Specification addressed, SpecificationSteward resource) {
         super(addressed, resource);
     }
 }

@@ -4,14 +4,11 @@
 
 package dev.inward.matrix.file.addressed.depot.variant;
 
-import dev.inward.matrix.Model;
 import dev.inward.matrix.file.addressed.depot.DepotView;
 
-import java.util.Map;
+public class VariantView extends DepotView<VariantLibrarian,VariantKey,Variant,VariantView,VariantModel,VariantReference, VariantSteward> {
 
-public class VariantView extends DepotView<VariantKey,Variant,VariantReference, VariantView,VariantResource, VariantModel> {
-
-    public VariantView(Map<String, Model.InstanceValue> properties, long fileSize) {
-        super(properties, fileSize);
+    public VariantView(String name, Variant depot, VariantModel depotModel) {
+        super(name, depot, depotModel);
     }
 }

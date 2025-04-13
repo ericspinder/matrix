@@ -7,8 +7,8 @@ package dev.inward.matrix.file.addressed.depot.variant;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.file.addressed.depot.DepotModel;
 
-public class VariantModel extends DepotModel<VariantKey,Variant,VariantReference,VariantAttributes,VariantResource, VariantModel> {
-    public VariantModel(Aspect[] labeledAspects, long warnOnTotal, long hardLimit) {
-        super(labeledAspects, warnOnTotal, hardLimit);
+public class VariantModel extends DepotModel<VariantLibrarian,VariantKey,Variant,VariantView,VariantModel,VariantReference, VariantSteward> {
+    public VariantModel(Aspect[] labeledAspects) {
+        super(labeledAspects);
     }
 }

@@ -4,9 +4,9 @@
 
 package dev.inward.matrix.file.addressed.info;
 
-import dev.inward.matrix.Catalog;
+import dev.inward.matrix.container.catalog.Catalog;
 
-public class InfoCatalog extends Catalog<InfoScheme,InfoLibraryKey,InfoLibrary,InfoPath,InfoCatalogKey,InfoCatalog,InfoDirectoryKey,InfoDirectory,InfoDirectoryReference,InfoDirectoryAttributes,InfoDirectoryResource,InfoDirectoryModel> {
+public class InfoCatalog extends Catalog<InfoScheme,InfoLibraryKey,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference, InfoLibrarySteward,InfoPath,InfoCatalogKey,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference, InfoCatalogSteward,InfoDirectoryLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference, InfoDirectorySteward> {
     public InfoCatalog(InfoCatalogKey catalogKey) {
         super(catalogKey);
     }

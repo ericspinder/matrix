@@ -4,13 +4,10 @@
 
 package dev.inward.matrix.file.addressed.info;
 
-import dev.inward.matrix.Model;
 import dev.inward.matrix.file.DirectoryView;
 
-import java.util.Map;
-
-public class InfoDirectoryView extends DirectoryView<InfoScheme,InfoLibraryKey,InfoLibrary,InfoPath,InfoCatalogKey,InfoCatalog,InfoDirectoryKey,InfoDirectory,InfoDirectoryReference, InfoDirectoryView,InfoDirectoryResource,InfoDirectoryModel> {
-    public InfoDirectoryView(Map<String, Model.InstanceValue> properties) {
-        super(properties);
+public class InfoDirectoryView extends DirectoryView<InfoScheme,InfoLibraryKey,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference, InfoLibrarySteward,InfoPath,InfoCatalogKey,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference, InfoCatalogSteward,InfoDirectoryLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference, InfoDirectorySteward> {
+    public InfoDirectoryView(InfoDirectory infoDirectory, InfoDirectoryModel infoDirectoryModel) {
+        super("InfoDirectoryView", infoDirectory, infoDirectoryModel);
     }
 }

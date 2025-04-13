@@ -4,13 +4,10 @@
 
 package dev.inward.matrix.file.addressed.dns;
 
-import dev.inward.matrix.Model;
 import dev.inward.matrix.file.DirectoryView;
 
-import java.util.Map;
-
-public class DnsDirectoryView extends DirectoryView<DnsScheme,DnsLibraryKey, DnsLibrary, DnsPath,DnsCatalogKey,DnsCatalog,DnsDirectoryKey,DnsDirectory,DnsDirectoryReference, DnsDirectoryView,DnsDirectoryResource,DnsDirectoryModel> {
-    public DnsDirectoryView(Map<String, Model.InstanceValue> properties) {
-        super(properties);
+public class DnsDirectoryView extends DirectoryView<DnsScheme,DnsLibraryKey,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibrarySteward,DnsPath,DnsCatalogKey,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference, DnsCatalogSteward,DnsDirectoryLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectorySteward> {
+    public DnsDirectoryView(DnsDirectory dnsDirectory, DnsDirectoryModel dnsDirectoryModel) {
+        super("DnsDirectoryView", dnsDirectory, dnsDirectoryModel);
     }
 }

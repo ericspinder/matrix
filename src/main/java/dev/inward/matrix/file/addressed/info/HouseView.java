@@ -4,12 +4,9 @@
 
 package dev.inward.matrix.file.addressed.info;
 
-import dev.inward.matrix.Model;
+public class HouseView extends PrivilegeView<HouseLibrarian,HouseKey,House,HouseView,HouseModel,HouseReference, HouseSteward> {
 
-import java.util.Map;
-
-public class HouseView extends PrivilegeView<HouseKey,House,HouseReference, HouseView,HouseResource,HouseModel> {
-    public HouseView(Map<String, Model.InstanceValue> properties, long fileSize) {
-        super(properties, fileSize);
+    public HouseView(String name, House addressed, HouseModel addressedModel) {
+        super(name, addressed, addressedModel);
     }
 }

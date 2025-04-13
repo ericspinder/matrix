@@ -4,91 +4,44 @@
 
 package dev.inward.matrix.predictable;
 
-import dev.inward.matrix.MatrixItem;
-import dev.inward.matrix.MatrixKey;
+import dev.inward.matrix.*;
 import dev.inward.matrix.file.addressed.depot.indica.Indica;
 import dev.inward.matrix.file.addressed.log.Matter;
 
+import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
-import java.nio.file.WatchEvent;
-import java.nio.file.WatchKey;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.locks.StampedLock;
 
-public abstract class Complication<PATH extends Comparable<PATH>,K extends MatrixKey<PATH,K,I>,I extends MatrixItem<PATH,K,I>> implements WatchKey {
+public class Complication<PK extends MatrixKey<PK,PI,PV,PM,PR,PG>,PI extends MatrixItem<PK,PI,PV,PM,PR,PG>,PV extends View<PI,PM>,PM extends Model<PI>,PR extends Reference<PI,PV,PM,PR,PG>,PG extends Steward<PI,PV,PM,PR,PG>,DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,G>,G extends Steward<DATUM,V,M,R,G>> implements Runnable {
 
     protected final StampedLock gate = new StampedLock();
     protected final UUID uuid = UUID.randomUUID();
     protected final ConcurrentLinkedDeque<Matter> competedMatters = new ConcurrentLinkedDeque<>();
-    protected final Predictable predictable;
-    protected final K matrixKey;
-    protected final ComplicationCriterion<PATH,K,I> complicationCriterion;
+    protected final WeakReference<Director> directorWeakReference;
+    protected final PI parent;
+    protected final Provider<DATUM,V,M,R,G> provider;
 
-    protected Boolean working = null;
-
-    protected int maxMattersToDistribute = 500;
-
-    protected Map<Policy<PATH,K,I,?>,Boolean> allActivePolicies = new HashMap<>();
+    protected boolean queuedForExecution = false;
+    protected boolean canceled = false;
+    protected Policy<PK,PI,PV,PM,PR,PG,DATUM,V,M,R,G>[] allPolicies;
 
 
     @SuppressWarnings("unchecked")
-    public Complication(Predictable predictable, K matrixKey, ComplicationCriterion<PATH,K,I> complicationCriterion, Map<Indica,PolicyCriterion<PATH,K,I,?>> policyCriterionByIndicaMap) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        this.predictable = predictable;
-        this.matrixKey = matrixKey;
-        this.complicationCriterion = complicationCriterion;
-        for (Indica indica: policyCriterionByIndicaMap.keySet()) {
-            PolicyCriterion<PATH,K,I,?> policyCriterion = policyCriterionByIndicaMap.get(indica);
-            if (!indica.getPolicyCriterionClassName().equals(policyCriterion.getClass().getCanonicalName())) {
-                throw new RuntimeException(indica + " has wrong policyClassName for " + policyCriterion.getClass().getCanonicalName());
+    public Complication(Director director, PI parent, Provider<DATUM,V,M,R,G> provider, Map<Indica,Criterion<PK,PI,PV,PM,PR,PG,DATUM,V,M,R,G>> criterionByIndicaMap) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        this.directorWeakReference = new WeakReference<>(director);
+        this.parent = parent;
+        this.provider = provider;
+        List<Policy<PK,PI,PV,PM,PR,PG,DATUM,V,M,R,G>> policies = new ArrayList<>();
+        for (Indica indica : criterionByIndicaMap.keySet()) {
+            Criterion<PK,PI,PV,PM,PR,PG,DATUM,V,M,R,G> criterion = criterionByIndicaMap.get(indica);
+            if (!indica.getCriterionClassName().equals(criterion.getClass().getCanonicalName())) {
+                throw new RuntimeException("indica and criterion mismatch" + indica.toString() + ", " + criterion.getLabel() + " - " + criterion.getClass());
             }
-            Policy<PATH,K,I,?> policy = (Policy<PATH,K, I,?>) Class.forName(indica.getPolicyClassName()).getConstructor(Complication.class, Indica.class,PolicyCriterion.class).newInstance(this,indica,policyCriterion);
-            if (policyCriterion.autoStart) {
-                complicationCriterion.getRoad(matrixKey,predictable.getDirector()).execute(policy);
-            }
+            policies.add((Policy<PK,PI,PV,PM,PR,PG,DATUM,V,M,R,G>) Class.forName(indica.getPolicyClassName()).getConstructor(Complication.class, Indica.class, Criterion.class).newInstance(this, indica, criterion));
         }
-
-//        while(criteria.hasNext()) {
-//            Criterion criterion = criteria.next();
-//            int position = Arrays.binarySearch(neededCriteriaClassNames,criterion.getClassName());
-//            if (position >= 0) {
-//                this.criteria.add(criterion);
-//                System.arraycopy(neededCriteriaClassNames, position + 1, neededCriteriaClassNames, position, neededCriteriaClassNames.length - 1 - position);
-//                if (criterion.isSingleCustomer()) {
-//                    criteria.remove();
-//                }
-//                if (autoStart) {
-//                    // once set to false, do not allow reset of autoStart, all matched criteria must be set to autostart
-//                    autoStart = criterion.isAutoStart();
-//                }
-//            }
-//        }
-//        if (provider.getCriterion()) {
-//
-//        }
-//        if (neededCriteriaClassNames.length != 0 && checkCriteria()) {
-//            if (autoStart) {
-//                this.working = start();
-//            }
-//        }
-//        else {
-//            System.out.println("Needed Criteria remaining = " + neededCriteriaClassNames.length + "; checkCriteria() = " + checkCriteria());
-//            for (String remainingClassName : neededCriteriaClassNames) {
-//                System.out.println(remainingClassName);
-//            }
-//            this.working = false;
-//        }
-    }
-
-    public K getMatrixKey() {
-        return matrixKey;
-    }
-
-    private boolean start() {
-        return this.setUp();
-    }
-    protected boolean setUp() {
-        return true;
+        this.allPolicies = policies.toArray(new Policy[0]);
     }
 
 //    @SuppressWarnings("unchecked")
@@ -124,92 +77,26 @@ public abstract class Complication<PATH extends Comparable<PATH>,K extends Matri
 //            gate.unlockWrite(writeLock);
 //        }
 //    }
-
-    /**
-     * Tells if this watch info is valid.
-     *
-     * <p> A watch info is valid upon creation and remains until it is cancelled,
-     * or its watch service is closed.
-     *
-     * @return {@code true} if, and only if, this watch info is valid
-     */
-    @Override
-    public boolean isValid() {
-        return this.working != null;
-    }
-
-    @Override
-    public List<WatchEvent<?>> pollEvents() {
-//        List<WatchEvent<?>> events = new ArrayList<>();
-//        while(!competedMatters.isEmpty() && events.size() < ) {
-//
-//        }
-        return null;
-    }
-
-    /**
-     * Resets this watch info.
-     *
-     * <p> If this watch info has been cancelled or this watch info is already in
-     * the ready state then invoking this method has no effect. Otherwise
-     * if there are pending events for the object then this watch info is
-     * immediately re-queued to the watch service. If there are no pending
-     * events then the watch info is put into the ready state and will remain in
-     * that state until an event is detected or the watch info is cancelled.
-     *
-     * @return {@code true} if the watch info is valid and has been reset, and
-     * {@code false} if the watch info could not be reset because it is
-     * no longer {@link #isValid valid}
-     */
-    @Override
-    public boolean reset() {
-        if (this.isValid()) {
-            long writeLock = gate.writeLock();
+    public void run() {
+        if (provider.hasNext()) {
             try {
+                Bout<DATUM, V, M, R, G> bout = new Bout<>(provider.next());
 
-                return true;
-            }
-            finally {
-                gate.unlockWrite(writeLock);
+            } finally {
+                this.canceled = true;
             }
         }
         else {
-            return false;
+            if (provider.isCancelWhenResetIsFalse()) {
+                this.canceled = true;
+            }
         }
     }
 
-    /**
-     * Cancels the registration with the watch service. Upon return the watch info
-     * will be invalid. If the watch info is enqueued, waiting to be retrieved
-     * from the watch service, then it will remain in the queue until it is
-     * removed. Pending events, if any, remain pending and may be retrieved by
-     * invoking the {@link #pollEvents pollEvents} method after the info is
-     * cancelled.
-     *
-     * <p> If this watch info has already been cancelled then invoking this
-     * method has no effect.  Once cancelled, a watch info remains forever invalid.
-     */
-    @Override
     public void cancel() {
-        this.working = null;
+        this.canceled = true;
     }
-
-    /**
-     * Returns the object for which this watch info was created. This method will
-     * continue to return the object even after the info is cancelled.
-     *
-     * <p> As the {@code WatchService} is intended to map directly on to the
-     * native file event notification facility (where available) then many of
-     * details on how registered objects are watched is highly implementation
-     * specific. When watching a directory for changes for example, and the
-     * directory is moved or renamed in the file system, there is no guarantee
-     * that the watch info will be cancelled and so the object returned by this
-     * method may no longer be a valid path to the directory.
-     *
-     * @return the object for which this watch info was created
-     */
-    @Override
-    public K watchable() {
-        return this.matrixKey;
+    public boolean isCanceled() {
+        return canceled;
     }
 }

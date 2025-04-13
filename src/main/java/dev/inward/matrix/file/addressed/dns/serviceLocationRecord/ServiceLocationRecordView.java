@@ -4,13 +4,11 @@
 
 package dev.inward.matrix.file.addressed.dns.serviceLocationRecord;
 
-import dev.inward.matrix.Model;
 import dev.inward.matrix.file.addressed.dns.RRView;
 
-import java.util.Map;
+public class ServiceLocationRecordView extends RRView<ServiceLocationRecordLibrarian,ServiceLocationRecordKey,ServiceLocationRecord,ServiceLocationRecordView,ServiceLocationRecordModel,ServiceLocationRecordReference, ServiceLocationRecordSteward> {
 
-public class ServiceLocationRecordView extends RRView<ServiceLocationRecordKey, ServiceLocationRecord,ServiceLocationRecordReference, ServiceLocationRecordView,ServiceLocationRecordResource,ServiceLocationRecordModel> {
-    public ServiceLocationRecordView(Map<String, Model.InstanceValue> properties, long fileSize) {
-        super(properties, fileSize);
+    public ServiceLocationRecordView(String name, ServiceLocationRecord resourceRecord, ServiceLocationRecordModel rrModel) {
+        super(name, resourceRecord, rrModel);
     }
 }

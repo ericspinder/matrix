@@ -4,7 +4,7 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
+import dev.inward.matrix.file.addressed.depot.indica.IndicaKey;
 import dev.inward.matrix.file.addressed.log.Occurrence;
 
 import java.util.UUID;
@@ -53,12 +53,12 @@ public class MatrixException extends RuntimeException implements Exceptional {
         }
     }
     protected final Type type;
-    protected final IndiciaKey indiciaKey;
+    protected final IndicaKey indicaKey;
     protected final Occurrence occurrence;
-    public MatrixException(Type type, Exception e, IndiciaKey indiciaKey, Occurrence occurrence) {
+    public MatrixException(Type type, Exception e, IndicaKey indicaKey, Occurrence occurrence) {
         super(type.description, e);
         this.type = type;
-        this.indiciaKey = indiciaKey;
+        this.indicaKey = indicaKey;
         this.occurrence = occurrence;
     }
 
@@ -68,8 +68,8 @@ public class MatrixException extends RuntimeException implements Exceptional {
     }
 
     @Override
-    public IndiciaKey getIndicia() {
-        return this.indiciaKey;
+    public IndicaKey getIndicia() {
+        return this.indicaKey;
     }
 
     @Override

@@ -3,13 +3,13 @@
  */
 package dev.inward.matrix.file.addressed.depot;
 
-import dev.inward.matrix.Library;
-import dev.inward.matrix.bureau.Bureau;
+import dev.inward.matrix.container.library.Library;
+import dev.inward.matrix.memory.bureau.Bureau;
 import dev.inward.matrix.file.addressed.depot.indica.Indica;
 
 import java.util.Map;
 
-public class DepotLibrary extends Library<DepotScheme,DepotLibraryKey,DepotLibrary, DepotPath,DepotCatalogKey,DepotCatalog,DepotDirectoryKey,DepotDirectory,DepotDirectoryReference,DepotDirectoryAttributes,DepotDirectoryResource,DepotDirectoryModel> {
+public class DepotLibrary extends Library<DepotScheme,DepotLibraryKey,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibrarySteward,DepotPath,DepotCatalogKey,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference, DepotCatalogSteward,DepotDirectoryLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectorySteward> {
 
 
     public DepotLibrary(DepotLibraryKey libraryKey) {
@@ -17,9 +17,10 @@ public class DepotLibrary extends Library<DepotScheme,DepotLibraryKey,DepotLibra
     }
 
     @Override
-    protected Map<DepotCatalog, Bureau<DepotScheme, DepotLibraryKey, DepotLibrary, DepotPath, DepotCatalogKey, DepotCatalog, DepotDirectoryKey, DepotDirectory, DepotDirectoryReference, DepotDirectoryAttributes, DepotDirectoryResource, DepotDirectoryModel>[]> initCatalogs() {
+    protected Map<DepotCatalog, Bureau<?, ?, ?, ?>[]> initCatalogs() {
         return null;
     }
+
 
     public Indica matchIndicaKey(String indicaKeyName) {
         return null;

@@ -7,8 +7,8 @@ package dev.inward.matrix.file.addressed.depot.specification;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.file.addressed.depot.DepotModel;
 
-public class SpecificationModel extends DepotModel<SpecificationKey, Specification,SpecificationReference,SpecificationAttributes,SpecificationResource,SpecificationModel> {
-    public SpecificationModel(Aspect[] labeledAspects, long warnOnTotal, long hardLimit) {
-        super(labeledAspects, warnOnTotal, hardLimit);
+public class SpecificationModel extends DepotModel<SpecificationLibrarian,SpecificationKey,Specification,SpecificationView,SpecificationModel,SpecificationReference, SpecificationSteward> {
+    public SpecificationModel(Aspect[] labeledAspects) {
+        super(labeledAspects);
     }
 }

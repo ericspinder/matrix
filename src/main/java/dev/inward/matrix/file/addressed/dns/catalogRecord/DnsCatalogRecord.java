@@ -8,7 +8,7 @@ import dev.inward.matrix.engine.Zone;
 
 import java.util.concurrent.TimeUnit;
 
-public class DnsCatalogRecord extends CatalogRecord<DnsCatalogRecordKey,DnsCatalogRecord,DnsCatalogRecordReference,DnsCatalogRecordAttributes,DnsCatalogRecordResource,DnsCatalogRecordModel> {
+public class DnsCatalogRecord extends CatalogRecord<DnsCatalogRecordLibrarian,DnsCatalogRecordKey,DnsCatalogRecord,DnsCatalogRecordView,DnsCatalogRecordModel,DnsCatalogRecordReference, DnsCatalogRecordSteward> {
     public DnsCatalogRecord(DnsCatalogRecordKey identity, String target, String startPath, String endPath, Zone zone, String protocol, int priority, int weight, int port, long syncAmount, TimeUnit syncUnit,int ttl) {
         super(identity, target, startPath, endPath, zone, protocol, priority, weight, port, syncAmount, syncUnit,ttl);
     }

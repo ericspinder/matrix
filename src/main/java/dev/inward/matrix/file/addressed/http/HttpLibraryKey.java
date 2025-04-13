@@ -4,12 +4,12 @@
 
 package dev.inward.matrix.file.addressed.http;
 
-import dev.inward.matrix.Domain;
-import dev.inward.matrix.LibraryKey;
+import dev.inward.matrix.container.domain.Domain;
+import dev.inward.matrix.container.library.LibraryKey;
 
 import java.net.URI;
 
-public class HttpLibraryKey extends LibraryKey<HttpScheme,HttpLibraryKey,HttpLibrary,String,HttpCatalogKey,HttpCatalog,HttpDirectoryKey,HttpDirectory,HttpDirectoryReference,HttpDirectoryAttributes,HttpDirectoryResource,HttpDirectoryModel> {
+public class HttpLibraryKey extends LibraryKey<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibrarySteward,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogSteward,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectorySteward> {
     protected HttpLibraryKey(URI uri, HttpScheme scheme, Domain domain, int port, String separator) {
         super(uri, scheme, domain, port, separator);
     }

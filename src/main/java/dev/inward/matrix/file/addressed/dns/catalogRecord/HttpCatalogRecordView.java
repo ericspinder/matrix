@@ -4,12 +4,8 @@
 
 package dev.inward.matrix.file.addressed.dns.catalogRecord;
 
-import dev.inward.matrix.Model;
-
-import java.util.Map;
-
-public class HttpCatalogRecordView extends CatalogRecordView<HttpCatalogRecordKey,HttpCatalogRecord,HttpCatalogRecordReference, HttpCatalogRecordView,HttpCatalogRecordResource,HttpCatalogRecordModel> {
-    public HttpCatalogRecordView(Map<String, Model.InstanceValue> properties, long fileSize) {
-        super(properties, fileSize);
+public class HttpCatalogRecordView extends CatalogRecordView<HttpCatalogRecordLibrarian,HttpCatalogRecordKey,HttpCatalogRecord,HttpCatalogRecordView,HttpCatalogRecordModel,HttpCatalogRecordReference, HttpCatalogRecordSteward> {
+    public HttpCatalogRecordView(HttpCatalogRecord httpCatalogRecord, HttpCatalogRecordModel httpCatalogRecordModel) {
+        super("HttpCatalogRecordView", httpCatalogRecord, httpCatalogRecordModel);
     }
 }

@@ -5,25 +5,28 @@
 package dev.inward.matrix;
 
 import java.lang.ref.WeakReference;
-import java.nio.file.Path;
+import java.util.Map;
 
-public class Reference<DATUM,R extends Reference<DATUM,R,A,RESOURCE,M>,A extends Attributes<DATUM,R,A,RESOURCE,M>,RESOURCE extends Resource<DATUM,R,A,RESOURCE,M>,M extends Model<DATUM,R,A,RESOURCE,M>> extends WeakReference<DATUM> {
+public class Reference<B extends Librarian<B,DATUM,V,M,R, T>,DATUM,V extends View<B,DATUM,V,M,R, T>,M extends Model<DATUM>,R extends Reference<B,DATUM,V,M,R, T>, T extends Steward<B,DATUM,V,M,R, T>> extends WeakReference<DATUM> {
 
-    protected final RESOURCE resource;
     protected final Long sequence;
-    protected final A attributes;
+    protected final Map<String, Model.InstanceValue<?>> attributes;
+    protected final T steward;
 
-    public Reference(DATUM referent, RESOURCE resource) {
-        super(referent, resource);
-        this.resource = resource;
-        this.sequence = resource.incrementAndGet();
-        this.attributes = resource.createAttributes(referent);
+    public Reference(DATUM referent, T steward) {
+        super(referent, steward);
+        this.steward = steward;
+        this.sequence = steward.incrementAndGet();
+        this.attributes = steward.getModel().getInitialProperties(referent);
     }
 
+    public T getSteward() {
+        return steward;
+    }
 
     public boolean release() {
         if (isHeld()) {
-            this.attributes.properties.remove("held");
+            this.attributes.remove("held");
             return true;
         }
         else {
@@ -32,6 +35,15 @@ public class Reference<DATUM,R extends Reference<DATUM,R,A,RESOURCE,M>,A extends
     }
 
     public boolean isHeld() {
-        return this.attributes.properties.get("held") != null;
+        return this.attributes.get("held") != null;
     }
+
+    public Map<String, Model.InstanceValue<?>> getAttributes() {
+        return attributes;
+    }
+
+    public Long getSequence() {
+        return sequence;
+    }
+
 }

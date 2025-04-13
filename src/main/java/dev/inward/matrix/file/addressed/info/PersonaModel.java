@@ -6,8 +6,8 @@ package dev.inward.matrix.file.addressed.info;
 
 import dev.inward.matrix.Aspect;
 
-public class PersonaModel extends PrivilegeModel<PersonaKey,Persona,PersonaReference,PersonaAttributes,PersonaResource,PersonaModel> {
-    public PersonaModel(Aspect[] labeledAspects, long warnOnTotal, long hardLimit) {
-        super(labeledAspects, warnOnTotal, hardLimit);
+public class PersonaModel extends PrivilegeModel<PersonaLibrarian,PersonaKey,Persona,PersonaView,PersonaModel,PersonaReference, PersonaSteward> {
+    public PersonaModel(Aspect[] labeledAspects) {
+        super(labeledAspects);
     }
 }

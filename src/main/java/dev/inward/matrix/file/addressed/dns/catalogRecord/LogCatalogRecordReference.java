@@ -4,9 +4,9 @@
 
 package dev.inward.matrix.file.addressed.dns.catalogRecord;
 
-public class LogCatalogRecordReference extends CatalogRecordReference<LogCatalogRecordKey,LogCatalogRecord,LogCatalogRecordReference,LogCatalogRecordAttributes,LogCatalogRecordResource, LogCatalogRecordModel> {
+public class LogCatalogRecordReference extends CatalogRecordReference<LogCatalogRecordLibrarian,LogCatalogRecordKey,LogCatalogRecord,LogCatalogRecordView,LogCatalogRecordModel,LogCatalogRecordReference, LogCatalogRecordSteward> {
 
-    public LogCatalogRecordReference(LogCatalogRecord addressed, LogCatalogRecordResource resource) {
+    public LogCatalogRecordReference(LogCatalogRecord addressed, LogCatalogRecordSteward resource) {
         super(addressed, resource);
     }
 }

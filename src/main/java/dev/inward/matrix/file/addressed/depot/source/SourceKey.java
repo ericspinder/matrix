@@ -9,15 +9,15 @@ import dev.inward.matrix.file.addressed.depot.DepotKey;
 
 import java.net.URI;
 
-public class SourceKey extends DepotKey<SourceKey,Source,SourceReference,SourceAttributes,SourceResource,SourceModel> {
+public class SourceKey extends DepotKey<SourceLibrarian,SourceKey,Source,SourceView,SourceModel,SourceReference, SourceSteward> {
     protected SourceKey(URI uri, String id, DepotDirectoryKey directory) {
         super(uri, id, directory);
     }
 
-    public static class Builder extends DepotKey.Builder<SourceKey,Source,SourceReference,SourceAttributes,SourceResource,SourceModel> {
+    public static class Builder extends DepotKey.Builder<SourceLibrarian,SourceKey,Source,SourceView,SourceModel,SourceReference, SourceSteward> {
 
         @Override
-        protected SourceKey newFileKey() {
+        protected SourceKey newMatrixKey() {
             return new SourceKey(this.uri,this.id,this.directoryKey);
         }
     }

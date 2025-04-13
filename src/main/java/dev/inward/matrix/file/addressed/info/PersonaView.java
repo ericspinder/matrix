@@ -4,12 +4,10 @@
 
 package dev.inward.matrix.file.addressed.info;
 
-import dev.inward.matrix.Model;
 
-import java.util.Map;
+public class PersonaView extends PrivilegeView<PersonaLibrarian,PersonaKey,Persona,PersonaView,PersonaModel,PersonaReference, PersonaSteward> {
 
-public class PersonaView extends PrivilegeView<PersonaKey,Persona,PersonaReference, PersonaView,PersonaResource,PersonaModel> {
-    public PersonaView(Map<String, Model.InstanceValue> properties, long fileSize) {
-        super(properties, fileSize);
+    public PersonaView(String name, Persona addressed, PersonaModel addressedModel) {
+        super(name, addressed, addressedModel);
     }
 }

@@ -4,9 +4,9 @@
 
 package dev.inward.matrix.file.addressed.depot;
 
-import dev.inward.matrix.Catalog;
+import dev.inward.matrix.container.catalog.Catalog;
 
-public class DepotCatalog extends Catalog<DepotScheme, DepotLibraryKey,DepotLibrary, DepotPath,DepotCatalogKey,DepotCatalog,DepotDirectoryKey,DepotDirectory,DepotDirectoryReference,DepotDirectoryAttributes,DepotDirectoryResource,DepotDirectoryModel> {
+public class DepotCatalog extends Catalog<DepotScheme,DepotLibraryKey,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibrarySteward,DepotPath,DepotCatalogKey,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference, DepotCatalogSteward,DepotDirectoryLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectorySteward> {
     public DepotCatalog(DepotCatalogKey catalogKey) {
         super(catalogKey);
     }

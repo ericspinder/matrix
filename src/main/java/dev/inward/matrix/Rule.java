@@ -4,6 +4,7 @@
 
 package dev.inward.matrix;
 
+import dev.inward.matrix.container.library.Library;
 import dev.inward.matrix.file.addressed.info.UserName;
 import dev.inward.matrix.personality.Personality;
 

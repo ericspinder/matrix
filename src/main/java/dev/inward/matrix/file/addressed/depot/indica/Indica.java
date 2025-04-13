@@ -6,50 +6,29 @@ package dev.inward.matrix.file.addressed.depot.indica;
 
 import dev.inward.matrix.file.addressed.depot.Depot;
 
-public class Indica extends Depot<IndiciaKey,Indica, IndicaReference, IndicaAttributes,IndicaResource,IndicaModel> {
+public class Indica extends Depot<IndicaLibrarian,IndicaKey,Indica,IndicaView,IndicaModel,IndicaReference, IndicaSteward> {
 
-    private final String complicationClassName;
-    private final String complicationCriterionClassName;
+    private final String criterionClassName;
     private final String policyClassName;
-    private final String policyCriterionClassName;
-    private final int seriesMaxSize;
-    public Indica(IndiciaKey identity, String complicationClassName, String complicationCriterionClassName, String policyClassName, String policyCriterionClassName, int seriesMaxSize) {
+    public Indica(IndicaKey identity, String complicationCriterionClassName, String policyClassName) {
         super(identity);
-        this.complicationClassName = complicationClassName;
-        this.complicationCriterionClassName = complicationCriterionClassName;
+        this.criterionClassName = complicationCriterionClassName;
         this.policyClassName = policyClassName;
-        this.policyCriterionClassName = policyCriterionClassName;
-        this.seriesMaxSize = seriesMaxSize;
     }
 
-    public String getComplicationClassName() {
-        return complicationClassName;
-    }
-
-    public String getPolicyCriterionClassName() {
-        return policyCriterionClassName;
+    public String getCriterionClassName() {
+        return criterionClassName;
     }
 
     public String getPolicyClassName() {
         return policyClassName;
     }
 
-    public String getComplicationCriterionClassName() {
-        return complicationCriterionClassName;
-    }
-
-    public int getSeriesMaxSize() {
-        return seriesMaxSize;
-    }
-
     @Override
     public String toString() {
-        return "Indica{" + "complicationClassName='" + complicationClassName + '\'' +
-                ", complicationCriterionClassName='" + complicationCriterionClassName + '\'' +
-                ", policyClassName='" + policyClassName + '\'' +
-                ", policyCriterionClassName='" + policyCriterionClassName + '\'' +
-                ", seriesMaxSize=" + seriesMaxSize + '\'' +
-                ", info=" + key +
+        return "Indica{" + "policyClassName='" + policyClassName + '\'' +
+                ", criterionClassName='" + criterionClassName + '\'' +
+                ", indicaIdentity=" + key +
                 '}';
     }
 }

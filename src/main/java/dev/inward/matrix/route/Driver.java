@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-public class Driver<S> extends Thread implements Comparable<Driver> {
+public class Driver extends Thread implements Comparable<Driver> {
 
     protected final UUID uuid = UUID.randomUUID();
     protected final Instant createInstant = Instant.now();

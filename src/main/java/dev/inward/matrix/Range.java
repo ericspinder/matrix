@@ -5,13 +5,6 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
-import dev.inward.matrix.file.addressed.log.Matter;
-import dev.inward.matrix.file.addressed.log.Occurrence;
-
-import java.time.Instant;
-import java.util.UUID;
-
 @SuppressWarnings("all")
 public abstract class Range<PATH extends Comparable<PATH>> implements Comparable<Range<PATH>> {
 
@@ -135,9 +128,7 @@ public abstract class Range<PATH extends Comparable<PATH>> implements Comparable
         }
         @Override
         public String toString() {
-            final StringBuilder sb = new StringBuilder();
-            sb.append("AllPaths {}");
-            return sb.toString();
+            return "";
         }
 
         @Override
@@ -164,9 +155,7 @@ public abstract class Range<PATH extends Comparable<PATH>> implements Comparable
 
         @Override
         public String toString() {
-            final StringBuilder sb = new StringBuilder("BelowPathway{");
-            sb.append(" higherPath = ").append(higherPath).append('}');
-            return sb.toString();
+            return "?higherPath=" + higherPath;
         }
 
     }
@@ -188,9 +177,7 @@ public abstract class Range<PATH extends Comparable<PATH>> implements Comparable
         }
         @Override
         public String toString() {
-        final StringBuilder sb = new StringBuilder("AbovePathway{");
-            sb.append(" lowestPath = ").append(lowestPath).append('}');
-            return sb.toString();
+            return "?lowestPath=" + lowestPath;
         }
     }
     public final static class BetweenPaths<PATH extends Comparable<PATH>> extends Range<PATH> {
@@ -215,10 +202,7 @@ public abstract class Range<PATH extends Comparable<PATH>> implements Comparable
 
         @Override
         public String toString() {
-            final StringBuilder sb = new StringBuilder("BetweenPathways{");
-            sb.append(" lowestPath = ").append(lowestPath);
-            sb.append(", higherPath = ").append(higherPath).append('}');
-            return sb.toString();
+            return "?lowestPath=" + lowestPath + ",higherPath=" + higherPath;
         }
     }
 }

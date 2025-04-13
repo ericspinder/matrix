@@ -4,12 +4,8 @@
 
 package dev.inward.matrix.file.addressed.dns.serverRecord;
 
-import dev.inward.matrix.Model;
-
-import java.util.Map;
-
-public class Ip6ServerRecordView extends ServerRecordView<Ip6ServerRecordKey,Ip6ServerRecord,Ip6ServerRecordReference, Ip6ServerRecordView,Ip6ServerRecordResource,Ip6ServerRecordModel> {
-    public Ip6ServerRecordView(Map<String, Model.InstanceValue> properties, long fileSize) {
-        super(properties, fileSize);
+public class Ip6ServerRecordView extends ServerRecordView<Ip6ServerRecordLibrarian,Ip6ServerRecordKey,Ip6ServerRecord,Ip6ServerRecordView,Ip6ServerRecordModel,Ip6ServerRecordReference, Ip6ServerRecordSteward> {
+    public Ip6ServerRecordView(Ip6ServerRecord ip6ServerRecord,Ip6ServerRecordModel ip6ServerRecordModel) {
+        super("Ip6ServerRecordView", ip6ServerRecord,ip6ServerRecordModel);
     }
 }

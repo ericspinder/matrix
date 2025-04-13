@@ -4,13 +4,10 @@
 
 package dev.inward.matrix.file.addressed.depot.source;
 
-import dev.inward.matrix.Model;
 import dev.inward.matrix.file.addressed.depot.DepotView;
 
-import java.util.Map;
-
-public class SourceView extends DepotView<SourceKey,Source,SourceReference, SourceView,SourceResource,SourceModel> {
-    public SourceView(Map<String, Model.InstanceValue> properties, long fileSize) {
-        super(properties, fileSize);
+public class SourceView extends DepotView<SourceLibrarian,SourceKey,Source,SourceView,SourceModel,SourceReference, SourceSteward> {
+    public SourceView(Source source,SourceModel sourceModel) {
+        super("SourceView", source, sourceModel);
     }
 }

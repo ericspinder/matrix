@@ -4,10 +4,11 @@
 package dev.inward.matrix.file.addressed.info;
 
 import java.nio.file.attribute.AclEntry;
+import java.nio.file.attribute.UserPrincipal;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Agent extends Privilege<AgentKey, Agent,AgentReference,AgentAttributes,AgentResource,AgentModel> {
+public class Agent extends Privilege<AgentLibrarian,AgentKey,Agent,AgentView,AgentModel,AgentReference, AgentSteward> implements UserPrincipal {
 
     protected final Map<House, AclEntry[]> houseRightsMap = new ConcurrentHashMap<>();
 

@@ -13,7 +13,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-public abstract class CatalogRecordParser<K extends CatalogRecordKey<K,F,R,A,RESOURCE,M>,F extends CatalogRecord<K,F,R,A,RESOURCE,M>,R extends CatalogRecordReference<K,F,R,A,RESOURCE,M>,A extends CatalogRecordAttributes<K,F,R,A,RESOURCE,M>,RESOURCE extends CatalogRecordResource<K,F,R,A,RESOURCE,M>,M extends CatalogRecordModel<K,F,R,A,RESOURCE,M>> extends ResourceRecordParser<K,F,R,A,RESOURCE,M> {
+public abstract class CatalogRecordParser<LB extends CatalogRecordLibrarian<LB,K,F,V,M,R,G>,K extends CatalogRecordKey<LB,K,F,V,M,R,G>,F extends CatalogRecord<LB,K,F,V,M,R,G>,V extends CatalogRecordView<LB,K,F,V,M,R,G>,M extends CatalogRecordModel<LB,K,F,V,M,R,G>,R extends CatalogRecordReference<LB,K,F,V,M,R,G>,G extends CatalogRecordSteward<LB,K,F,V,M,R,G>> extends ResourceRecordParser<LB,K,F,V,M,R,G> {
 
     public CatalogRecordParser(DnsDirectoryKey directoryKey) {
         super(directoryKey);
@@ -28,7 +28,7 @@ public abstract class CatalogRecordParser<K extends CatalogRecordKey<K,F,R,A,RES
     @Override
     public F parse(String[] parts) {
         UUID uuid = UUID.fromString(parts[0]);;
-        K catalogRecordKey = newRRKeyBuilder().setDirectoryKey(dnsDirectoryKey).setId(uuid).setDirectoryKey(dnsDirectoryKey).buildFileKey();
+        K catalogRecordKey = newRRKeyBuilder().setDirectoryKey(dnsDirectoryKey).setId(uuid).setDirectoryKey(dnsDirectoryKey).buildMatrixKey();
         try {
             return getNew(catalogRecordKey,parts[1],parts[2],parts[3], Zone.valueOf(parts[4]),parts[5],Integer.parseInt(parts[6]),Integer.parseInt(parts[7]),Integer.parseInt(parts[8]),Long.parseLong(parts[9]),TimeUnit.valueOf(parts[10]),Integer.parseInt(parts[11]));
         } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {

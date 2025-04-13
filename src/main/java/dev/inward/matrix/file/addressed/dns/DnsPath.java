@@ -6,13 +6,13 @@ package dev.inward.matrix.file.addressed.dns;
 public record DnsPath(DnsLibraryKey dnsLibraryKey, ResourceRecordType type) implements Comparable<DnsPath> {
 
     public String toString() {
-        return "/" + this.dnsLibraryKey.getDomain() + "/" + this.type.getLabel() + "/";
+        return "/" + this.dnsLibraryKey.getDomain() + "/" + ((this.type !=null)? this.type.getLabel() + "/":"");
     }
 
     @Override
     public int compareTo(DnsPath that) {
         int isZero = this.dnsLibraryKey.compareTo(that.dnsLibraryKey);
-        if (isZero == 0) {
+        if (isZero == 0 && type != null) {
             return this.type.compareTo(that.type);
         }
         return isZero;

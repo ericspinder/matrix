@@ -4,12 +4,8 @@
 
 package dev.inward.matrix.file.addressed.dns.catalogRecord;
 
-import dev.inward.matrix.Model;
-
-import java.util.Map;
-
-public class LogCatalogRecordView extends CatalogRecordView<LogCatalogRecordKey,LogCatalogRecord,LogCatalogRecordReference, LogCatalogRecordView,LogCatalogRecordResource, LogCatalogRecordModel> {
-    public LogCatalogRecordView(Map<String, Model.InstanceValue> properties, long fileSize) {
-        super(properties, fileSize);
+public class LogCatalogRecordView extends CatalogRecordView<LogCatalogRecordLibrarian,LogCatalogRecordKey,LogCatalogRecord,LogCatalogRecordView,LogCatalogRecordModel,LogCatalogRecordReference, LogCatalogRecordSteward> {
+    public LogCatalogRecordView(LogCatalogRecord logCatalogRecord, LogCatalogRecordModel logCatalogRecordModel) {
+        super("LogCatalogRecordView", logCatalogRecord, logCatalogRecordModel);
     }
 }

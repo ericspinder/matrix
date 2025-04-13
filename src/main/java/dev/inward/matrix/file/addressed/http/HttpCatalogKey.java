@@ -4,13 +4,23 @@
 
 package dev.inward.matrix.file.addressed.http;
 
-import dev.inward.matrix.CatalogKey;
+import dev.inward.matrix.container.catalog.CatalogKey;
 import dev.inward.matrix.Range;
+import dev.inward.matrix.engine.Zone;
 
 import java.net.URI;
 
-public class HttpCatalogKey extends CatalogKey<HttpScheme,HttpLibraryKey,HttpLibrary,String,HttpCatalogKey,HttpCatalog,HttpDirectoryKey,HttpDirectory,HttpDirectoryReference,HttpDirectoryAttributes,HttpDirectoryResource,HttpDirectoryModel> {
-    public HttpCatalogKey(URI uri, HttpLibrary library, Range<String> range) {
-        super(uri, library, range);
+public class HttpCatalogKey extends CatalogKey<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibrarySteward,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogSteward,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectorySteward> {
+    public HttpCatalogKey(URI uri, HttpLibrary library, Range<String> range, Zone zone) {
+        super(uri, library, range, zone);
+    }
+
+    public static class Builder extends CatalogKey.Builder<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibrarySteward,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogSteward,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectorySteward> {
+
+        @Override
+        protected HttpCatalogKey newMatrixKey() {
+            return new HttpCatalogKey(this.uri,this.library,this.range,this.zone);
+        }
     }
 }
+

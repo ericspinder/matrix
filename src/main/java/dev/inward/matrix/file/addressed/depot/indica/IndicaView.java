@@ -4,13 +4,10 @@
 
 package dev.inward.matrix.file.addressed.depot.indica;
 
-import dev.inward.matrix.Model;
 import dev.inward.matrix.file.addressed.depot.DepotView;
 
-import java.util.Map;
-
-public class IndicaView extends DepotView<IndiciaKey,Indica, IndicaReference, IndicaView,IndicaResource,IndicaModel> {
-    public IndicaView(Map<String, Model.InstanceValue> properties, long fileSize) {
-        super(properties, fileSize);
+public class IndicaView extends DepotView<IndicaLibrarian,IndicaKey,Indica,IndicaView,IndicaModel,IndicaReference, IndicaSteward> {
+    public IndicaView(Indica indica,IndicaModel indicaModel) {
+        super("IndicaView", indica, indicaModel);
     }
 }

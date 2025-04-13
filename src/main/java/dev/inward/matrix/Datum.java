@@ -5,7 +5,7 @@
 
 package dev.inward.matrix;
 
-public interface Datum<D extends Datum<D,R,A,RESOURCE,M>,R extends DatumReference<D,R,A,RESOURCE,M>,A extends DatumAttributes<D,R,A,RESOURCE,M>,RESOURCE extends DatumResource<D,R,A,RESOURCE,M>,M extends DatumModel<D,R,A,RESOURCE,M>> {
+public interface Datum<LB extends DatumLibrarian<LB,D,V,M,R,RESOURCE>,D extends Datum<LB,D,V,M,R,RESOURCE>,V extends DatumView<LB,D,V,M,R,RESOURCE>,M extends DatumModel<LB,D,V,M,R,RESOURCE>,R extends DatumReference<LB,D,V,M,R,RESOURCE>,RESOURCE extends DatumSteward<LB,D,V,M,R,RESOURCE>> {
 
 
 

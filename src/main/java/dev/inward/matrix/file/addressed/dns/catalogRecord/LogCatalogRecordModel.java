@@ -6,8 +6,8 @@ package dev.inward.matrix.file.addressed.dns.catalogRecord;
 
 import dev.inward.matrix.Aspect;
 
-public class LogCatalogRecordModel extends CatalogRecordModel<LogCatalogRecordKey,LogCatalogRecord,LogCatalogRecordReference,LogCatalogRecordAttributes,LogCatalogRecordResource, LogCatalogRecordModel> {
-    public LogCatalogRecordModel(Aspect[] labeledAspects, long warnOnTotal, long hardLimit) {
-        super(labeledAspects, warnOnTotal, hardLimit);
+public class LogCatalogRecordModel extends CatalogRecordModel<LogCatalogRecordLibrarian,LogCatalogRecordKey,LogCatalogRecord,LogCatalogRecordView,LogCatalogRecordModel,LogCatalogRecordReference, LogCatalogRecordSteward> {
+    public LogCatalogRecordModel(Aspect[] labeledAspects) {
+        super(labeledAspects);
     }
 }

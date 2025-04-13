@@ -6,8 +6,8 @@ package dev.inward.matrix.file.addressed.info;
 
 import dev.inward.matrix.Aspect;
 
-public class HouseModel extends PrivilegeModel<HouseKey,House,HouseReference,HouseAttributes,HouseResource,HouseModel> {
-    public HouseModel(Aspect[] labeledAspects, long warnOnTotal, long hardLimit) {
-        super(labeledAspects, warnOnTotal, hardLimit);
+public class HouseModel extends PrivilegeModel<HouseLibrarian,HouseKey,House,HouseView,HouseModel,HouseReference, HouseSteward> {
+    public HouseModel(Aspect[] labeledAspects) {
+        super(labeledAspects);
     }
 }

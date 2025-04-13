@@ -6,7 +6,7 @@ package dev.inward.matrix.file.addressed.depot.specification;
 import dev.inward.matrix.Meta_I;
 import dev.inward.matrix.dns.resourceRecord.Zone;
 import dev.inward.matrix.file.addressed.depot.Depot;
-import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
+import dev.inward.matrix.file.addressed.depot.indica.IndicaKey;
 import dev.inward.matrix.file.addressed.depot.standard.Standard;
 import dev.inward.matrix.file.addressed.dns.serverRecord.ServerRecord;
 
@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Specification extends Depot<SpecificationKey,Specification, SpecificationReference,SpecificationAttributes,SpecificationResource, SpecificationModel> {
+public class Specification extends Depot<SpecificationLibrarian,SpecificationKey,Specification,SpecificationView,SpecificationModel,SpecificationReference, SpecificationSteward> {
 
     protected final Map<String, DefaultOption<?,?>> options;
-    protected final Map<IndiciaKey, ServerRecord[]> focusServerMap;
+    protected final Map<IndicaKey, ServerRecord[]> focusServerMap;
 
 
     protected final Standard[] standards;
@@ -30,7 +30,7 @@ public class Specification extends Depot<SpecificationKey,Specification, Specifi
     }
 
 
-    public Map<IndiciaKey.Focus, ServerRecord[]> getIndiciaServerMap() {
+    public Map<IndicaKey.Focus, ServerRecord[]> getIndiciaServerMap() {
         return focusServerMap;
     }
 
@@ -47,9 +47,9 @@ public class Specification extends Depot<SpecificationKey,Specification, Specifi
         return standardsList;
     }
     public <MAT extends Matter<MAT,I,ID,VERSION,X>> ServerRecord[] getServer(MAT matter) {
-        for (Map.Entry<IndiciaKey, ServerRecord[]> indiciaEntry: indiciaServerMap.entrySet()) {
-            IndiciaKey indiciaKey = indiciaEntry.getKey();
-            int isZero = indiciaKey.getInternetClass().compareTo(matter.getIndica().getInternetClass());
+        for (Map.Entry<IndicaKey, ServerRecord[]> indiciaEntry: indiciaServerMap.entrySet()) {
+            IndicaKey indicaKey = indiciaEntry.getKey();
+            int isZero = indicaKey.getInternetClass().compareTo(matter.getIndica().getInternetClass());
             if (isZero == 0) {
                 return indiciaEntry.getValue();
             }

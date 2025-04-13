@@ -4,12 +4,12 @@
 
 package dev.inward.matrix.file.addressed.depot;
 
-import dev.inward.matrix.Domain;
-import dev.inward.matrix.LibraryKey;
+import dev.inward.matrix.container.domain.Domain;
+import dev.inward.matrix.container.library.LibraryKey;
 
 import java.net.URI;
 
-public class DepotLibraryKey extends LibraryKey<DepotScheme,DepotLibraryKey,DepotLibrary, DepotPath,DepotCatalogKey,DepotCatalog,DepotDirectoryKey,DepotDirectory,DepotDirectoryReference,DepotDirectoryAttributes,DepotDirectoryResource,DepotDirectoryModel> {
+public class DepotLibraryKey extends LibraryKey<DepotScheme,DepotLibraryKey,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibrarySteward,DepotPath,DepotCatalogKey,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference, DepotCatalogSteward,DepotDirectoryLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectorySteward> {
     protected DepotLibraryKey(URI uri, DepotScheme scheme, Domain domain, int port, String separator) {
         super(uri, scheme, domain, port, separator);
     }

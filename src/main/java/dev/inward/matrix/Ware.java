@@ -4,9 +4,11 @@
 
 package dev.inward.matrix;
 
+import dev.inward.matrix.container.library.Library;
+
 import java.lang.ref.WeakReference;
 
-public class Ware<S extends Scheme<S,L>,L extends Library<S,L>,DATUM,W extends Ware<S,L,DATUM,W,A>,A extends Attributes<S,L,DATUM,W,A>> extends WeakReference<DATUM> {
+public class Ware<S extends Scheme<S,L>,L extends Library<S,L>,DATUM,W extends Ware<S,L,DATUM,W,A>,A extends View<S,L,DATUM,W,A>> extends WeakReference<DATUM> {
 
 
 }

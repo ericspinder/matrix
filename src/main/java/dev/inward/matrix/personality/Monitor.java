@@ -4,21 +4,21 @@
 
 package dev.inward.matrix.personality;
 
-import dev.inward.matrix.Library;
+import dev.inward.matrix.container.library.Library;
 import dev.inward.matrix.Scheme;
-import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
+import dev.inward.matrix.file.addressed.depot.indica.IndicaKey;
 import dev.inward.matrix.file.addressed.log.Matter;
 
 import java.time.Instant;
 
 public abstract class Monitor<S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>,N extends Notion<S,L,PATH,N>,M extends Matter<S,L,PATH,N,M>> {
 
-    protected final IndiciaKey<S,L,PATH,N> indiciaKey;
+    protected final IndicaKey<S,L,PATH,N> indicaKey;
     protected final Instant createTime = Instant.now();
 
-    protected Monitor(IndiciaKey<S,N,PATH,N> indiciaKey) {
-        this.indiciaKey = indiciaKey;
+    protected Monitor(IndicaKey<S,N,PATH,N> indicaKey) {
+        this.indicaKey = indicaKey;
     }
 
-    protected abstract IndiciaKey<S,N,PATH,N> operate(String item, ITEM oldItem);
+    protected abstract IndicaKey<S,N,PATH,N> operate(String item, ITEM oldItem);
 }

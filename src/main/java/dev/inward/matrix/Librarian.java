@@ -4,33 +4,15 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.route.Dispatch;
-import dev.inward.matrix.route.Road;
+public abstract class Librarian<B extends Librarian<B,DATUM,V,M,R, T>,DATUM,V extends View<B,DATUM,V,M,R, T>,M extends Model<DATUM>,R extends Reference<B,DATUM,V,M,R, T>, T extends Steward<B,DATUM,V,M,R, T>> {
 
-public abstract class Librarian<S extends Scheme<S,L>,L extends Library<S,L>,K extends MatrixKey<S,L,K>,D extends Dispatch<D,R>,R extends Road<D,R>> {
+    public final T steward;
 
-    public final L library;
-    public final R road;
-
-    protected Librarian(L library, R road) {
-        this.library = library;
-        this.road = road;
+    protected Librarian(T steward) {
+        this.steward = steward;
     }
 
-    public L getLibrary() {
-        return library;
-    }
-
-    public R getRoad() {
-        return road;
-    }
-    public static class Curator<S extends Scheme<S,L>,L extends Library<S,L>,K extends LibraryKey<S,L>> extends Librarian<S,L,K,Dispatch.Network,Road.Network> {
-
-        protected Curator(L library, Road.Network road) {
-            super(library, road);
-        }
-    }
-    public static class Conservator<S extends Scheme<S,L>,L extends Library<S,L>,K extends CatalogKey<S,L>,D extends Dispatch<D,R>,R extends Road<D,R>> {
-
+    public T getSteward() {
+        return steward;
     }
 }

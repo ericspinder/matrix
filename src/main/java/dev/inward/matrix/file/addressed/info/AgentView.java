@@ -4,12 +4,10 @@
 
 package dev.inward.matrix.file.addressed.info;
 
-import dev.inward.matrix.Model;
+public class AgentView extends PrivilegeView<AgentLibrarian,AgentKey,Agent,AgentView,AgentModel,AgentReference, AgentSteward> {
 
-import java.util.Map;
 
-public class AgentView extends PrivilegeView<AgentKey, Agent,AgentReference, AgentView,AgentResource,AgentModel> {
-    public AgentView(Map<String, Model.InstanceValue> properties, long fileSize) {
-        super(properties, fileSize);
+    public AgentView(String name, Agent addressed, AgentModel addressedModel) {
+        super(name, addressed, addressedModel);
     }
 }

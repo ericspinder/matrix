@@ -4,6 +4,7 @@
 
 package dev.inward.matrix.route;
 
+import java.util.UUID;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -13,7 +14,7 @@ import java.util.concurrent.locks.StampedLock;
 
 public class Dispatch extends ThreadGroup implements RejectedExecutionHandler, Comparable<Dispatch> {
 
-    protected final StampedLock gate = new StampedLock();
+    protected final UUID uuid = UUID.randomUUID();
 
     public final String description;
     protected volatile int corePoolSize;
@@ -23,8 +24,8 @@ public class Dispatch extends ThreadGroup implements RejectedExecutionHandler, C
     protected volatile long stackSize;
 
 
-    public Dispatch(dev.inward.matrix.route.Dispatch parent, String name, String description, int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit defaultTimeUnit, long stackSize) {
-        super(parent,name);
+    public Dispatch(String name, String description, int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit defaultTimeUnit, long stackSize) {
+        super(name);
         this.description = description;
         this.corePoolSize = corePoolSize;
         this.maximumPoolSize = maximumPoolSize;
@@ -35,10 +36,9 @@ public class Dispatch extends ThreadGroup implements RejectedExecutionHandler, C
     @SuppressWarnings("unchecked")
     @Override
     public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
-        if (executor instanceof Road) {
-            Road road = (Road) executor;
-            if (r instanceof Driver) {
-                Driver driver = (Driver) r;
+        if (executor instanceof Road road) {
+            if (r instanceof Driver driver) {
+                System.err.println("Rejected Execution: road = " + road + ", driver = " + driver);
             }
 
         }
@@ -100,6 +100,16 @@ public class Dispatch extends ThreadGroup implements RejectedExecutionHandler, C
 
     public long getStackSize() {
         return stackSize;
+    }
+
+    @Override
+    public int compareTo(Dispatch that) {
+        return  this.uuid.compareTo(that.uuid);
+    }
+
+    @Override
+    public String toString() {
+        return "Dispatch: name = " + getName() + ", UUID = " + uuid;
     }
 }
 

@@ -3,9 +3,9 @@
  */
 package dev.inward.matrix.engine;
 
+import dev.inward.matrix.Steward;
 import dev.inward.matrix.file.addressed.AddressedKey;
 import dev.inward.matrix.file.addressed.AddressedReference;
-import dev.inward.matrix.Resource;
 import dev.inward.matrix.operation.Concept;
 
 import javax.annotation.Nonnull;
@@ -14,10 +14,10 @@ import javax.annotation.Nullable;
 public abstract class Induction<DATUM,PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends AddressedKey<PATH,D,ID,I,C>,C extends Concept<PATH,D,ID,I,C,R>,R extends AddressedReference<PATH,D,ID,I,C,R> {
 
     protected final DatumVisitor<DATUM> datumVisitor;
-    protected final Resource<DATUM,S,L,PATH,ID,I,C,N> resource;
+    protected final Steward<DATUM,S,L,PATH,ID,I,C,N> steward;
 
-    public Induction(@Nonnull Resource<DATUM,S,L,PATH,ID,I,C,N> resource,@Nullable DatumVisitor<DATUM> datumVisitor) {
-        this.resource = resource;
+    public Induction(@Nonnull Steward<DATUM,S,L,PATH,ID,I,C,N> steward, @Nullable DatumVisitor<DATUM> datumVisitor) {
+        this.steward = steward;
         if (datumVisitor != null) {
             datumVisitor = new DatumVisitor<DATUM>();
         }
@@ -26,7 +26,7 @@ public abstract class Induction<DATUM,PATH extends Comparable<PATH>,ID extends C
 
     }
 
-    public Resource<DATUM> getResource() {
-        return resource;
+    public Steward<DATUM> getResource() {
+        return steward;
     }
 }

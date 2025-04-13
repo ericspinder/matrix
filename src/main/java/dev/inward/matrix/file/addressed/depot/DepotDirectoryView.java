@@ -4,13 +4,10 @@
 
 package dev.inward.matrix.file.addressed.depot;
 
-import dev.inward.matrix.Model;
 import dev.inward.matrix.file.DirectoryView;
 
-import java.util.Map;
-
-public class DepotDirectoryView extends DirectoryView<DepotScheme,DepotLibraryKey, DepotLibrary, DepotPath,DepotCatalogKey,DepotCatalog,DepotDirectoryKey,DepotDirectory,DepotDirectoryReference, DepotDirectoryView,DepotDirectoryResource,DepotDirectoryModel> {
-    public DepotDirectoryView(Map<String, Model.InstanceValue> properties) {
-        super(properties);
+public class DepotDirectoryView extends DirectoryView<DepotScheme,DepotLibraryKey,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibrarySteward,DepotPath,DepotCatalogKey,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference, DepotCatalogSteward,DepotDirectoryLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectorySteward> {
+    public DepotDirectoryView(DepotDirectory depotDirectory, DepotDirectoryModel depotDirectoryModel) {
+        super("DepotDirectoryView", depotDirectory, depotDirectoryModel);
     }
 }

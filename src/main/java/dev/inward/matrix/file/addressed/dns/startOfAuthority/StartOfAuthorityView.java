@@ -4,13 +4,11 @@
 
 package dev.inward.matrix.file.addressed.dns.startOfAuthority;
 
-import dev.inward.matrix.Model;
 import dev.inward.matrix.file.addressed.dns.RRView;
 
-import java.util.Map;
+public class StartOfAuthorityView extends RRView<StartOfAuthorityLibrarian,StartOfAuthorityKey,StartOfAuthority,StartOfAuthorityView,StartOfAuthorityModel,StartOfAuthorityReference, StartOfAuthoritySteward> {
 
-public class StartOfAuthorityView extends RRView<StartOfAuthorityKey,StartOfAuthority,StartOfAuthorityReference, StartOfAuthorityView,StartOfAuthorityResource,StartOfAuthorityModel> {
-    public StartOfAuthorityView(Map<String, Model.InstanceValue> properties, long fileSize) {
-        super(properties, fileSize);
+    public StartOfAuthorityView(String name, StartOfAuthority resourceRecord, StartOfAuthorityModel rrModel) {
+        super(name, resourceRecord, rrModel);
     }
 }

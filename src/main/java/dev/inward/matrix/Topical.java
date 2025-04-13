@@ -4,8 +4,8 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
+import dev.inward.matrix.file.addressed.depot.indica.IndicaKey;
 
 public interface Topical {
-    IndiciaKey getTopic();
+    IndicaKey getTopic();
 }

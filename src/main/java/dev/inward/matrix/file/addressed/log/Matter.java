@@ -6,39 +6,28 @@ package dev.inward.matrix.file.addressed.log;
 
 import dev.inward.matrix.Meta_I;
 import dev.inward.matrix.file.addressed.Addressed;
-import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
+import dev.inward.matrix.file.addressed.depot.indica.IndicaKey;
 
-import java.nio.file.WatchEvent;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.UUID;
 
-public abstract class Matter extends Addressed<LogScheme,LogLibraryKey,LogLibrary,LogPath,LogCatalogKey,LogCatalog,LogDirectoryKey,LogDirectory,LogDirectoryReference,LogDirectoryAttributes,LogDirectoryResource,LogDirectoryModel,UUID, MatterKey, Matter,MatterReference,MatterAttributes,MatterResource,MatterModel> implements WatchEvent<IndiciaKey> {
+public abstract class Matter extends Addressed<LogScheme,LogLibraryKey,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibrarySteward,LogPath,LogCatalogKey,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference, LogCatalogSteward,LogDirectoryLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference, LogDirectorySteward,MatterLibrarian,UUID,MatterKey,Matter,MatterView,MatterModel,MatterReference, MatterSteward> {
 
     protected final Instant createTime;
-    protected final IndiciaKey indiciaKey;
+    protected final IndicaKey indicaKey;
     protected final Severity severity;
+
     protected Duration duration;
 
-    public Matter(MatterKey key,IndiciaKey indiciaKey,Severity severity) {
-        this(key,indiciaKey,severity,Instant.now());
+    public Matter(MatterKey key, IndicaKey indicaKey, Severity severity) {
+        this(key, indicaKey,severity,Instant.now());
     }
-    public Matter(MatterKey id, IndiciaKey indiciaKey, Severity severity, Instant createTime) {
+    public Matter(MatterKey id, IndicaKey indicaKey, Severity severity, Instant createTime) {
         super(id);
-        this.indiciaKey = indiciaKey;
+        this.indicaKey = indicaKey;
         this.severity = severity;
         this.createTime = createTime;
-    }
-
-    @Override
-    public final Kind<IndiciaKey> kind() {
-        return IndiciaKey.Kind;
-    }
-
-
-    @Override
-    public IndiciaKey context() {
-        return this.indiciaKey;
     }
 
     public enum Severity implements Meta_I {

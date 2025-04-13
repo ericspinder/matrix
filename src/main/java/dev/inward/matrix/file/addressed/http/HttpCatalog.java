@@ -4,9 +4,9 @@
 
 package dev.inward.matrix.file.addressed.http;
 
-import dev.inward.matrix.Catalog;
+import dev.inward.matrix.container.catalog.Catalog;
 
-public class HttpCatalog extends Catalog<HttpScheme,HttpLibraryKey,HttpLibrary,String,HttpCatalogKey,HttpCatalog,HttpDirectoryKey,HttpDirectory,HttpDirectoryReference,HttpDirectoryAttributes,HttpDirectoryResource,HttpDirectoryModel> {
+public class HttpCatalog extends Catalog<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibrarySteward,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogSteward,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectorySteward> {
     public HttpCatalog(HttpCatalogKey catalogKey) {
         super(catalogKey);
     }

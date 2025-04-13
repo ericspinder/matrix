@@ -9,14 +9,14 @@ import dev.inward.matrix.file.addressed.dns.DnsDirectoryKey;
 import java.net.URI;
 import java.util.UUID;
 
-public class HttpCatalogRecordKey extends CatalogRecordKey<HttpCatalogRecordKey,HttpCatalogRecord,HttpCatalogRecordReference,HttpCatalogRecordAttributes,HttpCatalogRecordResource,HttpCatalogRecordModel> {
+public class HttpCatalogRecordKey extends CatalogRecordKey<HttpCatalogRecordLibrarian,HttpCatalogRecordKey,HttpCatalogRecord,HttpCatalogRecordView,HttpCatalogRecordModel,HttpCatalogRecordReference, HttpCatalogRecordSteward> {
     protected HttpCatalogRecordKey(URI uri, UUID uuid, DnsDirectoryKey directoryKey) {
         super(uri, uuid, directoryKey);
     }
 
-    public static class Builder extends CatalogRecordKey.Builder<HttpCatalogRecordKey,HttpCatalogRecord,HttpCatalogRecordReference,HttpCatalogRecordAttributes,HttpCatalogRecordResource,HttpCatalogRecordModel> {
+    public static class Builder extends CatalogRecordKey.Builder<HttpCatalogRecordLibrarian,HttpCatalogRecordKey,HttpCatalogRecord,HttpCatalogRecordView,HttpCatalogRecordModel,HttpCatalogRecordReference, HttpCatalogRecordSteward> {
         @Override
-        protected HttpCatalogRecordKey newFileKey() {
+        protected HttpCatalogRecordKey newMatrixKey() {
             return new HttpCatalogRecordKey(this.uri,this.id,this.directoryKey);
         }
     }

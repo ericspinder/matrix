@@ -4,12 +4,12 @@
 
 package dev.inward.matrix.file.addressed.log;
 
-import dev.inward.matrix.Domain;
-import dev.inward.matrix.LibraryKey;
+import dev.inward.matrix.container.domain.Domain;
+import dev.inward.matrix.container.library.LibraryKey;
 
 import java.net.URI;
 
-public class LogLibraryKey extends LibraryKey<LogScheme,LogLibraryKey,LogLibrary,LogPath,LogCatalogKey,LogCatalog,LogDirectoryKey,LogDirectory,LogDirectoryReference,LogDirectoryAttributes,LogDirectoryResource,LogDirectoryModel> {
+public class LogLibraryKey extends LibraryKey<LogScheme,LogLibraryKey,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibrarySteward,LogPath,LogCatalogKey,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference, LogCatalogSteward,LogDirectoryLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference, LogDirectorySteward> {
     protected LogLibraryKey(URI uri, LogScheme scheme, Domain domain, int port, String separator) {
         super(uri, scheme, domain, port, separator);
     }

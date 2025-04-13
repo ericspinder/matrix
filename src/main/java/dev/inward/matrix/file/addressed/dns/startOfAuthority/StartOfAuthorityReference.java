@@ -6,8 +6,8 @@ package dev.inward.matrix.file.addressed.dns.startOfAuthority;
 
 import dev.inward.matrix.file.addressed.dns.RRReference;
 
-public class StartOfAuthorityReference extends RRReference<StartOfAuthorityKey,StartOfAuthority,StartOfAuthorityReference,StartOfAuthorityAttributes,StartOfAuthorityResource,StartOfAuthorityModel> {
-    public StartOfAuthorityReference(StartOfAuthority addressed, StartOfAuthorityResource resource) {
+public class StartOfAuthorityReference extends RRReference<StartOfAuthorityLibrarian,StartOfAuthorityKey,StartOfAuthority,StartOfAuthorityView,StartOfAuthorityModel,StartOfAuthorityReference, StartOfAuthoritySteward> {
+    public StartOfAuthorityReference(StartOfAuthority addressed, StartOfAuthoritySteward resource) {
         super(addressed, resource);
     }
 }

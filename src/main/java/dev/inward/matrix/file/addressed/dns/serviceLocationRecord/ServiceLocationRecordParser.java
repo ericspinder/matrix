@@ -8,7 +8,7 @@ import dev.inward.matrix.file.addressed.dns.DnsDirectoryKey;
 import dev.inward.matrix.file.addressed.dns.ResourceRecordParser;
 import dev.inward.matrix.file.addressed.dns.ResourceRecordType;
 
-public class ServiceLocationRecordParser extends ResourceRecordParser<ServiceLocationRecordKey, ServiceLocationRecord,ServiceLocationRecordReference,ServiceLocationRecordAttributes,ServiceLocationRecordResource,ServiceLocationRecordModel> {
+public class ServiceLocationRecordParser extends ResourceRecordParser<ServiceLocationRecordLibrarian,ServiceLocationRecordKey,ServiceLocationRecord,ServiceLocationRecordView,ServiceLocationRecordModel,ServiceLocationRecordReference, ServiceLocationRecordSteward> {
     public ServiceLocationRecordParser(DnsDirectoryKey dnsDirectoryKey) {
         super(dnsDirectoryKey);
     }

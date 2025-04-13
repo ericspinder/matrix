@@ -6,8 +6,8 @@ package dev.inward.matrix.personality;
 
 import dev.inward.matrix.MatrixException;
 import dev.inward.matrix.Rule;
+import dev.inward.matrix.file.addressed.depot.indica.IndicaKey;
 import dev.inward.matrix.file.addressed.info.Persona;
-import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
 import dev.inward.matrix.file.addressed.log.Matter;
 
 import java.lang.ref.SoftReference;
@@ -118,7 +118,7 @@ public class Personality extends PermissionCollection {
             this.offeredSessions.add((Session)permission);
             return;
         }
-        throw new MatrixException(MatrixException.Type.ClassCastException,this.getClass(), IndiciaKey.Focus.Assembly, Matter.Severity.Critical,new Exception("Must be a Persona, Psyche or Session"));
+        throw new MatrixException(MatrixException.Type.ClassCastException,this.getClass(), IndicaKey.Focus.Assembly, Matter.Severity.Critical,new Exception("Must be a Persona, Psyche or Session"));
     }
 
     /**

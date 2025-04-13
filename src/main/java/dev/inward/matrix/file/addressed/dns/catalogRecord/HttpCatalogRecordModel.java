@@ -6,8 +6,8 @@ package dev.inward.matrix.file.addressed.dns.catalogRecord;
 
 import dev.inward.matrix.Aspect;
 
-public class HttpCatalogRecordModel extends CatalogRecordModel<HttpCatalogRecordKey,HttpCatalogRecord,HttpCatalogRecordReference,HttpCatalogRecordAttributes,HttpCatalogRecordResource,HttpCatalogRecordModel> {
-    public HttpCatalogRecordModel(Aspect[] labeledAspects, long warnOnTotal, long hardLimit) {
-        super(labeledAspects, warnOnTotal, hardLimit);
+public class HttpCatalogRecordModel extends CatalogRecordModel<HttpCatalogRecordLibrarian,HttpCatalogRecordKey,HttpCatalogRecord,HttpCatalogRecordView,HttpCatalogRecordModel,HttpCatalogRecordReference, HttpCatalogRecordSteward> {
+    public HttpCatalogRecordModel(Aspect[] labeledAspects) {
+        super(labeledAspects);
     }
 }

@@ -4,8 +4,8 @@
 
 package dev.inward.matrix.realm;
 
-import dev.inward.matrix.Domain;
-import dev.inward.matrix.Library;
+import dev.inward.matrix.container.domain.Domain;
+import dev.inward.matrix.container.library.Library;
 
 public class RealmLibrary extends Library<RealmScheme, RealmLibrary,String> {
 

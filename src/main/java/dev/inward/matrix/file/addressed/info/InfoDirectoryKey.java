@@ -9,7 +9,7 @@ import dev.inward.matrix.file.DirectoryKey;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class InfoDirectoryKey extends DirectoryKey<InfoScheme,InfoLibraryKey,InfoLibrary,InfoPath,InfoCatalogKey,InfoCatalog,InfoDirectoryKey,InfoDirectory,InfoDirectoryReference,InfoDirectoryAttributes,InfoDirectoryResource,InfoDirectoryModel> {
+public class InfoDirectoryKey extends DirectoryKey<InfoScheme,InfoLibraryKey,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference, InfoLibrarySteward,InfoPath,InfoCatalogKey,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference, InfoCatalogSteward,InfoDirectoryLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference, InfoDirectorySteward> {
 
 
     protected InfoDirectoryKey(URI uri, InfoCatalog catalog, InfoPath infoPath) {
@@ -26,7 +26,7 @@ public class InfoDirectoryKey extends DirectoryKey<InfoScheme,InfoLibraryKey,Inf
             this.infoCatalog = infoCatalog;
             this.infoPath = infoPath;
             try {
-                this.uri = new URI(infoCatalog.getKey().getUri().getScheme(), infoCatalog.getKey().getUri().getAuthority(),infoPath.toString(),null,null);
+                this.uri = new URI(infoCatalog.getKey().toUri().getScheme(), infoCatalog.getKey().toUri().getAuthority(),infoPath.toString(),null,null);
             } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
             }

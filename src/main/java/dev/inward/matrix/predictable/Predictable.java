@@ -4,36 +4,20 @@
 
 package dev.inward.matrix.predictable;
 
-import dev.inward.matrix.Director;
-import dev.inward.matrix.Domain;
-import dev.inward.matrix.MatrixItem;
-import dev.inward.matrix.MatrixKey;
-import dev.inward.matrix.file.addressed.depot.indica.IndiciaKey;
-import dev.inward.matrix.route.Road;
-
+import dev.inward.matrix.container.domain.Domain;
 import java.io.IOException;
 import java.nio.file.ClosedWatchServiceException;
-import java.nio.file.WatchService;
 import java.time.Instant;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Queue;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
 
-public class Predictable implements WatchService {
+public class Predictable {
     protected boolean open;
     protected final Domain domain;
-    protected final LinkedBlockingQueue<Complication<?,?>> finishedComplications = new LinkedBlockingQueue<>();
-    protected final Director director;
+    protected final Map<Complication<?,?,?,?,?,?>, Instant> complicationInstantMap = new WeakHashMap<>();
     public Predictable(Domain domain) {
         this.domain = domain;
-        director = this.domain.getDirector();
-    }
-    public Predictable(Domain domain, Director director) {
-        this.domain = domain;
-        this.director = director;
     }
 
     public boolean isOpen() {
@@ -108,7 +92,7 @@ public class Predictable implements WatchService {
 
 
     @Override
-    public Complication<?,?> poll() {
+    public Complication<?,?,?,?,?,?> poll() {
         if (!this.open) {
             throw new ClosedWatchServiceException();
         }
@@ -122,7 +106,7 @@ public class Predictable implements WatchService {
     }
 
     @Override
-    public Complication<?,?> poll(long timeout, TimeUnit unit) throws InterruptedException {
+    public Complication<?,?,?,?,?,?> poll(long timeout, TimeUnit unit) throws InterruptedException {
         if (!this.open) {
             throw new ClosedWatchServiceException();
         }
@@ -130,7 +114,7 @@ public class Predictable implements WatchService {
     }
 
     @Override
-    public Complication<?,?> take() throws InterruptedException {
+    public Complication<?,?,?,?,?,?> take() throws InterruptedException {
         if (!this.open) {
             throw new ClosedWatchServiceException();
         }

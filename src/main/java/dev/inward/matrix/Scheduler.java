@@ -4,8 +4,9 @@
 
 package dev.inward.matrix;
 
+import dev.inward.matrix.memory.bureau.Clerk;
+import dev.inward.matrix.container.library.Library;
 import dev.inward.matrix.file.addressed.depot.specification.Specification;
-import dev.inward.matrix.bureau.Clerk;
 
 import java.nio.channels.AsynchronousChannel;
 

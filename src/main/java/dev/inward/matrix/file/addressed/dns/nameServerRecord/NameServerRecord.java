@@ -4,9 +4,10 @@
 
 package dev.inward.matrix.file.addressed.dns.nameServerRecord;
 
+
 import dev.inward.matrix.file.addressed.dns.ResourceRecord;
 
-public class NameServerRecord extends ResourceRecord<NameServerRecordKey,NameServerRecord,NameServerRecordReference,NameServerRecordAttributes,NameServerRecordResource,NameServerRecordModel> {
+public class NameServerRecord extends ResourceRecord<NameServerRecordLibrarian,NameServerRecordKey,NameServerRecord,NameServerRecordView,NameServerRecordModel,NameServerRecordReference, NameServerRecordSteward> {
 
     protected final String target;
     public NameServerRecord(NameServerRecordKey key, String target, int ttl) {

@@ -4,13 +4,10 @@
 
 package dev.inward.matrix.file.addressed.depot;
 
-import dev.inward.matrix.Model;
 import dev.inward.matrix.file.addressed.AddressedView;
 
-import java.util.Map;
-
-public class DepotView<K extends DepotKey<K,F,R,A,RESOURCE,M>,F extends Depot<K,F,R,A,RESOURCE,M>,R extends DepotReference<K,F,R,A,RESOURCE,M>,A extends DepotView<K,F,R,A,RESOURCE,M>,RESOURCE extends DepotResource<K,F,R,A,RESOURCE,M>,M extends DepotModel<K,F,R,A,RESOURCE,M>> extends AddressedView<DepotScheme,DepotLibraryKey,DepotLibrary, DepotPath,DepotCatalogKey,DepotCatalog,DepotDirectoryKey,DepotDirectory,DepotDirectoryReference, DepotDirectoryView,DepotDirectoryResource,DepotDirectoryModel,String,K,F,R,A,RESOURCE,M> {
-    public DepotView(Map<String, Model.InstanceValue> properties, long fileSize) {
-        super(properties, fileSize);
+public class DepotView<LB extends DepotLibrarian<LB,K,F,V,M,R,G>,K extends DepotKey<LB,K,F,V,M,R,G>,F extends Depot<LB,K,F,V,M,R,G>,V extends DepotView<LB,K,F,V,M,R,G>,M extends DepotModel<LB,K,F,V,M,R,G>,R extends DepotReference<LB,K,F,V,M,R,G>,G extends DepotSteward<LB,K,F,V,M,R,G>> extends AddressedView<DepotScheme,DepotLibraryKey,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibrarySteward,DepotPath,DepotCatalogKey,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference, DepotCatalogSteward,DepotDirectoryLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectorySteward,LB,String,K,F,V,M,R,G> {
+    public DepotView(String name, F depot, M depotModel) {
+        super(name, depot, depotModel);
     }
 }

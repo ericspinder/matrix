@@ -9,7 +9,7 @@ An extreme 'work in progress', which has changed significantly from the initial 
 
     dev.inward.matrix.Scheme extends java.net.URLStreamHandler
     
-    dev.inward.matrix.Library extends java.net.FileSystemProvider
+    dev.inward.matrix.container.library.Library extends java.net.FileSystemProvider
 
     dev.inward.matrix.Ledger extends java.net.FileSystem
 Ledgers contain Gatherings which hold Addressed objects
@@ -35,7 +35,7 @@ DATUM is a plain Object reference meant to engage primitives and 'non matrix' ob
     dev.inward.matrix.Ware
 Ware holds both the Attributes associated with the DATUM object and a SoftReference to it
 
-    dev.inward.matrix.Attributes
+    dev.inward.matrix.View
 Attributes holds the Model for the DATUM and any Properties directly associated with the instance 
 
     dev.inward.matrix.Model
@@ -50,7 +50,7 @@ Datum is an interface and the lowest level programmed file objects, all other fi
     dev.inward.matrix.DatumReference extends Ware
 Envoy is the Ware extension for Datum objects
 
-    dev.inward.matrix.DatumAttributes extends Attributes
+    dev.inward.matrix.DatumView extends Attributes
 DatumAttributes is the Attributes extension for Datum objects
 
     dev.inward.matrix.file.FileKey implements java.nio.file.Watchable, java.file.Path
@@ -62,7 +62,7 @@ MatrixFile is the lowest object which may be created from parsing a FileKey. It 
     dev.inward.matrix.Registar extends Envoy
 Registar is the container for MatrixFile objects
 
-    dev.inward.matrix.file.FileAttributes extends DatumAttributes
+    dev.inward.matrix.file.FileView extends DatumAttributes
 FileAttributes is the attributes for a MatrixFile object 
 
     dev.inward.matrix.file.addressed.AddressedKey

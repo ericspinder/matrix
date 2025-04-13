@@ -4,13 +4,10 @@
 
 package dev.inward.matrix.file.addressed.dns.serverRecord;
 
-import dev.inward.matrix.Model;
 import dev.inward.matrix.file.addressed.dns.RRView;
 
-import java.util.Map;
-
-public class ServerRecordView<K extends ServerRecordKey<K,F,R,A,RESOURCE,M>,F extends ServerRecord<K,F,R,A,RESOURCE,M>,R extends ServerRecordReference<K,F,R,A,RESOURCE,M>,A extends ServerRecordView<K,F,R,A,RESOURCE,M>,RESOURCE extends ServerRecordResource<K,F,R,A,RESOURCE,M>,M extends ServerRecordModel<K,F,R,A,RESOURCE,M>> extends RRView<K, F, R, A, RESOURCE, M> {
-    public ServerRecordView(Map<String, Model.InstanceValue> properties, long fileSize) {
-        super(properties, fileSize);
+public class ServerRecordView<LB extends ServerRecordLibrarian<LB,K,F,V,M,R,G>, K extends ServerRecordKey<LB,K,F,V,M,R,G>,F extends ServerRecord<LB,K,F,V,M,R,G>,V extends ServerRecordView<LB,K,F,V,M,R,G>,M extends ServerRecordModel<LB,K,F,V,M,R,G>,R extends ServerRecordReference<LB,K,F,V,M,R,G>,G extends ServerRecordSteward<LB,K,F,V,M,R,G>> extends RRView<LB,K,F,V,M,R,G> {
+    public ServerRecordView(String name, F serverRecord, M serverRecordModel) {
+        super(name,serverRecord,serverRecordModel);
     }
 }

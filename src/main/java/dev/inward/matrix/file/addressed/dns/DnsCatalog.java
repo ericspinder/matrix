@@ -4,9 +4,9 @@
 
 package dev.inward.matrix.file.addressed.dns;
 
-import dev.inward.matrix.Catalog;
+import dev.inward.matrix.container.catalog.Catalog;
 
-public class DnsCatalog extends Catalog<DnsScheme,DnsLibraryKey, DnsLibrary, DnsPath,DnsCatalogKey,DnsCatalog,DnsDirectoryKey,DnsDirectory,DnsDirectoryReference,DnsDirectoryAttributes,DnsDirectoryResource,DnsDirectoryModel> {
+public class DnsCatalog extends Catalog<DnsScheme,DnsLibraryKey,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibrarySteward,DnsPath,DnsCatalogKey,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference, DnsCatalogSteward,DnsDirectoryLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectorySteward> {
     public DnsCatalog(DnsCatalogKey catalogKey) {
         super(catalogKey);
     }
@@ -14,5 +14,10 @@ public class DnsCatalog extends Catalog<DnsScheme,DnsLibraryKey, DnsLibrary, Dns
     @Override
     protected boolean init(DnsCatalogKey catalogKey) {
         return false;
+    }
+
+    @Override
+    protected DnsDirectoryKey createDirectoryKey(DnsPath dnsPath) {
+        return null;
     }
 }

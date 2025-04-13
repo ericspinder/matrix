@@ -9,15 +9,15 @@ import dev.inward.matrix.file.addressed.depot.DepotKey;
 
 import java.net.URI;
 
-public class VariantKey extends DepotKey<VariantKey,Variant,VariantReference,VariantAttributes,VariantResource, VariantModel> {
+public class VariantKey extends DepotKey<VariantLibrarian,VariantKey,Variant,VariantView,VariantModel,VariantReference, VariantSteward> {
     protected VariantKey(URI uri, String id, DepotDirectoryKey directory) {
         super(uri, id, directory);
     }
 
-    public static class Builder extends DepotKey.Builder<VariantKey,Variant,VariantReference,VariantAttributes,VariantResource, VariantModel> {
+    public static class Builder extends DepotKey.Builder<VariantLibrarian,VariantKey,Variant,VariantView,VariantModel,VariantReference, VariantSteward> {
 
         @Override
-        protected VariantKey newFileKey() {
+        protected VariantKey newMatrixKey() {
             return new VariantKey(this.uri,this.id,this.directoryKey);
         }
     }

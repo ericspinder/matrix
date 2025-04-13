@@ -9,16 +9,16 @@ import dev.inward.matrix.file.addressed.dns.DnsDirectoryKey;
 import java.net.URI;
 import java.util.UUID;
 
-public class DnsCatalogRecordKey extends CatalogRecordKey<DnsCatalogRecordKey,DnsCatalogRecord,DnsCatalogRecordReference,DnsCatalogRecordAttributes,DnsCatalogRecordResource,DnsCatalogRecordModel> {
+public class DnsCatalogRecordKey extends CatalogRecordKey<DnsCatalogRecordLibrarian,DnsCatalogRecordKey,DnsCatalogRecord,DnsCatalogRecordView,DnsCatalogRecordModel,DnsCatalogRecordReference, DnsCatalogRecordSteward> {
     protected DnsCatalogRecordKey(URI uri, UUID uuid, DnsDirectoryKey directoryKey) {
         super(uri, uuid, directoryKey);
     }
 
-    public static class Builder extends CatalogRecordKey.Builder<DnsCatalogRecordKey,DnsCatalogRecord,DnsCatalogRecordReference,DnsCatalogRecordAttributes,DnsCatalogRecordResource,DnsCatalogRecordModel> {
+    public static class Builder extends CatalogRecordKey.Builder<DnsCatalogRecordLibrarian,DnsCatalogRecordKey,DnsCatalogRecord,DnsCatalogRecordView,DnsCatalogRecordModel,DnsCatalogRecordReference, DnsCatalogRecordSteward> {
 
 
         @Override
-        protected DnsCatalogRecordKey newFileKey() {
+        protected DnsCatalogRecordKey newMatrixKey() {
             return new DnsCatalogRecordKey(this.uri,this.id,this.directoryKey);
         }
     }

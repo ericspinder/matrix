@@ -6,8 +6,8 @@ package dev.inward.matrix.file.addressed.info;
 
 import dev.inward.matrix.file.DirectoryReference;
 
-public class InfoDirectoryReference extends DirectoryReference<InfoScheme,InfoLibraryKey,InfoLibrary,InfoPath,InfoCatalogKey,InfoCatalog,InfoDirectoryKey,InfoDirectory,InfoDirectoryReference,InfoDirectoryAttributes,InfoDirectoryResource,InfoDirectoryModel> {
-    public InfoDirectoryReference(InfoDirectory referent, InfoDirectoryResource resource) {
+public class InfoDirectoryReference extends DirectoryReference<InfoScheme,InfoLibraryKey,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference, InfoLibrarySteward,InfoPath,InfoCatalogKey,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference, InfoCatalogSteward,InfoDirectoryLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference, InfoDirectorySteward> {
+    public InfoDirectoryReference(InfoDirectory referent, InfoDirectorySteward resource) {
         super(referent, resource);
     }
 }
