@@ -4,8 +4,8 @@
 
 package dev.inward.matrix.memory.bureau.file.unix;
 
-public class DefaultUnixBureauReference extends UnixBureauReference<DefaultUnixBureauKey,DefaultUnixBureau,DefaultUnixBureauView,DefaultUnixBureauModel,DefaultUnixBureauReference, DefaultUnixBureauSteward> {
-    public DefaultUnixBureauReference(DefaultUnixBureau referent, DefaultUnixBureauSteward gestalt) {
+public class DefaultUnixBureauReference extends UnixBureauReference<DefaultUnixBureauKey,DefaultUnixBureau,DefaultUnixBureauView,DefaultUnixBureauModel,DefaultUnixBureauReference, DefaultUnixBureauLibrarian> {
+    public DefaultUnixBureauReference(DefaultUnixBureau referent, DefaultUnixBureauLibrarian gestalt) {
         super(referent, gestalt);
     }
 }

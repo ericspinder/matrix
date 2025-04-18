@@ -8,7 +8,7 @@ import dev.inward.matrix.memory.bureau.BureauKey;
 
 import java.net.URI;
 
-public class FileBureauKey<K extends FileBureauKey<K,I,V,M,R,G>,I extends FileBureau<K,I,V,M,R,G>,V extends FileBureauView<K,I,V,M,R,G>,M extends FileBureauModel<K,I,V,M,R,G>,R extends FileBureauReference<K,I,V,M,R,G>,G extends FileBureauSteward<K,I,V,M,R,G>> extends BureauKey<K,I,V,M,R,G> {
+public class FileBureauKey<K extends FileBureauKey<K,I,V,M,R,G>,I extends FileBureau<K,I,V,M,R,G>,V extends FileBureauView<K,I,V,M,R,G>,M extends FileBureauModel<K,I,V,M,R,G>,R extends FileBureauReference<K,I,V,M,R,G>,G extends FileBureauLibrarian<K,I,V,M,R,G>> extends BureauKey<K,I,V,M,R,G> {
     protected FileBureauKey(URI uri) {
         super(uri);
     }

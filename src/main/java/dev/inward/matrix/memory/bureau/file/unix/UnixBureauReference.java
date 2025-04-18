@@ -6,7 +6,7 @@ package dev.inward.matrix.memory.bureau.file.unix;
 
 import dev.inward.matrix.memory.bureau.file.FileBureauReference;
 
-public abstract class UnixBureauReference<K extends UnixBureauKey<K,I,V,M,R,G>,I extends UnixBureau<K,I,V,M,R,G>,V extends UnixBureauView<K,I,V,M,R,G>,M extends UnixBureauModel<K,I,V,M,R,G>,R extends UnixBureauReference<K,I,V,M,R,G>,G extends UnixBureauSteward<K,I,V,M,R,G>> extends FileBureauReference<K,I,V,M,R,G> {
+public abstract class UnixBureauReference<K extends UnixBureauKey<K,I,V,M,R,G>,I extends UnixBureau<K,I,V,M,R,G>,V extends UnixBureauView<K,I,V,M,R,G>,M extends UnixBureauModel<K,I,V,M,R,G>,R extends UnixBureauReference<K,I,V,M,R,G>,G extends UnixBureauLibrarian<K,I,V,M,R,G>> extends FileBureauReference<K,I,V,M,R,G> {
     public UnixBureauReference(I referent, G gestalt) {
         super(referent, gestalt);
     }

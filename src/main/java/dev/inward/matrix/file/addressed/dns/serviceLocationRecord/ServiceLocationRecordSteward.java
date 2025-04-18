@@ -5,11 +5,11 @@
 package dev.inward.matrix.file.addressed.dns.serviceLocationRecord;
 
 import dev.inward.matrix.file.addressed.depot.specification.Specification;
-import dev.inward.matrix.file.addressed.dns.RRSteward;
+import dev.inward.matrix.file.addressed.dns.RRLibrarian;
 
 import java.util.function.Function;
 
-public class ServiceLocationRecordSteward extends RRSteward<ServiceLocationRecordLibrarian,ServiceLocationRecordKey,ServiceLocationRecord,ServiceLocationRecordView,ServiceLocationRecordModel,ServiceLocationRecordReference, ServiceLocationRecordSteward> {
+public class ServiceLocationRecordSteward extends RRLibrarian<ServiceLocationRecordLibrarian,ServiceLocationRecordKey,ServiceLocationRecord,ServiceLocationRecordView,ServiceLocationRecordModel,ServiceLocationRecordReference, ServiceLocationRecordSteward> {
     public ServiceLocationRecordSteward(Function<ServiceLocationRecordReference, ServiceLocationRecordReference> graveDigger, ServiceLocationRecordModel model, Class<ServiceLocationRecordView> viewClass, Specification specification) {
         super(graveDigger, model, viewClass, specification);
     }

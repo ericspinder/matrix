@@ -4,9 +4,9 @@
 
 package dev.inward.matrix.file.addressed.dns;
 
-import dev.inward.matrix.container.catalog.CatalogView;
+import dev.inward.matrix.control.catalog.CatalogView;
 
-public class DnsCatalogView extends CatalogView<DnsScheme,DnsLibraryKey,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibrarySteward,DnsPath,DnsCatalogKey,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference, DnsCatalogSteward,DnsDirectoryLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectorySteward> {
+public class DnsCatalogView extends CatalogView<DnsScheme,DnsLibraryKey,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibraryLibrarian,DnsPath,DnsCatalogKey,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference, DnsCatalogLibrarian,DnsDirectoryLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectoryLibrarian> {
     public DnsCatalogView(String name, DnsCatalog catalog, DnsCatalogModel catalogModel) {
         super(name, catalog, catalogModel);
     }

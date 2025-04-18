@@ -5,9 +5,9 @@
 package dev.inward.matrix.file.addressed.info;
 
 import dev.inward.matrix.Aspect;
-import dev.inward.matrix.container.catalog.CatalogModel;
+import dev.inward.matrix.control.catalog.CatalogModel;
 
-public class InfoCatalogModel extends CatalogModel<InfoScheme,InfoLibraryKey,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference, InfoLibrarySteward,InfoPath,InfoCatalogKey,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference, InfoCatalogSteward,InfoDirectoryLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference, InfoDirectorySteward> {
+public class InfoCatalogModel extends CatalogModel<InfoScheme,InfoLibraryKey,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference, InfoLibraryLibrarian,InfoPath,InfoCatalogKey,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference, InfoCatalogLibrarian,InfoDirectoryLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference, InfoDirectoryLibrarian> {
     public InfoCatalogModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

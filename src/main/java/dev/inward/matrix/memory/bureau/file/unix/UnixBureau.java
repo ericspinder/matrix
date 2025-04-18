@@ -9,7 +9,7 @@ import dev.inward.matrix.file.FileView;
 
 import java.util.Map;
 
-public abstract class UnixBureau<K extends UnixBureauKey<K,I,V,M,R,G>,I extends UnixBureau<K,I,V,M,R,G>,V extends UnixBureauView<K,I,V,M,R,G>,M extends UnixBureauModel<K,I,V,M,R,G>,R extends UnixBureauReference<K,I,V,M,R,G>,G extends UnixBureauSteward<K,I,V,M,R,G>> extends FileBureau<K,I,V,M,R,G> {
+public abstract class UnixBureau<K extends UnixBureauKey<K,I,V,M,R,G>,I extends UnixBureau<K,I,V,M,R,G>,V extends UnixBureauView<K,I,V,M,R,G>,M extends UnixBureauModel<K,I,V,M,R,G>,R extends UnixBureauReference<K,I,V,M,R,G>,G extends UnixBureauLibrarian<K,I,V,M,R,G>> extends FileBureau<K,I,V,M,R,G> {
     public UnixBureau(K key, Map<String, Object> attributes, Class<FileView<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>>[] supportedFileViews, String rootPath) {
         super(key, attributes, supportedFileViews,rootPath);
     }

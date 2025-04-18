@@ -4,7 +4,7 @@
 package dev.inward.matrix.file.addressed.dns;
 
 import dev.inward.matrix.HostExperience;
-import dev.inward.matrix.container.library.Library;
+import dev.inward.matrix.control.library.Library;
 import dev.inward.matrix.LocalSystemNetworking;
 import dev.inward.matrix.Ziggurat;
 import dev.inward.matrix.memory.bureau.Bureau;
@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DnsLibrary extends Library<DnsScheme,DnsLibraryKey,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibrarySteward,DnsPath,DnsCatalogKey,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference, DnsCatalogSteward,DnsDirectoryLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectorySteward> {
+public class DnsLibrary extends Library<DnsScheme,DnsLibraryKey,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibraryLibrarian,DnsPath,DnsCatalogKey,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference, DnsCatalogLibrarian,DnsDirectoryLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectoryLibrarian> {
     public DnsLibrary(DnsLibraryKey libraryKey) {
         super(libraryKey);
     }

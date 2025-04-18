@@ -5,9 +5,9 @@
 package dev.inward.matrix.file.addressed.log;
 
 import dev.inward.matrix.Aspect;
-import dev.inward.matrix.container.catalog.CatalogModel;
+import dev.inward.matrix.control.catalog.CatalogModel;
 
-public class LogCatalogModel extends CatalogModel<LogScheme,LogLibraryKey,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibrarySteward,LogPath,LogCatalogKey,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference, LogCatalogSteward,LogDirectoryLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference, LogDirectorySteward> {
+public class LogCatalogModel extends CatalogModel<LogScheme,LogLibraryKey,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibraryLibrarian,LogPath,LogCatalogKey,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference, LogCatalogLibrarian,LogDirectoryLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference, LogDirectoryLibrarian> {
     public LogCatalogModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.memory.bureau.file.unix;
 
-public class DefaultUnixBureauView extends UnixBureauView<DefaultUnixBureauKey,DefaultUnixBureau,DefaultUnixBureauView,DefaultUnixBureauModel,DefaultUnixBureauReference, DefaultUnixBureauSteward> {
+public class DefaultUnixBureauView extends UnixBureauView<DefaultUnixBureauKey,DefaultUnixBureau,DefaultUnixBureauView,DefaultUnixBureauModel,DefaultUnixBureauReference, DefaultUnixBureauLibrarian> {
     public DefaultUnixBureauView(String name, DefaultUnixBureau bureau, DefaultUnixBureauModel bureauModel) {
         super(name, bureau, bureauModel);
     }

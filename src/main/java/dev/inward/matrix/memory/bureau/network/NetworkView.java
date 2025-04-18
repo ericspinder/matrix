@@ -6,7 +6,7 @@ package dev.inward.matrix.memory.bureau.network;
 
 import dev.inward.matrix.memory.bureau.BureauView;
 
-public class NetworkView<K extends NetworkKey<K,I,V,M,R,G>,I extends Network<K,I,V,M,R,G>,V extends NetworkView<K,I,V,M,R,G>,M extends NetworkModel<K,I,V,M,R,G>,R extends NetworkReference<K,I,V,M,R,G>,G extends NeworkSteward<K,I,V,M,R,G>> extends BureauView<K,I,V,M,R,G> {
+public class NetworkView<K extends NetworkKey<K,I,V,M,R,G>,I extends Network<K,I,V,M,R,G>,V extends NetworkView<K,I,V,M,R,G>,M extends NetworkModel<K,I,V,M,R,G>,R extends NetworkReference<K,I,V,M,R,G>,G extends NeworkLibrarian<K,I,V,M,R,G>> extends BureauView<K,I,V,M,R,G> {
     public NetworkView(String name, I bureau, M bureauModel) {
         super(name, bureau, bureauModel);
     }

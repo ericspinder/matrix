@@ -6,8 +6,10 @@ package dev.inward.matrix.file.addressed.dns;
 
 import dev.inward.matrix.file.DirectoryLibrarian;
 
-public class DnsDirectoryLibrarian extends DirectoryLibrarian<DnsScheme,DnsLibraryKey,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibrarySteward,DnsPath,DnsCatalogKey,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference, DnsCatalogSteward,DnsDirectoryLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectorySteward> {
-    protected DnsDirectoryLibrarian(DnsDirectorySteward directoryGestalt) {
-        super(directoryGestalt);
+import java.util.function.Function;
+
+public class DnsDirectoryLibrarian extends DirectoryLibrarian<DnsScheme,DnsLibraryKey,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibraryLibrarian,DnsPath,DnsCatalogKey,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference, DnsCatalogLibrarian,DnsDirectoryLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectoryLibrarian> {
+    public DnsDirectoryLibrarian(Function<DnsDirectoryReference, DnsDirectoryReference> graveDigger, DnsDirectoryModel model, Class<DnsDirectoryView> viewClass) {
+        super(graveDigger, model, viewClass);
     }
 }

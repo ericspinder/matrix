@@ -5,7 +5,7 @@
 package dev.inward.matrix;
 
 import com.google.common.collect.ImmutableList;
-import dev.inward.matrix.container.domain.DomainKey;
+import dev.inward.matrix.control.domain.DomainKey;
 import dev.inward.matrix.file.addressed.depot.indica.IndicaKey;
 import dev.inward.matrix.file.addressed.dns.serverRecord.ServerRecord;
 import dev.inward.matrix.file.addressed.log.Matter;

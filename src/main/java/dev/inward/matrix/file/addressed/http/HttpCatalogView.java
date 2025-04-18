@@ -4,9 +4,9 @@
 
 package dev.inward.matrix.file.addressed.http;
 
-import dev.inward.matrix.container.catalog.CatalogView;
+import dev.inward.matrix.control.catalog.CatalogView;
 
-public class HttpCatalogView extends CatalogView<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibrarySteward,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogSteward,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectorySteward> {
+public class HttpCatalogView extends CatalogView<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibraryLibrarian,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogLibrarian,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectoryLibrarian> {
     public HttpCatalogView(String name, HttpCatalog catalog, HttpCatalogModel catalogModel) {
         super(name, catalog, catalogModel);
     }

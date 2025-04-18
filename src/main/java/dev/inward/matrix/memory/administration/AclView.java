@@ -8,7 +8,7 @@ import dev.inward.matrix.*;
 
 import java.nio.file.attribute.AclFileAttributeView;
 
-public abstract class AclView<K extends MatrixKey<K,I,V,M,R,G>,I extends MatrixItem<K,I,V,M,R,G>,V extends View<I,M>,M extends Model<I>,R extends Reference<I,V,M,R,G>,G extends Steward<I,V,M,R,G>> extends View<I,V,M,R,G> implements AclFileAttributeView {
+public abstract class AclView<K extends MatrixKey<K,I,V,M,R,G>,I extends MatrixItem<K,I,V,M,R,G>,V extends View<I,M>,M extends Model<I>,R extends Reference<I,V,M,R,G>,G extends Librarian<I,V,M,R,G>> extends View<I,V,M,R,G> implements AclFileAttributeView {
     public AclView(String name, I item, R reference) {
         super(name, item, model);
     }

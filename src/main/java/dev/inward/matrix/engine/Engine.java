@@ -5,7 +5,7 @@ package dev.inward.matrix.engine;
 
 import dev.inward.matrix.Datum;
 import dev.inward.matrix.DatumReference;
-import dev.inward.matrix.Steward;
+import dev.inward.matrix.Librarian;
 import dev.inward.matrix.Operational;
 import dev.inward.matrix.addressed.*;
 import dev.inward.matrix.file.addressed.*;
@@ -22,7 +22,7 @@ public class Engine<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I ex
     protected final Map<String,Induction<>> inductionMap = new HashMap<>();
 
 
-    public Engine(Operational<PATH,ID,I,A,R,F> operational, AddressedSteward<PATH,ID,I,A,R,F> resources) {
+    public Engine(Operational<PATH,ID,I,A,R,F> operational, AddressedLibrarian<PATH,ID,I,A,R,F> resources) {
         this.operational = operational;
         resources.specification().getStandards(resources)
         Arrays.stream(operational.specification).forEach(i ->this.inductionMap.put(i.getDatumClassName(),i));
@@ -40,7 +40,7 @@ public class Engine<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I ex
     @SuppressWarnings("unchecked")
     public <DATUM,D extends Datum<DATUM,D,V>,V extends DatumReference<DATUM,D,V>> V add(DATUM datum) {
         try {
-            Steward<DATUM> steward = (Steward<DATUM>) this.producer.get(((D) datum).getClass());
+            Librarian<DATUM> steward = (Librarian<DATUM>) this.producer.get(((D) datum).getClass());
             return this.defineClass()add(datum,this);
         }
         catch (ClassCastException cce) {

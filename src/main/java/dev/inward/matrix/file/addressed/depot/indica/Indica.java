@@ -6,7 +6,7 @@ package dev.inward.matrix.file.addressed.depot.indica;
 
 import dev.inward.matrix.file.addressed.depot.Depot;
 
-public class Indica extends Depot<IndicaLibrarian,IndicaKey,Indica,IndicaView,IndicaModel,IndicaReference, IndicaSteward> {
+public class Indica extends Depot<IndicaLibrarian,IndicaKey,Indica,IndicaView,IndicaModel,IndicaReference, IndicaLibrarian> {
 
     private final String criterionClassName;
     private final String policyClassName;

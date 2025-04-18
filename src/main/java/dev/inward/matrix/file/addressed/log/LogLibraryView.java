@@ -4,9 +4,9 @@
 
 package dev.inward.matrix.file.addressed.log;
 
-import dev.inward.matrix.container.library.LibraryView;
+import dev.inward.matrix.control.library.LibraryView;
 
-public class LogLibraryView extends LibraryView<LogScheme,LogLibraryKey,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibrarySteward,LogPath,LogCatalogKey,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference, LogCatalogSteward,LogDirectoryLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference, LogDirectorySteward> {
+public class LogLibraryView extends LibraryView<LogScheme,LogLibraryKey,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibraryLibrarian,LogPath,LogCatalogKey,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference, LogCatalogLibrarian,LogDirectoryLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference, LogDirectoryLibrarian> {
     public LogLibraryView(String name, LogLibrary logLibrary, LogLibraryModel logLibraryModel) {
         super(name, logLibrary, logLibraryModel);
     }

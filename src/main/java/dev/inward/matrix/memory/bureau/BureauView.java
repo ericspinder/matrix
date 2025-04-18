@@ -4,14 +4,12 @@
 
 package dev.inward.matrix.memory.bureau;
 
-import dev.inward.matrix.View;
 import dev.inward.matrix.memory.MemoryView;
 
-import java.nio.file.attribute.FileStoreAttributeView;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class BureauView<BB extends BureauLibrarian<BB,BK,BI,BV,BM,BR,BT>,BK extends BureauKey<BB,BK,BI,BV,BM,BR,BT>,BI extends Bureau<BB,BK,BI,BV,BM,BR,BT>,BV extends BureauView<BB,BK,BI,BV,BM,BR,BT>,BM extends BureauModel<BB,BK,BI,BV,BM,BR,BT>,BR extends BureauReference<BB,BK,BI,BV,BM,BR,BT>,BT extends BureauSteward<BB,BK,BI,BV,BM,BR,BT>> extends MemoryView<BB,BK,BI,BV,BM,BR,BT> {
+public abstract class BureauView<BB extends BureauLibrarian<BB,BK,BI,BV,BM,BR,BT>,BK extends BureauKey<BB,BK,BI,BV,BM,BR,BT>,BI extends Bureau<BB,BK,BI,BV,BM,BR,BT>,BV extends BureauView<BB,BK,BI,BV,BM,BR,BT>,BM extends BureauModel<BB,BK,BI,BV,BM,BR,BT>,BR extends BureauReference<BB,BK,BI,BV,BM,BR,BT>,BT extends BureauLibrarian<BB,BK,BI,BV,BM,BR,BT>> extends MemoryView<BB,BK,BI,BV,BM,BR,BT> {
 
     protected final Map<String,Object> attributes = new HashMap<>();
     public BureauView(String name, BI bureau, BM bureauModel) {

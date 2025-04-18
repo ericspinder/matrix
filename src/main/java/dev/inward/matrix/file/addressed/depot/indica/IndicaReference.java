@@ -6,8 +6,8 @@ package dev.inward.matrix.file.addressed.depot.indica;
 
 import dev.inward.matrix.file.addressed.depot.DepotReference;
 
-public class IndicaReference extends DepotReference<IndicaLibrarian,IndicaKey,Indica,IndicaView,IndicaModel,IndicaReference, IndicaSteward> {
-    public IndicaReference(Indica addressed, IndicaSteward resource) {
+public class IndicaReference extends DepotReference<IndicaLibrarian,IndicaKey,Indica,IndicaView,IndicaModel,IndicaReference, IndicaLibrarian> {
+    public IndicaReference(Indica addressed, IndicaLibrarian resource) {
         super(addressed, resource);
     }
 }

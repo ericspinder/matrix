@@ -7,7 +7,7 @@ package dev.inward.matrix.memory.bureau.network.nioClient;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.memory.bureau.network.NetworkModel;
 
-public class NioClientModel extends NetworkModel<NioClientKey,NioClient, NioClientView,NioClientModel,NioClientReference, NioClientSteward> {
+public class NioClientModel extends NetworkModel<NioClientKey,NioClient, NioClientView,NioClientModel,NioClientReference, NioClientLibrarian> {
     public NioClientModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

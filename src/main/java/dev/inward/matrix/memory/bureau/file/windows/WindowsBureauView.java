@@ -6,7 +6,7 @@ package dev.inward.matrix.memory.bureau.file.windows;
 
 import dev.inward.matrix.memory.bureau.file.FileBureauView;
 
-public class WindowsBureauView extends FileBureauView<WindowsBureauKey,WindowsBureau,WindowsBureauView,WindowsBureauModel,WindowsBureauReference, WindowsBureauSteward> {
+public class WindowsBureauView extends FileBureauView<WindowsBureauKey,WindowsBureau,WindowsBureauView,WindowsBureauModel,WindowsBureauReference, WindowsBureauLibrarian> {
     public WindowsBureauView(String name, WindowsBureau bureau, WindowsBureauModel bureauModel) {
         super(name, bureau, bureauModel);
     }

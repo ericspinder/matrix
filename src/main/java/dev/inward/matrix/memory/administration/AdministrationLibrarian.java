@@ -4,8 +4,11 @@
 
 package dev.inward.matrix.memory.administration;
 
-import dev.inward.matrix.Librarian;
+import dev.inward.matrix.file.addressed.depot.standard.Standard;
 import dev.inward.matrix.memory.MemoryLibrarian;
 
-public class AdministrationLibrarian<B extends AdministrationLibrarian<B,K,I,V,M,R,T>,K extends AdministrationKey<B,K,I,V,M,R,T>,I extends Administration<B,K,I,V,M,R,T>,V extends AdministrationView<B,K,I,V,M,R,T>,M extends AdministrationModel<B,K,I,V,M,R,T>,R extends AdministrationReference<B,K,I,V,M,R,T>,T extends AdministrationSteward<B,K,I,V,M,R,T>> extends MemoryLibrarian<B,K,I,V,M,R,T> {
+public abstract class AdministrationLibrarian<B extends AdministrationLibrarian<B,K,I,V,M,R,T>,K extends AdministrationKey<B,K,I,V,M,R,T>,I extends Administration<B,K,I,V,M,R,T>,V extends AdministrationView<B,K,I,V,M,R,T>,M extends AdministrationModel<B,K,I,V,M,R,T>,R extends AdministrationReference<B,K,I,V,M,R,T>,T extends AdministrationLibrarian<B,K,I,V,M,R,T>> extends MemoryLibrarian<B,K,I,V,M,R,T> {
+    public AdministrationLibrarian(Standard standard) {
+        super(standard);
+    }
 }

@@ -6,7 +6,7 @@ package dev.inward.matrix.memory.bureau.jdbc;
 
 import dev.inward.matrix.memory.bureau.BureauView;
 
-public class JdbcBureauView<K extends JdbcBureauKey<K,I,V,M,R,G>,I extends JdbcBureau<K,I,V,M,R,G>,V extends JdbcBureauView<K,I,V,M,R,G>,M extends JdbcBureauModel<K,I,V,M,R,G>,R extends JdbcBureauReference<K,I,V,M,R,G>,G extends JdbcBureauSteward<K,I,V,M,R,G>> extends BureauView<K,I,V,M,R,G> {
+public class JdbcBureauView<K extends JdbcBureauKey<K,I,V,M,R,G>,I extends JdbcBureau<K,I,V,M,R,G>,V extends JdbcBureauView<K,I,V,M,R,G>,M extends JdbcBureauModel<K,I,V,M,R,G>,R extends JdbcBureauReference<K,I,V,M,R,G>,G extends JdbcBureauLibrarian<K,I,V,M,R,G>> extends BureauView<K,I,V,M,R,G> {
     public JdbcBureauView(String name, I bureau, M bureauModel) {
         super(name, bureau, bureauModel);
     }

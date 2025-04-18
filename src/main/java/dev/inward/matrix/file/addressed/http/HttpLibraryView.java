@@ -4,9 +4,9 @@
 
 package dev.inward.matrix.file.addressed.http;
 
-import dev.inward.matrix.container.library.LibraryView;
+import dev.inward.matrix.control.library.LibraryView;
 
-public class HttpLibraryView extends LibraryView<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibrarySteward,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogSteward,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectorySteward> {
+public class HttpLibraryView extends LibraryView<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibraryLibrarian,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogLibrarian,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectoryLibrarian> {
     public HttpLibraryView(String name, HttpLibrary library, HttpLibraryModel libraryModel) {
         super(name, library, libraryModel);
     }

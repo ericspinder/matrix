@@ -6,8 +6,10 @@ package dev.inward.matrix.file.addressed.http;
 
 import dev.inward.matrix.file.DirectoryLibrarian;
 
-public class HttpDirectoryLibrarian extends DirectoryLibrarian<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibrarySteward,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogSteward,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectorySteward> {
-    protected HttpDirectoryLibrarian(HttpDirectorySteward directoryGestalt) {
-        super(directoryGestalt);
+import java.util.function.Function;
+
+public class HttpDirectoryLibrarian extends DirectoryLibrarian<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibraryLibrarian,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogLibrarian,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectoryLibrarian> {
+    public HttpDirectoryLibrarian(Function<HttpDirectoryReference, HttpDirectoryReference> graveDigger, HttpDirectoryModel model, Class<HttpDirectoryView> viewClass) {
+        super(graveDigger, model,viewClass);
     }
 }

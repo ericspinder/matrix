@@ -6,8 +6,10 @@ package dev.inward.matrix.file.addressed.depot;
 
 import dev.inward.matrix.file.DirectoryLibrarian;
 
-public class DepotDirectoryLibrarian extends DirectoryLibrarian<DepotScheme,DepotLibraryKey,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibrarySteward,DepotPath,DepotCatalogKey,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference, DepotCatalogSteward,DepotDirectoryLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectorySteward> {
-    protected DepotDirectoryLibrarian(DepotDirectorySteward directoryGestalt) {
-        super(directoryGestalt);
+import java.util.function.Function;
+
+public class DepotDirectoryLibrarian extends DirectoryLibrarian<DepotScheme,DepotLibraryKey,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibraryLibrarian,DepotPath,DepotCatalogKey,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference, DepotCatalogLibrarian,DepotDirectoryLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectoryLibrarian> {
+    public DepotDirectoryLibrarian(Function<DepotDirectoryReference, DepotDirectoryReference> graveDigger, DepotDirectoryModel model, Class<DepotDirectoryView> viewClass) {
+        super(graveDigger, model, viewClass);
     }
 }

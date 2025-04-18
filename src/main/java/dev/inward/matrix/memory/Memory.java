@@ -5,9 +5,8 @@
 package dev.inward.matrix.memory;
 
 import dev.inward.matrix.Datum;
-import dev.inward.matrix.MatrixItem;
 
 import java.nio.file.FileStore;
 
-public abstract class Memory<MB extends MemoryLibrarian<MB,MD,MV,MM,MR,MT>,MD extends Memory<MB,MD,MV,MM,MR,MT>,MV extends MemoryView<MB,MD,MV,MM,MR,MT>,MM extends MemoryModel<MB,MD,MV,MM,MR,MT>,MR extends MemoryReference<MB,MD,MV,MM,MR,MT>,MT extends MemorySteward<MB,MD,MV,MM,MR,MT>> extends FileStore implements Datum<MB,MD,MV,MM,MR,MT> {
+public abstract class Memory<MB extends MemoryLibrarian<MB,MD,MV,MM,MR,MT>,MD extends Memory<MB,MD,MV,MM,MR,MT>,MV extends MemoryView<MB,MD,MV,MM,MR,MT>,MM extends MemoryModel<MB,MD,MV,MM,MR,MT>,MR extends MemoryReference<MB,MD,MV,MM,MR,MT>,MT extends MemoryLibrarian<MB,MD,MV,MM,MR,MT>> extends FileStore implements Datum<MB,MD,MV,MM,MR,MT> {
 }

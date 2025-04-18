@@ -6,8 +6,11 @@ package dev.inward.matrix.file.addressed.info;
 
 import dev.inward.matrix.file.DirectoryLibrarian;
 
-public class InfoDirectoryLibrarian extends DirectoryLibrarian<InfoScheme,InfoLibraryKey,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference, InfoLibrarySteward,InfoPath,InfoCatalogKey,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference, InfoCatalogSteward,InfoDirectoryLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference, InfoDirectorySteward> {
-    protected InfoDirectoryLibrarian(InfoDirectorySteward directoryGestalt) {
-        super(directoryGestalt);
+import java.util.function.Function;
+
+public class InfoDirectoryLibrarian extends DirectoryLibrarian<InfoScheme,InfoLibraryKey,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference, InfoLibraryLibrarian,InfoPath,InfoCatalogKey,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference, InfoCatalogLibrarian,InfoDirectoryLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference, InfoDirectoryLibrarian> {
+
+    public InfoDirectoryLibrarian(Function<InfoDirectoryReference, InfoDirectoryReference> graveDigger, InfoDirectoryModel model, Class<InfoDirectoryView> viewClass) {
+        super(graveDigger, model,viewClass);
     }
 }

@@ -7,21 +7,22 @@ package dev.inward.matrix;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 
-public class Reference<B extends Librarian<B,DATUM,V,M,R, T>,DATUM,V extends View<B,DATUM,V,M,R, T>,M extends Model<DATUM>,R extends Reference<B,DATUM,V,M,R, T>, T extends Steward<B,DATUM,V,M,R, T>> extends WeakReference<DATUM> {
+public class Reference<DATUM,V extends View<DATUM,V,M,R,B>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,B>,B extends Librarian<DATUM,V,M,R,B>> extends WeakReference<DATUM> {
+
 
     protected final Long sequence;
     protected final Map<String, Model.InstanceValue<?>> attributes;
-    protected final T steward;
+    protected final B librarian;
 
-    public Reference(DATUM referent, T steward) {
-        super(referent, steward);
-        this.steward = steward;
-        this.sequence = steward.incrementAndGet();
-        this.attributes = steward.getModel().getInitialProperties(referent);
+    public Reference(DATUM referent, B librarian) {
+        super(referent, librarian);
+        this.librarian = librarian;
+        this.sequence = librarian.incrementAndGet();
+        this.attributes = librarian.getModel().getInitialProperties(referent);
     }
 
-    public T getSteward() {
-        return steward;
+    public B getLibrarian() {
+        return librarian;
     }
 
     public boolean release() {

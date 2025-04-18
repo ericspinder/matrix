@@ -5,9 +5,12 @@
 package dev.inward.matrix.file.addressed.depot.variant;
 
 import dev.inward.matrix.file.addressed.depot.DepotLibrarian;
+import dev.inward.matrix.file.addressed.depot.specification.Specification;
 
-public class VariantLibrarian extends DepotLibrarian<VariantLibrarian,VariantKey,Variant,VariantView,VariantModel,VariantReference, VariantSteward> {
-    protected VariantLibrarian(VariantSteward gestalt) {
-        super(gestalt);
+import java.util.function.Function;
+
+public class VariantLibrarian extends DepotLibrarian<VariantLibrarian,VariantKey,Variant,VariantView,VariantModel,VariantReference, VariantLibrarian> {
+    public VariantLibrarian(Function<VariantReference, VariantReference> graveDigger, Class<VariantView> variantViewClass, VariantModel model, Specification specification) {
+        super(graveDigger, model, variantViewClass, specification);
     }
 }

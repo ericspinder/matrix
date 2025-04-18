@@ -6,8 +6,8 @@ package dev.inward.matrix.file.addressed.http;
 
 import dev.inward.matrix.file.DirectoryReference;
 
-public class HttpDirectoryReference extends DirectoryReference<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibrarySteward,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogSteward,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectorySteward> {
-    public HttpDirectoryReference(HttpDirectory referent, HttpDirectorySteward resource) {
+public class HttpDirectoryReference extends DirectoryReference<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibraryLibrarian,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogLibrarian,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectoryLibrarian> {
+    public HttpDirectoryReference(HttpDirectory referent, HttpDirectoryLibrarian resource) {
         super(referent, resource);
     }
 }

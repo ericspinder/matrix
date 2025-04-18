@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.file.addressed.depot;
 
-import dev.inward.matrix.container.domain.Domain;
+import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.MatrixURLStreamHandlerProvider;
 import dev.inward.matrix.Scheme;
 import dev.inward.matrix.Terrene;

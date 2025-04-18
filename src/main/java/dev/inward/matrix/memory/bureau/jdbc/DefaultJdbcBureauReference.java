@@ -4,8 +4,8 @@
 
 package dev.inward.matrix.memory.bureau.jdbc;
 
-public final class DefaultJdbcBureauReference extends JdbcBureauReference<DefaultJdbcBureauKey,DefaultJdbcBureau,DefaultJdbcBureauView,DefaultJdbcBureauModel,DefaultJdbcBureauReference, DefaultJdbcBureauSteward> {
-    public DefaultJdbcBureauReference(DefaultJdbcBureau referent, DefaultJdbcBureauSteward geslalt) {
+public final class DefaultJdbcBureauReference extends JdbcBureauReference<DefaultJdbcBureauKey,DefaultJdbcBureau,DefaultJdbcBureauView,DefaultJdbcBureauModel,DefaultJdbcBureauReference, DefaultJdbcBureauLibrarian> {
+    public DefaultJdbcBureauReference(DefaultJdbcBureau referent, DefaultJdbcBureauLibrarian geslalt) {
         super(referent, geslalt);
     }
 }

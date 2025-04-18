@@ -5,11 +5,11 @@
 package dev.inward.matrix.file.addressed.dns.nameServerRecord;
 
 import dev.inward.matrix.file.addressed.depot.specification.Specification;
-import dev.inward.matrix.file.addressed.dns.RRSteward;
+import dev.inward.matrix.file.addressed.dns.RRLibrarian;
 
 import java.util.function.Function;
 
-public class NameServerRecordSteward extends RRSteward<NameServerRecordLibrarian,NameServerRecordKey,NameServerRecord,NameServerRecordView,NameServerRecordModel,NameServerRecordReference, NameServerRecordSteward> {
+public class NameServerRecordSteward extends RRLibrarian<NameServerRecordLibrarian,NameServerRecordKey,NameServerRecord,NameServerRecordView,NameServerRecordModel,NameServerRecordReference, NameServerRecordSteward> {
     public NameServerRecordSteward(Function<NameServerRecordReference, NameServerRecordReference> graveDigger, NameServerRecordModel model, Class<NameServerRecordView> viewClass, Specification specification) {
         super(graveDigger, model, viewClass, specification);
     }

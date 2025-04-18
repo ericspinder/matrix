@@ -12,7 +12,7 @@ import java.nio.file.FileSystems;
 import java.util.Map;
 
 
-public abstract class FileBureau<K extends FileBureauKey<K,I,V,M,R,G>,I extends FileBureau<K,I,V,M,R,G>,V extends FileBureauView<K,I,V,M,R,G>,M extends FileBureauModel<K,I,V,M,R,G>,R extends FileBureauReference<K,I,V,M,R,G>,G extends FileBureauSteward<K,I,V,M,R,G>> extends Bureau<K,I,V,M,R,G> {
+public abstract class FileBureau<K extends FileBureauKey<K,I,V,M,R,G>,I extends FileBureau<K,I,V,M,R,G>,V extends FileBureauView<K,I,V,M,R,G>,M extends FileBureauModel<K,I,V,M,R,G>,R extends FileBureauReference<K,I,V,M,R,G>,G extends FileBureauLibrarian<K,I,V,M,R,G>> extends Bureau<K,I,V,M,R,G> {
 
     protected final String rootPath;
     protected final FileSystem defaultFileSystem = FileSystems.getDefault();

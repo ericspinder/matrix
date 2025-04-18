@@ -5,11 +5,13 @@
 package dev.inward.matrix.file.addressed.log;
 
 import dev.inward.matrix.file.addressed.AddressedLibrarian;
+import dev.inward.matrix.file.addressed.depot.specification.Specification;
 
 import java.util.UUID;
+import java.util.function.Function;
 
-public class MatterLibrarian extends AddressedLibrarian<LogScheme,LogLibraryKey,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibrarySteward,LogPath,LogCatalogKey,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference, LogCatalogSteward,LogDirectoryLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference, LogDirectorySteward,MatterLibrarian,UUID,MatterKey,Matter,MatterView,MatterModel,MatterReference, MatterSteward> {
-    protected MatterLibrarian(MatterSteward resource) {
-        super(resource);
+public class MatterLibrarian extends AddressedLibrarian<LogScheme,LogLibraryKey,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibraryLibrarian,LogPath,LogCatalogKey,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference, LogCatalogLibrarian,LogDirectoryLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference, LogDirectoryLibrarian,MatterLibrarian,UUID,MatterKey,Matter,MatterView,MatterModel,MatterReference, MatterLibrarian> {
+    public MatterLibrarian(Function<MatterReference, MatterReference> graveDigger, MatterModel model, Class<MatterView> viewClass, Specification specification) {
+        super(graveDigger, model,viewClass, specification);
     }
 }

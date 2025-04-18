@@ -4,7 +4,7 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.container.catalog.CatalogKey;
+import dev.inward.matrix.control.catalog.CatalogKey;
 import dev.inward.matrix.file.DirectoryKey;
 import dev.inward.matrix.file.FileKey;
 import dev.inward.matrix.file.addressed.AddressedKey;
@@ -21,7 +21,7 @@ import java.net.URISyntaxException;
 import java.nio.file.*;
 import java.util.*;
 
-public abstract class MatrixKey<B extends Librarian<B,I,V,M,R, T>,K extends MatrixKey<B,K,I,V,M,R, T>,I extends MatrixItem<B,K,I,V,M,R, T>,V extends View<B,I,V,M,R, T>,M extends Model<I>,R extends Reference<B,I,V,M,R, T>, T extends Steward<B,I,V,M,R, T>> implements Path {
+public abstract class MatrixKey<K extends MatrixKey<K,I,V,M,R,B>,I extends MatrixItem<K,I,V,M,R,B>,V extends View<I,V,M,R,B>,M extends Model<I>,R extends Reference<I,V,M,R,B>, B extends Librarian<I,V,M,R,B>> implements Path {
 
     protected final URI uri;
     protected R itemReference;
@@ -259,7 +259,7 @@ public abstract class MatrixKey<B extends Librarian<B,I,V,M,R, T>,K extends Matr
         return this.uri.toString();
     }
 
-    public static abstract class Builder<K extends MatrixKey<K,I,V,M,R,G>,I extends MatrixItem<K,I,V,M,R,G>,V extends View<I,M>, M extends Model<I>,R extends Reference<I,V,M,R,G>,G extends Steward<I,V,M,R,G>> {
+    public static abstract class Builder<K extends MatrixKey<K,I,V,M,R,G>,I extends MatrixItem<K,I,V,M,R,G>,V extends View<I,M>, M extends Model<I>,R extends Reference<I,V,M,R,G>,G extends Librarian<I,V,M,R,G>> {
 
         protected URI uri;
 

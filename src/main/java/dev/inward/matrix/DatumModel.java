@@ -7,7 +7,7 @@ package dev.inward.matrix;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class DatumModel<LB extends DatumLibrarian<LB,D,V,M,R,G>,D extends Datum<LB,D,V,M,R,G>,V extends DatumView<LB,D,V,M,R,G>,M extends DatumModel<LB,D,V,M,R,G>,R extends DatumReference<LB,D,V,M,R,G>,G extends DatumSteward<LB,D,V,M,R,G>> extends Model<D> {
+public class DatumModel<D extends Datum,V extends DatumView<D,V,M,R,B>,M extends DatumModel<D,V,M,R,B>,R extends DatumReference<D,V,M,R,B>,B extends DatumLibrarian<D,V,M,R,B>> extends Model<D> {
     public DatumModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

@@ -4,7 +4,7 @@
 
 package dev.inward.matrix;
 
-public class DatumView<LB extends DatumLibrarian<LB,D,V,M,R,G>,D extends Datum<LB,D,V,M,R,G>,V extends DatumView<LB,D,V,M,R,G>,M extends DatumModel<LB,D,V,M,R,G>,R extends DatumReference<LB,D,V,M,R,G>,G extends DatumSteward<LB,D,V,M,R,G>> extends View<D,V,M,R,G> {
+public class DatumView<D extends Datum<D,V,M,R,B>,V extends DatumView<D,V,M,R,B>,M extends DatumModel<D,V,M,R,B>,R extends DatumReference<D,V,M,R,B>,B extends DatumLibrarian<D,V,M,R,B>> extends View<D,V,M,R,B> {
     public DatumView(String name, D d, R reference) {
         super(name, d, reference);
     }

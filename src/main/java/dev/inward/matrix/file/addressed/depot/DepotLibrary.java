@@ -3,13 +3,13 @@
  */
 package dev.inward.matrix.file.addressed.depot;
 
-import dev.inward.matrix.container.library.Library;
+import dev.inward.matrix.control.library.Library;
 import dev.inward.matrix.memory.bureau.Bureau;
 import dev.inward.matrix.file.addressed.depot.indica.Indica;
 
 import java.util.Map;
 
-public class DepotLibrary extends Library<DepotScheme,DepotLibraryKey,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibrarySteward,DepotPath,DepotCatalogKey,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference, DepotCatalogSteward,DepotDirectoryLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectorySteward> {
+public class DepotLibrary extends Library<DepotScheme,DepotLibraryKey,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibraryLibrarian,DepotPath,DepotCatalogKey,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference, DepotCatalogLibrarian,DepotDirectoryLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectoryLibrarian> {
 
 
     public DepotLibrary(DepotLibraryKey libraryKey) {

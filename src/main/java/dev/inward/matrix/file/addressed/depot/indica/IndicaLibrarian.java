@@ -5,9 +5,12 @@
 package dev.inward.matrix.file.addressed.depot.indica;
 
 import dev.inward.matrix.file.addressed.depot.DepotLibrarian;
+import dev.inward.matrix.file.addressed.depot.specification.Specification;
 
-public class IndicaLibrarian extends DepotLibrarian<IndicaLibrarian,IndicaKey,Indica,IndicaView,IndicaModel,IndicaReference, IndicaSteward> {
-    protected IndicaLibrarian(IndicaSteward gestalt) {
-        super(gestalt);
+import java.util.function.Function;
+
+public class IndicaLibrarian extends DepotLibrarian<IndicaLibrarian,IndicaKey,Indica,IndicaView,IndicaModel,IndicaReference, IndicaLibrarian> {
+    public IndicaLibrarian(Function<IndicaReference, IndicaReference> graveDigger, IndicaModel model, Class<IndicaView> viewClass, Specification specification) {
+        super(graveDigger, model, viewClass, specification);
     }
 }

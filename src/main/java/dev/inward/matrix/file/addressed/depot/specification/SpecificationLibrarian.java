@@ -6,8 +6,10 @@ package dev.inward.matrix.file.addressed.depot.specification;
 
 import dev.inward.matrix.file.addressed.depot.DepotLibrarian;
 
-public class SpecificationLibrarian extends DepotLibrarian<SpecificationLibrarian,SpecificationKey,Specification,SpecificationView,SpecificationModel,SpecificationReference, SpecificationSteward> {
-    protected SpecificationLibrarian(SpecificationSteward gestalt) {
-        super(gestalt);
+import java.util.function.Function;
+
+public class SpecificationLibrarian extends DepotLibrarian<SpecificationLibrarian,SpecificationKey,Specification,SpecificationView,SpecificationModel,SpecificationReference, SpecificationLibrarian> {
+    public SpecificationLibrarian(Function<SpecificationReference, SpecificationReference> graveDigger, SpecificationModel model, Class<SpecificationView> viewClass, Specification specification) {
+        super(graveDigger, model, viewClass, specification);
     }
 }

@@ -6,7 +6,7 @@ package dev.inward.matrix;
 
 import java.nio.file.attribute.AttributeView;
 
-public abstract class View<B extends Librarian<B,DATUM,V,M,R,S>,DATUM,V extends View<B,DATUM,V,M,R,S>,M extends Model<DATUM>,R extends Reference<B,DATUM,V,M,R,S>,S extends Steward<B,DATUM,V,M,R,S>> implements AttributeView {
+public abstract class View<DATUM,V extends View<DATUM,V,M,R,B>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,B>,B extends Librarian<DATUM,V,M,R,B>> implements AttributeView {
 
     protected final String name;
     protected final DATUM datum;

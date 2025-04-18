@@ -6,7 +6,7 @@ package dev.inward.matrix.memory.bureau.file.unix;
 
 import java.net.URI;
 
-public class DefaultUnixBureauKey extends UnixBureauKey<DefaultUnixBureauKey,DefaultUnixBureau,DefaultUnixBureauView,DefaultUnixBureauModel,DefaultUnixBureauReference, DefaultUnixBureauSteward> {
+public class DefaultUnixBureauKey extends UnixBureauKey<DefaultUnixBureauKey,DefaultUnixBureau,DefaultUnixBureauView,DefaultUnixBureauModel,DefaultUnixBureauReference, DefaultUnixBureauLibrarian> {
     protected DefaultUnixBureauKey(URI uri) {
         super(uri);
     }

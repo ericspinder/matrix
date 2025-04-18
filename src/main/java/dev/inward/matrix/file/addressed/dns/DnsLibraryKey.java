@@ -4,12 +4,12 @@
 
 package dev.inward.matrix.file.addressed.dns;
 
-import dev.inward.matrix.container.domain.Domain;
-import dev.inward.matrix.container.library.LibraryKey;
+import dev.inward.matrix.control.domain.Domain;
+import dev.inward.matrix.control.library.LibraryKey;
 
 import java.net.URI;
 
-public class DnsLibraryKey extends LibraryKey<DnsScheme,DnsLibraryKey,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibrarySteward,DnsPath,DnsCatalogKey,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference, DnsCatalogSteward,DnsDirectoryLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectorySteward> {
+public class DnsLibraryKey extends LibraryKey<DnsScheme,DnsLibraryKey,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibraryLibrarian,DnsPath,DnsCatalogKey,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference, DnsCatalogLibrarian,DnsDirectoryLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectoryLibrarian> {
     protected DnsLibraryKey(URI uri, DnsScheme scheme, Domain domain, int port, String separator) {
         super(uri, scheme, domain, port, separator);
     }

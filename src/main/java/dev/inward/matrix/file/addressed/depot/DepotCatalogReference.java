@@ -4,10 +4,10 @@
 
 package dev.inward.matrix.file.addressed.depot;
 
-import dev.inward.matrix.container.catalog.CatalogReference;
+import dev.inward.matrix.control.catalog.CatalogReference;
 
-public class DepotCatalogReference extends CatalogReference<DepotScheme,DepotLibraryKey,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibrarySteward,DepotPath,DepotCatalogKey,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference, DepotCatalogSteward,DepotDirectoryLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectorySteward> {
-    public DepotCatalogReference(DepotCatalog referent, DepotCatalogSteward gestalt) {
+public class DepotCatalogReference extends CatalogReference<DepotScheme,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference,DepotLibraryLibrarian,DepotPath,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference,DepotCatalogLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectoryLibrarian> {
+    public DepotCatalogReference(DepotCatalog referent, DepotCatalogLibrarian gestalt) {
         super(referent, gestalt);
     }
 }

@@ -6,8 +6,8 @@ package dev.inward.matrix.file.addressed.depot.source;
 
 import dev.inward.matrix.file.addressed.depot.DepotReference;
 
-public class SourceReference extends DepotReference<SourceLibrarian,SourceKey,Source,SourceView,SourceModel,SourceReference, SourceSteward> {
-    public SourceReference(Source addressed, SourceSteward resource) {
+public class SourceReference extends DepotReference<SourceLibrarian,SourceKey,Source,SourceView,SourceModel,SourceReference, SourceLibrarian> {
+    public SourceReference(Source addressed, SourceLibrarian resource) {
         super(addressed, resource);
     }
 }

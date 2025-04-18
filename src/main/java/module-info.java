@@ -30,9 +30,9 @@ module dev.inward.matrix {
     exports dev.inward.matrix.file.addressed.dns.serverRecord;
     exports dev.inward.matrix.file.addressed.dns.serviceLocationRecord;
     exports dev.inward.matrix.file.addressed.dns.startOfAuthority;
-    exports dev.inward.matrix.container;
-    exports dev.inward.matrix.container.catalog;
-    exports dev.inward.matrix.container.library;
-    exports dev.inward.matrix.container.domain;
+    exports dev.inward.matrix.control;
+    exports dev.inward.matrix.control.catalog;
+    exports dev.inward.matrix.control.library;
+    exports dev.inward.matrix.control.domain;
     exports dev.inward.matrix.memory.administration;
 }

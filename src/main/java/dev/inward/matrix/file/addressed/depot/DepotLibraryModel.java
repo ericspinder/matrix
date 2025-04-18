@@ -5,7 +5,7 @@
 package dev.inward.matrix.file.addressed.depot;
 
 import dev.inward.matrix.Aspect;
-import dev.inward.matrix.container.library.LibraryModel;
+import dev.inward.matrix.control.library.LibraryModel;
 
 public class DepotLibraryModel extends LibraryModel<DepotScheme,DepotLibraryKey,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibrarySteward,DepotPath,DepotCatalogKey,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference, DepotCatalogSteward,DepotDirectoryLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectorySteward> {
     public DepotLibraryModel(Aspect[] labeledAspects) {

@@ -4,10 +4,10 @@
 
 package dev.inward.matrix.file.addressed.info;
 
-import dev.inward.matrix.container.catalog.CatalogReference;
+import dev.inward.matrix.control.catalog.CatalogReference;
 
-public class InfoCatalogReference extends CatalogReference<InfoScheme,InfoLibraryKey,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference, InfoLibrarySteward,InfoPath,InfoCatalogKey,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference, InfoCatalogSteward,InfoDirectoryLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference, InfoDirectorySteward> {
-    public InfoCatalogReference(InfoCatalog referent, InfoCatalogSteward gestalt) {
+public class InfoCatalogReference extends CatalogReference<InfoScheme,InfoLibraryKey,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference, InfoLibraryLibrarian,InfoPath,InfoCatalogKey,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference, InfoCatalogLibrarian,InfoDirectoryLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference, InfoDirectoryLibrarian> {
+    public InfoCatalogReference(InfoCatalog referent, InfoCatalogLibrarian gestalt) {
         super(referent, gestalt);
     }
 }

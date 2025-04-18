@@ -5,9 +5,9 @@
 package dev.inward.matrix.file.addressed.http;
 
 import dev.inward.matrix.Aspect;
-import dev.inward.matrix.container.library.LibraryModel;
+import dev.inward.matrix.control.library.LibraryModel;
 
-public class HttpLibraryModel extends LibraryModel<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibrarySteward,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogSteward,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectorySteward> {
+public class HttpLibraryModel extends LibraryModel<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibraryLibrarian,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogLibrarian,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectoryLibrarian> {
     public HttpLibraryModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

@@ -18,10 +18,10 @@ public class Factory<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I e
     private Engine<PATH,ID,I,A,R,F> engine = null;
     protected final Gathering<PATH,ID,I,A,R,PR> gathering;
     protected StampedLock gate = new StampedLock();
-    protected final AddressedSteward<PATH,ID,I,A,R,PR> resource;
+    protected final AddressedLibrarian<PATH,ID,I,A,R,PR> resource;
     protected final Map<> routeMap = new HashMap<>();
 
-    public Factory(Gathering<PATH,,ID,I,A,R,PR> gathering, AddressedSteward<PATH,ID,I,A,R,PR> resource) {
+    public Factory(Gathering<PATH,,ID,I,A,R,PR> gathering, AddressedLibrarian<PATH,ID,I,A,R,PR> resource) {
         super();
         this.gathering = gathering;
         this.resource = resource;

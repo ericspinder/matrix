@@ -10,7 +10,7 @@ import dev.inward.matrix.file.FileView;
 
 import java.util.Map;
 
-public abstract class Network<K extends NetworkKey<K,I,V,M,R,G>,I extends Network<K,I,V,M,R,G>,V extends NetworkView<K,I,V,M,R,G>,M extends NetworkModel<K,I,V,M,R,G>,R extends NetworkReference<K,I,V,M,R,G>,G extends NeworkSteward<K,I,V,M,R,G>> extends Bureau<K,I,V,M,R,G> {
+public abstract class Network<K extends NetworkKey<K,I,V,M,R,G>,I extends Network<K,I,V,M,R,G>,V extends NetworkView<K,I,V,M,R,G>,M extends NetworkModel<K,I,V,M,R,G>,R extends NetworkReference<K,I,V,M,R,G>,G extends NeworkLibrarian<K,I,V,M,R,G>> extends Bureau<K,I,V,M,R,G> {
 
     protected final Hosts.Remote remoteHost;
 

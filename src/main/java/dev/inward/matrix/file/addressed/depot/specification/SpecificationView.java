@@ -6,7 +6,7 @@ package dev.inward.matrix.file.addressed.depot.specification;
 
 import dev.inward.matrix.file.addressed.depot.DepotView;
 
-public class SpecificationView extends DepotView<SpecificationLibrarian,SpecificationKey,Specification,SpecificationView,SpecificationModel,SpecificationReference, SpecificationSteward> {
+public class SpecificationView extends DepotView<SpecificationLibrarian,SpecificationKey,Specification,SpecificationView,SpecificationModel,SpecificationReference, SpecificationLibrarian> {
     public SpecificationView(Specification specification, SpecificationModel specificationModel) {
         super("SpecificationView", specification, specificationModel);
     }

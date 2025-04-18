@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public abstract class Provider<DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,G>,G extends Steward<DATUM,V,M,R,G>> implements Iterator<DATUM> {
+public abstract class Provider<DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,G>,G extends Librarian<DATUM,V,M,R,G>> implements Iterator<DATUM> {
 
     protected boolean autoReset;
     protected boolean cancelWhenResetIsFalse;
@@ -30,7 +30,7 @@ public abstract class Provider<DATUM,V extends View<DATUM,M>,M extends Model<DAT
 }
     public abstract DATUM current();
 
-    public static class Provided<DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,G>,G extends Steward<DATUM,V,M,R,G>> extends Provider<DATUM,V,M,R,G> {
+    public static class Provided<DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,G>,G extends Librarian<DATUM,V,M,R,G>> extends Provider<DATUM,V,M,R,G> {
 
         protected DATUM subject;
 
@@ -55,7 +55,7 @@ public abstract class Provider<DATUM,V extends View<DATUM,M>,M extends Model<DAT
         }
     }
 
-    public static class Current<DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,G>,G extends Steward<DATUM,V,M,R,G>> extends Provider<DATUM,V,M,R,G> {
+    public static class Current<DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,G>,G extends Librarian<DATUM,V,M,R,G>> extends Provider<DATUM,V,M,R,G> {
 
         protected DATUM subject;
         protected boolean next;
@@ -101,7 +101,7 @@ public abstract class Provider<DATUM,V extends View<DATUM,M>,M extends Model<DAT
         }
     }
 
-    public static class Chain<DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,G>,G extends Steward<DATUM,V,M,R,G>> extends Provider<DATUM,V,M,R,G> {
+    public static class Chain<DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,G>,G extends Librarian<DATUM,V,M,R,G>> extends Provider<DATUM,V,M,R,G> {
 
         protected final Deque<DATUM> deque;
         protected boolean waitForMore;
@@ -126,7 +126,7 @@ public abstract class Provider<DATUM,V extends View<DATUM,M>,M extends Model<DAT
             return deque.peek();
         }
     }
-    public static class KeyedSearch<BK extends BureauKey<BK,BI,BV,BM,BR,BG>,BI extends Bureau<BK,BI,BV,BM,BR,BG>,BV extends BureauView<BK,BI,BV,BM,BR,BG>,BM extends BureauModel<BK,BI,BV,BM,BR,BG>,BR extends BureauReference<BK,BI,BV,BM,BR,BG>,BG extends BureauSteward<BK,BI,BV,BM,BR,BG>, K extends MatrixKey<K,I,V,M,R, G>,I extends MatrixItem<K,I,V,M,R,G>,V extends View<I,M>,M extends Model<I>,R extends Reference<I,V,M,R,G>,G extends Steward<I,V,M,R,G>> extends Provider<I,V,M,R,G> {
+    public static class KeyedSearch<BK extends BureauKey<BK,BI,BV,BM,BR,BG>,BI extends Bureau<BK,BI,BV,BM,BR,BG>,BV extends BureauView<BK,BI,BV,BM,BR,BG>,BM extends BureauModel<BK,BI,BV,BM,BR,BG>,BR extends BureauReference<BK,BI,BV,BM,BR,BG>,BG extends BureauLibrarian<BK,BI,BV,BM,BR,BG>, K extends MatrixKey<K,I,V,M,R, G>,I extends MatrixItem<K,I,V,M,R,G>,V extends View<I,M>,M extends Model<I>,R extends Reference<I,V,M,R,G>,G extends Librarian<I,V,M,R,G>> extends Provider<I,V,M,R,G> {
         public KeyedSearch(boolean autoReset, boolean cancelWhenResetIsFalse) {
             super(autoReset, cancelWhenResetIsFalse);
         }

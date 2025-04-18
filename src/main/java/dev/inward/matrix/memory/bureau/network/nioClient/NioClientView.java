@@ -7,7 +7,7 @@ package dev.inward.matrix.memory.bureau.network.nioClient;
 import dev.inward.matrix.memory.bureau.network.NetworkView;
 
 
-public class NioClientView extends NetworkView<NioClientKey,NioClient, NioClientView,NioClientModel,NioClientReference, NioClientSteward> {
+public class NioClientView extends NetworkView<NioClientKey,NioClient, NioClientView,NioClientModel,NioClientReference, NioClientLibrarian> {
 
     public NioClientView(NioClient bureau, NioClientModel bureauModel) {
         super("NioClientView", bureau, bureauModel);

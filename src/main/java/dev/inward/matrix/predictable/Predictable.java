@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.predictable;
 
-import dev.inward.matrix.container.domain.Domain;
+import dev.inward.matrix.control.domain.Domain;
 import java.io.IOException;
 import java.nio.file.ClosedWatchServiceException;
 import java.time.Instant;

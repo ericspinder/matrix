@@ -4,10 +4,10 @@
 
 package dev.inward.matrix.file.addressed.log;
 
-import dev.inward.matrix.container.catalog.CatalogReference;
+import dev.inward.matrix.control.catalog.CatalogReference;
 
-public class LogCatalogReference extends CatalogReference<LogScheme,LogLibraryKey,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibrarySteward,LogPath,LogCatalogKey,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference, LogCatalogSteward,LogDirectoryLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference, LogDirectorySteward> {
-    public LogCatalogReference(LogCatalog referent, LogCatalogSteward gestalt) {
+public class LogCatalogReference extends CatalogReference<LogScheme,LogLibraryKey,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibraryLibrarian,LogPath,LogCatalogKey,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference, LogCatalogLibrarian,LogDirectoryLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference, LogDirectoryLibrarian> {
+    public LogCatalogReference(LogCatalog referent, LogCatalogLibrarian gestalt) {
         super(referent, gestalt);
     }
 }

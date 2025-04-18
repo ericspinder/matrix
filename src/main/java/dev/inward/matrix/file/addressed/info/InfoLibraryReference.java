@@ -4,10 +4,10 @@
 
 package dev.inward.matrix.file.addressed.info;
 
-import dev.inward.matrix.container.library.LibraryReference;
+import dev.inward.matrix.control.library.LibraryReference;
 
-public class InfoLibraryReference extends LibraryReference<InfoScheme,InfoLibraryKey,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference, InfoLibrarySteward,InfoPath,InfoCatalogKey,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference, InfoCatalogSteward,InfoDirectoryLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference, InfoDirectorySteward> {
-    public InfoLibraryReference(InfoLibrary referent, InfoLibrarySteward libraryGestalt) {
+public class InfoLibraryReference extends LibraryReference<InfoScheme,InfoLibraryKey,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference, InfoLibraryLibrarian,InfoPath,InfoCatalogKey,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference, InfoCatalogLibrarian,InfoDirectoryLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference, InfoDirectoryLibrarian> {
+    public InfoLibraryReference(InfoLibrary referent, InfoLibraryLibrarian libraryGestalt) {
         super(referent, libraryGestalt);
     }
 }

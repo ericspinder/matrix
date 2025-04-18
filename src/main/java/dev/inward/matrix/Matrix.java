@@ -4,8 +4,7 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.container.domain.Domain;
-import dev.inward.matrix.container.domain.DomainKey;
+import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.predictable.Director;
 
 import javax.naming.NamingException;
@@ -14,11 +13,16 @@ import java.io.IOException;
 import java.lang.instrument.Instrumentation;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Matrix {
 
     private static Matrix Instance;
+    public static Matrix getInstance() {
+        return Instance;
+    }
 
+    private final Map<String,Domain> allBuiltDomains = new ConcurrentHashMap<>();
     protected final Map<String, Director> directorsByDomain = new HashMap<>();
     protected final InitialDirContext dirContext;
     private final LocalSystemNetworking localSystemNetworking = LocalSystemNetworking.getInstance();
@@ -26,34 +30,33 @@ public class Matrix {
     private final Instrumentation instrumentation;
     private final Domain localhostDomain;
 
-    public static Matrix getInstance() {
-        return Instance;
-    }
 
-
-
-    protected Matrix(CommandLine commandLine, Instrumentation instrumentation, Domain localhostDomain) {
+    protected Matrix(CommandLine commandLine, Instrumentation instrumentation) {
         this.commandLine = commandLine;
         this.instrumentation = instrumentation;
-        this.localhostDomain = localhostDomain;
         try {
             this.dirContext = new InitialDirContext();
         } catch (NamingException e) {
             throw new RuntimeException(e);
         }
+        this.localhostDomain = getDomain(Terrene.Parse(commandLine.getValue("terrene")), "localhost");
     }
 
-    public static void premain(String agentArgs, Instrumentation instrumentation) throws InstantiationException {
-        try {
-            CommandLine commandLine = new CommandLine(agentArgs);
-            if (Instance != null) {
-                throw new RuntimeException("premain cannot be called twice");
-            }
-            Instance = new Matrix(commandLine, instrumentation, Domain.get((new DomainKey.Builder()).setDomainName("localhost").setTerrene(Terrene.Parse(commandLine.getValue("terrene"))).buildMatrixKey()));
-
-        } catch (IOException e) {
-            throw new InstantiationException("Cannot create instance of Ziggurat from premain method");
+    protected Domain getDomain(Terrene terrene, String domainName) {
+        String domainKey = terrene.toString() +domainName;
+        if (!allBuiltDomains.containsKey(domainKey)) {
+            newDomain(terrene, domainName);
         }
+        return allBuiltDomains.get(domainKey);
+    }
+    protected synchronized void newDomain(Terrene terrene, String domainName) {
+        String domainKey = terrene.toString() + "." + domainName;
+        if (!allBuiltDomains.containsKey(domainKey)) {
+            allBuiltDomains.put(domainKey,new Domain(terrene, domainKey));
+        }
+    }
+    public LocalSystemNetworking getLocalSystemNetworking() {
+        return this.localSystemNetworking;
     }
 
     public CommandLine getCommandLine() {
@@ -79,5 +82,16 @@ public class Matrix {
         this.directorsByDomain.put(domain.getDomain(),new Director(null));
         return this.directorsByDomain.get(domain.getDomain());
 
+    }
+    public static void premain(String agentArgs, Instrumentation instrumentation) throws InstantiationException {
+        try {
+            if (Instance != null) {
+                throw new RuntimeException("premain cannot be called twice");
+            }
+            Instance = new Matrix(new CommandLine(agentArgs), instrumentation);
+
+        } catch (IOException e) {
+            throw new InstantiationException("Cannot create instance of Ziggurat from premain method");
+        }
     }
 }

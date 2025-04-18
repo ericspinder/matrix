@@ -1,11 +1,14 @@
 /*
- *  Pinder's Matrix © 2025. by Eric S Pinder is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+ *  Copyright (c) © 2025. Pinder's Matrix  by Eric S Pinder is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
  */
 
 package dev.inward.matrix;
 
-public class DatumLibrarian<LB extends DatumLibrarian<LB,D,V,M,R, G>,D extends Datum<LB,D,V,M,R, G>,V extends DatumView<LB,D,V,M,R,G>,M extends DatumModel<LB,D,V,M,R, G>,R extends DatumReference<LB,D,V,M,R, G>, G extends DatumSteward<LB,D,V,M,R, G>> extends Librarian<D,V,M,R, G> {
-    protected DatumLibrarian(G gestalt) {
-        super(gestalt);
+import dev.inward.matrix.file.addressed.depot.standard.Standard;
+
+public class DatumLibrarian<D extends Datum,V extends DatumView<D,V,M,R,B>,M extends DatumModel<D,V,M,R,B>,R extends DatumReference<D,V,M,R,B>,B extends DatumLibrarian<D,V,M,R,B>> extends Librarian<D,V,M,R,B> {
+
+    public DatumLibrarian(Standard standard) {
+        super(standard);
     }
 }

@@ -8,7 +8,7 @@ import dev.inward.matrix.memory.bureau.file.FileBureauKey;
 
 import java.net.URI;
 
-public class WindowsBureauKey extends FileBureauKey<WindowsBureauKey,WindowsBureau,WindowsBureauView,WindowsBureauModel,WindowsBureauReference, WindowsBureauSteward> {
+public class WindowsBureauKey extends FileBureauKey<WindowsBureauKey,WindowsBureau,WindowsBureauView,WindowsBureauModel,WindowsBureauReference, WindowsBureauLibrarian> {
     protected WindowsBureauKey(URI uri) {
         super(uri);
     }

@@ -4,10 +4,10 @@
 
 package dev.inward.matrix.file.addressed.http;
 
-import dev.inward.matrix.container.catalog.CatalogReference;
+import dev.inward.matrix.control.catalog.CatalogReference;
 
-public class HttpCatalogReference extends CatalogReference<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibrarySteward,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogSteward,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectorySteward> {
-    public HttpCatalogReference(HttpCatalog referent, HttpCatalogSteward gestalt) {
+public class HttpCatalogReference extends CatalogReference<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibraryLibrarian,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogLibrarian,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectoryLibrarian> {
+    public HttpCatalogReference(HttpCatalog referent, HttpCatalogLibrarian gestalt) {
         super(referent, gestalt);
     }
 }

@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.personality;
 
-import dev.inward.matrix.container.library.Library;
+import dev.inward.matrix.control.library.Library;
 import dev.inward.matrix.Scheme;
 import dev.inward.matrix.file.addressed.depot.indica.IndicaKey;
 import dev.inward.matrix.file.addressed.log.Matter;

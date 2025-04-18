@@ -5,9 +5,12 @@
 package dev.inward.matrix.file.addressed.depot.source;
 
 import dev.inward.matrix.file.addressed.depot.DepotLibrarian;
+import dev.inward.matrix.file.addressed.depot.specification.Specification;
 
-public class SourceLibrarian extends DepotLibrarian<SourceLibrarian,SourceKey,Source,SourceView,SourceModel,SourceReference, SourceSteward> {
-    protected SourceLibrarian(SourceSteward gestalt) {
-        super(gestalt);
+import java.util.function.Function;
+
+public class SourceLibrarian extends DepotLibrarian<SourceLibrarian,SourceKey,Source,SourceView,SourceModel,SourceReference, SourceLibrarian> {
+    public SourceLibrarian(Function<SourceReference, SourceReference> graveDigger, SourceModel model, Class<SourceView> viewClass, Specification specification) {
+        super(graveDigger, model, viewClass, specification);
     }
 }

@@ -6,7 +6,7 @@ package dev.inward.matrix.memory.administration;
 
 import dev.inward.matrix.memory.MemoryView;
 
-public abstract class AdministrationView<B extends AdministrationLibrarian<B,K,I,V,M,R,T>,K extends AdministrationKey<B,K,I,V,M,R,T>,I extends Administration<B,K,I,V,M,R,T>,V extends AdministrationView<B,K,I,V,M,R,T>,M extends AdministrationModel<B,K,I,V,M,R,T>,R extends AdministrationReference<B,K,I,V,M,R,T>,T extends AdministrationSteward<B,K,I,V,M,R,T>> extends MemoryView<B,K,I,V,M,R,T> {
+public abstract class AdministrationView<B extends AdministrationLibrarian<B,K,I,V,M,R,T>,K extends AdministrationKey<B,K,I,V,M,R,T>,I extends Administration<B,K,I,V,M,R,T>,V extends AdministrationView<B,K,I,V,M,R,T>,M extends AdministrationModel<B,K,I,V,M,R,T>,R extends AdministrationReference<B,K,I,V,M,R,T>,T extends AdministrationLibrarian<B,K,I,V,M,R,T>> extends MemoryView<B,K,I,V,M,R,T> {
     public AdministrationView(String name, I administration, R reference) {
         super(name, administration, reference);
     }

@@ -6,8 +6,8 @@ package dev.inward.matrix.memory.bureau.network.nioClient;
 
 import dev.inward.matrix.memory.bureau.network.NetworkReference;
 
-public class NioClientReference extends NetworkReference<NioClientKey,NioClient, NioClientView,NioClientModel,NioClientReference, NioClientSteward> {
-    public NioClientReference(NioClient referent, NioClientSteward gestalt) {
+public class NioClientReference extends NetworkReference<NioClientKey,NioClient, NioClientView,NioClientModel,NioClientReference, NioClientLibrarian> {
+    public NioClientReference(NioClient referent, NioClientLibrarian gestalt) {
         super(referent, gestalt);
     }
 }

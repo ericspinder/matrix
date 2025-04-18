@@ -6,9 +6,9 @@ package dev.inward.matrix.file.addressed.depot;
 
 import dev.inward.matrix.file.DirectoryLibrarian;
 
-public class DepotDirectoryLibrary extends DirectoryLibrarian<DepotScheme,DepotLibraryKey,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibrarySteward,DepotPath,DepotCatalogKey,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference, DepotCatalogSteward,DepotDirectoryLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectorySteward> {
+public class DepotDirectoryLibrary extends DirectoryLibrarian<DepotScheme,DepotLibraryKey,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibraryLibrarian,DepotPath,DepotCatalogKey,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference, DepotCatalogLibrarian,DepotDirectoryLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectoryLibrarian> {
 
-    protected DepotDirectoryLibrary(DepotDirectorySteward directoryGestalt) {
+    protected DepotDirectoryLibrary(DepotDirectoryLibrarian directoryGestalt) {
         super(directoryGestalt);
     }
 }

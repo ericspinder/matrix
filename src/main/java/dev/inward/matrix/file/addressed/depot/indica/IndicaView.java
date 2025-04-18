@@ -6,7 +6,7 @@ package dev.inward.matrix.file.addressed.depot.indica;
 
 import dev.inward.matrix.file.addressed.depot.DepotView;
 
-public class IndicaView extends DepotView<IndicaLibrarian,IndicaKey,Indica,IndicaView,IndicaModel,IndicaReference, IndicaSteward> {
+public class IndicaView extends DepotView<IndicaLibrarian,IndicaKey,Indica,IndicaView,IndicaModel,IndicaReference, IndicaLibrarian> {
     public IndicaView(Indica indica,IndicaModel indicaModel) {
         super("IndicaView", indica, indicaModel);
     }

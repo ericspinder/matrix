@@ -8,7 +8,7 @@ import dev.inward.matrix.memory.bureau.network.NetworkKey;
 
 import java.net.URI;
 
-public class NioClientKey extends NetworkKey<NioClientKey,NioClient, NioClientView,NioClientModel,NioClientReference, NioClientSteward> {
+public class NioClientKey extends NetworkKey<NioClientKey,NioClient, NioClientView,NioClientModel,NioClientReference, NioClientLibrarian> {
     protected NioClientKey(URI uri) {
         super(uri);
     }

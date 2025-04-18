@@ -4,10 +4,10 @@
 
 package dev.inward.matrix.file.addressed.dns;
 
-import dev.inward.matrix.container.catalog.CatalogReference;
+import dev.inward.matrix.control.catalog.CatalogReference;
 
-public class DnsCatalogReference extends CatalogReference<DnsScheme,DnsLibraryKey,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibrarySteward,DnsPath,DnsCatalogKey,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference, DnsCatalogSteward,DnsDirectoryLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectorySteward> {
-    public DnsCatalogReference(DnsCatalog referent, DnsCatalogSteward gestalt) {
+public class DnsCatalogReference extends CatalogReference<DnsScheme,DnsLibraryKey,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibraryLibrarian,DnsPath,DnsCatalogKey,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference, DnsCatalogLibrarian,DnsDirectoryLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectoryLibrarian> {
+    public DnsCatalogReference(DnsCatalog referent, DnsCatalogLibrarian gestalt) {
         super(referent, gestalt);
     }
 }

@@ -7,7 +7,7 @@ package dev.inward.matrix.memory.bureau.file.windows;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.memory.bureau.file.FileBureauModel;
 
-public class WindowsBureauModel extends FileBureauModel<WindowsBureauKey,WindowsBureau,WindowsBureauView,WindowsBureauModel,WindowsBureauReference, WindowsBureauSteward> {
+public class WindowsBureauModel extends FileBureauModel<WindowsBureauKey,WindowsBureau,WindowsBureauView,WindowsBureauModel,WindowsBureauReference, WindowsBureauLibrarian> {
     public WindowsBureauModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

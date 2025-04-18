@@ -6,7 +6,7 @@ package dev.inward.matrix.memory.bureau.file.unix;
 
 import dev.inward.matrix.Aspect;
 
-public final class DefaultUnixBureauModel extends UnixBureauModel<DefaultUnixBureauKey,DefaultUnixBureau,DefaultUnixBureauView,DefaultUnixBureauModel,DefaultUnixBureauReference, DefaultUnixBureauSteward> {
+public final class DefaultUnixBureauModel extends UnixBureauModel<DefaultUnixBureauKey,DefaultUnixBureau,DefaultUnixBureauView,DefaultUnixBureauModel,DefaultUnixBureauReference, DefaultUnixBureauLibrarian> {
     public DefaultUnixBureauModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

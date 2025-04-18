@@ -5,10 +5,10 @@
 package dev.inward.matrix.memory;
 
 import dev.inward.matrix.Librarian;
+import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
-public class MemoryLibrarian<B extends MemoryLibrarian<B,I,V,M,R,T>,I extends Memory<B,I,V,M,R,T>,V extends MemoryView<B,I,V,M,R,T>,M extends MemoryModel<B,I,V,M,R,T>,R extends MemoryReference<B,I,V,M,R,T>,T extends MemorySteward<B,I,V,M,R,T>> extends Librarian<B,I,V,M,R,T> {
-
-    protected MemoryLibrarian(T steward) {
-        super(steward);
+public abstract class MemoryLibrarian<B extends MemoryLibrarian<B,K,I,V,M,R,T>,K extends MemoryKey<B,K,I,V,M,R,T>,I extends Memory<B,K,I,V,M,R,T>,V extends MemoryView<B,K,I,V,M,R,T>,M extends MemoryModel<B,K,I,V,M,R,T>,R extends MemoryReference<B,K,I,V,M,R,T>,T extends MemoryLibrarian<B,K,I,V,M,R,T>> extends Librarian<B,I,V,M,R,T> {
+    public MemoryLibrarian(Standard standard) {
+        super(standard);
     }
 }

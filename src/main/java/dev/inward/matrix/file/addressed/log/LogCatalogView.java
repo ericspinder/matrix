@@ -4,9 +4,9 @@
 
 package dev.inward.matrix.file.addressed.log;
 
-import dev.inward.matrix.container.catalog.CatalogView;
+import dev.inward.matrix.control.catalog.CatalogView;
 
-public class LogCatalogView extends CatalogView<LogScheme,LogLibraryKey,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibrarySteward,LogPath,LogCatalogKey,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference, LogCatalogSteward,LogDirectoryLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference, LogDirectorySteward> {
+public class LogCatalogView extends CatalogView<LogScheme,LogLibraryKey,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibraryLibrarian,LogPath,LogCatalogKey,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference, LogCatalogLibrarian,LogDirectoryLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference, LogDirectoryLibrarian> {
     public LogCatalogView(String name, LogCatalog catalog, LogCatalogModel logCatalogModel) {
         super(name, catalog, logCatalogModel);
     }

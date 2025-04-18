@@ -5,9 +5,12 @@
 package dev.inward.matrix.file.addressed.depot.standard;
 
 import dev.inward.matrix.file.addressed.depot.DepotLibrarian;
+import dev.inward.matrix.file.addressed.depot.specification.Specification;
 
-public class StandardLibrarian extends DepotLibrarian<StandardLibrarian,StandardKey,Standard,StandardView,StandardModel,StandardReference, StandardSteward> {
-    protected StandardLibrarian(StandardSteward gestalt) {
-        super(gestalt);
+import java.util.function.Function;
+
+public class StandardLibrarian extends DepotLibrarian<StandardKey,Standard,StandardView,StandardModel,StandardReference, StandardLibrarian> {
+    public StandardLibrarian(Function<StandardReference, StandardReference> graveDigger, StandardModel model, Class<StandardView> viewClass, Specification specification) {
+        super(graveDigger, model, viewClass, specification);
     }
 }

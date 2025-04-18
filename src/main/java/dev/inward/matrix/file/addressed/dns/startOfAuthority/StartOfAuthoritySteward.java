@@ -5,11 +5,11 @@
 package dev.inward.matrix.file.addressed.dns.startOfAuthority;
 
 import dev.inward.matrix.file.addressed.depot.specification.Specification;
-import dev.inward.matrix.file.addressed.dns.RRSteward;
+import dev.inward.matrix.file.addressed.dns.RRLibrarian;
 
 import java.util.function.Function;
 
-public class StartOfAuthoritySteward extends RRSteward<StartOfAuthorityLibrarian,StartOfAuthorityKey,StartOfAuthority,StartOfAuthorityView,StartOfAuthorityModel,StartOfAuthorityReference, StartOfAuthoritySteward> {
+public class StartOfAuthoritySteward extends RRLibrarian<StartOfAuthorityLibrarian,StartOfAuthorityKey,StartOfAuthority,StartOfAuthorityView,StartOfAuthorityModel,StartOfAuthorityReference, StartOfAuthoritySteward> {
 
     public StartOfAuthoritySteward(Function<StartOfAuthorityReference, StartOfAuthorityReference> graveDigger, StartOfAuthorityModel model, Class<StartOfAuthorityView> viewClass, Specification specification) {
         super(graveDigger, model, viewClass, specification);

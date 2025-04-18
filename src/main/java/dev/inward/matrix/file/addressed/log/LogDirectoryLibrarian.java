@@ -6,8 +6,10 @@ package dev.inward.matrix.file.addressed.log;
 
 import dev.inward.matrix.file.DirectoryLibrarian;
 
-public class LogDirectoryLibrarian extends DirectoryLibrarian<LogScheme,LogLibraryKey,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibrarySteward,LogPath,LogCatalogKey,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference, LogCatalogSteward,LogDirectoryLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference, LogDirectorySteward> {
-    protected LogDirectoryLibrarian(LogDirectorySteward resource) {
-        super(resource);
+import java.util.function.Function;
+
+public class LogDirectoryLibrarian extends DirectoryLibrarian<LogScheme,LogLibraryKey,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibraryLibrarian,LogPath,LogCatalogKey,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference, LogCatalogLibrarian,LogDirectoryLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference, LogDirectoryLibrarian> {
+    public LogDirectoryLibrarian(Function<LogDirectoryReference, LogDirectoryReference> graveDigger, LogDirectoryModel model, Class<LogDirectoryView> viewClass) {
+        super(graveDigger, model,viewClass);
     }
 }
