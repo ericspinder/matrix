@@ -6,6 +6,8 @@ package dev.inward.matrix;
 
 import java.lang.reflect.Field;
 import java.nio.file.attribute.FileTime;
+import java.util.List;
+import java.util.Map;
 
 public abstract class Aspect implements Meta_I, Comparable<Aspect> {
 
@@ -56,6 +58,18 @@ public abstract class Aspect implements Meta_I, Comparable<Aspect> {
 
             public int getPosition() {
                 return position;
+            }
+        }
+        public static class MappedAspectType<K,V> extends AspectType<Map<K,V>> {
+
+            public MappedAspectType(String label, String description, Class<Map<K, V>> expectedClass, boolean allowNull) {
+                super(label, description, expectedClass, allowNull);
+            }
+        }
+        public static class ListedAspectType<T> extends AspectType<List<T>> {
+
+            public ListedAspectType(String label, String description, Class<List<T>> expectedClass, boolean allowNull) {
+                super(label, description, expectedClass, allowNull);
             }
         }
 

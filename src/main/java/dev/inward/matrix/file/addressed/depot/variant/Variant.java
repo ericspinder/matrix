@@ -7,7 +7,7 @@ import dev.inward.matrix.file.addressed.depot.Depot;
 
 import java.security.CodeSigner;
 
-public class Variant extends Depot<VariantLibrarian,VariantKey,Variant,VariantView,VariantModel,VariantReference, VariantLibrarian> {
+public class Variant extends Depot<VariantKey,Variant,VariantView,VariantModel,VariantReference,VariantLibrarian> {
 
     protected final CodeSigner[] codeSigners;
 

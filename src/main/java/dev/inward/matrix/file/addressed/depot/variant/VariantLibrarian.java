@@ -6,11 +6,13 @@ package dev.inward.matrix.file.addressed.depot.variant;
 
 import dev.inward.matrix.file.addressed.depot.DepotLibrarian;
 import dev.inward.matrix.file.addressed.depot.specification.Specification;
+import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
 import java.util.function.Function;
 
-public class VariantLibrarian extends DepotLibrarian<VariantLibrarian,VariantKey,Variant,VariantView,VariantModel,VariantReference, VariantLibrarian> {
-    public VariantLibrarian(Function<VariantReference, VariantReference> graveDigger, Class<VariantView> variantViewClass, VariantModel model, Specification specification) {
-        super(graveDigger, model, variantViewClass, specification);
+public class VariantLibrarian extends DepotLibrarian<VariantKey,Variant,VariantView,VariantModel,VariantReference,VariantLibrarian> {
+
+    public VariantLibrarian(Standard standard, Specification specification) {
+        super(standard, specification);
     }
 }

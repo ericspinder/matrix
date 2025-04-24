@@ -4,8 +4,9 @@
 
 package dev.inward.matrix.file.addressed.dns.catalogRecord;
 
-public class HttpCatalogRecordView extends CatalogRecordView<HttpCatalogRecordLibrarian,HttpCatalogRecordKey,HttpCatalogRecord,HttpCatalogRecordView,HttpCatalogRecordModel,HttpCatalogRecordReference, HttpCatalogRecordSteward> {
-    public HttpCatalogRecordView(HttpCatalogRecord httpCatalogRecord, HttpCatalogRecordModel httpCatalogRecordModel) {
-        super("HttpCatalogRecordView", httpCatalogRecord, httpCatalogRecordModel);
+public class HttpCatalogRecordView extends CatalogRecordView<HttpCatalogRecordKey,HttpCatalogRecord,HttpCatalogRecordView,HttpCatalogRecordModel,HttpCatalogRecordReference,HttpCatalogRecordLibrarian> {
+
+    public HttpCatalogRecordView(String name, HttpCatalogRecord file, HttpCatalogRecordReference fileReference) {
+        super(name, file, fileReference);
     }
 }

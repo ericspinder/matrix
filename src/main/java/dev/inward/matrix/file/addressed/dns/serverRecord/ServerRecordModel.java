@@ -7,7 +7,7 @@ package dev.inward.matrix.file.addressed.dns.serverRecord;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.file.addressed.dns.RRModel;
 
-public class ServerRecordModel<LB extends ServerRecordLibrarian<LB,K,F,V,M,R,G>, K extends ServerRecordKey<LB,K,F,V,M,R,G>,F extends ServerRecord<LB,K,F,V,M,R,G>,V extends ServerRecordView<LB,K,F,V,M,R,G>,M extends ServerRecordModel<LB,K,F,V,M,R,G>,R extends ServerRecordReference<LB,K,F,V,M,R,G>,G extends ServerRecordSteward<LB,K,F,V,M,R,G>> extends RRModel<LB,K,F,V,M,R,G> {
+public class ServerRecordModel<K extends ServerRecordKey<K,F,V,M,R,B>,F extends ServerRecord<K,F,V,M,R,B>,V extends ServerRecordView<K,F,V,M,R,B>,M extends ServerRecordModel<K,F,V,M,R,B>,R extends ServerRecordReference<K,F,V,M,R,B>,B extends ServerRecordLibrarian<K,F,V,M,R,B>> extends RRModel<K,F,V,M,R,B> {
     public ServerRecordModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

@@ -4,8 +4,9 @@
 
 package dev.inward.matrix.file.addressed.dns.serverRecord;
 
-public class Ip6ServerRecordView extends ServerRecordView<Ip6ServerRecordLibrarian,Ip6ServerRecordKey,Ip6ServerRecord,Ip6ServerRecordView,Ip6ServerRecordModel,Ip6ServerRecordReference, Ip6ServerRecordSteward> {
-    public Ip6ServerRecordView(Ip6ServerRecord ip6ServerRecord,Ip6ServerRecordModel ip6ServerRecordModel) {
-        super("Ip6ServerRecordView", ip6ServerRecord,ip6ServerRecordModel);
+public class Ip6ServerRecordView extends ServerRecordView<Ip6ServerRecordKey,Ip6ServerRecord,Ip6ServerRecordView,Ip6ServerRecordModel,Ip6ServerRecordReference,Ip6ServerRecordLibrarian> {
+
+    public Ip6ServerRecordView(String name, Ip6ServerRecord file, Ip6ServerRecordReference fileReference) {
+        super(name, file, fileReference);
     }
 }

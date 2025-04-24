@@ -10,12 +10,12 @@ import dev.inward.matrix.file.addressed.dns.RRKey;
 import java.net.URI;
 import java.util.UUID;
 
-public class ServiceLocationRecordKey extends RRKey<ServiceLocationRecordLibrarian,ServiceLocationRecordKey,ServiceLocationRecord,ServiceLocationRecordView,ServiceLocationRecordModel,ServiceLocationRecordReference, ServiceLocationRecordSteward> {
+public class ServiceLocationRecordKey extends RRKey<ServiceLocationRecordKey,ServiceLocationRecord,ServiceLocationRecordView,ServiceLocationRecordModel,ServiceLocationRecordReference, ServiceLocationRecordLibrarian> {
     protected ServiceLocationRecordKey(URI uri, UUID uuid, DnsDirectoryKey directoryKey,boolean randomUUID) {
         super(uri, uuid, directoryKey,randomUUID);
     }
 
-    public static class Builder extends RRKey.Builder<ServiceLocationRecordLibrarian,ServiceLocationRecordKey,ServiceLocationRecord,ServiceLocationRecordView,ServiceLocationRecordModel,ServiceLocationRecordReference, ServiceLocationRecordSteward> {
+    public static class Builder extends RRKey.Builder<ServiceLocationRecordKey,ServiceLocationRecord,ServiceLocationRecordView,ServiceLocationRecordModel,ServiceLocationRecordReference, ServiceLocationRecordLibrarian> {
 
         @Override
         protected ServiceLocationRecordKey newMatrixKey() {

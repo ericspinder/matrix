@@ -36,7 +36,7 @@ public abstract class Library<S extends Scheme<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,C
     protected final Map<Range<PATH>,C> rangeCatalogMap = new ConcurrentHashMap<>();
     protected final Map<String,? extends Librarian<?,?,?,?,?>> classNameResourceMap = new HashMap<>();
 
-    protected final Map<C, Bureau[]> catalogMemoryMap;
+    protected final Map<C, Bureau<?,?,?,?,?,?,?>[]> catalogMemoryMap;
     protected final Map<C, Librarian<?,?,?,?,?>[]> catalogs = new ConcurrentHashMap<>();
 
     protected StringBuilder firstLimitReachedMessage(String className, long warnTotal, long hardLimit) {
@@ -67,7 +67,7 @@ public abstract class Library<S extends Scheme<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,C
     }
 
     public String getUrlString() {
-
+        return this.urlString;
     }
 
     public Map<String, ? extends Librarian<?,?,?,?,?>> getClassNameResourceMap() {
@@ -90,7 +90,7 @@ public abstract class Library<S extends Scheme<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,C
         return separator;
     }
 
-    protected abstract Map<C, Bureau<?,?,?,?>[]> initCatalogs();
+    protected abstract Map<C, Bureau<?,?,?,?,?,?,?>[]> initCatalogs();
 //    public Clerk.Network.Client getClient(URI uri) {
 //        Host.Remote remote = new Host.Remote()
 //        return new Clerk.Network.Client(this,)
@@ -102,11 +102,11 @@ public abstract class Library<S extends Scheme<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,C
     @SuppressWarnings("unchecked")
     @Override
     public String getScheme() {
-        return this.getKey().scheme.scheme;
+        return this.scheme.getScheme();
     }
 
     public S get_Scheme() {
-        return this.libraryKey.scheme;
+        return this.scheme;
     }
 
     private C findCatalog(PATH filePath) {
@@ -119,7 +119,7 @@ public abstract class Library<S extends Scheme<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,C
     }
     @Override
     public synchronized C newFileSystem(URI uri, Map<String, ?> env) throws IOException {
-        if (uri.isAbsolute() && uri.getScheme().equals(this.getScheme()) && uri.getHost().equals(this.domain.getKey().getDomainName()) && uri.getPort() == port) {
+        if (uri.isAbsolute() && uri.getScheme().equals(this.getScheme()) && uri.getHost().equals(this.domain.getDomainName()) && uri.getPort() == port) {
             Map<String, List<String>> queryMap = splitQuery(uri);
 
         }
@@ -128,7 +128,7 @@ public abstract class Library<S extends Scheme<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,C
 
     @Override
     public C getFileSystem(URI uri) {
-        if (uri.isAbsolute() && uri.getScheme().equals(this.getScheme()) && uri.getHost().equals(this.domain.getKey().getDomainName()) && uri.getPort() == port) {
+        if (uri.isAbsolute() && uri.getScheme().equals(this.getScheme()) && uri.getHost().equals(this.domain.getDomainName()) && uri.getPort() == port) {
 
         }
         return null;
@@ -179,7 +179,7 @@ public abstract class Library<S extends Scheme<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,C
     }
 
     @Override
-    public Bureau<?,?,?,?> getFileStore(Path path) throws IOException {
+    public Bureau<?,?,?,?,?,?,?> getFileStore(Path path) throws IOException {
         return null;
     }
 

@@ -6,12 +6,12 @@ package dev.inward.matrix.file.addressed.info;
 
 import java.net.URI;
 
-public class PersonaKey extends PrivilegeKey<PersonaLibrarian,PersonaKey,Persona,PersonaView,PersonaModel,PersonaReference, PersonaSteward> {
+public class PersonaKey extends PrivilegeKey<PersonaKey,Persona,PersonaView,PersonaModel,PersonaReference,PersonaLibrarian> {
     protected PersonaKey(URI uri, String s, InfoDirectoryKey directoryKey) {
         super(uri, s, directoryKey);
     }
 
-    public static class Builder extends PrivilegeKey.Builder<PersonaLibrarian,PersonaKey,Persona,PersonaView,PersonaModel,PersonaReference, PersonaSteward> {
+    public static class Builder extends PrivilegeKey.Builder<PersonaKey,Persona,PersonaView,PersonaModel,PersonaReference,PersonaLibrarian> {
 
         @Override
         protected PersonaKey newMatrixKey() {

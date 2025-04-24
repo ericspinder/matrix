@@ -6,11 +6,13 @@ package dev.inward.matrix.file.addressed.depot.source;
 
 import dev.inward.matrix.file.addressed.depot.DepotLibrarian;
 import dev.inward.matrix.file.addressed.depot.specification.Specification;
+import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
 import java.util.function.Function;
 
-public class SourceLibrarian extends DepotLibrarian<SourceLibrarian,SourceKey,Source,SourceView,SourceModel,SourceReference, SourceLibrarian> {
-    public SourceLibrarian(Function<SourceReference, SourceReference> graveDigger, SourceModel model, Class<SourceView> viewClass, Specification specification) {
-        super(graveDigger, model, viewClass, specification);
+public class SourceLibrarian extends DepotLibrarian<SourceKey,Source,SourceView,SourceModel,SourceReference,SourceLibrarian> {
+
+    public SourceLibrarian(Standard standard, Specification specification) {
+        super(standard, specification);
     }
 }

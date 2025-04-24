@@ -9,12 +9,12 @@ import dev.inward.matrix.file.addressed.dns.DnsDirectoryKey;
 import java.net.URI;
 import java.util.UUID;
 
-public class InfoCatalogRecordKey extends CatalogRecordKey<InfoCatalogRecordLibrarian,InfoCatalogRecordKey,InfoCatalogRecord,InfoCatalogRecordView,InfoCatalogRecordModel,InfoCatalogRecordReference, InfoCatalogRecordSteward> {
+public class InfoCatalogRecordKey extends CatalogRecordKey<InfoCatalogRecordKey,InfoCatalogRecord,InfoCatalogRecordView,InfoCatalogRecordModel,InfoCatalogRecordReference,InfoCatalogRecordLibrarian> {
     protected InfoCatalogRecordKey(URI uri, UUID uuid, DnsDirectoryKey directoryKey) {
         super(uri, uuid, directoryKey);
     }
 
-    public static class Builder extends CatalogRecordKey.Builder<InfoCatalogRecordLibrarian,InfoCatalogRecordKey,InfoCatalogRecord,InfoCatalogRecordView,InfoCatalogRecordModel,InfoCatalogRecordReference, InfoCatalogRecordSteward> {
+    public static class Builder extends CatalogRecordKey.Builder<InfoCatalogRecordKey,InfoCatalogRecord,InfoCatalogRecordView,InfoCatalogRecordModel,InfoCatalogRecordReference,InfoCatalogRecordLibrarian> {
 
         @Override
         protected InfoCatalogRecordKey newMatrixKey() {

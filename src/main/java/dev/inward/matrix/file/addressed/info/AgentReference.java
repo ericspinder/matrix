@@ -4,8 +4,9 @@
 
 package dev.inward.matrix.file.addressed.info;
 
-public class AgentReference extends PrivilegeReference<AgentLibrarian,AgentKey,Agent,AgentView,AgentModel,AgentReference, AgentSteward> {
-    public AgentReference(Agent addressed, AgentSteward resource) {
-        super(addressed, resource);
+public class AgentReference extends PrivilegeReference<AgentKey,Agent,AgentView,AgentModel,AgentReference,AgentLibrarian> {
+
+    public AgentReference(Agent referent, AgentLibrarian librarian) {
+        super(referent, librarian);
     }
 }

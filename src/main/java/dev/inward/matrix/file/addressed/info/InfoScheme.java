@@ -9,7 +9,7 @@ import dev.inward.matrix.MatrixURLStreamHandlerProvider;
 import dev.inward.matrix.Scheme;
 import dev.inward.matrix.Terrene;
 
-public class InfoScheme extends Scheme<InfoScheme,InfoLibraryKey,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference, InfoLibraryLibrarian,InfoPath,InfoCatalogKey,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference, InfoCatalogLibrarian,InfoDirectoryLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference, InfoDirectoryLibrarian> {
+public class InfoScheme extends Scheme<InfoScheme,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference,InfoLibraryLibrarian,InfoPath,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference,InfoCatalogLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference,InfoDirectoryLibrarian> {
     protected InfoScheme(Terrene terrene) {
         super(terrene, MatrixURLStreamHandlerProvider.Protocol.INFO);
     }
@@ -19,13 +19,4 @@ public class InfoScheme extends Scheme<InfoScheme,InfoLibraryKey,InfoLibrary,Inf
         return 0;
     }
 
-    @Override
-    protected InfoLibraryKey makeLibraryKey(InfoScheme scheme, Domain domain, int port, String separator) {
-        return null;
-    }
-
-    @Override
-    protected InfoLibrary buildLibrary(InfoLibraryKey libraryKey) {
-        return null;
-    }
 }

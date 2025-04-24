@@ -5,11 +5,13 @@
 package dev.inward.matrix.file.addressed.dns;
 
 import dev.inward.matrix.file.DirectoryLibrarian;
+import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
 import java.util.function.Function;
 
-public class DnsDirectoryLibrarian extends DirectoryLibrarian<DnsScheme,DnsLibraryKey,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibraryLibrarian,DnsPath,DnsCatalogKey,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference, DnsCatalogLibrarian,DnsDirectoryLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectoryLibrarian> {
-    public DnsDirectoryLibrarian(Function<DnsDirectoryReference, DnsDirectoryReference> graveDigger, DnsDirectoryModel model, Class<DnsDirectoryView> viewClass) {
-        super(graveDigger, model, viewClass);
+public class DnsDirectoryLibrarian extends DirectoryLibrarian<DnsScheme,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibraryLibrarian,DnsPath,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference,DnsCatalogLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectoryLibrarian> {
+
+    public DnsDirectoryLibrarian(Standard standard) {
+        super(standard);
     }
 }

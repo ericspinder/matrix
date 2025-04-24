@@ -4,7 +4,23 @@
 
 package dev.inward.matrix.control.local;
 
+import dev.inward.matrix.Terrene;
 import dev.inward.matrix.control.Control;
+import dev.inward.matrix.control.domain.Domain;
+import dev.inward.matrix.predictable.Director;
 
-public class Local extends Control<Local,LocalView,LocalModel,LocalReference,LocalLibrarian> {
+import java.util.HashMap;
+import java.util.Map;
+
+public class Local implements Control<Local,LocalView,LocalModel,LocalReference,LocalLibrarian> {
+
+    protected Map<String, Director> directorByTerrene_Domain = new HashMap<>();
+
+    public void addDirector(Domain domain, Director director) {
+        this.directorByTerrene_Domain.put(domain.getTerrene() + "_" + domain.getDomainName(), director);
+    }
+    public void removeDirector(Domain domain) {
+        this.directorByTerrene_Domain.remove(domain.getTerrene() + "_" + domain.getDomainName());
+    }
+
 }

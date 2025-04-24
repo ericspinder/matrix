@@ -4,8 +4,8 @@
 
 package dev.inward.matrix.file.addressed.dns.catalogRecord;
 
-public class LogCatalogRecordView extends CatalogRecordView<LogCatalogRecordLibrarian,LogCatalogRecordKey,LogCatalogRecord,LogCatalogRecordView,LogCatalogRecordModel,LogCatalogRecordReference, LogCatalogRecordSteward> {
-    public LogCatalogRecordView(LogCatalogRecord logCatalogRecord, LogCatalogRecordModel logCatalogRecordModel) {
-        super("LogCatalogRecordView", logCatalogRecord, logCatalogRecordModel);
+public class LogCatalogRecordView extends CatalogRecordView<LogCatalogRecordKey,LogCatalogRecord,LogCatalogRecordView,LogCatalogRecordModel,LogCatalogRecordReference,LogCatalogRecordLibrarian> {
+    public LogCatalogRecordView(String name, LogCatalogRecord file, LogCatalogRecordReference fileReference) {
+        super(name, file, fileReference);
     }
 }

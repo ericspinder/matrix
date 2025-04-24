@@ -6,8 +6,9 @@ package dev.inward.matrix.file.addressed.info;
 
 import dev.inward.matrix.control.catalog.CatalogView;
 
-public class InfoCatalogView extends CatalogView<InfoScheme,InfoLibraryKey,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference, InfoLibraryLibrarian,InfoPath,InfoCatalogKey,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference, InfoCatalogLibrarian,InfoDirectoryLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference, InfoDirectoryLibrarian> {
-    public InfoCatalogView(String name, InfoCatalog catalog, InfoCatalogModel catalogModel) {
-        super(name, catalog, catalogModel);
+public class InfoCatalogView extends CatalogView<InfoScheme,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference,InfoLibraryLibrarian,InfoPath,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference,InfoCatalogLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference,InfoDirectoryLibrarian> {
+
+    public InfoCatalogView(String name, InfoCatalog catalog, InfoCatalogReference reference) {
+        super(name, catalog, reference);
     }
 }

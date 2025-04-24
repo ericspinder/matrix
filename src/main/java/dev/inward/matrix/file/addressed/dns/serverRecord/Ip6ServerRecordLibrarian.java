@@ -4,8 +4,12 @@
 
 package dev.inward.matrix.file.addressed.dns.serverRecord;
 
-public class Ip6ServerRecordLibrarian extends ServerRecordLibrarian<Ip6ServerRecordLibrarian,Ip6ServerRecordKey,Ip6ServerRecord,Ip6ServerRecordView,Ip6ServerRecordModel,Ip6ServerRecordReference, Ip6ServerRecordSteward> {
-    protected Ip6ServerRecordLibrarian(Ip6ServerRecordSteward gestalt) {
-        super(gestalt);
+import dev.inward.matrix.file.addressed.depot.specification.Specification;
+import dev.inward.matrix.file.addressed.depot.standard.Standard;
+
+public class Ip6ServerRecordLibrarian extends ServerRecordLibrarian<Ip6ServerRecordKey,Ip6ServerRecord,Ip6ServerRecordView,Ip6ServerRecordModel,Ip6ServerRecordReference,Ip6ServerRecordLibrarian> {
+
+    public Ip6ServerRecordLibrarian(Standard standard, Specification specification) {
+        super(standard, specification);
     }
 }

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Specification extends Depot<SpecificationLibrarian,SpecificationKey,Specification,SpecificationView,SpecificationModel,SpecificationReference, SpecificationLibrarian> {
+public class Specification extends Depot<SpecificationKey,Specification,SpecificationView,SpecificationModel,SpecificationReference,SpecificationLibrarian> {
 
     protected final Map<String, DefaultOption<?,?>> options;
     protected final Map<IndicaKey, ServerRecord[]> focusServerMap;

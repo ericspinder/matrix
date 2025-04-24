@@ -3,26 +3,18 @@
  */
 package dev.inward.matrix.file.addressed.depot;
 
+import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.control.library.Library;
 import dev.inward.matrix.memory.bureau.Bureau;
 import dev.inward.matrix.file.addressed.depot.indica.Indica;
 
 import java.util.Map;
 
-public class DepotLibrary extends Library<DepotScheme,DepotLibraryKey,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibraryLibrarian,DepotPath,DepotCatalogKey,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference, DepotCatalogLibrarian,DepotDirectoryLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectoryLibrarian> {
+public class DepotLibrary extends Library<DepotScheme,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibraryLibrarian,DepotPath,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference,DepotCatalogLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectoryLibrarian> {
 
 
-    public DepotLibrary(DepotLibraryKey libraryKey) {
-        super(libraryKey);
+    public DepotLibrary(DepotScheme scheme, Domain domain, int port, String separator) {
+        super(scheme, domain, port, separator);
     }
 
-    @Override
-    protected Map<DepotCatalog, Bureau<?, ?, ?, ?>[]> initCatalogs() {
-        return null;
-    }
-
-
-    public Indica matchIndicaKey(String indicaKeyName) {
-        return null;
-    }
 }

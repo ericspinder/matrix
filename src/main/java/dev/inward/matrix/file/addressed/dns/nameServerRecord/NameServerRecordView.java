@@ -6,8 +6,9 @@ package dev.inward.matrix.file.addressed.dns.nameServerRecord;
 
 import dev.inward.matrix.file.addressed.dns.RRView;
 
-public class NameServerRecordView extends RRView<NameServerRecordLibrarian,NameServerRecordKey,NameServerRecord,NameServerRecordView,NameServerRecordModel,NameServerRecordReference, NameServerRecordSteward> {
-    public NameServerRecordView(NameServerRecord nameServerRecord, NameServerRecordModel nameServerRecordModel) {
-        super("NameServerRecordView", nameServerRecord, nameServerRecordModel);
+public class NameServerRecordView extends RRView<NameServerRecordKey,NameServerRecord,NameServerRecordView,NameServerRecordModel,NameServerRecordReference,NameServerRecordLibrarian> {
+
+    public NameServerRecordView(String name, NameServerRecord file, NameServerRecordReference fileReference) {
+        super(name, file, fileReference);
     }
 }

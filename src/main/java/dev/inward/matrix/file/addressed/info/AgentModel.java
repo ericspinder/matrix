@@ -6,7 +6,7 @@ package dev.inward.matrix.file.addressed.info;
 
 import dev.inward.matrix.Aspect;
 
-public class AgentModel extends PrivilegeModel<AgentLibrarian,AgentKey,Agent,AgentView,AgentModel,AgentReference, AgentSteward> {
+public class AgentModel extends PrivilegeModel<AgentKey,Agent,AgentView,AgentModel,AgentReference,AgentLibrarian> {
     public AgentModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

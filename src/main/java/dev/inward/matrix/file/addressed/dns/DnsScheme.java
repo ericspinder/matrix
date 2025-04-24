@@ -8,7 +8,7 @@ import dev.inward.matrix.MatrixURLStreamHandlerProvider;
 import dev.inward.matrix.Scheme;
 import dev.inward.matrix.Terrene;
 
-public class DnsScheme extends Scheme<DnsScheme,DnsLibraryKey,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibraryLibrarian,DnsPath,DnsCatalogKey,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference, DnsCatalogLibrarian,DnsDirectoryLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectoryLibrarian> {
+public class DnsScheme extends Scheme<DnsScheme,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibraryLibrarian,DnsPath,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference,DnsCatalogLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectoryLibrarian> {
 
     public static final DnsScheme EARTH_SCHEME_OF_DNS = new DnsScheme(Terrene.Earth);
     public static final DnsScheme LUNA_SCHEME_OF_DNS = new DnsScheme(Terrene.Luna);
@@ -25,13 +25,4 @@ public class DnsScheme extends Scheme<DnsScheme,DnsLibraryKey,DnsLibrary,DnsLibr
     }
 
 
-    @Override
-    protected DnsLibraryKey makeLibraryKey(DnsScheme scheme, Domain domain, int port, String separator) {
-        return null;
-    }
-
-    @Override
-    protected DnsLibrary buildLibrary(DnsLibraryKey libraryKey) {
-        return null;
-    }
 }

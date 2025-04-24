@@ -6,8 +6,8 @@ package dev.inward.matrix.file.addressed.dns.catalogRecord;
 
 import dev.inward.matrix.file.addressed.dns.RRReference;
 
-public class CatalogRecordReference<LB extends CatalogRecordLibrarian<LB,K,F,V,M,R,G>,K extends CatalogRecordKey<LB,K,F,V,M,R,G>,F extends CatalogRecord<LB,K,F,V,M,R,G>,V extends CatalogRecordView<LB,K,F,V,M,R,G>,M extends CatalogRecordModel<LB,K,F,V,M,R,G>,R extends CatalogRecordReference<LB,K,F,V,M,R,G>,G extends CatalogRecordSteward<LB,K,F,V,M,R,G>> extends RRReference<LB,K,F,V,M,R,G> {
-    public CatalogRecordReference(F addressed, G gestalt) {
-        super(addressed, gestalt);
+public class CatalogRecordReference<K extends CatalogRecordKey<K,F,V,M,R,B>,F extends CatalogRecord<K,F,V,M,R,B>,V extends CatalogRecordView<K,F,V,M,R,B>,M extends CatalogRecordModel<K,F,V,M,R,B>,R extends CatalogRecordReference<K,F,V,M,R,B>,B extends CatalogRecordLibrarian<K,F,V,M,R,B>> extends RRReference<K,F,V,M,R,B> {
+    public CatalogRecordReference(F referent, B librarian) {
+        super(referent, librarian);
     }
 }

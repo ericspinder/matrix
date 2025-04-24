@@ -9,12 +9,12 @@ import dev.inward.matrix.file.addressed.dns.DnsDirectoryKey;
 import java.net.URI;
 import java.util.UUID;
 
-public class Ip6ServerRecordKey extends ServerRecordKey<Ip6ServerRecordLibrarian,Ip6ServerRecordKey,Ip6ServerRecord,Ip6ServerRecordView,Ip6ServerRecordModel,Ip6ServerRecordReference, Ip6ServerRecordSteward> {
+public class Ip6ServerRecordKey extends ServerRecordKey<Ip6ServerRecordKey,Ip6ServerRecord,Ip6ServerRecordView,Ip6ServerRecordModel,Ip6ServerRecordReference,Ip6ServerRecordLibrarian> {
     protected Ip6ServerRecordKey(URI uri, UUID uuid, DnsDirectoryKey directoryKey,boolean randomUUID) {
         super(uri, uuid, directoryKey,randomUUID);
     }
 
-    public static class Builder extends ServerRecordKey.Builder<Ip6ServerRecordLibrarian,Ip6ServerRecordKey,Ip6ServerRecord,Ip6ServerRecordView,Ip6ServerRecordModel,Ip6ServerRecordReference, Ip6ServerRecordSteward> {
+    public static class Builder extends ServerRecordKey.Builder<Ip6ServerRecordKey,Ip6ServerRecord,Ip6ServerRecordView,Ip6ServerRecordModel,Ip6ServerRecordReference,Ip6ServerRecordLibrarian> {
 
         @Override
         protected Ip6ServerRecordKey newMatrixKey() {

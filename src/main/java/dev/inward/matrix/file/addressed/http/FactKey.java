@@ -8,7 +8,7 @@ import dev.inward.matrix.file.addressed.AddressedKey;
 
 import java.net.URI;
 
-public class FactKey<LB extends FactLibrarian<LB,K,F,V,M,R,G>,K extends FactKey<LB,K,F,V,M,R,G>,F extends Fact<LB,K,F,V,M,R,G>,V extends FactView<LB,K,F,V,M,R,G>,M extends FactModel<LB,K,F,V,M,R,G>,R extends FactReference<LB,K,F,V,M,R,G>,G extends FactSteward<LB,K,F,V,M,R,G>> extends AddressedKey<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibraryLibrarian,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogLibrarian,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectoryLibrarian,LB,String,K,F,V,M,R,G> {
+public class FactKey<K extends FactKey<K,F,V,M,R,B>,F extends Fact<K,F,V,M,R,B>,V extends FactView<K,F,V,M,R,B>,M extends FactModel<K,F,V,M,R,B>,R extends FactReference<K,F,V,M,R,B>,B extends FactLibrarian<K,F,V,M,R,B>> extends AddressedKey<HttpScheme,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference,HttpLibraryLibrarian,String,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference,HttpCatalogLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectoryLibrarian,String,K,F,V,M,R,B> {
     protected FactKey(URI uri, String s, HttpDirectoryKey directoryKey) {
         super(uri, s, directoryKey);
     }

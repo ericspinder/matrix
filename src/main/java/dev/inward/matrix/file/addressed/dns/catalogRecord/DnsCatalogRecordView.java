@@ -4,9 +4,10 @@
 
 package dev.inward.matrix.file.addressed.dns.catalogRecord;
 
-public class DnsCatalogRecordView extends CatalogRecordView<DnsCatalogRecordLibrarian,DnsCatalogRecordKey,DnsCatalogRecord,DnsCatalogRecordView,DnsCatalogRecordModel,DnsCatalogRecordReference, DnsCatalogRecordSteward> {
+public class DnsCatalogRecordView extends CatalogRecordView<DnsCatalogRecordKey,DnsCatalogRecord,DnsCatalogRecordView,DnsCatalogRecordModel,DnsCatalogRecordReference, DnsCatalogRecordLibrarian> {
 
-    public DnsCatalogRecordView(DnsCatalogRecord catalogRecord, DnsCatalogRecordModel dnsCatalogRecordModel) {
-        super("DnsCatalogRecordView", catalogRecord, dnsCatalogRecordModel);
+
+    public DnsCatalogRecordView(String name, DnsCatalogRecord file, DnsCatalogRecordReference fileReference) {
+        super(name, file, fileReference);
     }
 }

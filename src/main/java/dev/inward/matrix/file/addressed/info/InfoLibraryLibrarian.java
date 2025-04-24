@@ -7,7 +7,7 @@ package dev.inward.matrix.file.addressed.info;
 import dev.inward.matrix.control.library.LibraryLibrarian;
 import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
-public class InfoLibraryLibrarian extends LibraryLibrarian<InfoScheme,InfoLibraryKey,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference, InfoLibraryLibrarian,InfoPath,InfoCatalogKey,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference, InfoCatalogLibrarian,InfoDirectoryLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference, InfoDirectoryLibrarian> {
+public class InfoLibraryLibrarian extends LibraryLibrarian<InfoScheme,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference,InfoLibraryLibrarian,InfoPath,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference,InfoCatalogLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference,InfoDirectoryLibrarian> {
     public InfoLibraryLibrarian(Standard standard) {
         super(standard);
     }

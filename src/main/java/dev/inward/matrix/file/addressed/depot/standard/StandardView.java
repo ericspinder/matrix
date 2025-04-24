@@ -6,7 +6,7 @@ package dev.inward.matrix.file.addressed.depot.standard;
 
 import dev.inward.matrix.file.addressed.depot.DepotView;
 
-public class StandardView extends DepotView<StandardLibrarian,StandardKey,Standard,StandardView,StandardModel,StandardReference, StandardLibrarian> {
+public class StandardView extends DepotView<StandardKey,Standard,StandardView,StandardModel,StandardReference, StandardLibrarian> {
     public StandardView(Standard standard, StandardModel standardModel) {
         super("StandardView",standard, standardModel);
     }

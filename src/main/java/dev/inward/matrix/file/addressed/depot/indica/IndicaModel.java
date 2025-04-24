@@ -7,7 +7,7 @@ package dev.inward.matrix.file.addressed.depot.indica;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.file.addressed.depot.DepotModel;
 
-public class IndicaModel extends DepotModel<IndicaLibrarian,IndicaKey,Indica,IndicaView,IndicaModel,IndicaReference, IndicaLibrarian> {
+public class IndicaModel extends DepotModel<IndicaKey,Indica,IndicaView,IndicaModel,IndicaReference,IndicaLibrarian> {
     public IndicaModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

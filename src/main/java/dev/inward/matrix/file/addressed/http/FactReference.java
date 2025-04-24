@@ -7,10 +7,10 @@ package dev.inward.matrix.file.addressed.http;
 import dev.inward.matrix.file.addressed.AddressedReference;
 
 
-public class FactReference<LB extends FactLibrarian<LB,K,F,V,M,R,G>,K extends FactKey<LB,K,F,V,M,R,G>,F extends Fact<LB,K,F,V,M,R,G>,V extends FactView<LB,K,F,V,M,R,G>,M extends FactModel<LB,K,F,V,M,R,G>,R extends FactReference<LB,K,F,V,M,R,G>,G extends FactSteward<LB,K,F,V,M,R,G>> extends AddressedReference<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibraryLibrarian,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogLibrarian,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectoryLibrarian,LB,String,K,F,V,M,R,G> {
+public class FactReference<K extends FactKey<K,F,V,M,R,B>,F extends Fact<K,F,V,M,R,B>,V extends FactView<K,F,V,M,R,B>,M extends FactModel<K,F,V,M,R,B>,R extends FactReference<K,F,V,M,R,B>,B extends FactLibrarian<K,F,V,M,R,B>> extends AddressedReference<HttpScheme,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference,HttpLibraryLibrarian,String,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference,HttpCatalogLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectoryLibrarian,String,K,F,V,M,R,B> {
 
 
-    public FactReference(F addressed, G gestalt) {
-        super(addressed, gestalt);
+    public FactReference(F referent, B librarian) {
+        super(referent, librarian);
     }
 }

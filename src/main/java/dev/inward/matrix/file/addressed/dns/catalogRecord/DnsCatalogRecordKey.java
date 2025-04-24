@@ -9,12 +9,12 @@ import dev.inward.matrix.file.addressed.dns.DnsDirectoryKey;
 import java.net.URI;
 import java.util.UUID;
 
-public class DnsCatalogRecordKey extends CatalogRecordKey<DnsCatalogRecordLibrarian,DnsCatalogRecordKey,DnsCatalogRecord,DnsCatalogRecordView,DnsCatalogRecordModel,DnsCatalogRecordReference, DnsCatalogRecordSteward> {
+public class DnsCatalogRecordKey extends CatalogRecordKey<DnsCatalogRecordKey,DnsCatalogRecord,DnsCatalogRecordView,DnsCatalogRecordModel,DnsCatalogRecordReference, DnsCatalogRecordLibrarian> {
     protected DnsCatalogRecordKey(URI uri, UUID uuid, DnsDirectoryKey directoryKey) {
         super(uri, uuid, directoryKey);
     }
 
-    public static class Builder extends CatalogRecordKey.Builder<DnsCatalogRecordLibrarian,DnsCatalogRecordKey,DnsCatalogRecord,DnsCatalogRecordView,DnsCatalogRecordModel,DnsCatalogRecordReference, DnsCatalogRecordSteward> {
+    public static class Builder extends CatalogRecordKey.Builder<DnsCatalogRecordKey,DnsCatalogRecord,DnsCatalogRecordView,DnsCatalogRecordModel,DnsCatalogRecordReference, DnsCatalogRecordLibrarian> {
 
 
         @Override

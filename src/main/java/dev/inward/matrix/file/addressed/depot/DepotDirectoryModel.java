@@ -7,8 +7,9 @@ package dev.inward.matrix.file.addressed.depot;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.file.DirectoryModel;
 
-public class DepotDirectoryModel extends DirectoryModel<DepotScheme,DepotLibraryKey,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibraryLibrarian,DepotPath,DepotCatalogKey,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference, DepotCatalogLibrarian,DepotDirectoryLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectoryLibrarian> {
-    public DepotDirectoryModel(Aspect[] labeledAspects, long warnOnTotal, long hardLimit) {
-        super(labeledAspects, warnOnTotal, hardLimit);
+public class DepotDirectoryModel extends DirectoryModel<DepotScheme,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibraryLibrarian,DepotPath,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference,DepotCatalogLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectoryLibrarian> {
+
+    public DepotDirectoryModel(Aspect[] labeledAspects) {
+        super(labeledAspects);
     }
 }

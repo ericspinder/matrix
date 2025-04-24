@@ -4,8 +4,12 @@
 
 package dev.inward.matrix.file.addressed.dns.catalogRecord;
 
-public class InfoCatalogRecordLibrarian extends CatalogRecordLibrarian<InfoCatalogRecordLibrarian,InfoCatalogRecordKey,InfoCatalogRecord,InfoCatalogRecordView,InfoCatalogRecordModel,InfoCatalogRecordReference, InfoCatalogRecordSteward> {
-    protected InfoCatalogRecordLibrarian(InfoCatalogRecordSteward gestalt) {
-        super(gestalt);
+import dev.inward.matrix.file.addressed.depot.specification.Specification;
+import dev.inward.matrix.file.addressed.depot.standard.Standard;
+
+public class InfoCatalogRecordLibrarian extends CatalogRecordLibrarian<InfoCatalogRecordKey,InfoCatalogRecord,InfoCatalogRecordView,InfoCatalogRecordModel,InfoCatalogRecordReference,InfoCatalogRecordLibrarian> {
+
+    public InfoCatalogRecordLibrarian(Standard standard, Specification specification) {
+        super(standard, specification);
     }
 }

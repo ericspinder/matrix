@@ -6,7 +6,7 @@ package dev.inward.matrix.file.addressed.info;
 
 import dev.inward.matrix.Aspect;
 
-public class HouseModel extends PrivilegeModel<HouseLibrarian,HouseKey,House,HouseView,HouseModel,HouseReference, HouseSteward> {
+public class HouseModel extends PrivilegeModel<HouseKey,House,HouseView,HouseModel,HouseReference,HouseLibrarian> {
     public HouseModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

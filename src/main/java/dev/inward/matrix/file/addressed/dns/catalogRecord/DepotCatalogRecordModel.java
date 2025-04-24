@@ -6,7 +6,7 @@ package dev.inward.matrix.file.addressed.dns.catalogRecord;
 
 import dev.inward.matrix.Aspect;
 
-public class DepotCatalogRecordModel extends CatalogRecordModel<DepotCatalogRecordLibrarian,DepotCatalogRecordKey,DepotCatalogRecord,DepotCatalogRecordView,DepotCatalogRecordModel,DepotCatalogRecordReference, DepotCatalogRecordSteward> {
+public class DepotCatalogRecordModel extends CatalogRecordModel<DepotCatalogRecordKey,DepotCatalogRecord,DepotCatalogRecordView,DepotCatalogRecordModel,DepotCatalogRecordReference, DepotCatalogRecordLibrarian> {
     public DepotCatalogRecordModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

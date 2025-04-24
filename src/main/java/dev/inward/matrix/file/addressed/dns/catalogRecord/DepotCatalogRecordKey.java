@@ -9,12 +9,12 @@ import dev.inward.matrix.file.addressed.dns.DnsDirectoryKey;
 import java.net.URI;
 import java.util.UUID;
 
-public class DepotCatalogRecordKey extends CatalogRecordKey<DepotCatalogRecordLibrarian,DepotCatalogRecordKey,DepotCatalogRecord,DepotCatalogRecordView,DepotCatalogRecordModel,DepotCatalogRecordReference, DepotCatalogRecordSteward> {
+public class DepotCatalogRecordKey extends CatalogRecordKey<DepotCatalogRecordKey,DepotCatalogRecord,DepotCatalogRecordView,DepotCatalogRecordModel,DepotCatalogRecordReference, DepotCatalogRecordLibrarian> {
     protected DepotCatalogRecordKey(URI uri, UUID uuid, DnsDirectoryKey directoryKey) {
         super(uri, uuid, directoryKey);
     }
 
-    public static class Builder extends CatalogRecordKey.Builder<DepotCatalogRecordLibrarian,DepotCatalogRecordKey,DepotCatalogRecord,DepotCatalogRecordView,DepotCatalogRecordModel,DepotCatalogRecordReference, DepotCatalogRecordSteward> {
+    public static class Builder extends CatalogRecordKey.Builder<DepotCatalogRecordKey,DepotCatalogRecord,DepotCatalogRecordView,DepotCatalogRecordModel,DepotCatalogRecordReference, DepotCatalogRecordLibrarian> {
 
         @Override
         protected DepotCatalogRecordKey newMatrixKey() {

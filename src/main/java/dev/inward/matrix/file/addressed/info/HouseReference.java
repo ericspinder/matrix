@@ -4,8 +4,8 @@
 
 package dev.inward.matrix.file.addressed.info;
 
-public class HouseReference extends PrivilegeReference<HouseLibrarian,HouseKey,House,HouseView,HouseModel,HouseReference, HouseSteward> {
-    public HouseReference(House addressed, HouseSteward resource) {
+public class HouseReference extends PrivilegeReference<HouseKey,House,HouseView,HouseModel,HouseReference,HouseLibrarian> {
+    public HouseReference(House addressed, HouseLibrarian resource) {
         super(addressed, resource);
     }
 }

@@ -24,7 +24,7 @@ public abstract class Catalog<S extends Scheme<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,C
     protected final Zone zone;
     protected volatile boolean open;
     protected volatile  boolean readOnly;
-    protected Map<PATH,DK> pathDirectoryKeyMap = new ConcurrentHashMap<>();
+    protected Map<String,DK> pathDirectoryKeyMap = new ConcurrentHashMap<>();
 
     public Catalog(L library, Range<PATH> range, Zone zone) {
         this.library = library;
@@ -35,23 +35,22 @@ public abstract class Catalog<S extends Scheme<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,C
 
     protected abstract void init();
 
-    @SuppressWarnings("unchecked")
-    public DK findDirectoryPath(PATH path) {
-        DK directoryKey = this.pathDirectoryKeyMap.get(path);
+    public DK findDirectoryKey(String directoryString) {
+        DK directoryKey = this.pathDirectoryKeyMap.get(directoryString);
         if (directoryKey == null) {
-            return buildDirectoryKey(path);
+            return buildDirectoryKey(directoryString);
         }
         return directoryKey;
     }
-    private synchronized DK buildDirectoryKey(PATH path) {
-        DK directoryKey = this.pathDirectoryKeyMap.get(path);
+    private synchronized DK buildDirectoryKey(String directoryString) {
+        DK directoryKey = this.pathDirectoryKeyMap.get(directoryString);
         if (directoryKey == null) {
-            directoryKey = newDirectoryKey(path);
-            this.pathDirectoryKeyMap.put(path,directoryKey);
+            directoryKey = newDirectoryKey(directoryString);
+            this.pathDirectoryKeyMap.put(directoryString,directoryKey);
         }
         return directoryKey;
     }
-    protected abstract DK newDirectoryKey(PATH path);
+    protected abstract DK newDirectoryKey(String path);
 
     @Override
     public L provider() {

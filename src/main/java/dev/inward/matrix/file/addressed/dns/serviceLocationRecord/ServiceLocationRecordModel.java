@@ -7,7 +7,7 @@ package dev.inward.matrix.file.addressed.dns.serviceLocationRecord;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.file.addressed.dns.RRModel;
 
-public class ServiceLocationRecordModel extends RRModel<ServiceLocationRecordLibrarian,ServiceLocationRecordKey,ServiceLocationRecord,ServiceLocationRecordView,ServiceLocationRecordModel,ServiceLocationRecordReference, ServiceLocationRecordSteward> {
+public class ServiceLocationRecordModel extends RRModel<ServiceLocationRecordKey,ServiceLocationRecord,ServiceLocationRecordView,ServiceLocationRecordModel,ServiceLocationRecordReference, ServiceLocationRecordLibrarian> {
     public ServiceLocationRecordModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

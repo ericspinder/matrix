@@ -9,7 +9,7 @@ import dev.inward.matrix.MatrixURLStreamHandlerProvider;
 import dev.inward.matrix.Scheme;
 import dev.inward.matrix.Terrene;
 
-public class DepotScheme extends Scheme<DepotScheme,DepotLibraryKey,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibrarySteward,DepotPath,DepotCatalogKey,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference, DepotCatalogSteward,DepotDirectoryLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectorySteward> {
+public class DepotScheme extends Scheme<DepotScheme,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibraryLibrarian,DepotPath,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference,DepotCatalogLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference,DepotDirectoryLibrarian> {
 
     public static final DepotScheme EARTH_SCHEME_OF_CODE = new DepotScheme(Terrene.Earth);
     public static final DepotScheme LUNA_SCHEME_OF_CODE = new DepotScheme(Terrene.Luna);
@@ -27,13 +27,4 @@ public class DepotScheme extends Scheme<DepotScheme,DepotLibraryKey,DepotLibrary
         return 0;
     }
 
-    @Override
-    protected DepotLibraryKey makeLibraryKey(DepotScheme scheme, Domain domain, int port, String separator) {
-        return null;
-    }
-
-    @Override
-    protected DepotLibrary buildLibrary(DepotLibraryKey libraryKey) {
-        return null;
-    }
 }

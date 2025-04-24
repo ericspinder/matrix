@@ -8,7 +8,11 @@ import dev.inward.matrix.Aspect;
 import dev.inward.matrix.control.ControlModel;
 
 public class LocalModel extends ControlModel<Local,LocalView,LocalModel,LocalReference,LocalLibrarian> {
+
+
+
     public LocalModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }
+
 }

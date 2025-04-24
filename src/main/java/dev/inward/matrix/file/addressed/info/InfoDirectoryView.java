@@ -6,8 +6,9 @@ package dev.inward.matrix.file.addressed.info;
 
 import dev.inward.matrix.file.DirectoryView;
 
-public class InfoDirectoryView extends DirectoryView<InfoScheme,InfoLibraryKey,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference, InfoLibraryLibrarian,InfoPath,InfoCatalogKey,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference, InfoCatalogLibrarian,InfoDirectoryLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference, InfoDirectoryLibrarian> {
-    public InfoDirectoryView(InfoDirectory infoDirectory, InfoDirectoryModel infoDirectoryModel) {
-        super("InfoDirectoryView", infoDirectory, infoDirectoryModel);
+public class InfoDirectoryView extends DirectoryView<InfoScheme,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference,InfoLibraryLibrarian,InfoPath,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference,InfoCatalogLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference,InfoDirectoryLibrarian> {
+
+    public InfoDirectoryView(String name, InfoDirectory directory, InfoDirectoryReference directoryReference) {
+        super(name, directory, directoryReference);
     }
 }

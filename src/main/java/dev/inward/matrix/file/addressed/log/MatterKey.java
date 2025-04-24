@@ -9,17 +9,19 @@ import dev.inward.matrix.file.addressed.AddressedKey;
 import java.net.URI;
 import java.util.UUID;
 
-public class MatterKey extends AddressedKey<LogScheme,LogLibraryKey,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibraryLibrarian,LogPath,LogCatalogKey,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference, LogCatalogLibrarian,LogDirectoryLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference, LogDirectoryLibrarian,MatterLibrarian,UUID,MatterKey,Matter,MatterView,MatterModel,MatterReference, MatterLibrarian> {
+public class MatterKey extends AddressedKey<LogScheme,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibraryLibrarian,LogPath,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference,LogCatalogLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference,LogDirectoryLibrarian,UUID,MatterKey,Matter,MatterView,MatterModel,MatterReference,MatterLibrarian> {
 
 
     protected MatterKey(URI uri, UUID uuid, LogDirectoryKey directoryKey) {
         super(uri, uuid, directoryKey);
     }
 
-    public static class Builder {
+    public static class Builder extends AddressedKey.Builder<LogScheme,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibraryLibrarian,LogPath,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference,LogCatalogLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference,LogDirectoryLibrarian,UUID,MatterKey,Matter,MatterView,MatterModel,MatterReference,MatterLibrarian> {
 
 
-
-
+        @Override
+        protected MatterKey newMatrixKey() {
+            return new MatterKey(this.uri, this.id,this.directoryKey);
+        }
     }
 }

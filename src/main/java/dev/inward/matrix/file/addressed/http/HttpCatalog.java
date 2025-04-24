@@ -4,20 +4,23 @@
 
 package dev.inward.matrix.file.addressed.http;
 
+import dev.inward.matrix.Range;
 import dev.inward.matrix.control.catalog.Catalog;
+import dev.inward.matrix.engine.Zone;
 
-public class HttpCatalog extends Catalog<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibraryLibrarian,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogLibrarian,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectoryLibrarian> {
-    public HttpCatalog(HttpCatalogKey catalogKey) {
-        super(catalogKey);
+public class HttpCatalog extends Catalog<HttpScheme,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference,HttpLibraryLibrarian,String,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference,HttpDirectoryLibrarian> {
+
+    public HttpCatalog(HttpLibrary library, Range<String> range, Zone zone) {
+        super(library, range, zone);
     }
 
     @Override
-    protected boolean init(HttpCatalogKey catalogKey) {
-        return false;
+    protected void init() {
+
     }
 
     @Override
-    protected HttpDirectoryKey createDirectoryKey(String s) {
+    protected HttpDirectoryKey newDirectoryKey(String path) {
         return null;
     }
 }

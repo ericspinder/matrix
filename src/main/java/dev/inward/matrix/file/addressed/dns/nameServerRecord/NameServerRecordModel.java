@@ -7,7 +7,7 @@ package dev.inward.matrix.file.addressed.dns.nameServerRecord;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.file.addressed.dns.RRModel;
 
-public class NameServerRecordModel extends RRModel<NameServerRecordLibrarian,NameServerRecordKey,NameServerRecord,NameServerRecordView,NameServerRecordModel,NameServerRecordReference, NameServerRecordSteward> {
+public class NameServerRecordModel extends RRModel<NameServerRecordKey,NameServerRecord,NameServerRecordView,NameServerRecordModel,NameServerRecordReference,NameServerRecordLibrarian> {
     public NameServerRecordModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

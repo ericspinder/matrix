@@ -4,23 +4,23 @@
 
 package dev.inward.matrix.file.addressed.dns;
 
-public abstract class ResourceRecordParser<LB extends ResourceRecordLibrarian<LB,K,F,V,M,R,G>,K extends RRKey<LB,K,F,V,M,R,G>,F extends ResourceRecord<LB,K,F,V,M,R,G>,V extends RRView<LB,K,F,V,M,R,G>,M extends RRModel<LB,K,F,V,M,R,G>,R extends RRReference<LB,K,F,V,M,R,G>,G extends RRLibrarian<LB,K,F,V,M,R,G>> {
+public abstract class ResourceRecordParser<K extends RRKey<K,F,V,M,R,B>,F extends ResourceRecord<K,F,V,M,R,B>,V extends RRView<K,F,V,M,R,B>,M extends RRModel<K,F,V,M,R,B>,R extends RRReference<K,F,V,M,R,B>,B extends RRLibrarian<K,F,V,M,R,B>> {
 
     protected final DnsDirectoryKey dnsDirectoryKey;
 
     public ResourceRecordParser(DnsDirectoryKey dnsDirectoryKey) {
-        if (dnsDirectoryKey.filePath.type().equals(expectedDnsPathRecordType())) {
+        if (dnsDirectoryKey.directoryPath.type().equals(expectedDnsPathRecordType())) {
             this.dnsDirectoryKey = dnsDirectoryKey;
         }
         else {
-            throw new RuntimeException("Wrong ResourceRecordType found in DnsPath, expected = " + expectedDnsPathRecordType() + ", found = " + dnsDirectoryKey.filePath.type());
+            throw new RuntimeException("Wrong ResourceRecordType found in DnsPath, expected = " + expectedDnsPathRecordType() + ", found = " + dnsDirectoryKey.directoryPath.type());
         }
     }
     protected abstract ResourceRecordType expectedDnsPathRecordType();
     public DnsDirectoryKey getDnsDirectoryKey() {
         return dnsDirectoryKey;
     }
-    protected abstract RRKey.Builder<LB,K,F,V,M,R,G> newRRKeyBuilder();
+    protected abstract RRKey.Builder<K,F,V,M,R,B> newRRKeyBuilder();
 
     public abstract F parse(String[] parts);
 }

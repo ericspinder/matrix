@@ -5,11 +5,13 @@
 package dev.inward.matrix.file.addressed.http;
 
 import dev.inward.matrix.file.DirectoryLibrarian;
+import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
 import java.util.function.Function;
 
-public class HttpDirectoryLibrarian extends DirectoryLibrarian<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibraryLibrarian,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogLibrarian,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectoryLibrarian> {
-    public HttpDirectoryLibrarian(Function<HttpDirectoryReference, HttpDirectoryReference> graveDigger, HttpDirectoryModel model, Class<HttpDirectoryView> viewClass) {
-        super(graveDigger, model,viewClass);
+public class HttpDirectoryLibrarian extends DirectoryLibrarian<HttpScheme,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference,HttpLibraryLibrarian,String,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference,HttpDirectoryLibrarian> {
+
+    public HttpDirectoryLibrarian(Standard standard) {
+        super(standard);
     }
 }

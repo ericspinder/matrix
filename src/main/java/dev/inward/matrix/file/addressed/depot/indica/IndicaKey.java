@@ -10,7 +10,7 @@ import dev.inward.matrix.file.addressed.depot.DepotKey;
 import java.net.URI;
 import java.util.Objects;
 
-public class IndicaKey extends DepotKey<IndicaLibrarian,IndicaKey,Indica,IndicaView,IndicaModel,IndicaReference, IndicaLibrarian> {
+public class IndicaKey extends DepotKey<IndicaKey,Indica,IndicaView,IndicaModel,IndicaReference,IndicaLibrarian> {
 
     protected IndicaKey(URI uri, String locus, DepotDirectoryKey directoryKey) {
         super(uri,locus,directoryKey);
@@ -34,7 +34,7 @@ public class IndicaKey extends DepotKey<IndicaLibrarian,IndicaKey,Indica,IndicaV
     }
 
 
-    public static final class Builder extends DepotKey.Builder<IndicaLibrarian,IndicaKey,Indica,IndicaView,IndicaModel,IndicaReference, IndicaLibrarian> {
+    public static final class Builder extends DepotKey.Builder<IndicaKey,Indica,IndicaView,IndicaModel,IndicaReference,IndicaLibrarian> {
 
         @Override
         protected IndicaKey newMatrixKey() {

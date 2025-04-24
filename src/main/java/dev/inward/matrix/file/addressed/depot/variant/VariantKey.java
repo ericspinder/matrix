@@ -9,12 +9,12 @@ import dev.inward.matrix.file.addressed.depot.DepotKey;
 
 import java.net.URI;
 
-public class VariantKey extends DepotKey<VariantLibrarian,VariantKey,Variant,VariantView,VariantModel,VariantReference, VariantLibrarian> {
+public class VariantKey extends DepotKey<VariantKey,Variant,VariantView,VariantModel,VariantReference,VariantLibrarian> {
     protected VariantKey(URI uri, String id, DepotDirectoryKey directory) {
         super(uri, id, directory);
     }
 
-    public static class Builder extends DepotKey.Builder<VariantLibrarian,VariantKey,Variant,VariantView,VariantModel,VariantReference, VariantLibrarian> {
+    public static class Builder extends DepotKey.Builder<VariantKey,Variant,VariantView,VariantModel,VariantReference,VariantLibrarian> {
 
         @Override
         protected VariantKey newMatrixKey() {

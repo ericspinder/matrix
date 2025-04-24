@@ -9,12 +9,12 @@ import dev.inward.matrix.file.addressed.dns.DnsDirectoryKey;
 import java.net.URI;
 import java.util.UUID;
 
-public class LogCatalogRecordKey extends CatalogRecordKey<LogCatalogRecordLibrarian,LogCatalogRecordKey,LogCatalogRecord,LogCatalogRecordView,LogCatalogRecordModel,LogCatalogRecordReference, LogCatalogRecordSteward> {
+public class LogCatalogRecordKey extends CatalogRecordKey<LogCatalogRecordKey,LogCatalogRecord,LogCatalogRecordView,LogCatalogRecordModel,LogCatalogRecordReference,LogCatalogRecordLibrarian> {
     protected LogCatalogRecordKey(URI uri, UUID uuid, DnsDirectoryKey directoryKey) {
         super(uri, uuid, directoryKey);
     }
 
-    public static class Builder  extends CatalogRecordKey.Builder<LogCatalogRecordLibrarian,LogCatalogRecordKey,LogCatalogRecord,LogCatalogRecordView,LogCatalogRecordModel,LogCatalogRecordReference, LogCatalogRecordSteward> {
+    public static class Builder  extends CatalogRecordKey.Builder<LogCatalogRecordKey,LogCatalogRecord,LogCatalogRecordView,LogCatalogRecordModel,LogCatalogRecordReference,LogCatalogRecordLibrarian> {
 
         @Override
         protected LogCatalogRecordKey newMatrixKey() {

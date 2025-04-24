@@ -6,8 +6,8 @@ package dev.inward.matrix.file.addressed.dns.nameServerRecord;
 
 import dev.inward.matrix.file.addressed.dns.RRReference;
 
-public class NameServerRecordReference extends RRReference<NameServerRecordLibrarian,NameServerRecordKey,NameServerRecord,NameServerRecordView,NameServerRecordModel,NameServerRecordReference, NameServerRecordSteward> {
-    public NameServerRecordReference(NameServerRecord addressed, NameServerRecordSteward resource) {
+public class NameServerRecordReference extends RRReference<NameServerRecordKey,NameServerRecord,NameServerRecordView,NameServerRecordModel,NameServerRecordReference,NameServerRecordLibrarian> {
+    public NameServerRecordReference(NameServerRecord addressed, NameServerRecordLibrarian resource) {
         super(addressed, resource);
     }
 }

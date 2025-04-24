@@ -6,7 +6,7 @@ package dev.inward.matrix.file.addressed.depot.standard;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.file.addressed.depot.Depot;
 
-public class Standard extends Depot<StandardLibrarian,StandardKey,Standard,StandardView,StandardModel,StandardReference, StandardLibrarian> {
+public class Standard extends Depot<StandardKey,Standard,StandardView,StandardModel,StandardReference, StandardLibrarian> {
 
     protected final Aspect[] aspects;
     protected final String graveDiggerClassName;

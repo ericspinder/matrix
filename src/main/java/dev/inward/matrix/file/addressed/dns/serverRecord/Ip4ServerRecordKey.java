@@ -9,12 +9,12 @@ import dev.inward.matrix.file.addressed.dns.DnsDirectoryKey;
 import java.net.URI;
 import java.util.UUID;
 
-public class Ip4ServerRecordKey extends ServerRecordKey<Ip4ServerRecordLibrarian,Ip4ServerRecordKey,Ip4ServerRecord,Ip4ServerRecordView,Ip4ServerRecordModel,Ip4ServerRecordReference, Ip4ServerRecordSteward> {
+public class Ip4ServerRecordKey extends ServerRecordKey<Ip4ServerRecordKey,Ip4ServerRecord,Ip4ServerRecordView,Ip4ServerRecordModel,Ip4ServerRecordReference,Ip4ServerRecordLibrarian> {
     protected Ip4ServerRecordKey(URI uri, UUID uuid, DnsDirectoryKey directoryKey,boolean randomUUID) {
         super(uri, uuid, directoryKey,randomUUID);
     }
 
-    public static class Builder extends ServerRecordKey.Builder<Ip4ServerRecordLibrarian,Ip4ServerRecordKey,Ip4ServerRecord,Ip4ServerRecordView,Ip4ServerRecordModel,Ip4ServerRecordReference, Ip4ServerRecordSteward> {
+    public static class Builder extends ServerRecordKey.Builder<Ip4ServerRecordKey,Ip4ServerRecord,Ip4ServerRecordView,Ip4ServerRecordModel,Ip4ServerRecordReference,Ip4ServerRecordLibrarian> {
 
         @Override
         protected Ip4ServerRecordKey newMatrixKey() {

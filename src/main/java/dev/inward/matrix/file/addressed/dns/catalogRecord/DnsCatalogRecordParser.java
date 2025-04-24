@@ -7,7 +7,7 @@ package dev.inward.matrix.file.addressed.dns.catalogRecord;
 import dev.inward.matrix.file.addressed.dns.DnsDirectoryKey;
 import dev.inward.matrix.file.addressed.dns.ResourceRecordType;
 
-public class DnsCatalogRecordParser extends CatalogRecordParser<DnsCatalogRecordLibrarian,DnsCatalogRecordKey,DnsCatalogRecord,DnsCatalogRecordView,DnsCatalogRecordModel,DnsCatalogRecordReference, DnsCatalogRecordSteward> {
+public class DnsCatalogRecordParser extends CatalogRecordParser<DnsCatalogRecordKey,DnsCatalogRecord,DnsCatalogRecordView,DnsCatalogRecordModel,DnsCatalogRecordReference, DnsCatalogRecordLibrarian> {
     public DnsCatalogRecordParser(DnsDirectoryKey directoryKey) {
         super(directoryKey);
     }

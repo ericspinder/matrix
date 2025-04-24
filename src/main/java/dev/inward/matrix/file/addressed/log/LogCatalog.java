@@ -4,28 +4,27 @@
 
 package dev.inward.matrix.file.addressed.log;
 
+import dev.inward.matrix.Range;
 import dev.inward.matrix.control.catalog.Catalog;
+import dev.inward.matrix.engine.Zone;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class LogCatalog extends Catalog<LogScheme,LogLibraryKey,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibraryLibrarian,LogPath,LogCatalogKey,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference, LogCatalogLibrarian,LogDirectoryLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference, LogDirectoryLibrarian> {
+public class LogCatalog extends Catalog<LogScheme,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibraryLibrarian,LogPath,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference,LogCatalogLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference,LogDirectoryLibrarian> {
 
-    public LogCatalog(LogCatalogKey catalogKey) {
-        super(catalogKey);
+
+    public LogCatalog(LogLibrary library, Range<LogPath> range, Zone zone) {
+        super(library, range, zone);
     }
 
     @Override
-    protected boolean init(LogCatalogKey catalogKey) {
-        return false;
+    protected void init() {
+
     }
 
     @Override
-    protected LogDirectoryKey createDirectoryKey(LogPath logPath) {
-        try {
-            return new LogDirectoryKey(new URI(this.getKey().getLibrary().getKey().toUri() + logPath.toString()),this,logPath);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+    protected LogDirectoryKey newDirectoryKey(String path) {
+        return null;
     }
 }

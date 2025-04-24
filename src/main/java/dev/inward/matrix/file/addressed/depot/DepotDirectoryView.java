@@ -6,8 +6,8 @@ package dev.inward.matrix.file.addressed.depot;
 
 import dev.inward.matrix.file.DirectoryView;
 
-public class DepotDirectoryView extends DirectoryView<DepotScheme,DepotLibraryKey,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibrarySteward,DepotPath,DepotCatalogKey,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference, DepotCatalogSteward,DepotDirectoryLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectorySteward> {
-    public DepotDirectoryView(DepotDirectory depotDirectory, DepotDirectoryModel depotDirectoryModel) {
-        super("DepotDirectoryView", depotDirectory, depotDirectoryModel);
+public class DepotDirectoryView extends DirectoryView<DepotScheme,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibraryLibrarian,DepotPath,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference,DepotCatalogLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectoryLibrarian> {
+    public DepotDirectoryView(String name, DepotDirectory directory, DepotDirectoryReference directoryReference) {
+        super(name, directory, directoryReference);
     }
 }

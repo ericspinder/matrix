@@ -6,7 +6,7 @@ package dev.inward.matrix.file.addressed.info;
 
 import dev.inward.matrix.Aspect;
 
-public class PersonaModel extends PrivilegeModel<PersonaLibrarian,PersonaKey,Persona,PersonaView,PersonaModel,PersonaReference, PersonaSteward> {
+public class PersonaModel extends PrivilegeModel<PersonaKey,Persona,PersonaView,PersonaModel,PersonaReference,PersonaLibrarian> {
     public PersonaModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

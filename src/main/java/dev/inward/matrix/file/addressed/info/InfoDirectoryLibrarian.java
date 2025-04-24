@@ -5,12 +5,14 @@
 package dev.inward.matrix.file.addressed.info;
 
 import dev.inward.matrix.file.DirectoryLibrarian;
+import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
 import java.util.function.Function;
 
-public class InfoDirectoryLibrarian extends DirectoryLibrarian<InfoScheme,InfoLibraryKey,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference, InfoLibraryLibrarian,InfoPath,InfoCatalogKey,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference, InfoCatalogLibrarian,InfoDirectoryLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference, InfoDirectoryLibrarian> {
+public class InfoDirectoryLibrarian extends DirectoryLibrarian<InfoScheme,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference,InfoLibraryLibrarian,InfoPath,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference,InfoCatalogLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference,InfoDirectoryLibrarian> {
 
-    public InfoDirectoryLibrarian(Function<InfoDirectoryReference, InfoDirectoryReference> graveDigger, InfoDirectoryModel model, Class<InfoDirectoryView> viewClass) {
-        super(graveDigger, model,viewClass);
+
+    public InfoDirectoryLibrarian(Standard standard) {
+        super(standard);
     }
 }

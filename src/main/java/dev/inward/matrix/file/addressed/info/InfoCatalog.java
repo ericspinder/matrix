@@ -4,20 +4,23 @@
 
 package dev.inward.matrix.file.addressed.info;
 
+import dev.inward.matrix.Range;
 import dev.inward.matrix.control.catalog.Catalog;
+import dev.inward.matrix.engine.Zone;
 
-public class InfoCatalog extends Catalog<InfoScheme,InfoLibraryKey,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference, InfoLibraryLibrarian,InfoPath,InfoCatalogKey,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference, InfoCatalogLibrarian,InfoDirectoryLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference, InfoDirectoryLibrarian> {
-    public InfoCatalog(InfoCatalogKey catalogKey) {
-        super(catalogKey);
+public class InfoCatalog extends Catalog<InfoScheme,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference,InfoLibraryLibrarian,InfoPath,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference,InfoCatalogLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference,InfoDirectoryLibrarian> {
+
+    public InfoCatalog(InfoLibrary library, Range<InfoPath> range, Zone zone) {
+        super(library, range, zone);
     }
 
     @Override
-    protected boolean init(InfoCatalogKey catalogKey) {
-        return false;
+    protected void init() {
+
     }
 
     @Override
-    protected InfoDirectoryKey createDirectoryKey(InfoPath infoPath) {
-        return (new InfoDirectoryKey.Builder(this,infoPath)).buildKey();
+    protected InfoDirectoryKey newDirectoryKey(String path) {
+        return null;
     }
 }

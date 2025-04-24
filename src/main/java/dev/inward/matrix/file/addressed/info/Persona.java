@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.file.addressed.info;
 
-public class Persona extends Privilege<PersonaLibrarian,PersonaKey,Persona,PersonaView,PersonaModel,PersonaReference, PersonaSteward> {
+public class Persona extends Privilege<PersonaKey,Persona,PersonaView,PersonaModel,PersonaReference,PersonaLibrarian> {
 
     public Persona(PersonaKey personaKey) {
         super(personaKey);

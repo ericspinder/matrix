@@ -6,7 +6,7 @@ package dev.inward.matrix.file.addressed.info;
 
 import java.net.URI;
 
-public class AgentKey extends PrivilegeKey<AgentLibrarian,AgentKey,Agent,AgentView,AgentModel,AgentReference, AgentSteward> {
+public class AgentKey extends PrivilegeKey<AgentKey,Agent,AgentView,AgentModel,AgentReference,AgentLibrarian> {
     protected AgentKey(URI uri, String s, InfoDirectoryKey directoryKey) {
         super(uri, s, directoryKey);
     }

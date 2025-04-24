@@ -9,14 +9,14 @@ import dev.inward.matrix.file.DirectoryKey;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class InfoDirectoryKey extends DirectoryKey<InfoScheme,InfoLibraryKey,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference, InfoLibraryLibrarian,InfoPath,InfoCatalogKey,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference, InfoCatalogLibrarian,InfoDirectoryLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference, InfoDirectoryLibrarian> {
+public class InfoDirectoryKey extends DirectoryKey<InfoScheme,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference,InfoLibraryLibrarian,InfoPath,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference,InfoCatalogLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference,InfoDirectoryLibrarian> {
 
 
     protected InfoDirectoryKey(URI uri, InfoCatalog catalog, InfoPath infoPath) {
         super(uri, catalog, infoPath);
     }
 
-    public final static class Builder {
+    public final static class Builder extends DirectoryKey.Builder<InfoScheme,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference,InfoLibraryLibrarian,InfoPath,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference,InfoCatalogLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference,InfoDirectoryLibrarian> {
 
         private final URI uri;
         private final InfoPath infoPath;
@@ -33,6 +33,11 @@ public class InfoDirectoryKey extends DirectoryKey<InfoScheme,InfoLibraryKey,Inf
         }
 
         public InfoDirectoryKey buildKey() {
+            return new InfoDirectoryKey(this.uri,this.infoCatalog,this.infoPath);
+        }
+
+        @Override
+        protected InfoDirectoryKey newMatrixKey() {
             return new InfoDirectoryKey(this.uri,this.infoCatalog,this.infoPath);
         }
     }

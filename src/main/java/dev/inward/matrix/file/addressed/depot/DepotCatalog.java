@@ -6,18 +6,5 @@ package dev.inward.matrix.file.addressed.depot;
 
 import dev.inward.matrix.control.catalog.Catalog;
 
-public class DepotCatalog extends Catalog<DepotScheme,DepotLibraryKey,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibraryLibrarian,DepotPath,DepotCatalogKey,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference, DepotCatalogLibrarian,DepotDirectoryLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectoryLibrarian> {
-    public DepotCatalog(DepotCatalogKey catalogKey) {
-        super(catalogKey);
-    }
-
-    @Override
-    protected boolean init(DepotCatalogKey catalogKey) {
-        return false;
-    }
-
-    @Override
-    protected DepotDirectoryKey createDirectoryKey(DepotPath depotPath) {
-        return null;
-    }
+public class DepotCatalog extends Catalog<DepotScheme,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibraryLibrarian,DepotPath,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference,DepotCatalogLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectoryLibrarian> {
 }

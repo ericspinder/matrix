@@ -6,9 +6,9 @@ package dev.inward.matrix.file.addressed.depot.variant;
 
 import dev.inward.matrix.file.addressed.depot.DepotView;
 
-public class VariantView extends DepotView<VariantLibrarian,VariantKey,Variant,VariantView,VariantModel,VariantReference, VariantLibrarian> {
+public class VariantView extends DepotView<VariantKey,Variant,VariantView,VariantModel,VariantReference,VariantLibrarian> {
 
-    public VariantView(String name, Variant depot, VariantModel depotModel) {
-        super(name, depot, depotModel);
+    public VariantView(String name, Variant file, VariantReference fileReference) {
+        super(name, file, fileReference);
     }
 }

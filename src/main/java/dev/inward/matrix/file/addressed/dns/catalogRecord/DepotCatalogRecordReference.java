@@ -4,8 +4,8 @@
 
 package dev.inward.matrix.file.addressed.dns.catalogRecord;
 
-public class DepotCatalogRecordReference extends CatalogRecordReference<DepotCatalogRecordLibrarian,DepotCatalogRecordKey,DepotCatalogRecord,DepotCatalogRecordView,DepotCatalogRecordModel,DepotCatalogRecordReference, DepotCatalogRecordSteward> {
-    public DepotCatalogRecordReference(DepotCatalogRecord addressed, DepotCatalogRecordSteward resource) {
+public class DepotCatalogRecordReference extends CatalogRecordReference<DepotCatalogRecordKey,DepotCatalogRecord,DepotCatalogRecordView,DepotCatalogRecordModel,DepotCatalogRecordReference, DepotCatalogRecordLibrarian> {
+    public DepotCatalogRecordReference(DepotCatalogRecord addressed, DepotCatalogRecordLibrarian resource) {
         super(addressed, resource);
     }
 }

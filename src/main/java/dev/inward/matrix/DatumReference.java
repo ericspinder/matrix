@@ -4,7 +4,7 @@
 
 package dev.inward.matrix;
 
-public abstract class DatumReference<D extends Datum,V extends DatumView<D,V,M,R,B>,M extends DatumModel<D,V,M,R,B>,R extends DatumReference<D,V,M,R,B>,B extends DatumLibrarian<D,V,M,R,B>> extends Reference<D,V,M,R,B> {
+public abstract class DatumReference<D extends Datum<D,V,M,R,B>,V extends DatumView<D,V,M,R,B>,M extends DatumModel<D,V,M,R,B>,R extends DatumReference<D,V,M,R,B>,B extends DatumLibrarian<D,V,M,R,B>> extends Reference<D,V,M,R,B> {
 
 
     public DatumReference(D datum, B librarian) {

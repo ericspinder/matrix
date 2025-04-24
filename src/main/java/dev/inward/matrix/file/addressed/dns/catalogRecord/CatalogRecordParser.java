@@ -13,7 +13,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-public abstract class CatalogRecordParser<LB extends CatalogRecordLibrarian<LB,K,F,V,M,R,G>,K extends CatalogRecordKey<LB,K,F,V,M,R,G>,F extends CatalogRecord<LB,K,F,V,M,R,G>,V extends CatalogRecordView<LB,K,F,V,M,R,G>,M extends CatalogRecordModel<LB,K,F,V,M,R,G>,R extends CatalogRecordReference<LB,K,F,V,M,R,G>,G extends CatalogRecordSteward<LB,K,F,V,M,R,G>> extends ResourceRecordParser<LB,K,F,V,M,R,G> {
+public abstract class CatalogRecordParser<K extends CatalogRecordKey<K,F,V,M,R,B>,F extends CatalogRecord<K,F,V,M,R,B>,V extends CatalogRecordView<K,F,V,M,R,B>,M extends CatalogRecordModel<K,F,V,M,R,B>,R extends CatalogRecordReference<K,F,V,M,R,B>,B extends CatalogRecordLibrarian<K,F,V,M,R,B>> extends ResourceRecordParser<K,F,V,M,R,B> {
 
     public CatalogRecordParser(DnsDirectoryKey directoryKey) {
         super(directoryKey);

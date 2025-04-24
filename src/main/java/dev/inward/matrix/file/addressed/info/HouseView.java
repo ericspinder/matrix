@@ -4,9 +4,9 @@
 
 package dev.inward.matrix.file.addressed.info;
 
-public class HouseView extends PrivilegeView<HouseLibrarian,HouseKey,House,HouseView,HouseModel,HouseReference, HouseSteward> {
+public class HouseView extends PrivilegeView<HouseKey,House,HouseView,HouseModel,HouseReference,HouseLibrarian> {
 
-    public HouseView(String name, House addressed, HouseModel addressedModel) {
-        super(name, addressed, addressedModel);
+    public HouseView(String name, House file, HouseReference fileReference) {
+        super(name, file, fileReference);
     }
 }

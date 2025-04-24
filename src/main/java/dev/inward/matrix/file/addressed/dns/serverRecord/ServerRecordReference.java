@@ -6,8 +6,9 @@ package dev.inward.matrix.file.addressed.dns.serverRecord;
 
 import dev.inward.matrix.file.addressed.dns.RRReference;
 
-public class ServerRecordReference<LB extends ServerRecordLibrarian<LB,K,F,V,M,R,G>, K extends ServerRecordKey<LB,K,F,V,M,R,G>,F extends ServerRecord<LB,K,F,V,M,R,G>,V extends ServerRecordView<LB,K,F,V,M,R,G>,M extends ServerRecordModel<LB,K,F,V,M,R,G>,R extends ServerRecordReference<LB,K,F,V,M,R,G>,G extends ServerRecordSteward<LB,K,F,V,M,R,G>> extends RRReference<LB,K,F,V,M,R,G> {
-    public ServerRecordReference(F addressed, G serverRecordGestalt) {
-        super(addressed, serverRecordGestalt);
+public class ServerRecordReference<K extends ServerRecordKey<K,F,V,M,R,B>,F extends ServerRecord<K,F,V,M,R,B>,V extends ServerRecordView<K,F,V,M,R,B>,M extends ServerRecordModel<K,F,V,M,R,B>,R extends ServerRecordReference<K,F,V,M,R,B>,B extends ServerRecordLibrarian<K,F,V,M,R,B>> extends RRReference<K,F,V,M,R,B> {
+
+    public ServerRecordReference(F referent, B librarian) {
+        super(referent, librarian);
     }
 }

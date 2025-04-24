@@ -6,11 +6,13 @@ package dev.inward.matrix.file.addressed.depot.indica;
 
 import dev.inward.matrix.file.addressed.depot.DepotLibrarian;
 import dev.inward.matrix.file.addressed.depot.specification.Specification;
+import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
 import java.util.function.Function;
 
-public class IndicaLibrarian extends DepotLibrarian<IndicaLibrarian,IndicaKey,Indica,IndicaView,IndicaModel,IndicaReference, IndicaLibrarian> {
-    public IndicaLibrarian(Function<IndicaReference, IndicaReference> graveDigger, IndicaModel model, Class<IndicaView> viewClass, Specification specification) {
-        super(graveDigger, model, viewClass, specification);
+public class IndicaLibrarian extends DepotLibrarian<IndicaKey,Indica,IndicaView,IndicaModel,IndicaReference,IndicaLibrarian> {
+
+    public IndicaLibrarian(Standard standard, Specification specification) {
+        super(standard, specification);
     }
 }

@@ -3,19 +3,20 @@
  */
 package dev.inward.matrix.file.addressed.http;
 
+import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.control.library.Library;
 import dev.inward.matrix.memory.bureau.Bureau;
 
 import java.util.Map;
 
-public class HttpLibrary extends Library<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibraryLibrarian,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogLibrarian,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectoryLibrarian> {
-    public HttpLibrary(HttpLibraryKey libraryKey) {
-        super(libraryKey);
+public class HttpLibrary extends Library<HttpScheme,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference,HttpLibraryLibrarian,String,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference,HttpDirectoryLibrarian> {
+
+    public HttpLibrary(HttpScheme scheme, Domain domain, int port, String separator) {
+        super(scheme, domain, port, separator);
     }
 
     @Override
-    protected Map<HttpCatalog, Bureau<?, ?, ?, ?>[]> initCatalogs() {
+    protected Map<HttpCatalog, Bureau<?, ?, ?, ?, ?, ?, ?>[]> initCatalogs() {
         return null;
     }
-
 }

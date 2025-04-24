@@ -10,12 +10,12 @@ import dev.inward.matrix.file.addressed.dns.RRKey;
 import java.net.URI;
 import java.util.UUID;
 
-public class StartOfAuthorityKey extends RRKey<StartOfAuthorityLibrarian,StartOfAuthorityKey,StartOfAuthority,StartOfAuthorityView,StartOfAuthorityModel,StartOfAuthorityReference, StartOfAuthoritySteward> {
+public class StartOfAuthorityKey extends RRKey<StartOfAuthorityKey,StartOfAuthority,StartOfAuthorityView,StartOfAuthorityModel,StartOfAuthorityReference,StartOfAuthorityLibrarian> {
     protected StartOfAuthorityKey(URI uri, UUID uuid, DnsDirectoryKey directoryKey,boolean randomUUID) {
         super(uri, uuid, directoryKey,randomUUID);
     }
 
-    public static class Builder extends RRKey.Builder<StartOfAuthorityLibrarian,StartOfAuthorityKey,StartOfAuthority,StartOfAuthorityView,StartOfAuthorityModel,StartOfAuthorityReference, StartOfAuthoritySteward> {
+    public static class Builder extends RRKey.Builder<StartOfAuthorityKey,StartOfAuthority,StartOfAuthorityView,StartOfAuthorityModel,StartOfAuthorityReference,StartOfAuthorityLibrarian> {
 
         @Override
         protected StartOfAuthorityKey newMatrixKey() {

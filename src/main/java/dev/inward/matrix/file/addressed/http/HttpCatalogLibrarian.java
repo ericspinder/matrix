@@ -7,7 +7,7 @@ package dev.inward.matrix.file.addressed.http;
 import dev.inward.matrix.control.catalog.CatalogLibrarian;
 import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
-public class HttpCatalogLibrarian extends CatalogLibrarian<HttpScheme,HttpLibraryKey,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference, HttpLibraryLibrarian,String,HttpCatalogKey,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogLibrarian,HttpDirectoryLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference, HttpDirectoryLibrarian> {
+public class HttpCatalogLibrarian extends CatalogLibrarian<HttpScheme,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference,HttpLibraryLibrarian,String,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference,HttpDirectoryLibrarian> {
     public HttpCatalogLibrarian(Standard standard) {
         super(standard);
     }

@@ -6,9 +6,9 @@ package dev.inward.matrix.file.addressed.dns;
 
 import dev.inward.matrix.control.library.LibraryView;
 
-public class DnsLibraryView extends LibraryView<DnsScheme,DnsLibraryKey,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibraryLibrarian,DnsPath,DnsCatalogKey,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference, DnsCatalogLibrarian,DnsDirectoryLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectoryLibrarian> {
+public class DnsLibraryView extends LibraryView<DnsScheme,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibraryLibrarian,DnsPath,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference,DnsCatalogLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectoryLibrarian> {
 
-    public DnsLibraryView(String name, DnsLibrary library, DnsLibraryModel libraryModel) {
-        super(name, library, libraryModel);
+    public DnsLibraryView(String name, DnsLibrary library, DnsLibraryReference libraryReference) {
+        super(name, library, libraryReference);
     }
 }

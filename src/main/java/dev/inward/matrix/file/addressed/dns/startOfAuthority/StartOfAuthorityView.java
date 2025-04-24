@@ -6,9 +6,9 @@ package dev.inward.matrix.file.addressed.dns.startOfAuthority;
 
 import dev.inward.matrix.file.addressed.dns.RRView;
 
-public class StartOfAuthorityView extends RRView<StartOfAuthorityLibrarian,StartOfAuthorityKey,StartOfAuthority,StartOfAuthorityView,StartOfAuthorityModel,StartOfAuthorityReference, StartOfAuthoritySteward> {
+public class StartOfAuthorityView extends RRView<StartOfAuthorityKey,StartOfAuthority,StartOfAuthorityView,StartOfAuthorityModel,StartOfAuthorityReference,StartOfAuthorityLibrarian> {
 
-    public StartOfAuthorityView(String name, StartOfAuthority resourceRecord, StartOfAuthorityModel rrModel) {
-        super(name, resourceRecord, rrModel);
+    public StartOfAuthorityView(String name, StartOfAuthority file, StartOfAuthorityReference fileReference) {
+        super(name, file, fileReference);
     }
 }

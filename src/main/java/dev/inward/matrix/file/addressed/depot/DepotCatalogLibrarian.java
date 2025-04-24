@@ -7,7 +7,7 @@ package dev.inward.matrix.file.addressed.depot;
 import dev.inward.matrix.control.catalog.CatalogLibrarian;
 import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
-public class DepotCatalogLibrarian extends CatalogLibrarian<DepotScheme,DepotLibraryKey,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibraryLibrarian,DepotPath,DepotCatalogKey,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference, DepotCatalogLibrarian,DepotDirectoryLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectoryLibrarian> {
+public class DepotCatalogLibrarian extends CatalogLibrarian<DepotScheme,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibraryLibrarian,DepotPath,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference,DepotCatalogLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectoryLibrarian> {
     public DepotCatalogLibrarian(Standard standard) {
         super(standard);
     }

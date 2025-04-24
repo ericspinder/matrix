@@ -7,7 +7,7 @@ package dev.inward.matrix.file.addressed.dns;
 import dev.inward.matrix.control.catalog.CatalogLibrarian;
 import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
-public class DnsCatalogLibrarian extends CatalogLibrarian<DnsScheme,DnsLibraryKey,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibraryLibrarian,DnsPath,DnsCatalogKey,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference, DnsCatalogLibrarian,DnsDirectoryLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectoryLibrarian> {
+public class DnsCatalogLibrarian extends CatalogLibrarian<DnsScheme,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibraryLibrarian,DnsPath,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference,DnsCatalogLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectoryLibrarian> {
     public DnsCatalogLibrarian(Standard standard) {
         super(standard);
     }

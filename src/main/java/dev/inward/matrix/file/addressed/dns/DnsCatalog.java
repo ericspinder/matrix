@@ -4,20 +4,26 @@
 
 package dev.inward.matrix.file.addressed.dns;
 
+import dev.inward.matrix.Range;
 import dev.inward.matrix.control.catalog.Catalog;
+import dev.inward.matrix.engine.Zone;
 
-public class DnsCatalog extends Catalog<DnsScheme,DnsLibraryKey,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibraryLibrarian,DnsPath,DnsCatalogKey,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference, DnsCatalogLibrarian,DnsDirectoryLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectoryLibrarian> {
-    public DnsCatalog(DnsCatalogKey catalogKey) {
-        super(catalogKey);
+import java.util.UUID;
+
+public class DnsCatalog extends Catalog<DnsScheme,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibraryLibrarian,DnsPath,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference,DnsCatalogLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectoryLibrarian> {
+
+
+    public DnsCatalog(DnsLibrary library, Range<DnsPath> range, Zone zone) {
+        super(library, range, zone);
     }
 
     @Override
-    protected boolean init(DnsCatalogKey catalogKey) {
-        return false;
+    protected void init() {
+
     }
 
     @Override
-    protected DnsDirectoryKey createDirectoryKey(DnsPath dnsPath) {
+    protected DnsDirectoryKey newDirectoryKey(String path) {
         return null;
     }
 }

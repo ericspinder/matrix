@@ -6,10 +6,9 @@ package dev.inward.matrix.file.addressed.info;
 
 import dev.inward.matrix.control.library.LibraryView;
 
-public class InfoLibraryView extends LibraryView<InfoScheme,InfoLibraryKey,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference, InfoLibraryLibrarian,InfoPath,InfoCatalogKey,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference, InfoCatalogLibrarian,InfoDirectoryLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference, InfoDirectoryLibrarian> {
+public class InfoLibraryView extends LibraryView<InfoScheme,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference,InfoLibraryLibrarian,InfoPath,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference,InfoCatalogLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference,InfoDirectoryLibrarian> {
 
-
-    public InfoLibraryView(String name, InfoLibrary library, InfoLibraryModel libraryModel) {
-        super(name, library, libraryModel);
+    public InfoLibraryView(String name, InfoLibrary library, InfoLibraryReference libraryReference) {
+        super(name, library, libraryReference);
     }
 }

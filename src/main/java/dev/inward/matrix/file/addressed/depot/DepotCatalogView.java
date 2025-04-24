@@ -6,8 +6,9 @@ package dev.inward.matrix.file.addressed.depot;
 
 import dev.inward.matrix.control.catalog.CatalogView;
 
-public class DepotCatalogView extends CatalogView<DepotScheme,DepotLibraryKey,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibraryLibrarian,DepotPath,DepotCatalogKey,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference, DepotCatalogLibrarian,DepotDirectoryLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectoryLibrarian> {
-    public DepotCatalogView(String name, DepotCatalog catalog, DepotCatalogModel catalogModel) {
-        super(name, catalog, catalogModel);
+public class DepotCatalogView extends CatalogView<DepotScheme,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibraryLibrarian,DepotPath,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference,DepotCatalogLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectoryLibrarian> {
+
+    public DepotCatalogView(String name, DepotCatalog catalog, DepotCatalogReference reference) {
+        super(name, catalog, reference);
     }
 }

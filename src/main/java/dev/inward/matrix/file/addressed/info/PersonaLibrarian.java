@@ -5,11 +5,12 @@
 package dev.inward.matrix.file.addressed.info;
 
 import dev.inward.matrix.file.addressed.depot.specification.Specification;
+import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
 import java.util.function.Function;
 
-public class HouseSteward extends PrivilegeSteward<HouseLibrarian,HouseKey,House,HouseView,HouseModel,HouseReference, HouseSteward> {
-    public HouseSteward(Function<HouseReference, HouseReference> graveDigger, HouseModel model, Class<HouseView> viewClass, Specification specification) {
-        super(graveDigger, model, viewClass, specification);
+public class PersonaLibrarian extends PrivilegeLibrarian<PersonaKey,Persona,PersonaView,PersonaModel,PersonaReference,PersonaLibrarian> {
+    public PersonaLibrarian(Standard standard, Specification specification) {
+        super(standard, specification);
     }
 }

@@ -7,8 +7,9 @@ package dev.inward.matrix.file.addressed.info;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.file.DirectoryModel;
 
-public class InfoDirectoryModel extends DirectoryModel<InfoScheme,InfoLibraryKey,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference, InfoLibraryLibrarian,InfoPath,InfoCatalogKey,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference, InfoCatalogLibrarian,InfoDirectoryLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference, InfoDirectoryLibrarian> {
-    public InfoDirectoryModel(Aspect[] labeledAspects, long warnOnTotal, long hardLimit) {
-        super(labeledAspects, warnOnTotal, hardLimit);
+public class InfoDirectoryModel extends DirectoryModel<InfoScheme,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference,InfoLibraryLibrarian,InfoPath,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference,InfoCatalogLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference,InfoDirectoryLibrarian> {
+
+    public InfoDirectoryModel(Aspect[] labeledAspects) {
+        super(labeledAspects);
     }
 }

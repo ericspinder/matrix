@@ -5,9 +5,9 @@
 package dev.inward.matrix.file.addressed.info;
 
 
-public class PersonaView extends PrivilegeView<PersonaLibrarian,PersonaKey,Persona,PersonaView,PersonaModel,PersonaReference, PersonaSteward> {
+public class PersonaView extends PrivilegeView<PersonaKey,Persona,PersonaView,PersonaModel,PersonaReference,PersonaLibrarian> {
 
-    public PersonaView(String name, Persona addressed, PersonaModel addressedModel) {
-        super(name, addressed, addressedModel);
+    public PersonaView(String name, Persona file, PersonaReference fileReference) {
+        super(name, file, fileReference);
     }
 }

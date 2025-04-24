@@ -10,36 +10,14 @@ import dev.inward.matrix.control.library.*;
 import dev.inward.matrix.file.*;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
 import java.net.*;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class Scheme<S extends Scheme<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,L extends Library<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,LV extends LibraryView<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,LM extends LibraryModel<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,LR extends LibraryReference<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,LB extends LibraryLibrarian<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,PATH extends Comparable<PATH>,C extends Catalog<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,CV extends CatalogView<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,CM extends CatalogModel<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,CR extends CatalogReference<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,CB extends CatalogLibrarian<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,DK extends DirectoryKey<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,D extends Directory<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,DV extends DirectoryView<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,DM extends DirectoryModel<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,DR extends DirectoryReference<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,DB extends DirectoryLibrarian<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>> extends URLStreamHandler implements Comparable<S> {
 
-
-    protected final Map<String, L> schemeLibraries = new ConcurrentHashMap<>();
-
-    @SuppressWarnings("unchecked")
-    public L findLibrary(URI uri) {
-        int port = (uri.getPort() > 0) ? uri.getPort(): getDefaultPort();
-        String library_cache_key = scheme + "://" + uri.getHost() + ':' + port;
-        return schemeLibraries.containsKey(library_cache_key) ? schemeLibraries.get(library_cache_key): this.buildLibrary(library_cache_key,uri.getHost(),port);
-    }
-    @SuppressWarnings("unchecked")
-    public synchronized L buildLibrary(String library_cache_key, String host, int port) {
-        if (schemeLibraries.containsKey(library_cache_key)) {
-            return schemeLibraries.get(library_cache_key);
-        }
-        L library = this.makeLibraryKey((S)this, Matrix.getInstance().getDomain(this.terrene, host), port,null).getLibrary();
-        this.schemeLibraries.put(library_cache_key, library);
-        return library;
-    }
-    protected long getExceptionalSeries() {
-        return 0;
-    }
-
-    protected abstract LK makeLibraryKey(S scheme,Domain domain, int port,String separator);
-    protected abstract L buildLibrary(LK libraryKey);
     public enum Reserved {
         Semicolon(';'),
         Slash('/'),
@@ -82,10 +60,13 @@ public abstract class Scheme<S extends Scheme<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB
         }
     }
 
+    protected final Map<String, L> schemeLibraries = new ConcurrentHashMap<>();
+    protected final Class<L> libraryClass;
     protected final Terrene terrene;
     protected final MatrixURLStreamHandlerProvider.Protocol protocol;
     protected final String scheme;
 
+    @SuppressWarnings("unchecked")
     public Scheme(Terrene terrene, MatrixURLStreamHandlerProvider.Protocol protocol) {
         this.terrene = terrene;
         this.protocol = protocol;
@@ -94,6 +75,33 @@ public abstract class Scheme<S extends Scheme<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB
         }
         else {
             this.scheme = protocol.getLabel();
+        }
+        this.libraryClass = (Class<L>)((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
+    }
+    @SuppressWarnings("unchecked")
+    public L findLibrary(URI uri) {
+        int port = (uri.getPort() > 0) ? uri.getPort(): getDefaultPort();
+        String library_cache_key = scheme + "://" + uri.getHost() + ':' + port;
+        return schemeLibraries.containsKey(library_cache_key) ? schemeLibraries.get(library_cache_key): this.buildLibrary(library_cache_key,uri.getHost(),port);
+    }
+    @SuppressWarnings("unchecked")
+    public synchronized L buildLibrary(String library_cache_key, String host, int port) {
+        if (schemeLibraries.containsKey(library_cache_key)) {
+            return schemeLibraries.get(library_cache_key);
+        }
+        L library = this.makeLibrary((S)this, Matrix.getInstance().getDomain(this.terrene, host), port,this.protocol.getSeparator());
+        this.schemeLibraries.put(library_cache_key, library);
+        return library;
+    }
+    protected long getExceptionalSeries() {
+        return 0;
+    }
+
+    protected L makeLibrary(S scheme,Domain domain, int port,String separator) {
+        try {
+            return this.libraryClass.getDeclaredConstructor(Scheme.class,Domain.class, Integer.class, String.class).newInstance(scheme,domain,port,separator);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            throw new RuntimeException(e);
         }
     }
 

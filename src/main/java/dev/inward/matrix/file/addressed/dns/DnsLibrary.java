@@ -4,6 +4,7 @@
 package dev.inward.matrix.file.addressed.dns;
 
 import dev.inward.matrix.HostExperience;
+import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.control.library.Library;
 import dev.inward.matrix.LocalSystemNetworking;
 import dev.inward.matrix.Ziggurat;
@@ -22,9 +23,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DnsLibrary extends Library<DnsScheme,DnsLibraryKey,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibraryLibrarian,DnsPath,DnsCatalogKey,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference, DnsCatalogLibrarian,DnsDirectoryLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectoryLibrarian> {
-    public DnsLibrary(DnsLibraryKey libraryKey) {
-        super(libraryKey);
+public class DnsLibrary extends Library<DnsScheme,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibraryLibrarian,DnsPath,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference,DnsCatalogLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectoryLibrarian> {
+
+    public DnsLibrary(DnsScheme scheme, Domain domain, int port, String separator) {
+        super(scheme, domain, port, separator);
     }
 
     @Override

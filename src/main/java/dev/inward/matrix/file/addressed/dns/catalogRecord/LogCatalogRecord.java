@@ -8,7 +8,7 @@ import dev.inward.matrix.engine.Zone;
 
 import java.util.concurrent.TimeUnit;
 
-public class LogCatalogRecord extends CatalogRecord<LogCatalogRecordLibrarian,LogCatalogRecordKey,LogCatalogRecord,LogCatalogRecordView,LogCatalogRecordModel,LogCatalogRecordReference, LogCatalogRecordSteward> {
+public class LogCatalogRecord extends CatalogRecord<LogCatalogRecordKey,LogCatalogRecord,LogCatalogRecordView,LogCatalogRecordModel,LogCatalogRecordReference,LogCatalogRecordLibrarian> {
     public LogCatalogRecord(LogCatalogRecordKey identity, String target, String startPath, String endPath, Zone zone, String protocol, int priority, int weight, int port, long syncAmount, TimeUnit syncUnit, int ttl) {
         super(identity, target, startPath, endPath, zone, protocol, priority, weight, port, syncAmount, syncUnit, ttl);
     }

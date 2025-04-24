@@ -9,25 +9,17 @@ import dev.inward.matrix.MatrixURLStreamHandlerProvider;
 import dev.inward.matrix.Scheme;
 import dev.inward.matrix.Terrene;
 
-public class LogScheme extends Scheme<LogScheme,LogLibraryKey,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibraryLibrarian,LogPath,LogCatalogKey,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference, LogCatalogLibrarian,LogDirectoryLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference, LogDirectoryLibrarian> {
+public class LogScheme extends Scheme<LogScheme,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibraryLibrarian,LogPath,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference,LogCatalogLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference,LogDirectoryLibrarian> {
 
     public static final LogScheme EARTH_SCHEME_OF_LOG = new LogScheme(Terrene.Earth);
     public static final LogScheme TERRENE_SCHEME_OF_LOG = new LogScheme(Terrene.Luna);
     public static final LogScheme MARS_SCHEME_OF_LOG = new LogScheme(Terrene.Mars);
     public static final LogScheme CHAOSNET_SCHEME_OF_LOG = new LogScheme(Terrene.Chaosnet);
     public static final LogScheme HELIOS_SCHEME_OF_LOG = new LogScheme(Terrene.Helios);
+
     protected LogScheme(Terrene terrene) {
         super(terrene, MatrixURLStreamHandlerProvider.Protocol.LOG);
     }
 
 
-    @Override
-    protected LogLibraryKey makeLibraryKey(LogScheme scheme, Domain domain, int port, String separator) {
-        return null;
-    }
-
-    @Override
-    protected LogLibrary buildLibrary(LogLibraryKey libraryKey) {
-        return null;
-    }
 }
