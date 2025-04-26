@@ -13,7 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.nio.file.attribute.FileStoreAttributeView;
 import java.util.Map;
 
-public final class DefaultJdbcBureau extends JdbcBureau<DefaultJdbcBureauKey,DefaultJdbcBureau,DefaultJdbcBureauView,DefaultJdbcBureauModel,DefaultJdbcBureauReference, DefaultJdbcBureauLibrarian> {
+public final class DefaultJdbcBureau extends JdbcBureau<DefaultJdbcBureau,DefaultJdbcBureauView,DefaultJdbcBureauModel,DefaultJdbcBureauReference,DefaultJdbcBureauLibrarian> {
     public DefaultJdbcBureau(DefaultJdbcBureauKey key, Map<String, Object> attributes, Class<FileView<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>>... supportedFileViews) {
         super(key, attributes, supportedFileViews);
     }

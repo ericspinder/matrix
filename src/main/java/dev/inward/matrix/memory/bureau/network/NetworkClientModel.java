@@ -7,8 +7,8 @@ package dev.inward.matrix.memory.bureau.network;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.memory.bureau.BureauModel;
 
-public class NetworkModel<K extends NetworkKey<K,I,V,M,R,G>,I extends Network<K,I,V,M,R,G>,V extends NetworkView<K,I,V,M,R,G>,M extends NetworkModel<K,I,V,M,R,G>,R extends NetworkReference<K,I,V,M,R,G>,G extends NeworkLibrarian<K,I,V,M,R,G>> extends BureauModel<K,I,V,M,R,G> {
-    public NetworkModel(Aspect[] labeledAspects) {
+public class NetworkClientModel<BD extends NetworkClient<BD,BV,BM,BR,BB>,BV extends NetworkClientView<BD,BV,BM,BR,BB>,BM extends NetworkClientModel<BD,BV,BM,BR,BB>,BR extends NetworkClientReference<BD,BV,BM,BR,BB>,BB extends NetworkClientLibrarian<BD,BV,BM,BR,BB>>  extends BureauModel<BD,BV,BM,BR,BB> {
+    public NetworkClientModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }
 }

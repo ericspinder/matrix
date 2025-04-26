@@ -6,8 +6,9 @@ package dev.inward.matrix.memory.bureau.file;
 
 import dev.inward.matrix.memory.bureau.BureauReference;
 
-public class FileBureauReference<K extends FileBureauKey<K,I,V,M,R,G>,I extends FileBureau<K,I,V,M,R,G>,V extends FileBureauView<K,I,V,M,R,G>,M extends FileBureauModel<K,I,V,M,R,G>,R extends FileBureauReference<K,I,V,M,R,G>,G extends FileBureauLibrarian<K,I,V,M,R,G>> extends BureauReference<K,I,V,M,R,G> {
-    public FileBureauReference(I referent, G geslalt) {
-        super(referent, geslalt);
+public class FileBureauReference<BD extends FileBureau<BD,BV,BM,BR,BB>,BV extends FileBureauView<BD,BV,BM,BR,BB>,BM extends FileBureauModel<BD,BV,BM,BR,BB>,BR extends FileBureauReference<BD,BV,BM,BR,BB>,BB extends FileBureauLibrarian<BD,BV,BM,BR,BB>> extends BureauReference<BD,BV,BM,BR,BB> {
+
+    public FileBureauReference(BD referent, BB librarian) {
+        super(referent, librarian);
     }
 }

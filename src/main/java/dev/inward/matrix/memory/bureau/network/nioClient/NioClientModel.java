@@ -5,9 +5,9 @@
 package dev.inward.matrix.memory.bureau.network.nioClient;
 
 import dev.inward.matrix.Aspect;
-import dev.inward.matrix.memory.bureau.network.NetworkModel;
+import dev.inward.matrix.memory.bureau.network.NetworkClientModel;
 
-public class NioClientModel extends NetworkModel<NioClientKey,NioClient, NioClientView,NioClientModel,NioClientReference, NioClientLibrarian> {
+public class NioClientModel extends NetworkClientModel<NioClient,NioClientView,NioClientModel,NioClientReference,NioClientLibrarian> {
     public NioClientModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

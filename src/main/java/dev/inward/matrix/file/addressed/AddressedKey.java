@@ -57,7 +57,7 @@ public abstract class AddressedKey<S extends Scheme<S,L,LV,LM,LR,LB,PATH,C,CV,CM
         @Override
         protected URI makeUri() {
             try {
-                return new URI(this.directoryKey.getCatalog().provider().getUrlString() + this.directoryKey.getFilePath().toString() + this.id );
+                return new URI(this.directoryKey.getCatalog().provider().getUrlString() + this.directoryKey.directoryPath.toString() + this.id );
             } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
             }

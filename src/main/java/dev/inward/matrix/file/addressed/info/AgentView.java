@@ -6,8 +6,7 @@ package dev.inward.matrix.file.addressed.info;
 
 public class AgentView extends PrivilegeView<AgentKey,Agent,AgentView,AgentModel,AgentReference,AgentLibrarian> {
 
-
-    public AgentView(String name, Agent addressed, AgentModel addressedModel) {
-        super(name, addressed, addressedModel);
+    public AgentView(String name, Agent file, AgentReference fileReference) {
+        super(name, file, fileReference);
     }
 }

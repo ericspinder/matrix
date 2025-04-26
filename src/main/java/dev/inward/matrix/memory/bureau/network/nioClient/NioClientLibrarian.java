@@ -4,10 +4,10 @@
 
 package dev.inward.matrix.memory.bureau.network.nioClient;
 
-import dev.inward.matrix.memory.bureau.network.NeworkLibrarian;
+import dev.inward.matrix.memory.bureau.network.NetworkClientLibrarian;
 import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
-public class NioClientLibrarian extends NeworkLibrarian<NioClientKey,NioClient, NioClientView,NioClientModel,NioClientReference, NioClientLibrarian> {
+public class NioClientLibrarian extends NetworkClientLibrarian<NioClient,NioClientView,NioClientModel,NioClientReference,NioClientLibrarian> {
     public NioClientLibrarian(Standard standard) {
         super(standard);
     }

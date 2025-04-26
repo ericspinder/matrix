@@ -6,8 +6,9 @@ package dev.inward.matrix.memory.bureau;
 
 import dev.inward.matrix.memory.MemoryReference;
 
-public class BureauReference<BB extends BureauLibrarian<BB,BK,BI,BV,BM,BR,BT>,BK extends BureauKey<BB,BK,BI,BV,BM,BR,BT>,BI extends Bureau<BB,BK,BI,BV,BM,BR,BT>,BV extends BureauView<BB,BK,BI,BV,BM,BR,BT>,BM extends BureauModel<BB,BK,BI,BV,BM,BR,BT>,BR extends BureauReference<BB,BK,BI,BV,BM,BR,BT>,BT extends BureauLibrarian<BB,BK,BI,BV,BM,BR,BT>> extends MemoryReference<BB,BK,BI,BV,BM,BR,BT> {
-    public BureauReference(BI referent, BT steward) {
-        super(referent, steward);
+public class BureauReference<BD extends Bureau<BD,BV,BM,BR,BB>,BV extends BureauView<BD,BV,BM,BR,BB>,BM extends BureauModel<BD,BV,BM,BR,BB>,BR extends BureauReference<BD,BV,BM,BR,BB>,BB extends BureauLibrarian<BD,BV,BM,BR,BB>> extends MemoryReference<BD,BV,BM,BR,BB> {
+
+    public BureauReference(BD referent, BB librarian) {
+        super(referent, librarian);
     }
 }

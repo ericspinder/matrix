@@ -12,13 +12,15 @@ import java.nio.file.FileSystems;
 import java.util.Map;
 
 
-public abstract class FileBureau<K extends FileBureauKey<K,I,V,M,R,G>,I extends FileBureau<K,I,V,M,R,G>,V extends FileBureauView<K,I,V,M,R,G>,M extends FileBureauModel<K,I,V,M,R,G>,R extends FileBureauReference<K,I,V,M,R,G>,G extends FileBureauLibrarian<K,I,V,M,R,G>> extends Bureau<K,I,V,M,R,G> {
+public abstract class FileBureau<BD extends FileBureau<BD,BV,BM,BR,BB>,BV extends FileBureauView<BD,BV,BM,BR,BB>,BM extends FileBureauModel<BD,BV,BM,BR,BB>,BR extends FileBureauReference<BD,BV,BM,BR,BB>,BB extends FileBureauLibrarian<BD,BV,BM,BR,BB>> extends Bureau<BD,BV,BM,BR,BB> {
 
     protected final String rootPath;
     protected final FileSystem defaultFileSystem = FileSystems.getDefault();
-    public FileBureau(K key, Map<String, Object> attributes, Class<FileView<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>>[] supportedFileViews, String rootPath) {
-        super(key, attributes, supportedFileViews);
-        this.rootPath = parseRootPathForFileSystem(rootPath);
+
+    public FileBureau(Map<String, Object> attributes, Class<FileView<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>>[] supportedFileViews, String rootPath) {
+        super(attributes, supportedFileViews);
+        this.rootPath = rootPath;
     }
+
     protected abstract String parseRootPathForFileSystem(String rootPath);
 }

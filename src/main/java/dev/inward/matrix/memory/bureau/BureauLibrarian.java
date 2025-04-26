@@ -6,8 +6,10 @@ package dev.inward.matrix.memory.bureau;
 
 import dev.inward.matrix.Librarian;
 import dev.inward.matrix.file.addressed.depot.standard.Standard;
+import dev.inward.matrix.memory.Memory;
+import dev.inward.matrix.memory.MemoryLibrarian;
 
-public class BureauLibrarian<BB extends BureauLibrarian<BB,BK,BI,BV,BM,BR,BT>,BK extends BureauKey<BB,BK,BI,BV,BM,BR,BT>,BI extends Bureau<BB,BK,BI,BV,BM,BR,BT>,BV extends BureauView<BB,BK,BI,BV,BM,BR,BT>,BM extends BureauModel<BB,BK,BI,BV,BM,BR,BT>,BR extends BureauReference<BB,BK,BI,BV,BM,BR,BT>,BT extends BureauLibrarian<BB,BK,BI,BV,BM,BR,BT>> extends Librarian<BB,BI,BV,BM,BR,BT> {
+public class BureauLibrarian<BD extends Bureau<BD,BV,BM,BR,BB>,BV extends BureauView<BD,BV,BM,BR,BB>,BM extends BureauModel<BD,BV,BM,BR,BB>,BR extends BureauReference<BD,BV,BM,BR,BB>,BB extends BureauLibrarian<BD,BV,BM,BR,BB>> extends MemoryLibrarian<BD,BV,BM,BR,BB> {
     public BureauLibrarian(Standard standard) {
         super(standard);
     }

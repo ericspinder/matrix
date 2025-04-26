@@ -4,12 +4,12 @@
 
 package dev.inward.matrix.memory.bureau.network.nioClient;
 
-import dev.inward.matrix.memory.bureau.network.NetworkView;
+import dev.inward.matrix.memory.bureau.network.NetworkClientView;
 
 
-public class NioClientView extends NetworkView<NioClientKey,NioClient, NioClientView,NioClientModel,NioClientReference, NioClientLibrarian> {
+public class NioClientView extends NetworkClientView<NioClient,NioClientView,NioClientModel,NioClientReference,NioClientLibrarian> {
 
-    public NioClientView(NioClient bureau, NioClientModel bureauModel) {
-        super("NioClientView", bureau, bureauModel);
+    public NioClientView(String name, NioClient nioClient, NioClientReference reference) {
+        super(name, nioClient, reference);
     }
 }

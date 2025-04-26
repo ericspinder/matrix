@@ -7,7 +7,7 @@ package dev.inward.matrix.memory.bureau.file.windows;
 import dev.inward.matrix.memory.bureau.file.FileBureauLibrarian;
 import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
-public class WindowsBureauLibrarian extends FileBureauLibrarian<WindowsBureauKey,WindowsBureau,WindowsBureauView,WindowsBureauModel,WindowsBureauReference, WindowsBureauLibrarian> {
+public class WindowsBureauLibrarian extends FileBureauLibrarian<WindowsBureau,WindowsBureauView,WindowsBureauModel,WindowsBureauReference,WindowsBureauLibrarian> {
     public WindowsBureauLibrarian(Standard standard) {
         super(standard);
     }

@@ -9,10 +9,10 @@ import dev.inward.matrix.file.FileView;
 
 import java.util.Map;
 
-public abstract class JdbcBureau<K extends JdbcBureauKey<K,I,V,M,R,G>,I extends JdbcBureau<K,I,V,M,R,G>,V extends JdbcBureauView<K,I,V,M,R,G>,M extends JdbcBureauModel<K,I,V,M,R,G>,R extends JdbcBureauReference<K,I,V,M,R,G>,G extends JdbcBureauLibrarian<K,I,V,M,R,G>> extends Bureau<K,I,V,M,R,G> {
+public abstract class JdbcBureau<BD extends JdbcBureau<BD,BV,BM,BR,BB>,BV extends JdbcBureauView<BD,BV,BM,BR,BB>,BM extends JdbcBureauModel<BD,BV,BM,BR,BB>,BR extends JdbcBureauReference<BD,BV,BM,BR,BB>,BB extends JdbcBureauLibrarian<BD,BV,BM,BR,BB>> extends Bureau<BD,BV,BM,BR,BB> {
 
-    public JdbcBureau(K key, Map<String, Object> attributes, Class<FileView<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>>... supportedFileViews) {
-        super(key, attributes, supportedFileViews);
+
+    public JdbcBureau(Map<String, Object> attributes, Class<FileView<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>>[] supportedFileViews) {
+        super(attributes, supportedFileViews);
     }
-
 }

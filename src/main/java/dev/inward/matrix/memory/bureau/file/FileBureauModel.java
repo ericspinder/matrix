@@ -7,7 +7,7 @@ package dev.inward.matrix.memory.bureau.file;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.memory.bureau.BureauModel;
 
-public class FileBureauModel<K extends FileBureauKey<K,I,V,M,R,G>,I extends FileBureau<K,I,V,M,R,G>,V extends FileBureauView<K,I,V,M,R,G>,M extends FileBureauModel<K,I,V,M,R,G>,R extends FileBureauReference<K,I,V,M,R,G>,G extends FileBureauLibrarian<K,I,V,M,R,G>> extends BureauModel<K,I,V,M,R,G> {
+public class FileBureauModel<BD extends FileBureau<BD,BV,BM,BR,BB>,BV extends FileBureauView<BD,BV,BM,BR,BB>,BM extends FileBureauModel<BD,BV,BM,BR,BB>,BR extends FileBureauReference<BD,BV,BM,BR,BB>,BB extends FileBureauLibrarian<BD,BV,BM,BR,BB>> extends BureauModel<BD,BV,BM,BR,BB> {
     public FileBureauModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

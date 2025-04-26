@@ -7,7 +7,7 @@ package dev.inward.matrix.memory.bureau.network.nioClient;
 
 import dev.inward.matrix.Hosts;
 import dev.inward.matrix.Scheme;
-import dev.inward.matrix.memory.bureau.network.Network;
+import dev.inward.matrix.memory.bureau.network.NetworkClient;
 import dev.inward.matrix.control.catalog.*;
 import dev.inward.matrix.control.library.*;
 import dev.inward.matrix.file.*;
@@ -17,16 +17,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.nio.file.attribute.FileStoreAttributeView;
 import java.util.Map;
 
-public class NioClient extends Network<NioClientKey,NioClient, NioClientView,NioClientModel,NioClientReference, NioClientLibrarian> {
+public class NioClient extends NetworkClient<NioClient,NioClientView,NioClientModel,NioClientReference,NioClientLibrarian> {
 
-    public NioClient(NioClientKey key, Map<String, Object> attributes, Class<FileView<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>>[] supportedFileViews, Hosts.Remote remoteHost, Hosts.LocalHost localHost) {
-        super(key, attributes, supportedFileViews,remoteHost,localHost);
+    public NioClient(String name, boolean readOnly, Map<String, Object> attributes, Class<FileView<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>>[] supportedFileViews, Hosts.Remote remoteHost, Hosts.LocalHost localHost) {
+        super(name, readOnly,attributes, supportedFileViews,remoteHost,localHost);
 
-    }
-
-    @Override
-    public <S extends Scheme<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG>, LK extends LibraryKey<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG>, L extends Library<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG>, LV extends LibraryView<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG>, LM extends LibraryModel<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG>, LR extends LibraryReference<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG>, LG extends LibraryLibrarian<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG>, PATH extends Comparable<PATH>, CK extends CatalogKey<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG>, C extends Catalog<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG>, CV extends CatalogView<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG>, CM extends CatalogModel<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG>, CR extends CatalogReference<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG>, CG extends CatalogLibrarian<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG>, DB extends DirectoryLibrarian<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG>, DK extends DirectoryKey<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG>, D extends Directory<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG>, DV extends DirectoryView<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG>, DM extends DirectoryModel<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG>, DR extends DirectoryReference<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG>, DG extends DirectoryLibrarian<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG>, LB extends FileLibrarian<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG, LB, K, F, V, M, R, G>, K extends FileKey<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG, LB, K, F, V, M, R, G>, F extends File<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG, LB, K, F, V, M, R, G>, V extends FileView<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG, LB, K, F, V, M, R, G>, M extends FileModel<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG, LB, K, F, V, M, R, G>, R extends FileReference<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG, LB, K, F, V, M, R, G>, G extends FileLibrarian<S, LK, L, LV, LM, LR, LG, PATH, CK, C, CV, CM, CR, CG, DB, DK, D, DV, DM, DR, DG, LB, K, F, V, M, R, G>> F getFile(K key, R reference, Persona persona) {
-        return null;
     }
 
 
@@ -34,7 +29,7 @@ public class NioClient extends Network<NioClientKey,NioClient, NioClientView,Nio
     public <V extends FileStoreAttributeView> V getFileStoreAttributeView(Class<V> type) {
         if (type.isAssignableFrom(NioClientView.class)) {
             try {
-                return type.getConstructor(NioClient.class, NioClientModel.class).newInstance(this,this.getKey().getItemReference().getGestalt().getModel());
+                return type.getConstructor(NioClient.class, NioClientModel.class).newInstance(this,this.getItemReference().getGestalt().getModel());
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 throw new RuntimeException(e);
             }
@@ -42,4 +37,8 @@ public class NioClient extends Network<NioClientKey,NioClient, NioClientView,Nio
         return null;
     }
 
+    @Override
+    public <S extends Scheme<S, L, LV, LM, LR, LB, PATH, C, CV, CM, CR, CB, DK, D, DV, DM, DR, DB>, L extends Library<S, L, LV, LM, LR, LB, PATH, C, CV, CM, CR, CB, DK, D, DV, DM, DR, DB>, LV extends LibraryView<S, L, LV, LM, LR, LB, PATH, C, CV, CM, CR, CB, DK, D, DV, DM, DR, DB>, LM extends LibraryModel<S, L, LV, LM, LR, LB, PATH, C, CV, CM, CR, CB, DK, D, DV, DM, DR, DB>, LR extends LibraryReference<S, L, LV, LM, LR, LB, PATH, C, CV, CM, CR, CB, DK, D, DV, DM, DR, DB>, LB extends LibraryLibrarian<S, L, LV, LM, LR, LB, PATH, C, CV, CM, CR, CB, DK, D, DV, DM, DR, DB>, PATH extends Comparable<PATH>, C extends Catalog<S, L, LV, LM, LR, LB, PATH, C, CV, CM, CR, CB, DK, D, DV, DM, DR, DB>, CV extends CatalogView<S, L, LV, LM, LR, LB, PATH, C, CV, CM, CR, CB, DK, D, DV, DM, DR, DB>, CM extends CatalogModel<S, L, LV, LM, LR, LB, PATH, C, CV, CM, CR, CB, DK, D, DV, DM, DR, DB>, CR extends CatalogReference<S, L, LV, LM, LR, LB, PATH, C, CV, CM, CR, CB, DK, D, DV, DM, DR, DB>, CB extends CatalogLibrarian<S, L, LV, LM, LR, LB, PATH, C, CV, CM, CR, CB, DK, D, DV, DM, DR, DB>, DK extends DirectoryKey<S, L, LV, LM, LR, LB, PATH, C, CV, CM, CR, CB, DK, D, DV, DM, DR, DB>, D extends Directory<S, L, LV, LM, LR, LB, PATH, C, CV, CM, CR, CB, DK, D, DV, DM, DR, DB>, DV extends DirectoryView<S, L, LV, LM, LR, LB, PATH, C, CV, CM, CR, CB, DK, D, DV, DM, DR, DB>, DM extends DirectoryModel<S, L, LV, LM, LR, LB, PATH, C, CV, CM, CR, CB, DK, D, DV, DM, DR, DB>, DR extends DirectoryReference<S, L, LV, LM, LR, LB, PATH, C, CV, CM, CR, CB, DK, D, DV, DM, DR, DB>, DB extends DirectoryLibrarian<S, L, LV, LM, LR, LB, PATH, C, CV, CM, CR, CB, DK, D, DV, DM, DR, DB>, K extends FileKey<S, L, LV, LM, LR, LB, PATH, C, CV, CM, CR, CB, DK, D, DV, DM, DR, DB, K, F, V, M, R, B>, F extends File<S, L, LV, LM, LR, LB, PATH, C, CV, CM, CR, CB, DK, D, DV, DM, DR, DB, K, F, V, M, R, B>, V extends FileView<S, L, LV, LM, LR, LB, PATH, C, CV, CM, CR, CB, DK, D, DV, DM, DR, DB, K, F, V, M, R, B>, M extends FileModel<S, L, LV, LM, LR, LB, PATH, C, CV, CM, CR, CB, DK, D, DV, DM, DR, DB, K, F, V, M, R, B>, R extends FileReference<S, L, LV, LM, LR, LB, PATH, C, CV, CM, CR, CB, DK, D, DV, DM, DR, DB, K, F, V, M, R, B>, B extends FileLibrarian<S, L, LV, LM, LR, LB, PATH, C, CV, CM, CR, CB, DK, D, DV, DM, DR, DB, K, F, V, M, R, B>> F getFile(K key, R reference, Persona persona) {
+        return null;
+    }
 }

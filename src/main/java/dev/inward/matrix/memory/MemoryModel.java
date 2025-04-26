@@ -5,9 +5,10 @@
 package dev.inward.matrix.memory;
 
 import dev.inward.matrix.Aspect;
+import dev.inward.matrix.DatumModel;
 import dev.inward.matrix.Model;
 
-public abstract class MemoryModel<B extends MemoryLibrarian<B,K,I,V,M,R,T>,K extends MemoryKey<B,K,I,V,M,R,T>,I extends Memory<B,K,I,V,M,R,T>,V extends MemoryView<B,K,I,V,M,R,T>,M extends MemoryModel<B,K,I,V,M,R,T>,R extends MemoryReference<B,K,I,V,M,R,T>,T extends MemoryLibrarian<B,K,I,V,M,R,T>> extends Model<I> {
+public abstract class MemoryModel<MD extends Memory<MD,MV,MM,MR,MB>,MV extends MemoryView<MD,MV,MM,MR,MB>,MM extends MemoryModel<MD,MV,MM,MR,MB>,MR extends MemoryReference<MD,MV,MM,MR,MB>,MB extends MemoryLibrarian<MD,MV,MM,MR,MB>> extends DatumModel<MD,MV,MM,MR,MB> {
     public MemoryModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

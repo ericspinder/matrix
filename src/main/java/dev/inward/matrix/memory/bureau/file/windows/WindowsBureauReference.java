@@ -6,7 +6,7 @@ package dev.inward.matrix.memory.bureau.file.windows;
 
 import dev.inward.matrix.memory.bureau.file.FileBureauReference;
 
-public class WindowsBureauReference extends FileBureauReference<WindowsBureauKey,WindowsBureau,WindowsBureauView,WindowsBureauModel,WindowsBureauReference, WindowsBureauLibrarian> {
+public class WindowsBureauReference extends FileBureauReference<WindowsBureau,WindowsBureauView,WindowsBureauModel,WindowsBureauReference,WindowsBureauLibrarian> {
     public WindowsBureauReference(WindowsBureau referent, WindowsBureauLibrarian gestalt) {
         super(referent, gestalt);
     }

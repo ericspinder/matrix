@@ -6,8 +6,9 @@ package dev.inward.matrix.memory.bureau.file;
 
 import dev.inward.matrix.memory.bureau.BureauView;
 
-public class FileBureauView<K extends FileBureauKey<K,I,V,M,R,G>,I extends FileBureau<K,I,V,M,R,G>,V extends FileBureauView<K,I,V,M,R,G>,M extends FileBureauModel<K,I,V,M,R,G>,R extends FileBureauReference<K,I,V,M,R,G>,G extends FileBureauLibrarian<K,I,V,M,R,G>> extends BureauView<K,I,V,M,R,G> {
-    public FileBureauView(String name, I bureau, M bureauModel) {
-        super(name, bureau, bureauModel);
+public class FileBureauView<BD extends FileBureau<BD,BV,BM,BR,BB>,BV extends FileBureauView<BD,BV,BM,BR,BB>,BM extends FileBureauModel<BD,BV,BM,BR,BB>,BR extends FileBureauReference<BD,BV,BM,BR,BB>,BB extends FileBureauLibrarian<BD,BV,BM,BR,BB>> extends BureauView<BD,BV,BM,BR,BB> {
+
+    public FileBureauView(String name, BD bd, BR reference) {
+        super(name, bd, reference);
     }
 }

@@ -4,10 +4,14 @@
 
 package dev.inward.matrix.memory;
 
+import dev.inward.matrix.DatumView;
 import dev.inward.matrix.View;
 
-public abstract class MemoryView<B extends MemoryLibrarian<B,K,I,V,M,R,T>,K extends MemoryKey<B,K,I,V,M,R,T>,I extends Memory<B,K,I,V,M,R,T>,V extends MemoryView<B,K,I,V,M,R,T>,M extends MemoryModel<B,K,I,V,M,R,T>,R extends MemoryReference<B,K,I,V,M,R,T>,T extends MemoryLibrarian<B,K,I,V,M,R,T>> extends View<B,I,V,M,R,T> {
-    public MemoryView(String name, I i, R reference) {
-        super(name, i, reference);
+import java.nio.file.attribute.FileStoreAttributeView;
+
+public abstract class MemoryView<MD extends Memory<MD,MV,MM,MR,MB>,MV extends MemoryView<MD,MV,MM,MR,MB>,MM extends MemoryModel<MD,MV,MM,MR,MB>,MR extends MemoryReference<MD,MV,MM,MR,MB>,MB extends MemoryLibrarian<MD,MV,MM,MR,MB>> extends DatumView<MD,MV,MM,MR,MB> implements FileStoreAttributeView {
+
+    public MemoryView(String name, MD md, MR reference) {
+        super(name, md, reference);
     }
 }

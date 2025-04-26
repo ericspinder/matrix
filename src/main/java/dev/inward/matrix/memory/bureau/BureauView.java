@@ -9,10 +9,11 @@ import dev.inward.matrix.memory.MemoryView;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class BureauView<BB extends BureauLibrarian<BB,BK,BI,BV,BM,BR,BT>,BK extends BureauKey<BB,BK,BI,BV,BM,BR,BT>,BI extends Bureau<BB,BK,BI,BV,BM,BR,BT>,BV extends BureauView<BB,BK,BI,BV,BM,BR,BT>,BM extends BureauModel<BB,BK,BI,BV,BM,BR,BT>,BR extends BureauReference<BB,BK,BI,BV,BM,BR,BT>,BT extends BureauLibrarian<BB,BK,BI,BV,BM,BR,BT>> extends MemoryView<BB,BK,BI,BV,BM,BR,BT> {
+public abstract class BureauView<BD extends Bureau<BD,BV,BM,BR,BB>,BV extends BureauView<BD,BV,BM,BR,BB>,BM extends BureauModel<BD,BV,BM,BR,BB>,BR extends BureauReference<BD,BV,BM,BR,BB>,BB extends BureauLibrarian<BD,BV,BM,BR,BB>> extends MemoryView<BD,BV,BM,BR,BB> {
 
     protected final Map<String,Object> attributes = new HashMap<>();
-    public BureauView(String name, BI bureau, BM bureauModel) {
-        super(name, bureau, bureauModel);
+
+    public BureauView(String name, BD bd, BR reference) {
+        super(name, bd, reference);
     }
 }

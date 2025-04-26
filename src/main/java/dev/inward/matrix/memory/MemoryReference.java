@@ -4,10 +4,12 @@
 
 package dev.inward.matrix.memory;
 
+import dev.inward.matrix.DatumReference;
 import dev.inward.matrix.Reference;
 
-public abstract class MemoryReference<B extends MemoryLibrarian<B,K,I,V,M,R,T>,K extends MemoryKey<B,K,I,V,M,R,T>,I extends Memory<B,K,I,V,M,R,T>,V extends MemoryView<B,K,I,V,M,R,T>,M extends MemoryModel<B,K,I,V,M,R,T>,R extends MemoryReference<B,K,I,V,M,R,T>,T extends MemoryLibrarian<B,K,I,V,M,R,T>> extends Reference<B,I,V,M,R,T> {
-    public MemoryReference(I referent,T steward) {
-        super(referent, steward);
+public abstract class MemoryReference<MD extends Memory<MD,MV,MM,MR,MB>,MV extends MemoryView<MD,MV,MM,MR,MB>,MM extends MemoryModel<MD,MV,MM,MR,MB>,MR extends MemoryReference<MD,MV,MM,MR,MB>,MB extends MemoryLibrarian<MD,MV,MM,MR,MB>> extends DatumReference<MD,MV,MM,MR,MB> {
+
+    public MemoryReference(MD referent, MB librarian) {
+        super(referent, librarian);
     }
 }

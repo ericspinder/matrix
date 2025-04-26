@@ -26,7 +26,7 @@ public class InfoDirectoryKey extends DirectoryKey<InfoScheme,InfoLibrary,InfoLi
             this.infoCatalog = infoCatalog;
             this.infoPath = infoPath;
             try {
-                this.uri = new URI(infoCatalog.getKey().toUri().getScheme(), infoCatalog.getKey().toUri().getAuthority(),infoPath.toString(),null,null);
+                this.uri = new URI(infoCatalog.provider()..toUri().getScheme(), infoCatalog.getKey().toUri().getAuthority(),infoPath.toString(),null,null);
             } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
             }

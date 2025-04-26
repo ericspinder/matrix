@@ -62,15 +62,13 @@ public abstract class DirectoryKey<S extends Scheme<S,L,LV,LM,LR,LB,PATH,C,CV,CM
 
         protected C catalog;
         protected PATH directoryPath;
-        protected PATH parentPath;
 
         public Builder<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB> setCatalog(C catalog) {
             this.catalog = catalog;
             return this;
         }
-        public Builder<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB> setPaths(PATH directoryPath,PATH parentPath) {
+        public Builder<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB> setPath(PATH directoryPath) {
             this.directoryPath = directoryPath;
-            this.parentPath = parentPath;
             return this;
         }
 
