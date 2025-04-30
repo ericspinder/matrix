@@ -6,6 +6,7 @@ package dev.inward.matrix.file.addressed.depot.variant;
 import dev.inward.matrix.file.addressed.depot.Depot;
 
 import java.security.CodeSigner;
+import java.security.CodeSource;
 
 public class Variant extends Depot<VariantKey,Variant,VariantView,VariantModel,VariantReference,VariantLibrarian> {
 

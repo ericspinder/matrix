@@ -26,7 +26,7 @@ public class WindowsBureau extends FileBureau<WindowsBureau,WindowsBureauView,Wi
     public <V extends FileStoreAttributeView> V getFileStoreAttributeView(Class<V> type) {
         if (type.isAssignableFrom(WindowsBureauView.class)) {
             try {
-                return type.getConstructor(WindowsBureau.class, WindowsBureauModel.class).newInstance(this,this.getKey().getModel());
+                return type.getConstructor(WindowsBureau.class, WindowsBureauModel.class).newInstance(this,this.domain.);
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 throw new RuntimeException(e);
             }

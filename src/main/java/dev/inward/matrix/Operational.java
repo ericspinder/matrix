@@ -14,7 +14,7 @@ import java.security.cert.CertPath;
 import java.util.Properties;
 import java.util.function.Supplier;
 
-public abstract class Operational<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends AddressedKey<PATH,ID,I,A,R,F>,A extends Addressed<PATH,ID,I,A,R,F>,R extends AddressedReference<PATH,ID,I,A,R,F>,F extends AddressedView<PATH,ID,I,A,R,F>> {
+public abstract class Operational<DATUM,V extends View<DATUM,V,M,R,B>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,B>,B extends Librarian<DATUM,V,M,R,B>> {
 
     protected final CertPath[] certPaths;
 

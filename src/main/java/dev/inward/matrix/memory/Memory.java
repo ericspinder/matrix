@@ -7,9 +7,14 @@ package dev.inward.matrix.memory;
 import dev.inward.matrix.Datum;
 import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.control.domain.DomainReference;
+import dev.inward.matrix.memory.bureau.jdbc.DefaultJdbcBureau;
+import dev.inward.matrix.memory.bureau.jdbc.DefaultJdbcBureauModel;
+import dev.inward.matrix.memory.bureau.jdbc.DefaultJdbcBureauView;
 
 import java.lang.ref.SoftReference;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.FileStore;
+import java.nio.file.attribute.FileStoreAttributeView;
 
 public abstract class Memory<MD extends Memory<MD,MV,MM,MR,MB>,MV extends MemoryView<MD,MV,MM,MR,MB>,MM extends MemoryModel<MD,MV,MM,MR,MB>,MR extends MemoryReference<MD,MV,MM,MR,MB>,MB extends MemoryLibrarian<MD,MV,MM,MR,MB>> extends FileStore implements Datum<MD,MV,MM,MR,MB> {
 
@@ -40,5 +45,17 @@ public abstract class Memory<MD extends Memory<MD,MV,MM,MR,MB>,MV extends Memory
     @Override
     public boolean isReadOnly() {
         return readOnly;
+    }
+
+    @Override
+    public <V extends FileStoreAttributeView> V getFileStoreAttributeView(Class<V> type) {
+        if (type.isAssignableFrom(DefaultJdbcBureauView.class)) {
+            try {
+                return type.getConstructor(MD.class, DefaultJdbcBureauModel.class).newInstance(this,this..getItemReference().getGestalt().getModel());
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return null;
     }
 }

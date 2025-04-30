@@ -18,27 +18,9 @@ public class InfoDirectoryKey extends DirectoryKey<InfoScheme,InfoLibrary,InfoLi
 
     public final static class Builder extends DirectoryKey.Builder<InfoScheme,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference,InfoLibraryLibrarian,InfoPath,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference,InfoCatalogLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference,InfoDirectoryLibrarian> {
 
-        private final URI uri;
-        private final InfoPath infoPath;
-        private final InfoCatalog infoCatalog;
-
-        public Builder(InfoCatalog infoCatalog, InfoPath infoPath) {
-            this.infoCatalog = infoCatalog;
-            this.infoPath = infoPath;
-            try {
-                this.uri = new URI(infoCatalog.provider()..toUri().getScheme(), infoCatalog.getKey().toUri().getAuthority(),infoPath.toString(),null,null);
-            } catch (URISyntaxException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        public InfoDirectoryKey buildKey() {
-            return new InfoDirectoryKey(this.uri,this.infoCatalog,this.infoPath);
-        }
-
         @Override
         protected InfoDirectoryKey newMatrixKey() {
-            return new InfoDirectoryKey(this.uri,this.infoCatalog,this.infoPath);
+            return new InfoDirectoryKey(this.uri,this.catalog,this.directoryPath);
         }
     }
 }

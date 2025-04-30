@@ -6,6 +6,7 @@ package dev.inward.matrix.memory.bureau;
 
 import dev.inward.matrix.*;
 import dev.inward.matrix.control.catalog.*;
+import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.control.library.*;
 import dev.inward.matrix.file.*;
 import dev.inward.matrix.file.addressed.info.Persona;
@@ -25,8 +26,8 @@ public abstract class Bureau<BD extends Bureau<BD,BV,BM,BR,BB>,BV extends Bureau
     protected final Map<String, Object> attributes;
 
     @SuppressWarnings("unchecked")
-    public Bureau(String name, boolean readOnly, Map<String,Object> attributes, Class<FileView<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>>[] supportedFileViews) {
-        super(name, readOnly);
+    public Bureau(Domain domain, String name, boolean readOnly, Map<String,Object> attributes, Class<FileView<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>>[] supportedFileViews) {
+        super(domain, name, readOnly);
         this.attributes = new ConcurrentHashMap<>(attributes);
         this.supportedFileViews = supportedFileViews;
     }

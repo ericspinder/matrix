@@ -4,8 +4,6 @@
 
 package dev.inward.matrix;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class Version implements Comparable<Version>, Meta_I {
 
@@ -13,7 +11,7 @@ public class Version implements Comparable<Version>, Meta_I {
     protected final String version;
     protected final String description;
 
-    protected Version(@Nonnull String name, @Nonnull String version, @Nullable String description) {
+    protected Version(String name, String version, String description) {
         this.name = name;
         this.version = version;
         this.description = description;

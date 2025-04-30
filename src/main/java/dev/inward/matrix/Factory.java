@@ -5,23 +5,17 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.addressed.*;
-import dev.inward.matrix.engine.Engine;
-import dev.inward.matrix.file.addressed.*;
 import dev.inward.matrix.file.addressed.http.Fact;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.locks.StampedLock;
 
-public class Factory<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends AddressedKey<PATH,ID,I,A,R,F>,A extends Addressed<PATH,ID,I,A,R,F>,R extends AddressedReference<PATH,ID,I,A,R,F>,F extends AddressedView<PATH,ID,I,A,R,F>> extends ClassLoader{
+public class Factory<DATUM,V extends View<DATUM,V,M,R,B>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,B>,B extends Librarian<DATUM,V,M,R,B>> extends ClassLoader {
 
-    private Engine<PATH,ID,I,A,R,F> engine = null;
-    protected final Gathering<PATH,ID,I,A,R,PR> gathering;
+    private Engine<DATUM,V,M,R,B> engine = null;
     protected StampedLock gate = new StampedLock();
-    protected final AddressedLibrarian<PATH,ID,I,A,R,PR> resource;
-    protected final Map<> routeMap = new HashMap<>();
+    protected final B librarian;
 
-    public Factory(Gathering<PATH,,ID,I,A,R,PR> gathering, AddressedLibrarian<PATH,ID,I,A,R,PR> resource) {
+    public Factory() {
         super();
         this.gathering = gathering;
         this.resource = resource;

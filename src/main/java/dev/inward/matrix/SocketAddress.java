@@ -43,7 +43,7 @@ public abstract class SocketAddress implements Comparable<SocketAddress> {
                 if (result) {
                     for (InterfaceAddress interfaceAddress:networkMapping.getNetworkInterface().getInterfaceAddresses()) {
                         BigInteger checkBytes = new BigInteger(1,interfaceAddress.getAddress().getAddress());
-                        if (checkBytes.equals(this.bytes) && ) {
+                        if (checkBytes.equals(this.bytes) && interfaceAddress.getAddress().isAnyLocalAddress()) {
                             return true;
                         }
                     }

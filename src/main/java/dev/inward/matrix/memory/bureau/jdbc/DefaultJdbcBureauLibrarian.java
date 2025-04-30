@@ -6,7 +6,7 @@ package dev.inward.matrix.memory.bureau.jdbc;
 
 import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
-public final class DefaultJdbcBureauLibrarian extends JdbcBureauLibrarian<DefaultJdbcBureauKey,DefaultJdbcBureau,DefaultJdbcBureauView,DefaultJdbcBureauModel,DefaultJdbcBureauReference, DefaultJdbcBureauLibrarian> {
+public final class DefaultJdbcBureauLibrarian extends JdbcBureauLibrarian<DefaultJdbcBureau,DefaultJdbcBureauView,DefaultJdbcBureauModel,DefaultJdbcBureauReference, DefaultJdbcBureauLibrarian> {
     public DefaultJdbcBureauLibrarian(Standard standard) {
         super(standard);
     }

@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Psyche extends Personality.Ego {
+public class Psyche  {
 
     protected Persona persona;
     protected Agent[] agents;
