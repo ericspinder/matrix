@@ -6,9 +6,9 @@ package dev.inward.matrix.control.catalog;
 
 import dev.inward.matrix.*;
 import dev.inward.matrix.control.Control;
-import dev.inward.matrix.control.library.*;
+import dev.inward.matrix.control.library.Library;
 import dev.inward.matrix.engine.Zone;
-import dev.inward.matrix.file.*;
+import dev.inward.matrix.file.directory.*;
 
 import java.io.IOException;
 import java.nio.file.*;
@@ -17,16 +17,16 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-public abstract class Catalog<S extends Scheme<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,L extends Library<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,LV extends LibraryView<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,LM extends LibraryModel<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,LR extends LibraryReference<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,LB extends LibraryLibrarian<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,PATH extends Comparable<PATH>,C extends Catalog<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,CV extends CatalogView<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,CM extends CatalogModel<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,CR extends CatalogReference<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,CB extends CatalogLibrarian<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,DK extends DirectoryKey<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,D extends Directory<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,DV extends DirectoryView<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,DM extends DirectoryModel<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,DR extends DirectoryReference<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,DB extends DirectoryLibrarian<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>> extends FileSystem implements Control<C,CV,CM,CR,CB> {
+public abstract class Catalog<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> extends FileSystem implements Control<Catalog<DF,DK,DV,DM,DR,DL,PATH>,CatalogView<DF,DK,DV,DM,DR,DL,PATH>,CatalogModel<DF,DK,DV,DM,DR,DL,PATH>> {
 
-    protected final L library;
+    protected final Library<DF,DK,DV,DM,DR,DL,PATH> library;
     protected final Range<PATH> range;
     protected final Zone zone;
     protected volatile boolean open;
     protected volatile  boolean readOnly;
     protected Map<String,DK> pathDirectoryKeyMap = new ConcurrentHashMap<>();
 
-    public Catalog(L library, Range<PATH> range, Zone zone) {
+    public Catalog(Library<DF,DK,DV,DM,DR,DL,PATH> library, Range<PATH> range, Zone zone) {
         this.library = library;
         this.range = range;
         this.zone = zone;
@@ -53,7 +53,7 @@ public abstract class Catalog<S extends Scheme<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,C
     protected abstract DK newDirectoryKey(String path);
 
     @Override
-    public L provider() {
+    public Library<DF,DK,DV,DM,DR,DL,PATH> provider() {
         return this.library;
     }
 

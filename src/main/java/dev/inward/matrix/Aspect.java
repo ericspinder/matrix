@@ -4,6 +4,8 @@
 
 package dev.inward.matrix;
 
+import dev.inward.matrix.control.Control;
+
 import java.lang.reflect.Field;
 import java.nio.file.attribute.FileTime;
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.Map;
 public abstract class Aspect implements Meta_I, Comparable<Aspect> {
 
     protected final AspectType<?> type;
+
     protected final String label;
     protected final String description;
 

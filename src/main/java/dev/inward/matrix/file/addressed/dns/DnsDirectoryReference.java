@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.file.addressed.dns;
 
-import dev.inward.matrix.file.DirectoryReference;
+import dev.inward.matrix.file.directory.DirectoryReference;
 
 public class DnsDirectoryReference extends DirectoryReference<DnsScheme,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibraryLibrarian,DnsPath,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference,DnsCatalogLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectoryLibrarian> {
     public DnsDirectoryReference(DnsDirectory referent, DnsDirectoryLibrarian resource) {

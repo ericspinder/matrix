@@ -7,7 +7,7 @@ I've made extensive changes, really going to town on generics. The file objects 
 
 An extreme 'work in progress', which has changed significantly from the initial concept but the basic classes have been settled into:
 
-    dev.inward.matrix.Scheme extends java.net.URLStreamHandler
+    dev.inward.matrix.control.scheme.Scheme extends java.net.URLStreamHandler
     
     dev.inward.matrix.control.library.Library extends java.net.FileSystemProvider
 

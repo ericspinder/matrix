@@ -5,11 +5,12 @@
 package dev.inward.matrix.control.library;
 
 import dev.inward.matrix.*;
+import dev.inward.matrix.control.catalog.Catalog;
 import dev.inward.matrix.control.domain.Domain;
-import dev.inward.matrix.memory.bureau.Bureau;
+import dev.inward.matrix.control.memory.bureau.Bureau;
 import dev.inward.matrix.control.Control;
-import dev.inward.matrix.control.catalog.*;
-import dev.inward.matrix.file.*;
+import dev.inward.matrix.control.scheme.Scheme;
+import dev.inward.matrix.file.directory.*;
 
 import java.io.IOException;
 import java.net.URI;
@@ -26,18 +27,17 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
-public abstract class Library<S extends Scheme<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,L extends Library<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,LV extends LibraryView<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,LM extends LibraryModel<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,LR extends LibraryReference<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,LB extends LibraryLibrarian<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,PATH extends Comparable<PATH>,C extends Catalog<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,CV extends CatalogView<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,CM extends CatalogModel<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,CR extends CatalogReference<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,CB extends CatalogLibrarian<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,DK extends DirectoryKey<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,D extends Directory<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,DV extends DirectoryView<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,DM extends DirectoryModel<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,DR extends DirectoryReference<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,DB extends DirectoryLibrarian<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>> extends FileSystemProvider implements Control<L,LV,LM,LR,LB> {
+public class Library<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> extends FileSystemProvider implements Control<Library<DF,DK,DV,DM,DR,DL,PATH>,LibraryView<DF,DK,DV,DM,DR,DL,PATH>,LibraryModel<DF,DK,DV,DM,DR,DL,PATH>> {
 
-    protected final S scheme;
+    protected final Scheme<DF,DK,DV,DM,DR,DL,PATH> scheme;
     protected final Domain domain;
     protected final Integer port;
     protected final String separator;
     protected final String urlString;
-    protected final Map<Range<PATH>,C> rangeCatalogMap = new ConcurrentHashMap<>();
+    protected final Map<Range<PATH>,Catalog<DF,DK,DV,DM,DR,DL,PATH>> rangeCatalogMap = new ConcurrentHashMap<>();
     protected final Map<String,? extends Librarian<?,?,?,?,?>> classNameResourceMap = new HashMap<>();
 
-    protected final Map<C, Bureau<?,?,?,?,?,?,?>[]> catalogMemoryMap;
-    protected final Map<C, Librarian<?,?,?,?,?>[]> catalogs = new ConcurrentHashMap<>();
+    protected final Map<Catalog<DF,DK,DV,DM,DR,DL,PATH>, Bureau<?,?,?,?,?,?,?>[]> catalogMemoryMap;
 
     protected StringBuilder firstLimitReachedMessage(String className, long warnTotal, long hardLimit) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -48,7 +48,7 @@ public abstract class Library<S extends Scheme<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,C
         return firstLimitReachedMessage(className,warnTotal,hardLimit).append(' ').append(previousMessage).toString() ;
     }
 
-    public Library(S scheme, Domain domain, int port, String separator) {
+    public Library(Scheme<DF,DK,DV,DM,DR,DL,PATH> scheme, Domain domain, int port, String separator) {
         this.scheme = scheme;
         this.domain = domain;
         if (scheme.getTerrene() != domain.getTerrene()) {
@@ -105,7 +105,7 @@ public abstract class Library<S extends Scheme<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,C
         return this.scheme.getScheme();
     }
 
-    public S get_Scheme() {
+    public Scheme<PATH,DK,DF,DV,DM,DR,DL> get_Scheme() {
         return this.scheme;
     }
 

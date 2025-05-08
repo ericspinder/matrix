@@ -5,7 +5,6 @@
 package dev.inward.matrix;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.nio.file.attribute.FileAttribute;
 import java.util.*;
@@ -14,16 +13,17 @@ import java.util.concurrent.ConcurrentHashMap;
 public abstract class Model<DATUM> {
 
     protected final Map<String,Aspect> labeledAspects = new ConcurrentHashMap<>();
-    protected final Map<Aspect.AspectType,Aspect> typedAspects = new ConcurrentHashMap<>();
+    protected final Map<Aspect.AspectType<?>,Aspect> typedAspects = new ConcurrentHashMap<>();
+    protected final Map<RestraintType,Restraint> restraints;
     protected final List<Field> fields;
 
     @SuppressWarnings("unchecked")
-    public Model(Aspect[] labeledAspects) {
+    public Model(Class<? super DATUM> datumClass, Aspect[] labeledAspects) {
         for (Aspect aspect: labeledAspects) {
             this.labeledAspects.put(aspect.getLabel(),aspect);
             this.typedAspects.put(aspect.type, aspect);
         }
-        this.fields = getAllModelFields(((Class<DATUM>)((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[2]));
+        this.fields = getAllModelFields(datumClass);
     }
     public static List<Field> getAllModelFields(Class<?> aClass) {
         List<Field> fields = new ArrayList<>();
@@ -89,7 +89,7 @@ public abstract class Model<DATUM> {
     public Map<String, Aspect> getLabeledAspects() {
         return labeledAspects;
     }
-    public Map<Aspect.AspectType,Aspect> getTypedAspects() {
+    public Map<Aspect.AspectType<?>,Aspect> getTypedAspects() {
         return typedAspects;
     }
 

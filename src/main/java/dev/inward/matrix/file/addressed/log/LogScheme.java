@@ -4,9 +4,8 @@
 
 package dev.inward.matrix.file.addressed.log;
 
-import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.MatrixURLStreamHandlerProvider;
-import dev.inward.matrix.Scheme;
+import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.Terrene;
 
 public class LogScheme extends Scheme<LogScheme,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibraryLibrarian,LogPath,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference,LogCatalogLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference,LogDirectoryLibrarian> {

@@ -9,6 +9,7 @@ package dev.inward;
 
 import dev.inward.matrix.*;
 import dev.inward.matrix.control.library.Library;
+import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
 import java.io.Serializable;

@@ -4,6 +4,7 @@
 
 package dev.inward.matrix;
 
+import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.file.addressed.depot.DepotScheme;
 import dev.inward.matrix.file.addressed.dns.DnsScheme;
 import dev.inward.matrix.file.addressed.http.HttpScheme;
@@ -12,7 +13,6 @@ import dev.inward.matrix.file.addressed.info.InfoScheme;
 import dev.inward.matrix.file.addressed.log.LogScheme;
 
 import java.lang.reflect.InvocationTargetException;
-import java.net.URI;
 import java.net.URLStreamHandler;
 import java.net.spi.URLStreamHandlerProvider;
 import java.util.HashMap;
@@ -22,7 +22,7 @@ import java.util.Objects;
 public class MatrixURLStreamHandlerProvider extends URLStreamHandlerProvider {
 
 
-    protected static final Map<String,Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>> ALL_KNOWN_SCHEMES = new HashMap<>();
+    protected static final Map<String, Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>> ALL_KNOWN_SCHEMES = new HashMap<>();
 
 
     public static Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> findSchemeForProtocolHost(Protocol protocol, Terrene terrene) {

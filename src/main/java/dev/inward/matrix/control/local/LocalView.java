@@ -6,8 +6,9 @@ package dev.inward.matrix.control.local;
 
 import dev.inward.matrix.control.ControlView;
 
-public class LocalView extends ControlView<Local,LocalView,LocalModel,LocalReference,LocalLibrarian> {
-    public LocalView(String name, Local local, LocalReference reference) {
-        super(name, local, reference);
+public class LocalView extends ControlView<Local,LocalView,LocalModel> {
+
+    public LocalView(String name, Local control) {
+        super(name, control);
     }
 }

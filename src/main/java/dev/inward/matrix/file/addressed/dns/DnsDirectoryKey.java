@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.file.addressed.dns;
 
-import dev.inward.matrix.file.DirectoryKey;
+import dev.inward.matrix.file.directory.DirectoryKey;
 
 import java.net.URI;
 

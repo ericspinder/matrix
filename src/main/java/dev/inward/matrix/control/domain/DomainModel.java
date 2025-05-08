@@ -7,8 +7,8 @@ package dev.inward.matrix.control.domain;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.control.ControlModel;
 
-public class DomainModel extends ControlModel<Domain,DomainView,DomainModel,DomainReference, DomainLibrarian> {
+public class DomainModel extends ControlModel<Domain,DomainView,DomainModel> {
     public DomainModel(Aspect[] labeledAspects) {
-        super(labeledAspects);
+        super(Domain.class, labeledAspects);
     }
 }

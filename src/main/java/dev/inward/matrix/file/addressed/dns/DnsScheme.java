@@ -3,9 +3,8 @@
  */
 package dev.inward.matrix.file.addressed.dns;
 
-import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.MatrixURLStreamHandlerProvider;
-import dev.inward.matrix.Scheme;
+import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.Terrene;
 
 public class DnsScheme extends Scheme<DnsScheme,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibraryLibrarian,DnsPath,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference,DnsCatalogLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectoryLibrarian> {

@@ -4,9 +4,8 @@
 
 package dev.inward.matrix.file.addressed.depot;
 
-import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.MatrixURLStreamHandlerProvider;
-import dev.inward.matrix.Scheme;
+import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.Terrene;
 
 public class DepotScheme extends Scheme<DepotScheme,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibraryLibrarian,DepotPath,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference,DepotCatalogLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference,DepotDirectoryLibrarian> {

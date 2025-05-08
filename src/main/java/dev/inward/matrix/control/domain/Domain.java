@@ -20,12 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Domain implements Control<Domain,DomainView,DomainModel,DomainReference, DomainLibrarian> {
+public class Domain implements Control<Domain,DomainView,DomainModel> {
 
 
     private final Terrene terrene;
     private final String domainName;
-
     private final Director director;
     public Domain(Terrene terrene, String domainName) {
         this.terrene = terrene;

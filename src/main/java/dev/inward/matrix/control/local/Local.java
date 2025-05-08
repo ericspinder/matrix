@@ -4,7 +4,6 @@
 
 package dev.inward.matrix.control.local;
 
-import dev.inward.matrix.Terrene;
 import dev.inward.matrix.control.Control;
 import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.predictable.Director;
@@ -12,8 +11,13 @@ import dev.inward.matrix.predictable.Director;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Local implements Control<Local,LocalView,LocalModel,LocalReference,LocalLibrarian> {
+public class Local implements Control<Local,LocalView,LocalModel> {
 
+    protected final LocalModel localModel;
+
+    public Local(LocalModel localModel) {
+        this.localModel = localModel;
+    }
     protected Map<String, Director> directorByTerrene_Domain = new HashMap<>();
 
     public void addDirector(Domain domain, Director director) {
@@ -22,5 +26,4 @@ public class Local implements Control<Local,LocalView,LocalModel,LocalReference,
     public void removeDirector(Domain domain) {
         this.directorByTerrene_Domain.remove(domain.getTerrene() + "_" + domain.getDomainName());
     }
-
 }

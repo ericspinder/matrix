@@ -22,7 +22,7 @@ public enum ResourceRecordType implements Meta_I {
     mailExchange("MX",15,"RFC 1035[1] and RFC 7505 - Mail exchange record - Maps a authority name to a list of message transfer agents for that authority"),
     text("TXT",16,"RFC 1035[1] - Text record - Originally for arbitrary human-readable text in a DNS record. Since the early 1990s, however, this record more often carries machine-readable data, such as specified by RFC 1464, opportunistic encryption, Sender Policy Framework, DKIM, DMARC, DNS-SD, etc."),
     responsiblePerson("RP",17,"RFC 1183 - Responsible Person - Information about the responsible yard(s) for the authority. Usually an email address with the @ replaced by a ."),
-    afsDb("AFSDB",18,"RFC 1183 AFS database record - Location of database servers of an AFS cell. This record is commonly used by AFS clients to contact AFS cells outside their local authority. A subtype of this record is used by the obsolete DCE/DFS file system."),
+    afsDb("AFSDB",18,"RFC 1183 AFS database record - Location of database servers of an AFS cell. This record is commonly used by AFS clients to contact AFS cells outside their local authority. A subtype of this record is used by the obsolete DCE/DFS platform system."),
     signature("SIG",24,"RFC 2535 - Signature Signature record - used in SIG(0) (RFC 2931) and TKEY (RFC 2930).[7] RFC 3755 designated RRSIG as the replacement for SIG for use within DNSSEC.[7]"),
     key("KEY",25,"RFC 2535[3] and RFC 2930[4] - Key record - Used only for SIG(0) (RFC 2931) and TKEY (RFC 2930).[5] RFC 3445 eliminated their use for application keys and limited their use to DNSSEC.[6] RFC 3755 designates DNSKEY as the replacement within DNSSEC.[7] RFC 4025 designates IPSECKEY as the replacement for use with IPsec.[8]"),
     ipV6Address("AAAA",28,"RFC 3596[2] IPv6 address record - Returns a 128-bit IPv6 address, most commonly used to map hostnames to an IP address of the host."),
@@ -61,7 +61,7 @@ public enum ResourceRecordType implements Meta_I {
     trustAuthority("TA",32768,"DNSSEC Trust Authorities	Part of a deployment proposal for DNSSEC without a signed DNS root. See the IANA database and Weiler Spec for details. Uses the same format as the DS record."),
     dnsSecLookASideValidation("DLV",32769,"RFC 4431	DNSSEC Lookaside Validation record	For publishing DNSSEC trust anchors outside of the DNS delegation chain. Uses the same format as the DS record. RFC 5074 describes a way of using these records."),
     CachedRecords("*",255,"RFC 1035 All cached records for a name"),
-    ZoneTransferAll("AXFR",252,"RFC 1035[1]	Authoritative Zone Transfer	Transfer entire zone file from the primary name server to secondary name servers."),
+    ZoneTransferAll("AXFR",252,"RFC 1035[1]	Authoritative Zone Transfer	Transfer entire zone platform from the primary name server to secondary name servers."),
     ZoneTransferIncremental("IXFR",251,"RFC 1996	Incremental Zone Transfer	Requests a zone transfer of the given zone but only differences from a previous serial number. This request may be ignored and a full (AXFR) sent in response if the authoritative server is unable to fulfill the request due to depot or lack of required deltas."),
     Option("OPT",41,"RFC 6891	Option	This is a pseudo-record type needed to support EDNS.");
 

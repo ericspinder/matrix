@@ -5,7 +5,7 @@
 package dev.inward.matrix.ticket;
 
 import dev.inward.crud.Session;
-import dev.inward.matrix.file.Directory;
+import dev.inward.matrix.file.directory.Directory;
 import dev.inward.matrix.file.addressed.AddressedReference;
 import dev.inward.matrix.operation.Concept;
 

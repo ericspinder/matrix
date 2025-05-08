@@ -4,10 +4,8 @@
 
 package dev.inward.matrix.file.addressed.http;
 
-import dev.inward.matrix.file.DirectoryLibrarian;
+import dev.inward.matrix.file.directory.DirectoryLibrarian;
 import dev.inward.matrix.file.addressed.depot.standard.Standard;
-
-import java.util.function.Function;
 
 public class HttpDirectoryLibrarian extends DirectoryLibrarian<HttpScheme,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference,HttpLibraryLibrarian,String,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference,HttpDirectoryLibrarian> {
 

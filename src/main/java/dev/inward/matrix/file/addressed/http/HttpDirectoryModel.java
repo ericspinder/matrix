@@ -5,7 +5,7 @@
 package dev.inward.matrix.file.addressed.http;
 
 import dev.inward.matrix.Aspect;
-import dev.inward.matrix.file.DirectoryModel;
+import dev.inward.matrix.file.directory.DirectoryModel;
 
 public class HttpDirectoryModel extends DirectoryModel<HttpScheme,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference,HttpLibraryLibrarian,String,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference,HttpDirectoryLibrarian> {
 

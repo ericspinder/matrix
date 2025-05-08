@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.file.addressed.info;
 
-import dev.inward.matrix.file.DirectoryReference;
+import dev.inward.matrix.file.directory.DirectoryReference;
 
 public class InfoDirectoryReference extends DirectoryReference<InfoScheme,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference,InfoLibraryLibrarian,InfoPath,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference,InfoCatalogLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference,InfoDirectoryLibrarian> {
     public InfoDirectoryReference(InfoDirectory referent, InfoDirectoryLibrarian resource) {

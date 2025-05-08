@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.file.addressed.depot;
 
-import dev.inward.matrix.file.DirectoryView;
+import dev.inward.matrix.file.directory.DirectoryView;
 
 public class DepotDirectoryView extends DirectoryView<DepotScheme,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibraryLibrarian,DepotPath,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference,DepotCatalogLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectoryLibrarian> {
     public DepotDirectoryView(String name, DepotDirectory directory, DepotDirectoryReference directoryReference) {

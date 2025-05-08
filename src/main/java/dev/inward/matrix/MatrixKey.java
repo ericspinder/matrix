@@ -5,9 +5,6 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.control.catalog.CatalogKey;
-import dev.inward.matrix.file.DirectoryKey;
-import dev.inward.matrix.file.FileKey;
-import dev.inward.matrix.file.addressed.AddressedKey;
 import dev.inward.matrix.file.addressed.depot.DepotLibrary;
 import dev.inward.matrix.file.addressed.depot.indica.Indica;
 import dev.inward.matrix.file.addressed.depot.indica.IndicaKey;
@@ -17,7 +14,6 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.file.*;
 import java.util.*;
 

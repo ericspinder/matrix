@@ -8,7 +8,7 @@ import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.control.library.Library;
 import dev.inward.matrix.LocalSystemNetworking;
 import dev.inward.matrix.Ziggurat;
-import dev.inward.matrix.memory.bureau.Bureau;
+import dev.inward.matrix.control.memory.bureau.Bureau;
 
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;

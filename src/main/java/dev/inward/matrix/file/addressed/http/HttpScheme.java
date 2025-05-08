@@ -3,9 +3,8 @@
  */
 package dev.inward.matrix.file.addressed.http;
 
-import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.MatrixURLStreamHandlerProvider;
-import dev.inward.matrix.Scheme;
+import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.Terrene;
 
 public class HttpScheme extends Scheme<HttpScheme,HttpLibrary,HttpLibraryView,HttpLibraryModel,HttpLibraryReference,HttpLibraryLibrarian,String,HttpCatalog,HttpCatalogView,HttpCatalogModel,HttpCatalogReference, HttpCatalogLibrarian,HttpDirectoryKey,HttpDirectory,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference,HttpDirectoryLibrarian> {

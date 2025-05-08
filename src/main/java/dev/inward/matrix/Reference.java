@@ -7,8 +7,7 @@ package dev.inward.matrix;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 
-public class Reference<DATUM,V extends View<DATUM,V,M,R,B>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,B>,B extends Librarian<DATUM,V,M,R,B>> extends WeakReference<DATUM> {
-
+public class Reference<DATUM,V extends View<DATUM,V,M>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,B>,B extends Librarian<DATUM,V,M,R,B>> extends WeakReference<DATUM> {
 
     protected final Long sequence;
     protected final Map<String, Model.InstanceValue<?>> attributes;

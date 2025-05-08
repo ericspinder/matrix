@@ -5,8 +5,16 @@
 
 package dev.inward.matrix;
 
-public interface Datum<D extends Datum<D,V,M,R,B>,V extends DatumView<D,V,M,R,B>,M extends DatumModel<D,V,M,R,B>,R extends DatumReference<D,V,M,R,B>,B extends DatumLibrarian<D,V,M,R,B>> {
+import dev.inward.matrix.file.Context;
+import dev.inward.matrix.file.directory.*;
 
+public interface Datum<D extends Datum<D,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,V extends DatumView<D,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,M extends DatumModel<D,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,R extends DatumReference<D,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,L extends DatumLibrarian<D,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> {
 
+    R getReference();
+
+    @SuppressWarnings("unchecked")
+    default Context<DF,DK,DV,DM,DR,DL,PATH> getContext() {
+        return ((Context<DF,DK,DV,DM,DR,DL,PATH>) this.getClass().getProtectionDomain());
+    }
 
 }

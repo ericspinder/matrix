@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.file.addressed.info;
 
-import dev.inward.matrix.file.DirectoryView;
+import dev.inward.matrix.file.directory.DirectoryView;
 
 public class InfoDirectoryView extends DirectoryView<InfoScheme,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference,InfoLibraryLibrarian,InfoPath,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference,InfoCatalogLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference,InfoDirectoryLibrarian> {
 

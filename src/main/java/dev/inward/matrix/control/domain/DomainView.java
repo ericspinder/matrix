@@ -6,8 +6,8 @@ package dev.inward.matrix.control.domain;
 
 import dev.inward.matrix.control.ControlView;
 
-public class DomainView extends ControlView<Domain,DomainView,DomainModel,DomainReference, DomainLibrarian> {
-    public DomainView(String name, Domain domain, DomainReference domainReference) {
-        super(name, domain, domainReference);
+public class DomainView extends ControlView<Domain,DomainView,DomainModel> {
+    public DomainView(String name, Domain control, DomainModel model) {
+        super(name, control, model);
     }
 }

@@ -5,10 +5,6 @@ package dev.inward.matrix.file.addressed.depot;
 
 import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.control.library.Library;
-import dev.inward.matrix.memory.bureau.Bureau;
-import dev.inward.matrix.file.addressed.depot.indica.Indica;
-
-import java.util.Map;
 
 public class DepotLibrary extends Library<DepotScheme,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibraryLibrarian,DepotPath,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference,DepotCatalogLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectoryLibrarian> {
 

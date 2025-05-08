@@ -4,7 +4,6 @@
 
 package dev.inward.matrix.control;
 
-import dev.inward.matrix.Datum;
+public interface Control<C extends Control<C,V,M>,V extends ControlView<C,V,M>,M extends ControlModel<C,V,M>> {
 
-public interface Control<I extends Control<I,V,M,R,B>,V extends ControlView<I,V,M,R,B>,M extends ControlModel<I,V,M,R,B>,R extends ControlReference<I,V,M,R,B>,B extends ControlLibrarian<I,V,M,R,B>> extends Datum<I,V,M,R,B> {
 }

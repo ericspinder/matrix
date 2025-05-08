@@ -5,7 +5,7 @@
 package dev.inward.matrix.file.addressed.info;
 
 import dev.inward.matrix.Aspect;
-import dev.inward.matrix.file.DirectoryModel;
+import dev.inward.matrix.file.directory.DirectoryModel;
 
 public class InfoDirectoryModel extends DirectoryModel<InfoScheme,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference,InfoLibraryLibrarian,InfoPath,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference,InfoCatalogLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference,InfoDirectoryLibrarian> {
 

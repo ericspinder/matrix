@@ -5,10 +5,18 @@
 package dev.inward.matrix.control;
 
 import dev.inward.matrix.DatumView;
+import dev.inward.matrix.View;
 
-public class ControlView<I extends Control<I,V,M,R,B>,V extends ControlView<I,V,M,R,B>,M extends ControlModel<I,V,M,R,B>,R extends ControlReference<I,V,M,R,B>,B extends ControlLibrarian<I,V,M,R,B>> extends DatumView<I,V,M,R,B> {
+public class ControlView<C extends Control<C,V,M>,V extends ControlView<C,V,M>,M extends ControlModel<C,V,M>> extends View<C,V,M> {
 
-    public ControlView(String name, I i, R reference) {
-        super(name, i, reference);
+    public final M model;
+    public ControlView(String name, C control, M model) {
+        super(name, control);
+        this.model = model;
+    }
+
+    @Override
+    public M getModel() {
+        return this.model;
     }
 }

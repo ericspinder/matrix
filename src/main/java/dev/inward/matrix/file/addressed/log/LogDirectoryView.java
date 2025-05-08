@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.file.addressed.log;
 
-import dev.inward.matrix.file.DirectoryView;
+import dev.inward.matrix.file.directory.DirectoryView;
 
 public class LogDirectoryView extends DirectoryView<LogScheme,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibraryLibrarian,LogPath,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference,LogCatalogLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference,LogDirectoryLibrarian> {
 

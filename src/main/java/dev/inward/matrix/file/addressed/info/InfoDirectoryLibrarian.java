@@ -4,10 +4,8 @@
 
 package dev.inward.matrix.file.addressed.info;
 
-import dev.inward.matrix.file.DirectoryLibrarian;
+import dev.inward.matrix.file.directory.DirectoryLibrarian;
 import dev.inward.matrix.file.addressed.depot.standard.Standard;
-
-import java.util.function.Function;
 
 public class InfoDirectoryLibrarian extends DirectoryLibrarian<InfoScheme,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference,InfoLibraryLibrarian,InfoPath,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference,InfoCatalogLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference,InfoDirectoryLibrarian> {
 

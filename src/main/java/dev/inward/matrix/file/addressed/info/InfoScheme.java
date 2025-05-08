@@ -4,9 +4,8 @@
 
 package dev.inward.matrix.file.addressed.info;
 
-import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.MatrixURLStreamHandlerProvider;
-import dev.inward.matrix.Scheme;
+import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.Terrene;
 
 public class InfoScheme extends Scheme<InfoScheme,InfoLibrary,InfoLibraryView,InfoLibraryModel,InfoLibraryReference,InfoLibraryLibrarian,InfoPath,InfoCatalog,InfoCatalogView,InfoCatalogModel,InfoCatalogReference,InfoCatalogLibrarian,InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference,InfoDirectoryLibrarian> {
