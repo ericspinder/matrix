@@ -8,7 +8,7 @@ import dev.inward.matrix.file.addressed.Addressed;
 import dev.inward.matrix.file.addressed.AddressedView;
 import dev.inward.matrix.file.addressed.AddressedKey;
 import dev.inward.matrix.file.addressed.AddressedReference;
-import dev.inward.matrix.file.addressed.info.Persona;
+import dev.inward.matrix.file.user.Persona;
 
 import java.net.URL;
 

@@ -6,14 +6,14 @@ package dev.inward.matrix;
 
 import dev.inward.matrix.file.directory.*;
 
-public class DatumView<D extends Datum<D,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,V extends DatumView<D,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,M extends DatumModel<D,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,R extends DatumReference<D,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,L extends DatumLibrarian<D,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> extends View<D,V,M> {
+public class DatumView<D extends Datum<D,V,M,R,L>,V extends DatumView<D,V,M,R,L>,M extends DatumModel<D,V,M,R,L>,R extends DatumReference<D,V,M,R,L>,L extends DatumLibrarian<D,V,M,R,L>> extends View<D,V,M> {
 
-    public DatumView(String name, D d) {
-        super(name, d);
+    public DatumView(String name, D datum) {
+        super(name, datum);
     }
 
     @Override
     public M getModel() {
-        return ;
+        return datum.getContext().getLibrarian().getModel();
     }
 }

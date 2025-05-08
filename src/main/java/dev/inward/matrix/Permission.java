@@ -4,7 +4,9 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.file.addressed.info.*;
+import dev.inward.matrix.file.addressed.user.*;
+import dev.inward.matrix.file.user.*;
+import dev.inward.matrix.user.*;
 
 import java.nio.file.attribute.*;
 import java.security.BasicPermission;
@@ -19,7 +21,7 @@ public abstract class Permission<K extends PrivilegeKey<K,F,V,M,R,B>,F extends P
         super(path);
         this.who = who;
     }
-    public static class AclPermission extends Permission<AgentKey,Agent,AgentView,AgentModel,AgentReference,AgentLibrarian> {
+    public static class AclPermission extends Permission<AgentKey, Agent,AgentView, AgentModel, AgentReference,AgentLibrarian> {
 
         protected final AclEntryType aclEntryType;
         protected final List<AclEntryPermission> aclEntryPermissionList;

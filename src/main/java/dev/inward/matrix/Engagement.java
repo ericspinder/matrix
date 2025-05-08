@@ -6,7 +6,7 @@ package dev.inward.matrix;
 
 import dev.inward.matrix.file.addressed.AddressedKey;
 import dev.inward.matrix.file.addressed.depot.indica.IndicaKey;
-import dev.inward.matrix.file.addressed.info.Persona;
+import dev.inward.matrix.file.user.Persona;
 import dev.inward.matrix.file.addressed.log.Matter;
 
 import java.time.Instant;

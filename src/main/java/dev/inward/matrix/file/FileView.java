@@ -12,7 +12,7 @@ import java.nio.file.attribute.BasicFileAttributeView;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
 
-public abstract class FileView<F extends File<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,K extends FileKey<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,V extends FileView<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,M extends FileModel<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,R extends FileReference<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,L extends FileLibrarian<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> extends DatumView<F,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH> implements BasicFileAttributeView {
+public abstract class FileView<F extends File<F,K,V,M,R,L>,K extends FileKey<F,K,V,M,R,L>,V extends FileView<F,K,V,M,R,L>,M extends FileModel<F,K,V,M,R,L>,R extends FileReference<F,K,V,M,R,L>,L extends FileLibrarian<F,K,V,M,R,L>> extends DatumView<F,V,M,R,L> implements BasicFileAttributeView {
 
     public FileView(String name, F f) {
         super(name, f);

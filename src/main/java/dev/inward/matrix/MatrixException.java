@@ -28,7 +28,7 @@ public class MatrixException extends RuntimeException implements Exceptional {
         InSitu_already_init("InSitu already initialized, see Fidelity.Aforementioned"),
         Host_Target_Match_Array_Mismatch("Comparing two Hosts which has the same library, target but not the same socket array, Host objects should be unique"),
         MissingDefaultValue("Missing a default value"),
-        MissMatchedOptionKey("Option info was not set for proper instance value"),
+        MissMatchedOptionKey("Option user was not set for proper instance value"),
         NetworkUnavailable_No_Return("Problem gaining network details"),
         NotImplemented("Not implemented"),
         OverLimit("Over limit for Resource"),

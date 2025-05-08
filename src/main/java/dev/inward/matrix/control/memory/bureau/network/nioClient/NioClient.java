@@ -11,7 +11,7 @@ import dev.inward.matrix.control.memory.bureau.network.NetworkClient;
 import dev.inward.matrix.control.catalog.*;
 import dev.inward.matrix.control.library.*;
 import dev.inward.matrix.file.*;
-import dev.inward.matrix.file.addressed.info.Persona;
+import dev.inward.matrix.file.user.Persona;
 import dev.inward.matrix.file.directory.*;
 
 import java.util.Map;

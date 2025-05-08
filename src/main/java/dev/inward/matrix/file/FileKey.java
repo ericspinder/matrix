@@ -17,7 +17,7 @@ import java.net.URISyntaxException;
 import java.nio.file.*;
 import java.util.Objects;
 
-public abstract class FileKey<F extends File<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,K extends FileKey<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,V extends FileView<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,M extends FileModel<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,R extends FileReference<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,L extends FileLibrarian<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> implements Path {
+public abstract class FileKey<F extends File<F,K,V,M,R,L>,K extends FileKey<F,K,V,M,R,L>,V extends FileView<F,K,V,M,R,L>,M extends FileModel<F,K,V,M,R,L>,R extends FileReference<F,K,V,M,R,L>,L extends FileLibrarian<F,K,V,M,R,L>> implements Path {
 
     protected R reference;
     protected final URI uri;
@@ -36,11 +36,6 @@ public abstract class FileKey<F extends File<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>
             throw new RuntimeException("Cannot reset reference");
         }
     }
-    public abstract C getCatalog();
-
-    public L getLibrary() {
-        return this.getCatalog().provider();
-    }
 
     @Override
     public WatchKey register(WatchService watcher, WatchEvent.Kind<?>[] events, WatchEvent.Modifier... modifiers) throws IOException {
@@ -53,7 +48,7 @@ public abstract class FileKey<F extends File<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>
 
     @Override
     public FileSystem getFileSystem() {
-        if (this instanceof FileKey<?,?,?,?,?,?,?,?,?,?,?,?,?> fileKey) {
+        if (this instanceof FileKey<?,?,?,?,?,?> fileKey) {
             return fileKey.getCatalog();
         }
         return null;
@@ -66,7 +61,7 @@ public abstract class FileKey<F extends File<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>
 
     @Override
     public Path getRoot() {
-        if (this instanceof FileKey<?,?,?,?,?,?,?,?,?,?,?,?,?> fileKey) {
+        if (this instanceof FileKey<?,?,?,?,?,?> fileKey) {
             return null;
         }
         return this;
@@ -74,7 +69,7 @@ public abstract class FileKey<F extends File<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>
 
     @Override
     public Path getFileName() {
-        if (this instanceof AddressedKey<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>) {
+        if (this instanceof AddressedKey<?,?,?,?,?,?,?,?,?,?,?,?,?,?>) {
             return this;
         }
         return null;
@@ -82,7 +77,7 @@ public abstract class FileKey<F extends File<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>
 
     @Override
     public Path getParent() {
-        if (this instanceof AddressedKey<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> addressedKey) {
+        if (this instanceof AddressedKey<?,?,?,?,?,?,?,?,?,?,?,?,?,?> addressedKey) {
             return addressedKey.getDirectoryKey();
         }
         if (this instanceof DirectoryKey<?,?,?,?,?,?,?> directoryKey) {
@@ -93,7 +88,7 @@ public abstract class FileKey<F extends File<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>
 
     @Override
     public int getNameCount() {
-        if (this instanceof AddressedKey<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> addressedKey) {
+        if (this instanceof AddressedKey<?,?,?,?,?,?,?,?,?,?,?,?,?,?> addressedKey) {
             return addressedKey.getDirectoryKey().getNameCount() + 1;
         }
         if (this instanceof DirectoryKey<?,?,?,?,?,?,?> directoryKey) {
@@ -154,7 +149,7 @@ public abstract class FileKey<F extends File<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>
 
     @Override
     public int compareTo(Path other) {
-        if (other instanceof FileKey<?,?,?,?,?,?,?,?,?,?,?,?,?> that) {
+        if (other instanceof FileKey<?,?,?,?,?,?> that) {
             return this.uri.compareTo(that.uri);
         }
         return -1;
@@ -164,7 +159,7 @@ public abstract class FileKey<F extends File<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FileKey<?,?,?,?,?,?,?,?,?,?,?,?,?> that = (FileKey<?,?,?,?,?,?,?,?,?,?,?,?,?>) o;
+        FileKey<?,?,?,?,?,?> that = (FileKey<?,?,?,?,?,?>) o;
         return Objects.equals(uri.toString(), that.uri.toString());
     }
 
@@ -178,7 +173,7 @@ public abstract class FileKey<F extends File<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>
         return this.uri.toString();
     }
 
-    public static abstract class Builder<F extends File<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,K extends FileKey<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,V extends FileView<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,M extends FileModel<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,R extends FileReference<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,L extends FileLibrarian<F,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> {
+    public static abstract class Builder<F extends File<F,K,V,M,R,L>,K extends FileKey<F,K,V,M,R,L>,V extends FileView<F,K,V,M,R,L>,M extends FileModel<F,K,V,M,R,L>,R extends FileReference<F,K,V,M,R,L>,L extends FileLibrarian<F,K,V,M,R,L>> {
 
         protected URI uri;
 

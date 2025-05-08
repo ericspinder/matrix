@@ -6,7 +6,7 @@ package dev.inward.matrix.operation;
 
 import dev.inward.matrix.addressed.*;
 import dev.inward.matrix.file.addressed.*;
-import dev.inward.matrix.file.addressed.info.Persona;
+import dev.inward.matrix.file.user.Persona;
 
 import java.net.URL;
 import java.util.List;

@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.personality;
 
-import dev.inward.matrix.file.addressed.info.Persona;
+import dev.inward.matrix.file.user.Persona;
 
 public class Screw extends Persona {
 

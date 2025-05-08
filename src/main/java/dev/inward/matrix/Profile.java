@@ -6,7 +6,7 @@ package dev.inward.matrix;
 
 import dev.inward.matrix.control.library.Library;
 import dev.inward.matrix.control.scheme.Scheme;
-import dev.inward.matrix.file.addressed.info.UserName;
+import dev.inward.matrix.file.user.UserName;
 
 public abstract class Profile<S extends Scheme<S,L>,L extends Library<S,L>,P extends Profile<S, L, P, U>,U extends UserName<S,L,U>> implements Comparable<P> {
 

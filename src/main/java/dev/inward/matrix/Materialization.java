@@ -5,7 +5,7 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.file.addressed.Addressed;
-import dev.inward.matrix.file.addressed.info.UserName;
+import dev.inward.matrix.file.user.UserName;
 
 import java.util.Map;
 import java.util.UUID;

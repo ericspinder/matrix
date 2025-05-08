@@ -9,7 +9,7 @@ import dev.inward.matrix.file.addressed.depot.DepotScheme;
 import dev.inward.matrix.file.addressed.dns.DnsScheme;
 import dev.inward.matrix.file.addressed.http.HttpScheme;
 import dev.inward.matrix.file.addressed.https.HttpsScheme;
-import dev.inward.matrix.file.addressed.info.InfoScheme;
+import dev.inward.matrix.file.user.InfoScheme;
 import dev.inward.matrix.file.addressed.log.LogScheme;
 
 import java.lang.reflect.InvocationTargetException;
@@ -72,7 +72,7 @@ public class MatrixURLStreamHandlerProvider extends URLStreamHandlerProvider {
     public enum Protocol implements Meta_I {
         DEPOT("depot","Code Repository",8, DepotScheme.class),
         DNS("dns","Domain Name System",53, DnsScheme.class),
-        INFO("info", "Information about personas", 12, InfoScheme.class),
+        INFO("user", "Information about personas", 12, InfoScheme.class),
         HTTP("http","Unsecure File Service", 80, HttpScheme.class),
         HTTPS("https","Secure File Service",443, HttpsScheme.class),
         LOG("log","Completed Matters",10, LogScheme.class),

@@ -14,7 +14,7 @@ module dev.inward.matrix {
     exports dev.inward.matrix.file.addressed.dns;
     exports dev.inward.matrix.file.addressed.https;
     exports dev.inward.matrix.file.addressed.log;
-    exports dev.inward.matrix.file.addressed.info;
+    exports dev.inward.matrix.file.user;
     exports dev.inward.matrix.predictable;
     exports dev.inward.matrix.operation to java.instrument;
     exports dev.inward.matrix;
