@@ -34,5 +34,11 @@ public class Context<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends Dir
         return (Factory<DF,DK,DV,DM,DR,DL,PATH>) this.getClassLoader();
     }
 
+    public DatumLibrarian<?, ?, ?, ?, ?> getLibrarian() {
+        return librarian;
+    }
 
+    public Catalog<DF, DK, DV, DM, DR, DL, PATH> getCatalog() {
+        return catalog;
+    }
 }

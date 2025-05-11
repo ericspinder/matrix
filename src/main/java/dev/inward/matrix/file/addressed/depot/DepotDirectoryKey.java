@@ -8,8 +8,8 @@ import dev.inward.matrix.file.directory.DirectoryKey;
 
 import java.net.URI;
 
-public class DepotDirectoryKey extends DirectoryKey<DepotScheme,DepotLibrary,DepotLibraryView,DepotLibraryModel,DepotLibraryReference, DepotLibraryLibrarian,DepotPath,DepotCatalog,DepotCatalogView,DepotCatalogModel,DepotCatalogReference,DepotCatalogLibrarian,DepotDirectoryKey,DepotDirectory,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectoryLibrarian> {
-    protected DepotDirectoryKey(URI uri, DepotCatalog catalog, DepotPath depotPath) {
-        super(uri, catalog, depotPath);
+public class DepotDirectoryKey extends DirectoryKey<DepotDirectory,DepotDirectoryKey,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectoryLibrarian,DepotPath> {
+    protected DepotDirectoryKey(URI uri, DepotPath directoryPath) {
+        super(uri, directoryPath);
     }
 }

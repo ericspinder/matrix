@@ -12,8 +12,9 @@ public class DatumView<D extends Datum<D,V,M,R,L>,V extends DatumView<D,V,M,R,L>
         super(name, datum);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public M getModel() {
-        return datum.getContext().getLibrarian().getModel();
+        return (M) datum.getContext().getLibrarian().getModel();
     }
 }

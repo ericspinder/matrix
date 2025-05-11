@@ -11,9 +11,7 @@ import dev.inward.matrix.predictable.Director;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Local implements Control<Local,LocalView,LocalModel> {
-
-    protected final LocalModel localModel;
+public class  Local implements Control<Local,LocalView,LocalModel> {
 
     public Local(LocalModel localModel) {
         this.localModel = localModel;

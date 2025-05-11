@@ -7,7 +7,7 @@ package dev.inward.matrix.file.user;
 import dev.inward.matrix.file.addressed.depot.specification.Specification;
 import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
-public class PersonaLibrarian extends PrivilegeLibrarian<PersonaKey,Persona,PersonaView,PersonaModel,PersonaReference,PersonaLibrarian> {
+public class PersonaLibrarian extends PrivilegeLibrarian<Persona,PersonaKey,PersonaView,PersonaModel,PersonaReference,PersonaLibrarian> {
     public PersonaLibrarian(Standard standard, Specification specification) {
         super(standard, specification);
     }

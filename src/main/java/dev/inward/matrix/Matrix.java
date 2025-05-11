@@ -11,6 +11,7 @@ import javax.naming.NamingException;
 import javax.naming.directory.InitialDirContext;
 import java.io.IOException;
 import java.lang.instrument.Instrumentation;
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -22,13 +23,14 @@ public class Matrix {
         return Instance;
     }
 
-    private final Map<String,Domain> allBuiltDomains = new ConcurrentHashMap<>();
-    protected final Map<String, Director> directorsByDomain = new HashMap<>();
+    private final Map<String, WeakReference<Domain>> allBuiltDomains = new ConcurrentHashMap<>();
     protected final InitialDirContext dirContext;
     private final LocalSystemNetworking localSystemNetworking = LocalSystemNetworking.getInstance();
     private final CommandLine commandLine;
     private final Instrumentation instrumentation;
     private final Domain localhostDomain;
+
+    protected final Map<>
 
 
     protected Matrix(CommandLine commandLine, Instrumentation instrumentation) {
@@ -42,18 +44,21 @@ public class Matrix {
         this.localhostDomain = getDomain(Terrene.Parse(commandLine.getValue("terrene")), "localhost");
     }
 
-    protected Domain getDomain(Terrene terrene, String domainName) {
+    public Domain getDomain(Terrene terrene, String domainName) {
         String domainKey = terrene.toString() +domainName;
-        if (!allBuiltDomains.containsKey(domainKey)) {
-            newDomain(terrene, domainName);
+        if (!allBuiltDomains.containsKey(domainKey) || allBuiltDomains.get(domainKey).get() == null) {
+            return newDomain(terrene, domainName);
         }
-        return allBuiltDomains.get(domainKey);
+        return allBuiltDomains.get(domainKey).get();
     }
-    protected synchronized void newDomain(Terrene terrene, String domainName) {
-        String domainKey = terrene.toString() + "." + domainName;
-        if (!allBuiltDomains.containsKey(domainKey)) {
-            allBuiltDomains.put(domainKey,new Domain(terrene, domainKey));
+    protected synchronized Domain newDomain(Terrene terrene, String domainName) {
+        String domainKey = terrene.toString() + "_" + domainName;
+        if (!allBuiltDomains.containsKey(domainKey) || allBuiltDomains.get(domainKey).get() == null) {
+            Domain domain = new Domain(terrene, domainName);
+            allBuiltDomains.put(domainKey,new WeakReference<>(domain));
+            return domain;
         }
+        return allBuiltDomains.get(domainKey).get();
     }
     public LocalSystemNetworking getLocalSystemNetworking() {
         return this.localSystemNetworking;
@@ -73,15 +78,6 @@ public class Matrix {
 
     public InitialDirContext getDirContext() {
         return dirContext;
-    }
-    public synchronized Director getDirector(Domain domain) {
-
-        if (directorsByDomain.containsKey(domain.getKey().toUri().toString())) {
-            return directorsByDomain.get(domain);
-        }
-        this.directorsByDomain.put(domain.getDomain(),new Director(null));
-        return this.directorsByDomain.get(domain.getDomain());
-
     }
     public static void premain(String agentArgs, Instrumentation instrumentation) throws InstantiationException {
         try {

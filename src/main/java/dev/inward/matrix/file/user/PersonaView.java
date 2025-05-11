@@ -5,9 +5,9 @@
 package dev.inward.matrix.file.user;
 
 
-public class PersonaView extends PrivilegeView<PersonaKey,Persona,PersonaView,PersonaModel,PersonaReference,PersonaLibrarian> {
+public class PersonaView extends PrivilegeView<Persona,PersonaKey,PersonaView,PersonaModel,PersonaReference,PersonaLibrarian> {
 
-    public PersonaView(String name, Persona file, PersonaReference fileReference) {
-        super(name, file, fileReference);
+    public PersonaView(String name, Persona persona) {
+        super(name,persona);
     }
 }

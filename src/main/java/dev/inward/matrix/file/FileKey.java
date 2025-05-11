@@ -48,8 +48,9 @@ public abstract class FileKey<F extends File<F,K,V,M,R,L>,K extends FileKey<F,K,
 
     @Override
     public FileSystem getFileSystem() {
-        if (this instanceof FileKey<?,?,?,?,?,?> fileKey) {
-            return fileKey.getCatalog();
+        F file = this.reference.get();
+        if (file != null) {
+            return file.getContext().catalog;
         }
         return null;
     }
@@ -81,7 +82,10 @@ public abstract class FileKey<F extends File<F,K,V,M,R,L>,K extends FileKey<F,K,
             return addressedKey.getDirectoryKey();
         }
         if (this instanceof DirectoryKey<?,?,?,?,?,?,?> directoryKey) {
-            return directoryKey.getCatalog().findDirectoryKey(directoryKey.getParentPathString());
+            Directory<?,?,?,?,?,?,?> directory = directoryKey.reference.get();
+            if (directory != null) {
+                return this.reference.get().getContext().getCatalog().findDirectoryKey(directoryKey.getParentPathString());
+            }
         }
         return null;
     }
@@ -176,7 +180,22 @@ public abstract class FileKey<F extends File<F,K,V,M,R,L>,K extends FileKey<F,K,
     public static abstract class Builder<F extends File<F,K,V,M,R,L>,K extends FileKey<F,K,V,M,R,L>,V extends FileView<F,K,V,M,R,L>,M extends FileModel<F,K,V,M,R,L>,R extends FileReference<F,K,V,M,R,L>,L extends FileLibrarian<F,K,V,M,R,L>> {
 
         protected URI uri;
+        protected String scheme;
+        protected String domain;
+        protected int port;
 
+        public Builder<F,K,V,M,R,L> setScheme(String scheme) {
+            this.scheme = scheme;
+            return this;
+        }
+        public Builder<F,K,V,M,R,L> setDomain(String domain) {
+            this.domain = domain;
+            return this;
+        }
+        public Builder<F,K,V,M,R,L> setPort(int port) {
+            this.port = port;
+            return this;
+        }
         protected abstract URI makeUri() throws URISyntaxException;
         public final synchronized K buildMatrixKey() {
             try {

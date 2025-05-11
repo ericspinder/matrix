@@ -62,7 +62,7 @@ public class Scheme<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends Dire
         }
     }
 
-    protected final Map<String, Library<PATH,DK,DF,DV,DM,DR, DL>> schemeLibraries = new ConcurrentHashMap<>();
+    protected final Map<String, Library<DF,DK,DV,DM,DR,DL,PATH>> schemeLibraries = new ConcurrentHashMap<>();
 
     protected final Terrene terrene;
     protected final MatrixURLStreamHandlerProvider.Protocol protocol;
@@ -80,31 +80,22 @@ public class Scheme<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends Dire
         }
     }
     @SuppressWarnings("unchecked")
-    public Library<PATH,DK,DF,DV,DM,DR, DL> findLibrary(URI uri) {
+    public Library<DF,DK,DV,DM,DR,DL,PATH> findLibrary(URI uri) {
         int port = (uri.getPort() > 0) ? uri.getPort(): getDefaultPort();
         String library_cache_key = scheme + "://" + uri.getHost() + ':' + port;
         return schemeLibraries.containsKey(library_cache_key) ? schemeLibraries.get(library_cache_key): this.buildLibrary(library_cache_key,uri.getHost(),port);
     }
     @SuppressWarnings("unchecked")
-    public synchronized Library<PATH,DK,DF,DV,DM,DR, DL> buildLibrary(String library_cache_key, String host, int port) {
+    public synchronized Library<DF,DK,DV,DM,DR,DL,PATH> buildLibrary(String library_cache_key, String host, int port) {
         if (schemeLibraries.containsKey(library_cache_key)) {
             return schemeLibraries.get(library_cache_key);
         }
-        Library<PATH,DK,DF,DV,DM,DR, DL> library = new Library() {
-        }this.makeLibrary((S)this, Matrix.getInstance().getDomain(this.terrene, host), port,this.protocol.getSeparator());
+        Library<DF,DK,DV,DM,DR,DL,PATH> library = new Library<>(this, Matrix.getInstance().getDomain(this.terrene, host), port,this.protocol.getSeparator());
         this.schemeLibraries.put(library_cache_key, library);
         return library;
     }
     protected long getExceptionalSeries() {
         return 0;
-    }
-
-    protected L makeLibrary(S scheme,Domain domain, int port,String separator) {
-        try {
-            return this.libraryClass.getDeclaredConstructor(Scheme.class,Domain.class, Integer.class, String.class).newInstance(scheme,domain,port,separator);
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public Terrene getTerrene() {
@@ -138,7 +129,7 @@ public class Scheme<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends Dire
         throw new IOException("URLConnection not available use obtainClerk(URL url)");
     }
     @Override
-    public int compareTo(Scheme that) {
+    public int compareTo(Scheme<DF,DK,DV,DM,DR,DL,PATH> that) {
         return this.scheme.compareTo(that.scheme);
     }
 

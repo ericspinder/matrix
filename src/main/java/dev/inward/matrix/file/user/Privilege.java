@@ -3,11 +3,12 @@
  */
 package dev.inward.matrix.file.user;
 
+import dev.inward.matrix.file.File;
 import dev.inward.matrix.file.addressed.Addressed;
 
 import java.security.Principal;
 
-public abstract class Privilege<K extends PrivilegeKey<K,F,V,M,R,B>,F extends Privilege<K,F,V,M,R,B>,V extends PrivilegeView<K,F,V,M,R,B>,M extends PrivilegeModel<K,F,V,M,R,B>,R extends PrivilegeReference<K,F,V,M,R,B>,B extends PrivilegeLibrarian<K,F,V,M,R,B>> extends Addressed<InfoDirectoryKey,InfoDirectory,InfoDirectoryView,InfoDirectoryModel,InfoDirectoryReference,InfoDirectoryLibrarian,String,K,F,V,M,R,B> implements Principal {
+public abstract class Privilege<F extends Privilege<F,K,V,M,R,L>,K extends PrivilegeKey<F,K,V,M,R,L>,V extends PrivilegeView<F,K,V,M,R,L>,M extends PrivilegeModel<F,K,V,M,R,L>,R extends PrivilegeReference<F,K,V,M,R,L>,L extends PrivilegeLibrarian<F,K,V,M,R,L>> extends File<F,K,V,M,R,L> implements Principal {
 
 
     public Privilege(K key) {
@@ -17,7 +18,7 @@ public abstract class Privilege<K extends PrivilegeKey<K,F,V,M,R,B>,F extends Pr
 
     @Override
     public String getName() {
-        return key.getId();
+        return key.userName;
     }
 
 }

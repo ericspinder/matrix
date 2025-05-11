@@ -10,7 +10,6 @@ import dev.inward.matrix.file.directory.*;
 public abstract class File<F extends File<F,K,V,M,R,L>,K extends FileKey<F,K,V,M,R,L>,V extends FileView<F,K,V,M,R,L>,M extends FileModel<F,K,V,M,R,L>,R extends FileReference<F,K,V,M,R,L>,L extends FileLibrarian<F,K,V,M,R,L>> implements Datum<F,V,M,R,L> {
 
     protected final K key;
-    protected R reference;
 
     protected File(K key) {
         this.key = key;
@@ -22,14 +21,7 @@ public abstract class File<F extends File<F,K,V,M,R,L>,K extends FileKey<F,K,V,M
 
     @Override
     public R getReference() {
-        return reference;
+        return this.key.reference;
     }
 
-    public void setReference(R reference) {
-        if (this.reference == null) {
-            this.reference = reference;
-            return;
-        }
-        throw new RuntimeException("Cannot set reference twice");
-    }
 }

@@ -70,28 +70,27 @@ public class MatrixURLStreamHandlerProvider extends URLStreamHandlerProvider {
     }
 
     public enum Protocol implements Meta_I {
-        DEPOT("depot","Code Repository",8, DepotScheme.class),
-        DNS("dns","Domain Name System",53, DnsScheme.class),
-        INFO("user", "Information about personas", 12, InfoScheme.class),
-        HTTP("http","Unsecure File Service", 80, HttpScheme.class),
-        HTTPS("https","Secure File Service",443, HttpsScheme.class),
-        LOG("log","Completed Matters",10, LogScheme.class),
+        DEPOT("depot","Code Repository",8, ProtocolParser.Depot.class),
+        DNS("dns","Domain Name System",53, ProtocolParser.Dns.class),
+        HTTP("http","Unsecure File Service", 80, ProtocolParser.Http.class),
+        HTTPS("https","Secure File Service",443, ProtocolParser.Https.class),
+        LOG("log","Completed Matters",10, ProtocolParser.Log.class),
         //REALM("realm", "Secure login Service", 6, RealmScheme.class)
         ;
         private final String label;
         private final String description;
         private final int defaultPort;
-        private final Class<? extends Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>> schemeClass;
+        private final Class<? extends ProtocolParser<?>> parserClass;
         private final String separator;
 
-        Protocol(final String label, final String description, int defaultPort,Class<? extends Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>> schemeClass) {
+        Protocol(final String label, final String description, int defaultPort,Class<? extends ProtocolParser<?>> schemeClass) {
             this(label,description,defaultPort,schemeClass,null);
         }
-        Protocol(final String label, final String description, int defaultPort,Class<? extends Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>> schemeClass, String separator) {
+        Protocol(final String label, final String description, int defaultPort, Class<? extends ProtocolParser<?>> parserClass, String separator) {
             this.label = label;
             this.description = description;
             this.defaultPort = defaultPort;
-            this.schemeClass = schemeClass;
+            this.parserClass = parserClass;
             this.separator = Objects.requireNonNullElse(separator,"/");
         }
         Protocol valueOfIgnoreCase(String protocolString) {
@@ -112,8 +111,8 @@ public class MatrixURLStreamHandlerProvider extends URLStreamHandlerProvider {
             return defaultPort;
         }
 
-        public Class<? extends Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>> getSchemeClass() {
-            return schemeClass;
+        public Class<? extends ProtocolParser<?>> getParserClass() {
+            return parserClass;
         }
 
         public String getSeparator() {

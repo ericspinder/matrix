@@ -4,6 +4,6 @@
 
 package dev.inward.matrix.control;
 
-public interface Control<C extends Control<C,V,M>,V extends ControlView<C,V,M>,M extends ControlModel<C,V,M>> {
+public interface Control<C extends Control<C,V,M>,V extends ControlView<C,V,M>,M extends ControlModel<C,V,M>> extends Comparable<C> {
 
 }

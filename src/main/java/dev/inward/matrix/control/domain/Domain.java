@@ -9,6 +9,7 @@ import dev.inward.matrix.HostExperience;
 import dev.inward.matrix.Matrix;
 import dev.inward.matrix.Terrene;
 import dev.inward.matrix.control.Control;
+import dev.inward.matrix.control.local.Local;
 import dev.inward.matrix.file.addressed.dns.nameServerRecord.NameServerRecord;
 import dev.inward.matrix.file.addressed.dns.serverRecord.ServerRecord;
 import dev.inward.matrix.predictable.Director;
@@ -29,7 +30,7 @@ public class Domain implements Control<Domain,DomainView,DomainModel> {
     public Domain(Terrene terrene, String domainName) {
         this.terrene = terrene;
         this.domainName = domainName;
-        this.director = Matrix.getInstance().getDirector(this);
+        this.director = Local.getInstance().getDirector(this);
     }
 
     public Terrene getTerrene() {
@@ -74,4 +75,12 @@ public class Domain implements Control<Domain,DomainView,DomainModel> {
         return director;
     }
 
+    @Override
+    public int compareTo(Domain that) {
+        int isZero = this.domainName.compareTo(that.domainName);
+        if (isZero == 0) {
+            return this.terrene.compareTo(that.terrene);
+        }
+        return isZero;
+    }
 }

@@ -11,7 +11,7 @@ import dev.inward.matrix.file.FileView;
 
 public class DirectoryView<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> extends FileView<DF,DK,DV,DM,DR,DL,DF,DK,DV,DM,DR,DL,PATH> {
 
-    public DirectoryView(String name, DF directory, DR directoryReference) {
-        super(name, directory, directoryReference);
+    public DirectoryView(String name, DF df) {
+        super(name, df);
     }
 }

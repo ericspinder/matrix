@@ -9,8 +9,8 @@ import dev.inward.matrix.file.directory.*;
 
 public class FileModel<F extends File<F,K,V,M,R,L>,K extends FileKey<F,K,V,M,R,L>,V extends FileView<F,K,V,M,R,L>,M extends FileModel<F,K,V,M,R,L>,R extends FileReference<F,K,V,M,R,L>,L extends FileLibrarian<F,K,V,M,R,L>> extends DatumModel<F,V,M,R,L> {
 
-    public FileModel(Aspect[] labeledAspects) {
-        super(labeledAspects);
+    public FileModel(Class<F> fileClass, Aspect[] labeledAspects) {
+        super(fileClass, labeledAspects);
     }
 
 }

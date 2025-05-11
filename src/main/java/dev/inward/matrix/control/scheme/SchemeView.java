@@ -7,9 +7,9 @@ package dev.inward.matrix.control.scheme;
 import dev.inward.matrix.control.ControlView;
 import dev.inward.matrix.file.directory.*;
 
-public class SchemeView<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> extends ControlView<Scheme<PATH,DK,DF,DV,DM,DR,DB>,SchemeView<PATH,DK,DF,DV,DM,DR,DB>,SchemeModel<PATH,DK,DF,DV,DM,DR,DB>> {
+public class SchemeView<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> extends ControlView<Scheme<DF,DK,DV,DM,DR,DL,PATH>,SchemeView<DF,DK,DV,DM,DR,DL,PATH>,SchemeModel<DF,DK,DV,DM,DR,DL,PATH>> {
 
-    public SchemeView(String name, Scheme<PATH,DK,DF,DV,DM,DR,DB> scheme, SchemeModel<PATH,DK,DF,DV,DM,DR,DB> schemeModel) {
+    public SchemeView(String name, Scheme<DF,DK,DV,DM,DR,DL,PATH> scheme, SchemeModel<DF,DK,DV,DM,DR,DL,PATH> schemeModel) {
         super(name, scheme, schemeModel);
     }
 }

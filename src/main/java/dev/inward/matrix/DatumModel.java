@@ -10,8 +10,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class DatumModel<D extends Datum<D,V,M,R,L>,V extends DatumView<D,V,M,R,L>,M extends DatumModel<D,V,M,R,L>,R extends DatumReference<D,V,M,R,L>,L extends DatumLibrarian<D,V,M,R,L>> extends Model<D> {
-    public DatumModel(Aspect[] labeledAspects) {
-        super(labeledAspects);
+    public DatumModel(Class<D> datumClass, Aspect[] labeledAspects) {
+        super(datumClass, labeledAspects);
     }
 
     @Override

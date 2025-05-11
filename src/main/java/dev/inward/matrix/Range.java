@@ -8,6 +8,19 @@ package dev.inward.matrix;
 @SuppressWarnings("all")
 public abstract class Range<PATH extends Comparable<PATH>> implements Comparable<Range<PATH>> {
 
+    public static <PATH extends Comparable<PATH>> Range<PATH> Parse(PATH startPath, PATH endPath) {
+        if (startPath == null && endPath == null) {
+            return new AllPaths<>();
+        }
+        if (startPath == null) {
+            return new BelowPath<>(endPath);
+        }
+        if (endPath == null) {
+            return new AbovePath<>(startPath);
+        }
+        return new BetweenPaths<>(startPath, endPath);
+    }
+
     /**
      *
      * @return the lowest PATH value, may be null.

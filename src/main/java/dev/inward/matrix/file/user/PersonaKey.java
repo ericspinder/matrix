@@ -5,17 +5,23 @@
 package dev.inward.matrix.file.user;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 
-public class PersonaKey extends PrivilegeKey<PersonaKey,Persona,PersonaView,PersonaModel,PersonaReference,PersonaLibrarian> {
-    protected PersonaKey(URI uri, String s, InfoDirectoryKey directoryKey) {
-        super(uri, s, directoryKey);
+public class PersonaKey extends PrivilegeKey<Persona,PersonaKey,PersonaView,PersonaModel,PersonaReference,PersonaLibrarian> {
+    protected PersonaKey(URI uri, String userName) {
+        super(uri, userName);
     }
 
-    public static class Builder extends PrivilegeKey.Builder<PersonaKey,Persona,PersonaView,PersonaModel,PersonaReference,PersonaLibrarian> {
+    public static class Builder extends PrivilegeKey.Builder<Persona,PersonaKey,PersonaView,PersonaModel,PersonaReference,PersonaLibrarian> {
+
+        @Override
+        protected URI makeUri() throws URISyntaxException {
+            return new URI(this.userName + "@" + this.);
+        }
 
         @Override
         protected PersonaKey newMatrixKey() {
-            return new PersonaKey(this.uri,this.id,this.directoryKey);
+            return null;
         }
     }
 }

@@ -12,7 +12,7 @@ import dev.inward.matrix.file.FileKey;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public abstract class DirectoryKey<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> extends FileKey<DF,DK,DV,DM,DR,DL,DF,DK,DV,DM,DR,DL,PATH> {
+public abstract class DirectoryKey<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> extends FileKey<DF,DK,DV,DM,DR,DL> {
 
     public final PATH directoryPath;
 
@@ -26,46 +26,41 @@ public abstract class DirectoryKey<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,
         return null;
     }
 
-    @Override
-    public L getLibrary() {
-        return this.catalog.provider();
-    }
-
-    @Override
-    public C getCatalog() {
-        return catalog;
-    }
-
     public PATH getDirectoryPath() {
         return this.directoryPath;
     }
     public String getParentPathString() {
-        String[] parts = this.directoryPath.toString().split(this.catalog.provider().getSeparator());
-        if (parts.length == 0) {
-            return null;
+        DF directory = this.reference.get();
+        if (directory != null) {
+            String separator = directory.getContext().getCatalog().provider().getSeparator();
+            String[] parts = this.directoryPath.toString().split(separator);
+            if (parts.length == 0) {
+                return null;
+            }
+            if (parts.length == 1) {
+                return separator;
+            }
+            StringBuilder sb = new StringBuilder();
+            for (String directoryString : parts) {
+                sb.append(separator).append(directoryString);
+            }
+            return sb.append(separator).toString();
         }
-        if (parts.length == 1) {
-            return this.getCatalog().provider().getSeparator();
-        }
-        StringBuilder sb = new StringBuilder();
-        for (String directoryString: parts) {
-            sb.append(this.catalog.provider().getSeparator()).append(directoryString).append(this.catalog.provider().getSeparator());
-        }
-        return sb.toString();
+        return null;
     }
 
 
 
-    public abstract static class Builder<S extends Scheme<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,L extends Library<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,LV extends LibraryView<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,LM extends LibraryModel<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,LR extends LibraryReference<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,LB extends LibraryLibrarian<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,PATH extends Comparable<PATH>,C extends Catalog<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,CV extends CatalogView<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,CM extends CatalogModel<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,CR extends CatalogReference<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,CB extends CatalogLibrarian<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,DK extends DirectoryKey<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,D extends Directory<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,DV extends DirectoryView<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,DM extends DirectoryModel<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,DR extends DirectoryReference<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>,DB extends DirectoryLibrarian<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB>> extends FileKey.Builder<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB,DK,D,DV,DM,DR,DB> {
+    public abstract static class Builder<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> extends FileKey.Builder<DF,DK,DV,DM,DR,DL> {
 
-        protected C catalog;
+        protected Catalog<DF,DK,DV,DM,DR,DL,PATH> catalog;
         protected PATH directoryPath;
 
-        public Builder<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB> setCatalog(C catalog) {
+        public Builder<DF,DK,DV,DM,DR,DL,PATH> setCatalog(Catalog<DF,DK,DV,DM,DR,DL,PATH> catalog) {
             this.catalog = catalog;
             return this;
         }
-        public Builder<S,L,LV,LM,LR,LB,PATH,C,CV,CM,CR,CB,DK,D,DV,DM,DR,DB> setPath(PATH directoryPath) {
+        public Builder<DF,DK,DV,DM,DR,DL,PATH> setPath(PATH directoryPath) {
             this.directoryPath = directoryPath;
             return this;
         }

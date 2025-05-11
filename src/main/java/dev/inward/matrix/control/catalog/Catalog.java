@@ -8,6 +8,7 @@ import dev.inward.matrix.*;
 import dev.inward.matrix.control.Control;
 import dev.inward.matrix.control.library.Library;
 import dev.inward.matrix.engine.Zone;
+import dev.inward.matrix.file.addressed.dns.catalogRecord.CatalogRecord;
 import dev.inward.matrix.file.directory.*;
 
 import java.io.IOException;
@@ -17,7 +18,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-public abstract class Catalog<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> extends FileSystem implements Control<Catalog<DF,DK,DV,DM,DR,DL,PATH>,CatalogView<DF,DK,DV,DM,DR,DL,PATH>,CatalogModel<DF,DK,DV,DM,DR,DL,PATH>> {
+public class Catalog<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> extends FileSystem implements Control<Catalog<DF,DK,DV,DM,DR,DL,PATH>,CatalogView<DF,DK,DV,DM,DR,DL,PATH>,CatalogModel<DF,DK,DV,DM,DR,DL,PATH>> {
 
     protected final Library<DF,DK,DV,DM,DR,DL,PATH> library;
     protected final Range<PATH> range;
@@ -26,14 +27,11 @@ public abstract class Catalog<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK ex
     protected volatile  boolean readOnly;
     protected Map<String,DK> pathDirectoryKeyMap = new ConcurrentHashMap<>();
 
-    public Catalog(Library<DF,DK,DV,DM,DR,DL,PATH> library, Range<PATH> range, Zone zone) {
+    public Catalog(Library<DF,DK,DV,DM,DR,DL,PATH> library, Range<PATH> range, CatalogRecord<?,?,?,?,?,?> catalogRecord) {
         this.library = library;
-        this.range = range;
-        this.zone = zone;
-        this.init();
+        this.range = Range.Parse()
     }
 
-    protected abstract void init();
 
     public DK findDirectoryKey(String directoryString) {
         DK directoryKey = this.pathDirectoryKeyMap.get(directoryString);

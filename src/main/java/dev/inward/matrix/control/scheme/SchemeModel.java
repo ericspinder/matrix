@@ -4,8 +4,13 @@
 
 package dev.inward.matrix.control.scheme;
 
+import dev.inward.matrix.Aspect;
+import dev.inward.matrix.control.ControlModel;
 import dev.inward.matrix.file.directory.*;
 
-public class SchemeModel<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> extends ControlModel<Scheme<PATH,DK,DF,DV,DM,DR,DB>,SchemeView<PATH,DK,DF,DV,DM,DR,DB>,SchemeModel<PATH,DK,DF,DV,DM,DR,DB>> {
+public class SchemeModel<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> extends ControlModel<Scheme<DF,DK,DV,DM,DR,DL,PATH>,SchemeView<DF,DK,DV,DM,DR,DL,PATH>,SchemeModel<DF,DK,DV,DM,DR,DL,PATH>> {
 
+    public SchemeModel(Class<? super Scheme<DF, DK, DV, DM, DR, DL, PATH>> controlClass, Aspect[] labeledAspects) {
+        super(controlClass, labeledAspects);
+    }
 }
