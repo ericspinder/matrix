@@ -10,12 +10,12 @@ import dev.inward.matrix.file.addressed.dns.RRKey;
 import java.net.URI;
 import java.util.UUID;
 
-public class NameServerRecordKey extends RRKey<NameServerRecordKey,NameServerRecord,NameServerRecordView,NameServerRecordModel,NameServerRecordReference,NameServerRecordLibrarian> {
+public class NameServerRecordKey extends RRKey<NameServerRecord,NameServerRecordKey,NameServerRecordView,NameServerRecordModel,NameServerRecordReference,NameServerRecordLibrarian> {
     protected NameServerRecordKey(URI uri, UUID uuid, DnsDirectoryKey directoryKey,boolean randomUUID) {
         super(uri, uuid, directoryKey,randomUUID);
     }
 
-    public static class Builder extends RRKey.Builder<NameServerRecordKey,NameServerRecord,NameServerRecordView,NameServerRecordModel,NameServerRecordReference,NameServerRecordLibrarian> {
+    public static class Builder extends RRKey.Builder<NameServerRecord,NameServerRecordKey,NameServerRecordView,NameServerRecordModel,NameServerRecordReference,NameServerRecordLibrarian> {
 
         @Override
         protected NameServerRecordKey newMatrixKey() {

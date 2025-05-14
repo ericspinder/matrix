@@ -7,7 +7,7 @@ package dev.inward.matrix.file.addressed.dns.serverRecord;
 import dev.inward.matrix.file.addressed.depot.specification.Specification;
 import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
-public class Ip6ServerRecordLibrarian extends ServerRecordLibrarian<Ip6ServerRecordKey,Ip6ServerRecord,Ip6ServerRecordView,Ip6ServerRecordModel,Ip6ServerRecordReference,Ip6ServerRecordLibrarian> {
+public class Ip6ServerRecordLibrarian extends ServerRecordLibrarian<Ip6ServerRecord,Ip6ServerRecordKey,Ip6ServerRecordView,Ip6ServerRecordModel,Ip6ServerRecordReference,Ip6ServerRecordLibrarian> {
 
     public Ip6ServerRecordLibrarian(Standard standard, Specification specification) {
         super(standard, specification);

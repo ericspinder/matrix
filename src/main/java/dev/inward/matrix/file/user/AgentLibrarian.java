@@ -7,7 +7,7 @@ package dev.inward.matrix.file.user;
 import dev.inward.matrix.file.addressed.depot.specification.Specification;
 import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
-public class AgentLibrarian extends PrivilegeLibrarian<AgentKey,Agent,AgentView,AgentModel,AgentReference,AgentLibrarian> {
+public class AgentLibrarian extends PrivilegeLibrarian<Agent,AgentKey,AgentView,AgentModel,AgentReference,AgentLibrarian> {
 
     public AgentLibrarian(Standard standard, Specification specification) {
         super(standard, specification);

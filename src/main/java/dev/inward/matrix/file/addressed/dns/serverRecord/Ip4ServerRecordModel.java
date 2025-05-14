@@ -6,8 +6,8 @@ package dev.inward.matrix.file.addressed.dns.serverRecord;
 
 import dev.inward.matrix.Aspect;
 
-public class Ip4ServerRecordModel extends ServerRecordModel<Ip4ServerRecordKey,Ip4ServerRecord,Ip4ServerRecordView,Ip4ServerRecordModel,Ip4ServerRecordReference,Ip4ServerRecordLibrarian> {
+public class Ip4ServerRecordModel extends ServerRecordModel<Ip4ServerRecord,Ip4ServerRecordKey,Ip4ServerRecordView,Ip4ServerRecordModel,Ip4ServerRecordReference,Ip4ServerRecordLibrarian> {
     public Ip4ServerRecordModel(Aspect[] labeledAspects) {
-        super(labeledAspects);
+        super(Ip4ServerRecord.class, labeledAspects);
     }
 }

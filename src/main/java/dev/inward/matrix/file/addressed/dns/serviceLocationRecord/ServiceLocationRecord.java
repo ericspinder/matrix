@@ -6,7 +6,7 @@ package dev.inward.matrix.file.addressed.dns.serviceLocationRecord;
 
 import dev.inward.matrix.file.addressed.dns.ResourceRecord;
 
-public class ServiceLocationRecord extends ResourceRecord<ServiceLocationRecordKey,ServiceLocationRecord,ServiceLocationRecordView,ServiceLocationRecordModel,ServiceLocationRecordReference, ServiceLocationRecordLibrarian> {
+public class ServiceLocationRecord extends ResourceRecord<ServiceLocationRecord,ServiceLocationRecordKey,ServiceLocationRecordView,ServiceLocationRecordModel,ServiceLocationRecordReference,ServiceLocationRecordLibrarian> {
     public ServiceLocationRecord(ServiceLocationRecordKey identity, int ttl, String service, String proto, int priority, int weight, int port, String target) {
         super(identity,ttl);
         this.service = service;

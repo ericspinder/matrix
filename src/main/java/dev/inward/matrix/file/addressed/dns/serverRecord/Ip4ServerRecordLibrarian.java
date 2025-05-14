@@ -9,7 +9,7 @@ import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
 import java.util.function.Function;
 
-public class Ip4ServerRecordLibrarian extends ServerRecordLibrarian<Ip4ServerRecordKey,Ip4ServerRecord,Ip4ServerRecordView,Ip4ServerRecordModel,Ip4ServerRecordReference,Ip4ServerRecordLibrarian> {
+public class Ip4ServerRecordLibrarian extends ServerRecordLibrarian<Ip4ServerRecord,Ip4ServerRecordKey,Ip4ServerRecordView,Ip4ServerRecordModel,Ip4ServerRecordReference,Ip4ServerRecordLibrarian> {
 
     public Ip4ServerRecordLibrarian(Standard standard, Specification specification) {
         super(standard, specification);

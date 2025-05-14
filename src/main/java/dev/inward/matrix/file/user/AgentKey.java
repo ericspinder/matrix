@@ -6,8 +6,8 @@ package dev.inward.matrix.file.user;
 
 import java.net.URI;
 
-public class AgentKey extends PrivilegeKey<AgentKey,Agent,AgentView,AgentModel,AgentReference,AgentLibrarian> {
-    protected AgentKey(URI uri, String s, InfoDirectoryKey directoryKey) {
-        super(uri, s, directoryKey);
+public class AgentKey extends PrivilegeKey<Agent,AgentKey,AgentView,AgentModel,AgentReference,AgentLibrarian> {
+    protected AgentKey(URI uri, String userName) {
+        super(uri, userName);
     }
 }

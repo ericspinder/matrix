@@ -10,7 +10,7 @@ import dev.inward.matrix.file.addressed.dns.RRLibrarian;
 
 import java.util.function.Function;
 
-public class CatalogRecordLibrarian<K extends CatalogRecordKey<K,F,V,M,R,B>,F extends CatalogRecord<K,F,V,M,R,B>,V extends CatalogRecordView<K,F,V,M,R,B>,M extends CatalogRecordModel<K,F,V,M,R,B>,R extends CatalogRecordReference<K,F,V,M,R,B>,B extends CatalogRecordLibrarian<K,F,V,M,R,B>> extends RRLibrarian<K,F,V,M,R,B> {
+public class CatalogRecordLibrarian extends RRLibrarian<CatalogRecord,CatalogRecordKey,CatalogRecordView,CatalogRecordModel,CatalogRecordReference,CatalogRecordLibrarian> {
     public CatalogRecordLibrarian(Standard standard, Specification specification) {
         super(standard, specification);
     }

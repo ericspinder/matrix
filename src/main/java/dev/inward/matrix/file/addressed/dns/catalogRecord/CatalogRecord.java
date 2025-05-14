@@ -8,7 +8,7 @@ import dev.inward.matrix.file.addressed.dns.ResourceRecord;
 
 import java.util.concurrent.TimeUnit;
 
-public abstract class CatalogRecord<K extends CatalogRecordKey<K,F,V,M,R,B>,F extends CatalogRecord<K,F,V,M,R,B>,V extends CatalogRecordView<K,F,V,M,R,B>,M extends CatalogRecordModel<K,F,V,M,R,B>,R extends CatalogRecordReference<K,F,V,M,R,B>,B extends CatalogRecordLibrarian<K,F,V,M,R,B>> extends ResourceRecord<K,F,V,M,R,B> {
+public class CatalogRecord extends ResourceRecord<CatalogRecord,CatalogRecordKey,CatalogRecordView,CatalogRecordModel,CatalogRecordReference,CatalogRecordLibrarian> {
 
     protected final String target;
     protected final String startPath;
@@ -20,7 +20,7 @@ public abstract class CatalogRecord<K extends CatalogRecordKey<K,F,V,M,R,B>,F ex
     protected final int port;
     protected final long syncAmount;
     protected final TimeUnit syncUnit;
-    public CatalogRecord(K identity, String target, String startPath, String endPath, Zone zone, String protocol, int priority, int weight, int port, long syncAmount, TimeUnit syncUnit, int ttl) {
+    public CatalogRecord(CatalogRecordKey identity, String target, String startPath, String endPath, Zone zone, String protocol, int priority, int weight, int port, long syncAmount, TimeUnit syncUnit, int ttl) {
         super(identity, ttl);
         this.target = target;
         this.startPath = startPath;

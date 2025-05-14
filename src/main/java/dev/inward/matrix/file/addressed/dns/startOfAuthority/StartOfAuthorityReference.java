@@ -6,7 +6,7 @@ package dev.inward.matrix.file.addressed.dns.startOfAuthority;
 
 import dev.inward.matrix.file.addressed.dns.RRReference;
 
-public class StartOfAuthorityReference extends RRReference<StartOfAuthorityKey,StartOfAuthority,StartOfAuthorityView,StartOfAuthorityModel,StartOfAuthorityReference,StartOfAuthorityLibrarian> {
+public class StartOfAuthorityReference extends RRReference<StartOfAuthority,StartOfAuthorityKey,StartOfAuthorityView,StartOfAuthorityModel,StartOfAuthorityReference,StartOfAuthorityLibrarian> {
 
     public StartOfAuthorityReference(StartOfAuthority referent, StartOfAuthorityLibrarian librarian) {
         super(referent, librarian);

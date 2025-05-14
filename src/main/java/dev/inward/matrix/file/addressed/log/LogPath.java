@@ -4,22 +4,13 @@
 
 package dev.inward.matrix.file.addressed.log;
 
-public record LogPath(String locus, long series, String computerName, String domainName) implements Comparable<LogPath> {
+public record LogPath(String locus, String series, String domainName, String computerName) implements Comparable<LogPath> {
 
     @Override
     public int compareTo(LogPath that) {
         int isZero = this.locus.compareTo(that.locus);
         if (isZero == 0) {
-            if (this.series == 0 && that.series == 0) {
-                return isZero;
-            }
-            if (this.series == 0) {
-                return 1;
-            }
-            if (that.series == 0) {
-                return -1;
-            }
-            isZero = Long.compare(this.series,that.series);
+            isZero = this.series.compareTo(that.series);
             if (isZero == 0) {
                 if (this.computerName == null && that.computerName == null) {
                     return isZero;
@@ -38,6 +29,6 @@ public record LogPath(String locus, long series, String computerName, String dom
 
     @Override
     public String toString() {
-        return "/" + locus + "/" + ((series !=0)? series + "/" + ((computerName != null)? computerName + "/":""):"");
+        return "/" + locus + "/" + series + "/" + domainName + "/" + computerName + "/";
     }
 }

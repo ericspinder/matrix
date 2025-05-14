@@ -6,8 +6,8 @@ package dev.inward.matrix.file.addressed.depot.indica;
 
 import dev.inward.matrix.file.addressed.depot.DepotView;
 
-public class IndicaView extends DepotView<IndicaKey,Indica,IndicaView,IndicaModel,IndicaReference,IndicaLibrarian> {
-    public IndicaView(String name, Indica file, IndicaReference fileReference) {
-        super(name, file, fileReference);
+public class IndicaView extends DepotView<Indica,IndicaKey,IndicaView,IndicaModel,IndicaReference,IndicaLibrarian> {
+    public IndicaView(String name, Indica file) {
+        super(name, file);
     }
 }

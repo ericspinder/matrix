@@ -4,6 +4,7 @@
 
 package dev.inward.matrix;
 
+import dev.inward.matrix.control.Control;
 import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.predictable.Director;
 
@@ -30,7 +31,7 @@ public class Matrix {
     private final Instrumentation instrumentation;
     private final Domain localhostDomain;
 
-    protected final Map<>
+    protected final Map<Class<? extends Control<?,?,?>>,Model<? extends Control<?,?,?>>> controlModels = new HashMap<>();
 
 
     protected Matrix(CommandLine commandLine, Instrumentation instrumentation) {
@@ -43,6 +44,7 @@ public class Matrix {
         }
         this.localhostDomain = getDomain(Terrene.Parse(commandLine.getValue("terrene")), "localhost");
     }
+    public Ma
 
     public Domain getDomain(Terrene terrene, String domainName) {
         String domainKey = terrene.toString() +domainName;

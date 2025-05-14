@@ -4,9 +4,9 @@
 
 package dev.inward.matrix.file.user;
 
-public class AgentView extends PrivilegeView<AgentKey,Agent,AgentView,AgentModel,AgentReference,AgentLibrarian> {
+public class AgentView extends PrivilegeView<Agent,AgentKey,AgentView,AgentModel,AgentReference,AgentLibrarian> {
 
-    public AgentView(String name, Agent file, AgentReference fileReference) {
-        super(name, file, fileReference);
+    public AgentView(String name, Agent file) {
+        super(name, file);
     }
 }

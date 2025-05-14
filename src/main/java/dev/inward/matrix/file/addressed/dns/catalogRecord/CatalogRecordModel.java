@@ -7,8 +7,8 @@ package dev.inward.matrix.file.addressed.dns.catalogRecord;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.file.addressed.dns.RRModel;
 
-public class CatalogRecordModel<K extends CatalogRecordKey<K,F,V,M,R,B>,F extends CatalogRecord<K,F,V,M,R,B>,V extends CatalogRecordView<K,F,V,M,R,B>,M extends CatalogRecordModel<K,F,V,M,R,B>,R extends CatalogRecordReference<K,F,V,M,R,B>,B extends CatalogRecordLibrarian<K,F,V,M,R,B>> extends RRModel<K,F,V,M,R,B> {
+public class CatalogRecordModel extends RRModel<CatalogRecord,CatalogRecordKey,CatalogRecordView,CatalogRecordModel,CatalogRecordReference,CatalogRecordLibrarian> {
     public CatalogRecordModel(Aspect[] labeledAspects) {
-        super(labeledAspects);
+        super(CatalogRecord.class, labeledAspects);
     }
 }

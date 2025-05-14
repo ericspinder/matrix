@@ -7,7 +7,7 @@ package dev.inward.matrix.file.user;
 import dev.inward.matrix.file.addressed.depot.specification.Specification;
 import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
-public class HouseLibrarian extends PrivilegeLibrarian<HouseKey,House,HouseView,HouseModel,HouseReference,HouseLibrarian> {
+public class HouseLibrarian extends PrivilegeLibrarian<House,HouseKey,HouseView,HouseModel,HouseReference,HouseLibrarian> {
 
     public HouseLibrarian(Standard standard, Specification specification) {
         super(standard, specification);

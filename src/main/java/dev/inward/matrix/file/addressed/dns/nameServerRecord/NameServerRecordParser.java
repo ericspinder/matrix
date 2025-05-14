@@ -8,7 +8,7 @@ import dev.inward.matrix.file.addressed.dns.DnsDirectoryKey;
 import dev.inward.matrix.file.addressed.dns.ResourceRecordParser;
 import dev.inward.matrix.file.addressed.dns.ResourceRecordType;
 
-public class NameServerRecordParser extends ResourceRecordParser<NameServerRecordKey,NameServerRecord,NameServerRecordView,NameServerRecordModel,NameServerRecordReference,NameServerRecordLibrarian> {
+public class NameServerRecordParser extends ResourceRecordParser<NameServerRecord,NameServerRecordKey,NameServerRecordView,NameServerRecordModel,NameServerRecordReference,NameServerRecordLibrarian> {
     public NameServerRecordParser(DnsDirectoryKey dnsDirectoryKey) {
         super(dnsDirectoryKey);
     }

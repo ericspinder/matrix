@@ -10,7 +10,7 @@ import dev.inward.matrix.file.addressed.dns.RRLibrarian;
 
 import java.util.function.Function;
 
-public class ServiceLocationRecordLibrarian extends RRLibrarian<ServiceLocationRecordKey,ServiceLocationRecord,ServiceLocationRecordView,ServiceLocationRecordModel,ServiceLocationRecordReference, ServiceLocationRecordLibrarian> {
+public class ServiceLocationRecordLibrarian extends RRLibrarian<ServiceLocationRecord,ServiceLocationRecordKey,ServiceLocationRecordView,ServiceLocationRecordModel,ServiceLocationRecordReference,ServiceLocationRecordLibrarian> {
 
     public ServiceLocationRecordLibrarian(Standard standard, Specification specification) {
         super(standard, specification);

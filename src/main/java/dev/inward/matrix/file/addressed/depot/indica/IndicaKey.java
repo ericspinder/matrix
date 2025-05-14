@@ -10,7 +10,7 @@ import dev.inward.matrix.file.addressed.depot.DepotKey;
 import java.net.URI;
 import java.util.Objects;
 
-public class IndicaKey extends DepotKey<IndicaKey,Indica,IndicaView,IndicaModel,IndicaReference,IndicaLibrarian> {
+public class IndicaKey extends DepotKey<Indica,IndicaKey,IndicaView,IndicaModel,IndicaReference,IndicaLibrarian> {
 
     protected IndicaKey(URI uri, String locus, DepotDirectoryKey directoryKey) {
         super(uri,locus,directoryKey);

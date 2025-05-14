@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.file.user;
 
-public class AgentReference extends PrivilegeReference<AgentKey,Agent,AgentView,AgentModel,AgentReference,AgentLibrarian> {
+public class AgentReference extends PrivilegeReference<Agent,AgentKey,AgentView,AgentModel,AgentReference,AgentLibrarian> {
 
     public AgentReference(Agent referent, AgentLibrarian librarian) {
         super(referent, librarian);

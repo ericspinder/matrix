@@ -8,7 +8,7 @@ import dev.inward.matrix.file.addressed.dns.ResourceRecord;
 import java.math.BigInteger;
 import java.net.InetAddress;
 
-public abstract class ServerRecord<K extends ServerRecordKey<K,F,V,M,R,B>,F extends ServerRecord<K,F,V,M,R,B>,V extends ServerRecordView<K,F,V,M,R,B>,M extends ServerRecordModel<K,F,V,M,R,B>,R extends ServerRecordReference<K,F,V,M,R,B>,B extends ServerRecordLibrarian<K,F,V,M,R,B>> extends ResourceRecord<K,F,V,M,R,B> {
+public abstract class ServerRecord<F extends ServerRecord<F,K,V,M,R,L>,K extends ServerRecordKey<F,K,V,M,R,L>,V extends ServerRecordView<F,K,V,M,R,L>,M extends ServerRecordModel<F,K,V,M,R,L>,R extends ServerRecordReference<F,K,V,M,R,L>,L extends ServerRecordLibrarian<F,K,V,M,R,L>> extends ResourceRecord<F,K,V,M,R,L> {
 
     protected final InetAddress inetAddress;
     protected transient final BigInteger asBytes;

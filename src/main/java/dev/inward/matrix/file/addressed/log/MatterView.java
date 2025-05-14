@@ -8,9 +8,10 @@ import dev.inward.matrix.file.addressed.AddressedView;
 
 import java.util.UUID;
 
-public class MatterView extends AddressedView<LogScheme,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibraryLibrarian,LogPath,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference,LogCatalogLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference,LogDirectoryLibrarian,UUID,MatterKey,Matter,MatterView,MatterModel,MatterReference,MatterLibrarian> {
+public class MatterView extends AddressedView<Matter,UUID,MatterKey,MatterView,MatterModel,MatterReference,MatterLibrarian,LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel,LogDirectoryReference,LogDirectoryLibrarian,LogPath> {
 
-    public MatterView(String name, Matter file, MatterReference fileReference) {
-        super(name, file, fileReference);
+
+    public MatterView(String name, Matter matter) {
+        super(name, matter);
     }
 }

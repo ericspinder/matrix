@@ -22,7 +22,7 @@ public class Catalog<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends Dir
 
     protected final Library<DF,DK,DV,DM,DR,DL,PATH> library;
     protected final Range<PATH> range;
-    protected final Zone zone;
+    protected final CatalogRecord<?,?,?,?,?,?> catalogRecord;
     protected volatile boolean open;
     protected volatile  boolean readOnly;
     protected Map<String,DK> pathDirectoryKeyMap = new ConcurrentHashMap<>();

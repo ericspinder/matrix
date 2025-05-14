@@ -10,7 +10,7 @@ import dev.inward.matrix.file.addressed.dns.RRLibrarian;
 
 import java.util.function.Function;
 
-public class NameServerRecordLibrarian extends RRLibrarian<NameServerRecordKey,NameServerRecord,NameServerRecordView,NameServerRecordModel,NameServerRecordReference,NameServerRecordLibrarian> {
+public class NameServerRecordLibrarian extends RRLibrarian<NameServerRecord,NameServerRecordKey,NameServerRecordView,NameServerRecordModel,NameServerRecordReference,NameServerRecordLibrarian> {
 
     public NameServerRecordLibrarian(Standard standard, Specification specification) {
         super(standard, specification);

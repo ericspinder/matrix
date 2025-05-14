@@ -6,7 +6,7 @@ package dev.inward.matrix.file.addressed.depot.standard;
 
 import dev.inward.matrix.file.addressed.depot.DepotReference;
 
-public class StandardReference extends DepotReference<StandardKey,Standard,StandardView,StandardModel,StandardReference, StandardLibrarian> {
+public class StandardReference extends DepotReference<Standard,StandardKey,StandardView,StandardModel,StandardReference,StandardLibrarian> {
     public StandardReference(Standard addressed, StandardLibrarian resource) {
         super(addressed, resource);
     }

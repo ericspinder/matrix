@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.file.addressed.dns;
 
-public abstract class ResourceRecordParser<K extends RRKey<K,F,V,M,R,B>,F extends ResourceRecord<K,F,V,M,R,B>,V extends RRView<K,F,V,M,R,B>,M extends RRModel<K,F,V,M,R,B>,R extends RRReference<K,F,V,M,R,B>,B extends RRLibrarian<K,F,V,M,R,B>> {
+public abstract class ResourceRecordParser<F extends ResourceRecord<F,K,V,M,R,B>,K extends RRKey<F,K,V,M,R,B>,V extends RRView<F,K,V,M,R,B>,M extends RRModel<F,K,V,M,R,B>,R extends RRReference<F,K,V,M,R,B>,B extends RRLibrarian<F,K,V,M,R,B>> {
 
     protected final DnsDirectoryKey dnsDirectoryKey;
 
@@ -20,7 +20,7 @@ public abstract class ResourceRecordParser<K extends RRKey<K,F,V,M,R,B>,F extend
     public DnsDirectoryKey getDnsDirectoryKey() {
         return dnsDirectoryKey;
     }
-    protected abstract RRKey.Builder<K,F,V,M,R,B> newRRKeyBuilder();
+    protected abstract RRKey.Builder<F,K,V,M,R,B> newRRKeyBuilder();
 
     public abstract F parse(String[] parts);
 }

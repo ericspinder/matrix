@@ -10,7 +10,7 @@ import dev.inward.matrix.file.addressed.dns.RRLibrarian;
 
 import java.util.function.Function;
 
-public class StartOfAuthorityLibrarian extends RRLibrarian<StartOfAuthorityKey,StartOfAuthority,StartOfAuthorityView,StartOfAuthorityModel,StartOfAuthorityReference,StartOfAuthorityLibrarian> {
+public class StartOfAuthorityLibrarian extends RRLibrarian<StartOfAuthority,StartOfAuthorityKey,StartOfAuthorityView,StartOfAuthorityModel,StartOfAuthorityReference,StartOfAuthorityLibrarian> {
 
 
     public StartOfAuthorityLibrarian(Standard standard, Specification specification) {

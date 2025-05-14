@@ -9,7 +9,7 @@ import dev.inward.matrix.file.addressed.depot.specification.Specification;
 
 import java.util.function.Function;
 
-public class StandardLibrarian extends DepotLibrarian<StandardKey,Standard,StandardView,StandardModel,StandardReference, StandardLibrarian> {
+public class StandardLibrarian extends DepotLibrarian<Standard,StandardKey,StandardView,StandardModel,StandardReference,StandardLibrarian> {
 
     public StandardLibrarian(Standard standard, Specification specification) {
         super(standard, specification);

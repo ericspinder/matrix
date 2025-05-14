@@ -8,7 +8,7 @@ import java.nio.file.attribute.UserPrincipal;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Agent extends Privilege<AgentKey,Agent,AgentView,AgentModel,AgentReference,AgentLibrarian> implements UserPrincipal {
+public class Agent extends Privilege<Agent,AgentKey,AgentView,AgentModel,AgentReference,AgentLibrarian> implements UserPrincipal {
 
     protected final Map<House, AclEntry[]> houseRightsMap = new ConcurrentHashMap<>();
 

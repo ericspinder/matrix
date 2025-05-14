@@ -8,16 +8,16 @@ import dev.inward.matrix.file.directory.DirectoryKey;
 
 import java.net.URI;
 
-public class LogDirectoryKey extends DirectoryKey<LogScheme,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibraryLibrarian,LogPath,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference,LogCatalogLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference,LogDirectoryLibrarian> {
-    protected LogDirectoryKey(URI uri, LogCatalog catalog, LogPath logPath) {
-        super(uri, catalog, logPath);
+public class LogDirectoryKey extends DirectoryKey<LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel,LogDirectoryReference,LogDirectoryLibrarian,LogPath> {
+    protected LogDirectoryKey(URI uri, LogPath logPath) {
+        super(uri,logPath);
     }
 
-    public static class Builder extends DirectoryKey.Builder<LogScheme,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibraryLibrarian,LogPath,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference,LogCatalogLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference,LogDirectoryLibrarian> {
+    public static class Builder extends DirectoryKey.Builder<LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel,LogDirectoryReference,LogDirectoryLibrarian,LogPath> {
 
         @Override
         protected LogDirectoryKey newMatrixKey() {
-            return new LogDirectoryKey(this.uri,this.catalog,this.directoryPath);
+            return new LogDirectoryKey(this.uri,this.directoryPath);
         }
     }
 }

@@ -10,7 +10,7 @@ import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
 import java.util.function.Function;
 
-public class IndicaLibrarian extends DepotLibrarian<IndicaKey,Indica,IndicaView,IndicaModel,IndicaReference,IndicaLibrarian> {
+public class IndicaLibrarian extends DepotLibrarian<Indica,IndicaKey,IndicaView,IndicaModel,IndicaReference,IndicaLibrarian> {
 
     public IndicaLibrarian(Standard standard, Specification specification) {
         super(standard, specification);

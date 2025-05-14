@@ -6,7 +6,7 @@ package dev.inward.matrix.file.addressed.dns.serviceLocationRecord;
 
 import dev.inward.matrix.file.addressed.dns.RRReference;
 
-public class ServiceLocationRecordReference extends RRReference<ServiceLocationRecordKey,ServiceLocationRecord,ServiceLocationRecordView,ServiceLocationRecordModel,ServiceLocationRecordReference, ServiceLocationRecordLibrarian> {
+public class ServiceLocationRecordReference extends RRReference<ServiceLocationRecord,ServiceLocationRecordKey,ServiceLocationRecordView,ServiceLocationRecordModel,ServiceLocationRecordReference,ServiceLocationRecordLibrarian> {
     public ServiceLocationRecordReference(ServiceLocationRecord addressed, ServiceLocationRecordLibrarian resource) {
         super(addressed, resource);
     }

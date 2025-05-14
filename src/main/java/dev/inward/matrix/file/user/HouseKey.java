@@ -6,8 +6,8 @@ package dev.inward.matrix.file.user;
 
 import java.net.URI;
 
-public class HouseKey extends PrivilegeKey<HouseKey,House,HouseView,HouseModel,HouseReference,HouseLibrarian> {
-    protected HouseKey(URI uri, String s, InfoDirectoryKey directoryKey) {
-        super(uri, s, directoryKey);
+public class HouseKey extends PrivilegeKey<House,HouseKey,HouseView,HouseModel,HouseReference,HouseLibrarian> {
+    protected HouseKey(URI uri, String s) {
+        super(uri, s);
     }
 }

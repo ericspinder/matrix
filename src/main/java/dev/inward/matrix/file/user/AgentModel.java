@@ -6,8 +6,8 @@ package dev.inward.matrix.file.user;
 
 import dev.inward.matrix.Aspect;
 
-public class AgentModel extends PrivilegeModel<AgentKey,Agent,AgentView,AgentModel,AgentReference,AgentLibrarian> {
+public class AgentModel extends PrivilegeModel<Agent,AgentKey,AgentView,AgentModel,AgentReference,AgentLibrarian> {
     public AgentModel(Aspect[] labeledAspects) {
-        super(labeledAspects);
+        super(Agent.class,labeledAspects);
     }
 }

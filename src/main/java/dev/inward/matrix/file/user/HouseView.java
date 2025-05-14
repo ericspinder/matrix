@@ -4,9 +4,9 @@
 
 package dev.inward.matrix.file.user;
 
-public class HouseView extends PrivilegeView<HouseKey,House,HouseView,HouseModel,HouseReference,HouseLibrarian> {
+public class HouseView extends PrivilegeView<House,HouseKey,HouseView,HouseModel,HouseReference,HouseLibrarian> {
 
-    public HouseView(String name, House file, HouseReference fileReference) {
-        super(name, file, fileReference);
+    public HouseView(String name, House file) {
+        super(name, file);
     }
 }

@@ -7,6 +7,7 @@ package dev.inward.matrix;
 import dev.inward.matrix.file.addressed.depot.DepotPath;
 import dev.inward.matrix.file.addressed.dns.DnsPath;
 import dev.inward.matrix.file.addressed.dns.ResourceRecordType;
+import dev.inward.matrix.file.addressed.log.LogPath;
 
 import java.util.StringTokenizer;
 
@@ -67,6 +68,18 @@ public abstract class ProtocolParser<PATH extends Comparable<PATH>> {
                 return new DepotPath(path[0]);
             }
             return null;
+        }
+    }
+    public static class Log extends ProtocolParser<LogPath> {
+
+        public Log() {
+            super(MatrixURLStreamHandlerProvider.Protocol.LOG);
+        }
+
+        @Override
+        public LogPath parsePath(String rawPath) {
+            String[] path = rawPath.split(protocol.getSeparator());
+            return new LogPath(path[0], path[1], path[2], path[3]);
         }
     }
 }

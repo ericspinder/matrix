@@ -6,9 +6,9 @@ package dev.inward.matrix.file.addressed.dns.serviceLocationRecord;
 
 import dev.inward.matrix.file.addressed.dns.RRView;
 
-public class ServiceLocationRecordView extends RRView<ServiceLocationRecordKey,ServiceLocationRecord,ServiceLocationRecordView,ServiceLocationRecordModel,ServiceLocationRecordReference, ServiceLocationRecordLibrarian> {
+public class ServiceLocationRecordView extends RRView<ServiceLocationRecord,ServiceLocationRecordKey,ServiceLocationRecordView,ServiceLocationRecordModel,ServiceLocationRecordReference,ServiceLocationRecordLibrarian> {
 
-    public ServiceLocationRecordView(String name, ServiceLocationRecord file, ServiceLocationRecordReference fileReference) {
-        super(name, file, fileReference);
+    public ServiceLocationRecordView(String name, ServiceLocationRecord file) {
+        super(name, file);
     }
 }

@@ -8,7 +8,7 @@ import dev.inward.matrix.Aspect;
 import dev.inward.matrix.control.memory.MemoryModel;
 
 public abstract class BureauModel<BC extends Bureau<BC,BV,BM>,BV extends BureauView<BC,BV,BM>,BM extends BureauModel<BC,BV,BM>> extends MemoryModel<BC,BV,BM> {
-    public BureauModel(Aspect[] labeledAspects) {
-        super(labeledAspects);
+    public BureauModel(Class<BC> bureauClass, Aspect[] labeledAspects) {
+        super(bureauClass, labeledAspects);
     }
 }

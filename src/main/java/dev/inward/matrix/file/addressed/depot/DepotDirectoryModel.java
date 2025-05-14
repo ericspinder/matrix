@@ -10,6 +10,6 @@ import dev.inward.matrix.file.directory.DirectoryModel;
 public class DepotDirectoryModel extends DirectoryModel<DepotDirectory,DepotDirectoryKey,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectoryLibrarian,DepotPath> {
 
     public DepotDirectoryModel(Aspect[] labeledAspects) {
-        super(labeledAspects);
+        super(DepotDirectory.class, labeledAspects);
     }
 }

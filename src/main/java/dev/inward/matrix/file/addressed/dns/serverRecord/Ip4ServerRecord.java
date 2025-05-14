@@ -6,7 +6,7 @@ package dev.inward.matrix.file.addressed.dns.serverRecord;
 
 import java.net.InetAddress;
 
-public class Ip4ServerRecord extends ServerRecord<Ip4ServerRecordKey,Ip4ServerRecord,Ip4ServerRecordView,Ip4ServerRecordModel,Ip4ServerRecordReference,Ip4ServerRecordLibrarian> {
+public class Ip4ServerRecord extends ServerRecord<Ip4ServerRecord,Ip4ServerRecordKey,Ip4ServerRecordView,Ip4ServerRecordModel,Ip4ServerRecordReference,Ip4ServerRecordLibrarian> {
     public Ip4ServerRecord(Ip4ServerRecordKey key, InetAddress inetAddress, int ttl) {
         super(key, inetAddress, ttl);
     }

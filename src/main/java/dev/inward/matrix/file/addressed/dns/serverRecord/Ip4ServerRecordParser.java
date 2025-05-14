@@ -7,7 +7,7 @@ package dev.inward.matrix.file.addressed.dns.serverRecord;
 import dev.inward.matrix.file.addressed.dns.DnsDirectoryKey;
 import dev.inward.matrix.file.addressed.dns.ResourceRecordType;
 
-public class Ip4ServerRecordParser extends ServerRecordParser<Ip4ServerRecordKey,Ip4ServerRecord,Ip4ServerRecordView,Ip4ServerRecordModel,Ip4ServerRecordReference,Ip4ServerRecordLibrarian> {
+public class Ip4ServerRecordParser extends ServerRecordParser<Ip4ServerRecord,Ip4ServerRecordKey,Ip4ServerRecordView,Ip4ServerRecordModel,Ip4ServerRecordReference,Ip4ServerRecordLibrarian> {
     public Ip4ServerRecordParser(DnsDirectoryKey dnsDirectoryKey) {
         super(dnsDirectoryKey);
     }

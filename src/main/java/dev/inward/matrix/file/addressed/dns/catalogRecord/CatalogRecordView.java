@@ -6,9 +6,10 @@ package dev.inward.matrix.file.addressed.dns.catalogRecord;
 
 import dev.inward.matrix.file.addressed.dns.RRView;
 
-public class CatalogRecordView<K extends CatalogRecordKey<K,F,V,M,R,B>,F extends CatalogRecord<K,F,V,M,R,B>,V extends CatalogRecordView<K,F,V,M,R,B>,M extends CatalogRecordModel<K,F,V,M,R,B>,R extends CatalogRecordReference<K,F,V,M,R,B>,B extends CatalogRecordLibrarian<K,F,V,M,R,B>> extends RRView<K,F,V,M,R,B> {
+public class CatalogRecordView extends RRView<CatalogRecord,CatalogRecordKey,CatalogRecordView,CatalogRecordModel,CatalogRecordReference,CatalogRecordLibrarian> {
 
-    public CatalogRecordView(String name, F file, R fileReference) {
-        super(name, file, fileReference);
+
+    public CatalogRecordView(String name, CatalogRecord catalogRecord) {
+        super(name, catalogRecord);
     }
 }

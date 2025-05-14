@@ -4,9 +4,9 @@
 
 package dev.inward.matrix.file.addressed.dns.serverRecord;
 
-public class Ip4ServerRecordView extends ServerRecordView<Ip4ServerRecordKey,Ip4ServerRecord,Ip4ServerRecordView,Ip4ServerRecordModel,Ip4ServerRecordReference,Ip4ServerRecordLibrarian> {
+public class Ip4ServerRecordView extends ServerRecordView<Ip4ServerRecord,Ip4ServerRecordKey,Ip4ServerRecordView,Ip4ServerRecordModel,Ip4ServerRecordReference,Ip4ServerRecordLibrarian> {
 
-    public Ip4ServerRecordView(String name, Ip4ServerRecord file, Ip4ServerRecordReference fileReference) {
-        super(name, file, fileReference);
+    public Ip4ServerRecordView(String name, Ip4ServerRecord file) {
+        super(name, file);
     }
 }

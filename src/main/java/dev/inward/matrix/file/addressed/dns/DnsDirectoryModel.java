@@ -7,7 +7,7 @@ package dev.inward.matrix.file.addressed.dns;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.file.directory.DirectoryModel;
 
-public class DnsDirectoryModel extends DirectoryModel<DnsScheme,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibraryLibrarian,DnsPath,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference,DnsCatalogLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference, DnsDirectoryLibrarian> {
+public class DnsDirectoryModel extends DirectoryModel<DnsDirectory,DnsDirectoryKey,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference,DnsDirectoryLibrarian,DnsPath> {
     public DnsDirectoryModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

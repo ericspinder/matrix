@@ -11,7 +11,7 @@ import dev.inward.matrix.file.addressed.depot.standard.Standard;
 import java.util.UUID;
 import java.util.function.Function;
 
-public class MatterLibrarian extends AddressedLibrarian<LogScheme,LogLibrary,LogLibraryView,LogLibraryModel,LogLibraryReference, LogLibraryLibrarian,LogPath,LogCatalog,LogCatalogView,LogCatalogModel,LogCatalogReference,LogCatalogLibrarian,LogDirectoryKey,LogDirectory,LogDirectoryView,LogDirectoryModel,LogDirectoryReference,LogDirectoryLibrarian,UUID,MatterKey,Matter,MatterView,MatterModel,MatterReference,MatterLibrarian> {
+public class MatterLibrarian extends AddressedLibrarian<Matter,UUID,MatterKey,MatterView,MatterModel,MatterReference,MatterLibrarian,LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel,LogDirectoryReference,LogDirectoryLibrarian,LogPath> {
 
     public MatterLibrarian(Standard standard, Specification specification) {
         super(standard, specification);

@@ -4,21 +4,22 @@
 
 package dev.inward.matrix.file.addressed.dns;
 
+import dev.inward.matrix.control.catalog.Catalog;
 import dev.inward.matrix.file.directory.DirectoryKey;
 
 import java.net.URI;
 
-public class DnsDirectoryKey extends DirectoryKey<DnsScheme,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibraryLibrarian,DnsPath,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference,DnsCatalogLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference,DnsDirectoryLibrarian> {
-    protected DnsDirectoryKey(URI uri, DnsCatalog catalog, DnsPath dnsPath) {
-        super(uri, catalog, dnsPath);
+public class DnsDirectoryKey extends DirectoryKey<DnsDirectory,DnsDirectoryKey,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference,DnsDirectoryLibrarian,DnsPath> {
+    protected DnsDirectoryKey(URI uri, DnsPath dnsPath) {
+        super(uri, dnsPath);
     }
 
 
-    public static class Builder extends DirectoryKey.Builder<DnsScheme,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsLibraryReference, DnsLibraryLibrarian,DnsPath,DnsCatalog,DnsCatalogView,DnsCatalogModel,DnsCatalogReference,DnsCatalogLibrarian,DnsDirectoryKey,DnsDirectory,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference,DnsDirectoryLibrarian> {
+    public static class Builder extends DirectoryKey.Builder<DnsDirectory,DnsDirectoryKey,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference,DnsDirectoryLibrarian,DnsPath> {
 
         @Override
         protected DnsDirectoryKey newMatrixKey() {
-            return new DnsDirectoryKey(this.uri,this.catalog,this.directoryPath);
+            return new DnsDirectoryKey(this.uri,this.directoryPath);
         }
     }
 
