@@ -5,7 +5,9 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.bureau.*;
-import dev.inward.matrix.control.memory.bureau.*;
+import dev.inward.matrix.library.bureau.Bureau;
+import dev.inward.matrix.library.bureau.BureauModel;
+import dev.inward.matrix.library.bureau.BureauView;
 
 import java.util.Deque;
 import java.util.Iterator;

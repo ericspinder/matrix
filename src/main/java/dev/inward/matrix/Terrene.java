@@ -20,38 +20,38 @@ public class Terrene implements Comparable<Terrene> {
 
     protected static final Map<String,Terrene> KnownWorlds = new ConcurrentHashMap<>();
 
-    public static Terrene Parse(String alias) {
-        Terrene terrene = KnownWorlds.get(alias);
+    public static Terrene Parse(String label) {
+        Terrene terrene = KnownWorlds.get(label);
         if (terrene == null) return Earth;
         return terrene;
     }
 
-    public final char terrene;
-    public final String[] aliases;
+    public final char dnsClassCode;
+    public final String[] labels;
 
-    protected Terrene(String terrene, String... alias) {
-        this((char) terrene.getBytes(StandardCharsets.UTF_8)[0], alias);
+    protected Terrene(String classCodeString, String label) {
+        this((char) classCodeString.getBytes(StandardCharsets.UTF_8)[0], label);
     }
 
-    protected Terrene(char terrene, String... aliases) {
-        this.terrene = terrene;
-        this.aliases = aliases;
-        for (String alias: aliases) {
-            KnownWorlds.put(alias,this);
+    protected Terrene(char dnsClassCode, String... labels) {
+        this.dnsClassCode = dnsClassCode;
+        this.labels = labels;
+        for (String label: labels) {
+            KnownWorlds.put(label,this);
         }
     }
 
-    public char getTerrene() {
-        return terrene;
+    public char getDnsClassCode() {
+        return this.dnsClassCode;
     }
 
-    public String[] getAliases() {
-        return aliases;
+    public String[] getLabels() {
+        return this.labels;
     }
 
     @Override
     public int compareTo(Terrene that) {
-        return this.getTerrene() - that.getTerrene();
+        return this.dnsClassCode - that.dnsClassCode;
     }
 
 

@@ -6,9 +6,8 @@ package dev.inward.matrix.control.catalog;
 
 import dev.inward.matrix.*;
 import dev.inward.matrix.control.Control;
-import dev.inward.matrix.control.library.Library;
-import dev.inward.matrix.engine.Zone;
-import dev.inward.matrix.file.addressed.dns.catalogRecord.CatalogRecord;
+import dev.inward.matrix.control.authority.Authority;
+import dev.inward.matrix.file.resource.record.catalogRecord.CatalogRecord;
 import dev.inward.matrix.file.directory.*;
 
 import java.io.IOException;
@@ -20,15 +19,15 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Catalog<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> extends FileSystem implements Control<Catalog<DF,DK,DV,DM,DR,DL,PATH>,CatalogView<DF,DK,DV,DM,DR,DL,PATH>,CatalogModel<DF,DK,DV,DM,DR,DL,PATH>> {
 
-    protected final Library<DF,DK,DV,DM,DR,DL,PATH> library;
+    protected final Authority<DF,DK,DV,DM,DR,DL,PATH> authority;
     protected final Range<PATH> range;
     protected final CatalogRecord<?,?,?,?,?,?> catalogRecord;
     protected volatile boolean open;
     protected volatile  boolean readOnly;
     protected Map<String,DK> pathDirectoryKeyMap = new ConcurrentHashMap<>();
 
-    public Catalog(Library<DF,DK,DV,DM,DR,DL,PATH> library, Range<PATH> range, CatalogRecord<?,?,?,?,?,?> catalogRecord) {
-        this.library = library;
+    public Catalog(Authority<DF,DK,DV,DM,DR,DL,PATH> authority, Range<PATH> range, CatalogRecord<?,?,?,?,?,?> catalogRecord) {
+        this.authority = authority;
         this.range = Range.Parse()
     }
 
@@ -51,8 +50,8 @@ public class Catalog<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends Dir
     protected abstract DK newDirectoryKey(String path);
 
     @Override
-    public Library<DF,DK,DV,DM,DR,DL,PATH> provider() {
-        return this.library;
+    public Authority<DF,DK,DV,DM,DR,DL,PATH> provider() {
+        return this.authority;
     }
 
     @Override
@@ -72,7 +71,7 @@ public class Catalog<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends Dir
 
     @Override
     public String getSeparator() {
-        return this.library.get_Scheme().getProtocol().getSeparator();
+        return this.authority.get_Scheme().getgetProtocol().getSeparator();
     }
 
     @Override

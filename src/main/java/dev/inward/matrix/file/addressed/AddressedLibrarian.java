@@ -4,9 +4,6 @@
 
 package dev.inward.matrix.file.addressed;
 
-import dev.inward.matrix.control.catalog.*;
-import dev.inward.matrix.control.library.*;
-import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.file.*;
 import dev.inward.matrix.file.addressed.depot.specification.Specification;
 import dev.inward.matrix.file.addressed.depot.standard.Standard;

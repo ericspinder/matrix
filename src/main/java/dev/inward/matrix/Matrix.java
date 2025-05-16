@@ -6,7 +6,12 @@ package dev.inward.matrix;
 
 import dev.inward.matrix.control.Control;
 import dev.inward.matrix.control.domain.Domain;
-import dev.inward.matrix.predictable.Director;
+import dev.inward.matrix.control.authority.Authority;
+import dev.inward.matrix.file.addressed.dns.*;
+import dev.inward.matrix.file.resource.record.DnsDirectoryKey;
+import dev.inward.matrix.file.resource.record.DnsPath;
+import dev.inward.matrix.file.resource.record.ResourceRecordType;
+import dev.inward.matrix.file.resource.record.catalogRecord.CatalogRecord;
 
 import javax.naming.NamingException;
 import javax.naming.directory.InitialDirContext;
@@ -44,7 +49,16 @@ public class Matrix {
         }
         this.localhostDomain = getDomain(Terrene.Parse(commandLine.getValue("terrene")), "localhost");
     }
-    public Ma
+    public CatalogRecord getCatalogRecord(Authority<?,?,?,?,?,?,?> authority, MatrixURLStreamHandlerProvider.Protocol protocol) {
+        try {
+            this.dirContext.getAttributes("dns:" + authority.getDomain().getDomainName() + ".", new String[] {"TXT"});
+            DnsDirectoryKey directoryKey = (new DnsDirectoryKey.Builder()).setPath(new DnsPath(authority.getDomain().getDomainName(), ResourceRecordType.CatalogRecord)).setLibrary(authority).buildMatrixKey();
+
+
+        } catch (NamingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public Domain getDomain(Terrene terrene, String domainName) {
         String domainKey = terrene.toString() +domainName;

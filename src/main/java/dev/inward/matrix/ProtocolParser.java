@@ -5,8 +5,8 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.file.addressed.depot.DepotPath;
-import dev.inward.matrix.file.addressed.dns.DnsPath;
-import dev.inward.matrix.file.addressed.dns.ResourceRecordType;
+import dev.inward.matrix.file.resource.record.DnsPath;
+import dev.inward.matrix.file.resource.record.ResourceRecordType;
 import dev.inward.matrix.file.addressed.log.LogPath;
 
 import java.util.StringTokenizer;
@@ -21,10 +21,25 @@ public abstract class ProtocolParser<PATH extends Comparable<PATH>> {
 
     public abstract PATH parsePath(String rawPath);
 
+    public MatrixURLStreamHandlerProvider.Protocol getProtocol() {
+        return protocol;
+    }
+
     public static class Http extends ProtocolParser<String> {
 
         public Http() {
             super(MatrixURLStreamHandlerProvider.Protocol.HTTP);
+        }
+
+        @Override
+        public String parsePath(String rawPath) {
+            return rawPath;
+        }
+    }
+    public static class Https extends ProtocolParser<String> {
+
+        public Https() {
+            super(MatrixURLStreamHandlerProvider.Protocol.HTTPS);
         }
 
         @Override
@@ -48,7 +63,7 @@ public abstract class ProtocolParser<PATH extends Comparable<PATH>> {
                     ResourceRecordType rrType = ResourceRecordType.valueOf(stringTokenizer.nextToken());
                     return new DnsPath(domainName,rrType);
                 default:
-                    throw new RuntimeException("dns path must be at least a domain name, ")
+                    throw new RuntimeException("dns path must be at least a domain name, ");
             }
         }
     }

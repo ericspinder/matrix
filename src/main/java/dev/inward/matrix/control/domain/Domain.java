@@ -6,12 +6,11 @@
 package dev.inward.matrix.control.domain;
 
 import dev.inward.matrix.HostExperience;
-import dev.inward.matrix.Matrix;
 import dev.inward.matrix.Terrene;
 import dev.inward.matrix.control.Control;
 import dev.inward.matrix.control.local.Local;
-import dev.inward.matrix.file.addressed.dns.nameServerRecord.NameServerRecord;
-import dev.inward.matrix.file.addressed.dns.serverRecord.ServerRecord;
+import dev.inward.matrix.file.resource.record.nameServerRecord.NameServerRecord;
+import dev.inward.matrix.file.resource.record.serverRecord.ServerRecord;
 import dev.inward.matrix.predictable.Director;
 
 import javax.naming.NamingException;

@@ -4,18 +4,19 @@
 
 package dev.inward.matrix.control;
 
-import dev.inward.matrix.DatumView;
 import dev.inward.matrix.Matrix;
 import dev.inward.matrix.View;
 
-public class ControlView<C extends Control<C,V,M>,V extends ControlView<C,V,M>,M extends ControlModel<C,V,M>> extends View<C,V,M> {
+public class ControlView<CO extends Control<CO,CV,CM>,CV extends ControlView<CO,CV,CM>,CM extends ControlModel<CO,CV,CM>> extends View<CO,CV,CM> {
 
-    public ControlView(String name, C control) {
+    public ControlView(String name, CO control) {
         super(name, control);
     }
 
     @Override
-    public M getModel() {
-        return Matrix.getInstance().getControlModel(this.datum);
+    public CM getModel() {
+        return null;
     }
+
+
 }

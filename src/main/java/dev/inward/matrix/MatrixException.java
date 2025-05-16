@@ -26,7 +26,7 @@ public class MatrixException extends RuntimeException implements Exceptional {
         CodeSigners_not_initialized("Code Signer not initialized"),
         Domain_not_initialized_malformed_URL("Domain not initialized, malformed URL"),
         InSitu_already_init("InSitu already initialized, see Fidelity.Aforementioned"),
-        Host_Target_Match_Array_Mismatch("Comparing two Hosts which has the same library, target but not the same socket array, Host objects should be unique"),
+        Host_Target_Match_Array_Mismatch("Comparing two Hosts which has the same authority, target but not the same socket array, Host objects should be unique"),
         MissingDefaultValue("Missing a default value"),
         MissMatchedOptionKey("Option user was not set for proper instance value"),
         NetworkUnavailable_No_Return("Problem gaining network details"),

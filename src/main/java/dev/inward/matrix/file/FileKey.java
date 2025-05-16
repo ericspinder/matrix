@@ -5,9 +5,7 @@
 
 package dev.inward.matrix.file;
 
-import dev.inward.matrix.control.catalog.*;
-import dev.inward.matrix.control.library.*;
-import dev.inward.matrix.control.scheme.Scheme;
+import dev.inward.matrix.control.authority.*;
 import dev.inward.matrix.file.addressed.AddressedKey;
 import dev.inward.matrix.file.directory.*;
 
@@ -180,26 +178,16 @@ public abstract class FileKey<F extends File<F,K,V,M,R,L>,K extends FileKey<F,K,
     public static abstract class Builder<F extends File<F,K,V,M,R,L>,K extends FileKey<F,K,V,M,R,L>,V extends FileView<F,K,V,M,R,L>,M extends FileModel<F,K,V,M,R,L>,R extends FileReference<F,K,V,M,R,L>,L extends FileLibrarian<F,K,V,M,R,L>> {
 
         protected URI uri;
-        protected String scheme;
-        protected String domain;
-        protected int port;
+        protected Authority<?,?,?,?,?,?,?> authority;
 
-        public Builder<F,K,V,M,R,L> setScheme(String scheme) {
-            this.scheme = scheme;
+        public Builder<F,K,V,M,R,L> setLibrary(Authority<?,?,?,?,?,?,?> authority) {
+            this.authority = authority;
             return this;
         }
-        public Builder<F,K,V,M,R,L> setDomain(String domain) {
-            this.domain = domain;
-            return this;
-        }
-        public Builder<F,K,V,M,R,L> setPort(int port) {
-            this.port = port;
-            return this;
-        }
-        protected abstract URI makeUri() throws URISyntaxException;
+        protected abstract String completeUri() throws URISyntaxException;
         public final synchronized K buildMatrixKey() {
             try {
-                this.uri = this.makeUri();
+                this.uri = new URI(authority.getUrlString() + completeUri());
                 return this.newMatrixKey();
             }
             catch (URISyntaxException e) {

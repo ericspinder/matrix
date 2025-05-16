@@ -4,6 +4,9 @@
 
 package dev.inward.matrix;
 
+import dev.inward.matrix.control.Control;
+import dev.inward.matrix.control.ControlModel;
+import dev.inward.matrix.control.ControlView;
 import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
 import java.lang.ref.ReferenceQueue;
@@ -12,7 +15,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
 
-public abstract class Librarian<DATUM,V extends View<DATUM,V,M,R,B>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,B>,B extends Librarian<DATUM,V,M,R,B>> extends ReferenceQueue<DATUM> {
+public abstract class Librarian<DATUM,V extends View<DATUM,V,M>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,B>,B extends Librarian<DATUM,V,M,R,B,CL,CV,CM>,CL extends Control<CL,CV,CM>,CV extends ControlView<CL,CV,CM>,CM extends ControlModel<CL,CV,CM>> extends ReferenceQueue<DATUM> {
 
     protected final AtomicLong sequence = new AtomicLong();
     protected final AtomicLong removed = new AtomicLong();
@@ -25,8 +28,10 @@ public abstract class Librarian<DATUM,V extends View<DATUM,V,M,R,B>,M extends Mo
     protected Function<R,R> graveDigger;
     protected long warnOnTotal;
     protected long hardLimit;
+    protected final CL control;
 
-    public Librarian(Standard standard) {
+    public Librarian(CL control, Standard standard) {
+        this.control = control;
         this.standard = standard;
         try {
             this.viewClass = createViewClass();

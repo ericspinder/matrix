@@ -10,13 +10,13 @@ import dev.inward.matrix.Terrene;
 
 import java.net.URI;
 
-public class RealmScheme extends Scheme<RealmScheme, RealmLibrary,String> {
+public class RealmScheme extends Scheme<RealmScheme, RealmAuthority,String> {
     protected RealmScheme(Terrene terrene) {
         super(terrene, MatrixURLStreamHandlerProvider.Protocol.REALM);
     }
 
     @Override
-    public RealmLibrary buildNewLibrary(URI uri) {
+    public RealmAuthority buildNewLibrary(URI uri) {
         return null;
     }
 

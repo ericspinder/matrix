@@ -4,6 +4,10 @@
 
 package dev.inward.matrix.control;
 
-public interface Control<C extends Control<C,V,M>,V extends ControlView<C,V,M>,M extends ControlModel<C,V,M>> extends Comparable<C> {
+import dev.inward.matrix.Librarian;
+
+import java.util.Map;
+
+public interface Control<CO extends Control<CO,CV,CM>,CV extends ControlView<CO,CV,CM>,CM extends ControlModel<CO,CV,CM>> extends Comparable<CO> {
 
 }

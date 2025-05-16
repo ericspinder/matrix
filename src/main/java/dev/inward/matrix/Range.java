@@ -125,7 +125,7 @@ public abstract class Range<PATH extends Comparable<PATH>> implements Comparable
 
     public abstract String toString();
 
-//    public static <S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>> Catalog<S,L,PATH> GetCatlogForRange(L library, URL url) {
+//    public static <S extends Scheme<S,L>,L extends Library<S,L>,PATH extends Comparable<PATH>> Catalog<S,L,PATH> GetCatlogForRange(L authority, URL url) {
 //
 //    }
 

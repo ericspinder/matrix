@@ -5,15 +5,13 @@
 package dev.inward.matrix.control.scheme;
 
 import dev.inward.matrix.Matrix;
-import dev.inward.matrix.MatrixURLStreamHandlerProvider;
+import dev.inward.matrix.ProtocolParser;
 import dev.inward.matrix.Terrene;
 import dev.inward.matrix.control.Control;
-import dev.inward.matrix.control.domain.Domain;
-import dev.inward.matrix.control.library.*;
+import dev.inward.matrix.control.authority.*;
 import dev.inward.matrix.file.directory.*;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.*;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -62,37 +60,37 @@ public class Scheme<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends Dire
         }
     }
 
-    protected final Map<String, Library<DF,DK,DV,DM,DR,DL,PATH>> schemeLibraries = new ConcurrentHashMap<>();
+    protected final Map<String, Authority<DF,DK,DV,DM,DR,DL,PATH>> schemeLibraries = new ConcurrentHashMap<>();
 
     protected final Terrene terrene;
-    protected final MatrixURLStreamHandlerProvider.Protocol protocol;
+    protected final ProtocolParser<PATH> protocolParser;
     protected final String scheme;
 
     @SuppressWarnings("unchecked")
-    public Scheme(Terrene terrene, MatrixURLStreamHandlerProvider.Protocol protocol) {
+    public Scheme(Terrene terrene, ProtocolParser<PATH> protocolParser) {
         this.terrene = terrene;
-        this.protocol = protocol;
+        this.protocolParser = protocolParser;
         if (terrene != Terrene.Earth) {
-            this.scheme = terrene.toString() + '.' + protocol.getLabel();
+            this.scheme = terrene.toString() + '.' + protocolParser.getProtocol().getLabel();
         }
         else {
-            this.scheme = protocol.getLabel();
+            this.scheme = getProtocolParser().getProtocol().getLabel();
         }
     }
     @SuppressWarnings("unchecked")
-    public Library<DF,DK,DV,DM,DR,DL,PATH> findLibrary(URI uri) {
+    public Authority<DF,DK,DV,DM,DR,DL,PATH> findLibrary(URI uri) {
         int port = (uri.getPort() > 0) ? uri.getPort(): getDefaultPort();
         String library_cache_key = scheme + "://" + uri.getHost() + ':' + port;
         return schemeLibraries.containsKey(library_cache_key) ? schemeLibraries.get(library_cache_key): this.buildLibrary(library_cache_key,uri.getHost(),port);
     }
     @SuppressWarnings("unchecked")
-    public synchronized Library<DF,DK,DV,DM,DR,DL,PATH> buildLibrary(String library_cache_key, String host, int port) {
+    public synchronized Authority<DF,DK,DV,DM,DR,DL,PATH> buildLibrary(String library_cache_key, String host, int port) {
         if (schemeLibraries.containsKey(library_cache_key)) {
             return schemeLibraries.get(library_cache_key);
         }
-        Library<DF,DK,DV,DM,DR,DL,PATH> library = new Library<>(this, Matrix.getInstance().getDomain(this.terrene, host), port,this.protocol.getSeparator());
-        this.schemeLibraries.put(library_cache_key, library);
-        return library;
+        Authority<DF,DK,DV,DM,DR,DL,PATH> authority = new Authority<>(this, Matrix.getInstance().getDomain(this.terrene, host), port,this.protocolParser.getProtocol().getSeparator());
+        this.schemeLibraries.put(library_cache_key, authority);
+        return authority;
     }
     protected long getExceptionalSeries() {
         return 0;
@@ -102,8 +100,8 @@ public class Scheme<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends Dire
         return terrene;
     }
 
-    public MatrixURLStreamHandlerProvider.Protocol getProtocol() {
-        return protocol;
+    public ProtocolParser<PATH> getProtocolParser() {
+        return protocolParser;
     }
 
     public String getScheme() {
@@ -135,7 +133,7 @@ public class Scheme<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends Dire
 
     @Override
     public int getDefaultPort() {
-        return this.protocol.getDefaultPort();
+        return this.protocolParser.getProtocol().getDefaultPort();
     }
 
     @Override

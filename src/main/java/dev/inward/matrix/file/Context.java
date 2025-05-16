@@ -8,7 +8,6 @@ import dev.inward.matrix.DatumLibrarian;
 import dev.inward.matrix.control.catalog.Catalog;
 import dev.inward.matrix.file.directory.*;
 
-import java.security.Principal;
 import java.security.ProtectionDomain;
 
 public class Context<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> extends ProtectionDomain {

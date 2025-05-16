@@ -9,7 +9,7 @@ An extreme 'work in progress', which has changed significantly from the initial 
 
     dev.inward.matrix.control.scheme.Scheme extends java.net.URLStreamHandler
     
-    dev.inward.matrix.control.library.Library extends java.net.FileSystemProvider
+    dev.inward.matrix.control.authority.Authorityry extends java.net.FileSystemProvider
 
     dev.inward.matrix.Ledger extends java.net.FileSystem
 Ledgers contain Gatherings which hold Addressed objects

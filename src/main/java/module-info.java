@@ -8,10 +8,10 @@ module dev.inward.matrix {
     exports dev.inward.matrix.route;
     exports dev.inward.matrix.personality;
     exports dev.inward.matrix.ticket;
-    exports dev.inward.matrix.control.memory.bureau;
-    exports dev.inward.matrix.file.addressed.dns.nameServerRecord;
+    exports dev.inward.matrix.library.bureau;
+    exports dev.inward.matrix.file.resource.record.nameServerRecord;
     exports dev.inward.matrix.file.addressed.depot;
-    exports dev.inward.matrix.file.addressed.dns;
+    exports dev.inward.matrix.file.resource.record;
     exports dev.inward.matrix.file.addressed.https;
     exports dev.inward.matrix.file.addressed.log;
     exports dev.inward.matrix.file.user;
@@ -26,15 +26,15 @@ module dev.inward.matrix {
     exports dev.inward.matrix.file.addressed.depot.source;
     exports dev.inward.matrix.file.addressed.depot.variant;
     exports dev.inward.matrix.file.addressed.depot.specification;
-    exports dev.inward.matrix.file.addressed.dns.catalogRecord;
-    exports dev.inward.matrix.file.addressed.dns.serverRecord;
-    exports dev.inward.matrix.file.addressed.dns.serviceLocationRecord;
-    exports dev.inward.matrix.file.addressed.dns.startOfAuthority;
+    exports dev.inward.matrix.file.resource.record.catalogRecord;
+    exports dev.inward.matrix.file.resource.record.serverRecord;
+    exports dev.inward.matrix.file.resource.record.serviceLocationRecord;
+    exports dev.inward.matrix.file.resource.record.startOfAuthority;
     exports dev.inward.matrix.control;
     exports dev.inward.matrix.control.catalog;
-    exports dev.inward.matrix.control.library;
+    exports dev.inward.matrix.control.authority;
     exports dev.inward.matrix.control.domain;
-    exports dev.inward.matrix.control.memory.administration;
+    exports dev.inward.matrix.library.administration;
     exports dev.inward.matrix.control.scheme;
     exports dev.inward.matrix.file.directory;
 }

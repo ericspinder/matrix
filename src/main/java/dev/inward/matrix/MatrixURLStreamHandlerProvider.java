@@ -5,12 +5,6 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.control.scheme.Scheme;
-import dev.inward.matrix.file.addressed.depot.DepotScheme;
-import dev.inward.matrix.file.addressed.dns.DnsScheme;
-import dev.inward.matrix.file.addressed.http.HttpScheme;
-import dev.inward.matrix.file.addressed.https.HttpsScheme;
-import dev.inward.matrix.file.user.InfoScheme;
-import dev.inward.matrix.file.addressed.log.LogScheme;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.URLStreamHandler;
@@ -22,34 +16,31 @@ import java.util.Objects;
 public class MatrixURLStreamHandlerProvider extends URLStreamHandlerProvider {
 
 
-    protected static final Map<String, Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>> ALL_KNOWN_SCHEMES = new HashMap<>();
+    protected static final Map<String, Scheme<?,?,?,?,?,?,?>> ALL_KNOWN_SCHEMES = new HashMap<>();
 
-
-    public static Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> findSchemeForProtocolHost(Protocol protocol, Terrene terrene) {
-        if (uri.getScheme().indexOf('.') == -1) {
-            return findSchemeByString(Terrene.Earth.toString() + '.' + protocol.label);
-        }
-        else {
-            return findSchemeByString( uri.getScheme().substring(0,uri.getScheme().lastIndexOf('.'))+ '.' + protocol.label);
-        }
-    }
-    public static Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> findSchemeByString(String scheme_s) {
+    public static Scheme<?,?,?,?,?,?,?> findSchemeByString(String scheme_s) {
         String lowerCaseScheme = scheme_s.toLowerCase();
-        Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> scheme = ALL_KNOWN_SCHEMES.get(lowerCaseScheme);
-        if (scheme == null && lowerCaseScheme.indexOf('.') == -1) {
-            findSchemeByString(Terrene.Earth.toString() + '.' + lowerCaseScheme);
+        String schemeCacheKey;
+        Terrene terrene;
+        if (lowerCaseScheme.lastIndexOf('.') == -1) {
+            terrene = Terrene.Earth;
+            schemeCacheKey =  terrene.dnsClassCode + "_" + lowerCaseScheme;
         }
         else {
+            terrene = Terrene.Parse(lowerCaseScheme.substring(0,lowerCaseScheme.lastIndexOf('.')));
+            schemeCacheKey = terrene.dnsClassCode + "_" + lowerCaseScheme.substring(lowerCaseScheme.lastIndexOf('.'));
+        }
+        Scheme<?,?,?,?,?,?,?> scheme = ALL_KNOWN_SCHEMES.get(schemeCacheKey);
+        if (scheme == null) {
             synchronized (ALL_KNOWN_SCHEMES) {
-                scheme = ALL_KNOWN_SCHEMES.get(lowerCaseScheme);
+                scheme = ALL_KNOWN_SCHEMES.get(schemeCacheKey);
                 if (scheme == null) {
-                    Terrene terrene = Terrene.Parse(lowerCaseScheme.substring(0,lowerCaseScheme.lastIndexOf('.')));
                     String protocol_s = lowerCaseScheme.substring(lowerCaseScheme.lastIndexOf('.'));
                     for (Protocol protocol: Protocol.values()) {
                         if (protocol.getLabel().equals(protocol_s)) {
                             try {
-                                scheme = protocol.getSchemeClass().getConstructor(Terrene.class).newInstance(terrene);
-                                ALL_KNOWN_SCHEMES.put(lowerCaseScheme,scheme);
+                                scheme = new Scheme<>(terrene, protocol.parserClass.getConstructor().newInstance());
+                                ALL_KNOWN_SCHEMES.put(schemeCacheKey,scheme);
                                 return scheme;
                             } catch (NoSuchMethodException | IllegalAccessException | InstantiationException |
                                      InvocationTargetException e) {

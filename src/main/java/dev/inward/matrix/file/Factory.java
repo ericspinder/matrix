@@ -6,11 +6,9 @@ package dev.inward.matrix.file;
 
 import dev.inward.matrix.*;
 import dev.inward.matrix.addressed.*;
-import dev.inward.matrix.control.library.Library;
 import dev.inward.matrix.file.addressed.http.Fact;
 import dev.inward.matrix.file.directory.*;
 
-import java.lang.ref.WeakReference;
 import java.util.concurrent.locks.StampedLock;
 
 public class Factory<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> extends ClassLoader {

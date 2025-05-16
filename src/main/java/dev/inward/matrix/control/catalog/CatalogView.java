@@ -11,7 +11,7 @@ import java.nio.file.attribute.FileAttributeView;
 
 public class CatalogView<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> extends ControlView<Catalog<DF,DK,DV,DM,DR,DL,PATH>,CatalogView<DF,DK,DV,DM,DR,DL,PATH>,CatalogModel<DF,DK,DV,DM,DR,DL,PATH>> implements FileAttributeView {
 
-    public CatalogView(String name, Catalog<DF,DK,DV,DM,DR,DL,PATH> catalog, CatalogModel<DF,DK,DV,DM,DR,DL,PATH> catalogModel) {
-        super(name, catalog, catalogModel);
+    public CatalogView(String name, Catalog<DF,DK,DV,DM,DR,DL,PATH> catalog) {
+        super(name, catalog);
     }
 }
