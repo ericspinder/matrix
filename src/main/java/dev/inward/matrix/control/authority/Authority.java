@@ -7,6 +7,7 @@ package dev.inward.matrix.control.authority;
 import dev.inward.matrix.*;
 import dev.inward.matrix.control.catalog.Catalog;
 import dev.inward.matrix.control.domain.Domain;
+import dev.inward.matrix.library.Library;
 import dev.inward.matrix.library.bureau.Bureau;
 import dev.inward.matrix.control.Control;
 import dev.inward.matrix.control.scheme.Scheme;
@@ -27,7 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
-public class Authority<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> extends FileSystemProvider implements Control<Authority<DF,DK,DV,DM,DR,DL,PATH>, AuthorityView<DF,DK,DV,DM,DR,DL,PATH>, AuthorityModel<DF,DK,DV,DM,DR,DL,PATH>> {
+public class Authority<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> extends FileSystemProvider implements Library<>,Control<Authority<DF,DK,DV,DM,DR,DL,PATH>, AuthorityView<DF,DK,DV,DM,DR,DL,PATH>, AuthorityModel<DF,DK,DV,DM,DR,DL,PATH>> {
 
     protected final Scheme<DF,DK,DV,DM,DR,DL,PATH> scheme;
     protected final Domain domain;

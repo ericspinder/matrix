@@ -1,5 +1,5 @@
 plugins {
-    id 'java-authority' //https://docs.gradle.org/current/userguide/java_library_plugin.html#sec:java_library_configurations_graph
+    id 'java-library' //https://docs.gradle.org/current/userguide/java_library_plugin.html#sec:java_library_configurations_graph
     id 'groovy'
     id 'eclipse' // optional (to generate Eclipse project files)
     id 'idea' // optional (to generate IntelliJ IDEA project files)
