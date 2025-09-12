@@ -5,52 +5,50 @@
 
 package dev.inward.matrix.file;
 
+import dev.inward.matrix.Context;
+import dev.inward.matrix.MatrixException;
 import dev.inward.matrix.control.authority.*;
+import dev.inward.matrix.control.library.Library;
 import dev.inward.matrix.file.addressed.AddressedKey;
 import dev.inward.matrix.file.directory.*;
 
 import java.io.IOException;
+import java.lang.ref.Reference;
+import java.lang.reflect.ParameterizedType;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.*;
 import java.util.Objects;
 
-public abstract class FileKey<F extends File<F,K,V,M,R,L>,K extends FileKey<F,K,V,M,R,L>,V extends FileView<F,K,V,M,R,L>,M extends FileModel<F,K,V,M,R,L>,R extends FileReference<F,K,V,M,R,L>,L extends FileLibrarian<F,K,V,M,R,L>> implements Path {
+public abstract class FileKey<F extends File<F,K,V,M,R,L,C>,K extends FileKey<F,K,V,M,R,L,C>,V extends FileView<F,K,V,M,R,L,C>,M extends FileModel<F,K,V,M,R,L,C>,R extends FileReference<F,K,V,M,R,L,C>,L extends Librarian<F,K,V,M,R,L,C>,C extends Context<F,K,V,M,R,L,C>> implements Path {
 
     protected R reference;
-    protected final URI uri;
+    protected final URL url;
 
     protected FileKey(URI uri) {
-        this.uri = uri;
+        this.url = this.processUri(uri);
     }
     public R getReference() {
         return this.reference;
     }
     public void setReference(R reference) {
-        if (this.reference == null && reference.get() != null && reference.get().key == this) {
+        if (this.reference != null && Objects.requireNonNull(reference.get()).key == this) {
             this.reference = reference;
-        }
-        else {
+        } else {
             throw new RuntimeException("Cannot reset reference");
         }
     }
+    protected abstract URL processUri(URI uri);
 
     @Override
-    public WatchKey register(WatchService watcher, WatchEvent.Kind<?>[] events, WatchEvent.Modifier... modifiers) throws IOException {
-        return null;
-    }
-    @Override
-    public WatchKey register(WatchService watcher, WatchEvent.Kind<?>[] events) throws IOException {
-        return null;
-    }
-
-    @Override
-    public FileSystem getFileSystem() {
-        F file = this.reference.get();
-        if (file != null) {
-            return file.getContext().catalog;
+    public Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> getFileSystem() {
+        if (reference != null && Objects.requireNonNull(reference.get()).key == this) {
+            if (this.reference != null && Objects.requireNonNull(reference.get()).key == this) {
+                return this.getReference().get().getLibrarian().getCatalog().getLibrary();
+            }
         }
-        return null;
+        throw  new RuntimeException("Cannot get file system");
     }
 
     @Override
@@ -60,8 +58,8 @@ public abstract class FileKey<F extends File<F,K,V,M,R,L>,K extends FileKey<F,K,
 
     @Override
     public Path getRoot() {
-        if (this instanceof FileKey<?,?,?,?,?,?> fileKey) {
-            return null;
+        if (this instanceof FileKey<?,?,?,?,?,?,?> fileKey) {
+            Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> library = this.getFileSystem().getRootDirectories();
         }
         return this;
     }
@@ -79,8 +77,8 @@ public abstract class FileKey<F extends File<F,K,V,M,R,L>,K extends FileKey<F,K,
         if (this instanceof AddressedKey<?,?,?,?,?,?,?,?,?,?,?,?,?,?> addressedKey) {
             return addressedKey.getDirectoryKey();
         }
-        if (this instanceof DirectoryKey<?,?,?,?,?,?,?> directoryKey) {
-            Directory<?,?,?,?,?,?,?> directory = directoryKey.reference.get();
+        if (this instanceof DirectoryKey<?,?,?,?,?,?,?,?> directoryKey) {
+            Directory<?,?,?,?,?,?,?,?> directory = directoryKey.reference.get();
             if (directory != null) {
                 return this.reference.get().getContext().getCatalog().findDirectoryKey(directoryKey.getParentPathString());
             }
@@ -175,7 +173,7 @@ public abstract class FileKey<F extends File<F,K,V,M,R,L>,K extends FileKey<F,K,
         return this.uri.toString();
     }
 
-    public static abstract class Builder<F extends File<F,K,V,M,R,L>,K extends FileKey<F,K,V,M,R,L>,V extends FileView<F,K,V,M,R,L>,M extends FileModel<F,K,V,M,R,L>,R extends FileReference<F,K,V,M,R,L>,L extends FileLibrarian<F,K,V,M,R,L>> {
+    public static abstract class Builder<F extends File<F,K,V,M,R,L,C>,K extends FileKey<F,K,V,M,R,L,C>,V extends FileView<F,K,V,M,R,L,C>,M extends FileModel<F,K,V,M,R,L,C>,R extends Reference<F> & FileReference<F,K,V,M,R,L,C>,L extends Librarian<F,K,V,M,R,L,C>,C extends Context<F,K,V,M,R,L,C>> {
 
         protected URI uri;
         protected Authority<?,?,?,?,?,?,?> authority;
@@ -196,5 +194,9 @@ public abstract class FileKey<F extends File<F,K,V,M,R,L>,K extends FileKey<F,K,
         }
         protected abstract K newMatrixKey();
 
+        @SuppressWarnings("unchecked")
+        protected Class<K> getFileKeyClass() {
+            return (Class<K>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
+        }
     }
 }

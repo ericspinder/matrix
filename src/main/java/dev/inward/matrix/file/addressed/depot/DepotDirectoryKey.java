@@ -8,7 +8,7 @@ import dev.inward.matrix.file.directory.DirectoryKey;
 
 import java.net.URI;
 
-public class DepotDirectoryKey extends DirectoryKey<DepotDirectory,DepotDirectoryKey,DepotDirectoryView,DepotDirectoryModel,DepotDirectoryReference, DepotDirectoryLibrarian,DepotPath> {
+public class DepotDirectoryKey extends DirectoryKey<DepotDirectory,DepotDirectoryKey,DepotDirectoryView,DepotDirectoryModel, DepotDirectoryReference, DepotDirectoryLibrarian,DepotPath> {
     protected DepotDirectoryKey(URI uri, DepotPath directoryPath) {
         super(uri, directoryPath);
     }

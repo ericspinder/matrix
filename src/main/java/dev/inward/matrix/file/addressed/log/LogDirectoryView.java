@@ -6,7 +6,7 @@ package dev.inward.matrix.file.addressed.log;
 
 import dev.inward.matrix.file.directory.DirectoryView;
 
-public class LogDirectoryView extends DirectoryView<LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel,LogDirectoryReference,LogDirectoryLibrarian,LogPath> {
+public class LogDirectoryView extends DirectoryView<LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel, LogDirectoryReference, LogDirectoryLibrarian,LogPath> {
 
     public LogDirectoryView(String name, LogDirectory logDirectory) {
         super(name, logDirectory);

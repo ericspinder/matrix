@@ -6,7 +6,7 @@ package dev.inward.matrix.file.addressed.log;
 
 import dev.inward.matrix.file.directory.DirectoryReference;
 
-public class LogDirectoryReference extends DirectoryReference<LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel,LogDirectoryReference,LogDirectoryLibrarian,LogPath> {
+public class LogDirectoryReference extends DirectoryReference<LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel, LogDirectoryReference, LogDirectoryLibrarian,LogPath> {
     public LogDirectoryReference(LogDirectory referent, LogDirectoryLibrarian resource) {
         super(referent, resource);
     }

@@ -18,9 +18,9 @@ public interface Meta_I {
     }
     default String parseDefaultI18n() {
         if (this.getLabel() == null) {
-            return getClassName() + ".label_value_NULL";
+            return getClassName();
         }
-        return getClassName() + '.' + getLabel();
+        return getLabel();
     }
 
 }

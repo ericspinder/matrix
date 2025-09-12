@@ -6,7 +6,7 @@ package dev.inward.matrix.file.addressed.http;
 
 import dev.inward.matrix.file.directory.DirectoryReference;
 
-public class HttpDirectoryReference extends DirectoryReference<HttpDirectory,HttpDirectoryKey,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference,HttpDirectoryLibrarian,String> {
+public class HttpDirectoryReference extends DirectoryReference<HttpDirectory,HttpDirectoryKey,HttpDirectoryView,HttpDirectoryModel, HttpDirectoryReference, HttpDirectoryLibrarian,String> {
     public HttpDirectoryReference(HttpDirectory referent, HttpDirectoryLibrarian resource) {
         super(referent, resource);
     }

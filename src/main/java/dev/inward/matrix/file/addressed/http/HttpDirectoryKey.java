@@ -8,7 +8,7 @@ import dev.inward.matrix.file.directory.DirectoryKey;
 
 import java.net.URI;
 
-public class HttpDirectoryKey extends DirectoryKey<HttpDirectory,HttpDirectoryKey,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference,HttpDirectoryLibrarian,String> {
+public class HttpDirectoryKey extends DirectoryKey<HttpDirectory,HttpDirectoryKey,HttpDirectoryView,HttpDirectoryModel, HttpDirectoryReference, HttpDirectoryLibrarian,String> {
     protected HttpDirectoryKey(URI uri, String directoryPath) {
         super(uri, directoryPath);
     }

@@ -4,19 +4,19 @@
 
 package dev.inward.matrix.predictable;
 
-import dev.inward.matrix.Librarian;
+import dev.inward.matrix.Concept;
 import dev.inward.matrix.Model;
-import dev.inward.matrix.Reference;
+import dev.inward.matrix._WeakReference;
 import dev.inward.matrix.View;
-import dev.inward.matrix.file.addressed.log.Matter;
+import dev.inward.matrix.file.addressed.log.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bout<DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,G>,G extends Librarian<DATUM,V,M,R,G>> {
+public class Bout<DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends _WeakReference<DATUM,V,M,R,G>,G extends Concept<DATUM,V,M,R,G>> {
 
     protected final DATUM datum;
-    protected final List<? extends Matter> completedMatters = new ArrayList<>();
+    protected final List<? extends Log> completedMatters = new ArrayList<>();
 
     public Bout(DATUM datum) {
         this.datum = datum;
@@ -27,7 +27,7 @@ public class Bout<DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends
     }
 
 
-    public List<? extends Matter> getCompletedMatters() {
+    public List<? extends Log> getCompletedMatters() {
         return completedMatters;
     }
 }

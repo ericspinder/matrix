@@ -7,7 +7,7 @@ package dev.inward.matrix.file.addressed.log;
 import dev.inward.matrix.file.directory.DirectoryLibrarian;
 import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
-public class LogDirectoryLibrarian extends DirectoryLibrarian<LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel,LogDirectoryReference,LogDirectoryLibrarian,LogPath> {
+public class LogDirectoryLibrarian extends DirectoryLibrarian<LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel, LogDirectoryReference, LogDirectoryLibrarian,LogPath> {
 
     public LogDirectoryLibrarian(Standard standard) {
         super(standard);

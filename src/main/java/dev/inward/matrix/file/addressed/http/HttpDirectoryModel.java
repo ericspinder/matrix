@@ -7,7 +7,7 @@ package dev.inward.matrix.file.addressed.http;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.file.directory.DirectoryModel;
 
-public class HttpDirectoryModel extends DirectoryModel<HttpDirectory,HttpDirectoryKey,HttpDirectoryView,HttpDirectoryModel,HttpDirectoryReference,HttpDirectoryLibrarian,String> {
+public class HttpDirectoryModel extends DirectoryModel<HttpDirectory,HttpDirectoryKey,HttpDirectoryView,HttpDirectoryModel, HttpDirectoryReference, HttpDirectoryLibrarian,String> {
 
     public HttpDirectoryModel(Aspect[] labeledAspects) {
         super(labeledAspects);

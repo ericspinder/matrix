@@ -4,23 +4,20 @@
 
 package dev.inward.matrix.file;
 
+import dev.inward.matrix.Model;
+import dev.inward.matrix.Concept;
+import dev.inward.matrix._WeakReference;
+import dev.inward.matrix.View;
 import dev.inward.matrix.file.addressed.depot.specification.Specification;
-import dev.inward.matrix.file.directory.*;
 
 import java.security.cert.CertPath;
 import java.util.Properties;
 
-public abstract class Operational<PATH extends Comparable<PATH>,DK extends DirectoryKey<PATH,DK,DF,DV,DM,DR,DB>,DF extends Directory<PATH,DK,DF,DV,DM,DR,DB>,DV extends DirectoryView<PATH,DK,DF,DV,DM,DR,DB>,DM extends DirectoryModel<PATH,DK,DF,DV,DM,DR,DB>,DR extends DirectoryReference<PATH,DK,DF,DV,DM,DR,DB>,DB extends DirectoryLibrarian<PATH,DK,DF,DV,DM,DR,DB>,K extends FileKey<PATH,DK,DF,DV,DM,DR,DB,K,F,V,M,R,B>,F extends File<PATH,DK,DF,DV,DM,DR,DB,K,F,V,M,R,B>,V extends FileView<PATH,DK,DF,DV,DM,DR,DB,K,F,V,M,R,B>,M extends FileModel<PATH,DK,DF,DV,DM,DR,DB,K,F,V,M,R,B>,R extends FileReference<PATH,DK,DF,DV,DM,DR,DB,K,F,V,M,R,B>,B extends FileLibrarian<PATH,DK,DF,DV,DM,DR,DB,K,F,V,M,R,B>> {
+public abstract class Operational<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>,R extends _WeakReference<TARGET,V,M,R,O>,O extends Operational<TARGET,V,M,R,O>> extends Concept<TARGET,V,M,O> {
 
-    protected final CertPath[] certPaths;
-
-    protected final Specification specification;
-    // protected final Options
     protected final Properties properties;
-    public Operational(CertPath[] certPaths, Properties properties, Specification specification) {
-        this.certPaths = certPaths;
-        this.properties = properties;
-        this.specification = specification;
+    public Operational(Specification specification) {
+        specification.getOptions()
     }
 
     public CertPath[] getCertPaths() {

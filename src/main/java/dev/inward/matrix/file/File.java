@@ -4,10 +4,11 @@
 
 package dev.inward.matrix.file;
 
-import dev.inward.matrix.*;
-import dev.inward.matrix.file.directory.*;
+import dev.inward.matrix.Context;
 
-public abstract class File<F extends File<F,K,V,M,R,L>,K extends FileKey<F,K,V,M,R,L>,V extends FileView<F,K,V,M,R,L>,M extends FileModel<F,K,V,M,R,L>,R extends FileReference<F,K,V,M,R,L>,L extends FileLibrarian<F,K,V,M,R,L>> implements Datum<F,V,M,R,L> {
+import java.lang.ref.Reference;
+
+public abstract class File<F extends File<F,K,V,M,R,L,C>,K extends FileKey<F,K,V,M,R,L,C>,V extends FileView<F,K,V,M,R,L,C>,M extends FileModel<F,K,V,M,R,L,C>,R extends FileReference<F,K,V,M,R,L,C>,L extends Librarian<F,K,V,M,R,L,C>,C extends Context<F,K,V,M,R,L,C>>  {
 
     protected final K key;
 
@@ -19,9 +20,8 @@ public abstract class File<F extends File<F,K,V,M,R,L>,K extends FileKey<F,K,V,M
         return this.key;
     }
 
-    @Override
-    public R getReference() {
-        return this.key.reference;
+    public L getLibrarian() {
+        return ((C)this.getClass().getProtectionDomain()).getLibrarian();
     }
 
 }

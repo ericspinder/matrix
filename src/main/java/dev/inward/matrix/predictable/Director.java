@@ -43,7 +43,7 @@ public class Director {
      * @param <K> MatrixKey
      * @param <I> MatrixItem
      */
-    public <K extends MatrixKey<K,I,V,M,R, G>,I extends MatrixItem<K,I,V,M,R,G>,V extends View<I,M>,M extends Model<I>,R extends Reference<I,V,M,R,G>,G extends Librarian<I,V,M,R,G>> Road getRoad(K matrixKey, Road chosenRoad) {
+    public <K extends MatrixKey<K,I,V,M,R, G>,I extends MatrixItem<K,I,V,M,R,G>,V extends View<I,M>,M extends Model<I>,R extends _WeakReference<I,V,M,R,G>,G extends Concept<I,V,M,R,G>> Road getRoad(K matrixKey, Road chosenRoad) {
         String keyValue = matrixKey.toUri().toString();
         this.roadByMatrixKeyPath.put(keyValue, chosenRoad);
         return chosenRoad;
@@ -56,10 +56,10 @@ public class Director {
      * @param <K> matrixKey
      * @param <I> matrixItem
      */
-    public <K extends MatrixKey<K,I,V,M,R, G>,I extends MatrixItem<K,I,V,M,R,G>,V extends View<I,M>,M extends Model<I>,R extends Reference<I,V,M,R,G>,G extends Librarian<I,V,M,R,G>> Road getRoad(K matrixKey) {
+    public <K extends MatrixKey<K,I,V,M,R, G>,I extends MatrixItem<K,I,V,M,R,G>,V extends View<I,M>,M extends Model<I>,R extends _WeakReference<I,V,M,R,G>,G extends Concept<I,V,M,R,G>> Road getRoad(K matrixKey) {
         return this.roadByMatrixKeyPath.get(matrixKey.toUri().toString());
     }
-    public <K extends MatrixKey<K,I,V,M,R, G>,I extends MatrixItem<K,I,V,M,R,G>,V extends View<I,M>,M extends Model<I>,R extends Reference<I,V,M,R,G>,G extends Librarian<I,V,M,R,G>> void close(K matrixKey) {
+    public <K extends MatrixKey<K,I,V,M,R, G>,I extends MatrixItem<K,I,V,M,R,G>,V extends View<I,M>,M extends Model<I>,R extends _WeakReference<I,V,M,R,G>,G extends Concept<I,V,M,R,G>> void close(K matrixKey) {
         Road road = this.getRoad(matrixKey);
         if (road != null) {
             road.close();

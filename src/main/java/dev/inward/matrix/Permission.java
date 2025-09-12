@@ -4,8 +4,9 @@
 
 package dev.inward.matrix;
 
+import dev.inward.matrix.file.FileReference;
 import dev.inward.matrix.file.addressed.user.*;
-import dev.inward.matrix.file.user.*;
+import dev.inward.matrix.item.datum.administrator.*;
 import dev.inward.matrix.user.*;
 
 import java.nio.file.attribute.*;
@@ -14,14 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
-public abstract class Permission<K extends PrivilegeKey<K,F,V,M,R,B>,F extends Privilege<K,F,V,M,R,B>,V extends PrivilegeView<K,F,V,M,R,B>,M extends PrivilegeModel<K,F,V,M,R,B>,R extends PrivilegeReference<K,F,V,M,R,B>,B extends PrivilegeLibrarian<K,F,V,M,R,B>> extends BasicPermission {
+public abstract class Permission<K extends AdministratorKey<K,F,V,M,R,B>,F extends Administrator<K,F,V,M,R,B>,V extends AdministratorView<K,F,V,M,R,B>,M extends AdministratorModel<K,F,V,M,R,B>,R extends FileReference,B extends AdministratorClerk<K,F,V,M,R,B>> extends BasicPermission {
     protected final F who;
 
     public Permission(F who, String path) {
         super(path);
         this.who = who;
     }
-    public static class AclPermission extends Permission<AgentKey, Agent,AgentView, AgentModel, AgentReference,AgentLibrarian> {
+    public static class AclPermission extends Permission<AgentKey, Agent,AgentView, AgentModel, AgentReferenceWeak, AgentClerk> {
 
         protected final AclEntryType aclEntryType;
         protected final List<AclEntryPermission> aclEntryPermissionList;
@@ -55,7 +56,7 @@ public abstract class Permission<K extends PrivilegeKey<K,F,V,M,R,B>,F extends P
             return sj.toString();
         }
     }
-    public static abstract class PosixPermission<K extends PrivilegeKey<K,F,V,M,R,B>,F extends Privilege<K,F,V,M,R,B>,V extends PrivilegeView<K,F,V,M,R,B>,M extends PrivilegeModel<K,F,V,M,R,B>,R extends PrivilegeReference<K,F,V,M,R,B>,B extends PrivilegeLibrarian<K,F,V,M,R,B>> extends Permission<K,F,V,M,R,B> {
+    public static abstract class PosixPermission<K extends AdministratorKey<K,F,V,M,R,B>,F extends Administrator<K,F,V,M,R,B>,V extends AdministratorView<K,F,V,M,R,B>,M extends AdministratorModel<K,F,V,M,R,B>,R extends FileReference,B extends AdministratorClerk<K,F,V,M,R,B>> extends Permission<K,F,V,M,R,B> {
 
         protected final List<PosixFilePermission> posixFilePermissionList;
         protected abstract List<PosixFilePermission> parse(List<PosixFilePermission> posixFilePermissions);
@@ -64,7 +65,7 @@ public abstract class Permission<K extends PrivilegeKey<K,F,V,M,R,B>,F extends P
             this.posixFilePermissionList = parse(posixFilePermissionList);
         }
 
-        public static class PosixUserPermission extends PosixPermission<AgentKey, Agent, AgentView, AgentModel, AgentReference, AgentLibrarian> {
+        public static class PosixUserPermission extends PosixPermission<AgentKey, Agent, AgentView, AgentModel, AgentReferenceWeak, AgentClerk> {
 
             public PosixUserPermission(Agent who, String path, List<PosixFilePermission> posixFilePermissionList) {
                 super(who, path,posixFilePermissionList);
@@ -82,7 +83,7 @@ public abstract class Permission<K extends PrivilegeKey<K,F,V,M,R,B>,F extends P
             }
         }
 
-        public static class PosixGroupPermission extends PosixPermission<HouseKey, House, HouseView, HouseModel, HouseReference, HouseLibrarian> {
+        public static class PosixGroupPermission extends PosixPermission<HouseKey, House, HouseView, HouseModel, HouseReferenceWeak, HouseClerk> {
 
             public PosixGroupPermission(House who, String path, List<PosixFilePermission> posixFilePermissionList) {
                 super(who, path, posixFilePermissionList);
@@ -98,7 +99,7 @@ public abstract class Permission<K extends PrivilegeKey<K,F,V,M,R,B>,F extends P
                 return  parsed;
             }
         }
-        public static class PosixOtherPermission extends PosixPermission<AgentKey,Agent,AgentView,AgentModel,AgentReference,AgentLibrarian> {
+        public static class PosixOtherPermission extends PosixPermission<AgentKey,Agent,AgentView,AgentModel, AgentReferenceWeak, AgentClerk> {
 
             public PosixOtherPermission(String path, List<PosixFilePermission> posixFilePermissionList) {
                 super(null, path, posixFilePermissionList);

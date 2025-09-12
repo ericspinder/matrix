@@ -4,13 +4,13 @@
 
 package dev.inward.matrix.file;
 
-import dev.inward.matrix.*;
-import dev.inward.matrix.file.directory.*;
+import dev.inward.matrix.Context;
+import dev.inward.matrix.Bus;
 
-public abstract class FileReference<F extends File<F,K,V,M,R,L>,K extends FileKey<F,K,V,M,R,L>,V extends FileView<F,K,V,M,R,L>,M extends FileModel<F,K,V,M,R,L>,R extends FileReference<F,K,V,M,R,L>,L extends FileLibrarian<F,K,V,M,R,L>> extends DatumReference<F,V,M,R,L> {
+public interface FileReference<F extends File<F,K,V,M,R,L,C>,K extends FileKey<F,K,V,M,R,L,C>,V extends FileView<F,K,V,M,R,L,C>,M extends FileModel<F,K,V,M,R,L,C>,R extends FileReference<F,K,V,M,R,L,C>,L extends Librarian<F,K,V,M,R,L,C>,C extends Context<F,K,V,M,R,L,C>> extends Bus {
 
-    public FileReference(F referent, L librarian) {
-        super(referent, librarian);
-    }
+
+    public long getSequence();
+    public F get();
 
 }

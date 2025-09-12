@@ -6,22 +6,22 @@ package dev.inward.matrix;
 
 import java.nio.file.attribute.AttributeView;
 
-public abstract class View<DATUM,V extends View<DATUM,V,M>,M extends Model<DATUM>> implements AttributeView {
+public abstract class View<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>> implements AttributeView {
 
     protected final String name;
-    protected final DATUM datum;
+    protected final TARGET target;
 
-    public View(String name, DATUM datum) {
+    public View(String name, TARGET target) {
         this.name = name;
-        this.datum = datum;
+        this.target = target;
     }
     @Override
     public String name() {
         return null;
     }
 
-    public DATUM getDatum() {
-        return this.datum;
+    public TARGET getTarget() {
+        return this.target;
     }
     public abstract M getModel();
 

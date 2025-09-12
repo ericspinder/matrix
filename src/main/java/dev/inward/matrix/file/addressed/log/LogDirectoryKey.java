@@ -8,12 +8,12 @@ import dev.inward.matrix.file.directory.DirectoryKey;
 
 import java.net.URI;
 
-public class LogDirectoryKey extends DirectoryKey<LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel,LogDirectoryReference,LogDirectoryLibrarian,LogPath> {
+public class LogDirectoryKey extends DirectoryKey<LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel, LogDirectoryReference, LogDirectoryLibrarian,LogPath> {
     protected LogDirectoryKey(URI uri, LogPath logPath) {
         super(uri,logPath);
     }
 
-    public static class Builder extends DirectoryKey.Builder<LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel,LogDirectoryReference,LogDirectoryLibrarian,LogPath> {
+    public static class Builder extends DirectoryKey.Builder<LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel, LogDirectoryReference, LogDirectoryLibrarian,LogPath> {
 
         @Override
         protected LogDirectoryKey newMatrixKey() {

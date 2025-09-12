@@ -6,7 +6,7 @@ package dev.inward.matrix.file.addressed.depot.source;
 
 import dev.inward.matrix.file.addressed.depot.DepotView;
 
-public class SourceView extends DepotView<Source,SourceKey,SourceView,SourceModel,SourceReference,SourceLibrarian> {
+public class SourceView extends DepotView<Source,SourceKey,SourceView,SourceModel, SourceReference, SourceLibrarian> {
     public SourceView(String name, Source file) {
         super(name, file);
     }

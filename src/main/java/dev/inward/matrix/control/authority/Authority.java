@@ -5,12 +5,15 @@
 package dev.inward.matrix.control.authority;
 
 import dev.inward.matrix.*;
-import dev.inward.matrix.control.catalog.Catalog;
+import dev.inward.matrix.control.library.Library;
 import dev.inward.matrix.control.domain.Domain;
-import dev.inward.matrix.library.Library;
-import dev.inward.matrix.library.bureau.Bureau;
+import dev.inward.matrix.catalog.bureau.Bureau;
 import dev.inward.matrix.control.Control;
+import dev.inward.matrix.control.library.LibraryModel;
+import dev.inward.matrix.control.library.LibraryView;
 import dev.inward.matrix.control.scheme.Scheme;
+import dev.inward.matrix.control.scheme.SchemeModel;
+import dev.inward.matrix.control.scheme.SchemeView;
 import dev.inward.matrix.file.directory.*;
 
 import java.io.IOException;
@@ -23,21 +26,24 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileAttribute;
 import java.nio.file.attribute.FileAttributeView;
 import java.nio.file.spi.FileSystemProvider;
+import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
-public class Authority<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> extends FileSystemProvider implements Library<>,Control<Authority<DF,DK,DV,DM,DR,DL,PATH>, AuthorityView<DF,DK,DV,DM,DR,DL,PATH>, AuthorityModel<DF,DK,DV,DM,DR,DL,PATH>> {
+public class Authority<S extends Scheme<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,SV extends SchemeView<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,SM extends SchemeModel<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,A extends Authority<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,AV extends AuthorityView<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,AM extends AuthorityModel<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,L extends Library<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,LV extends LibraryView<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,LM extends LibraryModel<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DF extends Directory<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DK extends DirectoryKey<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DV extends DirectoryView<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DM extends DirectoryModel<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DR extends DirectoryReference<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DL extends DirectoryLibrarian<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DX extends DirectoryContext<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,PATH extends Comparable<PATH>> extends FileSystemProvider implements Control<A,AV,AM> {
 
-    protected final Scheme<DF,DK,DV,DM,DR,DL,PATH> scheme;
+    protected final UUID uuid = UUID.randomUUID();
+    protected final Instant createTime = Instant.now();
+    protected final S scheme;
     protected final Domain domain;
     protected final Integer port;
     protected final String urlString;
-    protected final Map<Range<PATH>,Catalog<DF,DK,DV,DM,DR,DL,PATH>> rangeCatalogMap = new ConcurrentHashMap<>();
-    protected final Map<String,? extends Librarian<?,?,?,?,?,?,?,?>> classNameResourceMap = new HashMap<>();
+    protected final Map<Range<PATH>, L> rangeCatalogMap = new ConcurrentHashMap<>();
+    protected final Map<String,? extends Concept<?,?,?>> classNameResourceMap = new HashMap<>();
 
-    protected final Map<Catalog<DF,DK,DV,DM,DR,DL,PATH>, Bureau<?,?,?>[]> catalogMemoryMap;
+    protected final Map<L, Bureau<?,?,?>[]> catalogMemoryMap;
 
     protected StringBuilder firstLimitReachedMessage(String className, long warnTotal, long hardLimit) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -48,7 +54,7 @@ public class Authority<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends D
         return firstLimitReachedMessage(className,warnTotal,hardLimit).append(' ').append(previousMessage).toString() ;
     }
 
-    public Authority(Scheme<DF,DK,DV,DM,DR,DL,PATH> scheme, Domain domain, int port) {
+    public Authority(S scheme, Domain domain, int port) {
         this.scheme = scheme;
         this.domain = domain;
         if (scheme.getTerrene() != domain.getTerrene()) {
@@ -63,6 +69,21 @@ public class Authority<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends D
             this.urlString = urlStringTemp + ":" + this.port;
         }
         this.catalogMemoryMap = Matrix.getInstance().getCatalogRecords(domain, scheme.getProtocolParser().getProtocol().getLabel());
+    }
+
+    @Override
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    @Override
+    public Instant getCreateInstant() {
+        return createTime;
+    }
+
+    @Override
+    public Matrix getMatrix() {
+        return null;
     }
 
     public String getUrlString() {
@@ -86,11 +107,11 @@ public class Authority<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends D
         return this.scheme.getScheme();
     }
 
-    public Scheme<DF,DK,DV,DM,DR,DL,PATH> get_Scheme() {
+    public S get_Scheme() {
         return this.scheme;
     }
 
-    private Catalog<DF, DK, DV, DM, DR, DL, PATH> findCatalog(PATH filePath) {
+    private L findCatalog(PATH filePath) {
         for (Range<PATH> range: this.rangeCatalogMap.keySet()) {
             if (range.eval(filePath)) {
                 return this.rangeCatalogMap.get(range);
@@ -99,7 +120,7 @@ public class Authority<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends D
         throw new RuntimeException("Cannot find catalog for " + filePath);
     }
     @Override
-    public synchronized Catalog<DF,DK,DV,DM,DR,DL,PATH> newFileSystem(URI uri, Map<String, ?> env) throws IOException {
+    public synchronized L newFileSystem(URI uri, Map<String, ?> env) throws IOException {
         if (uri.isAbsolute() && uri.getScheme().equals(this.getScheme()) && uri.getHost().equals(this.domain.getDomainName()) && uri.getPort() == port) {
             Map<String, List<String>> queryMap = splitQuery(uri);
 
@@ -108,7 +129,7 @@ public class Authority<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends D
     }
 
     @Override
-    public Catalog<DF,DK,DV,DM,DR,DL,PATH> getFileSystem(URI uri) {
+    public L getFileSystem(URI uri) {
         if (uri.isAbsolute() && uri.getScheme().equals(this.getScheme()) && uri.getHost().equals(this.domain.getDomainName()) && uri.getPort() == port) {
 
         }
@@ -215,7 +236,7 @@ public class Authority<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends D
 //    }
 
     @Override
-    public int compareTo(Authority<DF, DK, DV, DM, DR, DL, PATH> that) {
+    public int compareTo(A that) {
         return this.urlString.compareTo(that.urlString);
     }
 }

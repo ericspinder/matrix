@@ -6,21 +6,27 @@ package dev.inward.matrix.file.addressed.depot.standard;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.file.addressed.depot.Depot;
 
-public class Standard extends Depot<Standard,StandardKey,StandardView,StandardModel,StandardReference,StandardLibrarian> {
+public class Standard extends Depot<Standard,StandardKey,StandardView,StandardModel, StandardReference, StandardLibrarian> {
 
     protected final Aspect[] aspects;
     protected final String graveDiggerClassName;
+    protected final String referenceClassName;
     protected final long warnOnTotalDefault;
     protected final long hardLimitDefault;
 
 
 
-    public Standard(final StandardKey identity, Aspect[] aspects, String graveDiggerClassName, long warnOnTotalDefault, long hardLimitDefault) {
+    public Standard(final StandardKey identity, Aspect[] aspects, String graveDiggerClassName, String referenceClassName, long warnOnTotalDefault, long hardLimitDefault) {
         super(identity);
         this.aspects = aspects;
         this.graveDiggerClassName = graveDiggerClassName;
+        this.referenceClassName = referenceClassName;
         this.warnOnTotalDefault = warnOnTotalDefault;
         this.hardLimitDefault = hardLimitDefault;
+    }
+
+    public String getReferenceClassName() {
+        return referenceClassName;
     }
 
     public String getGraveDiggerClassName() {

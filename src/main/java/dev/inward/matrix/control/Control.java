@@ -4,10 +4,14 @@
 
 package dev.inward.matrix.control;
 
-import dev.inward.matrix.Librarian;
+import dev.inward.matrix.Matrix;
 
-import java.util.Map;
+import java.time.Instant;
+import java.util.UUID;
 
-public interface Control<CO extends Control<CO,CV,CM>,CV extends ControlView<CO,CV,CM>,CM extends ControlModel<CO,CV,CM>> extends Comparable<CO> {
+public interface Control<CO extends Control<CO,CV,CM>,CV extends ControlView<CO,CV,CM>,CM extends ControlModel<CO,CV,CM>> extends Comparable<CO>, Marked {
 
+    default Matrix getMatrix() {
+        return Matrix.getInstance();
+    }
 }

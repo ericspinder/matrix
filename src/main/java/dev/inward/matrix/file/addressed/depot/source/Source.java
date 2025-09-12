@@ -5,7 +5,7 @@ package dev.inward.matrix.file.addressed.depot.source;
 
 import dev.inward.matrix.file.addressed.depot.Depot;
 
-public class Source extends Depot<Source,SourceKey,SourceView,SourceModel,SourceReference,SourceLibrarian> {
+public class Source extends Depot<Source,SourceKey,SourceView,SourceModel, SourceReference, SourceLibrarian> {
     public Source(SourceKey identity) {
         super(identity);
     }

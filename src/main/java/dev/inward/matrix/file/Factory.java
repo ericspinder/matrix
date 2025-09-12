@@ -5,19 +5,20 @@
 package dev.inward.matrix.file;
 
 import dev.inward.matrix.*;
-import dev.inward.matrix.addressed.*;
+import dev.inward.matrix.catalog.Catalog;
 import dev.inward.matrix.file.addressed.http.Fact;
-import dev.inward.matrix.file.directory.*;
+import dev.inward.matrix.item.datum.Datum;
 
 import java.util.concurrent.locks.StampedLock;
 
-public class Factory<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> extends ClassLoader {
+public class Factory extends ClassLoader {
 
-    private Context<DF,DK,DV,DM,DR,DL,PATH> context;
+    protected final Librarian<?,?,?,?,?,?,?> librarian;
     protected StampedLock gate = new StampedLock();
 
-    public Factory() {
+    public Factory(Librarian<?,?,?,?,?,?,?> librarian) {
         super();
+        this.librarian = librarian;
     }
     @SuppressWarnings("unchecked")
     public <O extends Operational<DATUM,V,M,R,B>> void installEngine(O operational) {
@@ -36,11 +37,20 @@ public class Factory<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends Dir
             gate.unlockRead(readLock);
         }
     }
+
+    public Concept<F, K, M> getConcept() {
+        return concept;
+    }
+
+    public Catalog<F, K, M> getCatalog() {
+        return catalog;
+    }
+
     public Gathering<DATUM,V,M,R,B> getGathering() {
         return this.gathering;
     }
 
-    public <DATUM, D extends Datum<DATUM,D,E>,E extends DatumReference<DATUM,D,E>> E add(D datum) {
+    public <DATUM, D extends Datum<DATUM,D,E>,E extends DatumReferenceWeak<DATUM,D,E>> E add(D datum) {
         return null;
     }
     public Fact.AddressedResource<S,L,PATH,ID,T,C> getResources() {

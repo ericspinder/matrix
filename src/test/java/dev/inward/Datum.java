@@ -11,6 +11,7 @@ import dev.inward.matrix.*;
 import dev.inward.matrix.control.authority.Authority;
 import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.file.addressed.depot.standard.Standard;
+import dev.inward.matrix.item.datum.DatumView;
 
 import java.io.Serializable;
 import java.util.function.Function;
@@ -21,11 +22,11 @@ public abstract class Datum<DATUM,D extends Datum<DATUM,D,V>,V extends Envoy<DAT
     @SuppressWarnings("unchecked")
     public final Envoy<DATUM,D,V> envoy = ((Factory<?,?,?,?,?,?>)this.getClass().getClassLoader()).add((D)this);
 
-    static class DatumLibrarian<S extends Scheme<S,L>,L extends Authority<S,L>,D extends dev.inward.matrix.Datum<S,L,D,E,A>, E extends DatumReference<S,L,D,E,A>,A extends DatumView<S,L,D,E,A>> extends Librarian<S,L,D,E,A> {
+    static class DatumConcept<S extends Scheme<S,L>,L extends Authority<S,L>,D extends dev.inward.matrix.item.datum.Datum<S,L,D,E,A>, E extends DatumReferenceWeak<S,L,D,E,A>,A extends DatumView<S,L,D,E,A>> extends Concept<S,L,D,E,A> {
 
 
 
-        public DatumLibrarian(Standard standard, Function<E,E> graveDigger) {
+        public DatumConcept(Standard standard, Function<E,E> graveDigger) {
             super(standard, graveDigger);
         }
     }

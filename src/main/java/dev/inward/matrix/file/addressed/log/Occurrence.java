@@ -13,10 +13,10 @@ public class Occurrence implements Comparable<Occurrence> {
     protected final UUID uuid;
     protected final Instant createTime;
 
-    protected final Matter.Severity severity;
+    protected final Log.Severity severity;
     protected Duration duration;
 
-    public Occurrence(UUID uuid, Instant createTime, Matter.Severity severity) {
+    public Occurrence(UUID uuid, Instant createTime, Log.Severity severity) {
         this.uuid = uuid;
         this.createTime = createTime;
         this.severity = severity;
@@ -36,5 +36,4 @@ public class Occurrence implements Comparable<Occurrence> {
     public void markEnd() {
         this.duration = Duration.between(createTime,Instant.now());
     }
-
 }

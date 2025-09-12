@@ -8,28 +8,40 @@ package dev.inward.matrix.control.domain;
 import dev.inward.matrix.HostExperience;
 import dev.inward.matrix.Terrene;
 import dev.inward.matrix.control.Control;
-import dev.inward.matrix.control.local.Local;
-import dev.inward.matrix.file.resource.record.nameServerRecord.NameServerRecord;
-import dev.inward.matrix.file.resource.record.serverRecord.ServerRecord;
+import dev.inward.matrix.file.addressed.dns.nameServerRecord.NameServerRecord;
+import dev.inward.matrix.file.addressed.dns.serverRecord.ServerRecord;
 import dev.inward.matrix.predictable.Director;
 
 import javax.naming.NamingException;
 import javax.naming.directory.Attribute;
 import javax.naming.directory.InitialDirContext;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Domain implements Control<Domain,DomainView,DomainModel> {
 
+    protected final UUID uuid = UUID.randomUUID();
+    protected final Instant createTime = Instant.now();
 
     private final Terrene terrene;
     private final String domainName;
-    private final Director director;
-    public Domain(Terrene terrene, String domainName) {
+    private Director director;
+    public Domain(Terrene terrene, String domainName, Director director) {
         this.terrene = terrene;
         this.domainName = domainName;
-        this.director = Local.getInstance().getDirector(this);
+    }
+
+    @Override
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    @Override
+    public Instant getCreateInstant() {
+        return createTime;
     }
 
     public Terrene getTerrene() {

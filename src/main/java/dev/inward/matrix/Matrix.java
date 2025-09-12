@@ -7,22 +7,60 @@ package dev.inward.matrix;
 import dev.inward.matrix.control.Control;
 import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.control.authority.Authority;
-import dev.inward.matrix.file.addressed.dns.*;
-import dev.inward.matrix.file.resource.record.DnsDirectoryKey;
-import dev.inward.matrix.file.resource.record.DnsPath;
-import dev.inward.matrix.file.resource.record.ResourceRecordType;
-import dev.inward.matrix.file.resource.record.catalogRecord.CatalogRecord;
+import dev.inward.matrix.control.scheme.Scheme;
+import dev.inward.matrix.file.addressed.dns.ResourceRecordType;
+import dev.inward.matrix.file.addressed.dns.catalogRecord.LibraryRecord;
+import dev.inward.matrix.predictable.Director;
 
 import javax.naming.NamingException;
 import javax.naming.directory.InitialDirContext;
-import java.io.IOException;
 import java.lang.instrument.Instrumentation;
 import java.lang.ref.WeakReference;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Matrix {
+
+    protected static final Map<String, Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>> ALL_KNOWN_SCHEMES = new HashMap<>();
+
+    public static Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> findSchemeByString(String scheme_s) {
+        String lowerCaseScheme = scheme_s.toLowerCase();
+        String schemeCacheKey;
+        Terrene terrene;
+        if (lowerCaseScheme.lastIndexOf('.') == -1) {
+            terrene = Terrene.Earth;
+            schemeCacheKey =  terrene.dnsClassCode + "_" + lowerCaseScheme;
+        }
+        else {
+            terrene = Terrene.Parse(lowerCaseScheme.substring(0,lowerCaseScheme.lastIndexOf('.')));
+            schemeCacheKey = terrene.dnsClassCode + "_" + lowerCaseScheme.substring(lowerCaseScheme.lastIndexOf('.'));
+        }
+        Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> scheme = ALL_KNOWN_SCHEMES.get(schemeCacheKey);
+        if (scheme == null) {
+            synchronized (ALL_KNOWN_SCHEMES) {
+                scheme = ALL_KNOWN_SCHEMES.get(schemeCacheKey);
+                if (scheme == null) {
+                    String protocol_s = lowerCaseScheme.substring(lowerCaseScheme.lastIndexOf('.'));
+                    for (MatrixURLStreamHandlerProvider.Protocol protocol: MatrixURLStreamHandlerProvider.Protocol.values()) {
+                        if (protocol.getLabel().equals(protocol_s)) {
+                            try {
+                                scheme = new Scheme<>(terrene, protocol.parserClass.getConstructor().newInstance());
+                                ALL_KNOWN_SCHEMES.put(schemeCacheKey,scheme);
+                                return scheme;
+                            } catch (NoSuchMethodException | IllegalAccessException | InstantiationException |
+                                     InvocationTargetException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }
+                    throw new RuntimeException("Protocol not found" + protocol_s);
+                }
+            }
+        }
+        return scheme;
+    }
 
     private static Matrix Instance;
     public static Matrix getInstance() {
@@ -49,9 +87,9 @@ public class Matrix {
         }
         this.localhostDomain = getDomain(Terrene.Parse(commandLine.getValue("terrene")), "localhost");
     }
-    public CatalogRecord getCatalogRecord(Authority<?,?,?,?,?,?,?> authority, MatrixURLStreamHandlerProvider.Protocol protocol) {
+    public LibraryRecord getCatalogRecord(Authority<?,?,?,?,?,?,?> authority, MatrixURLStreamHandlerProvider.Protocol protocol) {
         try {
-            this.dirContext.getAttributes("dns:" + authority.getDomain().getDomainName() + ".", new String[] {"TXT"});
+            authority.getDomain()
             DnsDirectoryKey directoryKey = (new DnsDirectoryKey.Builder()).setPath(new DnsPath(authority.getDomain().getDomainName(), ResourceRecordType.CatalogRecord)).setLibrary(authority).buildMatrixKey();
 
 
@@ -61,16 +99,16 @@ public class Matrix {
     }
 
     public Domain getDomain(Terrene terrene, String domainName) {
-        String domainKey = terrene.toString() +domainName;
+        String domainKey = terrene.toString() + domainName;
         if (!allBuiltDomains.containsKey(domainKey) || allBuiltDomains.get(domainKey).get() == null) {
             return newDomain(terrene, domainName);
         }
         return allBuiltDomains.get(domainKey).get();
     }
-    protected synchronized Domain newDomain(Terrene terrene, String domainName) {
+    protected synchronized Domain newDomain(Terrene terrene, String domainName, Director director) {
         String domainKey = terrene.toString() + "_" + domainName;
         if (!allBuiltDomains.containsKey(domainKey) || allBuiltDomains.get(domainKey).get() == null) {
-            Domain domain = new Domain(terrene, domainName);
+            Domain domain = new Domain(terrene, domainName, director);
             allBuiltDomains.put(domainKey,new WeakReference<>(domain));
             return domain;
         }
@@ -95,15 +133,5 @@ public class Matrix {
     public InitialDirContext getDirContext() {
         return dirContext;
     }
-    public static void premain(String agentArgs, Instrumentation instrumentation) throws InstantiationException {
-        try {
-            if (Instance != null) {
-                throw new RuntimeException("premain cannot be called twice");
-            }
-            Instance = new Matrix(new CommandLine(agentArgs), instrumentation);
 
-        } catch (IOException e) {
-            throw new InstantiationException("Cannot create instance of Ziggurat from premain method");
-        }
-    }
 }

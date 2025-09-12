@@ -6,12 +6,12 @@ package dev.inward.matrix;
 
 import dev.inward.matrix.file.addressed.AddressedKey;
 import dev.inward.matrix.file.addressed.depot.indica.IndicaKey;
-import dev.inward.matrix.file.user.Persona;
-import dev.inward.matrix.file.addressed.log.Matter;
+import dev.inward.matrix.item.datum.administrator.Persona;
+import dev.inward.matrix.file.addressed.log.Log;
 
 import java.time.Instant;
 
-public class Engagement extends Matter {
+public class Engagement extends Log {
 
     protected final Persona persona;
     private final F fingerprint;

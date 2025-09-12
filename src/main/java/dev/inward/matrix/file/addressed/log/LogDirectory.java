@@ -6,9 +6,7 @@ package dev.inward.matrix.file.addressed.log;
 
 import dev.inward.matrix.file.directory.Directory;
 
-import java.util.UUID;
-
-public class LogDirectory extends Directory<LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel,LogDirectoryReference,LogDirectoryLibrarian,LogPath> {
+public class LogDirectory extends Directory<LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel, LogDirectoryReference, LogDirectoryLibrarian,LogPath> {
     public LogDirectory(LogDirectoryKey directoryKey) {
         super(directoryKey);
     }

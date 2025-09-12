@@ -4,17 +4,18 @@
 package dev.inward.matrix.file;
 
 import dev.inward.matrix.*;
-import dev.inward.matrix.file.directory.*;
+import dev.inward.matrix.catalog.Catalog;
+import dev.inward.matrix.item.datum.Datum;
 
 import java.time.Instant;
 import java.util.Arrays;
 
-public class Engine<PATH extends Comparable<PATH>,DK extends DirectoryKey<PATH,DK,DF,DV,DM,DR,DB>,DF extends Directory<PATH,DK,DF,DV,DM,DR,DB>,DV extends DirectoryView<PATH,DK,DF,DV,DM,DR,DB>,DM extends DirectoryModel<PATH,DK,DF,DV,DM,DR,DB>,DR extends DirectoryReference<PATH,DK,DF,DV,DM,DR,DB>,DB extends DirectoryLibrarian<PATH,DK,DF,DV,DM,DR,DB>,K extends FileKey<PATH,DK,DF,DV,DM,DR,DB,K,F,V,M,R,B>,F extends File<PATH,DK,DF,DV,DM,DR,DB,K,F,V,M,R,B>,V extends FileView<PATH,DK,DF,DV,DM,DR,DB,K,F,V,M,R,B>,M extends FileModel<PATH,DK,DF,DV,DM,DR,DB,K,F,V,M,R,B>,R extends FileReference<PATH,DK,DF,DV,DM,DR,DB,K,F,V,M,R,B>,B extends FileLibrarian<PATH,DK,DF,DV,DM,DR,DB,K,F,V,M,R,B>> {
+public class Engine<F extends File<F,K,V,M,R,L>,K extends FileKey<F,K,V,M,R,L>,V extends FileView<F,K,V,M,R,L>,M extends FileModel<F,K,V,M,R,L>,R extends FileReference<F,K,V,M,R,L>,L extends Librarian<F,K,V,M,R,L>> {
 
     public final Instant createInstant = Instant.now();
     protected final Operational<DATUM,V,M,R,B> operational;
 
-    public Engine(Operational<DATUM,V,M,R,B> operational, B resource) {
+    public Engine(Catalog<?,?,?> catalog) {
         this.operational = operational;
         Arrays.stream(operational.specification).forEach(i ->this.inductionMap.put(i.getDatumClassName(),i));
     }
@@ -29,9 +30,9 @@ public class Engine<PATH extends Comparable<PATH>,DK extends DirectoryKey<PATH,D
         );
     }
     @SuppressWarnings("unchecked")
-    public <DATUM,D extends Datum<DATUM,D,V>,V extends DatumReference<DATUM,D,V>> V add(DATUM datum) {
+    public <DATUM,D extends Datum<DATUM,D,V>,V extends DatumReferenceWeak<DATUM,D,V>> V add(DATUM datum) {
         try {
-            Librarian<DATUM> steward = (Librarian<DATUM>) this.producer.get(((D) datum).getClass());
+            Concept<DATUM> steward = (Concept<DATUM>) this.producer.get(((D) datum).getClass());
             return this.defineClass()add(datum,this);
         }
         catch (ClassCastException cce) {

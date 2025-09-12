@@ -6,11 +6,11 @@ package dev.inward.matrix.predictable;
 
 import dev.inward.matrix.MatrixItem;
 import dev.inward.matrix.MatrixKey;
-import dev.inward.matrix.file.addressed.log.Matter;
+import dev.inward.matrix.file.addressed.log.Log;
 
 import java.util.concurrent.TimeUnit;
 
-public abstract class PolicyCriterion<PATH extends Comparable<PATH>,K extends MatrixKey<PATH,K,I>,I extends MatrixItem<PATH,K,I>,M extends Matter> extends Criterion<PATH,K,I> {
+public abstract class PolicyCriterion<PATH extends Comparable<PATH>,K extends MatrixKey<PATH,K,I>,I extends MatrixItem<PATH,K,I>,M extends Log> extends Criterion<PATH,K,I> {
 
     protected final int threads;
     protected final boolean autoStart;

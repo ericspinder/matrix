@@ -4,18 +4,52 @@
 
 package dev.inward.matrix.control.local;
 
+import dev.inward.matrix.CommandLine;
+import dev.inward.matrix.Matrix;
 import dev.inward.matrix.control.Control;
 import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.predictable.Director;
 
+import java.io.IOException;
+import java.lang.instrument.Instrumentation;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class  Local implements Control<Local,LocalView,LocalModel> {
 
-    public Local(LocalModel localModel) {
-        this.localModel = localModel;
+    protected final UUID uuid = UUID.randomUUID();
+    protected final Instant createTime = Instant.now();
+
+
+    public Local() {
+
+
     }
+
+    public static void premain(String agentArgs, Instrumentation instrumentation) throws InstantiationException {
+        try {
+            if (Instance != null) {
+                throw new RuntimeException("premain cannot be called twice");
+            }
+            Instance = new Matrix(new CommandLine(agentArgs), instrumentation);
+
+        } catch (IOException e) {
+            throw new InstantiationException("Cannot create instance of Ziggurat from premain method");
+        }
+    }
+
+    @Override
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    @Override
+    public Instant getCreateInstant() {
+        return createTime;
+    }
+
     protected Map<String, Director> directorByTerrene_Domain = new HashMap<>();
 
     public void addDirector(Domain domain, Director director) {

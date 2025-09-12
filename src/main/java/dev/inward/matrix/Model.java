@@ -7,23 +7,26 @@ package dev.inward.matrix;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.nio.file.attribute.FileAttribute;
+import java.security.PermissionCollection;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-public abstract class Model<DATUM> {
+public abstract class Model<TARGET> extends PermissionCollection {
 
     protected final Map<String,Aspect> labeledAspects = new ConcurrentHashMap<>();
     protected final Map<Aspect.AspectType<?>,Aspect> typedAspects = new ConcurrentHashMap<>();
-    protected final Map<RestraintType,Restraint> restraints;
     protected final List<Field> fields;
 
     @SuppressWarnings("unchecked")
-    public Model(Class<? super DATUM> datumClass, Aspect[] labeledAspects) {
+    public Model(Class<? super TARGET> targetClass, Aspect[] labeledAspects) {
         for (Aspect aspect: labeledAspects) {
             this.labeledAspects.put(aspect.getLabel(),aspect);
             this.typedAspects.put(aspect.type, aspect);
         }
-        this.fields = getAllModelFields(datumClass);
+        if (targetClass == null) {
+            targetClass = (Class<TARGET>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        }
+        this.fields = getAllModelFields(targetClass);
     }
     public static List<Field> getAllModelFields(Class<?> aClass) {
         List<Field> fields = new ArrayList<>();
@@ -74,17 +77,16 @@ public abstract class Model<DATUM> {
                 }
             }
     }
-    public Map<String,InstanceValue<?>> getInitialProperties(DATUM item) {
+    public Map<String,InstanceValue<?>> getInitialProperties(TARGET TARGET) {
         Map<String,InstanceValue<?>> map = new ConcurrentHashMap<>();
         for (Field field: fields) {
             Aspect aspect = labeledAspects.get(field.getName());
             if (aspect != null) {
-                map.put(aspect.type.getLabel(),aspect.process(field,item));
+                map.put(aspect.type.getLabel(),aspect.process(field, TARGET));
             }
         }
         return map;
     }
-
 
     public Map<String, Aspect> getLabeledAspects() {
         return labeledAspects;

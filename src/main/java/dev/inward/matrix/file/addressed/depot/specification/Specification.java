@@ -7,13 +7,11 @@ import dev.inward.matrix.Meta_I;
 import dev.inward.matrix.file.addressed.depot.Depot;
 import dev.inward.matrix.file.addressed.depot.indica.IndicaKey;
 import dev.inward.matrix.file.addressed.depot.standard.Standard;
-import dev.inward.matrix.file.resource.record.serverRecord.ServerRecord;
+import dev.inward.matrix.file.addressed.dns.serverRecord.ServerRecord;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-public class Specification extends Depot<Specification,SpecificationKey,SpecificationView,SpecificationModel,SpecificationReference,SpecificationLibrarian> {
+public class Specification extends Depot<Specification,SpecificationKey,SpecificationView,SpecificationModel, SpecificationReference, SpecificationLibrarian> {
 
     protected final Map<String, DefaultOption<?,?>> options;
     protected final Map<IndicaKey, ServerRecord[]> focusServerMap;
@@ -23,8 +21,6 @@ public class Specification extends Depot<Specification,SpecificationKey,Specific
 
     public Specification(final SpecificationKey identity, final String description, Standard[] standards) {
         super(identity);
-        this.options = optionMap;
-        this.focusServerMap = focusServerMap;
         this.standards = standards;
     }
 
@@ -33,17 +29,8 @@ public class Specification extends Depot<Specification,SpecificationKey,Specific
         return focusServerMap;
     }
 
-    public List<Standard<X,?>> getStandards(Zone zone) {
-        List<Standard> standardsList = new ArrayList<>();
-        for(Map.Entry<Standard,Zone[]> entry: standardContextsMap.entrySet()) {
-            for (Zone zoneTest: entry.getValue()) {
-                if(zoneTest.equals(zone)) {
-                    standardsList.add(entry.getKey());
-                    break;
-                }
-            }
-        }
-        return standardsList;
+    public Standard[] getStandards() {
+        return standards;
     }
     public <MAT extends Matter<MAT,I,ID,VERSION,X>> ServerRecord[] getServer(MAT matter) {
         for (Map.Entry<IndicaKey, ServerRecord[]> indiciaEntry: indiciaServerMap.entrySet()) {

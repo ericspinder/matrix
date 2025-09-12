@@ -7,7 +7,7 @@ package dev.inward.matrix.file.addressed.log;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.file.directory.DirectoryModel;
 
-public class LogDirectoryModel extends DirectoryModel<LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel,LogDirectoryReference,LogDirectoryLibrarian,LogPath> {
+public class LogDirectoryModel extends DirectoryModel<LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel, LogDirectoryReference, LogDirectoryLibrarian,LogPath> {
 
     public LogDirectoryModel(Aspect[] labeledAspects) {
         super(labeledAspects);

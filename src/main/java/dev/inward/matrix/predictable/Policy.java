@@ -6,13 +6,13 @@ package dev.inward.matrix.predictable;
 
 import dev.inward.matrix.*;
 import dev.inward.matrix.file.addressed.depot.indica.Indica;
-import dev.inward.matrix.file.addressed.log.Matter;
+import dev.inward.matrix.file.addressed.log.Log;
 
 import java.util.Objects;
 import java.util.UUID;
 
 
-public abstract class Policy<PK extends MatrixKey<PK,PI,PV,PM,PR,PG>,PI extends MatrixItem<PK,PI,PV,PM,PR,PG>,PV extends View<PI,PM>,PM extends Model<PI>,PR extends Reference<PI,PV,PM,PR,PG>,PG extends Librarian<PI,PV,PM,PR,PG>, DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,G>,G extends Librarian<DATUM,V,M,R,G>> {
+public abstract class Policy<PK extends MatrixKey<PK,PI,PV,PM,PR,PG>,PI extends MatrixItem<PK,PI,PV,PM,PR,PG>,PV extends View<PI,PM>,PM extends Model<PI>,PR extends _WeakReference<PI,PV,PM,PR,PG>,PG extends Concept<PI,PV,PM,PR,PG>, DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends _WeakReference<DATUM,V,M,R,G>,G extends Concept<DATUM,V,M,R,G>> {
 
     protected final UUID uuid = UUID.randomUUID();
     protected final Complication<PK,PI,PV,PM,PR,PG,DATUM,V,M,R,G> complication;
@@ -26,7 +26,7 @@ public abstract class Policy<PK extends MatrixKey<PK,PI,PV,PM,PR,PG>,PI extends 
         this.criterion = criterion;
     }
 
-    public abstract Matter process(Bout<DATUM,V,M,R,G> bout);
+    public abstract Log process(Bout<DATUM,V,M,R,G> bout);
 
     @Override
     public boolean equals(Object that) {

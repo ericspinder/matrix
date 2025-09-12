@@ -6,7 +6,7 @@ package dev.inward.matrix.predictable;
 
 import dev.inward.matrix.*;
 import dev.inward.matrix.file.addressed.depot.indica.Indica;
-import dev.inward.matrix.file.addressed.log.Matter;
+import dev.inward.matrix.file.addressed.log.Log;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
@@ -14,11 +14,11 @@ import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.locks.StampedLock;
 
-public class Complication<PK extends MatrixKey<PK,PI,PV,PM,PR,PG>,PI extends MatrixItem<PK,PI,PV,PM,PR,PG>,PV extends View<PI,PM>,PM extends Model<PI>,PR extends Reference<PI,PV,PM,PR,PG>,PG extends Librarian<PI,PV,PM,PR,PG>,DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends Reference<DATUM,V,M,R,G>,G extends Librarian<DATUM,V,M,R,G>> implements Runnable {
+public class Complication<PK extends MatrixKey<PK,PI,PV,PM,PR,PG>,PI extends MatrixItem<PK,PI,PV,PM,PR,PG>,PV extends View<PI,PM>,PM extends Model<PI>,PR extends _WeakReference<PI,PV,PM,PR,PG>,PG extends Concept<PI,PV,PM,PR,PG>,DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends _WeakReference<DATUM,V,M,R,G>,G extends Concept<DATUM,V,M,R,G>> implements Runnable {
 
     protected final StampedLock gate = new StampedLock();
     protected final UUID uuid = UUID.randomUUID();
-    protected final ConcurrentLinkedDeque<Matter> competedMatters = new ConcurrentLinkedDeque<>();
+    protected final ConcurrentLinkedDeque<Log> competedLogs = new ConcurrentLinkedDeque<>();
     protected final WeakReference<Director> directorWeakReference;
     protected final PI parent;
     protected final Provider<DATUM,V,M,R,G> provider;

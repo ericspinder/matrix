@@ -5,7 +5,7 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.file.addressed.depot.indica.IndicaKey;
-import dev.inward.matrix.file.addressed.log.Matter;
+import dev.inward.matrix.file.addressed.log.Log;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -50,7 +50,7 @@ public abstract class Hosts<S extends SocketAddress> implements Comparable<Hosts
                 if (isZero == 0) {
                     return isZero;
                 }
-                throw new MatrixException(MatrixException.Type.Host_Target_Match_Array_Mismatch,"Host CompareTo", IndicaKey.Focus.Assembly, Matter.Severity.Critical,new Exception("stack trace..."));
+                throw new MatrixException(MatrixException.Type.Host_Target_Match_Array_Mismatch,"Host CompareTo", IndicaKey.Focus.Assembly, Log.Severity.Critical,new Exception("stack trace..."));
             }
         }
         return isZero;

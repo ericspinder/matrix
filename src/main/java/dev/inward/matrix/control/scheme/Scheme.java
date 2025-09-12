@@ -7,16 +7,19 @@ package dev.inward.matrix.control.scheme;
 import dev.inward.matrix.Matrix;
 import dev.inward.matrix.ProtocolParser;
 import dev.inward.matrix.Terrene;
-import dev.inward.matrix.control.Control;
 import dev.inward.matrix.control.authority.*;
+import dev.inward.matrix.control.library.Library;
+import dev.inward.matrix.control.library.LibraryModel;
+import dev.inward.matrix.control.library.LibraryView;
 import dev.inward.matrix.file.directory.*;
 
 import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
 import java.net.*;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Scheme<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DR extends DirectoryReference<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,PATH>,PATH extends Comparable<PATH>> extends URLStreamHandler implements Control<Scheme<DF,DK,DV,DM,DR,DL,PATH>,SchemeView<DF,DK,DV,DM,DR,DL,PATH>,SchemeModel<DF,DK,DV,DM,DR,DL,PATH>> {
+public abstract class Scheme<S extends Scheme<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,SV extends SchemeView<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,SM extends SchemeModel<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,A extends Authority<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,AV extends AuthorityView<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,AM extends AuthorityModel<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,L extends Library<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,LV extends LibraryView<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,LM extends LibraryModel<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DF extends Directory<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DK extends DirectoryKey<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DV extends DirectoryView<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DM extends DirectoryModel<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DR extends DirectoryReference<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DL extends DirectoryLibrarian<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DX extends DirectoryContext<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,PATH extends Comparable<PATH>> extends URLStreamHandler implements Comparable<S> {
 
     public enum Reserved {
         Semicolon(';'),
@@ -65,6 +68,7 @@ public class Scheme<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends Dire
     protected final Terrene terrene;
     protected final ProtocolParser<PATH> protocolParser;
     protected final String scheme;
+    protected final Class<A> authorityClass;
 
     @SuppressWarnings("unchecked")
     public Scheme(Terrene terrene, ProtocolParser<PATH> protocolParser) {
@@ -76,19 +80,20 @@ public class Scheme<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends Dire
         else {
             this.scheme = getProtocolParser().getProtocol().getLabel();
         }
+        authorityClass = (Class<A>)((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[3];
     }
     @SuppressWarnings("unchecked")
-    public Authority<DF,DK,DV,DM,DR,DL,PATH> findLibrary(URI uri) {
+    public A findLibrary(URI uri) {
         int port = (uri.getPort() > 0) ? uri.getPort(): getDefaultPort();
         String library_cache_key = scheme + "://" + uri.getHost() + ':' + port;
         return schemeLibraries.containsKey(library_cache_key) ? schemeLibraries.get(library_cache_key): this.buildLibrary(library_cache_key,uri.getHost(),port);
     }
     @SuppressWarnings("unchecked")
-    public synchronized Authority<DF,DK,DV,DM,DR,DL,PATH> buildLibrary(String library_cache_key, String host, int port) {
+    public synchronized A buildLibrary(String library_cache_key, String host, int port) {
         if (schemeLibraries.containsKey(library_cache_key)) {
             return schemeLibraries.get(library_cache_key);
         }
-        Authority<DF,DK,DV,DM,DR,DL,PATH> authority = new Authority<>(this, Matrix.getInstance().getDomain(this.terrene, host), port,this.protocolParser.getProtocol().getSeparator());
+        A authority = authorityClass.getConstructor()this, Matrix.getInstance().getDomain(this.terrene, host), port);
         this.schemeLibraries.put(library_cache_key, authority);
         return authority;
     }
@@ -127,8 +132,12 @@ public class Scheme<DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends Dire
         throw new IOException("URLConnection not available use obtainClerk(URL url)");
     }
     @Override
-    public int compareTo(Scheme<DF,DK,DV,DM,DR,DL,PATH> that) {
-        return this.scheme.compareTo(that.scheme);
+    public int compareTo(S that) {
+        int isZero = this.terrene.compareTo(that.getTerrene());
+        if (isZero == 0) {
+            return this.scheme.compareTo(that.scheme);
+        }
+        return isZero;
     }
 
     @Override

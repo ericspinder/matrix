@@ -16,9 +16,9 @@ import java.util.Objects;
 public class MatrixURLStreamHandlerProvider extends URLStreamHandlerProvider {
 
 
-    protected static final Map<String, Scheme<?,?,?,?,?,?,?>> ALL_KNOWN_SCHEMES = new HashMap<>();
+    protected static final Map<String, Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>> ALL_KNOWN_SCHEMES = new HashMap<>();
 
-    public static Scheme<?,?,?,?,?,?,?> findSchemeByString(String scheme_s) {
+    public static Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> findSchemeByString(String scheme_s) {
         String lowerCaseScheme = scheme_s.toLowerCase();
         String schemeCacheKey;
         Terrene terrene;
@@ -30,7 +30,7 @@ public class MatrixURLStreamHandlerProvider extends URLStreamHandlerProvider {
             terrene = Terrene.Parse(lowerCaseScheme.substring(0,lowerCaseScheme.lastIndexOf('.')));
             schemeCacheKey = terrene.dnsClassCode + "_" + lowerCaseScheme.substring(lowerCaseScheme.lastIndexOf('.'));
         }
-        Scheme<?,?,?,?,?,?,?> scheme = ALL_KNOWN_SCHEMES.get(schemeCacheKey);
+        Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> scheme = ALL_KNOWN_SCHEMES.get(schemeCacheKey);
         if (scheme == null) {
             synchronized (ALL_KNOWN_SCHEMES) {
                 scheme = ALL_KNOWN_SCHEMES.get(schemeCacheKey);
@@ -39,7 +39,7 @@ public class MatrixURLStreamHandlerProvider extends URLStreamHandlerProvider {
                     for (Protocol protocol: Protocol.values()) {
                         if (protocol.getLabel().equals(protocol_s)) {
                             try {
-                                scheme = new Scheme<>(terrene, protocol.parserClass.getConstructor().newInstance());
+                                scheme = new Scheme<>(terrene, protocol.parserClass.getConstructor(Protocol.class).newInstance(protocol));
                                 ALL_KNOWN_SCHEMES.put(schemeCacheKey,scheme);
                                 return scheme;
                             } catch (NoSuchMethodException | IllegalAccessException | InstantiationException |
@@ -56,7 +56,7 @@ public class MatrixURLStreamHandlerProvider extends URLStreamHandlerProvider {
     }
 
     @Override
-    public URLStreamHandler createURLStreamHandler(String scheme) {
+    public Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> createURLStreamHandler(String scheme) {
         return findSchemeByString(scheme);
     }
 

@@ -8,9 +8,7 @@ import dev.inward.matrix.file.addressed.depot.DepotLibrarian;
 import dev.inward.matrix.file.addressed.depot.specification.Specification;
 import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
-import java.util.function.Function;
-
-public class SourceLibrarian extends DepotLibrarian<Source,SourceKey,SourceView,SourceModel,SourceReference,SourceLibrarian> {
+public class SourceLibrarian extends DepotLibrarian<Source,SourceKey,SourceView,SourceModel, SourceReference, SourceLibrarian> {
 
     public SourceLibrarian(Standard standard, Specification specification) {
         super(standard, specification);

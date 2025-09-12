@@ -4,7 +4,7 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.control.catalog.CatalogKey;
+import dev.inward.matrix.control.library.CatalogKey;
 import dev.inward.matrix.file.addressed.depot.DepotLibrary;
 import dev.inward.matrix.file.addressed.depot.indica.Indica;
 import dev.inward.matrix.file.addressed.depot.indica.IndicaKey;
@@ -17,7 +17,7 @@ import java.net.URI;
 import java.nio.file.*;
 import java.util.*;
 
-public abstract class MatrixKey<K extends MatrixKey<K,I,V,M,R,B>,I extends MatrixItem<K,I,V,M,R,B>,V extends View<I,V,M,R,B>,M extends Model<I>,R extends Reference<I,V,M,R,B>, B extends Librarian<I,V,M,R,B>> implements Path {
+public abstract class MatrixKey<K extends MatrixKey<K,I,V,M,R,B>,I extends MatrixItem<K,I,V,M,R,B>,V extends View<I,V,M,R,B>,M extends Model<I>,R extends _WeakReference<I,V,M,R,B>, B extends Concept<I,V,M,R,B>> implements Path {
 
     protected final URI uri;
     protected R itemReference;

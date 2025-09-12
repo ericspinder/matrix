@@ -44,13 +44,13 @@ Model holds a map of the fields from a DATUM, and the Aspect associated with it
     dev.inward.matrix.Aspect
 Aspect holds the friendly name of the field and it's description 
 
-    dev.inward.matrix.Datum
+    dev.inward.matrix.item.datum.Datum
 Datum is an interface and the lowest level programmed file objects, all other files implement it. While it has both Envoy and DatumAttributes attached to it in generics it's otherwise empty and meant to be implemented by client code when required
 
-    dev.inward.matrix.DatumReference extends Ware
+    dev.inward.matrix.item.datum.DatumReferenceWeak extends Ware
 Envoy is the Ware extension for Datum objects
 
-    dev.inward.matrix.DatumView extends Attributes
+    dev.inward.matrix.item.datum.DatumView extends Attributes
 DatumAttributes is the Attributes extension for Datum objects
 
     dev.inward.matrix.file.FileKey implements java.nio.file.Watchable, java.file.Path
