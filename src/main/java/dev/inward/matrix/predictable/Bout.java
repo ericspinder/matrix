@@ -13,17 +13,17 @@ import dev.inward.matrix.file.addressed.log.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bout<DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends _WeakReference<DATUM,V,M,R,G>,G extends Concept<DATUM,V,M,R,G>> {
+public class Bout<TARGET> {
 
-    protected final DATUM datum;
+    protected final TARGET target;
     protected final List<? extends Log> completedMatters = new ArrayList<>();
 
-    public Bout(DATUM datum) {
-        this.datum = datum;
+    public Bout(TARGET target) {
+        this.target = target;
     }
 
-    public DATUM getDatum() {
-        return datum;
+    public TARGET getDatum() {
+        return target;
     }
 
 

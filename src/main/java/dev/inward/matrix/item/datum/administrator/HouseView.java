@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.item.datum.administrator;
 
-public class HouseView extends AdministratorView<House,HouseKey,HouseView,HouseModel, HouseReferenceWeak, HouseClerk> {
+public class HouseView extends AdministratorView<House,HouseView,HouseModel,HouseClerk> {
 
     public HouseView(String name, House file) {
         super(name, file);

@@ -13,10 +13,12 @@ import dev.inward.matrix.file.addressed.depot.specification.Specification;
 import java.security.cert.CertPath;
 import java.util.Properties;
 
-public abstract class Operational<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>,R extends _WeakReference<TARGET,V,M,R,O>,O extends Operational<TARGET,V,M,R,O>> extends Concept<TARGET,V,M,O> {
+public abstract class Operational<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>,R extends _WeakReference<TARGET,V,M,R,O>,O extends Operational<TARGET,V,M,R,O>> {
 
     protected final Properties properties;
+
     public Operational(Specification specification) {
+        specification.
         specification.getOptions()
     }
 
@@ -28,13 +30,5 @@ public abstract class Operational<TARGET,V extends View<TARGET,V,M>,M extends Mo
         return properties;
     }
 
-    @SuppressWarnings("unchecked")
-    public java.util.function.Supplier<A> getNewSupplier() {
-        Supplier<A> supplier = (Supplier<A>) this.properties.get("AddressedSupplier");
-        if (supplier == null) {
-            //specification
-        }
-        return null;
-    }
 
 }

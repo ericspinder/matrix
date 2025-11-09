@@ -4,10 +4,12 @@
 
 package dev.inward.matrix.item.datum.administrator;
 
-public class Persona extends Administrator<Persona,PersonaKey,PersonaView,PersonaModel, PersonaReferenceWeak, PersonaClerk> {
+import dev.inward.matrix.control.domain.Domain;
 
-    public Persona(PersonaKey personaKey) {
-        super(personaKey);
+public class Persona extends Administrator<Persona,PersonaView,PersonaModel,PersonaClerk> {
+
+    public Persona(Domain domain, String name) {
+        super(domain, name);
     }
 
 

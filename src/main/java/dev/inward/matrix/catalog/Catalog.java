@@ -6,7 +6,7 @@ package dev.inward.matrix.catalog;
 
 import dev.inward.matrix.Context;
 import dev.inward.matrix.control.Control;
-import dev.inward.matrix.catalog.bureau.jdbc.DefaultJdbcBureauView;
+import dev.inward.matrix.catalog.jdbc.DefaultJdbcBureauView;
 import dev.inward.matrix.control.library.Library;
 import dev.inward.matrix.file.*;
 import dev.inward.matrix.item.datum.administrator.Persona;
@@ -22,15 +22,16 @@ import java.util.concurrent.ConcurrentHashMap;
 public abstract class Catalog<CC extends Catalog<CC, CV, CM>, CV extends CatalogView<CC, CV, CM>, CM extends CatalogModel<CC, CV, CM>> extends FileStore {
 
     protected final Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> library;
+    protected final Mount mount;
     protected final String name;
     protected final boolean readOnly;
     protected final Control<?,?,?> control;
     protected final Map<Librarian<?,?,?,?,?,?,?>,Catalog.Experience> seenLibrarians = new WeakHashMap<>();
     protected final Map<String, Object> attributes;
-    protected final Mount mount;
 
-    public Catalog(Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> library, String name, boolean readOnly, Control<?,?,?> control, Map<String,Object> attributes) {
+    public Catalog(Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> library, final Mount mount, String name, boolean readOnly, Control<?,?,?> control, Map<String,Object> attributes) {
         this.library = library;
+        this.mount = mount;
         this.name = name;
         this.readOnly = readOnly;
         this.control = control;

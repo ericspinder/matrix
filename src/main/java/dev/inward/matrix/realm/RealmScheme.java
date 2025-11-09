@@ -6,7 +6,7 @@ package dev.inward.matrix.realm;
 
 import dev.inward.matrix.MatrixURLStreamHandlerProvider;
 import dev.inward.matrix.control.scheme.Scheme;
-import dev.inward.matrix.Terrene;
+import dev.inward.matrix.control.terrene.Terrene;
 
 import java.net.URI;
 

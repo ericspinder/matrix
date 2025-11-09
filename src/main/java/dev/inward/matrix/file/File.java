@@ -8,7 +8,7 @@ import dev.inward.matrix.Context;
 
 import java.lang.ref.Reference;
 
-public abstract class File<F extends File<F,K,V,M,R,L,C>,K extends FileKey<F,K,V,M,R,L,C>,V extends FileView<F,K,V,M,R,L,C>,M extends FileModel<F,K,V,M,R,L,C>,R extends FileReference<F,K,V,M,R,L,C>,L extends Librarian<F,K,V,M,R,L,C>,C extends Context<F,K,V,M,R,L,C>>  {
+public abstract class File<F extends File<F,K,V,M,O,L,C>,K extends FileKey<F,K,V,M,O,L,C>,V extends FileView<F,K,V,M,O,L,C>,M extends FileModel<F,K,V,M,O,L,C>,O extends OmniBus<F,K,V,M,O,L,C>,L extends Librarian<F,K,V,M,O,L,C>,C extends Context<F,K,V,M,O,L,C>>  {
 
     protected final K key;
 

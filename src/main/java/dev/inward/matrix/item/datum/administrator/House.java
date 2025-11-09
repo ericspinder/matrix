@@ -4,17 +4,19 @@
 
 package dev.inward.matrix.item.datum.administrator;
 
+import dev.inward.matrix.control.domain.Domain;
+
 import java.nio.file.attribute.AclEntry;
 import java.nio.file.attribute.GroupPrincipal;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class House extends Administrator<House,HouseKey,HouseView,HouseModel, HouseReferenceWeak, HouseClerk> implements GroupPrincipal {
+public class House extends Agent implements GroupPrincipal {
 
     protected final Map<Persona, AclEntry[]> personaRightsMap = new ConcurrentHashMap<>();
 
-    public House(HouseKey houseKey, Map<Persona, AclEntry[]> personaRightsMap) {
-        super(houseKey);
+    public House(Domain domain, String name, Map<Persona, AclEntry[]> personaRightsMap) {
+        super(domain, name);
         if (personaRightsMap != null) {
             this.personaRightsMap.putAll(personaRightsMap);
         }

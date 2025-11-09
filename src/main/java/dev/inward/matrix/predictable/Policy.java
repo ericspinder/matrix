@@ -12,21 +12,19 @@ import java.util.Objects;
 import java.util.UUID;
 
 
-public abstract class Policy<PK extends MatrixKey<PK,PI,PV,PM,PR,PG>,PI extends MatrixItem<PK,PI,PV,PM,PR,PG>,PV extends View<PI,PM>,PM extends Model<PI>,PR extends _WeakReference<PI,PV,PM,PR,PG>,PG extends Concept<PI,PV,PM,PR,PG>, DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends _WeakReference<DATUM,V,M,R,G>,G extends Concept<DATUM,V,M,R,G>> {
+public abstract class Policy<TARGET> {
 
     protected final UUID uuid = UUID.randomUUID();
-    protected final Complication<PK,PI,PV,PM,PR,PG,DATUM,V,M,R,G> complication;
     protected final Indica indica;
-    protected final Criterion<PK,PI,PV,PM,PR,PG,DATUM,V,M,R,G> criterion;
+    protected final Criterion<TARGET> criterion;
     protected M currentMatter;
 
-    public Policy(Complication<PK,PI,PV,PM,PR,PG,DATUM,V,M,R,G> complication, Indica indica, Criterion<PK,PI,PV,PM,PR,PG,DATUM,V,M,R,G> criterion) {
-        this.complication = complication;
+    public Policy(Complication<TARGET> complication, Indica indica, Criterion<TARGET> criterion) {
         this.indica = indica;
         this.criterion = criterion;
     }
 
-    public abstract Log process(Bout<DATUM,V,M,R,G> bout);
+    public abstract Log process(Bout<TARGET> bout);
 
     @Override
     public boolean equals(Object that) {

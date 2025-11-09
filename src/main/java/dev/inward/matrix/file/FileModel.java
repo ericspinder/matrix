@@ -6,7 +6,7 @@ package dev.inward.matrix.file;
 
 import dev.inward.matrix.*;
 
-public class FileModel<F extends File<F,K,V,M,R,L,C>,K extends FileKey<F,K,V,M,R,L,C>,V extends FileView<F,K,V,M,R,L,C>,M extends FileModel<F,K,V,M,R,L,C>,R extends FileReference<F,K,V,M,R,L,C>,L extends Librarian<F,K,V,M,R,L,C>,C extends Context<F,K,V,M,R,L,C>> extends Model<F> {
+public abstract class FileModel<F extends File<F,K,V,M,R,L,C>,K extends FileKey<F,K,V,M,R,L,C>,V extends FileView<F,K,V,M,R,L,C>,M extends FileModel<F,K,V,M,R,L,C>,R extends FileReference<F,K,V,M,R,L,C>,L extends Librarian<F,K,V,M,R,L,C>,C extends Context<F,V,M,L,C>> extends Model<F> {
 
     public FileModel(Class<F> fileClass, Aspect[] labeledAspects) {
         super(fileClass, labeledAspects);

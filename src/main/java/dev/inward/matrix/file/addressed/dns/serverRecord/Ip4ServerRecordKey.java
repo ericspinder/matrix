@@ -4,13 +4,14 @@
 
 package dev.inward.matrix.file.addressed.dns.serverRecord;
 
-import dev.inward.matrix.file.userInfo.record.DnsDirectoryKey;
+import dev.inward.matrix.dns.DnsDirectoryKey;
 
 import java.net.URI;
 import java.util.UUID;
 
 public class Ip4ServerRecordKey extends ServerRecordKey<Ip4ServerRecord,Ip4ServerRecordKey,Ip4ServerRecordView,Ip4ServerRecordModel, Ip4ServerRecordReference, Ip4ServerRecordLibrarian> {
-    protected Ip4ServerRecordKey(URI uri, UUID uuid, DnsDirectoryKey directoryKey,boolean randomUUID) {
+
+    protected Ip4ServerRecordKey(URI uri, UUID uuid, DnsDirectoryKey directoryKey, boolean randomUUID) {
         super(uri, uuid, directoryKey,randomUUID);
     }
 

@@ -4,11 +4,12 @@
 package dev.inward.matrix.file.addressed.dns;
 
 import dev.inward.matrix.file.FileKey;
+import dev.inward.matrix.file.addressed.AddressedKey;
 
 import java.net.URI;
 import java.util.UUID;
 
-public class RRKey<F extends ResourceRecord<F,K,V,M,R,L>,K extends RRKey<F,K,V,M,R,L>,V extends RRView<F,K,V,M,R,L>,M extends RRModel<F,K,V,M,R,L>,R extends RRReference<F,K,V,M,R,L>,L extends RRLibrarian<F,K,V,M,R,L>> extends FileKey<F,K,V,M,R,L> {
+public class RRKey<F extends ResourceRecord<F,K,V,M,R,L>,K extends RRKey<F,K,V,M,R,L>,V extends RRView<F,K,V,M,R,L>,M extends RRModel<F,K,V,M,R,L>,R extends RRReference<F,K,V,M,R,L>,L extends RRLibrarian<F,K,V,M,R,L>> extends AddressedKey<F,K,V,M,R,L> {
 
     protected final UUID uuid;
     protected final boolean randomUUID;

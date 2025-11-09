@@ -4,17 +4,12 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.bureau.*;
-import dev.inward.matrix.catalog.bureau.Bureau;
-import dev.inward.matrix.catalog.bureau.BureauModel;
-import dev.inward.matrix.catalog.bureau.BureauView;
-
 import java.util.Deque;
 import java.util.Iterator;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public abstract class Provider<DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends _WeakReference<DATUM,V,M,R,G>,G extends Concept<DATUM,V,M,R,G>> implements Iterator<DATUM> {
+public abstract class Provider<TARGET> implements Iterator<TARGET> {
 
     protected boolean autoReset;
     protected boolean cancelWhenResetIsFalse;
@@ -30,15 +25,15 @@ public abstract class Provider<DATUM,V extends View<DATUM,M>,M extends Model<DAT
     public boolean isCancelWhenResetIsFalse() {
         return cancelWhenResetIsFalse;
 }
-    public abstract DATUM current();
+    public abstract TARGET current();
 
-    public static class Provided<DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends _WeakReference<DATUM,V,M,R,G>,G extends Concept<DATUM,V,M,R,G>> extends Provider<DATUM,V,M,R,G> {
+    public static class Provided<TARGET> extends Provider<TARGET> {
 
-        protected DATUM subject;
+        protected TARGET target;
 
-        public Provided(boolean autoReset, boolean cancelWhenResetIsFalse, DATUM subject) {
+        public Provided(boolean autoReset, boolean cancelWhenResetIsFalse, TARGET target) {
             super(autoReset, cancelWhenResetIsFalse);
-            this.subject = subject;
+            this.target = target;
         }
 
         @Override
@@ -47,33 +42,33 @@ public abstract class Provider<DATUM,V extends View<DATUM,M>,M extends Model<DAT
         }
 
         @Override
-        public DATUM next() {
-            return subject;
+        public TARGET next() {
+            return target;
         }
 
         @Override
-        public DATUM current() {
-            return subject;
+        public TARGET current() {
+            return target;
         }
     }
 
-    public static class Current<DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends _WeakReference<DATUM,V,M,R,G>,G extends Concept<DATUM,V,M,R,G>> extends Provider<DATUM,V,M,R,G> {
+    public static class Current<TARGET> extends Provider<TARGET> {
 
-        protected DATUM subject;
+        protected TARGET target;
         protected boolean next;
         protected boolean waitForMore;
         private final Lock gate = new ReentrantLock();
 
-        public Current(boolean autoReset, boolean cancelWhenResetIsFalse,DATUM subject) {
+        public Current(boolean autoReset, boolean cancelWhenResetIsFalse,TARGET target) {
             super(autoReset,cancelWhenResetIsFalse);
-            this.subject = subject;
+            this.target = target;
         }
 
 
-        public void setSubject(DATUM subject) {
+        public void setSubject(TARGET target) {
             gate.lock();
             try {
-                this.subject = subject;
+                this.target = target;
                 this.next = true;
             } finally {
                 gate.unlock();
@@ -86,11 +81,11 @@ public abstract class Provider<DATUM,V extends View<DATUM,M>,M extends Model<DAT
         }
 
         @Override
-        public DATUM next() {
+        public TARGET next() {
             gate.lock();
             try {
                 this.next = false;
-                return this.subject;
+                return this.target;
             }
             finally {
                 gate.unlock();
@@ -98,17 +93,17 @@ public abstract class Provider<DATUM,V extends View<DATUM,M>,M extends Model<DAT
         }
 
         @Override
-        public DATUM current() {
-            return this.subject;
+        public TARGET current() {
+            return this.target;
         }
     }
 
-    public static class Chain<DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends _WeakReference<DATUM,V,M,R,G>,G extends Concept<DATUM,V,M,R,G>> extends Provider<DATUM,V,M,R,G> {
+    public static class Chain<TARGET> extends Provider<TARGET> {
 
-        protected final Deque<DATUM> deque;
+        protected final Deque<TARGET> deque;
         protected boolean waitForMore;
 
-        public Chain(boolean autoReset, boolean cancelWhenResetIsFalse, Deque<DATUM> deque) {
+        public Chain(boolean autoReset, boolean cancelWhenResetIsFalse, Deque<TARGET> deque) {
             super(autoReset,cancelWhenResetIsFalse);
             this.deque = deque;
         }
@@ -119,18 +114,13 @@ public abstract class Provider<DATUM,V extends View<DATUM,M>,M extends Model<DAT
         }
 
         @Override
-        public DATUM next() {
+        public TARGET next() {
             return deque.pop();
         }
 
         @Override
-        public DATUM current() {
+        public TARGET current() {
             return deque.peek();
-        }
-    }
-    public static class KeyedSearch<BK extends BureauKey<BK,BI,BV,BM,BR,BG>,BI extends Bureau<BK,BI,BV,BM,BR,BG>,BV extends BureauView<BK,BI,BV,BM,BR,BG>,BM extends BureauModel<BK,BI,BV,BM,BR,BG>,BR extends BureauReference<BK,BI,BV,BM,BR,BG>,BG extends BureauLibrarian<BK,BI,BV,BM,BR,BG>, K extends MatrixKey<K,I,V,M,R, G>,I extends MatrixItem<K,I,V,M,R,G>,V extends View<I,M>,M extends Model<I>,R extends _WeakReference<I,V,M,R,G>,G extends Concept<I,V,M,R,G>> extends Provider<I,V,M,R,G> {
-        public KeyedSearch(boolean autoReset, boolean cancelWhenResetIsFalse) {
-            super(autoReset, cancelWhenResetIsFalse);
         }
     }
 }

@@ -6,7 +6,7 @@ package dev.inward.matrix.item.datum.administrator;
 
 import dev.inward.matrix.Aspect;
 
-public class PersonaModel extends AdministratorModel<Persona,PersonaKey,PersonaView,PersonaModel, PersonaReferenceWeak, PersonaClerk> {
+public class PersonaModel extends AdministratorModel<Persona,PersonaView,PersonaModel,PersonaClerk> {
     public PersonaModel(Aspect[] labeledAspects) {
         super(Persona.class, labeledAspects);
     }

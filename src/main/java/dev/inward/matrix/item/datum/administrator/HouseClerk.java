@@ -7,7 +7,7 @@ package dev.inward.matrix.item.datum.administrator;
 import dev.inward.matrix.file.addressed.depot.specification.Specification;
 import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
-public class HouseClerk extends AdministratorClerk<House,HouseKey,HouseView,HouseModel, HouseReferenceWeak, HouseClerk> {
+public class HouseClerk extends AdministratorClerk<House,HouseView,HouseModel,HouseClerk> {
 
     public HouseClerk(Standard standard, Specification specification) {
         super(standard, specification);

@@ -5,7 +5,7 @@
 package dev.inward.matrix.item.datum.administrator;
 
 
-public class PersonaView extends AdministratorView<Persona,PersonaKey,PersonaView,PersonaModel, PersonaReferenceWeak, PersonaClerk> {
+public class PersonaView extends AdministratorView<Persona,PersonaView,PersonaModel,PersonaClerk> {
 
     public PersonaView(String name, Persona persona) {
         super(name,persona);

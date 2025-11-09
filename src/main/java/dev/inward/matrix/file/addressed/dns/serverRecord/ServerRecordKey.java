@@ -4,14 +4,14 @@
 
 package dev.inward.matrix.file.addressed.dns.serverRecord;
 
-import dev.inward.matrix.file.userInfo.record.DnsDirectoryKey;
+import dev.inward.matrix.dns.DnsDirectoryKey;
 import dev.inward.matrix.file.addressed.dns.RRKey;
 
 import java.net.URI;
 import java.util.UUID;
 
 public class ServerRecordKey<F extends ServerRecord<F,K,V,M,R,L>,K extends ServerRecordKey<F,K,V,M,R,L>,V extends ServerRecordView<F,K,V,M,R,L>,M extends ServerRecordModel<F,K,V,M,R,L>,R extends ServerRecordReference<F,K,V,M,R,L>,L extends ServerRecordLibrarian<F,K,V,M,R,L>> extends RRKey<F,K,V,M,R,L> {
-    protected ServerRecordKey(URI uri, UUID uuid, DnsDirectoryKey directoryKey,boolean randomUUID) {
+    protected ServerRecordKey(URI uri, UUID uuid, DnsDirectoryKey directoryKey, boolean randomUUID) {
         super(uri, uuid, directoryKey,randomUUID);
     }
 

@@ -4,51 +4,38 @@
 
 package dev.inward.matrix.route;
 
-import java.io.IOException;
-import java.nio.channels.AsynchronousChannelGroup;
+import dev.inward.matrix.predictable.Predictable;
+
+import java.util.Objects;
 import java.util.UUID;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.*;
 
 public class Road extends ThreadPoolExecutor implements Comparable<Road>  {
 
-    protected final Dispatch dispatch;
-    protected final AsynchronousChannelGroup group;
     protected final UUID uuid = UUID.randomUUID();
 
-
-    public Road(Dispatch dispatch, BlockingQueue<Runnable> driverQueue, Dispatch.DriverFactory driverFactory) {
-        super(dispatch.corePoolSize, dispatch.maximumPoolSize, dispatch.keepAliveTime, dispatch.defaultTimeUnit,driverQueue,driverFactory, dispatch);
-        this.dispatch = dispatch;
-        try {
-            this.group = AsynchronousChannelGroup.withThreadPool(this);
-        }
-        catch (IOException ioe) {
-            throw new RuntimeException(ioe);
-        }
+    public Road(Dispatch dispatch, BlockingQueue<Runnable> predictableBlockingQueue) {
+        this(dispatch,predictableBlockingQueue,dispatch.getDefaultDriverFactory(),dispatch);
     }
 
-    public Dispatch getDispatch() {
-        return dispatch;
+    public Road(Dispatch dispatch, BlockingQueue<Runnable> driverQueue, DriverFactory driverFactory, RejectedExecutionHandler handler) {
+        super(dispatch.corePoolSize, dispatch.maximumPoolSize, dispatch.keepAliveTime, dispatch.defaultTimeUnit,driverQueue,driverFactory, Objects.requireNonNullElse(handler,new AbortPolicy()));
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public int compareTo(Road that) {
-        int isZero = this.dispatch.compareTo(that.dispatch);
-        if (isZero == 0) {
-            isZero = ((Dispatch.DriverFactory)this.getThreadFactory()).getRoadName().compareTo(((Dispatch.DriverFactory)that.getThreadFactory()).getRoadName());
-            if (isZero == 0) {
-                return this.uuid.compareTo(that.uuid);
-            }
-        }
-        return isZero;
+        return this.uuid.compareTo(that.uuid);
     }
 
     @Override
     protected void beforeExecute(Thread t, Runnable r) {
+        Driver driver = (Driver) t;
+        Predictable predictable = (Predictable) r;
         super.beforeExecute(t, r);
     }
+
+    @Override
+    protected void afterExecute(Runnable r, Throwable t) {super.afterExecute(r,t);}
 
     @Override
     protected void terminated() {

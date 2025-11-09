@@ -10,9 +10,9 @@ import dev.inward.matrix.item.datum.DatumClerk;
 
 import java.security.ProtectionDomain;
 
-public class Context<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>,C extends Concept<TARGET,V,M>,X extends Context<TARGET,V,M,C,M>> extends ProtectionDomain {
+public abstract class Context<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>,C extends Concept<TARGET,V,M>,X extends Context<TARGET,V,M,C,X>> extends ProtectionDomain {
 
-    public Context(Variant variant, M personality, , ) {
+    public Context(Variant variant, M personality, Factory factory, ) {
         super(variant,personality,factory,null);
     }
 
@@ -25,7 +25,7 @@ public class Context<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>,C
         return (M) this.getPermissions();
     }
     @SuppressWarnings("unchecked")
-    public Factory<?,?,?,?,?,?,?,?,?,?,?,?> getFactory() {
+    public Factory getFactory() {
         return (Factory<DF,DK,DV,DM,DR,DL,PATH>) this.getClassLoader();
     }
 

@@ -8,7 +8,7 @@ import dev.inward.matrix.*;
 
 import java.nio.file.WatchEvent;
 
-public abstract class Criterion<PK extends MatrixKey<PK,PI,PV,PM,PR,PG>,PI extends MatrixItem<PK,PI,PV,PM,PR,PG>,PV extends View<PI,PM>,PM extends Model<PI>,PR extends _WeakReference<PI,PV,PM,PR,PG>,PG extends Concept<PI,PV,PM,PR,PG>, DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends _WeakReference<DATUM,V,M,R,G>,G extends Concept<DATUM,V,M,R,G>> implements Meta_I, WatchEvent.Modifier {
+public abstract class Criterion<TARGET> implements Meta_I, WatchEvent.Modifier {
 
     protected final String label;
     protected final String description;

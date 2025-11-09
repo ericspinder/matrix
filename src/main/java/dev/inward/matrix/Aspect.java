@@ -15,25 +15,25 @@ public abstract class Aspect implements Meta_I, Comparable<Aspect> {
 
     protected final String label;
     protected final String description;
+    protected final boolean allowNull;
 
-
-    public Aspect(AspectType<?> type, String label, String description) {
+    public Aspect(AspectType<?> type, String label, String description, boolean allowNull) {
         this.type = type;
         this.label = label;
         this.description = description;
+        this.allowNull = allowNull;
+
     }
     public abstract static class AspectType<T> implements Meta_I {
 
         protected final String label;
         protected final String description;
         protected final Class<T> expectedClass;
-        protected final boolean allowNull;
 
-        public AspectType(String label, String description, Class<T> expectedClass, boolean allowNull) {
+        public AspectType(String label, String description, Class<T> expectedClass) {
             this.label = label;
             this.description = description;
             this.expectedClass = expectedClass;
-            this.allowNull = allowNull;
         }
 
         @Override
@@ -49,28 +49,21 @@ public abstract class Aspect implements Meta_I, Comparable<Aspect> {
         public Class<?> getExpectedClass() {
             return expectedClass;
         }
-        public static class PathAspectType<T> extends AspectType<T> {
 
-            protected final int position;
-            public PathAspectType(String label, String description, Class<T> expectedClass, boolean allowNull, int position) {
-                super(label, description, expectedClass, allowNull);
-                this.position = position;
-            }
+        public abstract T deserialize(String value);
+        public abstract String serialize(T value);
 
-            public int getPosition() {
-                return position;
-            }
-        }
         public static class MappedAspectType<K,V> extends AspectType<Map<K,V>> {
 
-            public MappedAspectType(String label, String description, Class<Map<K, V>> expectedClass, boolean allowNull) {
-                super(label, description, expectedClass, allowNull);
+            public MappedAspectType(String label, String description, Class<Map<K, V>> expectedClass) {
+                super(label, description, expectedClass);
             }
+
         }
         public static class ListedAspectType<T> extends AspectType<List<T>> {
 
-            public ListedAspectType(String label, String description, Class<List<T>> expectedClass, boolean allowNull) {
-                super(label, description, expectedClass, allowNull);
+            public ListedAspectType(String label, String description, Class<List<T>> expectedClass) {
+                super(label, description,expectedClass);
             }
         }
 
@@ -81,12 +74,12 @@ public abstract class Aspect implements Meta_I, Comparable<Aspect> {
             public static final ObjectAspectType<FileTime> Last_Accessed_Time = new ObjectAspectType<>("lastAccessTime", "The last time the datum was accessed", FileTime.class, true);
             public static final ObjectAspectType<FileTime> Create_Time = new ObjectAspectType<>("createTime", "When the data was created", FileTime.class, true);
             public ObjectAspectType(String label, String description, Class<T> expectedClass, boolean allowNull) {
-                super(label, description, expectedClass, allowNull);
+                super(label, description, expectedClass);
             }
         }
-        public static class QueryAspectType<T> extends AspectType<T> {
+        public static class StringAspectType extends AspectType<String> {
 
-            public QueryAspectType(String label, String description, Class<T> expectedClass, boolean allowNull) {
+            public StringAspectType(boolean allowNull) {
                 super(label, description, expectedClass, allowNull);
             }
         }
@@ -107,6 +100,10 @@ public abstract class Aspect implements Meta_I, Comparable<Aspect> {
             }
         }
         return new Model.InstanceValue<>(this, Model.InstanceValue.Origin.Error_onLoad_unAssignable, null);
+    }
+
+    public AspectType<?> getType() {
+        return type;
     }
 
     @Override

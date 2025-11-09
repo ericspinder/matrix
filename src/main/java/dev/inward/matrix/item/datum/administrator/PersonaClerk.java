@@ -7,7 +7,7 @@ package dev.inward.matrix.item.datum.administrator;
 import dev.inward.matrix.file.addressed.depot.specification.Specification;
 import dev.inward.matrix.file.addressed.depot.standard.Standard;
 
-public class PersonaClerk extends AdministratorClerk<Persona,PersonaKey,PersonaView,PersonaModel, PersonaReferenceWeak, PersonaClerk> {
+public class PersonaClerk extends AdministratorClerk<Persona,PersonaView,PersonaModel,PersonaClerk> {
     public PersonaClerk(Standard standard, Specification specification) {
         super(standard, specification);
     }

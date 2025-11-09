@@ -19,11 +19,12 @@ public class Driver extends Thread implements Comparable<Driver> {
     protected final UUID uuid = UUID.randomUUID();
     protected final Instant createInstant = Instant.now();
     protected Map<String, Cipher> initializedCiphers;
+    protected volatile Instant routeStartInstant;
 
 
-    public Driver(Dispatch group, Runnable target, String name,
+    public Driver(Dispatch threadGroup, Runnable target, String name,
                   long stackSize) {
-        super(group,target,name,stackSize,false);
+        super(threadGroup,target,name,stackSize,false);
     }
     public synchronized Cipher getCipher(String cipherString) throws NoSuchPaddingException, NoSuchAlgorithmException {
         if (initializedCiphers.containsKey(cipherString)) {

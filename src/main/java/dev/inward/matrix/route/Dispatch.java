@@ -4,18 +4,17 @@
 
 package dev.inward.matrix.route;
 
-import java.util.UUID;
-import java.util.concurrent.RejectedExecutionHandler;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.concurrent.locks.StampedLock;
+import dev.inward.matrix.item.datum.administrator.Administrator;
 
-public class Dispatch extends ThreadGroup implements RejectedExecutionHandler, Comparable<Dispatch> {
+import javax.annotation.Nullable;
+import java.util.Objects;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+
+public class Dispatch extends ThreadGroup implements Comparable<Dispatch> {
 
     protected final UUID uuid = UUID.randomUUID();
-
+    protected final Administrator<?,?,?,?> administrator;
     public final String description;
     protected volatile int corePoolSize;
     protected volatile int maximumPoolSize;
@@ -24,46 +23,15 @@ public class Dispatch extends ThreadGroup implements RejectedExecutionHandler, C
     protected volatile long stackSize;
 
 
-    public Dispatch(String name, String description, int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit defaultTimeUnit, long stackSize) {
+    public Dispatch(String name, Administrator<?,?,?,?> administrator,@Nullable String description, int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit defaultTimeUnit, long stackSize) {
         super(name);
-        this.description = description;
+        this.administrator = administrator;
+        this.description = Objects.requireNonNullElse(description, "No description provided");
         this.corePoolSize = corePoolSize;
         this.maximumPoolSize = maximumPoolSize;
         this.keepAliveTime = keepAliveTime;
         this.defaultTimeUnit = defaultTimeUnit;
         this.stackSize = stackSize;
-    }
-    @SuppressWarnings("unchecked")
-    @Override
-    public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
-        if (executor instanceof Road road) {
-            if (r instanceof Driver driver) {
-                System.err.println("Rejected Execution: road = " + road + ", driver = " + driver);
-            }
-
-        }
-    }
-    public static class DriverFactory implements ThreadFactory {
-        protected final AtomicLong driverNameCount = new AtomicLong();
-        protected final Dispatch dispatch;
-        protected final String roadName;
-        protected final String driver_name_base;
-
-
-        public DriverFactory(Dispatch dispatch, String roadName) {
-            this.dispatch = dispatch;
-            this.roadName = roadName;
-            this.driver_name_base = roadName + '_' + dispatch.getName() + "_#";
-        }
-
-        @Override
-        public Driver newThread(Runnable r) {
-                return new Driver(dispatch, r,String.format("%s_%s",driver_name_base,this.driverNameCount.getAndIncrement()),dispatch.stackSize);
-        }
-
-        public String getRoadName() {
-            return roadName;
-        }
     }
 
     public int getCorePoolSize() {
@@ -106,10 +74,8 @@ public class Dispatch extends ThreadGroup implements RejectedExecutionHandler, C
     public int compareTo(Dispatch that) {
         return  this.uuid.compareTo(that.uuid);
     }
-
     @Override
     public String toString() {
-        return "Dispatch: name = " + getName() + ", UUID = " + uuid;
+        return "Dispatch: name = " + ", description = " + description + getName() + "\t UUID = " + uuid;
     }
 }
-

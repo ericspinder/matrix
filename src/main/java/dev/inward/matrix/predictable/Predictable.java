@@ -60,7 +60,7 @@ public class Predictable {
 //
 //    private static Criterion extractMatchingCriterionTarget(String className, Iterator<Criterion> criteria) {
 //        Criterion param = null;
-//        while (criteria.hasNext()) {
+//        while (criteria.hasNext()) {W
 //            Criterion criterion = criteria.next();
 //            if (criterion.getTargetClassName().equals(className)) {
 //                param = criterion;

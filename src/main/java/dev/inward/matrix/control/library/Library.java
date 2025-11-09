@@ -9,10 +9,11 @@ import dev.inward.matrix.control.Control;
 import dev.inward.matrix.control.authority.Authority;
 import dev.inward.matrix.control.authority.AuthorityModel;
 import dev.inward.matrix.control.authority.AuthorityView;
+import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.control.scheme.SchemeModel;
 import dev.inward.matrix.control.scheme.SchemeView;
-import dev.inward.matrix.file.addressed.dns.catalogRecord.LibraryRecord;
+import dev.inward.matrix.file.addressed.dns.catalogRecord.CatalogRecord;
 import dev.inward.matrix.file.directory.*;
 
 import java.io.IOException;
@@ -29,17 +30,13 @@ public abstract class Library<S extends Scheme<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,
 
     protected final UUID uuid = UUID.randomUUID();
     protected final Instant createTime = Instant.now();
-    protected final A authority;
-    protected final Range<PATH> range;
-    protected final LibraryRecord libraryRecord;
-    protected volatile boolean open;
-    protected volatile  boolean readOnly;
+    protected final S scheme;
+    protected final Domain domain;
+    protected final int port;
     protected Map<String,DF> pathDirectoryMap = new ConcurrentHashMap<>();
 
-    public Library(A authority, Range<PATH> range, LibraryRecord libraryRecord) {
-        this.authority = authority;
-        this.range = range;
-        this.libraryRecord = libraryRecord;
+    public Library(S scheme, URI uri) {
+        this.scheme = scheme;
     }
 
     @Override
@@ -72,8 +69,8 @@ public abstract class Library<S extends Scheme<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,
     protected abstract DF newDirectory(DK directoryKey);
 
     @Override
-    public A provider() {
-        return this.authority;
+    public S provider() {
+        return this.scheme;
     }
 
     @Override
@@ -93,7 +90,7 @@ public abstract class Library<S extends Scheme<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,
 
     @Override
     public String getSeparator() {
-        return this.authority.get_Scheme().getProtocol().getSeparator();
+        return this.scheme.getProtocolParser().getProtocol().getSeparator();
     }
 
     @Override

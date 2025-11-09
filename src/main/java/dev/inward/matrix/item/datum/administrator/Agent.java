@@ -3,17 +3,22 @@
  */
 package dev.inward.matrix.item.datum.administrator;
 
-import java.nio.file.attribute.AclEntry;
+import dev.inward.matrix.Meta_I;
+
 import java.nio.file.attribute.UserPrincipal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Agent extends Administrator<Agent,AgentView,AgentModel,AgentClerk> implements UserPrincipal {
 
-    protected final Map<House, AclEntry[]> houseRightsMap = new ConcurrentHashMap<>();
+    public enum Role implements Meta_I {
 
-
-    public Agent(AgentKey key) {
-        super(key);
+        
     }
+    protected final Map<Persona,Role> personas = new HashMap<>();
+
+
+    public Agent(
 }

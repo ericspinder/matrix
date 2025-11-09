@@ -15,26 +15,33 @@ public abstract class Model<TARGET> extends PermissionCollection {
 
     protected final Map<String,Aspect> labeledAspects = new ConcurrentHashMap<>();
     protected final Map<Aspect.AspectType<?>,Aspect> typedAspects = new ConcurrentHashMap<>();
-    protected final List<Field> fields;
+    protected List<Field> fields;
 
     @SuppressWarnings("unchecked")
-    public Model(Class<? super TARGET> targetClass, Aspect[] labeledAspects) {
+    public Model(Aspect[] labeledAspects) {
         for (Aspect aspect: labeledAspects) {
             this.labeledAspects.put(aspect.getLabel(),aspect);
             this.typedAspects.put(aspect.type, aspect);
         }
-        if (targetClass == null) {
-            targetClass = (Class<TARGET>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-        }
-        this.fields = getAllModelFields(targetClass);
     }
-    public static List<Field> getAllModelFields(Class<?> aClass) {
-        List<Field> fields = new ArrayList<>();
-        do {
-            Collections.addAll(fields, aClass.getDeclaredFields());
-            aClass = aClass.getSuperclass();
-        } while (aClass != null);
+    public List<Field> getAllModelFields() {
+        if (fields != null) {
+            return fields;
+        }
+        setAllModelFields();
         return fields;
+    }
+    private synchronized void setAllModelFields() {
+        if (fields != null) {
+            return;
+        }
+        Class<?> currentClass = (Class<?>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        List<Field> worker = new ArrayList<>();
+        do {
+            Collections.addAll(worker, currentClass.getDeclaredFields());
+            currentClass = currentClass.getSuperclass();
+        } while (currentClass != null);
+        this.fields = Collections.unmodifiableList(worker);
     }
 
     public record InstanceValue<T>(Aspect aspect, Model.InstanceValue.Origin origin, T value) implements FileAttribute<T> {
@@ -56,6 +63,7 @@ public abstract class Model<TARGET> extends PermissionCollection {
                 Datum_onReload("datum_onReload", "Value was loaded by application after a change was detected"),
                 Error_onLoad_illegalAccess("error_onLoad_illegalAccess", "Value is unavailable because of an access error on load"),
                 Error_onLoad_unAssignable("error_onLoad_unAssignable", "Value is unavailable because it was unAssignable to the expected class"),
+                Version_Upgrade_default("version_upgrade_default", "Value was loaded by application as part of a version upgrade"),
                 Set_byView("set_byReference", "Value was changed by the View class");
 
                 private final String label;

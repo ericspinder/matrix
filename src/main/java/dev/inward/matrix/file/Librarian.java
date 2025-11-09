@@ -11,7 +11,7 @@ import dev.inward.matrix.file.addressed.depot.specification.Specification;
 
 import java.lang.ref.Reference;
 
-public class Librarian<F extends File<F,K,V,M,R,L,X>,K extends FileKey<F,K,V,M,R,L,X>,V extends FileView<F,K,V,M,R,L,X>,M extends FileModel<F,K,V,M,R,L,X>,R extends FileReference<F,K,V,M,R,L,X>,L extends Librarian<F,K,V,M,R,L,X>, X extends Context<F,K,V,M,R,L,X>> extends Concept<F,V,M> {
+public class Librarian<F extends File<F,K,V,M,R,L,X>,K extends FileKey<F,K,V,M,R,L,X>,V extends FileView<F,K,V,M,R,L,X>,M extends FileModel<F,K,V,M,R,L,X>,R extends FileReference<F,K,V,M,R,L,X>,L extends Librarian<F,K,V,M,R,L,X>, X extends Context<F,V,M,L,X>> extends Concept<F,V,M> {
 
     protected final Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> library;
     protected final Factory factory;

@@ -8,8 +8,9 @@ import dev.inward.matrix.control.Control;
 import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.control.authority.Authority;
 import dev.inward.matrix.control.scheme.Scheme;
+import dev.inward.matrix.control.terrene.Terrene;
 import dev.inward.matrix.file.addressed.dns.ResourceRecordType;
-import dev.inward.matrix.file.addressed.dns.catalogRecord.LibraryRecord;
+import dev.inward.matrix.file.addressed.dns.catalogRecord.CatalogRecord;
 import dev.inward.matrix.predictable.Director;
 
 import javax.naming.NamingException;
@@ -87,7 +88,7 @@ public class Matrix {
         }
         this.localhostDomain = getDomain(Terrene.Parse(commandLine.getValue("terrene")), "localhost");
     }
-    public LibraryRecord getCatalogRecord(Authority<?,?,?,?,?,?,?> authority, MatrixURLStreamHandlerProvider.Protocol protocol) {
+    public CatalogRecord getCatalogRecord(Authority<?,?,?,?,?,?,?> authority, MatrixURLStreamHandlerProvider.Protocol protocol) {
         try {
             authority.getDomain()
             DnsDirectoryKey directoryKey = (new DnsDirectoryKey.Builder()).setPath(new DnsPath(authority.getDomain().getDomainName(), ResourceRecordType.CatalogRecord)).setLibrary(authority).buildMatrixKey();

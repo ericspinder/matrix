@@ -6,7 +6,7 @@
 package dev.inward.matrix.control.domain;
 
 import dev.inward.matrix.HostExperience;
-import dev.inward.matrix.Terrene;
+import dev.inward.matrix.control.terrene.Terrene;
 import dev.inward.matrix.control.Control;
 import dev.inward.matrix.file.addressed.dns.nameServerRecord.NameServerRecord;
 import dev.inward.matrix.file.addressed.dns.serverRecord.ServerRecord;
@@ -16,9 +16,7 @@ import javax.naming.NamingException;
 import javax.naming.directory.Attribute;
 import javax.naming.directory.InitialDirContext;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Domain implements Control<Domain,DomainView,DomainModel> {
@@ -26,10 +24,10 @@ public class Domain implements Control<Domain,DomainView,DomainModel> {
     protected final UUID uuid = UUID.randomUUID();
     protected final Instant createTime = Instant.now();
 
-    private final Terrene terrene;
-    private final String domainName;
+    protected final Terrene terrene;
+    protected final String domainName;
     private Director director;
-    public Domain(Terrene terrene, String domainName, Director director) {
+    public Domain(Terrene terrene, String domainName) {
         this.terrene = terrene;
         this.domainName = domainName;
     }
@@ -94,4 +92,5 @@ public class Domain implements Control<Domain,DomainView,DomainModel> {
         }
         return isZero;
     }
+
 }

@@ -6,7 +6,7 @@ package dev.inward.matrix.item.datum.administrator;
 
 import dev.inward.matrix.Aspect;
 
-public class HouseModel extends AdministratorModel<House,HouseKey,HouseView,HouseModel, HouseReferenceWeak, HouseClerk> {
+public class HouseModel extends AdministratorModel<House,HouseView,HouseModel,HouseClerk> {
     public HouseModel(Aspect[] labeledAspects) {
         super(House.class, labeledAspects);
     }

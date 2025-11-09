@@ -14,14 +14,13 @@ import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.locks.StampedLock;
 
-public class Complication<PK extends MatrixKey<PK,PI,PV,PM,PR,PG>,PI extends MatrixItem<PK,PI,PV,PM,PR,PG>,PV extends View<PI,PM>,PM extends Model<PI>,PR extends _WeakReference<PI,PV,PM,PR,PG>,PG extends Concept<PI,PV,PM,PR,PG>,DATUM,V extends View<DATUM,M>,M extends Model<DATUM>,R extends _WeakReference<DATUM,V,M,R,G>,G extends Concept<DATUM,V,M,R,G>> implements Runnable {
+public class Complication<TARGET> implements Runnable {
 
     protected final StampedLock gate = new StampedLock();
     protected final UUID uuid = UUID.randomUUID();
     protected final ConcurrentLinkedDeque<Log> competedLogs = new ConcurrentLinkedDeque<>();
     protected final WeakReference<Director> directorWeakReference;
-    protected final PI parent;
-    protected final Provider<DATUM,V,M,R,G> provider;
+    protected final Provider<TARGET> provider;
 
     protected boolean queuedForExecution = false;
     protected boolean canceled = false;

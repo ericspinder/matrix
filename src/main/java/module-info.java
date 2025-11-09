@@ -5,6 +5,9 @@ module dev.inward.matrix {
     requires transitive org.objectweb.asm;
     requires transitive jdk.security.auth;
     requires kotlin.stdlib;
+    requires jsr305;
+    requires annotations;
+    requires java.management;
     exports dev.inward.matrix.engine;
     exports dev.inward.matrix.route;
     exports dev.inward.matrix.personality;
@@ -31,11 +34,12 @@ module dev.inward.matrix {
     exports dev.inward.matrix.control.library;
     exports dev.inward.matrix.control.authority;
     exports dev.inward.matrix.control.domain;
-    exports dev.inward.matrix.catalog.administration;
+    exports dev.inward.matrix.control.administration;
     exports dev.inward.matrix.control.scheme;
     exports dev.inward.matrix.file.directory;
     exports dev.inward.matrix.item;
     exports dev.inward.matrix.item.datum;
     exports dev.inward.matrix;
     exports dev.inward.matrix.dns;
+    exports dev.inward.matrix.control.terrene;
 }

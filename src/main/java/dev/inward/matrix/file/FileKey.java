@@ -5,6 +5,7 @@
 
 package dev.inward.matrix.file;
 
+import dev.inward.matrix.Aspect;
 import dev.inward.matrix.Context;
 import dev.inward.matrix.MatrixException;
 import dev.inward.matrix.control.authority.*;
@@ -19,15 +20,18 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.*;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
-public abstract class FileKey<F extends File<F,K,V,M,R,L,C>,K extends FileKey<F,K,V,M,R,L,C>,V extends FileView<F,K,V,M,R,L,C>,M extends FileModel<F,K,V,M,R,L,C>,R extends FileReference<F,K,V,M,R,L,C>,L extends Librarian<F,K,V,M,R,L,C>,C extends Context<F,K,V,M,R,L,C>> implements Path {
+public abstract class FileKey<F extends File<F,K,V,M,R,L,C>,K extends FileKey<F,K,V,M,R,L,C>,V extends FileView<F,K,V,M,R,L,C>,M extends FileModel<F,K,V,M,R,L,C>,R extends FileReference<F,K,V,M,R,L,C>,L extends Librarian<F,K,V,M,R,L,C>,C extends Context<F,V,M,L,C>> implements Path {
 
     protected R reference;
-    protected final URL url;
+    protected final String url;
+    protected final Query query;
 
-    protected FileKey(URI uri) {
-        this.url = this.processUri(uri);
+    protected FileKey(URI uri, M model) {
+        this.url = this.processUri(uri).toString();
+        this.query = uri.getQuery() != null ? this.parseQuery(uri,model): null;
     }
     public R getReference() {
         return this.reference;
@@ -40,6 +44,23 @@ public abstract class FileKey<F extends File<F,K,V,M,R,L,C>,K extends FileKey<F,
         }
     }
     protected abstract URL processUri(URI uri);
+
+    protected Query parseQuery(URI uri, M model) {
+        Map<String, String> keyValueMap = Arrays.stream(uri.getQuery().split("&"))
+                .map(kv -> kv.split("="))
+                .filter(kvArray -> kvArray.length == 2)
+                .collect(Collectors.toMap(kv -> kv[0], kv -> kv[1]));
+        List<Aspect> aspects = new ArrayList<>();
+        for  (Map.Entry<String, String> entry : keyValueMap.entrySet()) {
+            String key = entry.getKey();
+            if (model.getLabeledAspects().containsKey(key)) {
+                Aspect aspect = model.getLabeledAspects().get(key);
+                aspects.add(aspect);
+                aspect.getType().parseFromString(entry.getValue())
+            }
+            String value = entry.getValue();
+        }
+    }
 
     @Override
     public Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> getFileSystem() {
