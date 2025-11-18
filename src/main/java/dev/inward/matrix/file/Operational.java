@@ -4,26 +4,18 @@
 
 package dev.inward.matrix.file;
 
-import dev.inward.matrix.Model;
-import dev.inward.matrix.Concept;
-import dev.inward.matrix._WeakReference;
-import dev.inward.matrix.View;
+import dev.inward.matrix.*;
 import dev.inward.matrix.file.addressed.depot.specification.Specification;
 
 import java.security.cert.CertPath;
 import java.util.Properties;
 
-public abstract class Operational<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>,R extends _WeakReference<TARGET,V,M,R,O>,O extends Operational<TARGET,V,M,R,O>> {
+public class Operational<O> {
 
     protected final Properties properties;
 
-    public Operational(Specification specification) {
-        specification.
-        specification.getOptions()
-    }
-
-    public CertPath[] getCertPaths() {
-        return certPaths;
+    public Operational(Properties seed) {
+        properties = new Properties(seed);
     }
 
     public Properties getProperties() {

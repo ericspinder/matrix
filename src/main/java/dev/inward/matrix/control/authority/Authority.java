@@ -34,17 +34,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
-public class Authority<S extends Scheme<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,SV extends SchemeView<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,SM extends SchemeModel<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,A extends Authority<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,AV extends AuthorityView<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,AM extends AuthorityModel<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,L extends Library<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,LV extends LibraryView<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,LM extends LibraryModel<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DF extends Directory<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DK extends DirectoryKey<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DV extends DirectoryView<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DM extends DirectoryModel<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DR extends DirectoryReference<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DL extends DirectoryLibrarian<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DX extends DirectoryContext<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,PATH extends Comparable<PATH>> extends FileSystem implements Control<A,AV,AM> {
+public class Authority<S extends Scheme<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,SV extends SchemeView<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,SM extends SchemeModel<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,A extends Authority<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,AV extends AuthorityView<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,AM extends AuthorityModel<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,L extends Library<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,LV extends LibraryView<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,LM extends LibraryModel<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DF extends Directory<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DK extends DirectoryKey<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DV extends DirectoryView<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DM extends DirectoryModel<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DR extends DirectoryReference<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DL extends DirectoryLibrarian<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,DX extends DirectoryContext<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,DX,PATH>,PATH extends Comparable<PATH>> implements Control<A,AV,AM> {
 
     protected final UUID uuid = UUID.randomUUID();
     protected final Instant createTime = Instant.now();
-    protected final Persona persona;
-    protected final Integer port;
-    protected final String urlString;
-    protected final Map<Range<PATH>, L> rangeCatalogMap = new ConcurrentHashMap<>();
-    protected final Map<String,? extends Concept<?,?,?>> classNameResourceMap = new HashMap<>();
-
-    protected final Map<L, Bureau<?,?,?>[]> catalogMemoryMap;
+    protected final String userInfo;
+    protected final L library;
 
     protected StringBuilder firstLimitReachedMessage(String className, long warnTotal, long hardLimit) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -55,16 +50,9 @@ public class Authority<S extends Scheme<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,D
         return firstLimitReachedMessage(className,warnTotal,hardLimit).append(' ').append(previousMessage).toString() ;
     }
 
-    public Authority(Persona persona, Domain domain, int port) {
-        String urlStringTemp = this.scheme.getScheme() + this.domain.getDomainName();
-        if (port == scheme.getDefaultPort()) {
-            this.port = -1;
-            this.urlString = urlStringTemp;
-        } else {
-            this.port = port;
-            this.urlString = urlStringTemp + ":" + this.port;
-        }
-        this.catalogMemoryMap = Matrix.getInstance().getCatalogRecords(domain, scheme.getProtocolParser().getProtocol().getLabel());
+    public Authority(String userInfo, L library) {
+        this.userInfo = userInfo;
+        this.library = library;
     }
 
     @Override
@@ -77,162 +65,4 @@ public class Authority<S extends Scheme<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,D
         return createTime;
     }
 
-    @Override
-    public Matrix getMatrix() {
-        return null;
-    }
-
-    public String getUrlString() {
-        return this.urlString;
-    }
-
-    public Domain getDomain() {
-        return domain;
-    }
-
-    public Integer getPort() {
-        return port;
-    }
-
-    public String getSeparator() {
-        return this.get_Scheme().getProtocolParser().getProtocol().getSeparator();
-    }
-
-    @Override
-    public String getScheme() {
-        return this.scheme.getScheme();
-    }
-
-    public S get_Scheme() {
-        return this.scheme;
-    }
-
-    private L findCatalog(PATH filePath) {
-        for (Range<PATH> range: this.rangeCatalogMap.keySet()) {
-            if (range.eval(filePath)) {
-                return this.rangeCatalogMap.get(range);
-            }
-        }
-        throw new RuntimeException("Cannot find catalog for " + filePath);
-    }
-    @Override
-    public synchronized L newFileSystem(URI uri, Map<String, ?> env) throws IOException {
-        if (uri.isAbsolute() && uri.getScheme().equals(this.getScheme()) && uri.getHost().equals(this.domain.getDomainName()) && uri.getPort() == port) {
-            Map<String, List<String>> queryMap = splitQuery(uri);
-
-        }
-        return null;
-    }
-
-    @Override
-    public L getFileSystem(URI uri) {
-        if (uri.isAbsolute() && uri.getScheme().equals(this.getScheme()) && uri.getHost().equals(this.domain.getDomainName()) && uri.getPort() == port) {
-
-        }
-        return null;
-    }
-
-    @Override
-    public Path getPath(URI uri) {
-        return null;
-    }
-
-    @Override
-    public SeekableByteChannel newByteChannel(Path path, Set<? extends OpenOption> options, FileAttribute<?>... attrs) throws IOException {
-        return null;
-    }
-
-    @Override
-    public DirectoryStream<Path> newDirectoryStream(Path dir, DirectoryStream.Filter<? super Path> filter) throws IOException {
-        return null;
-    }
-
-    @Override
-    public void createDirectory(Path dir, FileAttribute<?>... attrs) throws IOException {
-
-    }
-
-    @Override
-    public void delete(Path path) throws IOException {
-
-    }
-
-    @Override
-    public void copy(Path source, Path target, CopyOption... options) throws IOException {
-    }
-
-    @Override
-    public void move(Path source, Path target, CopyOption... options) throws IOException {
-
-    }
-
-    @Override
-    public boolean isSameFile(Path path, Path path2) throws IOException {
-        return false;
-    }
-
-    @Override
-    public boolean isHidden(Path path) throws IOException {
-        return false;
-    }
-
-    @Override
-    public Bureau<?,?,?> getFileStore(Path path) throws IOException {
-        return null;
-    }
-
-    @Override
-    public void checkAccess(Path path, AccessMode... modes) throws IOException {
-
-    }
-
-    @Override
-    public <V extends FileAttributeView> V getFileAttributeView(Path path, Class<V> type, LinkOption... options) {
-        return null;
-    }
-
-    @Override
-    public <A extends BasicFileAttributes> A readAttributes(Path path, Class<A> type, LinkOption... options) throws IOException {
-        return null;
-    }
-
-    @Override
-    public Map<String, Object> readAttributes(Path path, String attributes, LinkOption... options) throws IOException {
-        return null;
-    }
-
-    @Override
-    public void setAttribute(Path path, String attribute, Object value, LinkOption... options) throws IOException {
-
-    }
-    public Map<String, List<String>> splitQuery(URI uri) {
-        if (uri.getQuery() == null || uri.getQuery().isEmpty()) {
-            return Collections.emptyMap();
-        }
-        return Arrays.stream(uri.getQuery().split("&"))
-                .map(this::splitQueryParameter)
-                .collect(Collectors.groupingBy(AbstractMap.SimpleImmutableEntry::getKey, LinkedHashMap::new, Collectors.mapping(Map.Entry::getValue, Collectors.toList())));
-    }
-
-    public AbstractMap.SimpleImmutableEntry<String, String> splitQueryParameter(String it) {
-        final int idx = it.indexOf("=");
-        final String key = idx > 0 ? it.substring(0, idx) : it;
-        final String value = idx > 0 && it.length() > idx + 1 ? it.substring(idx + 1) : null;
-        return new AbstractMap.SimpleImmutableEntry<>(
-                URLDecoder.decode(key, StandardCharsets.UTF_8),
-                URLDecoder.decode(value, StandardCharsets.UTF_8)
-        );
-    }
-
-    //protected abstract <PATH extends Comparable<PATH>,ID extends Comparable<ID>,T extends Concept.Identity<S,L,PATH,ID,T,C>,C extends Concept<S,L,PATH,ID,T,C>,CAT extends Ledger<S,L,PATH,ID,T,C,CAT>> CAT initCatalog(Memory<S,L,PATH> bureau, Pattern separatorPattern, Gathering<S,L,PATH,ID,T,C,CAT> directoriesSeed) throws CheckedException;
-
-//    public CodeSigner[] getCodeSigners(Zone zone) {
-//
-//        throw new MatrixException(MatrixException.Type.CodeSigners_not_initialized,new Exception("StackTrace, should be calling getCodeSigner() only after calling getUrl()"),new IndiciaKey("getCodeSigners() failed to create CodeSigner[] needed", libraryKey.getExceptionalSeries()),new Occurrence(UUID.randomUUID(),Instant.now(), Matter.Severity.Exceptional));
-//    }
-
-    @Override
-    public int compareTo(A that) {
-        return this.urlString.compareTo(that.urlString);
-    }
 }

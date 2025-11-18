@@ -4,7 +4,27 @@
 
 package dev.inward.matrix.dns;
 
+import dev.inward.matrix.ProtocolParser;
+import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.control.scheme.Scheme;
+import dev.inward.matrix.control.terrene.Terrene;
+import org.jetbrains.annotations.NotNull;
 
 public class DnsScheme extends Scheme<DnsScheme,DnsSchemeView,DnsSchemeModel,DnsAuthority,DnsAuthorityView,DnsAuthorityModel,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsDirectory,DnsDirectoryKey,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference,DnsDirectoryLibrarian,DnsDirectoryContext> {
+
+    @SuppressWarnings("unchecked")
+    public DnsScheme(Terrene terrene, ProtocolParser.Dns protocolParser) {
+        super(terrene, protocolParser);
+    }
+
+    @Override
+    protected DnsLibrary createNewLibrary(Domain domain, int port) {
+
+
+    }
+
+    @Override
+    public int compareTo(@NotNull Object o) {
+        return 0;
+    }
 }

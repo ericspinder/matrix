@@ -6,10 +6,17 @@ package dev.inward.matrix;
 
 import dev.inward.matrix.route.Ticket;
 
+import java.util.Collections;
 import java.util.Map;
 
-public interface Bus {
+public interface Bus<TARGET> {
 
-    Map<String, Ticket<?>> getAttributes();
+    default Map<String, Ticket<?>> getAttributes() {
+        return Collections.emptyMap();
+    }
+    default long getSequence() {
+        return 0;
+    };
+    TARGET get();
 
 }

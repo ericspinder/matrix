@@ -28,7 +28,7 @@ public class Complication<TARGET> implements Runnable {
 
 
     @SuppressWarnings("unchecked")
-    public Complication(Director director, PI parent, Provider<DATUM,V,M,R,G> provider, Map<Indica,Criterion<PK,PI,PV,PM,PR,PG,DATUM,V,M,R,G>> criterionByIndicaMap) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public Complication(Director director, PI parent, Provider<TARGET> provider, Map<Indica,Criterion> criterionByIndicaMap) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         this.directorWeakReference = new WeakReference<>(director);
         this.parent = parent;
         this.provider = provider;

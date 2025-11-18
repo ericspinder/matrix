@@ -11,18 +11,27 @@ import java.lang.ref.Reference;
 import java.lang.ref.SoftReference;
 import java.net.URLStreamHandler;
 import java.nio.charset.StandardCharsets;
+import java.time.Instant;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class Terrene extends URLStreamHandler implements Control<Terrene,TerreneView,TerreneModel> {
-//    public static final Terrene Earth = new Terrene("IN","earth");
-//    public static final Terrene Luna = new Terrene("LN","luna.earth");
-//    public static final Terrene Mars = new Terrene("MR", "mars");
-//    public static final Terrene Helios = new Terrene("HS","helios");
-//    public static final Terrene Chaosnet = new Terrene("CS","chaosnet");
-//    public static final Terrene Aforementioned = new Terrene('\u0000',"aforementioned");
 
-    protected static final Map<String,Terrene> KnownWorlds = new ConcurrentHashMap<>();
+    private static Map<String, Terrene> KnownWorlds() {
+        Map<String, Terrene> knownWorlds = new ConcurrentHashMap<>();
+        knownWorlds.put("earth",new Earth());
+        knownWorlds.put("luna", new Luna());
+        knownWorlds.put("mars", new Mars());
+        knownWorlds.put("helios", new Helios());
+        knownWorlds.put("chaosnet", new Chaosnet());
+        knownWorlds.put("aforementioned", new Aforementioned());
+        return knownWorlds;
+    }
+    public static final Map<String, Terrene> KnownWorlds = KnownWorlds();
+
+
+    protected Domain localhostDomain = new Domain(this, "localhost");
 
     public static Terrene Parse(String label) {
         if (label == null || label.isEmpty()) {
@@ -34,13 +43,15 @@ public abstract class Terrene extends URLStreamHandler implements Control<Terren
         }
         return terrene;
     }
-
+    protected final UUID uuid = UUID.randomUUID();
+    protected final Instant createTime = Instant.now();
     public final char dnsClassCode;
     public final String[] labels;
     protected final Map<String, Reference<Domain>> domains = new ConcurrentHashMap<>();
 
     protected Terrene(String classCodeString, String label) {
         this((char) classCodeString.getBytes(StandardCharsets.UTF_8)[0], label);
+        this.domains.put(localhostDomain.getDomainName(),new SoftReference<>(localhostDomain));
     }
 
     protected Terrene(char dnsClassCode, String... labels) {
@@ -62,6 +73,16 @@ public abstract class Terrene extends URLStreamHandler implements Control<Terren
     @Override
     public int compareTo(Terrene that) {
         return this.dnsClassCode - that.dnsClassCode;
+    }
+
+    @Override
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    @Override
+    public Instant getCreateInstant() {
+        return createTime;
     }
 
     protected synchronized Domain newDomain(String domainName) {

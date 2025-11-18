@@ -23,8 +23,8 @@ public abstract class DirectoryKey<S extends Scheme<S,SV,SM,A,AV,AM,L,LV,LM,DF,D
 
     public final PATH directoryPath;
 
-    protected DirectoryKey(URI uri, PATH directoryPath) {
-        super(uri);
+    protected DirectoryKey(URI uri, PATH directoryPath,DM directoryModel) {
+        super(uri,directoryModel);
         this.directoryPath = directoryPath;
     }
 

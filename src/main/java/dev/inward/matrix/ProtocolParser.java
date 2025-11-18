@@ -4,8 +4,8 @@
 
 package dev.inward.matrix;
 
+import dev.inward.matrix.dns.DnsPath;
 import dev.inward.matrix.file.addressed.depot.DepotPath;
-import dev.inward.matrix.file.userInfo.record.DnsPath;
 import dev.inward.matrix.file.addressed.dns.ResourceRecordType;
 import dev.inward.matrix.file.addressed.log.LogPath;
 
@@ -47,23 +47,23 @@ public abstract class ProtocolParser<PATH extends Comparable<PATH>> {
             return rawPath;
         }
     }
-    public static class Dns extends ProtocolParser<> {
+    public static class Dns extends ProtocolParser<DnsPath> {
         public Dns() {
             super(MatrixURLStreamHandlerProvider.Protocol.DNS);
         }
 
         @Override
-        public  parsePath(String rawPath) {
+        public DnsPath  parsePath(String rawPath) {
             StringTokenizer stringTokenizer = new StringTokenizer(rawPath, protocol.getSeparator());
             switch (stringTokenizer.countTokens()) {
                 case 1:
-                    return new Dns(stringTokenizer.nextToken(), null);
+                    return new DnsPath(stringTokenizer.nextToken(), null);
                 case 2:
-                    String domainName = stringTokenizer.nextToken();
+                    String domain_part = stringTokenizer.nextToken();
                     ResourceRecordType rrType = ResourceRecordType.valueOf(stringTokenizer.nextToken());
-                    return new Dns(domainName,rrType);
+                    return new DnsPath(domain_part,rrType);
                 default:
-                    throw new RuntimeException("dns path must be at least a domain name, ");
+                    throw new RuntimeException("dns path must be no more than ['domain name', '.in-addr.arpa' or '']/[resource record type]");
             }
         }
     }

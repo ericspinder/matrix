@@ -10,7 +10,12 @@ import dev.inward.matrix.item.datum.DatumClerk;
 
 import java.security.ProtectionDomain;
 
-public abstract class Context<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>,C extends Concept<TARGET,V,M>,X extends Context<TARGET,V,M,C,X>> extends ProtectionDomain {
+public abstract class Context<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>,C extends Concept<TARGET,V,M>,X extends Context<TARGET,V,M,C,X>> {
+
+    protected final Variant variant;
+    protected final M model;
+    protected final C concept;
+    protected final Factory factory;
 
     public Context(Variant variant, M personality, Factory factory, ) {
         super(variant,personality,factory,null);

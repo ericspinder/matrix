@@ -7,10 +7,9 @@ package dev.inward.matrix.file;
 import dev.inward.matrix.Context;
 import dev.inward.matrix.Bus;
 
-public interface FileReference<F extends File<F,K,V,M,R,L,C>,K extends FileKey<F,K,V,M,R,L,C>,V extends FileView<F,K,V,M,R,L,C>,M extends FileModel<F,K,V,M,R,L,C>,R extends FileReference<F,K,V,M,R,L,C>,L extends Librarian<F,K,V,M,R,L,C>,C extends Context<F,V,M,L,C>> extends Bus {
+public interface FileReference<F extends File<F,K,V,M,R,L,C>,K extends FileKey<F,K,V,M,R,L,C>,V extends FileView<F,K,V,M,R,L,C>,M extends FileModel<F,K,V,M,R,L,C>,O extends OmniBus<F,K,V,M,R,L,C>,L extends Librarian<F,K,V,M,R,L,C>,C extends Context<F,V,M,L,C>> extends Bus<F> {
 
 
-    public long getSequence();
-    public F get();
+
 
 }

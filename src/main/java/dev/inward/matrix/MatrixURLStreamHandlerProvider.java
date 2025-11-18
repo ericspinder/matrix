@@ -12,18 +12,26 @@ import java.net.spi.URLStreamHandlerProvider;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class MatrixURLStreamHandlerProvider extends URLStreamHandlerProvider {
 
-
     protected static final Map<String, Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>> ALL_KNOWN_SCHEMES = new HashMap<>();
-
+    protected static MatrixURLStreamHandlerProvider Instance;
+    protected final Terrene defaultTerrene;
+    public MatrixURLStreamHandlerProvider() {
+        String defaultTerreneString = System.getenv().getOrDefault("defaultTerrene","earth");
+        this.defaultTerrene = Terrene.KnownWorlds.get(defaultTerreneString);
+        if (this.defaultTerrene == null) {
+            throw new RuntimeException("Unknown default terrene: " + defaultTerreneString);
+        }
+    }
     public static Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> findSchemeByString(String scheme_s) {
         String lowerCaseScheme = scheme_s.toLowerCase();
         String schemeCacheKey;
         Terrene terrene;
         if (lowerCaseScheme.lastIndexOf('.') == -1) {
-            terrene = Terrene.Earth;
+            terrene = Terrene;
             schemeCacheKey =  terrene.dnsClassCode + "_" + lowerCaseScheme;
         }
         else {

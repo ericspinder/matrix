@@ -19,21 +19,19 @@ import java.util.List;
 import java.util.UUID;
 
 public class Earth extends Terrene {
-    @Override
-    public UUID getUuid() {
-        return null;
-    }
 
-    @Override
-    public Instant getCreateInstant() {
-        return null;
+    protected Earth() {
+        super("IN", "earth");
     }
 
     @Override
     protected URLConnection openConnection(URL u) throws IOException {
         return null;
     }
-    protected
+    protected Domain createDomain(String domainName, String ipV4Address, String ipV6Address) {
+        Domain domain = new Domain(this, domainName);
+        Ip4ServerRecordKey ip4ServerRecordKey = new Ip4ServerRecordKey(domain,);
+    }
     public final List<Domain> getRoots {
         List<Domain> roots = new ArrayList<>();
         Domain com_a = new Domain(this,"com.a");

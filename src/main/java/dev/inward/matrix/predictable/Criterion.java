@@ -8,7 +8,7 @@ import dev.inward.matrix.*;
 
 import java.nio.file.WatchEvent;
 
-public abstract class Criterion<TARGET> implements Meta_I, WatchEvent.Modifier {
+public abstract class Criterion implements Meta_I, WatchEvent.Modifier {
 
     protected final String label;
     protected final String description;

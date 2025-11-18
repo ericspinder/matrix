@@ -6,8 +6,10 @@
 package dev.inward.matrix.control.domain;
 
 import dev.inward.matrix.HostExperience;
+import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.control.terrene.Terrene;
 import dev.inward.matrix.control.Control;
+import dev.inward.matrix.dns.DnsScheme;
 import dev.inward.matrix.file.addressed.dns.nameServerRecord.NameServerRecord;
 import dev.inward.matrix.file.addressed.dns.serverRecord.ServerRecord;
 import dev.inward.matrix.predictable.Director;
@@ -27,9 +29,13 @@ public class Domain implements Control<Domain,DomainView,DomainModel> {
     protected final Terrene terrene;
     protected final String domainName;
     private Director director;
+    protected final Map<? extends Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>,Scheme.Experience> dnsSchemeDirectorMap = new WeakHashMap<>();
     public Domain(Terrene terrene, String domainName) {
         this.terrene = terrene;
         this.domainName = domainName;
+    }
+    public DnsScheme getDnsScheme() {
+        for (dnsSchemeDirectorMap.keySet())this.dnsScheme = new DnsScheme(terrene,)
     }
 
     @Override
