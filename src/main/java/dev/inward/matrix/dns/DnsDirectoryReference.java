@@ -4,9 +4,9 @@
 
 package dev.inward.matrix.dns;
 
-import dev.inward.matrix.file.directory.Directory;
-import dev.inward.matrix.file.directory.DirectoryLibrarian;
-import dev.inward.matrix.file.directory.DirectoryReference;
+import dev.inward.matrix.concept.file.directory.Directory;
+import dev.inward.matrix.concept.file.directory.DirectoryLibrarian;
+import dev.inward.matrix.concept.file.directory.DirectoryReference;
 
 public class DnsDirectoryReference extends DirectoryReference<DnsScheme,DnsSchemeView,DnsSchemeModel,DnsAuthority,DnsAuthorityView,DnsAuthorityModel,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsDirectory,DnsDirectoryKey,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference,DnsDirectoryLibrarian,DnsDirectoryContext> {
     public DnsDirectoryReference(Directory referent, DirectoryLibrarian librarian) {

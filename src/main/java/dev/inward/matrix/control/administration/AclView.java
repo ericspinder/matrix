@@ -5,6 +5,7 @@
 package dev.inward.matrix.control.administration;
 
 import dev.inward.matrix.*;
+import dev.inward.matrix.concept.Concept;
 
 import java.nio.file.attribute.AclFileAttributeView;
 

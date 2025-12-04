@@ -5,7 +5,7 @@
 package dev.inward.matrix.dns;
 
 import dev.inward.matrix.Meta_I;
-import dev.inward.matrix.file.addressed.dns.ResourceRecordType;
+import dev.inward.matrix.concept.file.addressed.dns.ResourceRecordType;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class DnsPath implements Comparable<DnsPath> {

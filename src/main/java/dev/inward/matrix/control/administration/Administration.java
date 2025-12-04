@@ -4,7 +4,6 @@
 
 package dev.inward.matrix.control.administration;
 
-import dev.inward.matrix.catalog.Catalog;
 import dev.inward.matrix.control.Control;
 
 public abstract class Administration<AC extends Administration<AC,AV,AM>,AV extends AdministrationView<AC,AV,AM>,AM extends AdministrationModel<AC,AV,AM>> implements Control<AC,AV,AM> {

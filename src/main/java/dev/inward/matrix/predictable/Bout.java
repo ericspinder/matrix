@@ -4,11 +4,7 @@
 
 package dev.inward.matrix.predictable;
 
-import dev.inward.matrix.Concept;
-import dev.inward.matrix.Model;
-import dev.inward.matrix._WeakReference;
-import dev.inward.matrix.View;
-import dev.inward.matrix.file.addressed.log.Log;
+import dev.inward.matrix.concept.file.addressed.log.Log;
 
 import java.util.ArrayList;
 import java.util.List;

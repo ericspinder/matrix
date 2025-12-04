@@ -5,7 +5,6 @@
 package dev.inward.matrix.control.administration;
 
 import dev.inward.matrix.Aspect;
-import dev.inward.matrix.catalog.CatalogModel;
 import dev.inward.matrix.control.ControlModel;
 
 public abstract class AdministrationModel<AC extends Administration<AC,AV,AM>,AV extends AdministrationView<AC,AV,AM>,AM extends AdministrationModel<AC,AV,AM>> extends ControlModel<AC,AV,AM> {

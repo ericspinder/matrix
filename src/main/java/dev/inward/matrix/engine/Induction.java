@@ -3,9 +3,9 @@
  */
 package dev.inward.matrix.engine;
 
-import dev.inward.matrix.Concept;
-import dev.inward.matrix.file.addressed.AddressedKey;
-import dev.inward.matrix.file.addressed.AddressedReference;
+import dev.inward.matrix.concept.Concept;
+import dev.inward.matrix.concept.file.addressed.AddressedKey;
+import dev.inward.matrix.concept.file.addressed.AddressedReference;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

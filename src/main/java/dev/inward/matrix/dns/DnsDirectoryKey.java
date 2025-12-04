@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.dns;
 
-import dev.inward.matrix.file.directory.DirectoryKey;
+import dev.inward.matrix.concept.file.directory.DirectoryKey;
 
 public class DnsDirectoryKey extends DirectoryKey<DnsDirectory,> {
 

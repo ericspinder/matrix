@@ -5,17 +5,22 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.dns.DnsPath;
-import dev.inward.matrix.file.addressed.depot.DepotPath;
-import dev.inward.matrix.file.addressed.dns.ResourceRecordType;
-import dev.inward.matrix.file.addressed.log.LogPath;
+import dev.inward.matrix.concept.file.addressed.depot.DepotPath;
+import dev.inward.matrix.concept.file.addressed.dns.ResourceRecordType;
+import dev.inward.matrix.concept.file.addressed.log.LogPath;
 
 import java.util.StringTokenizer;
 
 public abstract class ProtocolParser<PATH extends Comparable<PATH>> {
 
+    public static class Instances {
+        public static final ProtocolParser<String> HTTP = new Http();
+        public static final ProtocolParser<String> HTTPS = new Https();
+    }
+
     protected final MatrixURLStreamHandlerProvider.Protocol protocol;
 
-    public ProtocolParser(MatrixURLStreamHandlerProvider.Protocol protocol) {
+    protected ProtocolParser(MatrixURLStreamHandlerProvider.Protocol protocol) {
         this.protocol = protocol;
     }
 
@@ -27,7 +32,7 @@ public abstract class ProtocolParser<PATH extends Comparable<PATH>> {
 
     public static class Http extends ProtocolParser<String> {
 
-        public Http() {
+        private Http() {
             super(MatrixURLStreamHandlerProvider.Protocol.HTTP);
         }
 
@@ -38,7 +43,7 @@ public abstract class ProtocolParser<PATH extends Comparable<PATH>> {
     }
     public static class Https extends ProtocolParser<String> {
 
-        public Https() {
+        private Https() {
             super(MatrixURLStreamHandlerProvider.Protocol.HTTPS);
         }
 
@@ -48,7 +53,8 @@ public abstract class ProtocolParser<PATH extends Comparable<PATH>> {
         }
     }
     public static class Dns extends ProtocolParser<DnsPath> {
-        public Dns() {
+
+        private Dns() {
             super(MatrixURLStreamHandlerProvider.Protocol.DNS);
         }
 

@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.control.library;
 
-import dev.inward.matrix.Matrix;
+import dev.inward.matrix.concept.file.directory.*;
 import dev.inward.matrix.control.Control;
 import dev.inward.matrix.control.authority.Authority;
 import dev.inward.matrix.control.authority.AuthorityModel;
@@ -13,8 +13,7 @@ import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.control.scheme.SchemeModel;
 import dev.inward.matrix.control.scheme.SchemeView;
-import dev.inward.matrix.file.FileKey;
-import dev.inward.matrix.file.directory.*;
+import dev.inward.matrix.concept.file.FileKey;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;

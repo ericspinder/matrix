@@ -4,6 +4,8 @@
 
 package dev.inward.matrix;
 
+import dev.inward.matrix.concept.Concept;
+
 import java.lang.ref.PhantomReference;
 import java.util.Map;
 

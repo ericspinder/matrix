@@ -12,43 +12,48 @@ import java.net.spi.URLStreamHandlerProvider;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class MatrixURLStreamHandlerProvider extends URLStreamHandlerProvider {
 
-    protected static final Map<String, Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>> ALL_KNOWN_SCHEMES = new HashMap<>();
     protected static MatrixURLStreamHandlerProvider Instance;
+
+    protected final Map<String, Bus<Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>>> allKnownSchemes = new HashMap<>();
     protected final Terrene defaultTerrene;
+
     public MatrixURLStreamHandlerProvider() {
+        if (Instance != null) {
+            throw new RuntimeException("MatrixURLStreamHandlerProvider already initialized");
+        }
         String defaultTerreneString = System.getenv().getOrDefault("defaultTerrene","earth");
         this.defaultTerrene = Terrene.KnownWorlds.get(defaultTerreneString);
         if (this.defaultTerrene == null) {
             throw new RuntimeException("Unknown default terrene: " + defaultTerreneString);
         }
+        Instance = this;
     }
-    public static Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> findSchemeByString(String scheme_s) {
+    public Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> findSchemeByString(String scheme_s) {
         String lowerCaseScheme = scheme_s.toLowerCase();
         String schemeCacheKey;
         Terrene terrene;
         if (lowerCaseScheme.lastIndexOf('.') == -1) {
-            terrene = Terrene;
+            terrene = this.defaultTerrene;
             schemeCacheKey =  terrene.dnsClassCode + "_" + lowerCaseScheme;
         }
         else {
             terrene = Terrene.Parse(lowerCaseScheme.substring(0,lowerCaseScheme.lastIndexOf('.')));
             schemeCacheKey = terrene.dnsClassCode + "_" + lowerCaseScheme.substring(lowerCaseScheme.lastIndexOf('.'));
         }
-        Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> scheme = ALL_KNOWN_SCHEMES.get(schemeCacheKey);
+        Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> scheme = allKnownSchemes.get(schemeCacheKey);
         if (scheme == null) {
-            synchronized (ALL_KNOWN_SCHEMES) {
-                scheme = ALL_KNOWN_SCHEMES.get(schemeCacheKey);
+            synchronized (allKnownSchemes) {
+                scheme = allKnownSchemes.get(schemeCacheKey);
                 if (scheme == null) {
                     String protocol_s = lowerCaseScheme.substring(lowerCaseScheme.lastIndexOf('.'));
                     for (Protocol protocol: Protocol.values()) {
                         if (protocol.getLabel().equals(protocol_s)) {
                             try {
                                 scheme = new Scheme<>(terrene, protocol.parserClass.getConstructor(Protocol.class).newInstance(protocol));
-                                ALL_KNOWN_SCHEMES.put(schemeCacheKey,scheme);
+                                allKnownSchemes.put(schemeCacheKey,scheme);
                                 return scheme;
                             } catch (NoSuchMethodException | IllegalAccessException | InstantiationException |
                                      InvocationTargetException e) {
@@ -74,6 +79,7 @@ public class MatrixURLStreamHandlerProvider extends URLStreamHandlerProvider {
         HTTP("http","Unsecure File Service", 80, ProtocolParser.Http.class),
         HTTPS("https","Secure File Service",443, ProtocolParser.Https.class),
         LOG("log","Completed Matters",10, ProtocolParser.Log.class),
+        LDAP("ldap", "Lightweight Directory Access Protocol", ProtocolParser.Ldap.class)
         //REALM("realm", "Secure login Service", 6, RealmScheme.class)
         ;
         private final String label;

@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.route;
 
-import dev.inward.matrix.item.datum.administrator.Administrator;
+import dev.inward.matrix.concept.item.datum.administrator.Administrator;
 
 import javax.annotation.Nullable;
 import java.util.Objects;

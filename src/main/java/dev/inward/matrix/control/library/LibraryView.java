@@ -4,6 +4,7 @@
 
 package dev.inward.matrix.control.library;
 
+import dev.inward.matrix.concept.file.directory.*;
 import dev.inward.matrix.control.ControlView;
 import dev.inward.matrix.control.authority.Authority;
 import dev.inward.matrix.control.authority.AuthorityModel;
@@ -11,7 +12,6 @@ import dev.inward.matrix.control.authority.AuthorityView;
 import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.control.scheme.SchemeModel;
 import dev.inward.matrix.control.scheme.SchemeView;
-import dev.inward.matrix.file.directory.*;
 
 import java.nio.file.attribute.FileAttributeView;
 

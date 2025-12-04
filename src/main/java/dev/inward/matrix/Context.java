@@ -4,21 +4,24 @@
 
 package dev.inward.matrix;
 
+import dev.inward.matrix.concept.Concept;
+import dev.inward.matrix.concept.file.Factory;
+import dev.inward.matrix.concept.file.Variant;
 import dev.inward.matrix.control.library.Library;
-import dev.inward.matrix.file.*;
-import dev.inward.matrix.item.datum.DatumClerk;
+import dev.inward.matrix.concept.item.datum.DatumClerk;
+import dev.inward.matrix.concept.item.datum.administrator.Agent;
 
 import java.security.ProtectionDomain;
 
-public abstract class Context<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>,C extends Concept<TARGET,V,M>,X extends Context<TARGET,V,M,C,X>> {
+public abstract class Context<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>,C extends Concept<TARGET,V,M>,X extends Context<TARGET,V,M,C,X>> extends ProtectionDomain {
 
     protected final Variant variant;
     protected final M model;
     protected final C concept;
     protected final Factory factory;
 
-    public Context(Variant variant, M personality, Factory factory, ) {
-        super(variant,personality,factory,null);
+    public Context(Variant variant, M personality, Factory factory, Agent... agents) {
+        super(variant,personality,factory,agents);
     }
 
     @SuppressWarnings("unchecked")

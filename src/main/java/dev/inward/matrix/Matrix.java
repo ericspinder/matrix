@@ -9,8 +9,8 @@ import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.control.authority.Authority;
 import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.control.terrene.Terrene;
-import dev.inward.matrix.file.addressed.dns.ResourceRecordType;
-import dev.inward.matrix.file.addressed.dns.catalogRecord.CatalogRecord;
+import dev.inward.matrix.concept.file.addressed.dns.ResourceRecordType;
+import dev.inward.matrix.concept.file.addressed.dns.catalogRecord.CatalogRecord;
 import dev.inward.matrix.predictable.Director;
 
 import javax.naming.NamingException;

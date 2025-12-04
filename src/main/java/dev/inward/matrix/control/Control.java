@@ -9,9 +9,7 @@ import dev.inward.matrix.Matrix;
 import java.time.Instant;
 import java.util.UUID;
 
-public interface Control<CO extends Control<CO,CV,CM>,CV extends ControlView<CO,CV,CM>,CM extends ControlModel<CO,CV,CM>> extends Comparable<CO>, Marked {
+public interface Control<CO extends Control<CO,CV,CM>,CV extends ControlView<CO,CV,CM>,CM extends ControlModel<CO,CV,CM>> extends Item{
 
-    default Matrix getMatrix() {
-        return Matrix.getInstance();
-    }
+
 }

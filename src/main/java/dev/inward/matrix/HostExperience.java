@@ -4,12 +4,7 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.file.addressed.log.Occurrence;
-
-import java.net.InetAddress;
 import java.time.Instant;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract class HostExperience<S extends SocketAddress> {
 
@@ -35,17 +30,8 @@ public abstract class HostExperience<S extends SocketAddress> {
     }
     public static class Client extends HostExperience<SocketAddress.Remote> {
 
-        protected final Queue<Occurrence> occurrences = new ConcurrentLinkedQueue<>();
-        protected int occurrencesToSave;
-        public Client(InetAddress inetAddress, int occurrencesToSave) {
+        public Client(SocketAddress.Remote inetAddress) {
             super(inetAddress);
-            this.occurrencesToSave = occurrencesToSave;
-        }
-        public void addOccurrence(Occurrence occurrence) {
-            this.occurrences.add(occurrence);
-            if (this.occurrences.size() > occurrencesToSave) {
-                this.occurrences.poll();
-            }
         }
 
     }

@@ -1,0 +1,37 @@
+/*
+ *  Copyright (c) © 2025. Pinder's Matrix  by Eric S Pinder is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+ */
+
+package dev.inward.matrix.concept.file;
+
+import dev.inward.matrix.*;
+
+import java.io.IOException;
+import java.nio.file.attribute.BasicFileAttributeView;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
+
+public abstract class FileView<F extends File<F,K,V,M,R,L,C>,K extends FileKey<F,K,V,M,R,L,C>,V extends FileView<F,K,V,M,R,L,C>,M extends FileModel<F,K,V,M,R,L,C>,R extends FileReference<F,K,V,M,R,L,C>,L extends Librarian<F,K,V,M,R,L,C>,C extends Context<F,V,M,L,C>> extends View<F,V,M> implements BasicFileAttributeView {
+
+    public FileView(String name, F f) {
+        super(name, f);
+    }
+
+    @Override
+    public BasicFileAttributes readAttributes() throws IOException {
+        return null;
+    }
+
+    public void setTimes(FileTime lastModifiedTime, FileTime lastAccessTime, FileTime createTime) {
+        if (lastAccessTime != null) {
+            //this.getTarget().getKey().getReference().getAttributes().put("lastModifiedTime", new Model.InstanceValue<>((this.getTarget().getContext()..getLibrary().getClassNameResourceMap().get(this.getClass().getCanonicalName())).getModel().getTypedAspects().get(Aspect.AspectType.ObjectAspectType.Last_Modified_Time), Model.InstanceValue.Origin.Set_byView,lastModifiedTime));
+        }
+        if (lastAccessTime != null) {
+            //this.getTarget().getKey().getReference().getAttributes().put("lastAccessTime", new Model.InstanceValue<>((this.getTarget().getKey().getLibrary().getClassNameResourceMap().get(this.getClass().getCanonicalName())).getModel().getTypedAspects().get(Aspect.AspectType.ObjectAspectType.Last_Accessed_Time), Model.InstanceValue.Origin.Set_byView,lastAccessTime));
+        }
+        if (createTime != null) {
+            //this.getTarget().getKey().getReference().getAttributes().put("createTime", new Model.InstanceValue<>((this.getTarget().getKey().getLibrary().getClassNameResourceMap().get(this.getClass().getCanonicalName())).getModel().getTypedAspects().get(Aspect.AspectType.ObjectAspectType.Create_Time), Model.InstanceValue.Origin.Set_byView,createTime));
+        }
+    }
+
+}

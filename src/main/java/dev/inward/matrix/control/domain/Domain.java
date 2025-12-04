@@ -6,12 +6,13 @@
 package dev.inward.matrix.control.domain;
 
 import dev.inward.matrix.HostExperience;
+import dev.inward.matrix.ProtocolParser;
 import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.control.terrene.Terrene;
 import dev.inward.matrix.control.Control;
 import dev.inward.matrix.dns.DnsScheme;
-import dev.inward.matrix.file.addressed.dns.nameServerRecord.NameServerRecord;
-import dev.inward.matrix.file.addressed.dns.serverRecord.ServerRecord;
+import dev.inward.matrix.concept.file.addressed.dns.nameServerRecord.NameServerRecord;
+import dev.inward.matrix.concept.file.addressed.dns.serverRecord.ServerRecord;
 import dev.inward.matrix.predictable.Director;
 
 import javax.naming.NamingException;
@@ -29,13 +30,15 @@ public class Domain implements Control<Domain,DomainView,DomainModel> {
     protected final Terrene terrene;
     protected final String domainName;
     private Director director;
-    protected final Map<? extends Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>,Scheme.Experience> dnsSchemeDirectorMap = new WeakHashMap<>();
+    protected final Map<? extends Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>,Scheme.Experience> schemeDirectorMap = new WeakHashMap<>();
     public Domain(Terrene terrene, String domainName) {
         this.terrene = terrene;
         this.domainName = domainName;
     }
-    public DnsScheme getDnsScheme() {
-        for (dnsSchemeDirectorMap.keySet())this.dnsScheme = new DnsScheme(terrene,)
+    public Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> getScheme(ProtocolParser<?> protocolParser) {
+        for (Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> scheme: this.schemeDirectorMap.keySet()) {
+            if (scheme.getProtocolParser().getProtocol().this.dnsScheme = new DnsScheme(terrene,)
+        }
     }
 
     @Override
@@ -56,7 +59,7 @@ public class Domain implements Control<Domain,DomainView,DomainModel> {
         return domainName;
     }
 
-    private final List<HostExperience> nameServerRecordHostExperienceMap = new ArrayList<>();
+    private final Map<ServerRecord<?,?,?,?,?,?>,HostExperience> nameServerRecordHostExperienceMap = new ArrayList<>();
     private final AtomicInteger serverCount = new AtomicInteger();
     public HostExperience getNextServer() {
         try {
@@ -69,7 +72,7 @@ public class Domain implements Control<Domain,DomainView,DomainModel> {
         }
     }
     public void addNameServer(ServerRecord serverRecord,NameServerRecord nameServerRecord) {
-        //nameServerRecordHostExperienceMap.add(new HostExperience.Server(serverRecord, 10, nameServerRecord));
+        nameServerRecordHostExperienceMap.add(new HostExperience.Server(serverRecord, 10, nameServerRecord));
     }
     public void removeServer(HostExperience hostExperience) {
         nameServerRecordHostExperienceMap.remove(hostExperience);

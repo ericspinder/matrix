@@ -5,18 +5,16 @@
 package dev.inward.matrix.control.terrene;
 
 import dev.inward.matrix.control.domain.Domain;
-import dev.inward.matrix.file.addressed.dns.serverRecord.Ip4ServerRecord;
-import dev.inward.matrix.file.addressed.dns.serverRecord.Ip4ServerRecordKey;
-import dev.inward.matrix.file.addressed.dns.serverRecord.ServerRecord;
+import dev.inward.matrix.concept.file.addressed.dns.serverRecord.Ip4ServerRecord;
+import dev.inward.matrix.concept.file.addressed.dns.serverRecord.Ip4ServerRecordKey;
+import dev.inward.matrix.concept.file.addressed.dns.serverRecord.ServerRecord;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class Earth extends Terrene {
 
@@ -28,7 +26,7 @@ public class Earth extends Terrene {
     protected URLConnection openConnection(URL u) throws IOException {
         return null;
     }
-    protected Domain createDomain(String domainName, String ipV4Address, String ipV6Address) {
+    protected Domain createDomain(String domainName, ServerRecord<?,?,?,?,?,?>... serverRecords) {
         Domain domain = new Domain(this, domainName);
         Ip4ServerRecordKey ip4ServerRecordKey = new Ip4ServerRecordKey(domain,);
     }

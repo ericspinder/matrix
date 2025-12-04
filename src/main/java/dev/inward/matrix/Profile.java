@@ -6,7 +6,7 @@ package dev.inward.matrix;
 
 import dev.inward.matrix.control.authority.Authority;
 import dev.inward.matrix.control.scheme.Scheme;
-import dev.inward.matrix.item.datum.administrator.UserName;
+import dev.inward.matrix.concept.item.datum.administrator.UserName;
 
 public abstract class Profile<S extends Scheme<S,L>,L extends Authority<S,L>,P extends Profile<S, L, P, U>,U extends UserName<S,L,U>> implements Comparable<P> {
 

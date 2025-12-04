@@ -4,11 +4,11 @@
 
 package dev.inward.matrix.control.bureau;
 
+import dev.inward.matrix.concept.file.FileView;
+import dev.inward.matrix.concept.file.addressed.*;
+import dev.inward.matrix.concept.file.directory.*;
 import dev.inward.matrix.control.Control;
-import dev.inward.matrix.file.*;
-import dev.inward.matrix.file.addressed.*;
-import dev.inward.matrix.item.datum.administrator.Persona;
-import dev.inward.matrix.file.directory.*;
+import dev.inward.matrix.concept.item.datum.administrator.Persona;
 
 import java.util.Map;
 
