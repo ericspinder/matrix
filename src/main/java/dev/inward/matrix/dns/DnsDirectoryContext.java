@@ -4,9 +4,9 @@
 
 package dev.inward.matrix.dns;
 
-import dev.inward.matrix.concept.file.Factory;
-import dev.inward.matrix.concept.file.Variant;
-import dev.inward.matrix.concept.file.directory.DirectoryContext;
+import dev.inward.matrix.concept.fact.Factory;
+import dev.inward.matrix.concept.fact.Variant;
+import dev.inward.matrix.concept.fact.directory.DirectoryContext;
 
 public class DnsDirectoryContext extends DirectoryContext<DnsScheme,DnsSchemeView,DnsSchemeModel,DnsAuthority,DnsAuthorityView,DnsAuthorityModel,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsDirectory,DnsDirectoryKey,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference,DnsDirectoryLibrarian,DnsDirectoryContext> {
 

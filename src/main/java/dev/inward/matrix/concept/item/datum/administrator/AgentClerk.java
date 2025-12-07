@@ -4,8 +4,8 @@
 
 package dev.inward.matrix.concept.item.datum.administrator;
 
-import dev.inward.matrix.concept.file.addressed.depot.specification.Specification;
-import dev.inward.matrix.concept.file.addressed.depot.standard.Standard;
+import dev.inward.matrix.concept.fact.addressed.depot.specification.Specification;
+import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
 
 public class AgentClerk extends AdministratorClerk<Agent,AgentView,AgentModel,AgentClerk> {
 

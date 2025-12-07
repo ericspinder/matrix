@@ -5,7 +5,7 @@
 package dev.inward.matrix.concept.catalog.platform;
 
 import dev.inward.matrix.control.bureau.Bureau;
-import dev.inward.matrix.concept.file.FileView;
+import dev.inward.matrix.concept.fact.FactView;
 
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
@@ -16,7 +16,7 @@ public abstract class PlatformBureau<BC extends PlatformBureau<BC,BV,BM>,BV exte
 
     protected final FileSystem defaultFileSystem = FileSystems.getDefault();
 
-    public PlatformBureau(String name, boolean readOnly, BM fileBureauModel, Map<String, Object> attributes, Class<FileView<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>>[] supportedFileViews, String rootPath) {
+    public PlatformBureau(String name, boolean readOnly, BM fileBureauModel, Map<String, Object> attributes, Class<FactView<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>>[] supportedFileViews, String rootPath) {
         super(name, readOnly,fileBureauModel,attributes, supportedFileViews);
         this.rootPath = rootPath;
     }

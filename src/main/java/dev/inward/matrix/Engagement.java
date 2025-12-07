@@ -4,10 +4,10 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.concept.file.addressed.AddressedKey;
-import dev.inward.matrix.concept.file.addressed.depot.indica.IndicaKey;
+import dev.inward.matrix.concept.fact.addressed.AddressedKey;
+import dev.inward.matrix.concept.fact.addressed.depot.indica.IndicaKey;
 import dev.inward.matrix.concept.item.datum.administrator.Persona;
-import dev.inward.matrix.concept.file.addressed.log.Log;
+import dev.inward.matrix.concept.fact.addressed.log.Log;
 
 import java.time.Instant;
 

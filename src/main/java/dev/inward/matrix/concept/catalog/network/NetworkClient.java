@@ -6,7 +6,7 @@ package dev.inward.matrix.concept.catalog.network;
 
 import dev.inward.matrix.Hosts;
 import dev.inward.matrix.control.bureau.Bureau;
-import dev.inward.matrix.concept.file.FileView;
+import dev.inward.matrix.concept.fact.FactView;
 
 import java.util.Map;
 
@@ -16,7 +16,7 @@ public abstract class NetworkClient<BC extends NetworkClient<BC,BV,BM>,BV extend
 
     protected final Hosts.LocalHost localHost;
 
-    public NetworkClient(String name, boolean readOnly, BM networkClientModel, Map<String, Object> attributes, Class<FileView<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>>[] supportedFileViews, Hosts.Remote remoteHost, Hosts.LocalHost localHost) {
+    public NetworkClient(String name, boolean readOnly, BM networkClientModel, Map<String, Object> attributes, Class<FactView<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>>[] supportedFileViews, Hosts.Remote remoteHost, Hosts.LocalHost localHost) {
         super(name, readOnly, networkClientModel, attributes, supportedFileViews);
         this.localHost = localHost;
         this.remoteHost = remoteHost;

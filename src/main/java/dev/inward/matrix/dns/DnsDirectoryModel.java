@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.dns;
 
-import dev.inward.matrix.concept.file.directory.DirectoryModel;
+import dev.inward.matrix.concept.fact.directory.DirectoryModel;
 
 public class DnsDirectoryModel extends DirectoryModel<DnsScheme,DnsSchemeView,DnsSchemeModel,DnsAuthority,DnsAuthorityView,DnsAuthorityModel,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsDirectory,DnsDirectoryKey,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference,DnsDirectoryLibrarian,DnsDirectoryContext> {
 }

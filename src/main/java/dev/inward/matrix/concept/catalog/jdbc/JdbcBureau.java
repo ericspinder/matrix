@@ -5,14 +5,14 @@
 package dev.inward.matrix.concept.catalog.jdbc;
 
 import dev.inward.matrix.control.bureau.Bureau;
-import dev.inward.matrix.concept.file.FileView;
+import dev.inward.matrix.concept.fact.FactView;
 
 import java.util.Map;
 
 public abstract class JdbcBureau<BC extends JdbcBureau<BC,BV,BM>,BV extends JdbcBureauView<BC,BV,BM>,BM extends JdbcBureauModel<BC,BV,BM>> extends Bureau<BC,BV,BM> {
 
 
-    public JdbcBureau(String name, boolean readOnly, BM jdbcBureauModel, Map<String, Object> attributes, Class<FileView<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>>[] supportedFileViews) {
+    public JdbcBureau(String name, boolean readOnly, BM jdbcBureauModel, Map<String, Object> attributes, Class<FactView<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>>[] supportedFileViews) {
         super(name, readOnly, jdbcBureauModel, attributes, supportedFileViews);
     }
 }

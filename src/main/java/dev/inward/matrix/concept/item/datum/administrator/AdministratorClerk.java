@@ -4,8 +4,8 @@
 
 package dev.inward.matrix.concept.item.datum.administrator;
 
-import dev.inward.matrix.concept.file.addressed.depot.specification.Specification;
-import dev.inward.matrix.concept.file.addressed.depot.standard.Standard;
+import dev.inward.matrix.concept.fact.addressed.depot.specification.Specification;
+import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
 import dev.inward.matrix.concept.item.datum.DatumClerk;
 
 public class AdministratorClerk<D extends Administrator<D,V,M,C>,V extends AdministratorView<D,V,M,C>,M extends AdministratorModel<D,V,M,C>,C extends AdministratorClerk<D,V,M,C>> extends DatumClerk<D,V,M,C> {

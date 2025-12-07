@@ -5,9 +5,9 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.dns.DnsPath;
-import dev.inward.matrix.concept.file.addressed.depot.DepotPath;
-import dev.inward.matrix.concept.file.addressed.dns.ResourceRecordType;
-import dev.inward.matrix.concept.file.addressed.log.LogPath;
+import dev.inward.matrix.concept.fact.addressed.depot.DepotPath;
+import dev.inward.matrix.concept.fact.addressed.dns.ResourceRecordType;
+import dev.inward.matrix.concept.fact.addressed.log.LogPath;
 
 import java.util.StringTokenizer;
 

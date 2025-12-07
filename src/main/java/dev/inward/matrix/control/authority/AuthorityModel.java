@@ -5,7 +5,7 @@
 package dev.inward.matrix.control.authority;
 
 import dev.inward.matrix.Aspect;
-import dev.inward.matrix.concept.file.directory.*;
+import dev.inward.matrix.concept.fact.directory.*;
 import dev.inward.matrix.control.ControlModel;
 import dev.inward.matrix.control.library.Library;
 import dev.inward.matrix.control.library.LibraryModel;

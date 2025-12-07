@@ -4,7 +4,6 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.concept.file.FileReference;
 import dev.inward.matrix.concept.item.datum.administrator.*;
 import dev.inward.matrix.user.*;
 
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
-public abstract class Permission<K extends AdministratorKey<K,F,V,M,R,B>,F extends Administrator<K,F,V,M,R,B>,V extends AdministratorView<K,F,V,M,R,B>,M extends AdministratorModel<K,F,V,M,R,B>,R extends FileReference,B extends AdministratorClerk<K,F,V,M,R,B>> extends BasicPermission {
+public abstract class Permission<K extends AdministratorKey<K,F,V,M,R,B>,F extends Administrator<K,F,V,M,R,B>,V extends AdministratorView<K,F,V,M,R,B>,M extends AdministratorModel<K,F,V,M,R,B>,R extends Bus,B extends AdministratorClerk<K,F,V,M,R,B>> extends BasicPermission {
     protected final F who;
 
     public Permission(F who, String path) {
@@ -55,7 +54,7 @@ public abstract class Permission<K extends AdministratorKey<K,F,V,M,R,B>,F exten
             return sj.toString();
         }
     }
-    public static abstract class PosixPermission<K extends AdministratorKey<K,F,V,M,R,B>,F extends Administrator<K,F,V,M,R,B>,V extends AdministratorView<K,F,V,M,R,B>,M extends AdministratorModel<K,F,V,M,R,B>,R extends FileReference,B extends AdministratorClerk<K,F,V,M,R,B>> extends Permission<K,F,V,M,R,B> {
+    public static abstract class PosixPermission<K extends AdministratorKey<K,F,V,M,R,B>,F extends Administrator<K,F,V,M,R,B>,V extends AdministratorView<K,F,V,M,R,B>,M extends AdministratorModel<K,F,V,M,R,B>,R extends Bus,B extends AdministratorClerk<K,F,V,M,R,B>> extends Permission<K,F,V,M,R,B> {
 
         protected final List<PosixFilePermission> posixFilePermissionList;
         protected abstract List<PosixFilePermission> parse(List<PosixFilePermission> posixFilePermissions);

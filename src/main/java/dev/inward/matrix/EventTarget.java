@@ -4,7 +4,7 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.concept.file.addressed.depot.indica.Indica;
+import dev.inward.matrix.concept.fact.addressed.depot.indica.Indica;
 import dev.inward.matrix.predictable.Policy;
 
 import java.nio.file.WatchEvent;

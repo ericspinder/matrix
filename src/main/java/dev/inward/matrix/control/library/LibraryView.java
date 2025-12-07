@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.control.library;
 
-import dev.inward.matrix.concept.file.directory.*;
+import dev.inward.matrix.concept.fact.directory.*;
 import dev.inward.matrix.control.ControlView;
 import dev.inward.matrix.control.authority.Authority;
 import dev.inward.matrix.control.authority.AuthorityModel;

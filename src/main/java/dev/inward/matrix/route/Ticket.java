@@ -4,19 +4,23 @@
 
 package dev.inward.matrix.route;
 
+import dev.inward.matrix.concept.fact.addressed.log.Log;
+
 public abstract class Ticket<V> {
 
+    protected final Log initLog;
     
     protected final V value;
 
-    public Ticket(V value) {
+    public Ticket(Log initLog, V value) {
+        this.initLog = initLog;
         this.value = value;
     }
 
     public static class Immutable<V> extends Ticket<V> {
 
-        Immutable(V value) {
-            super(value);
+        Immutable(Log initLog, V value) {
+            super(initLog, value);
         }
     }
 

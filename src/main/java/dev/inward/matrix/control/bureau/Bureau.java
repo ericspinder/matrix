@@ -4,9 +4,9 @@
 
 package dev.inward.matrix.control.bureau;
 
-import dev.inward.matrix.concept.file.FileView;
-import dev.inward.matrix.concept.file.addressed.*;
-import dev.inward.matrix.concept.file.directory.*;
+import dev.inward.matrix.concept.fact.FactView;
+import dev.inward.matrix.concept.fact.addressed.*;
+import dev.inward.matrix.concept.fact.directory.*;
 import dev.inward.matrix.control.Control;
 import dev.inward.matrix.concept.item.datum.administrator.Persona;
 
@@ -17,7 +17,7 @@ public abstract class Bureau<BC extends Bureau<BC,BV,BM>,BV extends BureauView<B
 
 
     @SuppressWarnings("unchecked")
-    public Bureau(String name, boolean readOnly, Map<String,Object> attributes, Class<FileView<?,?,?,?,?,?>>[] supportedFileViews) {
+    public Bureau(String name, boolean readOnly, Map<String,Object> attributes, Class<FactView<?,?,?,?,?,?>>[] supportedFileViews) {
         super(name, readOnly, attributes,supportedFileViews);
 
     }

@@ -7,7 +7,7 @@
 package dev.inward.matrix.phenomenon;
 
 import dev.inward.matrix.file.FileContext;
-import dev.inward.matrix.concept.file.addressed.depot.indica.IndicaKey;
+import dev.inward.matrix.concept.fact.addressed.depot.indica.IndicaKey;
 
 import java.time.Instant;
 import java.util.UUID;

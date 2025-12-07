@@ -5,7 +5,7 @@
 package dev.inward.matrix.control.scheme;
 
 import dev.inward.matrix.ProtocolParser;
-import dev.inward.matrix.concept.file.directory.*;
+import dev.inward.matrix.concept.fact.directory.*;
 import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.control.terrene.Terrene;
 import dev.inward.matrix.control.authority.*;

@@ -4,10 +4,10 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.concept.file.addressed.Addressed;
-import dev.inward.matrix.concept.file.addressed.AddressedReference;
-import dev.inward.matrix.concept.file.addressed.AddressedView;
-import dev.inward.matrix.concept.file.addressed.AddressedKey;
+import dev.inward.matrix.concept.fact.addressed.Addressed;
+import dev.inward.matrix.concept.fact.addressed.AddressedReference;
+import dev.inward.matrix.concept.fact.addressed.AddressedView;
+import dev.inward.matrix.concept.fact.addressed.AddressedKey;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

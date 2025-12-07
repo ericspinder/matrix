@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.concept.item.datum;
 
-import dev.inward.matrix.concept.file.addressed.depot.standard.Standard;
+import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
 import dev.inward.matrix.concept.item.Clerk;
 
 public class DatumClerk<D extends Datum<D,V,M,C>,V extends DatumView<D,V,M,C>,M extends DatumModel<D,V,M,C>,C extends DatumClerk<D,V,M,C>> extends Clerk<D,V,M,C> {

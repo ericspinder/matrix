@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.dns;
 
-import dev.inward.matrix.concept.file.directory.DirectoryView;
+import dev.inward.matrix.concept.fact.directory.DirectoryView;
 
 public class DnsDirectoryView extends DirectoryView<DnsScheme,DnsSchemeView,DnsSchemeModel,DnsAuthority,DnsAuthorityView,DnsAuthorityModel,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsDirectory,DnsDirectoryKey,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference,DnsDirectoryLibrarian,DnsDirectoryContext> {
 }

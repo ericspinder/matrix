@@ -10,7 +10,7 @@ package dev.inward;
 import dev.inward.matrix.concept.Concept;
 import dev.inward.matrix.control.authority.Authority;
 import dev.inward.matrix.control.scheme.Scheme;
-import dev.inward.matrix.concept.file.addressed.depot.standard.Standard;
+import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
 import dev.inward.matrix.concept.item.datum.DatumView;
 
 import java.io.Serializable;

@@ -5,8 +5,8 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.concept.Concept;
-import dev.inward.matrix.concept.file.Factory;
-import dev.inward.matrix.concept.file.Variant;
+import dev.inward.matrix.concept.fact.Factory;
+import dev.inward.matrix.concept.fact.Variant;
 import dev.inward.matrix.control.library.Library;
 import dev.inward.matrix.concept.item.datum.DatumClerk;
 import dev.inward.matrix.concept.item.datum.administrator.Agent;

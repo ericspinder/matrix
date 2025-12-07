@@ -5,7 +5,7 @@
 package dev.inward.matrix.concept;
 
 import dev.inward.matrix.*;
-import dev.inward.matrix.concept.file.addressed.depot.standard.Standard;
+import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
 
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;

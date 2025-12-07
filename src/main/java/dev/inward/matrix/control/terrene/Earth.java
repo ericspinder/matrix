@@ -5,9 +5,9 @@
 package dev.inward.matrix.control.terrene;
 
 import dev.inward.matrix.control.domain.Domain;
-import dev.inward.matrix.concept.file.addressed.dns.serverRecord.Ip4ServerRecord;
-import dev.inward.matrix.concept.file.addressed.dns.serverRecord.Ip4ServerRecordKey;
-import dev.inward.matrix.concept.file.addressed.dns.serverRecord.ServerRecord;
+import dev.inward.matrix.concept.fact.addressed.dns.serverRecord.Ip4ServerRecord;
+import dev.inward.matrix.concept.fact.addressed.dns.serverRecord.Ip4ServerRecordKey;
+import dev.inward.matrix.concept.fact.addressed.dns.serverRecord.ServerRecord;
 
 import java.io.IOException;
 import java.net.URI;

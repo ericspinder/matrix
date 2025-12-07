@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.dns;
 
-import dev.inward.matrix.concept.file.directory.Directory;
+import dev.inward.matrix.concept.fact.directory.Directory;
 
 public class DnsDirectory extends Directory {
 }

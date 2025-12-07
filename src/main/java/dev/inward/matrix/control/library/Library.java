@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.control.library;
 
-import dev.inward.matrix.concept.file.directory.*;
+import dev.inward.matrix.concept.fact.directory.*;
 import dev.inward.matrix.control.Control;
 import dev.inward.matrix.control.authority.Authority;
 import dev.inward.matrix.control.authority.AuthorityModel;
@@ -13,7 +13,7 @@ import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.control.scheme.SchemeModel;
 import dev.inward.matrix.control.scheme.SchemeView;
-import dev.inward.matrix.concept.file.FileKey;
+import dev.inward.matrix.concept.fact.FactKey;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -130,7 +130,7 @@ public class Library<S extends Scheme<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,
 
     @NotNull
     @Override
-    public FileKey<?,?,?,?,?,?,?> getPath(@NotNull String first, String... more) {
+    public FactKey<?,?,?,?,?,?,?> getPath(@NotNull String first, String... more) {
         StringBuilder stringBuilder = new StringBuilder();
         if (first.startsWith(this.getSeparator())) {
             stringBuilder.append(first);
@@ -146,7 +146,7 @@ public class Library<S extends Scheme<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DR,DL,
         }
         return this.getFileKey(stringBuilder.toString());
     }
-    public FileKey<?,?,?,?,?,?,?> getFileKey(String path) {
+    public FactKey<?,?,?,?,?,?,?> getFileKey(String path) {
         String directoryPath;
         int lastIndexOfSeparator = path.lastIndexOf(this.getSeparator());
         if (lastIndexOfSeparator == -1) {

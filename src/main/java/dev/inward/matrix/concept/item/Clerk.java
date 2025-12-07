@@ -5,7 +5,7 @@
 package dev.inward.matrix.concept.item;
 
 import dev.inward.matrix.concept.Concept;
-import dev.inward.matrix.concept.file.addressed.depot.standard.Standard;
+import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
 
 public class Clerk<ITEM,V extends ItemView<ITEM,V,M,C>,M extends ItemModel<ITEM,V,M,C>,C extends Clerk<ITEM,V,M,C>> extends Concept<ITEM,V,M> {
 

@@ -4,7 +4,7 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.concept.file.addressed.Addressed;
+import dev.inward.matrix.concept.fact.addressed.Addressed;
 import dev.inward.matrix.concept.item.datum.administrator.UserName;
 
 import java.util.Map;

@@ -4,8 +4,8 @@
 
 package dev.inward.matrix.dns;
 
-import dev.inward.matrix.concept.file.addressed.depot.standard.Standard;
-import dev.inward.matrix.concept.file.directory.DirectoryLibrarian;
+import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
+import dev.inward.matrix.concept.fact.directory.DirectoryLibrarian;
 
 public class DnsDirectoryLibrarian extends DirectoryLibrarian<DnsScheme,DnsSchemeView,DnsSchemeModel,DnsAuthority,DnsAuthorityView,DnsAuthorityModel,DnsLibrary,DnsLibraryView,DnsLibraryModel,DnsDirectory,DnsDirectoryKey,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference,DnsDirectoryLibrarian,DnsDirectoryContext> {
     public DnsDirectoryLibrarian(Standard standard) {
