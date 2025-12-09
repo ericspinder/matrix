@@ -6,13 +6,14 @@ package dev.inward.matrix.predictable;
 
 import dev.inward.matrix.concept.fact.addressed.log.Log;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Bout<TARGET> {
 
+    protected final Instant startDateTime = Instant.now();
     protected final TARGET target;
-    protected final List<? extends Log> completedMatters = new ArrayList<>();
 
     public Bout(TARGET target) {
         this.target = target;
@@ -22,8 +23,4 @@ public class Bout<TARGET> {
         return target;
     }
 
-
-    public List<? extends Log> getCompletedMatters() {
-        return completedMatters;
-    }
 }

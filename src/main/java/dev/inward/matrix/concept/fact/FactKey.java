@@ -7,6 +7,7 @@ package dev.inward.matrix.concept.fact;
 
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.Context;
+import dev.inward.matrix.Seat;
 import dev.inward.matrix.concept.fact.directory.Directory;
 import dev.inward.matrix.concept.fact.directory.DirectoryKey;
 import dev.inward.matrix.control.authority.*;
@@ -24,7 +25,7 @@ import java.nio.file.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public abstract class FactKey<F extends Fact<F,K,V,M,R,L,C>,K extends FactKey<F,K,V,M,R,L,C>,V extends FactView<F,K,V,M,R,L,C>,M extends FactModel<F,K,V,M,R,L,C>,R extends dev.inward.matrix.Bus<F>,L extends Librarian<F,K,V,M,R,L,C>,C extends Context<F,V,M,L,C>> implements Path {
+public abstract class FactKey<F extends Fact<F,K,V,M,R,L,C>,K extends FactKey<F,K,V,M,R,L,C>,V extends FactView<F,K,V,M,R,L,C>,M extends FactModel<F,K,V,M,R,L,C>,R extends Seat<F>,L extends Librarian<F,K,V,M,R,L,C>,C extends Context<F,V,M,L,C>> implements Path {
 
     protected R reference;
     protected final String url;
@@ -195,7 +196,7 @@ public abstract class FactKey<F extends Fact<F,K,V,M,R,L,C>,K extends FactKey<F,
         return this.uri.toString();
     }
 
-    public static abstract class Builder<F extends Fact<F,K,V,M,R,L,C>,K extends FactKey<F,K,V,M,R,L,C>,V extends FactView<F,K,V,M,R,L,C>,M extends FactModel<F,K,V,M,R,L,C>,R extends Reference<F> & dev.inward.matrix.Bus<F>,L extends Librarian<F,K,V,M,R,L,C>,C extends Context<F,K,V,M,R,L,C>> {
+    public static abstract class Builder<F extends Fact<F,K,V,M,R,L,C>,K extends FactKey<F,K,V,M,R,L,C>,V extends FactView<F,K,V,M,R,L,C>,M extends FactModel<F,K,V,M,R,L,C>,R extends Reference<F> & Seat<F>,L extends Librarian<F,K,V,M,R,L,C>,C extends Context<F,K,V,M,R,L,C>> {
 
         protected URI uri;
         protected Authority<?,?,?,?,?,?,?> authority;

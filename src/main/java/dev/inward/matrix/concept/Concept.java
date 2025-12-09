@@ -78,7 +78,7 @@ public abstract class Concept<TARGET,V extends View<TARGET,V,M>,M extends Model<
         return (Function<Reference<? extends TARGET>,Reference<? extends TARGET>>) Class.forName(standard.getGraveDiggerClassName()).getDeclaredConstructor(Concept.class).newInstance(this);
     }
 
-    public long incrementAndGet(Bus bus) {
+    public long incrementAndGet(Seat seat) {
         long currentCount = this.sequence.incrementAndGet();
         if (currentCount < warnOnTotal) {
             //throw new MatrixException(MatrixException.Type.OverLimit,"over limit", Indicia.Focus.Admonitory, Indicia.Severity.Capacity,null);

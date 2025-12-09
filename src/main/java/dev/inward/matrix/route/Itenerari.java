@@ -11,7 +11,7 @@ import java.lang.ref.WeakReference;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
-public abstract class Seat<S extends Seat<S>> implements Runnable {
+public abstract class Itenerari<S extends Itenerari<S>> implements Runnable {
 
     protected final UUID uuid = UUID.randomUUID();
     protected final ConcurrentLinkedDeque<Log> competedLogs = new ConcurrentLinkedDeque<>();

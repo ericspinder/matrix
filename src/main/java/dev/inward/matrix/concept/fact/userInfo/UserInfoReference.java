@@ -4,5 +4,7 @@
 
 package dev.inward.matrix.concept.fact.userInfo;
 
-public interface UserInfoReference<F extends UserInfo<F,K,V,M,R,L,X>,K extends UserInfoKey<F,K,V,M,R,L,X>,V extends UserInfoView<F,K,V,M,R,L,X>,M extends UserInfoModel<F,K,V,M,R,L,X>,R extends UserInfoReference<F,K,V,M,R,L,X>,L extends UserInfoLibrarian<F,K,V,M,R,L,X>,X extends UserInfoContext<F,K,V,M,R,L,X>> extends dev.inward.matrix.Bus<F> {
+import dev.inward.matrix.Seat;
+
+public interface UserInfoReference<F extends UserInfo<F,K,V,M,R,L,X>,K extends UserInfoKey<F,K,V,M,R,L,X>,V extends UserInfoView<F,K,V,M,R,L,X>,M extends UserInfoModel<F,K,V,M,R,L,X>,R extends UserInfoReference<F,K,V,M,R,L,X>,L extends UserInfoLibrarian<F,K,V,M,R,L,X>,X extends UserInfoContext<F,K,V,M,R,L,X>> extends Seat<F> {
 }

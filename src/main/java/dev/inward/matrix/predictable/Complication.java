@@ -10,35 +10,36 @@ import dev.inward.matrix.concept.fact.addressed.log.Log;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.WatchKey;
+import java.nio.file.Watchable;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.locks.StampedLock;
 
-public class Complication<TARGET> implements Runnable {
+public class Complication<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>> implements Runnable {
 
     protected final StampedLock gate = new StampedLock();
     protected final UUID uuid = UUID.randomUUID();
     protected final ConcurrentLinkedDeque<Log> competedLogs = new ConcurrentLinkedDeque<>();
-    protected final WeakReference<Director> directorWeakReference;
+    protected final Predictable predictable;
     protected final Provider<TARGET> provider;
 
     protected boolean queuedForExecution = false;
     protected boolean canceled = false;
-    protected Policy<PK,PI,PV,PM,PR,PG,DATUM,V,M,R,G>[] allPolicies;
+    protected Policy<Bout<TARGET>,?>[] allPolicies;
 
 
     @SuppressWarnings("unchecked")
-    public Complication(Director director, PI parent, Provider<TARGET> provider, Map<Indica,Criterion> criterionByIndicaMap) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        this.directorWeakReference = new WeakReference<>(director);
-        this.parent = parent;
+    public Complication(Predictable predictable, Provider<TARGET> provider, Map<Indica,Criterion> criterionByIndicaMap) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        this.predictable = predictable;
         this.provider = provider;
-        List<Policy<PK,PI,PV,PM,PR,PG,DATUM,V,M,R,G>> policies = new ArrayList<>();
+        List<Policy<Bout<TARGET>,?>> policies = new ArrayList<>();
         for (Indica indica : criterionByIndicaMap.keySet()) {
-            Criterion<PK,PI,PV,PM,PR,PG,DATUM,V,M,R,G> criterion = criterionByIndicaMap.get(indica);
+            Criterion criterion = criterionByIndicaMap.get(indica);
             if (!indica.getCriterionClassName().equals(criterion.getClass().getCanonicalName())) {
                 throw new RuntimeException("indica and criterion mismatch" + indica.toString() + ", " + criterion.getLabel() + " - " + criterion.getClass());
             }
-            policies.add((Policy<PK,PI,PV,PM,PR,PG,DATUM,V,M,R,G>) Class.forName(indica.getPolicyClassName()).getConstructor(Complication.class, Indica.class, Criterion.class).newInstance(this, indica, criterion));
+            policies.add((Policy<Bout<TARGET>,?>) Class.forName(indica.getPolicyClassName()).getConstructor(Complication.class, Indica.class, Criterion.class).newInstance(this, indica, criterion));
         }
         this.allPolicies = policies.toArray(new Policy[0]);
     }

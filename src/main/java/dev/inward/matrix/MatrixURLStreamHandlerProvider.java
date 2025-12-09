@@ -17,7 +17,7 @@ public class MatrixURLStreamHandlerProvider extends URLStreamHandlerProvider {
 
     protected static MatrixURLStreamHandlerProvider Instance;
 
-    protected final Map<String, Bus<Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>>> allKnownSchemes = new HashMap<>();
+    protected final Map<String, Seat<Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>>> allKnownSchemes = new HashMap<>();
     protected final Terrene defaultTerrene;
 
     public MatrixURLStreamHandlerProvider() {

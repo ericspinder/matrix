@@ -5,6 +5,7 @@
 package dev.inward.matrix.concept.catalog;
 
 import dev.inward.matrix.Context;
+import dev.inward.matrix.Seat;
 import dev.inward.matrix.concept.fact.*;
 import dev.inward.matrix.control.Control;
 import dev.inward.matrix.concept.catalog.jdbc.DefaultJdbcBureauView;
@@ -37,7 +38,7 @@ public abstract class Catalog<CC extends Catalog<CC, CV, CM>, CV extends Catalog
         this.control = control;
         this.attributes = new ConcurrentHashMap<>(attributes);
     }
-    public <F extends Fact<F,K,V,M,R,L,C>,K extends FactKey<F,K,V,M,R,L,C>,V extends FactView<F,K,V,M,R,L,C>,M extends FactModel<F,K,V,M,R,L,C>,R extends dev.inward.matrix.Bus<F>,L extends Librarian<F,K,V,M,R,L,C>,C extends Context<F,K,V,M,R,L,C>> F getFile(K key, L librarian, Persona persona) {
+    public <F extends Fact<F,K,V,M,R,L,C>,K extends FactKey<F,K,V,M,R,L,C>,V extends FactView<F,K,V,M,R,L,C>,M extends FactModel<F,K,V,M,R,L,C>,R extends Seat<F>,L extends Librarian<F,K,V,M,R,L,C>,C extends Context<F,K,V,M,R,L,C>> F getFile(K key, L librarian, Persona persona) {
         if (librarian != null && this.librarians.containsKey(librarian)) {
             synchronized (librarians.get(librarian)) {
                 if (this.librarians.get(librarian).equals(librarian)) {

@@ -4,19 +4,6 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.route.Ticket;
-
-import java.util.Collections;
-import java.util.Map;
-
-public interface Bus<TARGET> {
-
-    default Map<String, Ticket<?>> getAttributes() {
-        return Collections.emptyMap();
-    }
-    default long getSequence() {
-        return 0;
-    };
-    TARGET get();
+public interface Bus<TARGET,V extends View<TARGET,V,M>, M extends Model<TARGET>,B extends Bus<TARGET,V,M,B>> extends Comparable<B> {
 
 }

@@ -9,7 +9,7 @@ import dev.inward.matrix.concept.Concept;
 import java.lang.ref.PhantomReference;
 import java.util.Map;
 
-public class _PhantomReference<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>,C extends Concept<TARGET,V,M>> extends PhantomReference<TARGET> implements Bus {
+public class _PhantomReference<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>,C extends Concept<TARGET,V,M>> extends PhantomReference<TARGET> implements Seat {
 
     protected final Long sequenceNumber;
     protected final Map<String, Model.InstanceValue<?>> attributes;

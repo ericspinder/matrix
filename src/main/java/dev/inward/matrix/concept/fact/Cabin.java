@@ -5,8 +5,9 @@
 package dev.inward.matrix.concept.fact;
 
 import dev.inward.matrix.Bus;
+import dev.inward.matrix.Seat;
 
-public interface OmniBus extends Bus {
+public interface Cabin<F extends Fact<F,K,V,M,C,L,>> extends Seat<F> {
 
     /**
      *

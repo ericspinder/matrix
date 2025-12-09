@@ -7,15 +7,17 @@ package dev.inward.matrix.predictable;
 import dev.inward.matrix.control.domain.Domain;
 import java.io.IOException;
 import java.nio.file.ClosedWatchServiceException;
+import java.nio.file.WatchService;
 import java.time.Instant;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
 
-public class Predictable {
+public class Predictable implements AutoCloseable {
+
     protected boolean open;
     protected final Domain domain;
-    protected final Map<Complication<?,?,?,?,?,?>, Instant> complicationInstantMap = new WeakHashMap<>();
+    protected final Map<Complication<?,?,?>, Instant> complicationInstantMap = new WeakHashMap<>();
     public Predictable(Domain domain) {
         this.domain = domain;
     }
@@ -36,9 +38,6 @@ public class Predictable {
         return director;
     }
 
-    public void addFinishedComplication(Complication<?,?> finishedComplication) {
-        this.finishedComplications.add(finishedComplication);
-    }
 //        Criterion param = extractMatchingCriterionTarget(indicia.providerClassName(),criteria);
 //        try {
 //            return ((Class<Provider<PATH,K>>) Class.forName(indicia.providerClassName())).getDeclaredConstructor(Watchable.class,Criterion.class).newInstance(watched,param);
@@ -90,36 +89,6 @@ public class Predictable {
 //        return null;
 //    }
 
-
-    @Override
-    public Complication<?,?,?,?,?,?> poll() {
-        if (!this.open) {
-            throw new ClosedWatchServiceException();
-        }
-        return this.finishedComplications.poll();
-    }
-
-    @Override
-    public void close() throws IOException {
-        this.open = false;
-        this.director.closeAll();
-    }
-
-    @Override
-    public Complication<?,?,?,?,?,?> poll(long timeout, TimeUnit unit) throws InterruptedException {
-        if (!this.open) {
-            throw new ClosedWatchServiceException();
-        }
-        return this.finishedComplications.poll(timeout,unit);
-    }
-
-    @Override
-    public Complication<?,?,?,?,?,?> take() throws InterruptedException {
-        if (!this.open) {
-            throw new ClosedWatchServiceException();
-        }
-        return this.finishedComplications.take();
-    }
 
 
 //    @SuppressWarnings("unchecked")
