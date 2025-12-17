@@ -5,10 +5,12 @@
 package dev.inward.matrix.concept.catalog;
 
 import dev.inward.matrix.Context;
+import dev.inward.matrix.Experience;
 import dev.inward.matrix.Seat;
+import dev.inward.matrix.concept.ConceptExperience;
 import dev.inward.matrix.concept.fact.*;
 import dev.inward.matrix.control.Control;
-import dev.inward.matrix.concept.catalog.jdbc.DefaultJdbcBureauView;
+import dev.inward.matrix.concept.catalog.jdbc.DefaultJdbcCatalogView;
 import dev.inward.matrix.control.library.Library;
 import dev.inward.matrix.concept.item.datum.administrator.Persona;
 
@@ -22,15 +24,16 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class Catalog<CC extends Catalog<CC, CV, CM>, CV extends CatalogView<CC, CV, CM>, CM extends CatalogModel<CC, CV, CM>> extends FileStore {
 
-    protected final Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> library;
+    protected final Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> library;
     protected final Mount mount;
     protected final String name;
     protected final boolean readOnly;
     protected final Control<?,?,?> control;
-    protected final Map<Librarian<?,?,?,?,?,?,?>,Catalog.Experience> seenLibrarians = new WeakHashMap<>();
+    protected final Map<Librarian<?, ?, ?, ?, ?, ?, ?>, CatalogExperience<?, ?, ?, ?, ?, ?>> seenLibrarians = new WeakHashMap<>();
+    protected final Map<Librarian<?, ?, ?, ?, ?, ?, ?>, Librarian<?, ?, ?, ?, ?, ?, ?>> librarians = new ConcurrentHashMap<>();
     protected final Map<String, Object> attributes;
 
-    public Catalog(Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> library, final Mount mount, String name, boolean readOnly, Control<?,?,?> control, Map<String,Object> attributes) {
+    public Catalog(Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> library, final Mount mount, String name, boolean readOnly, Control<?,?,?> control, Map<String,Object> attributes) {
         this.library = library;
         this.mount = mount;
         this.name = name;
@@ -48,7 +51,7 @@ public abstract class Catalog<CC extends Catalog<CC, CV, CM>, CV extends Catalog
         }
         return null;
     }
-    public final Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> getLibrary() {
+    public final Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> getLibrary() {
         return library;
     }
 
@@ -69,7 +72,7 @@ public abstract class Catalog<CC extends Catalog<CC, CV, CM>, CV extends Catalog
 
     @Override
     public <V extends FileStoreAttributeView> V getFileStoreAttributeView(Class<V> type) {
-        if (type.isAssignableFrom(DefaultJdbcBureauView.class)) {
+        if (type.isAssignableFrom(DefaultJdbcCatalogView.class)) {
             try {
                 return type.getConstructor(this.getClass()).newInstance(this);
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
@@ -105,7 +108,12 @@ public abstract class Catalog<CC extends Catalog<CC, CV, CM>, CV extends Catalog
         }
         return false;
     }
-    public class Audit<V extends >
-    public class TimeClock<V extends FileStoreAttributeView> implements FileStoreAttributeView {}
 
+    public class Audit<V extends FileStoreAttributeView> implements FileStoreAttributeView {
+    }
+
+    public class TimeClock<V extends FileStoreAttributeView> implements FileStoreAttributeView {}
+    public class CatalogExperience<CC extends Catalog<CC, CV, CM>, CV extends CatalogView<CC, CV, CM>, CM extends CatalogModel<CC, CV, CM>> extends Experience<CC,CV,CM> {
+
+    }
 }

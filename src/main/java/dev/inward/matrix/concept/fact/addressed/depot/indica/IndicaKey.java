@@ -4,16 +4,29 @@
 
 package dev.inward.matrix.concept.fact.addressed.depot.indica;
 
+import dev.inward.matrix.Matrix;
 import dev.inward.matrix.concept.fact.addressed.depot.DepotDirectoryKey;
 import dev.inward.matrix.concept.fact.addressed.depot.DepotKey;
+import dev.inward.matrix.predictable.Predictable;
+import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
 import java.util.Objects;
 
-public class IndicaKey extends DepotKey<Indica,IndicaKey,IndicaView,IndicaModel, IndicaReference, IndicaLibrarian> {
+public class IndicaKey<P extends Predictable> extends DepotKey<Indica<P>,IndicaKey<P>,IndicaView<P>,IndicaModel<P>, IndicaReference<P>, IndicaLibrarian<P>> implements WatchEvent.Kind<Indica<P>> {
 
-    protected IndicaKey(URI uri, String locus, DepotDirectoryKey directoryKey) {
+    protected IndicaKey(URI uri, String predictableClass, String locus, DepotDirectoryKey directoryKey) {
         super(uri,locus,directoryKey);
+    }
+
+    @Override
+    protected URL processUri(URI uri) {
+        return null;
     }
 
     @Override
@@ -31,6 +44,17 @@ public class IndicaKey extends DepotKey<Indica,IndicaKey,IndicaView,IndicaModel,
 
     public String locus() {
         return id;
+    }
+
+    @Override
+    public String name() {
+        return "";
+    }
+
+    @Override
+    public Class<P> type() {
+        Matrix.getInstance().this.url
+        return ;
     }
 
 

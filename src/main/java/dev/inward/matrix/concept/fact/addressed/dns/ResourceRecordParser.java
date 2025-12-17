@@ -4,8 +4,6 @@
 
 package dev.inward.matrix.concept.fact.addressed.dns;
 
-import dev.inward.matrix.dns.DnsDirectoryKey;
-
 public abstract class ResourceRecordParser<F extends ResourceRecord<F,K,V,M,R,B>,K extends RRKey<F,K,V,M,R,B>,V extends RRView<F,K,V,M,R,B>,M extends RRModel<F,K,V,M,R,B>,R extends RRReference<F,K,V,M,R,B>,B extends RRLibrarian<F,K,V,M,R,B>> {
 
     public ResourceRecordParser(DnsDirectoryKey dnsDirectoryKey) {

@@ -13,18 +13,15 @@ import dev.inward.matrix.concept.item.datum.administrator.Agent;
 
 import java.security.ProtectionDomain;
 
-public abstract class Context<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>,C extends Concept<TARGET,V,M>,X extends Context<TARGET,V,M,C,X>> extends ProtectionDomain {
+public abstract class Context<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>,C extends Concept<TARGET,V,M>> extends ProtectionDomain {
 
-    protected final Variant variant;
-    protected final M model;
     protected final C concept;
-    protected final Factory factory;
 
-    public Context(Variant variant, M personality, Factory factory, Agent... agents) {
-        super(variant,personality,factory,agents);
+    public Context(Variant variant, M model, Factory factory, Agent[] agents, C concept) {
+        super(variant,model,factory,agents);
+        this.concept = concept;
     }
 
-    @SuppressWarnings("unchecked")
     public Variant getVariant() {
         return (Variant) this.getCodeSource();
     }
@@ -32,16 +29,13 @@ public abstract class Context<TARGET,V extends View<TARGET,V,M>,M extends Model<
     public M getModel() {
         return (M) this.getPermissions();
     }
-    @SuppressWarnings("unchecked")
-    public Factory getFactory() {
-        return (Factory<DF,DK,DV,DM,DR,DL,PATH>) this.getClassLoader();
+
+    public Factory<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> getFactory() {
+        return (Factory<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>) this.getClassLoader();
     }
 
-    public DatumClerk<?, ?, ?, ?, ?> getLibrarian() {
-        return librarian;
+    public C getConcept() {
+        return concept;
     }
 
-    public Library<DF, DK, DV, DM, DR, DL, PATH> getCatalog() {
-        return library;
-    }
 }

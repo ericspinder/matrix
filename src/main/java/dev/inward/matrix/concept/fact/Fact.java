@@ -6,7 +6,7 @@ package dev.inward.matrix.concept.fact;
 
 import dev.inward.matrix.Context;
 
-public abstract class Fact<F extends Fact<F,K,V,M,O,L,C>,K extends FactKey<F,K,V,M,O,L,C>,V extends FactView<F,K,V,M,O,L,C>,M extends FactModel<F,K,V,M,O,L,C>,O extends Cabin<F,K,V,M,O,L,C>,L extends Librarian<F,K,V,M,O,L,C>,C extends Context<F,K,V,M,O,L,C>>  {
+public abstract class Fact<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,V,M,L,X>,V extends FactView<F,K,V,M,L,X>,M extends FactModel<F,K,V,M,L,X>,L extends Librarian<F,K,V,M,L,X>,X extends Context<?,?,?,?>>  {
 
     protected final K key;
 

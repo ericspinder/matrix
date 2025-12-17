@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.concept.catalog.network;
 
-import dev.inward.matrix.control.bureau.BureauView;
+import dev.inward.matrix.control.administration.BureauView;
 
 public class NetworkClientView<BC extends NetworkClient<BC,BV,BM>,BV extends NetworkClientView<BC,BV,BM>,BM extends NetworkClientModel<BC,BV,BM>> extends BureauView<BC,BV,BM> {
 

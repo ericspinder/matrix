@@ -19,7 +19,7 @@ public class Driver extends Thread implements Comparable<Driver> {
     protected final UUID uuid = UUID.randomUUID();
     protected final Instant createInstant = Instant.now();
     protected Map<String, Cipher> initializedCiphers;
-    protected volatile Instant routeStartInstant;
+    private volatile Instant routeStartInstant;
 
 
     public Driver(Dispatch threadGroup, Runnable target, String name,
@@ -46,6 +46,12 @@ public class Driver extends Thread implements Comparable<Driver> {
         return uuid;
     }
 
+    public Instant getRouteStartInstant() {
+        return routeStartInstant;
+    }
+    public void resetRouteStartInstant() {
+        this.routeStartInstant = Instant.now();
+    }
     @Override
     public int compareTo(Driver that) {
         int isZero = this.getDispatch().compareTo(that.getDispatch());

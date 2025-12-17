@@ -4,10 +4,8 @@
 
 package dev.inward.matrix.concept.fact.addressed.http;
 
-import dev.inward.matrix.concept.fact.addressed.AddressedReference;
 
-
-public class FactReference<F extends Http<F,K,V,M,R,L>,K extends HttpKey<F,K,V,M,R,L>,V extends HttpView<F,K,V,M,R,L>,M extends HttpModel<F,K,V,M,R,L>,R extends FactReference<F,K,V,M,R,L>,L extends HttpLibrarian<F,K,V,M,R,L>> extends AddressedReference<F,String,K,V,M,R,L,HttpDirectory,HttpDirectoryKey,HttpDirectoryView,HttpDirectoryModel, HttpDirectoryReference, HttpDirectoryLibrarian,String> {
+public class FactReference<F extends Http<F,K,V,M,R,L>,K extends HttpKey<F,K,V,M,R,L>,V extends HttpView<F,K,V,M,R,L>,M extends HttpModel<F,K,V,M,R,L>,R extends FactReference<F,K,V,M,R,L>,L extends HttpLibrarian<F,K,V,M,R,L>> implements dev.inward.matrix.Seat<F> {
 
 
     public FactReference(F referent, L librarian) {

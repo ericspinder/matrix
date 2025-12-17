@@ -4,9 +4,7 @@
 
 package dev.inward.matrix.concept.fact.addressed.http;
 
-import dev.inward.matrix.concept.fact.directory.DirectoryReference;
-
-public class HttpDirectoryReference extends DirectoryReference<HttpDirectory,HttpDirectoryKey,HttpDirectoryView,HttpDirectoryModel, HttpDirectoryReference, HttpDirectoryLibrarian,String> {
+public class HttpDirectoryReference implements dev.inward.matrix.Seat {
     public HttpDirectoryReference(HttpDirectory referent, HttpDirectoryLibrarian resource) {
         super(referent, resource);
     }

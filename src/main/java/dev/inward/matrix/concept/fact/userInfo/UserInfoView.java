@@ -6,7 +6,7 @@ package dev.inward.matrix.concept.fact.userInfo;
 
 import dev.inward.matrix.concept.fact.FactView;
 
-public abstract class UserInfoView<F extends UserInfo<F,K,V,M,R,L,X>,K extends UserInfoKey<F,K,V,M,R,L,X>,V extends UserInfoView<F,K,V,M,R,L,X>,M extends UserInfoModel<F,K,V,M,R,L,X>,R extends UserInfoReference<F,K,V,M,R,L,X>,L extends UserInfoLibrarian<F,K,V,M,R,L,X>,X extends UserInfoContext<F,K,V,M,R,L,X>> extends FactView<F,K,V,M,R,L,X> {
+public abstract class UserInfoView<F extends UserInfo<F,K,V,M,R,L,X>,K extends UserInfoKey<F,K,V,M,R,L,X>,V extends UserInfoView<F,K,V,M,R,L,X>,M extends UserInfoModel<F,K,V,M,R,L,X>,R extends dev.inward.matrix.Seat<F>,L extends UserInfoLibrarian<F,K,V,M,R,L,X>,X extends UserInfoContext<F,K,V,M,R,L,X>> extends FactView<F,K,V,M,R,L,X> {
     public UserInfoView(String name, F f) {
         super(name, f);
     }

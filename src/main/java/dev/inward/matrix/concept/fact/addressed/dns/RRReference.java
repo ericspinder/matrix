@@ -4,13 +4,7 @@
 
 package dev.inward.matrix.concept.fact.addressed.dns;
 
-import dev.inward.matrix.dns.DnsDirectory;
-import dev.inward.matrix.dns.DnsDirectoryKey;
-import dev.inward.matrix.concept.fact.addressed.AddressedReference;
-
-import java.util.UUID;
-
-public class RRReference<F extends ResourceRecord<F,K,V,M,R,B>,K extends RRKey<F,K,V,M,R,B>,V extends RRView<F,K,V,M,R,B>,M extends RRModel<F,K,V,M,R,B>,R extends RRReference<F,K,V,M,R,B>,B extends RRLibrarian<F,K,V,M,R,B>> extends AddressedReference<F,UUID,K,V,M,R,B, DnsDirectory, DnsDirectoryKey,DnsDirectoryView,DnsDirectoryModel,DnsDirectoryReference,DnsDirectoryLibrarian,DnsPath> {
+public class RRReference<F extends ResourceRecord<F,K,V,M,R,B>,K extends RRKey<F,K,V,M,R,B>,V extends RRView<F,K,V,M,R,B>,M extends RRModel<F,K,V,M,R,B>,R extends RRReference<F,K,V,M,R,B>,B extends RRLibrarian<F,K,V,M,R,B>> implements dev.inward.matrix.Seat<F> {
 
     public RRReference(F referent, B librarian) {
         super(referent, librarian);

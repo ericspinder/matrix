@@ -8,7 +8,15 @@ import dev.inward.matrix.Aspect;
 import dev.inward.matrix.Model;
 
 public abstract class CatalogModel<MC extends Catalog<MC,MV,MM>,MV extends CatalogView<MC,MV,MM>,MM extends CatalogModel<MC,MV,MM>> extends Model<MC> {
+
+    protected final Class<MC> memoryClass;
+
     public CatalogModel(Class<MC> memoryClass, Aspect[] labeledAspects) {
-        super(memoryClass, labeledAspects);
+        super(labeledAspects);
+        this.memoryClass = memoryClass;
+    }
+
+    public final Class<MC> getMemoryClass() {
+        return memoryClass;
     }
 }

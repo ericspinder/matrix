@@ -13,6 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.nio.file.WatchKey;
 import java.nio.file.Watchable;
 import java.util.*;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.locks.StampedLock;
 
@@ -78,6 +79,9 @@ public class Complication<TARGET,V extends View<TARGET,V,M>,M extends Model<TARG
 //        }
 //    }
     public void run() {
+        if (canceled) {
+            throw new CancellationException("canceled");
+        }
         if (provider.hasNext()) {
             try {
                 Bout<DATUM, V, M, R, G> bout = new Bout<>(provider.next());
@@ -98,5 +102,8 @@ public class Complication<TARGET,V extends View<TARGET,V,M>,M extends Model<TARG
     }
     public boolean isCanceled() {
         return canceled;
+    }
+    public void wrapUp() {
+        this.cancel();
     }
 }

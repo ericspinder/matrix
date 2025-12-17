@@ -4,10 +4,10 @@
 
 package dev.inward.matrix.concept.fact;
 
-import dev.inward.matrix.Bus;
+import dev.inward.matrix.Context;
 import dev.inward.matrix.Seat;
 
-public interface Cabin<F extends Fact<F,K,V,M,C,L,>> extends Seat<F> {
+public interface Cabin<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,V,M,L,X>,V extends FactView<F,K,V,M,L,X>,M extends FactModel<F,K,V,M,L,X>,L extends Librarian<F,K,V,M,L,X>,X extends Context<?,?,?,?>> extends Seat<F> {
 
     /**
      *

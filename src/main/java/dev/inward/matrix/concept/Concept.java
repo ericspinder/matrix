@@ -17,16 +17,13 @@ import java.util.function.Function;
 
 public abstract class Concept<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>> extends ReferenceQueue<TARGET> {
 
-    public interface Referenced<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>,C extends Concept<TARGET,V,M>,X extends Context<TARGET,V,M,C,M>> {
-        R getReference();
-        void setReference(R reference);
-        default X getContext() {
-
-        }
+    public interface Referenced<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>,C extends Concept<TARGET,V,M>,X extends Context<TARGET,V,M,C>> {
+        Seat<TARGET> getReference();
+        void setReference(Seat<TARGET> reference);
     }
     private final AtomicLong sequence = new AtomicLong();
     protected final AtomicLong removed = new AtomicLong();
-    protected final Map<Action.ActionType, Action[]> restraints;
+    //protected final Map<Action.ActionType, Action[]> restraints;
 
     protected final Standard standard;
     protected final Class<V> viewClass;

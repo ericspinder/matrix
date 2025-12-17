@@ -4,8 +4,6 @@
 
 package dev.inward.matrix.concept.fact.addressed.dns;
 
-import dev.inward.matrix.dns.DnsDirectory;
-import dev.inward.matrix.dns.DnsDirectoryKey;
 import dev.inward.matrix.concept.fact.addressed.AddressedView;
 
 import java.util.UUID;

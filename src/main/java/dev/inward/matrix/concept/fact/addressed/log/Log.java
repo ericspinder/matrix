@@ -12,7 +12,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.UUID;
 
-public abstract class Log extends Addressed<Log,UUID, LogKey, LogView, LogModel, LogReference, LogLibrarian,LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel, LogDirectoryReference, LogDirectoryLibrarian,LogPath> {
+public abstract class Log extends Addressed<Log,UUID,LogKey,LogView,LogModel,LogLibrarian,LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel,LogDirectoryLibrarian,LogPath> {
 
     protected final Instant createTime;
     protected final IndicaKey indicaKey;
@@ -36,7 +36,7 @@ public abstract class Log extends Addressed<Log,UUID, LogKey, LogView, LogModel,
         Privilege("privilege", "A seemingly proper use of a critical component", 10),
         Violation("violation", "An improper use of a critical component"),
         Capacity("capacity", "Capacity has been exceeded", 200),
-        Norminal("norminal", "An operation which is both nominal and normal, the completely expected result", 1000),
+        Nominal("nominal", "An operation which is normal, the completely expected result", 1000),
         Timer("timer", "Something which affects normal operation of a timer"),
         Exceptional("exceptional", "An exception was thrown which has not be categorized otherwise");
         private final String label;

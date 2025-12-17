@@ -13,8 +13,6 @@ import dev.inward.matrix.concept.fact.directory.DirectoryKey;
 import dev.inward.matrix.control.authority.*;
 import dev.inward.matrix.control.library.Library;
 import dev.inward.matrix.concept.fact.addressed.AddressedKey;
-import dev.inward.matrix.file.directory.*;
-
 import java.io.IOException;
 import java.lang.ref.Reference;
 import java.lang.reflect.ParameterizedType;
@@ -25,9 +23,9 @@ import java.nio.file.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public abstract class FactKey<F extends Fact<F,K,V,M,R,L,C>,K extends FactKey<F,K,V,M,R,L,C>,V extends FactView<F,K,V,M,R,L,C>,M extends FactModel<F,K,V,M,R,L,C>,R extends Seat<F>,L extends Librarian<F,K,V,M,R,L,C>,C extends Context<F,V,M,L,C>> implements Path {
+public abstract class FactKey<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,V,M,L,X>,V extends FactView<F,K,V,M,L,X>,M extends FactModel<F,K,V,M,L,X>,L extends Librarian<F,K,V,M,L,X>,X extends Context<?,?,?,?>> implements Path {
 
-    protected R reference;
+    protected Cabin<F,K,V,M,L,X> reference;
     protected final String url;
     protected final Query query;
 
@@ -35,10 +33,10 @@ public abstract class FactKey<F extends Fact<F,K,V,M,R,L,C>,K extends FactKey<F,
         this.url = this.processUri(uri).toString();
         this.query = uri.getQuery() != null ? this.parseQuery(uri,model): null;
     }
-    public R getReference() {
+    public Cabin<F,K,V,M,L,X> getReference() {
         return this.reference;
     }
-    public void setReference(R reference) {
+    public void setReference(Cabin<F,K,V,M,L,X> reference) {
         if (this.reference != null && Objects.requireNonNull(reference.get()).key == this) {
             this.reference = reference;
         } else {

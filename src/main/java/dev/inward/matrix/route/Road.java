@@ -4,8 +4,10 @@
 
 package dev.inward.matrix.route;
 
+import dev.inward.matrix.predictable.Complication;
 import dev.inward.matrix.predictable.Predictable;
 
+import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.*;
@@ -30,12 +32,18 @@ public class Road extends ThreadPoolExecutor implements Comparable<Road>  {
     @Override
     protected void beforeExecute(Thread t, Runnable r) {
         Driver driver = (Driver) t;
-        Predictable predictable = (Predictable) r;
-        super.beforeExecute(t, r);
+        Complication<?,?,?> complication = (Complication<?,?,?>) r;
+        if (complication.isCanceled()) {
+            throw new CancellationException("predictable not open");
+        }
+        driver.resetRouteStartInstant();
     }
 
     @Override
-    protected void afterExecute(Runnable r, Throwable t) {super.afterExecute(r,t);}
+    protected void afterExecute(Runnable r, Throwable t) {
+        Complication<?,?,?> complication = (Complication<?,?,?>) r;
+        complication.wrapUp();
+    }
 
     @Override
     protected void terminated() {

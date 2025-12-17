@@ -5,9 +5,9 @@
 package dev.inward.matrix.concept.catalog.jdbc;
 
 import dev.inward.matrix.Aspect;
-import dev.inward.matrix.control.bureau.BureauModel;
+import dev.inward.matrix.control.administration.BureauModel;
 
-public abstract class JdbcBureauModel<BC extends JdbcBureau<BC,BV,BM>,BV extends JdbcBureauView<BC,BV,BM>,BM extends JdbcBureauModel<BC,BV,BM>> extends BureauModel<BC,BV,BM> {
+public abstract class JdbcBureauModel<BC extends JdbcCatalog<BC,BV,BM>,BV extends JdbcBureauView<BC,BV,BM>,BM extends JdbcBureauModel<BC,BV,BM>> extends BureauModel<BC,BV,BM> {
     public JdbcBureauModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.concept.fact.addressed.dns.serverRecord;
 
-import dev.inward.matrix.dns.DnsDirectoryKey;
+import dev.inward.matrix.concept.fact.addressed.dns.DnsDirectoryKey;
 import dev.inward.matrix.concept.fact.addressed.dns.RRKey;
 
 import java.net.URI;

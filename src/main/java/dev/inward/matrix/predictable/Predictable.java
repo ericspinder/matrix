@@ -5,11 +5,9 @@
 package dev.inward.matrix.predictable;
 
 import dev.inward.matrix.control.domain.Domain;
-import java.io.IOException;
-import java.nio.file.ClosedWatchServiceException;
-import java.nio.file.WatchService;
 import java.time.Instant;
 import java.util.Map;
+import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -18,7 +16,7 @@ public class Predictable implements AutoCloseable {
     protected boolean open;
     protected final Domain domain;
     protected final Map<Complication<?,?,?>, Instant> complicationInstantMap = new WeakHashMap<>();
-    public Predictable(Domain domain) {
+    public Predictable(Domain domain, int timeAmount, TimeUnit timeUnit) {
         this.domain = domain;
     }
 
@@ -26,7 +24,7 @@ public class Predictable implements AutoCloseable {
         return open;
     }
 
-    public void setOpen(boolean open) {
+    protected final void setOpen(boolean open) {
         this.open = open;
     }
 
@@ -34,9 +32,16 @@ public class Predictable implements AutoCloseable {
         return domain;
     }
 
-    public Director getDirector() {
-        return director;
+    @Override
+    public void close() throws Exception {
+        Instant startTime = Instant.now();
+        this.setOpen(false);
+        for (Complication<?,?,?> complication: this.complicationInstantMap.keySet()) {
+            complication.cancel();
+        }
+        for
     }
+
 
 //        Criterion param = extractMatchingCriterionTarget(indicia.providerClassName(),criteria);
 //        try {

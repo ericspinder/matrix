@@ -6,7 +6,7 @@ package dev.inward.matrix.concept.fact.addressed.log;
 
 import dev.inward.matrix.concept.fact.directory.Directory;
 
-public class LogDirectory extends Directory<LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel, LogDirectoryReference, LogDirectoryLibrarian,LogPath> {
+public class LogDirectory extends Directory<LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel,LogDirectoryLibrarian,LogPath> {
     public LogDirectory(LogDirectoryKey directoryKey) {
         super(directoryKey);
     }

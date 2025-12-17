@@ -9,7 +9,7 @@ import dev.inward.matrix.concept.Concept;
 import dev.inward.matrix.control.library.Library;
 import dev.inward.matrix.concept.fact.addressed.depot.specification.Specification;
 
-public class Librarian<F extends Fact<F,K,V,M,R,L,X>,K extends FactKey<F,K,V,M,R,L,X>,V extends FactView<F,K,V,M,R,L,X>,M extends FactModel<F,K,V,M,R,L,X>,R extends Seat<F>,L extends Librarian<F,K,V,M,R,L,X>, X extends Context<F,V,M,L,X>> extends Concept<F,V,M> {
+public class Librarian<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,V,M,L,X>,V extends FactView<F,K,V,M,L,X>,M extends FactModel<F,K,V,M,L,X>,L extends Librarian<F,K,V,M,L,X>,X extends Context<?, ?, ?, ?>> extends Concept<F,V,M> {
 
     protected final Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> library;
     protected final Factory factory;

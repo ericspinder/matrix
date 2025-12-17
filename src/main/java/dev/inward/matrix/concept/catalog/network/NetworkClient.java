@@ -5,7 +5,7 @@
 package dev.inward.matrix.concept.catalog.network;
 
 import dev.inward.matrix.Hosts;
-import dev.inward.matrix.control.bureau.Bureau;
+import dev.inward.matrix.control.administration.Bureau;
 import dev.inward.matrix.concept.fact.FactView;
 
 import java.util.Map;

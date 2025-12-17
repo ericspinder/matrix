@@ -5,28 +5,38 @@
 package dev.inward.matrix.concept.fact.addressed.depot.indica;
 
 import dev.inward.matrix.concept.fact.addressed.depot.Depot;
+import dev.inward.matrix.predictable.Predictable;
 
-public class Indica extends Depot<Indica,IndicaKey,IndicaView,IndicaModel, IndicaReference, IndicaLibrarian> {
+import java.util.Arrays;
 
+public class Indica<P extends Predictable> extends Depot<Indica<P>,IndicaKey<P>,IndicaView<P>,IndicaModel<P>, IndicaReference<P>, IndicaLibrarian<P>> {
+
+    private final String predictableClassName;
     private final String criterionClassName;
-    private final String policyClassName;
-    public Indica(IndicaKey identity, String complicationCriterionClassName, String policyClassName) {
+    private final String[] policyClassNames;
+
+    public Indica(IndicaKey<P> identity, String complicationCriterionClassName, String[] policyClassNames,String predictableClassName) {
         super(identity);
         this.criterionClassName = complicationCriterionClassName;
-        this.policyClassName = policyClassName;
+        this.policyClassNames = policyClassNames;
+        this.predictableClassName = predictableClassName;
     }
 
-    public String getCriterionClassName() {
+    public String getPredictableClassName() {
+        return predictableClassName;
+    }
+
+    public String[] getCriterionClassNames() {
         return criterionClassName;
     }
 
-    public String getPolicyClassName() {
-        return policyClassName;
+    public String[] getPolicyClassNames() {
+        return policyClassNames;
     }
 
     @Override
     public String toString() {
-        return "Indica{" + "policyClassName='" + policyClassName + '\'' +
+        return "Indica{" + "policyClassName='" + Arrays.toString(policyClassNames) + '\'' +
                 ", criterionClassName='" + criterionClassName + '\'' +
                 ", indicaIdentity=" + key +
                 '}';

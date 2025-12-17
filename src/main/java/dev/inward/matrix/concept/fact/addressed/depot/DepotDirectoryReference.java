@@ -4,9 +4,7 @@
 
 package dev.inward.matrix.concept.fact.addressed.depot;
 
-import dev.inward.matrix.concept.fact.directory.DirectoryReference;
-
-public class DepotDirectoryReference extends DirectoryReference<DepotDirectory,DepotDirectoryKey,DepotDirectoryView,DepotDirectoryModel, DepotDirectoryReference, DepotDirectoryLibrarian,DepotPath> {
+public class DepotDirectoryReference implements dev.inward.matrix.Seat {
     public DepotDirectoryReference(DepotDirectory referent, DepotDirectoryLibrarian resource) {
         super(referent, resource);
     }

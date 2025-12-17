@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.concept.catalog.platform;
 
-import dev.inward.matrix.control.bureau.BureauView;
+import dev.inward.matrix.control.administration.BureauView;
 
 public class PlatformBureauView<BC extends PlatformBureau<BC,BV,BM>,BV extends PlatformBureauView<BC,BV,BM>,BM extends PlatformBureauModel<BC,BV,BM>> extends BureauView<BC,BV,BM> {
 

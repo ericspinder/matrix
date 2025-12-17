@@ -4,6 +4,21 @@
 
 package dev.inward.matrix;
 
-public interface Bus<TARGET,V extends View<TARGET,V,M>, M extends Model<TARGET>,B extends Bus<TARGET,V,M,B>> extends Comparable<B> {
+import dev.inward.matrix.concept.item.datum.administrator.Persona;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
+
+public class Bus<TARGET,V extends View<TARGET,V,M>, M extends Model<TARGET>,S extends Seat<TARGET>,B extends Bus<TARGET,V,M,S,B>> {
+
+    protected final Map<S, Persona> seats;
+
+    public Bus(Class<? extends Map<S,Persona>> seatingPlan) {
+        try {
+            this.seats = seatingPlan.getConstructor().newInstance();
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

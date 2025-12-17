@@ -4,9 +4,9 @@
 
 package dev.inward.matrix.concept.catalog.jdbc;
 
-import dev.inward.matrix.control.bureau.BureauView;
+import dev.inward.matrix.control.administration.BureauView;
 
-public class JdbcBureauView<BC extends JdbcBureau<BC,BV,BM>,BV extends JdbcBureauView<BC,BV,BM>,BM extends JdbcBureauModel<BC,BV,BM>> extends BureauView<BC,BV,BM> {
+public class JdbcBureauView<BC extends JdbcCatalog<BC,BV,BM>,BV extends JdbcBureauView<BC,BV,BM>,BM extends JdbcBureauModel<BC,BV,BM>> extends BureauView<BC,BV,BM> {
 
     public JdbcBureauView(String name, BC jdbcBureau) {
         super(name, jdbcBureau);

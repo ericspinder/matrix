@@ -7,7 +7,7 @@ package dev.inward.matrix.control.administration.platform;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.control.administration.AdministrationModel;
 
-public abstract class PlatformAdministrationModel<AC extends PlatformAdministration<AC,AV,AM>,AV extends PlatformAdministrationView<AC,AV,AM>,AM extends PlatformAdministrationModel<AC,AV,AM>> extends AdministrationModel<AC,AV,AM> {
+public abstract class PlatformAdministrationModel<AC extends Platform<AC,AV,AM>,AV extends PlatformAdministrationView<AC,AV,AM>,AM extends PlatformAdministrationModel<AC,AV,AM>> extends AdministrationModel<AC,AV,AM> {
     public PlatformAdministrationModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

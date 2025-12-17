@@ -7,7 +7,7 @@ package dev.inward.matrix.concept.fact.userInfo;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.concept.fact.FactModel;
 
-public class UserInfoModel<F extends UserInfo<F,K,V,M,R,L,X>,K extends UserInfoKey<F,K,V,M,R,L,X>,V extends UserInfoView<F,K,V,M,R,L,X>,M extends UserInfoModel<F,K,V,M,R,L,X>,R extends UserInfoReference<F,K,V,M,R,L,X>,L extends UserInfoLibrarian<F,K,V,M,R,L,X>,X extends UserInfoContext<F,K,V,M,R,L,X>> extends FactModel<F,K,V,M,R,L,X> {
+public class UserInfoModel<F extends UserInfo<F,K,V,M,R,L,X>,K extends UserInfoKey<F,K,V,M,R,L,X>,V extends UserInfoView<F,K,V,M,R,L,X>,M extends UserInfoModel<F,K,V,M,R,L,X>,R extends dev.inward.matrix.Seat<F>,L extends UserInfoLibrarian<F,K,V,M,R,L,X>,X extends UserInfoContext<F,K,V,M,R,L,X>> extends FactModel<F,K,V,M,R,L,X> {
     public UserInfoModel(Class<F> fileClass, Aspect[] labeledAspects) {
         super(fileClass, labeledAspects);
     }

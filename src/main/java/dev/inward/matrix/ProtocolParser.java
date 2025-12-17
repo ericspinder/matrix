@@ -4,7 +4,8 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.dns.DnsPath;
+import dev.inward.matrix.concept.fact.addressed.ldap.LdapPath;
+import dev.inward.matrix.concept.fact.addressed.dns.DnsPath;
 import dev.inward.matrix.concept.fact.addressed.depot.DepotPath;
 import dev.inward.matrix.concept.fact.addressed.dns.ResourceRecordType;
 import dev.inward.matrix.concept.fact.addressed.log.LogPath;
@@ -14,8 +15,12 @@ import java.util.StringTokenizer;
 public abstract class ProtocolParser<PATH extends Comparable<PATH>> {
 
     public static class Instances {
-        public static final ProtocolParser<String> HTTP = new Http();
-        public static final ProtocolParser<String> HTTPS = new Https();
+        public static final Http HTTP = new Http();
+        public static final Https HTTPS = new Https();
+        public static final Log LOG = new Log();
+        public static final Dns DNS = new Dns();
+        public static final Ldap LDAP = new Ldap();
+        public static final Depot DEPOT = new Depot();
     }
 
     protected final MatrixURLStreamHandlerProvider.Protocol protocol;
@@ -52,6 +57,17 @@ public abstract class ProtocolParser<PATH extends Comparable<PATH>> {
             return rawPath;
         }
     }
+    public static class Ldap extends ProtocolParser<LdapPath> {
+
+        private Ldap() {
+            super(MatrixURLStreamHandlerProvider.Protocol.LDAP);
+        }
+
+        @Override
+        public LdapPath parsePath(String rawPath) {
+            return null;
+        }
+    }
     public static class Dns extends ProtocolParser<DnsPath> {
 
         private Dns() {
@@ -74,6 +90,7 @@ public abstract class ProtocolParser<PATH extends Comparable<PATH>> {
         }
     }
     public static class Depot extends ProtocolParser<DepotPath> {
+
         public Depot() {
             super(MatrixURLStreamHandlerProvider.Protocol.DEPOT);
         }
@@ -93,7 +110,7 @@ public abstract class ProtocolParser<PATH extends Comparable<PATH>> {
     }
     public static class Log extends ProtocolParser<LogPath> {
 
-        public Log() {
+        private Log() {
             super(MatrixURLStreamHandlerProvider.Protocol.LOG);
         }
 

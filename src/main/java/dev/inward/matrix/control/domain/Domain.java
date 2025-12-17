@@ -7,10 +7,12 @@ package dev.inward.matrix.control.domain;
 
 import dev.inward.matrix.HostExperience;
 import dev.inward.matrix.ProtocolParser;
+import dev.inward.matrix.concept.fact.addressed.log.Log;
+import dev.inward.matrix.concept.fact.addressed.log.LogScheme;
 import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.control.terrene.Terrene;
 import dev.inward.matrix.control.Control;
-import dev.inward.matrix.dns.DnsScheme;
+import dev.inward.matrix.concept.fact.addressed.dns.DnsScheme;
 import dev.inward.matrix.concept.fact.addressed.dns.nameServerRecord.NameServerRecord;
 import dev.inward.matrix.concept.fact.addressed.dns.serverRecord.ServerRecord;
 import dev.inward.matrix.predictable.Director;
@@ -37,7 +39,32 @@ public class Domain implements Control<Domain,DomainView,DomainModel> {
     }
     public Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> getScheme(ProtocolParser<?> protocolParser) {
         for (Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> scheme: this.schemeDirectorMap.keySet()) {
-            if (scheme.getProtocolParser().getProtocol().this.dnsScheme = new DnsScheme(terrene,)
+            if (scheme.getProtocolParser().equals(protocolParser)) {
+                return scheme;
+            }
+        }
+        return this.buildScheme(protocolParser);
+    }
+    private synchronized Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> buildScheme(final ProtocolParser<?> protocolParser) {
+        for (Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> scheme: this.schemeDirectorMap.keySet()) {
+            if (scheme.getProtocolParser().equals(protocolParser)) {
+                return scheme;
+            }
+        }
+        switch (protocolParser) {
+            case ProtocolParser.Instances.LOG:
+                return new LogScheme(this.getTerrene());
+            case ProtocolParser.Instances.HTTP:
+                return new HttpScheme(this.getTerrene());
+            case ProtocolParser.Instances.HTTPS:
+                return new HttpsScheme(this.getTerrene());
+            case ProtocolParser.Instances.LDAP:
+                return new LdapScheme(this.getTerrene());
+            case ProtocolParser.Instances.DEPOT:
+                return new DepotScheme(this.getTerrene());
+            case ProtocolParser.Instances.DNS:
+                return new DnsScheme(this.getTerrene());
+
         }
     }
 
@@ -88,9 +115,13 @@ public class Domain implements Control<Domain,DomainView,DomainModel> {
             throw new RuntimeException("Problem getting Ledger records for " + domainName,e);
         }
     }
+    public List<Log> logDrain = new ArrayList<>();
 
     public Director getDirector() {
         return director;
+    }
+    public void drainLogs(List<Log> logs) {
+        logDrain.addAll(logs);
     }
 
     @Override

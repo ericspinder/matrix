@@ -10,7 +10,7 @@ import dev.inward.matrix.concept.fact.addressed.depot.specification.Specificatio
 
 import java.lang.ref.Reference;
 
-public class UserInfoLibrarian<F extends UserInfo<F,K,V,M,R,L,X>,K extends UserInfoKey<F,K,V,M,R,L,X>,V extends UserInfoView<F,K,V,M,R,L,X>,M extends UserInfoModel<F,K,V,M,R,L,X>,R extends Reference<F> & UserInfoReference<F,K,V,M,R,L,X>,L extends UserInfoLibrarian<F,K,V,M,R,L,X>,X extends UserInfoContext<F,K,V,M,R,L,X>> extends Librarian<F,K,V,M,R,L,X> {
+public class UserInfoLibrarian<F extends UserInfo<F,K,V,M,R,L,X>,K extends UserInfoKey<F,K,V,M,R,L,X>,V extends UserInfoView<F,K,V,M,R,L,X>,M extends UserInfoModel<F,K,V,M,R,L,X>,R extends Reference<F> & dev.inward.matrix.Seat<F>,L extends UserInfoLibrarian<F,K,V,M,R,L,X>,X extends UserInfoContext<F,K,V,M,R,L,X>> extends Librarian<F,K,V,M,R,L,X> {
     public UserInfoLibrarian(Specification specification, Catalog<?,?,?>  catalog) {
         super(specification,catalog);
     }

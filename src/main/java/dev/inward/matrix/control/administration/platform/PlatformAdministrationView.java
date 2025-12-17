@@ -6,7 +6,7 @@ package dev.inward.matrix.control.administration.platform;
 
 import dev.inward.matrix.control.administration.AdministrationView;
 
-public class PlatformAdministrationView<AC extends PlatformAdministration<AC,AV,AM>,AV extends PlatformAdministrationView<AC,AV,AM>,AM extends PlatformAdministrationModel<AC,AV,AM>> extends AdministrationView<AC,AV,AM> {
+public class PlatformAdministrationView<AC extends Platform<AC,AV,AM>,AV extends PlatformAdministrationView<AC,AV,AM>,AM extends PlatformAdministrationModel<AC,AV,AM>> extends AdministrationView<AC,AV,AM> {
     public PlatformAdministrationView(String name, AC administration) {
         super(name, administration);
     }

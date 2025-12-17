@@ -8,6 +8,7 @@ module dev.inward.matrix {
     requires jsr305;
     requires annotations;
     requires java.management;
+    requires org.checkerframework.checker.qual;
     exports dev.inward.matrix.engine;
     exports dev.inward.matrix.route;
     exports dev.inward.matrix.personality;
@@ -40,7 +41,7 @@ module dev.inward.matrix {
     exports dev.inward.matrix.concept.item;
     exports dev.inward.matrix.concept.item.datum;
     exports dev.inward.matrix;
-    exports dev.inward.matrix.dns;
     exports dev.inward.matrix.control.terrene;
     exports dev.inward.matrix.concept;
+    exports dev.inward.matrix.control.administration.platform;
 }

@@ -5,9 +5,10 @@
 package dev.inward.matrix.concept.fact.addressed.depot.indica;
 
 import dev.inward.matrix.concept.fact.addressed.depot.DepotReference;
+import dev.inward.matrix.predictable.Predictable;
 
-public class IndicaReference extends DepotReference<Indica,IndicaKey,IndicaView,IndicaModel, IndicaReference, IndicaLibrarian> {
-    public IndicaReference(Indica addressed, IndicaLibrarian resource) {
+public class IndicaReference<P extends Predictable> extends DepotReference<Indica<P>,IndicaKey<P>,IndicaView<P>,IndicaModel<P>, IndicaReference<P>, IndicaLibrarian<P>> {
+    public IndicaReference(Indica<P> addressed, IndicaLibrarian<P> resource) {
         super(addressed, resource);
     }
 }
