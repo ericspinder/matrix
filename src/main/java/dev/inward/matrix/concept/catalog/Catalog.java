@@ -29,8 +29,7 @@ public abstract class Catalog<CC extends Catalog<CC, CV, CM>, CV extends Catalog
     protected final String name;
     protected final boolean readOnly;
     protected final Control<?,?,?> control;
-    protected final Map<Librarian<?, ?, ?, ?, ?, ?, ?>, CatalogExperience<?, ?, ?, ?, ?, ?>> seenLibrarians = new WeakHashMap<>();
-    protected final Map<Librarian<?, ?, ?, ?, ?, ?, ?>, Librarian<?, ?, ?, ?, ?, ?, ?>> librarians = new ConcurrentHashMap<>();
+    protected final Map<Librarian<?,?,?,?,?,?>, CatalogExperience<?, ?, ?>> seenLibrarians = new WeakHashMap<>();
     protected final Map<String, Object> attributes;
 
     public Catalog(Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> library, final Mount mount, String name, boolean readOnly, Control<?,?,?> control, Map<String,Object> attributes) {
@@ -41,8 +40,8 @@ public abstract class Catalog<CC extends Catalog<CC, CV, CM>, CV extends Catalog
         this.control = control;
         this.attributes = new ConcurrentHashMap<>(attributes);
     }
-    public <F extends Fact<F,K,V,M,R,L,C>,K extends FactKey<F,K,V,M,R,L,C>,V extends FactView<F,K,V,M,R,L,C>,M extends FactModel<F,K,V,M,R,L,C>,R extends Seat<F>,L extends Librarian<F,K,V,M,R,L,C>,C extends Context<F,K,V,M,R,L,C>> F getFile(K key, L librarian, Persona persona) {
-        if (librarian != null && this.librarians.containsKey(librarian)) {
+    public <F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,V,M,L,X>,V extends FactView<F,K,V,M,L,X>,M extends FactModel<F,K,V,M,L,X>,R extends Seat<F>,L extends Librarian<F,K,V,M,L,X>,X extends FactContext<F,K,V,M,L,X>> F getFile(K key, L librarian, Persona persona) {
+        if (librarian != null && this.seenLibrarians.containsKey(librarian)) {
             synchronized (librarians.get(librarian)) {
                 if (this.librarians.get(librarian).equals(librarian)) {
 

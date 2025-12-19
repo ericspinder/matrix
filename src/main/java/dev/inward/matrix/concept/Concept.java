@@ -11,27 +11,26 @@ import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
+import java.security.PermissionCollection;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
 
-public abstract class Concept<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>> extends ReferenceQueue<TARGET> {
+public abstract class Concept<TARGET,V extends View<TARGET,V,M,C,X>,M extends Model<TARGET,V,M,C,X>,C extends Concept<TARGET,V,M,C,X>,X extends Context<TARGET,V,M,C,X>> extends PermissionCollection {
 
-    public interface Referenced<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>,C extends Concept<TARGET,V,M>,X extends Context<TARGET,V,M,C>> {
-        Seat<TARGET> getReference();
-        void setReference(Seat<TARGET> reference);
+    public interface Referenced<TARGET,V extends View<TARGET,V,M,C,X>,M extends Model<TARGET,V,M,C,X>,C extends Concept<TARGET,V,M,C,X>,X extends Context<TARGET,V,M,C,X>> {
+        Seat<TARGET,V,M,C,X> getReference();
+        void setReference(Seat<TARGET,V,M,C,X> reference);
     }
-    private final AtomicLong sequence = new AtomicLong();
-    protected final AtomicLong removed = new AtomicLong();
+
     //protected final Map<Action.ActionType, Action[]> restraints;
 
     protected final Standard standard;
+    protected final M model;
     protected final Class<V> viewClass;
     protected final Class<? extends Reference<TARGET>> referenceClass;
     protected final Function<Reference<? extends TARGET>,Reference<? extends TARGET>> graveDigger;
-    protected final M model;
-    protected long warnOnTotal;
-    protected long hardLimit;
+
 
     public Concept(Standard standard) {;
         this.standard = standard;
@@ -67,21 +66,12 @@ public abstract class Concept<TARGET,V extends View<TARGET,V,M>,M extends Model<
     }
 
     @SuppressWarnings("unchecked")
-    protected M createModelInstance() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    protected M createModelInstance() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         return ((Class<M>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[2]).getConstructor(Aspect[].class).newInstance((Object[])standard.getAspects());
     }
     @SuppressWarnings("unchecked")
-    protected Function<Reference<? extends TARGET>,Reference<? extends TARGET>> createGraveDiggerInstance() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        return (Function<Reference<? extends TARGET>,Reference<? extends TARGET>>) Class.forName(standard.getGraveDiggerClassName()).getDeclaredConstructor(Concept.class).newInstance(this);
-    }
 
-    public long incrementAndGet(Seat seat) {
-        long currentCount = this.sequence.incrementAndGet();
-        if (currentCount < warnOnTotal) {
-            //throw new MatrixException(MatrixException.Type.OverLimit,"over limit", Indicia.Focus.Admonitory, Indicia.Severity.Capacity,null);
-        }
-        return currentCount;
-    }
+
     @SuppressWarnings("unchecked")
 //    public final W poll2() {
 //        W bringOutYourDead = (W) poll();

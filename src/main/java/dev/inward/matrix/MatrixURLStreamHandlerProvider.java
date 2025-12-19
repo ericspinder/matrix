@@ -4,6 +4,7 @@
 
 package dev.inward.matrix;
 
+import dev.inward.matrix.control.scheme.ProtocolParser;
 import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.control.terrene.Terrene;
 

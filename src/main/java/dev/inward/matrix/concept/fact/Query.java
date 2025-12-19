@@ -6,13 +6,48 @@ package dev.inward.matrix.concept.fact;
 
 import dev.inward.matrix.Aspect;
 
+import java.net.URI;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Query {
 
-    protected final Pair<?>[] pairs;
-    protected final String[] anchors;
+    @SuppressWarnings("unchecked")
+    public static Query of(URI uri) {
+        // Extract the query and anchor
+        String query = uri.getQuery();
+        String fragment = uri.getFragment();
+        String[] anchors;
+        if (fragment != null) {
+            anchors = fragment.split(" ");
+        }
+        else {
+            anchors = new String[0];
+        }
+        // If there is a query, parse it
+        if (query != null) {
+            Map<String, String> params = new HashMap<>();
+            Pattern pattern = Pattern.compile("([?&])([^=#]+)(=([^&#]*))?");
+            Matcher matcher = pattern.matcher("?" + query);
 
-    public Query(Pair<?>[] pairs, String[] anchors) {
-        this.pairs = pairs;
+            while (matcher.find()) {
+                params.put(matcher.group(2), matcher.group(4) != null ? matcher.group(4) : "");
+            }
+            return new Query(params, anchors);
+        }
+        if (anchors.length == 0) {
+            return null;
+        }
+        return new Query(Collections.EMPTY_MAP, anchors);
+
+    }
+    protected final Map<String,String> params;
+    protected final String[] anchors;
+    protected Map<Aspect,Object> aspects;
+
+    private Query(Map<String,String> params, String[] anchors) {
+        this.params = params;
         this.anchors = anchors;
     }
 
@@ -24,11 +59,8 @@ public class Query {
         }
     }
 
-    public Pair<?>[] getPairs() {
-        return pairs;
-    }
-
     public String[] getAnchors() {
         return anchors;
     }
+
 }

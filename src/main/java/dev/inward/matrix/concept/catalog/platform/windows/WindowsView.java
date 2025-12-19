@@ -4,11 +4,11 @@
 
 package dev.inward.matrix.concept.catalog.platform.windows;
 
-import dev.inward.matrix.concept.catalog.platform.PlatformBureauView;
+import dev.inward.matrix.concept.catalog.platform.PlatformView;
 
-public class WindowsBureauView extends PlatformBureauView<WindowsBureau,WindowsBureauView,WindowsBureauModel> {
+public class WindowsView extends PlatformView<Windows, WindowsView,WindowsBureauModel> {
 
-    public WindowsBureauView(WindowsBureau bureau) {
+    public WindowsView(Windows bureau) {
         super("Windows Bureau View", bureau);
     }
 }

@@ -5,10 +5,10 @@
 package dev.inward.matrix.concept.catalog.platform;
 
 import dev.inward.matrix.Aspect;
-import dev.inward.matrix.control.administration.BureauModel;
+import dev.inward.matrix.concept.catalog.CatalogModel;
 
-public abstract class PlatformBureauModel<BC extends PlatformBureau<BC,BV,BM>,BV extends PlatformBureauView<BC,BV,BM>,BM extends PlatformBureauModel<BC,BV,BM>> extends BureauModel<BC,BV,BM> {
-    public PlatformBureauModel(Aspect[] labeledAspects) {
+public abstract class PlatformModel<BC extends Platform<BC,BV,BM>,BV extends PlatformView<BC,BV,BM>,BM extends PlatformModel<BC,BV,BM>> extends CatalogModel<BC,BV,BM> {
+    public PlatformModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }
 }

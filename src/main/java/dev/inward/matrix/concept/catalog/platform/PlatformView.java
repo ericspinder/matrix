@@ -4,11 +4,12 @@
 
 package dev.inward.matrix.concept.catalog.platform;
 
+import dev.inward.matrix.concept.catalog.CatalogView;
 import dev.inward.matrix.control.administration.BureauView;
 
-public class PlatformBureauView<BC extends PlatformBureau<BC,BV,BM>,BV extends PlatformBureauView<BC,BV,BM>,BM extends PlatformBureauModel<BC,BV,BM>> extends BureauView<BC,BV,BM> {
+public class PlatformView<BC extends Platform<BC,BV,BM>,BV extends PlatformView<BC,BV,BM>,BM extends PlatformModel<BC,BV,BM>> extends CatalogView<BC,BV,BM> {
 
-    public PlatformBureauView(String name, BC bureau) {
+    public PlatformView(String name, BC bureau) {
         super(name, bureau);
     }
 }

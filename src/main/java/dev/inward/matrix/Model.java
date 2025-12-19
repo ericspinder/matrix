@@ -4,18 +4,29 @@
 
 package dev.inward.matrix;
 
+import dev.inward.matrix.concept.Concept;
+
+import java.lang.ref.Reference;
+import java.lang.ref.ReferenceQueue;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.nio.file.attribute.FileAttribute;
 import java.security.PermissionCollection;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Function;
 
-public abstract class Model<TARGET> extends PermissionCollection {
+public abstract class Model<TARGET,V extends View<TARGET,V,M,C,X>,M extends Model<TARGET,V,M,C,X>,C extends Concept<TARGET,V,M,C,X>,X extends Context<TARGET,V,M,C,X>> extends ReferenceQueue<TARGET> {
 
     protected final Map<String,Aspect> labeledAspects = new ConcurrentHashMap<>();
     protected final Map<Aspect.AspectType<?>,Aspect> typedAspects = new ConcurrentHashMap<>();
     protected List<Field> fields;
+    private final AtomicLong sequence = new AtomicLong();
+    protected final AtomicLong removed = new AtomicLong();
+    protected long warnOnTotal;
+    protected long hardLimit;
 
     @SuppressWarnings("unchecked")
     public Model(Aspect[] labeledAspects) {
@@ -85,6 +96,10 @@ public abstract class Model<TARGET> extends PermissionCollection {
                 }
             }
     }
+    protected Function<Reference<? extends TARGET>,Reference<? extends TARGET>> createGraveDiggerInstance() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        return (Function<Reference<? extends TARGET>,Reference<? extends TARGET>>) Class.forName(standard.getGraveDiggerClassName()).getDeclaredConstructor(Concept.class).newInstance(this);
+    }
+
     public Map<String,InstanceValue<?>> getInitialProperties(TARGET TARGET) {
         Map<String,InstanceValue<?>> map = new ConcurrentHashMap<>();
         for (Field field: fields) {

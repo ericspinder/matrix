@@ -2,35 +2,22 @@
  *  Pinder's Matrix © 2025. by Eric S Pinder is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
  */
 
-package dev.inward.matrix.concept.catalog.platform.windows;
+package dev.inward.matrix.concept.catalog.platform.unix;
 
 import dev.inward.matrix.Seat;
 import dev.inward.matrix.concept.fact.*;
 import dev.inward.matrix.concept.fact.directory.*;
 import dev.inward.matrix.control.scheme.Scheme;
-import dev.inward.matrix.concept.catalog.platform.PlatformBureau;
 import dev.inward.matrix.control.library.*;
 import dev.inward.matrix.control.authority.*;
 import dev.inward.matrix.concept.item.datum.administrator.Persona;
 
 import java.util.Map;
 
-public class WindowsBureau extends PlatformBureau<WindowsBureau,WindowsBureauView,WindowsBureauModel> {
+public final class DefaultUnix extends Unix<DefaultUnix, DefaultUnixView,DefaultUnixBureauModel> {
 
-
-    public WindowsBureau(String name, boolean readOnly, WindowsBureauModel windowsBureauModel, Map<String, Object> attributes, Class<FactView<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>>[] supportedFileViews, String rootPath) {
-        super(name, readOnly, windowsBureauModel,attributes, supportedFileViews, rootPath);
-    }
-
-    @Override
-    protected String parseRootPathForFileSystem(String rootPath) {
-        if (rootPath != null && !rootPath.isEmpty()) {
-            if (!rootPath.startsWith("\\\\")) {
-                throw new RuntimeException("if not empty or null, rootPath must start with / ");
-            }
-            return rootPath;
-        }
-        return "\\\\";
+    public DefaultUnix(String name, boolean readOnly, DefaultUnixBureauModel defaultUnixBureauModel, Map<String, Object> attributes, Class<FactView<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>>[] supportedFileViews, String rootPath) {
+        super(name,readOnly,defaultUnixBureauModel, attributes, supportedFileViews, rootPath);
     }
 
     @Override

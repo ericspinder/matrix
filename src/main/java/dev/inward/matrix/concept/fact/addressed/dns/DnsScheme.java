@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.concept.fact.addressed.dns;
 
-import dev.inward.matrix.ProtocolParser;
+import dev.inward.matrix.control.scheme.ProtocolParser;
 import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.control.terrene.Terrene;

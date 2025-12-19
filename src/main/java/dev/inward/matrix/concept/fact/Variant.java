@@ -3,21 +3,22 @@
  */
 package dev.inward.matrix.concept.fact;
 
+import java.net.URL;
 import java.security.CodeSigner;
 import java.security.CodeSource;
 
 public class Variant extends CodeSource {
 
-    protected final CodeSigner[] codeSigners;
+
+    public static Variant of(URL url, CodeSigner[] codeSigners) {
 
 
-    public Variant(VariantKey variantKey, CodeSigner[] codeSigners) {
-        super(variantKey);
-        this.codeSigners = codeSigners;
+        return new Variant(url, codeSigners);
+    }
+
+    private Variant(URL url, CodeSigner[] codeSigners) {
+        super(url, codeSigners);
 
     }
 
-    public CodeSigner[] getCodeSigners() {
-        return codeSigners;
-    }
 }

@@ -4,10 +4,10 @@
 
 package dev.inward.matrix.concept.catalog.platform.unix;
 
-import dev.inward.matrix.concept.catalog.platform.PlatformBureauView;
+import dev.inward.matrix.concept.catalog.platform.PlatformView;
 
-public abstract class UnixBureauView<BC extends UnixBureau<BC,BV,BM>,BV extends UnixBureauView<BC,BV,BM>,BM extends UnixBureauModel<BC,BV,BM>> extends PlatformBureauView<BC,BV,BM> {
-    public UnixBureauView(String name, BC unixBureau) {
+public abstract class UnixView<BC extends Unix<BC,BV,BM>,BV extends UnixView<BC,BV,BM>,BM extends UnixBureauModel<BC,BV,BM>> extends PlatformView<BC,BV,BM> {
+    public UnixView(String name, BC unixBureau) {
         super(name, unixBureau);
     }
 }

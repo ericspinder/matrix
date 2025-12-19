@@ -25,18 +25,16 @@ import java.util.stream.Collectors;
 
 public abstract class FactKey<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,V,M,L,X>,V extends FactView<F,K,V,M,L,X>,M extends FactModel<F,K,V,M,L,X>,L extends Librarian<F,K,V,M,L,X>,X extends Context<?,?,?,?>> implements Path {
 
-    protected Cabin<F,K,V,M,L,X> reference;
+    private Cabin<F,K,V,M,L,X> reference;
     protected final String url;
-    protected final Query query;
 
     protected FactKey(URI uri, M model) {
         this.url = this.processUri(uri).toString();
-        this.query = uri.getQuery() != null ? this.parseQuery(uri,model): null;
     }
-    public Cabin<F,K,V,M,L,X> getReference() {
+    public final Cabin<F,K,V,M,L,X> getReference() {
         return this.reference;
     }
-    public void setReference(Cabin<F,K,V,M,L,X> reference) {
+    public final void setReference(Cabin<F,K,V,M,L,X> reference) {
         if (this.reference != null && Objects.requireNonNull(reference.get()).key == this) {
             this.reference = reference;
         } else {
@@ -45,25 +43,9 @@ public abstract class FactKey<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,
     }
     protected abstract URL processUri(URI uri);
 
-    protected Query parseQuery(URI uri, M model) {
-        Map<String, String> keyValueMap = Arrays.stream(uri.getQuery().split("&"))
-                .map(kv -> kv.split("="))
-                .filter(kvArray -> kvArray.length == 2)
-                .collect(Collectors.toMap(kv -> kv[0], kv -> kv[1]));
-        List<Aspect> aspects = new ArrayList<>();
-        for  (Map.Entry<String, String> entry : keyValueMap.entrySet()) {
-            String key = entry.getKey();
-            if (model.getLabeledAspects().containsKey(key)) {
-                Aspect aspect = model.getLabeledAspects().get(key);
-                aspects.add(aspect);
-                aspect.getType().parseFromString(entry.getValue())
-            }
-            String value = entry.getValue();
-        }
-    }
 
     @Override
-    public Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> getFileSystem() {
+    public Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> getFileSystem() {
         if (reference != null && Objects.requireNonNull(reference.get()).key == this) {
             if (this.reference != null && Objects.requireNonNull(reference.get()).key == this) {
                 return this.getReference().get().getLibrarian().getCatalog().getLibrary();
@@ -79,18 +61,15 @@ public abstract class FactKey<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,
 
     @Override
     public Path getRoot() {
-        if (this instanceof FactKey<?,?,?,?,?,?,?> factKey) {
-            Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> library = this.getFileSystem().getRootDirectories();
+        if (this instanceof FactKey<?,?,?,?,?,?> factKey) {
+            this.getFileSystem().getRootDirectories();
         }
         return this;
     }
 
     @Override
     public Path getFileName() {
-        if (this instanceof AddressedKey<?,?,?,?,?,?,?,?,?,?,?,?,?,?>) {
-            return this;
-        }
-        return null;
+        return this;
     }
 
     @Override
@@ -194,10 +173,10 @@ public abstract class FactKey<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,
         return this.uri.toString();
     }
 
-    public static abstract class Builder<F extends Fact<F,K,V,M,R,L,C>,K extends FactKey<F,K,V,M,R,L,C>,V extends FactView<F,K,V,M,R,L,C>,M extends FactModel<F,K,V,M,R,L,C>,R extends Reference<F> & Seat<F>,L extends Librarian<F,K,V,M,R,L,C>,C extends Context<F,K,V,M,R,L,C>> {
+    public static abstract class Builder<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,V,M,L,X>,V extends FactView<F,K,V,M,L,X>,M extends FactModel<F,K,V,M,L,X>,L extends Librarian<F,K,V,M,L,X>,X extends Context<?,?,?,?>> {
 
         protected URI uri;
-        protected Authority<?,?,?,?,?,?,?> authority;
+        protected A authority;
 
         public Builder<F,K,V,M,R,L> setLibrary(Authority<?,?,?,?,?,?,?> authority) {
             this.authority = authority;

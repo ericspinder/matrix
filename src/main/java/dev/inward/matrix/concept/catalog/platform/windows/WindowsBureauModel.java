@@ -5,9 +5,9 @@
 package dev.inward.matrix.concept.catalog.platform.windows;
 
 import dev.inward.matrix.Aspect;
-import dev.inward.matrix.concept.catalog.platform.PlatformBureauModel;
+import dev.inward.matrix.concept.catalog.platform.PlatformModel;
 
-public class WindowsBureauModel extends PlatformBureauModel<WindowsBureau,WindowsBureauView,WindowsBureauModel> {
+public class WindowsBureauModel extends PlatformModel<Windows, WindowsView,WindowsBureauModel> {
     public WindowsBureauModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

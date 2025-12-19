@@ -5,9 +5,9 @@
 package dev.inward.matrix.concept.catalog.platform.unix;
 
 import dev.inward.matrix.Aspect;
-import dev.inward.matrix.concept.catalog.platform.PlatformBureauModel;
+import dev.inward.matrix.concept.catalog.platform.PlatformModel;
 
-public abstract class UnixBureauModel<BC extends UnixBureau<BC,BV,BM>,BV extends UnixBureauView<BC,BV,BM>,BM extends UnixBureauModel<BC,BV,BM>> extends PlatformBureauModel<BC,BV,BM> {
+public abstract class UnixBureauModel<BC extends Unix<BC,BV,BM>,BV extends UnixView<BC,BV,BM>,BM extends UnixBureauModel<BC,BV,BM>> extends PlatformModel<BC,BV,BM> {
     public UnixBureauModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

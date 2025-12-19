@@ -4,6 +4,7 @@
 
 package dev.inward.matrix;
 
+import dev.inward.matrix.concept.Concept;
 import dev.inward.matrix.concept.fact.Fact;
 import dev.inward.matrix.concept.fact.FactKey;
 import dev.inward.matrix.route.Ticket;
@@ -11,7 +12,7 @@ import dev.inward.matrix.route.Ticket;
 import java.util.Collections;
 import java.util.Map;
 
-public interface Seat<TARGET> {
+public interface Seat<TARGET,V extends View<TARGET,V,M,C,X>,M extends Model<TARGET,V,M,C,X>,C extends Concept<TARGET,V,M,C,X>,X extends Context<TARGET,V,M,C,X>> {
 
     default Map<String, Ticket<?>> getAttributes() {
         return Collections.emptyMap();
@@ -20,15 +21,19 @@ public interface Seat<TARGET> {
         return 0;
     };
 
-    default FactKey<?,?,?,?,?,?,?> getKey() {
+    default FactKey<?,?,?,?,?,?> getKey() {
         TARGET target = this.get();
         if(target != null) {
-            if(target instanceof Fact<?,?,?,?,?,?,?>) {
-                return ((Fact<?,?,?,?,?,?,?>) target).getKey();
+            if(target instanceof Fact<?,?,?,?,?,?>) {
+                return ((Fact<?,?,?,?,?,?>) target).getKey();
             }
         }
-        return (FactKey<?,?,?,?,?,?,?>)(this.getAttributes().get("parent")).getValue();
+        return (FactKey<?,?,?,?,?,?>)(this.getAttributes().get("parent")).getValue();
     }
     TARGET get();
 
+    @SuppressWarnings("unchecked")
+    default X getContext() {
+        return (X) (this.get().getClass().getProtectionDomain());
+    }
 }

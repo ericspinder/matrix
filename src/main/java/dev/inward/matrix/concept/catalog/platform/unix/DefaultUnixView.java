@@ -4,8 +4,8 @@
 
 package dev.inward.matrix.concept.catalog.platform.unix;
 
-public class DefaultUnixBureauView extends UnixBureauView<DefaultUnixBureau,DefaultUnixBureauView,DefaultUnixBureauModel> {
-    public DefaultUnixBureauView(String name, DefaultUnixBureau bureau) {
+public class DefaultUnixView extends UnixView<DefaultUnix, DefaultUnixView,DefaultUnixBureauModel> {
+    public DefaultUnixView(String name, DefaultUnix bureau) {
         super(name, bureau);
     }
 }

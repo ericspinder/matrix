@@ -6,7 +6,8 @@
 package dev.inward.matrix.control.domain;
 
 import dev.inward.matrix.HostExperience;
-import dev.inward.matrix.ProtocolParser;
+import dev.inward.matrix.concept.fact.addressed.http.HttpScheme;
+import dev.inward.matrix.control.scheme.ProtocolParser;
 import dev.inward.matrix.concept.fact.addressed.log.Log;
 import dev.inward.matrix.concept.fact.addressed.log.LogScheme;
 import dev.inward.matrix.control.scheme.Scheme;
@@ -32,21 +33,21 @@ public class Domain implements Control<Domain,DomainView,DomainModel> {
     protected final Terrene terrene;
     protected final String domainName;
     private Director director;
-    protected final Map<? extends Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>,Scheme.Experience> schemeDirectorMap = new WeakHashMap<>();
+    protected final Map<? extends Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>,Scheme.Experience> schemeDirectorMap = new WeakHashMap<>();
     public Domain(Terrene terrene, String domainName) {
         this.terrene = terrene;
         this.domainName = domainName;
     }
-    public Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> getScheme(ProtocolParser<?> protocolParser) {
-        for (Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> scheme: this.schemeDirectorMap.keySet()) {
+    public Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> getScheme(ProtocolParser<?> protocolParser) {
+        for (Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> scheme: this.schemeDirectorMap.keySet()) {
             if (scheme.getProtocolParser().equals(protocolParser)) {
                 return scheme;
             }
         }
         return this.buildScheme(protocolParser);
     }
-    private synchronized Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> buildScheme(final ProtocolParser<?> protocolParser) {
-        for (Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> scheme: this.schemeDirectorMap.keySet()) {
+    private synchronized Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> buildScheme(final ProtocolParser<?> protocolParser) {
+        for (Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> scheme: this.schemeDirectorMap.keySet()) {
             if (scheme.getProtocolParser().equals(protocolParser)) {
                 return scheme;
             }

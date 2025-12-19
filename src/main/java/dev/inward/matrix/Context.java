@@ -7,19 +7,14 @@ package dev.inward.matrix;
 import dev.inward.matrix.concept.Concept;
 import dev.inward.matrix.concept.fact.Factory;
 import dev.inward.matrix.concept.fact.Variant;
-import dev.inward.matrix.control.library.Library;
-import dev.inward.matrix.concept.item.datum.DatumClerk;
 import dev.inward.matrix.concept.item.datum.administrator.Agent;
 
 import java.security.ProtectionDomain;
 
-public abstract class Context<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>,C extends Concept<TARGET,V,M>> extends ProtectionDomain {
+public abstract class Context<TARGET,V extends View<TARGET,V,M,C,X>,M extends Model<TARGET,V,M,C,X>,C extends Concept<TARGET,V,M,C,X>,X extends Context<TARGET,V,M,C,X>> extends ProtectionDomain {
 
-    protected final C concept;
-
-    public Context(Variant variant, M model, Factory factory, Agent[] agents, C concept) {
+    public Context(Variant variant, M model, Factory factory, Agent[] agents) {
         super(variant,model,factory,agents);
-        this.concept = concept;
     }
 
     public Variant getVariant() {
@@ -33,9 +28,4 @@ public abstract class Context<TARGET,V extends View<TARGET,V,M>,M extends Model<
     public Factory<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> getFactory() {
         return (Factory<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>) this.getClassLoader();
     }
-
-    public C getConcept() {
-        return concept;
-    }
-
 }

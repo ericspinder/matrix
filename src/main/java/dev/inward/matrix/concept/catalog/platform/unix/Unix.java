@@ -4,13 +4,13 @@
 
 package dev.inward.matrix.concept.catalog.platform.unix;
 
-import dev.inward.matrix.concept.catalog.platform.PlatformBureau;
+import dev.inward.matrix.concept.catalog.platform.Platform;
 import dev.inward.matrix.concept.fact.FactView;
 
 import java.util.Map;
 
-public abstract class UnixBureau<BC extends UnixBureau<BC,BV,BM>,BV extends UnixBureauView<BC,BV,BM>,BM extends UnixBureauModel<BC,BV,BM>> extends PlatformBureau<BC,BV,BM> {
-    public UnixBureau(String name, boolean readOnly, BM unixBureauModel, Map<String, Object> attributes, Class<FactView<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>>[] supportedFileViews, String rootPath) {
+public abstract class Unix<BC extends Unix<BC,BV,BM>,BV extends UnixView<BC,BV,BM>,BM extends UnixBureauModel<BC,BV,BM>> extends Platform<BC,BV,BM> {
+    public Unix(String name, boolean readOnly, BM unixBureauModel, Map<String, Object> attributes, Class<FactView<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>>[] supportedFileViews, String rootPath) {
         super(name,readOnly,unixBureauModel, attributes, supportedFileViews,rootPath);
     }
 

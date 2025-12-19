@@ -4,6 +4,7 @@
 
 package dev.inward.matrix.concept.catalog.platform;
 
+import dev.inward.matrix.concept.catalog.Catalog;
 import dev.inward.matrix.control.administration.Bureau;
 import dev.inward.matrix.concept.fact.FactView;
 
@@ -12,11 +13,11 @@ import java.nio.file.FileSystems;
 import java.util.Map;
 
 
-public abstract class PlatformBureau<BC extends PlatformBureau<BC,BV,BM>,BV extends PlatformBureauView<BC,BV,BM>,BM extends PlatformBureauModel<BC,BV,BM>> extends Bureau<BC,BV,BM> {
+public abstract class Platform<PC extends Platform<PC,PV,PM>,PV extends PlatformView<PC,PV,PM>,PM extends PlatformModel<PC,PV,PM>> extends Catalog<PC,PV,PM> {
 
     protected final FileSystem defaultFileSystem = FileSystems.getDefault();
 
-    public PlatformBureau(String name, boolean readOnly, BM fileBureauModel, Map<String, Object> attributes, Class<FactView<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>>[] supportedFileViews, String rootPath) {
+    public Platform(String name, boolean readOnly, PM platformModel, Map<String, Object> attributes, Class<FactView<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>>[] supportedFileViews, String rootPath) {
         super(name, readOnly,fileBureauModel,attributes, supportedFileViews);
         this.rootPath = rootPath;
     }
