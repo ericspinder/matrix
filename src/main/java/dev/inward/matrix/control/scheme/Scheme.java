@@ -25,6 +25,7 @@ import java.nio.file.attribute.FileAttributeView;
 import java.nio.file.spi.FileSystemProvider;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class Scheme<S extends Scheme<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,SV extends SchemeView<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,SM extends SchemeModel<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,L extends Library<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,LV extends LibraryView<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,LM extends LibraryModel<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,A extends Authority<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,AV extends AuthorityView<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,AM extends AuthorityModel<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DF extends Directory<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DK extends DirectoryKey<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DV extends DirectoryView<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DM extends DirectoryModel<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DL extends DirectoryLibrarian<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DX extends DirectoryContext<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,PATH extends Comparable<PATH>> extends FileSystemProvider implements Control<S,SV,SM>, Comparable<S> {
@@ -80,34 +81,42 @@ public abstract class Scheme<S extends Scheme<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,D
     protected final Terrene terrene;
     protected final ProtocolParser<PATH> protocolParser;
     protected final String scheme;
+    protected final UUID uuid = UUID.randomUUID();
+    protected final SM model;
 
-    @SuppressWarnings("unchecked")
     public Scheme(Terrene terrene, ProtocolParser<PATH> protocolParser) {
         this.terrene = terrene;
         this.protocolParser = protocolParser;
         this.scheme = terrene.toString() + '.' + protocolParser.getProtocol().getLabel();
+        this.model = createSchemeModel();
     }
+    protected abstract SM createSchemeModel();
     protected abstract L createNewLibrary(Domain domain,int port);
-    @SuppressWarnings("unchecked")
     public L findLibrary(URI uri) {
         String library_cache_key = uri.getHost() + ((uri.getPort() < 1) ? protocolParser.getProtocol().getDefaultPort():uri.getPort());
         if (libraries.containsKey(library_cache_key)) {
             return libraries.get(library_cache_key);
         }
-        Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> scheme = Matrix.findSchemeByString(uri.getScheme());
-        return this.buildLibrary(scheme, uri.getPort(),library_cache_key);
+        Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> scheme = Matrix.findSchemeByString(uri.getScheme());
+        return this.buildLibrary(, uri.getPort(),library_cache_key);
 
     }
     @SuppressWarnings("unchecked")
-    public synchronized L buildLibrary(Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> scheme, Domain domain, int port, String library_cache_key) {
+    public synchronized L buildLibrary(Domain domain, int port, String library_cache_key) {
 
         if (libraries.containsKey(library_cache_key)) {
             return libraries.get(library_cache_key);
         }
-        L library = this.createNewLibrary(createNewLibrary());
+        L library = this.createNewLibrary(domain,port);
         this.libraries.put(library_cache_key, library);
         return library;
     }
+
+    @Override
+    public final SM getModel() {
+        return model;
+    }
+
     protected long getExceptionalSeries() {
         return 0;
     }

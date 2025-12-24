@@ -6,24 +6,42 @@ package dev.inward.matrix.concept.fact;
 
 import dev.inward.matrix.*;
 import dev.inward.matrix.concept.Concept;
+import dev.inward.matrix.concept.item.Clerk;
 import dev.inward.matrix.control.library.Library;
 import dev.inward.matrix.concept.fact.addressed.depot.specification.Specification;
 
-public class Librarian<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,V,M,L,X>,V extends FactView<F,K,V,M,L,X>,M extends FactModel<F,K,V,M,L,X>,L extends Librarian<F,K,V,M,L,X>,X extends Context<?, ?, ?, ?>> extends Concept<F,V,M> {
+import java.security.Permission;
+import java.util.Enumeration;
 
-    protected final Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> library;
-    protected final Factory factory;
+public abstract class Librarian<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,V,M,L,X>,V extends FactView<F,K,V,M,L,X>,M extends FactModel<F,K,V,M,L,X>,L extends Librarian<F,K,V,M,L,X>,X extends FactContext<F,K,V,M,L,X>> extends Concept<F,V,M,L,X> {
 
-    public Librarian(Specification specification, Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> library) {
+    protected final Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> library;
+    protected final Clerk<?,?,?,?>[] clerks;
+
+    public Librarian(Specification specification, Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> library, Operational<F,K,V,M,L,X> operational) {
         super(specification.getStandards()[0]);
         this.library = library;
-        this.factory = new Factory(this);
-        this.factory.installEngine(new Operational<DATUM, V, M, R, B>() {
-        });
+        this
+
+    }
+    public abstract Factory<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> newFactory(Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> library);
+
+    public Library<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> getLibrary() {
+        return library;
+    }
+
+    @Override
+    public void add(Permission permission) {
 
     }
 
-    public Library<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?> getLibrary() {
-        return library;
+    @Override
+    public boolean implies(Permission permission) {
+        return false;
+    }
+
+    @Override
+    public Enumeration<Permission> elements() {
+        return null;
     }
 }

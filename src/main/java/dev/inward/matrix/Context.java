@@ -13,8 +13,8 @@ import java.security.ProtectionDomain;
 
 public abstract class Context<TARGET,V extends View<TARGET,V,M,C,X>,M extends Model<TARGET,V,M,C,X>,C extends Concept<TARGET,V,M,C,X>,X extends Context<TARGET,V,M,C,X>> extends ProtectionDomain {
 
-    public Context(Variant variant, M model, Factory factory, Agent[] agents) {
-        super(variant,model,factory,agents);
+    public Context(Variant variant, C concept, Factory<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> factory, Agent[] agents) {
+        super(variant,concept,factory,agents);
     }
 
     public Variant getVariant() {

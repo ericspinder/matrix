@@ -6,7 +6,7 @@ package dev.inward.matrix.concept.fact;
 
 import java.util.Properties;
 
-public class Operational<O> {
+public class Operational<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,V,M,L,X>,V extends FactView<F,K,V,M,L,X>,M extends FactModel<F,K,V,M,L,X>,L extends Librarian<F,K,V,M,L,X>,X extends FactContext<F,K,V,M,L,X>> {
 
     protected final Properties properties;
 
