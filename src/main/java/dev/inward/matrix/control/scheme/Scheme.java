@@ -4,6 +4,7 @@
 
 package dev.inward.matrix.control.scheme;
 
+import dev.inward.matrix.Experience;
 import dev.inward.matrix.Matrix;
 import dev.inward.matrix.concept.fact.directory.*;
 import dev.inward.matrix.control.Control;
@@ -26,14 +27,10 @@ import java.nio.file.spi.FileSystemProvider;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.WeakHashMap;
 
 public abstract class Scheme<S extends Scheme<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,SV extends SchemeView<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,SM extends SchemeModel<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,L extends Library<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,LV extends LibraryView<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,LM extends LibraryModel<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,A extends Authority<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,AV extends AuthorityView<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,AM extends AuthorityModel<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DF extends Directory<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DK extends DirectoryKey<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DV extends DirectoryView<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DM extends DirectoryModel<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DL extends DirectoryLibrarian<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DX extends DirectoryContext<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,PATH extends Comparable<PATH>> extends FileSystemProvider implements Control<S,SV,SM>, Comparable<S> {
 
-
-    public static class Experience {
-
-    }
     public enum Reserved {
         Semicolon(';'),
         Slash('/'),
@@ -76,7 +73,10 @@ public abstract class Scheme<S extends Scheme<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,D
         }
     }
 
-    protected final Map<String, L> libraries = new ConcurrentHashMap<>();
+    public static Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> FindScheme(Terrene terrene, ProtocolParser<?> protocolParser) {
+        String scheme = Terrene.KnownWorlds.get(terrene) + "." + protocolParser.getProtocol().getLabel();
+    }
+    protected final Map<L, Experience.LibraryEx> libraries = new WeakHashMap<>();
 
     protected final Terrene terrene;
     protected final ProtocolParser<PATH> protocolParser;
@@ -84,7 +84,7 @@ public abstract class Scheme<S extends Scheme<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,D
     protected final UUID uuid = UUID.randomUUID();
     protected final SM model;
 
-    public Scheme(Terrene terrene, ProtocolParser<PATH> protocolParser) {
+    protected Scheme(Terrene terrene, ProtocolParser<PATH> protocolParser) {
         this.terrene = terrene;
         this.protocolParser = protocolParser;
         this.scheme = terrene.toString() + '.' + protocolParser.getProtocol().getLabel();
@@ -129,18 +129,10 @@ public abstract class Scheme<S extends Scheme<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,D
         return protocolParser;
     }
 
+    @Override
     public String getScheme() {
         return scheme;
     }
-
-//    @SuppressWarnings("unchecked")
-//    protected Clerk.Network.Client obtainClerk(URL u) throws IOException {
-//        try {
-//
-//        } catch (URISyntaxException e) {
-//            throw new IOException(e);
-//        }
-//    }
 
     @Override
     public String toString() {
@@ -151,6 +143,7 @@ public abstract class Scheme<S extends Scheme<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,D
     public int compareTo(@NotNull S o) {
         return 0;
     }
+
 
     @Override
     public FileSystem newFileSystem(URI uri, Map<String, ?> env) throws IOException {

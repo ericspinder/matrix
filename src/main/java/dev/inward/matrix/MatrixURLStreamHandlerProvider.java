@@ -80,7 +80,7 @@ public class MatrixURLStreamHandlerProvider extends URLStreamHandlerProvider {
         HTTP("http","Unsecure File Service", 80, ProtocolParser.Http.class),
         HTTPS("https","Secure File Service",443, ProtocolParser.Https.class),
         LOG("log","Completed Matters",10, ProtocolParser.Log.class),
-        LDAP("ldap", "Lightweight Directory Access Protocol", ProtocolParser.Ldap.class)
+        LDAP("ldap", "Lightweight Directory Access Protocol", 389, ProtocolParser.Ldap.class)
         //REALM("realm", "Secure login Service", 6, RealmScheme.class)
         ;
         private final String label;

@@ -16,7 +16,7 @@ import dev.inward.matrix.control.Control;
 import dev.inward.matrix.concept.fact.addressed.dns.DnsScheme;
 import dev.inward.matrix.concept.fact.addressed.dns.nameServerRecord.NameServerRecord;
 import dev.inward.matrix.concept.fact.addressed.dns.serverRecord.ServerRecord;
-import dev.inward.matrix.predictable.Director;
+import dev.inward.matrix.Director;
 
 import javax.naming.NamingException;
 import javax.naming.directory.Attribute;

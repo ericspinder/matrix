@@ -5,12 +5,18 @@
 package dev.inward.matrix.control;
 
 
+import dev.inward.matrix.control.terrene.Terrene;
+
+import java.time.Instant;
 import java.util.UUID;
 
 public interface Control<CO extends Control<CO,CV,CM>,CV extends ControlView<CO,CV,CM>,CM extends ControlModel<CO,CV,CM>> {
+
+    int compareTo(Terrene that);
 
     UUID getUuid();
     String getName();
     CM getModel();
 
+    Instant getCreateInstant();
 }

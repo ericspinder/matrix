@@ -5,7 +5,7 @@
 package dev.inward.matrix.route;
 
 import dev.inward.matrix.concept.fact.addressed.log.Log;
-import dev.inward.matrix.predictable.Director;
+import dev.inward.matrix.Director;
 
 import java.lang.ref.WeakReference;
 import java.util.UUID;

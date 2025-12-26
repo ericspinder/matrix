@@ -12,7 +12,7 @@ import dev.inward.matrix.route.Ticket;
 import java.util.Collections;
 import java.util.Map;
 
-public interface Seat<TARGET,V extends View<TARGET,V,M,C,X>,M extends Model<TARGET,V,M,C,X>,C extends Concept<TARGET,V,M,C,X>,X extends Context<TARGET,V,M,C,X>> {
+public interface Seat<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>> {
 
     default Map<String, Ticket<?>> getAttributes() {
         return Collections.emptyMap();

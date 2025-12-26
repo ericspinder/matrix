@@ -11,34 +11,34 @@ import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.control.terrene.Terrene;
 import dev.inward.matrix.concept.fact.addressed.dns.ResourceRecordType;
 import dev.inward.matrix.concept.fact.addressed.dns.catalogRecord.CatalogRecord;
-import dev.inward.matrix.predictable.Director;
 
 import javax.naming.NamingException;
 import javax.naming.directory.InitialDirContext;
 import java.lang.instrument.Instrumentation;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
+import java.net.spi.URLStreamHandlerProvider;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Matrix {
+public class Matrix  extends URLStreamHandlerProvider implements Meta_I  {
 
-    protected static final Map<String, Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>> ALL_KNOWN_SCHEMES = new HashMap<>();
+    protected static final Map<String, Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>> ALL_KNOWN_SCHEMES = new HashMap<>();
 
-    public static Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> findSchemeByString(String scheme_s) {
+    public static Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> findSchemeByString(String scheme_s) {
         String lowerCaseScheme = scheme_s.toLowerCase();
         String schemeCacheKey;
         Terrene terrene;
         if (lowerCaseScheme.lastIndexOf('.') == -1) {
-            terrene = Terrene.Earth;
+            terrene = Terrene.KnownWorlds.get("earth");
             schemeCacheKey =  terrene.dnsClassCode + "_" + lowerCaseScheme;
         }
         else {
             terrene = Terrene.Parse(lowerCaseScheme.substring(0,lowerCaseScheme.lastIndexOf('.')));
             schemeCacheKey = terrene.dnsClassCode + "_" + lowerCaseScheme.substring(lowerCaseScheme.lastIndexOf('.'));
         }
-        Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> scheme = ALL_KNOWN_SCHEMES.get(schemeCacheKey);
+        Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> scheme = ALL_KNOWN_SCHEMES.get(schemeCacheKey);
         if (scheme == null) {
             synchronized (ALL_KNOWN_SCHEMES) {
                 scheme = ALL_KNOWN_SCHEMES.get(schemeCacheKey);
@@ -47,7 +47,7 @@ public class Matrix {
                     for (MatrixURLStreamHandlerProvider.Protocol protocol: MatrixURLStreamHandlerProvider.Protocol.values()) {
                         if (protocol.getLabel().equals(protocol_s)) {
                             try {
-                                scheme = new Scheme<>(terrene, protocol.parserClass.getConstructor().newInstance());
+                                scheme = Scheme.Create(terrene, protocol.getParserClass().getConstructor().newInstance());
                                 ALL_KNOWN_SCHEMES.put(schemeCacheKey,scheme);
                                 return scheme;
                             } catch (NoSuchMethodException | IllegalAccessException | InstantiationException |
@@ -69,10 +69,11 @@ public class Matrix {
     }
 
     private final Map<String, WeakReference<Domain>> allBuiltDomains = new ConcurrentHashMap<>();
-    protected final InitialDirContext dirContext;
-    private final LocalSystemNetworking localSystemNetworking = LocalSystemNetworking.getInstance();
+    protected transient final InitialDirContext dirContext;
+
+    private transient final LocalSystemNetworking localSystemNetworking = LocalSystemNetworking.getInstance();
     private final CommandLine commandLine;
-    private final Instrumentation instrumentation;
+    private transient final Instrumentation instrumentation;
     private final Domain localhostDomain;
 
     protected final Map<Class<? extends Control<?,?,?>>,Model<? extends Control<?,?,?>>> controlModels = new HashMap<>();
@@ -88,7 +89,7 @@ public class Matrix {
         }
         this.localhostDomain = getDomain(Terrene.Parse(commandLine.getValue("terrene")), "localhost");
     }
-    public CatalogRecord getCatalogRecord(Authority<?,?,?,?,?,?,?> authority, MatrixURLStreamHandlerProvider.Protocol protocol) {
+    public CatalogRecord getCatalogRecord(Authority<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> authority, MatrixURLStreamHandlerProvider.Protocol protocol) {
         try {
             authority.getDomain()
             DnsDirectoryKey directoryKey = (new DnsDirectoryKey.Builder()).setPath(new DnsPath(authority.getDomain().getDomainName(), ResourceRecordType.CatalogRecord)).setLibrary(authority).buildMatrixKey();

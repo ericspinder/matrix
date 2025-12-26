@@ -7,6 +7,12 @@ package dev.inward.matrix;
 import java.io.IOException;
 import java.lang.instrument.Instrumentation;
 
+/**
+ * Represents the entry point for managing the lifecycle of the {@code Matrix} class.
+ * This class is responsible for initializing and providing access to a singleton instance
+ * of the {@code Matrix} class. It is used to initialize a Java agents contain
+ * where the {@code premain} method is called during the JVM startup.
+ */
 public class Aforementioned {
 
     private static Matrix Instance;

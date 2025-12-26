@@ -25,6 +25,7 @@ public abstract class Terrene extends URLStreamHandler implements Control<Terren
         knownWorlds.put("mars", new Mars());
         knownWorlds.put("helios", new Helios());
         knownWorlds.put("chaosnet", new Chaosnet());
+        knownWorlds.put("hesiod", new Hesiod());
         return knownWorlds;
     }
     public static final Map<String, Terrene> KnownWorlds = KnownWorlds();

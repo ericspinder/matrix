@@ -4,6 +4,6 @@
 
 package dev.inward.matrix;
 
-public class EventModel<E extends Experience<E,EV,EM>,EV extends ExperienceView<E,EV,EM>,EM extends EventModel<E,EV,EM>> {
+public class ExperienceModel<E extends Experience<E,EV,EM>,EV extends ExperienceView<E,EV,EM>,EM extends ExperienceModel<E,EV,EM>> {
 
 }

@@ -8,7 +8,7 @@ import dev.inward.matrix.concept.Concept;
 
 import java.nio.file.attribute.AttributeView;
 
-public abstract class View<TARGET,V extends View<TARGET,V,M,C,X>,M extends Model<TARGET,V,M,C,X>,C extends Concept<TARGET,V,M,C,X>,X extends Context<TARGET,V,M,C,X>> implements AttributeView {
+public abstract class View<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>> implements AttributeView {
 
     protected final String name;
     protected final TARGET target;
