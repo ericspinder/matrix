@@ -3,14 +3,16 @@
  */
 package dev.inward.matrix.concept.fact.addressed.dns.catalogRecord;
 
-import dev.inward.matrix.engine.Zone;
 import dev.inward.matrix.concept.fact.addressed.dns.ResourceRecord;
 
 import java.util.concurrent.TimeUnit;
 
 public class CatalogRecord extends ResourceRecord<CatalogRecord, CatalogRecordKey, CatalogRecordView, CatalogRecordModel, CatalogRecordReference, CatalogRecordLibrarian> {
 
-    protected final String target;
+    /**
+     * The environment
+     */
+    protected final String environment;
     protected final String startPath;
     protected final String endPath;
     protected final Zone zone;
@@ -20,9 +22,9 @@ public class CatalogRecord extends ResourceRecord<CatalogRecord, CatalogRecordKe
     protected final int port;
     protected final long syncAmount;
     protected final TimeUnit syncUnit;
-    public CatalogRecord(CatalogRecordKey identity, String target, String startPath, String endPath, Zone zone, String protocol, int priority, int weight, int port, long syncAmount, TimeUnit syncUnit, int ttl) {
+    public CatalogRecord(CatalogRecordKey identity, String environment, String startPath, String endPath, Zone zone, String protocol, int priority, int weight, int port, long syncAmount, TimeUnit syncUnit, int ttl) {
         super(identity, ttl);
-        this.target = target;
+        this.environment = environment;
         this.startPath = startPath;
         this.endPath = endPath;
         this.zone = zone;

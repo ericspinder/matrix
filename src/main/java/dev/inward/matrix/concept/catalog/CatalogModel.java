@@ -5,18 +5,18 @@
 package dev.inward.matrix.concept.catalog;
 
 import dev.inward.matrix.Aspect;
-import dev.inward.matrix.Model;
+import dev.inward.matrix.control.ControlModel;
 
-public abstract class CatalogModel<MC extends Catalog<MC,MV,MM>,MV extends CatalogView<MC,MV,MM>,MM extends CatalogModel<MC,MV,MM>> extends Model<MC> {
+public abstract class CatalogModel<CC extends Catalog<CC,CV,CM>,CV extends CatalogView<CC,CV,CM>,CM extends CatalogModel<CC,CV,CM>> extends ControlModel<CC,CV,CM> {
 
-    protected final Class<MC> memoryClass;
+    protected final Class<CC> memoryClass;
 
-    public CatalogModel(Class<MC> memoryClass, Aspect[] labeledAspects) {
+    public CatalogModel(Class<CC> memoryClass, Aspect[] labeledAspects) {
         super(labeledAspects);
         this.memoryClass = memoryClass;
     }
 
-    public final Class<MC> getMemoryClass() {
+    public final Class<CC> getMemoryClass() {
         return memoryClass;
     }
 }

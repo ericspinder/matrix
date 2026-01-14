@@ -6,8 +6,9 @@ package dev.inward.matrix.concept.fact;
 
 import dev.inward.matrix.Context;
 import dev.inward.matrix.Seat;
+import dev.inward.matrix.concept.catalog.Catalog;
 
-public interface Cabin<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,V,M,L,X>,V extends FactView<F,K,V,M,L,X>,M extends FactModel<F,K,V,M,L,X>,L extends Librarian<F,K,V,M,L,X>,X extends Context<?,?,?,?,?>> extends Seat<F,V,M,L,X> {
+public interface Cabin<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,V,M,L,X>,V extends FactView<F,K,V,M,L,X>,M extends FactModel<F,K,V,M,L,X>,L extends Librarian<F,K,V,M,L,X>,X extends FactContext<F,K,V,M,L,X>> extends Seat<F,V,M> {
 
     /**
      *
@@ -25,5 +26,10 @@ public interface Cabin<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,V,M,L,X
 
     default boolean isHeld() {
         return this.getAttributes().get("held") != null;
+    }
+
+    @SuppressWarnings("unchecked")
+    default L getLibrarian() {
+        return (L) this.getAttributes().get("librarian").getValue();
     }
 }

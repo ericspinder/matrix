@@ -9,7 +9,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class Helios extends Terrene {
-    protected Helios() {
+    public Helios() {
         super("HS", "helios");
     }
 

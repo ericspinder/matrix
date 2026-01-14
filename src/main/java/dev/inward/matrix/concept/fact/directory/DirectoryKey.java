@@ -12,6 +12,7 @@ import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.control.scheme.SchemeModel;
 import dev.inward.matrix.control.scheme.SchemeView;
 import dev.inward.matrix.concept.fact.FactKey;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
@@ -22,11 +23,12 @@ public abstract class DirectoryKey<S extends Scheme<S,SV,SM,L,LV,LM,A,AV,AM,DF,D
 
     public final PATH directoryPath;
 
-    protected DirectoryKey(URI uri, PATH directoryPath,DM directoryModel) {
-        super(uri,directoryModel);
+    protected DirectoryKey(URI uri, PATH directoryPath) {
+        super(uri);
         this.directoryPath = directoryPath;
     }
 
+    @NotNull
     @Override
     public String toString() {
         return null;
@@ -35,38 +37,6 @@ public abstract class DirectoryKey<S extends Scheme<S,SV,SM,L,LV,LM,A,AV,AM,DF,D
     public PATH getDirectoryPath() {
         return this.directoryPath;
     }
-
-    public abstract static class Builder<S extends Scheme<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,SV extends SchemeView<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,SM extends SchemeModel<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,L extends Library<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,LV extends LibraryView<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,LM extends LibraryModel<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,A extends Authority<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,AV extends AuthorityView<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,AM extends AuthorityModel<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DF extends Directory<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DK extends DirectoryKey<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DV extends DirectoryView<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DM extends DirectoryModel<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DL extends DirectoryLibrarian<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DX extends DirectoryContext<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,PATH extends Comparable<PATH>> extends FactKey.Builder<DF,DK,DV,DM,DL,DX,PATH> {
-
-        protected PATH directoryPath;
-
-        public Builder<S,SV,SM,A,AV,AM,L,LV,LM,DF,DK,DV,DM,DL,DX,PATH> setPath(PATH directoryPath) {
-            this.directoryPath = directoryPath;
-            return this;
-        }
-
-        @Override
-        protected String completeUri() throws URISyntaxException {
-            return directoryPath.toString();
-        }
-
-        @Override
-        protected DK newMatrixKey() {
-            try {
-                return this.getFileKeyClass().getConstructor(URI.class,getPATHClass()).newInstance(this.uri,this.directoryPath);
-            } catch (NoSuchMethodException | InvocationTargetException | InstantiationException |
-                     IllegalAccessException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        @SuppressWarnings("unchecked")
-        protected Class<PATH> getPATHClass() {
-            return (Class<PATH>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
-        }
-    }
-
-
 
 //    public String getParentPathString() {
 //        DF directory = this.reference.get();

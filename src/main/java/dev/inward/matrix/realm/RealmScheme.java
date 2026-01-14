@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.realm;
 
-import dev.inward.matrix.MatrixURLStreamHandlerProvider;
+import dev.inward.matrix.Protocol;
 import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.control.terrene.Terrene;
 
@@ -12,7 +12,7 @@ import java.net.URI;
 
 public class RealmScheme extends Scheme<RealmScheme, RealmAuthority,String> {
     protected RealmScheme(Terrene terrene) {
-        super(terrene, MatrixURLStreamHandlerProvider.Protocol.REALM);
+        super(terrene, Protocol.REALM);
     }
 
     @Override

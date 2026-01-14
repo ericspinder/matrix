@@ -9,12 +9,22 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class Chaosnet extends Terrene {
-    protected Chaosnet() {
+    public Chaosnet() {
         super("CS", "chaosnet");
     }
 
     @Override
     protected URLConnection openConnection(URL u) throws IOException {
+        return null;
+    }
+
+    @Override
+    public String getName() {
+        return "";
+    }
+
+    @Override
+    public TerreneModel getModel() {
         return null;
     }
 }

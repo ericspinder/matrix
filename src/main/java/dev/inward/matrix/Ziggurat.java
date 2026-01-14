@@ -5,81 +5,44 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.control.Control;
+import dev.inward.matrix.control.ControlModel;
 import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.control.authority.Authority;
-import dev.inward.matrix.control.scheme.Scheme;
-import dev.inward.matrix.control.terrene.Terrene;
+import dev.inward.matrix.control.terrene.*;
 import dev.inward.matrix.concept.fact.addressed.dns.ResourceRecordType;
 import dev.inward.matrix.concept.fact.addressed.dns.catalogRecord.CatalogRecord;
 
 import javax.naming.NamingException;
 import javax.naming.directory.InitialDirContext;
+import java.io.IOException;
 import java.lang.instrument.Instrumentation;
 import java.lang.ref.WeakReference;
-import java.lang.reflect.InvocationTargetException;
-import java.net.spi.URLStreamHandlerProvider;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLStreamHandler;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Matrix  extends URLStreamHandlerProvider implements Meta_I  {
+public final class Ziggurat extends URLStreamHandler {
 
-    protected static final Map<String, Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>> ALL_KNOWN_SCHEMES = new HashMap<>();
-
-    public static Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> findSchemeByString(String scheme_s) {
-        String lowerCaseScheme = scheme_s.toLowerCase();
-        String schemeCacheKey;
-        Terrene terrene;
-        if (lowerCaseScheme.lastIndexOf('.') == -1) {
-            terrene = Terrene.KnownWorlds.get("earth");
-            schemeCacheKey =  terrene.dnsClassCode + "_" + lowerCaseScheme;
-        }
-        else {
-            terrene = Terrene.Parse(lowerCaseScheme.substring(0,lowerCaseScheme.lastIndexOf('.')));
-            schemeCacheKey = terrene.dnsClassCode + "_" + lowerCaseScheme.substring(lowerCaseScheme.lastIndexOf('.'));
-        }
-        Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> scheme = ALL_KNOWN_SCHEMES.get(schemeCacheKey);
-        if (scheme == null) {
-            synchronized (ALL_KNOWN_SCHEMES) {
-                scheme = ALL_KNOWN_SCHEMES.get(schemeCacheKey);
-                if (scheme == null) {
-                    String protocol_s = lowerCaseScheme.substring(lowerCaseScheme.lastIndexOf('.'));
-                    for (MatrixURLStreamHandlerProvider.Protocol protocol: MatrixURLStreamHandlerProvider.Protocol.values()) {
-                        if (protocol.getLabel().equals(protocol_s)) {
-                            try {
-                                scheme = Scheme.Create(terrene, protocol.getParserClass().getConstructor().newInstance());
-                                ALL_KNOWN_SCHEMES.put(schemeCacheKey,scheme);
-                                return scheme;
-                            } catch (NoSuchMethodException | IllegalAccessException | InstantiationException |
-                                     InvocationTargetException e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                    }
-                    throw new RuntimeException("Protocol not found" + protocol_s);
-                }
-            }
-        }
-        return scheme;
-    }
-
-    private static Matrix Instance;
-    public static Matrix getInstance() {
+    private static Ziggurat Instance;
+    public static Ziggurat getInstance() {
         return Instance;
     }
 
     private final Map<String, WeakReference<Domain>> allBuiltDomains = new ConcurrentHashMap<>();
-    protected transient final InitialDirContext dirContext;
+    private transient final InitialDirContext dirContext;
 
     private transient final LocalSystemNetworking localSystemNetworking = LocalSystemNetworking.getInstance();
     private final CommandLine commandLine;
     private transient final Instrumentation instrumentation;
     private final Domain localhostDomain;
 
-    protected final Map<Class<? extends Control<?,?,?>>,Model<? extends Control<?,?,?>>> controlModels = new HashMap<>();
+    private final Map<String, ControlModel<?,?,?>> controlModels = new HashMap<>();
 
 
-    protected Matrix(CommandLine commandLine, Instrumentation instrumentation) {
+    private Ziggurat(CommandLine commandLine, Instrumentation instrumentation) {
         this.commandLine = commandLine;
         this.instrumentation = instrumentation;
         try {
@@ -89,7 +52,13 @@ public class Matrix  extends URLStreamHandlerProvider implements Meta_I  {
         }
         this.localhostDomain = getDomain(Terrene.Parse(commandLine.getValue("terrene")), "localhost");
     }
-    public CatalogRecord getCatalogRecord(Authority<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> authority, MatrixURLStreamHandlerProvider.Protocol protocol) {
+
+    @Override
+    protected MatrixConnection openConnection(URL u) throws IOException {
+        return null;
+    }
+
+    public CatalogRecord getCatalogRecord(Authority<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> authority, Protocol protocol) {
         try {
             authority.getDomain()
             DnsDirectoryKey directoryKey = (new DnsDirectoryKey.Builder()).setPath(new DnsPath(authority.getDomain().getDomainName(), ResourceRecordType.CatalogRecord)).setLibrary(authority).buildMatrixKey();
@@ -99,6 +68,7 @@ public class Matrix  extends URLStreamHandlerProvider implements Meta_I  {
             throw new RuntimeException(e);
         }
     }
+
 
     public Domain getDomain(Terrene terrene, String domainName) {
         String domainKey = terrene.toString() + domainName;

@@ -5,22 +5,21 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.concept.item.datum.administrator.*;
-import dev.inward.matrix.user.*;
 
 import java.nio.file.attribute.*;
-import java.security.BasicPermission;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
-public abstract class Permission<K extends AdministratorKey<K,F,V,M,R,B>,F extends Administrator<K,F,V,M,R,B>,V extends AdministratorView<K,F,V,M,R,B>,M extends AdministratorModel<K,F,V,M,R,B>,R extends Seat,B extends AdministratorClerk<K,F,V,M,R,B>> extends BasicPermission {
-    protected final F who;
+public abstract class Permission extends java.security.Permission {
 
-    public Permission(F who, String path) {
+    protected final Agent who;
+
+    public Permission(Agent who, String path) {
         super(path);
         this.who = who;
     }
-    public static class AclPermission extends Permission<AgentKey, Agent, AgentView, AgentModel, AgentReferenceWeak, AgentClerk> {
+    public static class AclPermission extends Permission<A extends Administrator<A,V,M>,V extends AdministratorView<A,V,M>,M extends AdministratorModel<A,V,M>> {
 
         protected final AclEntryType aclEntryType;
         protected final List<AclEntryPermission> aclEntryPermissionList;

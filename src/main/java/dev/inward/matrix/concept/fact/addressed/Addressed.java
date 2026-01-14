@@ -7,8 +7,17 @@ package dev.inward.matrix.concept.fact.addressed;
 import dev.inward.matrix.Context;
 import dev.inward.matrix.concept.fact.Fact;
 import dev.inward.matrix.concept.fact.directory.*;
+import dev.inward.matrix.control.authority.Authority;
+import dev.inward.matrix.control.authority.AuthorityModel;
+import dev.inward.matrix.control.authority.AuthorityView;
+import dev.inward.matrix.control.library.Library;
+import dev.inward.matrix.control.library.LibraryModel;
+import dev.inward.matrix.control.library.LibraryView;
+import dev.inward.matrix.control.scheme.Scheme;
+import dev.inward.matrix.control.scheme.SchemeModel;
+import dev.inward.matrix.control.scheme.SchemeView;
 
-public abstract class Addressed<F extends Addressed<F,ID,K,V,M,R,L,DF,DK,DV,DM,DL,PATH>,ID extends Comparable<ID>,K extends AddressedKey<F,ID,K,V,M,R,L>,V extends AddressedView<F,ID,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,M extends AddressedModel<F,ID,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,R extends dev.inward.matrix.Seat<F>,L extends AddressedLibrarian<F,ID,K,V,M,R,L,DF,DK,DV,DM,DR,DL,PATH>,DF extends Directory<DF,DK,DV,DM,DR,DL,PATH>,DK extends DirectoryKey<DF,DK,DV,DM,DR,DL,PATH>,DV extends DirectoryView<DF,DK,DV,DM,DR,DL,PATH>,DM extends DirectoryModel<DF,DK,DV,DM,DR,DL,PATH>,DL extends DirectoryLibrarian<DF,DK,DV,DM,DR,DL,X,PATH>,X extends Context<?,?,?,?>,PATH extends Comparable<PATH>> extends Fact<F,K,V,M,R,L> {
+public abstract class Addressed<S extends Scheme<S,SV,SM,B,BV,BM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,SV extends SchemeView<S,SV,SM,B,BV,BM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,SM extends SchemeModel<S,SV,SM,B,BV,BM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,B extends Library<S,SV,SM,B,BV,BM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,BV extends LibraryView<S,SV,SM,B,BV,BM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,BM extends LibraryModel<S,SV,SM,B,BV,BM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,A extends Authority<S,SV,SM,B,BV,BM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,AV extends AuthorityView<S,SV,SM,B,BV,BM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,AM extends AuthorityModel<S,SV,SM,B,BV,BM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DF extends Directory<S,SV,SM,B,BV,BM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DK extends DirectoryKey<S,SV,SM,B,BV,BM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DV extends DirectoryView<S,SV,SM,B,BV,BM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DM extends DirectoryModel<S,SV,SM,B,BV,BM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DL extends DirectoryLibrarian<S,SV,SM,B,BV,BM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DX extends DirectoryContext<S,SV,SM,B,BV,BM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,PATH extends Comparable<PATH>,F extends Addressed<S,SV,SM,B,BV,BM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH,F,ID,K,V,M,L,X>,ID extends Comparable<ID>,K extends AddressedKey<S,SV,SM,B,BV,BM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH,F,ID,K,V,M,L,X>,V extends AddressedView<S,SV,SM,B,BV,BM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH,F,ID,K,V,M,L,X>,M extends AddressedModel<S,SV,SM,B,BV,BM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH,F,ID,K,V,M,L,X>,L extends AddressedLibrarian<S,SV,SM,B,BV,BM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH,F,ID,K,V,M,L,X>,X extends AddressedContext<S,SV,SM,B,BV,BM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH,F,ID,K,V,M,L,X>> extends Fact<F,K,V,M,L,X> {
 
     public Addressed(K key) {
         super(key);

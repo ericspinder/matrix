@@ -18,7 +18,7 @@ import java.util.List;
 
 public class Earth extends Terrene {
 
-    protected Earth() {
+    public Earth() {
         super("IN", "earth");
     }
 

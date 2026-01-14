@@ -11,8 +11,4 @@ public final class DefaultJdbcCatalogModel extends JdbcBureauModel<DefaultJdbcCa
         super(labeledAspects);
     }
 
-    @Override
-    public int getDatumGenericPosition() {
-        return 0;
-    }
 }

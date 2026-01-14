@@ -15,21 +15,21 @@ import java.lang.instrument.Instrumentation;
  */
 public class Aforementioned {
 
-    private static Matrix Instance;
+    private static Ziggurat Instance;
 
     public static void premain(String agentArgs, Instrumentation instrumentation) throws InstantiationException {
         try {
             if (Instance != null) {
                 throw new RuntimeException("premain cannot be called twice");
             }
-            Instance = new Matrix(new CommandLine(agentArgs), instrumentation);
+            Instance = new Ziggurat(new CommandLine(agentArgs), instrumentation);
 
         } catch (IOException e) {
             throw new InstantiationException("Cannot create instance of Matrix from premain method");
         }
     }
-    public static Matrix getInstance() {
-        Matrix Instance = Aforementioned.Instance;
+    public static Ziggurat getInstance() {
+        Ziggurat Instance = Aforementioned.Instance;
         if(Instance == null) {
             throw new RuntimeException("Matrix instance is not initialized");
         }

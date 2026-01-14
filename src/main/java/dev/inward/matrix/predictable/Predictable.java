@@ -52,9 +52,9 @@ public class Predictable implements AutoCloseable {
 //        return null;
 //    }
     @SuppressWarnings("unchecked")
-//    protected <M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> Matter.ChainSupplier<M,OCCURRENCE> createMatterChainSupplier(Domain domain, Indicia indicia, Iterator<Criterion> criteria) {
+//    protected <M extends Matter<M,OCCURRENCE>,OCCURRENCE extends Comparable<OCCURRENCE>> Matter.ChainSupplier<M,OCCURRENCE> createMatterChainSupplier(Domain domainName, Indicia indicia, Iterator<Criterion> criteria) {
 //        Criterion param = extractMatchingCriterionTarget(indicia.supplierClassName(), criteria);
-//        Library_ofLog libraryOfLogLibrary = Scheme_ofLog.findLibrary()domain.getLibrary(Scheme_ofLog.);
+//        Library_ofLog libraryOfLogLibrary = Scheme_ofLog.findLibrary()domainName.getLibrary(Scheme_ofLog.);
 //        try {
 //            return ((Class<Matter.ChainSupplier<M,OCCURRENCE>>) Class.forName(indicia.supplierClassName())).getDeclaredConstructor(Library.class,Indicia.class,Criterion.class).newInstance(libraryOfLogLibrary,indicia,param);
 //        } catch (ClassNotFoundException | ClassCastException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {

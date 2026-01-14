@@ -9,13 +9,13 @@ import dev.inward.matrix.predictable.Predictable;
 
 import java.util.Arrays;
 
-public class Indica<P extends Predictable> extends Depot<Indica<P>,IndicaKey<P>,IndicaView<P>,IndicaModel<P>, IndicaReference<P>, IndicaLibrarian<P>> {
+public class Indica extends Depot<Indica,IndicaKey,IndicaView,IndicaModel,IndicaLibrarian> {
 
     private final String predictableClassName;
     private final String criterionClassName;
     private final String[] policyClassNames;
 
-    public Indica(IndicaKey<P> identity, String complicationCriterionClassName, String[] policyClassNames,String predictableClassName) {
+    public Indica(IndicaKey identity, String complicationCriterionClassName, String[] policyClassNames,String predictableClassName) {
         super(identity);
         this.criterionClassName = complicationCriterionClassName;
         this.policyClassNames = policyClassNames;
@@ -26,7 +26,7 @@ public class Indica<P extends Predictable> extends Depot<Indica<P>,IndicaKey<P>,
         return predictableClassName;
     }
 
-    public String[] getCriterionClassNames() {
+    public String getCriterionClassName() {
         return criterionClassName;
     }
 

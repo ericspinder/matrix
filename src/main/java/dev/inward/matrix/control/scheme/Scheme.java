@@ -4,8 +4,6 @@
 
 package dev.inward.matrix.control.scheme;
 
-import dev.inward.matrix.Experience;
-import dev.inward.matrix.Matrix;
 import dev.inward.matrix.concept.fact.directory.*;
 import dev.inward.matrix.control.Control;
 import dev.inward.matrix.control.domain.Domain;
@@ -73,10 +71,7 @@ public abstract class Scheme<S extends Scheme<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,D
         }
     }
 
-    public static Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> FindScheme(Terrene terrene, ProtocolParser<?> protocolParser) {
-        String scheme = Terrene.KnownWorlds.get(terrene) + "." + protocolParser.getProtocol().getLabel();
-    }
-    protected final Map<L, Experience.LibraryEx> libraries = new WeakHashMap<>();
+    protected final Map<String,L> libraries = new WeakHashMap<>();
 
     protected final Terrene terrene;
     protected final ProtocolParser<PATH> protocolParser;
@@ -97,8 +92,7 @@ public abstract class Scheme<S extends Scheme<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,D
         if (libraries.containsKey(library_cache_key)) {
             return libraries.get(library_cache_key);
         }
-        Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> scheme = Matrix.findSchemeByString(uri.getScheme());
-        return this.buildLibrary(, uri.getPort(),library_cache_key);
+        return this.buildLibrary(this.terrene.getDomain(uri.getHost()), uri.getPort(),library_cache_key);
 
     }
     @SuppressWarnings("unchecked")

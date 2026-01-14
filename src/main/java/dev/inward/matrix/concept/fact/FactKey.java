@@ -5,50 +5,49 @@
 
 package dev.inward.matrix.concept.fact;
 
-import dev.inward.matrix.Aspect;
 import dev.inward.matrix.Context;
-import dev.inward.matrix.Seat;
 import dev.inward.matrix.concept.fact.directory.Directory;
 import dev.inward.matrix.concept.fact.directory.DirectoryKey;
 import dev.inward.matrix.control.authority.*;
 import dev.inward.matrix.control.library.Library;
 import dev.inward.matrix.concept.fact.addressed.AddressedKey;
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
-import java.lang.ref.Reference;
 import java.lang.reflect.ParameterizedType;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public abstract class FactKey<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,V,M,L,X>,V extends FactView<F,K,V,M,L,X>,M extends FactModel<F,K,V,M,L,X>,L extends Librarian<F,K,V,M,L,X>,X extends FactContext<F,K,V,M,L,X>> implements Path {
 
-    private Cabin<F,K,V,M,L,X> reference;
+    transient private Cabin<F,K,V,M,L,X> cabin;
     protected final String url;
 
-    protected FactKey(URI uri, M model) {
+    protected FactKey(URI uri) {
         this.url = this.processUri(uri).toString();
     }
-    public final Cabin<F,K,V,M,L,X> getReference() {
-        return this.reference;
+    public final Cabin<F,K,V,M,L,X> getCabin() {
+        return this.cabin;
     }
-    public final void setReference(Cabin<F,K,V,M,L,X> reference) {
-        if (this.reference != null && Objects.requireNonNull(reference.get()).key == this) {
-            this.reference = reference;
+    public final void setCabin(Cabin<F,K,V,M,L,X> cabin) {
+        if (this.cabin != null && Objects.requireNonNull(cabin.get()).key == this) {
+            this.cabin = cabin;
         } else {
-            throw new RuntimeException("Cannot reset reference");
+            throw new RuntimeException("Unable to reset reference, cabin already set");
         }
     }
     protected abstract URL processUri(URI uri);
 
 
+    @NotNull
     @Override
     public Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> getFileSystem() {
-        if (reference != null && Objects.requireNonNull(reference.get()).key == this) {
-            if (this.reference != null && Objects.requireNonNull(reference.get()).key == this) {
-                return this.getReference().get().getLibrarian().getCatalog().getLibrary();
+        if (cabin != null && Objects.requireNonNull(cabin.get()).key == this) {
+            if (this.cabin != null && Objects.requireNonNull(cabin.get()).key == this) {
+                return this.getCabin().get().getLibrarian().getCatalog().getLibrary();
             }
         }
         throw  new RuntimeException("Cannot get file system");
@@ -61,9 +60,8 @@ public abstract class FactKey<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,
 
     @Override
     public Path getRoot() {
-        if (this instanceof FactKey<?,?,?,?,?,?> factKey) {
-            this.getFileSystem().getRootDirectories();
-        }
+        FactKey<?, ?, ?, ?, ?, ?> factKey = (FactKey<?, ?, ?, ?, ?, ?>) this;
+        this.getFileSystem().getRootDirectories();
         return this;
     }
 
@@ -74,26 +72,11 @@ public abstract class FactKey<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,
 
     @Override
     public Path getParent() {
-        if (this instanceof AddressedKey<?,?,?,?,?,?,?,?,?,?,?,?,?,?> addressedKey) {
-            return addressedKey.getDirectoryKey();
-        }
-        if (this instanceof DirectoryKey<?,?,?,?,?,?,?,?> directoryKey) {
-            Directory<?,?,?,?,?,?,?,?> directory = directoryKey.reference.get();
-            if (directory != null) {
-                return this.reference.get().getContext().getCatalog().findDirectoryKey(directoryKey.getParentPathString());
-            }
-        }
         return null;
     }
 
     @Override
     public int getNameCount() {
-        if (this instanceof AddressedKey<?,?,?,?,?,?,?,?,?,?,?,?,?,?> addressedKey) {
-            return addressedKey.getDirectoryKey().getNameCount() + 1;
-        }
-        if (this instanceof DirectoryKey<?,?,?,?,?,?,?> directoryKey) {
-            return directoryKey.directoryPath.toString().split("/").length;
-        }
         return 0;
     }
 
@@ -122,8 +105,9 @@ public abstract class FactKey<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,
         return this;
     }
 
+    @NotNull
     @Override
-    public Path resolve(Path other) {
+    public Path resolve(@NotNull Path other) {
         return null;
     }
 
@@ -132,9 +116,14 @@ public abstract class FactKey<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,
         return null;
     }
 
+    @NotNull
     @Override
     public URI toUri() {
-        return this.uri;
+        try {
+            return new URI(url);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -150,7 +139,7 @@ public abstract class FactKey<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,
     @Override
     public int compareTo(Path other) {
         if (other instanceof FactKey<?,?,?,?,?,?> that) {
-            return this.uri.compareTo(that.uri);
+            return this.url.compareTo(that.url);
         }
         return -1;
     }
@@ -160,43 +149,18 @@ public abstract class FactKey<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         FactKey<?,?,?,?,?,?> that = (FactKey<?,?,?,?,?,?>) o;
-        return Objects.equals(uri.toString(), that.uri.toString());
+        return Objects.equals(url, that.url);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uri);
+        return Objects.hash(url);
     }
 
+    @NotNull
     @Override
     public String toString() {
-        return this.uri.toString();
+        return this.url;
     }
 
-    public static abstract class Builder<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,V,M,L,X>,V extends FactView<F,K,V,M,L,X>,M extends FactModel<F,K,V,M,L,X>,L extends Librarian<F,K,V,M,L,X>,X extends Context<?,?,?,?>> {
-
-        protected URI uri;
-        protected A authority;
-
-        public Builder<F,K,V,M,R,L> setLibrary(Authority<?,?,?,?,?,?,?> authority) {
-            this.authority = authority;
-            return this;
-        }
-        protected abstract String completeUri() throws URISyntaxException;
-        public final synchronized K buildMatrixKey() {
-            try {
-                this.uri = new URI(authority.getUrlString() + completeUri());
-                return this.newMatrixKey();
-            }
-            catch (URISyntaxException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        protected abstract K newMatrixKey();
-
-        @SuppressWarnings("unchecked")
-        protected Class<K> getFileKeyClass() {
-            return (Class<K>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
-        }
-    }
 }

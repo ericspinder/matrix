@@ -7,7 +7,7 @@ package dev.inward.matrix.concept.item;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.Model;
 
-public abstract class ItemModel<ITEM,V extends ItemView<ITEM,V,M,C>,M extends ItemModel<ITEM,V,M,C>,C extends Clerk<ITEM,V,M,C>> extends Model<ITEM> {
+public abstract class ItemModel<ITEM,V extends ItemView<ITEM,V,M,C,X>,M extends ItemModel<ITEM,V,M,C,X>,C extends Clerk<ITEM,V,M,C,X>,X extends ItemContext<ITEM,V,M,C,X>> extends Model<ITEM,V,M> {
 
     public ItemModel(Class<? super ITEM> datumClass, Aspect[] labeledAspects) {
         super(datumClass, labeledAspects);

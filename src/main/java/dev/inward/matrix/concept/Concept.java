@@ -16,10 +16,10 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
 
-public abstract class Concept<TARGET,V extends View<TARGET,V,M,C,X>,M extends Model<TARGET,V,M,C,X>,C extends Concept<TARGET,V,M,C,X>,X extends Context<TARGET,V,M,C,X>> extends PermissionCollection {
+public abstract class Concept<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>,C extends Concept<TARGET,V,M,C,X>,X extends Context<TARGET,V,M,C,X>> extends PermissionCollection {
 
     public interface Referenced<TARGET,V extends View<TARGET,V,M,C,X>,M extends Model<TARGET,V,M,C,X>,C extends Concept<TARGET,V,M,C,X>,X extends Context<TARGET,V,M,C,X>> {
-        Seat<TARGET,V,M,C,X> getReference();
+        Seat<TARGET,V,M> getReference();
         void setReference(Seat<TARGET,V,M,C,X> reference);
     }
 

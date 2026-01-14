@@ -7,8 +7,8 @@ package dev.inward.matrix.control;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.Model;
 
-public abstract class ControlModel<CO extends Control<CO,CV,CM>,CV extends ControlView<CO,CV,CM>,CM extends ControlModel<CO,CV,CM>> extends Model<CO> {
-    public ControlModel(Class<? super CO> controlClass, Aspect[] labeledAspects) {
-        super(controlClass, labeledAspects);
+public abstract class ControlModel<CO extends Control<CO,CV,CM>,CV extends ControlView<CO,CV,CM>,CM extends ControlModel<CO,CV,CM>> extends Model<CO,CV,CM> {
+    public ControlModel(Aspect[] labeledAspects) {
+        super(labeledAspects);
     }
 }

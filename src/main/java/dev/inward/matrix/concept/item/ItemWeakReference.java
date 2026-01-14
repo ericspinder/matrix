@@ -6,7 +6,7 @@ package dev.inward.matrix.concept.item;
 
 import dev.inward.matrix._WeakReference;
 
-public abstract class ItemWeakReference<ITEM,V extends ItemView<ITEM,V,M,C>,M extends ItemModel<ITEM,V,M,C>,C extends Clerk<ITEM,V,M,C>> extends _WeakReference<ITEM, V, M, C> {
+public interface ItemWeakReference<ITEM,V extends ItemView<ITEM,V,M,C>,M extends ItemModel<ITEM,V,M,C>,C extends Clerk<ITEM,V,M,C>> extends _WeakReference<ITEM, V, M, C> {
 
     public ItemWeakReference(ITEM referent, C clerk) {
         super(referent, clerk);

@@ -6,6 +6,7 @@ package dev.inward.matrix.control;
 
 
 import dev.inward.matrix.control.terrene.Terrene;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -19,4 +20,6 @@ public interface Control<CO extends Control<CO,CV,CM>,CV extends ControlView<CO,
     CM getModel();
 
     Instant getCreateInstant();
+
+    int compareTo(@NotNull CO that);
 }

@@ -5,13 +5,14 @@
 package dev.inward.matrix.concept.fact;
 
 import dev.inward.matrix.*;
+import dev.inward.matrix.control.authority.Authority;
 
 import java.io.IOException;
 import java.nio.file.attribute.BasicFileAttributeView;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
 
-public abstract class FactView<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,V,M,L,X>,V extends FactView<F,K,V,M,L,X>,M extends FactModel<F,K,V,M,L,X>,L extends Librarian<F,K,V,M,L,X>,X extends FactContext<F,K,V,M,L,X>> extends View<F,V,M,L,X> implements BasicFileAttributeView {
+public abstract class FactView<F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,V,M,L,X>,V extends FactView<F,K,V,M,L,X>,M extends FactModel<F,K,V,M,L,X>,L extends Librarian<F,K,V,M,L,X>,X extends FactContext<F,K,V,M,L,X>> extends View<F,V,M> implements BasicFileAttributeView {
 
     public FactView(String name, F f) {
         super(name, f);

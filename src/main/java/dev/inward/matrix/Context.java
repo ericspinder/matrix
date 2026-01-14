@@ -5,13 +5,13 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.concept.Concept;
-import dev.inward.matrix.concept.fact.Factory;
+import dev.inward.matrix.engine.Factory;
 import dev.inward.matrix.concept.fact.Variant;
 import dev.inward.matrix.concept.item.datum.administrator.Agent;
 
 import java.security.ProtectionDomain;
 
-public abstract class Context<TARGET,V extends View<TARGET,V,M,C,X>,M extends Model<TARGET,V,M,C,X>,C extends Concept<TARGET,V,M,C,X>,X extends Context<TARGET,V,M,C,X>> extends ProtectionDomain {
+public abstract class Context<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>,C extends Concept<TARGET,V,M,C,X>,X extends Context<TARGET,V,M,C,X>> extends ProtectionDomain {
 
     public Context(Variant variant, C concept, Factory<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> factory, Agent[] agents) {
         super(variant,concept,factory,agents);
@@ -21,11 +21,11 @@ public abstract class Context<TARGET,V extends View<TARGET,V,M,C,X>,M extends Mo
         return (Variant) this.getCodeSource();
     }
     @SuppressWarnings("unchecked")
-    public M getModel() {
-        return (M) this.getPermissions();
+    public C getConcept() {
+        return (C) this.getPermissions();
     }
 
-    public Factory<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> getFactory() {
-        return (Factory<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>) this.getClassLoader();
+    public Factory<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> getFactory() {
+        return (Factory<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>) this.getClassLoader();
     }
 }

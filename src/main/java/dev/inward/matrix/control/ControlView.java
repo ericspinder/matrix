@@ -4,7 +4,6 @@
 
 package dev.inward.matrix.control;
 
-import dev.inward.matrix.Matrix;
 import dev.inward.matrix.View;
 
 public class ControlView<CO extends Control<CO,CV,CM>,CV extends ControlView<CO,CV,CM>,CM extends ControlModel<CO,CV,CM>> extends View<CO,CV,CM> {

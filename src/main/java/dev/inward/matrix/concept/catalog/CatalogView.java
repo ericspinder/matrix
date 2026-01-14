@@ -4,13 +4,13 @@
 
 package dev.inward.matrix.concept.catalog;
 
-import dev.inward.matrix.View;
+import dev.inward.matrix.control.ControlView;
 
 import java.nio.file.attribute.FileStoreAttributeView;
 
-public abstract class CatalogView<MC extends Catalog<MC,MV,MM>,MV extends CatalogView<MC,MV,MM>,MM extends CatalogModel<MC,MV,MM>> extends View<MC,MV,MM> implements FileStoreAttributeView {
+public abstract class CatalogView<CC extends Catalog<CC,CV,CM>,CV extends CatalogView<CC,CV,CM>,CM extends CatalogModel<CC,CV,CM>> extends ControlView<CC,CV,CM> implements FileStoreAttributeView {
 
-    public CatalogView(String name, MC memory) {
-        super(name, memory);
+    public CatalogView(String name, CC catalog) {
+        super(name, catalog);
     }
 }

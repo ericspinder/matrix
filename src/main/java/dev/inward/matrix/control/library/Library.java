@@ -27,21 +27,47 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Library<S extends Scheme<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,SV extends SchemeView<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,SM extends SchemeModel<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,L extends Library<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,LV extends LibraryView<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,LM extends LibraryModel<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,A extends Authority<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,AV extends AuthorityView<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,AM extends AuthorityModel<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DF extends Directory<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DK extends DirectoryKey<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DV extends DirectoryView<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DM extends DirectoryModel<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DL extends DirectoryLibrarian<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DX extends DirectoryContext<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,PATH extends Comparable<PATH>> extends FileSystem implements Control<L,LV,LM> {
+public abstract class Library<S extends Scheme<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,SV extends SchemeView<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,SM extends SchemeModel<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,L extends Library<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,LV extends LibraryView<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,LM extends LibraryModel<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,A extends Authority<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,AV extends AuthorityView<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,AM extends AuthorityModel<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DF extends Directory<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DK extends DirectoryKey<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DV extends DirectoryView<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DM extends DirectoryModel<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DL extends DirectoryLibrarian<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,DX extends DirectoryContext<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,PATH>,PATH extends Comparable<PATH>> extends FileSystem implements Control<L,LV,LM> {
 
     protected final UUID uuid = UUID.randomUUID();
     protected final S scheme;
     protected final Domain domain;
     protected final int port;
-    protected Map<String, Cabin<DF,DK,DV,DM,DL,DX>> pathDirectoryMap = new ConcurrentHashMap<>();
+    protected Map<PATH, Cabin<DF,DK,DV,DM,DL,DX>> pathDirectoryMap = new ConcurrentHashMap<>();
     protected Map<String, Seat<A,AV,AM,AC,AX>> authorityMap = new ConcurrentHashMap<>();
     private boolean open = true;
     private boolean readOnly = false;
+    private final LibraryKey libraryKey;
 
-    public Library(S scheme, Domain domain, int port) {
+    public Library(LibraryKey libraryKey, S scheme, Domain domain, int port) {
+        this.libraryKey = libraryKey.check(scheme,domain,port);
         this.scheme = scheme;
         this.domain = domain;
         this.port = port;
+    }
+    public static LibraryKey getLibraryKey(URI uri) {
+        return new LibraryKey(uri.getScheme(),uri.getHost(),uri.getPort());
+    }
+    public record LibraryKey(String terrineScheme, String domainName, int port) implements Comparable<LibraryKey> {
+
+        @Override
+        public int compareTo(@NotNull LibraryKey that) {
+            int isZero = this.terrineScheme.compareTo(that.terrineScheme);
+            if (isZero == 0) {
+                isZero = this.domainName.compareTo(that.domainName);
+                if (isZero == 0) {
+                    return Integer.compare(this.port,that.port);
+                }
+            }
+            return isZero;
+        }
+        public LibraryKey check(Scheme<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> scheme, Domain domain, int port) {
+            if (scheme.getScheme().equals(this.terrineScheme) && domain.getDomainName().equals(this.domainName) && port == this.port) {
+                return this;
+            } else {
+                throw new IllegalArgumentException(String.format("LibraryKey %s is not compatible with %s %s %d",this,scheme,domain,port));
+            }
+        }
     }
 
     @Override
@@ -57,7 +83,7 @@ public class Library<S extends Scheme<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,
         return port;
     }
 
-    public DF findDirectory(String path) {
+    public DF findDirectory(PATH path) {
         DF directory = pathDirectoryMap.get(path);
         if (directory == null) {
             return buildDirectory(directoryKey);
@@ -125,7 +151,7 @@ public class Library<S extends Scheme<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,
 
     @NotNull
     @Override
-    public FactKey<?,?,?,?,?,?,?> getPath(@NotNull String first, String... more) {
+    public FactKey<?,?,?,?,?,?> getPath(@NotNull String first, String... more) {
         StringBuilder stringBuilder = new StringBuilder();
         if (first.startsWith(this.getSeparator())) {
             stringBuilder.append(first);
@@ -141,7 +167,7 @@ public class Library<S extends Scheme<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,
         }
         return this.getFileKey(stringBuilder.toString());
     }
-    public FactKey<?,?,?,?,?,?,?> getFileKey(String path) {
+    public FactKey<?,?,?,?,?,?> getFileKey(String path) {
         String directoryPath;
         int lastIndexOfSeparator = path.lastIndexOf(this.getSeparator());
         if (lastIndexOfSeparator == -1) {
@@ -159,6 +185,11 @@ public class Library<S extends Scheme<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,
         }
 
     }
+
+    public LibraryKey getLibraryKey() {
+        return libraryKey;
+    }
+
     @Override
     public PathMatcher getPathMatcher(String syntaxAndPattern) {
         return null;
@@ -176,17 +207,7 @@ public class Library<S extends Scheme<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,DM,DL,DX,
 
     @Override
     public int compareTo(@NotNull L that) {
-        int isZero = this.scheme.compareTo(that.scheme);
-        if (isZero == 0) {
-            isZero = this.domain.compareTo(that.getDomain());
-            if (isZero == 0) {
-                isZero = Integer.compare(this.port,that.getPort());
-                if (isZero == 0) {
-                    return this.uuid.compareTo(that.getUuid());
-                }
-            }
-        }
-        return isZero;
+        return this.libraryKey.compareTo(that.getLibraryKey());
     }
 
 }

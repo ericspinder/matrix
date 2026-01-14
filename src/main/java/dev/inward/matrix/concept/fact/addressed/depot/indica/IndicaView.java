@@ -7,8 +7,8 @@ package dev.inward.matrix.concept.fact.addressed.depot.indica;
 import dev.inward.matrix.concept.fact.addressed.depot.DepotView;
 import dev.inward.matrix.predictable.Predictable;
 
-public class IndicaView<P extends Predictable> extends DepotView<Indica<P>,IndicaKey<P>,IndicaView<P>,IndicaModel<P>, IndicaReference<P>, IndicaLibrarian<P>> {
-    public IndicaView(String name, Indica<P> file) {
+public class IndicaView extends DepotView<Indica,IndicaKey,IndicaView,IndicaModel,IndicaReference,IndicaLibrarian> {
+    public IndicaView(String name, Indica file) {
         super(name, file);
     }
 }

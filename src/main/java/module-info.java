@@ -4,12 +4,10 @@ module dev.inward.matrix {
     requires transitive java.sql;
     requires transitive org.objectweb.asm;
     requires transitive jdk.security.auth;
-    requires kotlin.stdlib;
     requires jsr305;
     requires annotations;
     requires java.management;
     requires org.checkerframework.checker.qual;
-    exports dev.inward.matrix.engine;
     exports dev.inward.matrix.route;
     exports dev.inward.matrix.personality;
     exports dev.inward.matrix.ticket;
@@ -21,6 +19,8 @@ module dev.inward.matrix {
     exports dev.inward.matrix.concept.item.datum.administrator;
     exports dev.inward.matrix.predictable;
     exports dev.inward.matrix.concept.fact.addressed.http;
+    exports dev.inward.matrix.concept.fact.addressed.https;
+    exports dev.inward.matrix.concept.fact.addressed.ldap;
     exports dev.inward.matrix.concept.fact.addressed.depot.indica;
     exports dev.inward.matrix.concept.fact.addressed;
     exports dev.inward.matrix.concept.fact;
@@ -44,4 +44,5 @@ module dev.inward.matrix {
     exports dev.inward.matrix.control.terrene;
     exports dev.inward.matrix.concept;
     exports dev.inward.matrix.control.administration.platform;
+    exports dev.inward.matrix.engine;
 }

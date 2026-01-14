@@ -7,11 +7,27 @@ package dev.inward.matrix.concept.item;
 import dev.inward.matrix.concept.Concept;
 import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
 
-public class Clerk<ITEM,V extends ItemView<ITEM,V,M,C>,M extends ItemModel<ITEM,V,M,C>,C extends Clerk<ITEM,V,M,C>> extends Concept<ITEM,V,M> {
+import java.security.Permission;
+import java.util.Enumeration;
 
-    // protected final File<?,?,?,?,?,?> file;
+public class Clerk<ITEM,V extends ItemView<ITEM,V,M,C,X>,M extends ItemModel<ITEM,V,M,C,X>,C extends Clerk<ITEM,V,M,C,X>,X extends ItemContext<ITEM,V,M,C,X>> extends Concept<ITEM,V,M,C,X> {
 
     public Clerk(Standard standard) {
         super(standard);
+    }
+
+    @Override
+    public void add(Permission permission) {
+
+    }
+
+    @Override
+    public boolean implies(Permission permission) {
+        return false;
+    }
+
+    @Override
+    public Enumeration<Permission> elements() {
+        return null;
     }
 }

@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.concept.fact.addressed.dns;
 
-import dev.inward.matrix.concept.fact.Factory;
+import dev.inward.matrix.engine.Factory;
 import dev.inward.matrix.concept.fact.Variant;
 import dev.inward.matrix.concept.fact.directory.DirectoryContext;
 

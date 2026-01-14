@@ -4,6 +4,7 @@
 
 package dev.inward.matrix.control.terrene;
 
+import dev.inward.matrix.Ziggurat;
 import dev.inward.matrix.control.Control;
 import dev.inward.matrix.control.domain.Domain;
 
@@ -18,26 +19,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class Terrene extends URLStreamHandler implements Control<Terrene,TerreneView,TerreneModel> {
 
-    private static Map<String, Terrene> KnownWorlds() {
-        Map<String, Terrene> knownWorlds = new ConcurrentHashMap<>();
-        knownWorlds.put("earth",new Earth());
-        knownWorlds.put("luna", new Luna());
-        knownWorlds.put("mars", new Mars());
-        knownWorlds.put("helios", new Helios());
-        knownWorlds.put("chaosnet", new Chaosnet());
-        knownWorlds.put("hesiod", new Hesiod());
-        return knownWorlds;
-    }
-    public static final Map<String, Terrene> KnownWorlds = KnownWorlds();
-
-
     protected Domain localhostDomain = new Domain(this, "localhost");
 
     public static Terrene Parse(String label) {
         if (label == null || label.isEmpty()) {
             label = "earth";
         }
-        Terrene terrene = KnownWorlds.get(label);
+        Terrene terrene = Ziggurat.getInstance().KnownWorlds.get(label);
         if (terrene == null) {
             throw new IllegalArgumentException("Unknown Terrene: " + label);
         }
@@ -58,7 +46,7 @@ public abstract class Terrene extends URLStreamHandler implements Control<Terren
         this.dnsClassCode = dnsClassCode;
         this.labels = labels;
         for (String label: labels) {
-            KnownWorlds.put(label,this);
+            Ziggurat.getInstance().KnownWorlds.put(label,this);
         }
     }
 

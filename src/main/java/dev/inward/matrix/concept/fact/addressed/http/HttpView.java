@@ -6,7 +6,7 @@ package dev.inward.matrix.concept.fact.addressed.http;
 
 import dev.inward.matrix.concept.fact.addressed.AddressedView;
 
-public class HttpView<F extends Http<F,K,V,M,R,L>,K extends HttpKey<F,K,V,M,R,L>,V extends HttpView<F,K,V,M,R,L>,M extends HttpModel<F,K,V,M,R,L>,R extends FactReference<F,K,V,M,R,L>,L extends HttpLibrarian<F,K,V,M,R,L>> extends AddressedView<F,String,K,V,M,R,L,HttpDirectory,HttpDirectoryKey,HttpDirectoryView,HttpDirectoryModel, HttpDirectoryReference, HttpDirectoryLibrarian,String> {
+public class HttpView<F extends Http<F,K,V,M,R,L>,K extends HttpKey<F,K,V,M,R,L>,V extends HttpView<F,K,V,M,R,L>,M extends HttpModel<F,K,V,M,R,L>,R extends dev.inward.matrix.Seat,L extends HttpLibrarian<F,K,V,M,R,L>> extends AddressedView<F,String,K,V,M,R,L,HttpDirectory,HttpDirectoryKey,HttpDirectoryView,HttpDirectoryModel, HttpDirectoryReference, HttpDirectoryLibrarian,String> {
 
     public HttpView(String name, F f) {
         super(name, f);

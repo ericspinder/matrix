@@ -9,7 +9,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class Mars extends Terrene {
-    protected Mars() {
+    public Mars() {
         super("MR", "mars");
     }
 

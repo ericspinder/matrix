@@ -4,7 +4,6 @@
 
 package dev.inward.matrix.concept.fact.addressed.dns.catalogRecord;
 
-import dev.inward.matrix.engine.Zone;
 import dev.inward.matrix.file.userInfo.record.DnsDirectoryKey;
 import dev.inward.matrix.concept.fact.addressed.dns.ResourceRecordParser;
 
