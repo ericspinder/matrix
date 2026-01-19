@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.concept.catalog.jdbc;
 
-public final class DefaultJdbcCatalogView extends JdbcBureauView<DefaultJdbcCatalog, DefaultJdbcCatalogView, DefaultJdbcCatalogModel> {
+public final class DefaultJdbcCatalogView extends JdbcCatalogView<DefaultJdbcCatalog, DefaultJdbcCatalogView, DefaultJdbcCatalogModel> {
 
     public DefaultJdbcCatalogView(String name, DefaultJdbcCatalog jdbcBureau, DefaultJdbcCatalogModel jdbcBureauModel) {
         super(name, jdbcBureau, jdbcBureauModel);

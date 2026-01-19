@@ -8,7 +8,6 @@ import dev.inward.matrix.*;
 import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
 
 import java.lang.ref.Reference;
-import java.lang.ref.ReferenceQueue;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.security.PermissionCollection;
@@ -18,18 +17,13 @@ import java.util.function.Function;
 
 public abstract class Concept<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>,C extends Concept<TARGET,V,M,C,X>,X extends Context<TARGET,V,M,C,X>> extends PermissionCollection {
 
-    public interface Referenced<TARGET,V extends View<TARGET,V,M,C,X>,M extends Model<TARGET,V,M,C,X>,C extends Concept<TARGET,V,M,C,X>,X extends Context<TARGET,V,M,C,X>> {
-        Seat<TARGET,V,M> getReference();
-        void setReference(Seat<TARGET,V,M,C,X> reference);
-    }
-
     //protected final Map<Action.ActionType, Action[]> restraints;
 
     protected final Standard standard;
     protected final M model;
     protected final Class<V> viewClass;
     protected final Class<? extends Reference<TARGET>> referenceClass;
-    protected final Function<Reference<? extends TARGET>,Reference<? extends TARGET>> graveDigger;
+
 
 
     public Concept(Standard standard) {;
@@ -37,22 +31,13 @@ public abstract class Concept<TARGET,V extends View<TARGET,V,M>,M extends Model<
         try {
             this.viewClass = createViewClass();
             this.referenceClass = assignReferenceClass();
-            this.model = createModelInstance();
-            this.graveDigger = createGraveDiggerInstance();
+            this.model = createModelInstance(standard);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException |
                  ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
-    public synchronized Long getSequenceNumber() {
-        try {
-            return sequence.incrementAndGet();
-        }
-        catch (IndexOutOfBoundsException indexOutOfBoundsException) {
-            this.sequence.set(Long.MIN_VALUE);
-            return Long.MIN_VALUE;
-        }
-    }
+
     protected Map<String,?> properties(Standard standard) {
 
     }
@@ -72,6 +57,7 @@ public abstract class Concept<TARGET,V extends View<TARGET,V,M>,M extends Model<
     @SuppressWarnings("unchecked")
 
 
+
     @SuppressWarnings("unchecked")
 //    public final W poll2() {
 //        W bringOutYourDead = (W) poll();
@@ -83,31 +69,6 @@ public abstract class Concept<TARGET,V extends View<TARGET,V,M>,M extends Model<
     public M getModel() {
         return this.model;
     }
-    public long getSequence() {
-        return sequence.get();
-    }
-    public long getRemoved() {
-        return removed.get();
-    }
-    public long estimateCount(long removed) {
-        return this.sequence.get() - removed;
-    }
-    public long getWarnOnTotal() {
-        return this.warnOnTotal;
-    }
-
-    public long getHardLimit() {
-        return hardLimit;
-    }
-
-    public void setWarnOnTotal(long warnOnTotal) {
-        this.warnOnTotal = warnOnTotal;
-    }
-
-    public void setHardLimit(long hardLimit) {
-        this.hardLimit = hardLimit;
-    }
-
     public Class<? extends Reference<TARGET>> getReferenceClass() {
         return referenceClass;
     }
@@ -120,33 +81,5 @@ public abstract class Concept<TARGET,V extends View<TARGET,V,M>,M extends Model<
         return standard;
     }
 
-    public Reference<? extends TARGET> reaper(Reference<? extends TARGET> departed) {
-        if (departed != null) {
-            long estimatedCount = this.estimateCount(this.removed.incrementAndGet());
-            if (estimatedCount <= 0) {
 
-            }
-            return this.graveDigger.apply(departed);
-        }
-        return null;
-    }
-
-    @Override
-    public Reference<? extends TARGET> poll() {
-        return reaper(super.poll());
-    }
-
-    @Override
-    public Reference<? extends TARGET> remove() throws InterruptedException {
-        return reaper(super.remove());
-    }
-
-    @Override
-    public Reference<? extends TARGET> remove(long timeout) throws InterruptedException {
-        return reaper(super.remove(timeout));
-    }
-
-    public Function<Reference<? extends TARGET>, Reference<? extends TARGET>> getGraveDigger() {
-        return graveDigger;
-    }
 }

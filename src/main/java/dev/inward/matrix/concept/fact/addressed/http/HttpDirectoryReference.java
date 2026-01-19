@@ -4,7 +4,9 @@
 
 package dev.inward.matrix.concept.fact.addressed.http;
 
-public class HttpDirectoryReference implements dev.inward.matrix.Seat {
+import dev.inward.matrix.Shadow;
+
+public class HttpDirectoryReference implements Shadow {
     public HttpDirectoryReference(HttpDirectory referent, HttpDirectoryLibrarian resource) {
         super(referent, resource);
     }

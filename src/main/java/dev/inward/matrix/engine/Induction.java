@@ -3,13 +3,14 @@
  */
 package dev.inward.matrix.engine;
 
+import dev.inward.matrix.Shadow;
 import dev.inward.matrix.concept.Concept;
 import dev.inward.matrix.concept.fact.addressed.AddressedKey;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public abstract class Induction<DATUM,PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends AddressedKey<PATH,D,ID,I,C>,C extends Concept<PATH,D,ID,I,C,R>,R extends dev.inward.matrix.Seat {
+public abstract class Induction<DATUM,PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends AddressedKey<PATH,D,ID,I,C>,C extends Concept<PATH,D,ID,I,C,R>,R extends Shadow {
 
     protected final DatumVisitor<DATUM> datumVisitor;
     protected final Concept<DATUM,S,L,PATH,ID,I,C,N> steward;

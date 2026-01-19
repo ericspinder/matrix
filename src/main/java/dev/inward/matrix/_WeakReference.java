@@ -9,7 +9,7 @@ import dev.inward.matrix.concept.Concept;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 
-public class _WeakReference<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>,C extends Concept<TARGET,V,M>> extends WeakReference<TARGET> implements Seat {
+public class _WeakReference<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>,C extends Concept<TARGET,V,M>> extends WeakReference<TARGET> implements Shadow {
 
     protected final Long sequenceNumber;
     protected final Map<String, Model.InstanceValue<?>> attributes;

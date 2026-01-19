@@ -4,7 +4,9 @@
 
 package dev.inward.matrix.concept.fact.addressed.dns;
 
-public class RRReference<F extends ResourceRecord<F,K,V,M,R,B>,K extends RRKey<F,K,V,M,R,B>,V extends RRView<F,K,V,M,R,B>,M extends RRModel<F,K,V,M,R,B>,R extends RRReference<F,K,V,M,R,B>,B extends RRLibrarian<F,K,V,M,R,B>> implements dev.inward.matrix.Seat<F> {
+import dev.inward.matrix.Shadow;
+
+public class RRReference<F extends ResourceRecord<F,K,V,M,R,B>,K extends RRKey<F,K,V,M,R,B>,V extends RRView<F,K,V,M,R,B>,M extends RRModel<F,K,V,M,R,B>,R extends RRReference<F,K,V,M,R,B>,B extends RRLibrarian<F,K,V,M,R,B>> implements Shadow<F> {
 
     public RRReference(F referent, B librarian) {
         super(referent, librarian);

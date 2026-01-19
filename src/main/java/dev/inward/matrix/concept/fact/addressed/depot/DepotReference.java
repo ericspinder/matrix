@@ -4,7 +4,9 @@
 
 package dev.inward.matrix.concept.fact.addressed.depot;
 
-public class DepotReference<F extends Depot<F,K,V,M,R,L>,K extends DepotKey<F,K,V,M,R,L>,V extends DepotView<F,K,V,M,R,L>,M extends DepotModel<F,K,V,M,R,L>,R extends DepotReference<F,K,V,M,R,L>,L extends DepotLibrarian<F,K,V,M,R,L>> implements dev.inward.matrix.Seat<F> {
+import dev.inward.matrix.Shadow;
+
+public class DepotReference<F extends Depot<F,K,V,M,R,L>,K extends DepotKey<F,K,V,M,R,L>,V extends DepotView<F,K,V,M,R,L>,M extends DepotModel<F,K,V,M,R,L>,R extends DepotReference<F,K,V,M,R,L>,L extends DepotLibrarian<F,K,V,M,R,L>> implements Shadow<F> {
 
     public DepotReference(F referent, L librarian) {
         super(referent, librarian);

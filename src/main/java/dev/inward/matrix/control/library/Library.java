@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.control.library;
 
-import dev.inward.matrix.Seat;
+import dev.inward.matrix.Shadow;
 import dev.inward.matrix.concept.fact.Cabin;
 import dev.inward.matrix.concept.fact.directory.*;
 import dev.inward.matrix.control.Control;
@@ -34,7 +34,7 @@ public abstract class Library<S extends Scheme<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,
     protected final Domain domain;
     protected final int port;
     protected Map<PATH, Cabin<DF,DK,DV,DM,DL,DX>> pathDirectoryMap = new ConcurrentHashMap<>();
-    protected Map<String, Seat<A,AV,AM,AC,AX>> authorityMap = new ConcurrentHashMap<>();
+    protected Map<String, Shadow<A,AV,AM,AC,AX>> authorityMap = new ConcurrentHashMap<>();
     private boolean open = true;
     private boolean readOnly = false;
     private final LibraryKey libraryKey;

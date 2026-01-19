@@ -3,8 +3,6 @@
  */
 package dev.inward.matrix.engine;
 
-import dev.inward.matrix.Seat;
-import dev.inward.matrix.concept.catalog.Catalog;
 import dev.inward.matrix.concept.Concept;
 import dev.inward.matrix.concept.fact.*;
 import dev.inward.matrix.concept.item.datum.Datum;
@@ -17,10 +15,7 @@ import dev.inward.matrix.control.terrene.*;
 
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
-import java.time.Instant;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 

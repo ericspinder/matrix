@@ -5,9 +5,10 @@
 package dev.inward.matrix.ticket;
 
 import dev.inward.crud.Session;
+import dev.inward.matrix.Shadow;
 import dev.inward.matrix.concept.fact.directory.Directory;
 
-public abstract class Ticket<PATH extends Comparable<PATH>,D extends Directory<PATH,D>,ID extends Comparable<ID>,T extends Concept.Identity<PATH,D,ID,T,C,R>,C extends Concept<PATH,D,ID,T,C,R>,R extends dev.inward.matrix.Seat> implements Comparable<Ticket<PATH,D,ID,T,C,R>> {
+public abstract class Ticket<PATH extends Comparable<PATH>,D extends Directory<PATH,D>,ID extends Comparable<ID>,T extends Concept.Identity<PATH,D,ID,T,C,R>,C extends Concept<PATH,D,ID,T,C,R>,R extends Shadow> implements Comparable<Ticket<PATH,D,ID,T,C,R>> {
 
     protected final Session session;
     public Ticket(Session<S,L> session) {

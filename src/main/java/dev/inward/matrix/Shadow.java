@@ -4,7 +4,6 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.concept.Concept;
 import dev.inward.matrix.concept.fact.Fact;
 import dev.inward.matrix.concept.fact.FactKey;
 import dev.inward.matrix.route.Ticket;
@@ -13,7 +12,7 @@ import java.nio.file.attribute.AttributeView;
 import java.util.Collections;
 import java.util.Map;
 
-public interface Seat<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>> extends AttributeView {
+public interface Shadow<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>> extends AttributeView {
 
     default String getName() {
         return this.get().toString();

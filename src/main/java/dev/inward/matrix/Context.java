@@ -11,21 +11,14 @@ import dev.inward.matrix.concept.item.datum.administrator.Agent;
 
 import java.security.ProtectionDomain;
 
-public abstract class Context<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>,C extends Concept<TARGET,V,M,C,X>,X extends Context<TARGET,V,M,C,X>> extends ProtectionDomain {
+public interface Context<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>,C extends Concept<TARGET,V,M,C,X>,X extends Context<TARGET,V,M,C,X>> {
 
-    public Context(Variant variant, C concept, Factory<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> factory, Agent[] agents) {
-        super(variant,concept,factory,agents);
-    }
-
-    public Variant getVariant() {
-        return (Variant) this.getCodeSource();
-    }
+    Variant getVariant();
     @SuppressWarnings("unchecked")
-    public C getConcept() {
-        return (C) this.getPermissions();
+    C getConcept();
+
+    default Factory<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> getFactory() {
+        return getConcept().get
     }
 
-    public Factory<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> getFactory() {
-        return (Factory<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?>) this.getClassLoader();
-    }
 }

@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.StampedLock;
 
-public abstract class Gathering<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends AddressedKey<PATH,ID,I,A,R,F>,A extends Addressed<PATH,ID,I,A,R,F>,R extends Seat,F extends AddressedView<PATH,ID,I,A,R,F>,O extends Operation<PATH,ID,I,A,R,F,O>> {
+public abstract class Gathering<PATH extends Comparable<PATH>,ID extends Comparable<ID>,I extends AddressedKey<PATH,ID,I,A,R,F>,A extends Addressed<PATH,ID,I,A,R,F>,R extends Shadow,F extends AddressedView<PATH,ID,I,A,R,F>,O extends Operation<PATH,ID,I,A,R,F,O>> {
 
     private transient final StampedLock gate = new StampedLock();
     protected final Map<PATH, O> operations = new ConcurrentHashMap<>();

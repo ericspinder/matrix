@@ -5,7 +5,9 @@
 
 package dev.inward.matrix.concept.item.datum;
 
-public interface Datum<D extends Datum<D,V,M,C>,V extends DatumView<D,V,M,C>,M extends DatumModel<D,V,M,C>,C extends DatumClerk<D,V,M,C>> {
+public interface Datum<D extends Datum<D,V,M,C,X>,V extends DatumView<D,V,M,C,X>,M extends DatumModel<D,V,M,C,X>,C extends DatumClerk<D,V,M,C,X>,X extends DatumContext<D,V,M,C,X>> {
+
+    Seat<D,V,M,C> seat();
 
 
 }

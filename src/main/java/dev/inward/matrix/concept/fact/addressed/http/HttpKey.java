@@ -4,17 +4,18 @@
 
 package dev.inward.matrix.concept.fact.addressed.http;
 
+import dev.inward.matrix.Shadow;
 import dev.inward.matrix.concept.fact.addressed.AddressedKey;
 
 import java.net.URI;
 
-public class HttpKey<F extends Http<F,K,V,M,R,L>,K extends HttpKey<F,K,V,M,R,L>,V extends HttpView<F,K,V,M,R,L>,M extends HttpModel<F,K,V,M,R,L>,R extends dev.inward.matrix.Seat,L extends HttpLibrarian<F,K,V,M,R,L>> extends AddressedKey<F,String,K,V,M,R,L,HttpDirectory,HttpDirectoryKey,HttpDirectoryView,HttpDirectoryModel, HttpDirectoryReference, HttpDirectoryLibrarian,String> {
+public class HttpKey<F extends Http<F,K,V,M,R,L>,K extends HttpKey<F,K,V,M,R,L>,V extends HttpView<F,K,V,M,R,L>,M extends HttpModel<F,K,V,M,R,L>,R extends Shadow,L extends HttpLibrarian<F,K,V,M,R,L>> extends AddressedKey<F,String,K,V,M,R,L,HttpDirectory,HttpDirectoryKey,HttpDirectoryView,HttpDirectoryModel, HttpDirectoryReference, HttpDirectoryLibrarian,String> {
     protected HttpKey(URI uri, String s, HttpDirectoryKey directoryKey) {
         super(uri, s, directoryKey);
     }
 
 
-    public abstract static class Builder<F extends Http<F,K,V,M,R,L>,K extends HttpKey<F,K,V,M,R,L>,V extends HttpView<F,K,V,M,R,L>,M extends HttpModel<F,K,V,M,R,L>,R extends dev.inward.matrix.Seat,L extends HttpLibrarian<F,K,V,M,R,L>> extends AddressedKey.Builder<F,String,K,V,M,R,L,HttpDirectory,HttpDirectoryKey,HttpDirectoryView,HttpDirectoryModel, HttpDirectoryReference, HttpDirectoryLibrarian,String> {
+    public abstract static class Builder<F extends Http<F,K,V,M,R,L>,K extends HttpKey<F,K,V,M,R,L>,V extends HttpView<F,K,V,M,R,L>,M extends HttpModel<F,K,V,M,R,L>,R extends Shadow,L extends HttpLibrarian<F,K,V,M,R,L>> extends AddressedKey.Builder<F,String,K,V,M,R,L,HttpDirectory,HttpDirectoryKey,HttpDirectoryView,HttpDirectoryModel, HttpDirectoryReference, HttpDirectoryLibrarian,String> {
 
     }
 }

@@ -6,7 +6,7 @@ package dev.inward.matrix.concept.catalog.jdbc;
 
 import dev.inward.matrix.Aspect;
 
-public final class DefaultJdbcCatalogModel extends JdbcBureauModel<DefaultJdbcCatalog, DefaultJdbcCatalogView, DefaultJdbcCatalogModel> {
+public final class DefaultJdbcCatalogModel extends JdbcCatalogModel<DefaultJdbcCatalog, DefaultJdbcCatalogView, DefaultJdbcCatalogModel> {
     public DefaultJdbcCatalogModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

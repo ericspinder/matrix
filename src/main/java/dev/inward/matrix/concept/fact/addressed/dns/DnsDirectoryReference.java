@@ -4,10 +4,11 @@
 
 package dev.inward.matrix.concept.fact.addressed.dns;
 
+import dev.inward.matrix.Shadow;
 import dev.inward.matrix.concept.fact.directory.Directory;
 import dev.inward.matrix.concept.fact.directory.DirectoryLibrarian;
 
-public class DnsDirectoryReference implements dev.inward.matrix.Seat<DnsDirectory> {
+public class DnsDirectoryReference implements Shadow<DnsDirectory> {
 
     public DnsDirectoryReference(Directory referent, DirectoryLibrarian librarian) {
         super(referent, librarian);

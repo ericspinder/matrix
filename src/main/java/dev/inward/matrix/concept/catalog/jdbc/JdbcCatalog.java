@@ -8,8 +8,9 @@ import dev.inward.matrix.control.administration.Bureau;
 import dev.inward.matrix.concept.fact.FactView;
 
 import java.util.Map;
+import java.util.ResourceBundle;
 
-public abstract class JdbcCatalog<BC extends JdbcCatalog<BC,BV,BM>,BV extends JdbcBureauView<BC,BV,BM>,BM extends JdbcBureauModel<BC,BV,BM>> extends Bureau<BC,BV,BM> {
+public abstract class JdbcCatalog<BC extends JdbcCatalog<BC,BV,BM>,BV extends JdbcCatalogView<BC,BV,BM>,BM extends JdbcCatalogModel<BC,BV,BM>> extends ResourceBundle.Control<BC,BV,BM> {
 
 
     public JdbcCatalog(String name, boolean readOnly, BM jdbcBureauModel, Map<String, Object> attributes, Class<FactView<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>>[] supportedFileViews) {

@@ -4,7 +4,9 @@
 
 package dev.inward.matrix.concept.fact.addressed.depot;
 
-public class DepotDirectoryReference implements dev.inward.matrix.Seat {
+import dev.inward.matrix.Shadow;
+
+public class DepotDirectoryReference implements Shadow {
     public DepotDirectoryReference(DepotDirectory referent, DepotDirectoryLibrarian resource) {
         super(referent, resource);
     }

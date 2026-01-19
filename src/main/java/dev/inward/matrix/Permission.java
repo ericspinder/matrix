@@ -53,7 +53,7 @@ public abstract class Permission extends java.security.Permission {
             return sj.toString();
         }
     }
-    public static abstract class PosixPermission<K extends AdministratorKey<K,F,V,M,R,B>,F extends Administrator<K,F,V,M,R,B>,V extends AdministratorView<K,F,V,M,R,B>,M extends AdministratorModel<K,F,V,M,R,B>,R extends Seat,B extends AdministratorClerk<K,F,V,M,R,B>> extends Permission<K,F,V,M,R,B> {
+    public static abstract class PosixPermission<K extends AdministratorKey<K,F,V,M,R,B>,F extends Administrator<K,F,V,M,R,B>,V extends AdministratorView<K,F,V,M,R,B>,M extends AdministratorModel<K,F,V,M,R,B>,R extends Shadow,B extends AdministratorClerk<K,F,V,M,R,B>> extends Permission<K,F,V,M,R,B> {
 
         protected final List<PosixFilePermission> posixFilePermissionList;
         protected abstract List<PosixFilePermission> parse(List<PosixFilePermission> posixFilePermissions);

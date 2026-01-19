@@ -5,9 +5,10 @@
 package dev.inward.matrix.concept.fact.addressed.http;
 
 import dev.inward.matrix.Aspect;
+import dev.inward.matrix.Shadow;
 import dev.inward.matrix.concept.fact.addressed.AddressedModel;
 
-public class HttpModel<F extends Http<F,K,V,M,R,L>,K extends HttpKey<F,K,V,M,R,L>,V extends HttpView<F,K,V,M,R,L>,M extends HttpModel<F,K,V,M,R,L>,R extends dev.inward.matrix.Seat,L extends HttpLibrarian<F,K,V,M,R,L>> extends AddressedModel<F,String,K,V,M,R,L,HttpDirectory,HttpDirectoryKey,HttpDirectoryView,HttpDirectoryModel, HttpDirectoryReference, HttpDirectoryLibrarian,String> {
+public class HttpModel<F extends Http<F,K,V,M,R,L>,K extends HttpKey<F,K,V,M,R,L>,V extends HttpView<F,K,V,M,R,L>,M extends HttpModel<F,K,V,M,R,L>,R extends Shadow,L extends HttpLibrarian<F,K,V,M,R,L>> extends AddressedModel<F,String,K,V,M,R,L,HttpDirectory,HttpDirectoryKey,HttpDirectoryView,HttpDirectoryModel, HttpDirectoryReference, HttpDirectoryLibrarian,String> {
     public HttpModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }

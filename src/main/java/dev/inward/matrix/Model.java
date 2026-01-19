@@ -4,15 +4,16 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.concept.Concept;
+import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.nio.file.attribute.FileAttribute;
-import java.security.PermissionCollection;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -22,64 +23,37 @@ public abstract class Model<TARGET,V extends View<TARGET,V,M>,M extends Model<TA
 
     protected final Map<String,Aspect> labeledAspects = new ConcurrentHashMap<>();
     protected final Map<Aspect.AspectType<?>,Aspect> typedAspects = new ConcurrentHashMap<>();
+    protected final Function<Reference<? extends TARGET>,Reference<? extends TARGET>> graveDigger;
     private final AtomicLong sequence = new AtomicLong();
-    protected final AtomicLong removed = new AtomicLong();
-    protected long warnOnTotal;
-    protected long hardLimit;
+    private final AtomicLong removed = new AtomicLong();
+    private final Standard standard;
 
     @SuppressWarnings("unchecked")
-    public Model(Aspect[] labeledAspects) {
+    public Model(Aspect[] labeledAspects, Standard standard) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+        this.standard = standard;
         for (Aspect aspect : labeledAspects) {
             this.labeledAspects.put(aspect.getLabel(), aspect);
             this.typedAspects.put(aspect.type, aspect);
         }
-    }
-
-    public record InstanceValue<T>(Aspect aspect, Model.InstanceValue.Origin origin, T value) implements FileAttribute<T> {
-        @Override
-        public String name() {
-            return aspect.label;
+        Class<Function<Reference<? extends TARGET>,Reference<? extends TARGET>>> gravediggerClass = (Class<Function<Reference<? extends TARGET>,Reference<? extends TARGET>>>) Class.forName(standard.getReferenceClassName());
+        Constructor<Function<Reference<? extends TARGET>,Reference<? extends TARGET>>> constructor;
+        try {
+            constructor = gravediggerClass.getDeclaredConstructor(Model.class);
         }
-
-        @Override
-        public String toString() {
-            return "InstanceValue[" +
-                    "aspect=" + aspect + ", " +
-                    "origin=" + origin + ", " +
-                    "value=" + value + ']';
+        catch (NoSuchMethodException noSuchMethodException) {
+            constructor = gravediggerClass.getDeclaredConstructor();
         }
+        this.graveDigger = (Function<Reference<? extends TARGET>, Reference<? extends TARGET>>) Class.forName(standard.getGraveDiggerClassName()).getDeclaredConstructor().newInstance();
 
-        public enum Origin implements Meta_I {
-            Datum_onLoad("datum_onLoad", "Value was loaded by its model as an initial properties"),
-            Datum_onReload("datum_onReload", "Value was loaded by application after a change was detected"),
-            Error_onLoad_illegalAccess("error_onLoad_illegalAccess", "Value is unavailable because of an access error on load"),
-            Error_onLoad_unAssignable("error_onLoad_unAssignable", "Value is unavailable because it was unAssignable to the expected class"),
-            Version_Upgrade_default("version_upgrade_default", "Value was a loaded default as part of a version upgrade"),
-            Version_Upgrade_calculated("version_upgrade_calculated", "Value was calculated and as part of a version upgrade"),
-            Set_byView("set_byReference", "Value was changed by the View class");
-
-                private final String label;
-                private final String description;
-
-                Origin(String label, String description) {
-                    this.label = label;
-                    this.description = description;
-                }
-
-                @Override
-                public String getLabel() {
-                    return label;
-                }
-
-                @Override
-                public String getDescription() {
-                    return description;
-                }
-            }
     }
-
-    protected Function<Reference<? extends TARGET>, Reference<? extends TARGET>> createGraveDiggerInstance() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        return (Function<Reference<? extends TARGET>, Reference<? extends TARGET>>) Class.forName(standard.getGraveDiggerClassName()).getDeclaredConstructor(Concept.class).newInstance(this);
+    public synchronized Long getSequenceNumber() {
+        try {
+            return sequence.incrementAndGet();
+        }
+        catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+            this.sequence.set(Long.MIN_VALUE);
+            return Long.MIN_VALUE;
+        }
     }
 
     private Map<String,InstanceValue<?>> getInitialProperties(TARGET TARGET) {
@@ -99,11 +73,93 @@ public abstract class Model<TARGET,V extends View<TARGET,V,M>,M extends Model<TA
         return map;
     }
 
+    public Standard getStandard() {
+        return standard;
+    }
+
+    public long getSequence() {
+        return sequence.get();
+    }
+    public long getRemoved() {
+        return removed.get();
+    }
+    public long estimateCount(long removed) {
+        return this.sequence.get() - removed;
+    }
+
     public Map<String, Aspect> getLabeledAspects() {
         return labeledAspects;
     }
     public Map<Aspect.AspectType<?>,Aspect> getTypedAspects() {
         return typedAspects;
     }
+    public Reference<? extends TARGET> reaper(Reference<? extends TARGET> departed) {
+        if (departed != null) {
+            long estimatedCount = this.estimateCount(this.removed.incrementAndGet());
+            if (estimatedCount <= 0) {
 
+            }
+            return this.graveDigger.apply(departed);
+        }
+        return null;
+    }
+
+    @Override
+    public Reference<? extends TARGET> poll() {
+        return reaper(super.poll());
+    }
+
+    @Override
+    public Reference<? extends TARGET> remove() throws InterruptedException {
+        return reaper(super.remove());
+    }
+
+    @Override
+    public Reference<? extends TARGET> remove(long timeout) throws InterruptedException {
+        return reaper(super.remove(timeout));
+    }
+
+    public record InstanceValue<T>(Aspect aspect, Model.InstanceValue.Origin origin, T value) implements FileAttribute<T> {
+        @Override
+        public String name() {
+            return aspect.label;
+        }
+
+        @NotNull
+        @Override
+        public String toString() {
+            return "InstanceValue[" +
+                    "aspect=" + aspect + ", " +
+                    "origin=" + origin + ", " +
+                    "value=" + value + ']';
+        }
+
+        public enum Origin implements Meta_I {
+            Datum_onLoad("datum_onLoad", "Value was loaded by its model as an initial properties"),
+            Datum_onReload("datum_onReload", "Value was loaded by application after a change was detected"),
+            Error_onLoad_illegalAccess("error_onLoad_illegalAccess", "Value is unavailable because of an access error on load"),
+            Error_onLoad_unAssignable("error_onLoad_unAssignable", "Value is unavailable because it was unAssignable to the expected class"),
+            Version_Upgrade_default("version_upgrade_default", "Value was a loaded default as part of a version upgrade"),
+            Version_Upgrade_calculated("version_upgrade_calculated", "Value was calculated and as part of a version upgrade"),
+            Set_byView("set_byReference", "Value was changed by the View class");
+
+            private final String label;
+            private final String description;
+
+            Origin(String label, String description) {
+                this.label = label;
+                this.description = description;
+            }
+
+            @Override
+            public String getLabel() {
+                return label;
+            }
+
+            @Override
+            public String getDescription() {
+                return description;
+            }
+        }
+    }
 }
