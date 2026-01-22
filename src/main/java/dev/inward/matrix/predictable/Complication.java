@@ -8,10 +8,7 @@ import dev.inward.matrix.*;
 import dev.inward.matrix.concept.fact.addressed.depot.indica.Indica;
 import dev.inward.matrix.concept.fact.addressed.log.Log;
 
-import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
-import java.nio.file.WatchKey;
-import java.nio.file.Watchable;
 import java.util.*;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ConcurrentLinkedDeque;
@@ -22,7 +19,7 @@ public class Complication<TARGET,V extends View<TARGET,V,M>,M extends Model<TARG
     protected final StampedLock gate = new StampedLock();
     protected final UUID uuid = UUID.randomUUID();
     protected final ConcurrentLinkedDeque<Log> competedLogs = new ConcurrentLinkedDeque<>();
-    protected final Predictable predictable;
+    protected final Executable executable;
     protected final Provider<TARGET> provider;
 
     protected boolean queuedForExecution = false;
@@ -31,8 +28,8 @@ public class Complication<TARGET,V extends View<TARGET,V,M>,M extends Model<TARG
 
 
     @SuppressWarnings("unchecked")
-    public Complication(Predictable predictable, Provider<TARGET> provider, Map<Indica,Criterion> criterionByIndicaMap) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        this.predictable = predictable;
+    public Complication(Executable executable, Provider<TARGET> provider, Map<Indica,Criterion> criterionByIndicaMap) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        this.executable = executable;
         this.provider = provider;
         List<Policy<Bout<TARGET>,?>> policies = new ArrayList<>();
         for (Indica indica : criterionByIndicaMap.keySet()) {

@@ -4,16 +4,10 @@
 
 package dev.inward.matrix.control;
 
-
-import dev.inward.matrix.control.terrene.Terrene;
-import org.jetbrains.annotations.NotNull;
-
 import java.time.Instant;
 import java.util.UUID;
 
-public interface Control<CO extends Control<CO,CV,CM>,CV extends ControlView<CO,CV,CM>,CM extends ControlModel<CO,CV,CM>> {
-
-    int compareTo(Terrene that);
+public interface Control<CO extends Control<CO,CV,CM>,CV extends ControlView<CO,CV,CM>,CM extends ControlModel<CO,CV,CM>> extends Comparable<CO> {
 
     UUID getUuid();
     String getName();
@@ -21,5 +15,9 @@ public interface Control<CO extends Control<CO,CV,CM>,CV extends ControlView<CO,
 
     Instant getCreateInstant();
 
-    int compareTo(@NotNull CO that);
+    default int compareTo(CO that) {
+        int isZero = this.getName().compareTo(that.getName());
+        if (isZero == 0) return this.getUuid().compareTo(that.getUuid());
+        return isZero;
+    }
 }

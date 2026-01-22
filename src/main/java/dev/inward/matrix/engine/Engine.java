@@ -5,7 +5,7 @@ package dev.inward.matrix.engine;
 
 import dev.inward.matrix.concept.Concept;
 import dev.inward.matrix.concept.fact.*;
-import dev.inward.matrix.concept.item.datum.Datum;
+import dev.inward.matrix.item.datum.Datum;
 import dev.inward.matrix.control.authority.Authority;
 import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.control.library.Library;

@@ -5,7 +5,6 @@
 package dev.inward.matrix.concept.fact.addressed.depot.indica;
 
 import dev.inward.matrix.concept.fact.addressed.depot.Depot;
-import dev.inward.matrix.predictable.Predictable;
 
 import java.util.Arrays;
 

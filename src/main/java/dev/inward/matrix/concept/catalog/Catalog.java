@@ -4,10 +4,9 @@
 
 package dev.inward.matrix.concept.catalog;
 
-import dev.inward.matrix.Experience;
 import dev.inward.matrix.concept.fact.*;
 import dev.inward.matrix.control.Control;
-import dev.inward.matrix.concept.item.datum.administrator.Persona;
+import dev.inward.matrix.control.administrator.Persona;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.FileStore;

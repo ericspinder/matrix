@@ -4,20 +4,17 @@
 
 package dev.inward.matrix.concept.fact.addressed.depot.indica;
 
-import dev.inward.matrix.Ziggurat;
 import dev.inward.matrix.concept.fact.addressed.depot.DepotDirectoryKey;
 import dev.inward.matrix.concept.fact.addressed.depot.DepotKey;
-import dev.inward.matrix.predictable.Predictable;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URI;
 import java.net.URL;
-import java.nio.file.WatchEvent;
 import java.util.Objects;
 
 public class IndicaKey extends DepotKey<Indica,IndicaKey,IndicaView,IndicaModel,IndicaReference,IndicaLibrarian> {
 
-    protected IndicaKey(URI uri, String predictableClass, String locus, DepotDirectoryKey directoryKey) {
+    protected IndicaKey(URI uri, String locus, DepotDirectoryKey directoryKey) {
         super(uri,locus,directoryKey);
     }
 

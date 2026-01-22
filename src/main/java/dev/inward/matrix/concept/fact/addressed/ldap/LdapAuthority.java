@@ -12,10 +12,6 @@ public class LdapAuthority extends Authority<LdapScheme,LdapSchemeView,LdapSchem
         super(userInfo, library);
     }
 
-    @Override
-    public int compareTo(Terrene that) {
-        return 0;
-    }
 
     @Override
     public String getName() {

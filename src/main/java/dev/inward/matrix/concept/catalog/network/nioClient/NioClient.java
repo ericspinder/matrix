@@ -13,7 +13,7 @@ import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.concept.catalog.network.NetworkClient;
 import dev.inward.matrix.control.library.*;
 import dev.inward.matrix.control.authority.*;
-import dev.inward.matrix.concept.item.datum.administrator.Persona;
+import dev.inward.matrix.control.administrator.Persona;
 
 import java.util.Map;
 

@@ -16,8 +16,8 @@ module dev.inward.matrix {
     exports dev.inward.matrix.concept.fact.addressed.depot;
     exports dev.inward.matrix.concept.fact.addressed.dns;
     exports dev.inward.matrix.concept.fact.addressed.log;
-    exports dev.inward.matrix.concept.item.datum.administrator;
-    exports dev.inward.matrix.predictable;
+    exports dev.inward.matrix.control.administrator;
+    exports dev.inward.matrix.executable;
     exports dev.inward.matrix.concept.fact.addressed.http;
     exports dev.inward.matrix.concept.fact.addressed.https;
     exports dev.inward.matrix.concept.fact.addressed.ldap;
@@ -38,8 +38,8 @@ module dev.inward.matrix {
     exports dev.inward.matrix.control.administration;
     exports dev.inward.matrix.control.scheme;
     exports dev.inward.matrix.concept.fact.directory;
-    exports dev.inward.matrix.concept.item;
-    exports dev.inward.matrix.concept.item.datum;
+    exports dev.inward.matrix.item;
+    exports dev.inward.matrix.item.datum;
     exports dev.inward.matrix;
     exports dev.inward.matrix.control.terrene;
     exports dev.inward.matrix.concept;

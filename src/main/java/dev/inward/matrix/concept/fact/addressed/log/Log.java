@@ -8,11 +8,12 @@ import dev.inward.matrix.Meta_I;
 import dev.inward.matrix.concept.fact.addressed.Addressed;
 import dev.inward.matrix.concept.fact.addressed.depot.indica.IndicaKey;
 
+import java.nio.file.WatchEvent;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.UUID;
 
-public abstract class Log extends Addressed<Log,UUID,LogKey,LogView,LogModel,LogLibrarian,LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel,LogDirectoryLibrarian,LogPath> {
+public abstract class Log extends Addressed<LogScheme,LogSchemeView,LogSchemeModel,LogLibrary,LogLibraryView,LogLibraryModel,LogAuthority,LogAuthorityView,LogAuthorityModel,,UUID,LogKey,LogView,LogModel,LogLibrarian,LogDirectory,LogDirectoryKey,LogDirectoryView,LogDirectoryModel,LogDirectoryLibrarian,LogPath> implements WatchEvent<IndicaKey> {
 
     protected final Instant createTime;
     protected final IndicaKey indicaKey;

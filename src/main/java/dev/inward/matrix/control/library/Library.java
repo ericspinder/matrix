@@ -4,6 +4,7 @@
 
 package dev.inward.matrix.control.library;
 
+import dev.inward.matrix.Model;
 import dev.inward.matrix.Shadow;
 import dev.inward.matrix.concept.fact.Cabin;
 import dev.inward.matrix.concept.fact.directory.*;
@@ -81,6 +82,13 @@ public abstract class Library<S extends Scheme<S,SV,SM,L,LV,LM,A,AV,AM,DF,DK,DV,
 
     public int getPort() {
         return port;
+    }
+
+    public S getScheme() {
+        return scheme;
+    }
+    public void emptyModel(Model<?,?,?> model) {
+        model.getStandard().getKey()
     }
 
     public DF findDirectory(PATH path) {

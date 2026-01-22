@@ -14,10 +14,10 @@ An extreme 'work in progress', which has changed significantly from the initial 
     dev.inward.matrix.Ledger extends java.net.FileSystem
 Ledgers contain Gatherings which hold Addressed objects
 
-    dev.inward.matrix.predictable.Predictable implements java.nio.file.WatchService
+    dev.inward.matrix.predictable.Executableimplements java.nio.file.WatchService
 Predictable is the manager of Matrix objects when creating Complications
 
-    dev.inward.matrix.predictable.Complication implements java.nio.file.WatchKey
+    dev.inward.matrix.executable.Complication implements java.nio.file.WatchKey
 Complications are the runnable, which are configured by Criterion and produce Matters
 
     dev.inward.matrix.file.log.addressed.Matter extends dev.inward.matrix.file.addressed.Addressed implements java.nio.file.WatchEvent<Indicia> 

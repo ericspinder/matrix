@@ -5,6 +5,7 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
+import dev.inward.matrix.control.library.Library;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.ref.Reference;
@@ -29,9 +30,9 @@ public abstract class Model<TARGET,V extends View<TARGET,V,M>,M extends Model<TA
     private final Standard standard;
 
     @SuppressWarnings("unchecked")
-    public Model(Aspect[] labeledAspects, Standard standard) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+    public Model(Standard standard) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, ClassNotFoundException {
         this.standard = standard;
-        for (Aspect aspect : labeledAspects) {
+        for (Aspect aspect : standard.getAspects()) {
             this.labeledAspects.put(aspect.getLabel(), aspect);
             this.typedAspects.put(aspect.type, aspect);
         }
@@ -97,12 +98,13 @@ public abstract class Model<TARGET,V extends View<TARGET,V,M>,M extends Model<TA
         if (departed != null) {
             long estimatedCount = this.estimateCount(this.removed.incrementAndGet());
             if (estimatedCount <= 0) {
-
+                this.emptyModel();
             }
             return this.graveDigger.apply(departed);
         }
         return null;
     }
+    abstract protected void emptyModel();
 
     @Override
     public Reference<? extends TARGET> poll() {

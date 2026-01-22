@@ -5,7 +5,7 @@
 package dev.inward.matrix.concept.fact.directory;
 
 import dev.inward.matrix.concept.fact.FactContext;
-import dev.inward.matrix.concept.item.datum.administrator.Agent;
+import dev.inward.matrix.control.administrator.Agent;
 import dev.inward.matrix.control.authority.Authority;
 import dev.inward.matrix.control.authority.AuthorityModel;
 import dev.inward.matrix.control.authority.AuthorityView;
@@ -15,7 +15,6 @@ import dev.inward.matrix.control.library.LibraryView;
 import dev.inward.matrix.control.scheme.Scheme;
 import dev.inward.matrix.control.scheme.SchemeModel;
 import dev.inward.matrix.control.scheme.SchemeView;
-import dev.inward.matrix.Context;
 import dev.inward.matrix.engine.Factory;
 import dev.inward.matrix.concept.fact.Variant;
 

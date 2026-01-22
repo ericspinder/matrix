@@ -7,7 +7,6 @@ package dev.inward.matrix.concept.fact.addressed.depot.indica;
 import dev.inward.matrix.concept.fact.addressed.depot.DepotLibrarian;
 import dev.inward.matrix.concept.fact.addressed.depot.specification.Specification;
 import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
-import dev.inward.matrix.predictable.Predictable;
 
 public class IndicaLibrarian extends DepotLibrarian<Indica,IndicaKey,IndicaView,IndicaModel,IndicaReference,IndicaLibrarian> {
 

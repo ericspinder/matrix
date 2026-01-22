@@ -7,7 +7,7 @@ package dev.inward.matrix.concept.fact.addressed.ldap;
 import dev.inward.matrix.engine.Factory;
 import dev.inward.matrix.concept.fact.Variant;
 import dev.inward.matrix.concept.fact.directory.DirectoryContext;
-import dev.inward.matrix.concept.item.datum.administrator.Agent;
+import dev.inward.matrix.control.administrator.Agent;
 
 public class LdapContext extends DirectoryContext<LdapScheme,LdapSchemeView,LdapSchemeModel,LdapLibrary,LdapLibraryView,LdapLibraryModel,LdapAuthority,LdapAuthorityView,LdapAuthorityModel,Ldap,LdapKey,LdapView,LdapModel, LdapLibrarian,LdapContext,LdapPath> {
     public LdapContext(Variant variant, LdapLibrarian directoryLibrarian, Factory<LdapScheme, LdapScheme, LdapScheme, LdapLibrary, LdapLibraryView, LdapLibraryModel, LdapAuthority, LdapAuthorityView, LdapAuthorityModel, Ldap, LdapKey, LdapView, LdapModel, LdapLibarian, LdapContext, LdapPath> factory, Agent[] agents) {

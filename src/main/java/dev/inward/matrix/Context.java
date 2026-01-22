@@ -7,9 +7,6 @@ package dev.inward.matrix;
 import dev.inward.matrix.concept.Concept;
 import dev.inward.matrix.engine.Factory;
 import dev.inward.matrix.concept.fact.Variant;
-import dev.inward.matrix.concept.item.datum.administrator.Agent;
-
-import java.security.ProtectionDomain;
 
 public interface Context<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>,C extends Concept<TARGET,V,M,C,X>,X extends Context<TARGET,V,M,C,X>> {
 

@@ -6,7 +6,6 @@ package dev.inward.matrix.concept.fact.addressed.depot.indica;
 
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.concept.fact.addressed.depot.DepotModel;
-import dev.inward.matrix.predictable.Predictable;
 
 public class IndicaModel extends DepotModel<Indica,IndicaKey,IndicaView,IndicaModel,IndicaReference,IndicaLibrarian> {
     public IndicaModel(Class<Indica> indicaClass, Aspect[] labeledAspects) {

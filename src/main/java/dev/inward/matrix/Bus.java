@@ -4,7 +4,7 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.concept.item.datum.administrator.Persona;
+import dev.inward.matrix.control.administrator.Persona;
 import dev.inward.matrix.route.Ticket;
 
 import java.lang.reflect.InvocationTargetException;

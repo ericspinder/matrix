@@ -5,7 +5,7 @@
 package dev.inward.matrix.route;
 
 import dev.inward.matrix.concept.fact.addressed.log.Log;
-import dev.inward.matrix.concept.item.datum.administrator.Persona;
+import dev.inward.matrix.control.administrator.Persona;
 
 import java.util.UUID;
 
