@@ -6,7 +6,7 @@ package dev.inward.matrix.item.datum;
 
 import dev.inward.matrix.item.ItemView;
 
-public class DatumView<D extends Datum<D,V,M,C>,V extends DatumView<D,V,M,C>,M extends DatumModel<D,V,M,C>,C extends DatumClerk<D,V,M,C>> extends ItemView<D,V,M,C> {
+public class DatumView<D extends Datum<D,V,M>,V extends DatumView<D,V,M>,M extends DatumModel<D,V,M>> extends ItemView<D,V,M,C> {
 
     protected final M model;
 

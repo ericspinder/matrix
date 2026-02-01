@@ -5,9 +5,9 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.concept.fact.addressed.AddressedKey;
-import dev.inward.matrix.concept.fact.addressed.depot.indica.IndicaKey;
-import dev.inward.matrix.control.administrator.Persona;
-import dev.inward.matrix.concept.fact.addressed.log.Log;
+import dev.inward.matrix.item.datum.indica.IndicaKey;
+import dev.inward.matrix.item.datum.administrator.Persona;
+import dev.inward.matrix.item.datum.log.Log;
 
 import java.time.Instant;
 

@@ -10,7 +10,7 @@ import dev.inward.matrix.item.ItemModel;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class DatumModel<D extends Datum<D,V,M,C>,V extends DatumView<D,V,M,C>,M extends DatumModel<D,V,M,C>,C extends DatumClerk<D,V,M,C>> extends ItemModel<D,V,M,C> {
+public class DatumModel<D extends Datum<D,V,M>,V extends DatumView<D,V,M>,M extends DatumModel<D,V,M>> extends ItemModel<D,V,M,C> {
     public DatumModel(Class<D> datumClass, Aspect[] labeledAspects) {
         super(datumClass, labeledAspects);
     }

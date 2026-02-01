@@ -8,7 +8,7 @@ import dev.inward.matrix.concept.fact.FactContext;
 import dev.inward.matrix.engine.Factory;
 import dev.inward.matrix.concept.fact.Variant;
 import dev.inward.matrix.concept.fact.directory.*;
-import dev.inward.matrix.control.administrator.Agent;
+import dev.inward.matrix.item.datum.administrator.Agent;
 import dev.inward.matrix.control.authority.Authority;
 import dev.inward.matrix.control.authority.AuthorityModel;
 import dev.inward.matrix.control.authority.AuthorityView;

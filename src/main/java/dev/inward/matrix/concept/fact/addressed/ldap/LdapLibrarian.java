@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.concept.fact.addressed.ldap;
 
-import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
+import dev.inward.matrix.item.datum.standard.Standard;
 import dev.inward.matrix.concept.fact.directory.DirectoryLibrarian;
 
 public class LdapLibrarian extends DirectoryLibrarian<LdapScheme,LdapSchemeView,LdapSchemeModel,LdapLibrary,LdapLibraryView,LdapLibraryModel,LdapAuthority,LdapAuthorityView,LdapAuthorityModel,Ldap,LdapKey,LdapView,LdapModel, LdapLibrarian,LdapContext,LdapPath> {

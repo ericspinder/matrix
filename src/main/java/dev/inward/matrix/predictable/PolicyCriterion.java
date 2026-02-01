@@ -5,7 +5,7 @@
 package dev.inward.matrix.predictable;
 
 import dev.inward.matrix.MatrixItem;
-import dev.inward.matrix.concept.fact.addressed.log.Log;
+import dev.inward.matrix.item.datum.log.Log;
 
 import java.util.concurrent.TimeUnit;
 

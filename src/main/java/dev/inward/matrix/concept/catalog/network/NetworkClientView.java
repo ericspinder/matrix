@@ -4,11 +4,11 @@
 
 package dev.inward.matrix.concept.catalog.network;
 
-import dev.inward.matrix.control.administration.BureauView;
+import dev.inward.matrix.concept.catalog.CatalogView;
 
-public class NetworkClientView<BC extends NetworkClient<BC,BV,BM>,BV extends NetworkClientView<BC,BV,BM>,BM extends NetworkClientModel<BC,BV,BM>> extends BureauView<BC,BV,BM> {
+public abstract class NetworkClientView<NC extends NetworkClient<NC,NV,NM>,NV extends NetworkClientView<NC,NV,NM>,NM extends NetworkClientModel<NC,NV,NM>> extends CatalogView<NC,NV,NM> {
 
-    public NetworkClientView(String name, BC bureau) {
-        super(name, bureau);
+    public NetworkClientView(String name, NC networkClientCatalog) {
+        super(name, networkClientCatalog);
     }
 }

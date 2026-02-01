@@ -5,7 +5,7 @@
 package dev.inward.matrix.concept.fact.addressed.depot;
 
 import dev.inward.matrix.concept.fact.directory.DirectoryLibrarian;
-import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
+import dev.inward.matrix.item.datum.standard.Standard;
 
 public class DepotDirectoryLibrary extends DirectoryLibrarian<DepotDirectory,DepotDirectoryKey,DepotDirectoryView,DepotDirectoryModel, DepotDirectoryReference, DepotDirectoryLibrarian,DepotPath> {
 

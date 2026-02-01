@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.route;
 
-import dev.inward.matrix.control.administrator.Persona;
+import dev.inward.matrix.item.datum.administrator.Persona;
 import dev.inward.matrix.predictable.Complication;
 
 import java.lang.ref.SoftReference;

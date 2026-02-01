@@ -5,8 +5,8 @@
 package dev.inward.matrix.concept.fact.addressed.depot;
 
 import dev.inward.matrix.concept.fact.addressed.AddressedLibrarian;
-import dev.inward.matrix.concept.fact.addressed.depot.specification.Specification;
-import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
+import dev.inward.matrix.item.datum.specification.Specification;
+import dev.inward.matrix.item.datum.standard.Standard;
 
 public class DepotLibrarian<F extends Depot<F,K,V,M,R,L>,K extends DepotKey<F,K,V,M,R,L>,V extends DepotView<F,K,V,M,R,L>,M extends DepotModel<F,K,V,M,R,L>,R extends DepotReference<F,K,V,M,R,L>,L extends DepotLibrarian<F,K,V,M,R,L>> extends AddressedLibrarian<F,String,K,V,M,R,L,DepotDirectory,DepotDirectoryKey,DepotDirectoryView,DepotDirectoryModel, DepotDirectoryReference, DepotDirectoryLibrarian,DepotPath> {
 

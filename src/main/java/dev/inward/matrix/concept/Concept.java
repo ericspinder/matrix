@@ -5,23 +5,20 @@
 package dev.inward.matrix.concept;
 
 import dev.inward.matrix.*;
-import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
+import dev.inward.matrix.item.datum.standard.Standard;
 import dev.inward.matrix.control.library.Library;
 
 import java.lang.ref.Reference;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.security.PermissionCollection;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.function.Function;
 
 public abstract class Concept<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>,C extends Concept<TARGET,V,M,C,X>,X extends Context<TARGET,V,M,C,X>> extends PermissionCollection {
 
     //protected final Map<Action.ActionType, Action[]> restraints;
     protected final M model;
     protected final Class<V> viewClass;
-    protected final Class<? extends Reference<TARGET>> referenceClass;
+    protected final Class<? extends Bus<TARGET,V,M,S,>>
 
     public Concept(Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> library, Standard standard) {;
         try {

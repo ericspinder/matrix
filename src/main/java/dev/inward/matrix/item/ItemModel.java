@@ -4,12 +4,13 @@
 
 package dev.inward.matrix.item;
 
-import dev.inward.matrix.Aspect;
 import dev.inward.matrix.Model;
+import dev.inward.matrix.item.datum.standard.Standard;
+import dev.inward.matrix.control.library.Library;
 
-public abstract class ItemModel<ITEM,V extends ItemView<ITEM,V,M,C,X>,M extends ItemModel<ITEM,V,M,C,X>,C extends Clerk<ITEM,V,M,C,X>,X extends ItemContext<ITEM,V,M,C,X>> extends Model<ITEM,V,M> {
+public abstract class ItemModel<ITEM,V extends ItemView<ITEM,V,M>,M extends ItemModel<ITEM,V,M>> extends Model<ITEM,V,M> {
 
-    public ItemModel(Class<? super ITEM> datumClass, Aspect[] labeledAspects) {
-        super(datumClass, labeledAspects);
+    public ItemModel(Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> library, Standard standard) {
+        super(library, standard);
     }
 }

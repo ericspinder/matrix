@@ -4,15 +4,13 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
+import dev.inward.matrix.item.datum.standard.Standard;
 import dev.inward.matrix.control.library.Library;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.nio.file.attribute.FileAttribute;
 import java.util.*;
@@ -27,26 +25,36 @@ public abstract class Model<TARGET,V extends View<TARGET,V,M>,M extends Model<TA
     protected final Function<Reference<? extends TARGET>,Reference<? extends TARGET>> graveDigger;
     private final AtomicLong sequence = new AtomicLong();
     private final AtomicLong removed = new AtomicLong();
+    private final Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> library;
     private final Standard standard;
 
     @SuppressWarnings("unchecked")
-    public Model(Standard standard) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+    public Model(Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> library,Standard standard) {
+        this.library = library;
         this.standard = standard;
         for (Aspect aspect : standard.getAspects()) {
             this.labeledAspects.put(aspect.getLabel(), aspect);
             this.typedAspects.put(aspect.type, aspect);
         }
-        Class<Function<Reference<? extends TARGET>,Reference<? extends TARGET>>> gravediggerClass = (Class<Function<Reference<? extends TARGET>,Reference<? extends TARGET>>>) Class.forName(standard.getReferenceClassName());
-        Constructor<Function<Reference<? extends TARGET>,Reference<? extends TARGET>>> constructor;
         try {
-            constructor = gravediggerClass.getDeclaredConstructor(Model.class);
+            if (standard.getGraveDiggerClassName() != null || !standard.getGraveDiggerClassName().isBlank()) {
+                this.graveDigger = (Function<Reference<? extends TARGET>, Reference<? extends TARGET>>) Class.forName(standard.getGraveDiggerClassName()).getDeclaredConstructor().newInstance();
+            }
+            else {
+                this.graveDigger = new EmptyGraveDigger<>();
+            }
         }
-        catch (NoSuchMethodException noSuchMethodException) {
-            constructor = gravediggerClass.getDeclaredConstructor();
+        catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        this.graveDigger = (Function<Reference<? extends TARGET>, Reference<? extends TARGET>>) Class.forName(standard.getGraveDiggerClassName()).getDeclaredConstructor().newInstance();
+
 
     }
+
+    public Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> getLibrary() {
+        return library;
+    }
+
     public synchronized Long getSequenceNumber() {
         try {
             return sequence.incrementAndGet();
@@ -162,6 +170,13 @@ public abstract class Model<TARGET,V extends View<TARGET,V,M>,M extends Model<TA
             public String getDescription() {
                 return description;
             }
+        }
+    }
+    public static class EmptyGraveDigger <TARGET> implements Function<Reference<? extends TARGET>, Reference<? extends TARGET>> {
+
+        @Override
+        public Reference<? extends TARGET> apply(Reference<? extends TARGET> reference) {
+            return reference;
         }
     }
 }

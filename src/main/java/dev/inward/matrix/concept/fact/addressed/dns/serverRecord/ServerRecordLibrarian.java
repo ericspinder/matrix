@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.concept.fact.addressed.dns.serverRecord;
 
-import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
+import dev.inward.matrix.item.datum.standard.Standard;
 import dev.inward.matrix.concept.fact.addressed.dns.RRLibrarian;
 
 public class ServerRecordLibrarian<F extends ServerRecord<F,K,V,M,R,L>,K extends ServerRecordKey<F,K,V,M,R,L>,V extends ServerRecordView<F,K,V,M,R,L>,M extends ServerRecordModel<F,K,V,M,R,L>,R extends ServerRecordReference<F,K,V,M,R,L>,L extends ServerRecordLibrarian<F,K,V,M,R,L>> extends RRLibrarian<F,K,V,M,R,L> {

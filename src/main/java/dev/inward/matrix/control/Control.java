@@ -11,7 +11,6 @@ public interface Control<CO extends Control<CO,CV,CM>,CV extends ControlView<CO,
 
     UUID getUuid();
     String getName();
-    CM getModel();
 
     Instant getCreateInstant();
 

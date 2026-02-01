@@ -32,7 +32,7 @@ public interface Shadow<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET
                 return ((Fact<?,?,?,?,?,?>) target).getKey();
             }
         }
-        Ticket<FactKey<?,?,?,?,?,?>> ticket = (Ticket<FactKey<?,?,?,?,?,?>>) this.getAttributes().get("parent");
+        Ticket<FactKey<?,?,?,?,?,?>> ticket = (Ticket<FactKey<?,?,?,?,?,?>>) this.getAttributes().get("context");
         if (ticket != null) {
             return ticket.getValue();
         }

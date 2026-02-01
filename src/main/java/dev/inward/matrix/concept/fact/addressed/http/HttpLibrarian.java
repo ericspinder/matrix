@@ -6,8 +6,8 @@ package dev.inward.matrix.concept.fact.addressed.http;
 
 import dev.inward.matrix.Shadow;
 import dev.inward.matrix.concept.fact.addressed.AddressedLibrarian;
-import dev.inward.matrix.concept.fact.addressed.depot.specification.Specification;
-import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
+import dev.inward.matrix.item.datum.specification.Specification;
+import dev.inward.matrix.item.datum.standard.Standard;
 
 public class HttpLibrarian<F extends Http<F,K,V,M,R,L>,K extends HttpKey<F,K,V,M,R,L>,V extends HttpView<F,K,V,M,R,L>,M extends HttpModel<F,K,V,M,R,L>,R extends Shadow,L extends HttpLibrarian<F,K,V,M,R,L>> extends AddressedLibrarian<F,String,K,V,M,R,L,HttpDirectory,HttpDirectoryKey,HttpDirectoryView,HttpDirectoryModel, HttpDirectoryReference, HttpDirectoryLibrarian,String> {
 

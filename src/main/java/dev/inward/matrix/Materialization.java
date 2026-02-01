@@ -5,7 +5,7 @@
 package dev.inward.matrix;
 
 import dev.inward.matrix.concept.fact.addressed.Addressed;
-import dev.inward.matrix.control.administrator.UserName;
+import dev.inward.matrix.item.datum.administrator.UserName;
 
 import java.util.Map;
 import java.util.UUID;

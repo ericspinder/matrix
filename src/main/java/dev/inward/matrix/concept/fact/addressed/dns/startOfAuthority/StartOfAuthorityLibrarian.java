@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.concept.fact.addressed.dns.startOfAuthority;
 
-import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
+import dev.inward.matrix.item.datum.standard.Standard;
 import dev.inward.matrix.concept.fact.addressed.dns.RRLibrarian;
 
 public class StartOfAuthorityLibrarian extends RRLibrarian<StartOfAuthority,StartOfAuthorityKey,StartOfAuthorityView,StartOfAuthorityModel, StartOfAuthorityReference, StartOfAuthorityLibrarian> {

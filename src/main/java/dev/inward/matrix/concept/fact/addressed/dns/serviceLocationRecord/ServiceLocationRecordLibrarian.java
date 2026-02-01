@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.concept.fact.addressed.dns.serviceLocationRecord;
 
-import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
+import dev.inward.matrix.item.datum.standard.Standard;
 import dev.inward.matrix.concept.fact.addressed.dns.RRLibrarian;
 
 public class ServiceLocationRecordLibrarian extends RRLibrarian<ServiceLocationRecord,ServiceLocationRecordKey,ServiceLocationRecordView,ServiceLocationRecordModel, ServiceLocationRecordReference, ServiceLocationRecordLibrarian> {

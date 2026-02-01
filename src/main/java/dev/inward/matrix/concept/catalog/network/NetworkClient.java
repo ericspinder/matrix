@@ -5,19 +5,22 @@
 package dev.inward.matrix.concept.catalog.network;
 
 import dev.inward.matrix.Hosts;
+import dev.inward.matrix.concept.catalog.Catalog;
+import dev.inward.matrix.concept.catalog.Mount;
+import dev.inward.matrix.control.Control;
 import dev.inward.matrix.control.administration.Bureau;
 import dev.inward.matrix.concept.fact.FactView;
 
 import java.util.Map;
 
-public abstract class NetworkClient<BC extends NetworkClient<BC,BV,BM>,BV extends NetworkClientView<BC,BV,BM>,BM extends NetworkClientModel<BC,BV,BM>> extends Bureau<BC,BV,BM> {
+public abstract class NetworkClient<NC extends NetworkClient<NC,NV,NM>,NV extends NetworkClientView<NC,NV,NM>,NM extends NetworkClientModel<NC,NV,NM>> extends Catalog<NC,NV,NM> {
 
     protected final Hosts.Remote remoteHost;
 
     protected final Hosts.LocalHost localHost;
 
-    public NetworkClient(String name, boolean readOnly, BM networkClientModel, Map<String, Object> attributes, Class<FactView<?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?>>[] supportedFileViews, Hosts.Remote remoteHost, Hosts.LocalHost localHost) {
-        super(name, readOnly, networkClientModel, attributes, supportedFileViews);
+    public NetworkClient(final Mount mount, String name, boolean readOnly, Control<?,?,?> control, Map<String,Object> attributes, Hosts.Remote remoteHost, Hosts.LocalHost localHost) {
+        super(mount, name, readOnly, networkClientModel, attributes, supportedFileViews);
         this.localHost = localHost;
         this.remoteHost = remoteHost;
     }

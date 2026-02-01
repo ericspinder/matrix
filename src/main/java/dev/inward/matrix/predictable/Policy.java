@@ -4,8 +4,8 @@
 
 package dev.inward.matrix.predictable;
 
-import dev.inward.matrix.concept.fact.addressed.depot.indica.Indica;
-import dev.inward.matrix.concept.fact.addressed.log.Log;
+import dev.inward.matrix.item.datum.indica.Indica;
+import dev.inward.matrix.item.datum.log.Log;
 
 import java.util.Objects;
 import java.util.UUID;

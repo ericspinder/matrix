@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.route;
 
-import dev.inward.matrix.concept.fact.addressed.log.Log;
+import dev.inward.matrix.item.datum.log.Log;
 import dev.inward.matrix.Director;
 
 import java.lang.ref.WeakReference;

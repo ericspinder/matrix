@@ -5,15 +5,16 @@
 package dev.inward.matrix.item;
 
 import dev.inward.matrix.concept.Concept;
-import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
+import dev.inward.matrix.item.datum.standard.Standard;
+import dev.inward.matrix.control.library.Library;
 
 import java.security.Permission;
 import java.util.Enumeration;
 
-public class Clerk<ITEM,V extends ItemView<ITEM,V,M,C,X>,M extends ItemModel<ITEM,V,M,C,X>,C extends Clerk<ITEM,V,M,C,X>,X extends ItemContext<ITEM,V,M,C,X>> extends Concept<ITEM,V,M,C,X> {
+public class Clerk<ITEM,V extends ItemView<ITEM,V,M>,M extends ItemModel<ITEM,V,M>,C extends Clerk<ITEM,V,M,C,X>,X extends ItemContext<ITEM,V,M,C,X>> extends Concept<ITEM,V,M,C,X> {
 
-    public Clerk(Standard standard) {
-        super(standard);
+    public Clerk(Library<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> library, Standard standard) {
+        super(library, standard);
     }
 
     @Override

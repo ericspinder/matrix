@@ -8,7 +8,7 @@ import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.control.domain.DomainModel;
 import dev.inward.matrix.control.domain.DomainView;
 import dev.inward.matrix.concept.fact.Librarian;
-import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
+import dev.inward.matrix.item.datum.standard.Standard;
 
 public class RRLibrarian<F extends ResourceRecord<F,K,V,M,R,L>,K extends RRKey<F,K,V,M,R,L>,V extends RRView<F,K,V,M,R,L>,M extends RRModel<F,K,V,M,R,L>,R extends RRReference<F,K,V,M,R,L>,L extends RRLibrarian<F,K,V,M,R,L>> extends Librarian<F,K,V,M,R,L,Domain,DomainView,DomainModel> {
 

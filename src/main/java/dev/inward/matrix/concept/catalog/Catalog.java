@@ -6,7 +6,7 @@ package dev.inward.matrix.concept.catalog;
 
 import dev.inward.matrix.concept.fact.*;
 import dev.inward.matrix.control.Control;
-import dev.inward.matrix.control.administrator.Persona;
+import dev.inward.matrix.item.datum.administrator.Persona;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.FileStore;
@@ -22,15 +22,14 @@ public abstract class Catalog<CC extends Catalog<CC, CV, CM>, CV extends Catalog
     protected final Mount mount;
     protected final String name;
     protected final boolean readOnly;
-    protected final Control<?,?,?> control;
     protected final Map<Librarian<?,?,?,?,?,?>, Instant> seenLibrarians = new WeakHashMap<>();
     protected final Map<String, Object> attributes;
+    protected final Instant creationTime = Instant.now();
 
-    public Catalog(final Mount mount, String name, boolean readOnly, Control<?,?,?> control, Map<String,Object> attributes) {
+    public Catalog(final Mount mount, String name, boolean readOnly, Map<String,Object> attributes) {
         this.mount = mount;
         this.name = name;
         this.readOnly = readOnly;
-        this.control = control;
         this.attributes = new ConcurrentHashMap<>(attributes);
     }
     public <F extends Fact<F,K,V,M,L,X>,K extends FactKey<F,K,V,M,L,X>,V extends FactView<F,K,V,M,L,X>,M extends FactModel<F,K,V,M,L,X>,L extends Librarian<F,K,V,M,L,X>,X extends FactContext<F,K,V,M,L,X>> F getFile(@NotNull K key, @NotNull L librarian, @NotNull Persona persona) {
@@ -58,6 +57,11 @@ public abstract class Catalog<CC extends Catalog<CC, CV, CM>, CV extends Catalog
     }
 
     @Override
+    public Instant getCreateInstant() {
+        return this.creationTime;
+    }
+
+    @Override
     public String type() {
         return this.getClass().getCanonicalName();
     }
@@ -69,8 +73,9 @@ public abstract class Catalog<CC extends Catalog<CC, CV, CM>, CV extends Catalog
 
     @Override
     public <V extends FileStoreAttributeView> V getFileStoreAttributeView(Class<V> type) {
+        if (this.supportsFileAttributeView(type)) {
 
-        return null;
+        }
     }
     @Override
     public boolean supportsFileAttributeView(Class<? extends FileAttributeView> type) {

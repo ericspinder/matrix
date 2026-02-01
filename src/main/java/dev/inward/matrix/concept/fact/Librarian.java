@@ -5,10 +5,10 @@
 package dev.inward.matrix.concept.fact;
 
 import dev.inward.matrix.concept.Concept;
-import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
+import dev.inward.matrix.item.datum.standard.Standard;
 import dev.inward.matrix.item.Clerk;
 import dev.inward.matrix.control.library.Library;
-import dev.inward.matrix.concept.fact.addressed.depot.specification.Specification;
+import dev.inward.matrix.item.datum.specification.Specification;
 import dev.inward.matrix.engine.Factory;
 
 import java.security.Permission;

@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.personality;
 
-import dev.inward.matrix.control.administrator.Persona;
+import dev.inward.matrix.item.datum.administrator.Persona;
 
 public class Screw extends Persona {
 

@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.concept.fact.addressed.dns.catalogRecord;
 
-import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
+import dev.inward.matrix.item.datum.standard.Standard;
 import dev.inward.matrix.concept.fact.addressed.dns.RRLibrarian;
 
 public class CatalogRecordLibrarian extends RRLibrarian<CatalogRecord, CatalogRecordKey, CatalogRecordView, CatalogRecordModel, CatalogRecordReference, CatalogRecordLibrarian> {

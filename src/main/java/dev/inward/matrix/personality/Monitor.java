@@ -6,8 +6,8 @@ package dev.inward.matrix.personality;
 
 import dev.inward.matrix.control.authority.Authority;
 import dev.inward.matrix.control.scheme.Scheme;
-import dev.inward.matrix.concept.fact.addressed.depot.indica.IndicaKey;
-import dev.inward.matrix.concept.fact.addressed.log.Log;
+import dev.inward.matrix.item.datum.indica.IndicaKey;
+import dev.inward.matrix.item.datum.log.Log;
 
 import java.time.Instant;
 

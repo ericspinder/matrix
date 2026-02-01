@@ -5,7 +5,7 @@
 package dev.inward.matrix.concept.fact.addressed.http;
 
 import dev.inward.matrix.concept.fact.directory.DirectoryLibrarian;
-import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
+import dev.inward.matrix.item.datum.standard.Standard;
 
 public class HttpDirectoryLibrarian extends DirectoryLibrarian<HttpDirectory,HttpDirectoryKey,HttpDirectoryView,HttpDirectoryModel, HttpDirectoryReference, HttpDirectoryLibrarian,String> {
 

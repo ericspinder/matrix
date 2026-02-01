@@ -4,13 +4,14 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.control.administrator.Persona;
+import dev.inward.matrix.item.datum.Seat;
+import dev.inward.matrix.item.datum.administrator.Persona;
 import dev.inward.matrix.route.Ticket;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-public class Bus<TARGET,V extends View<TARGET,V,M>, M extends Model<TARGET,V,M>,S extends Shadow<TARGET,V,M>,B extends Bus<TARGET,V,M,S,B>> {
+public class Bus<TARGET,V extends View<TARGET,V,M>, M extends Model<TARGET,V,M>,S extends Seat<TARGET,V,M>> {
 
     protected final Map<S, Ticket<?>> seats;
 

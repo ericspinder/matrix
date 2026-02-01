@@ -8,11 +8,12 @@ import dev.inward.matrix.concept.Concept;
 import dev.inward.matrix.engine.Factory;
 import dev.inward.matrix.concept.fact.Variant;
 
-public interface Context<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>,C extends Concept<TARGET,V,M,C,X>,X extends Context<TARGET,V,M,C,X>> {
+public class Context<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>,C extends Concept<TARGET,V,M,C,X>,X extends Context<TARGET,V,M,C,X>> {
 
     Variant getVariant();
     @SuppressWarnings("unchecked")
     C getConcept();
+
 
     default Factory<?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?> getFactory() {
         return getConcept().get

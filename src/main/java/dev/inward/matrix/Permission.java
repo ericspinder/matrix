@@ -4,7 +4,7 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.control.administrator.*;
+import dev.inward.matrix.item.datum.administrator.*;
 
 import java.nio.file.attribute.*;
 import java.util.ArrayList;

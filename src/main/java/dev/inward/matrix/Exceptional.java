@@ -4,7 +4,7 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.concept.fact.addressed.depot.indica.IndicaKey;
+import dev.inward.matrix.item.datum.indica.IndicaKey;
 
 import java.util.UUID;
 

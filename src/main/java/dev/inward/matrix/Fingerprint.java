@@ -6,7 +6,7 @@ package dev.inward.matrix;
 
 import dev.inward.matrix.control.authority.Authority;
 import dev.inward.matrix.control.scheme.Scheme;
-import dev.inward.matrix.concept.fact.addressed.depot.indica.IndicaKey;
+import dev.inward.matrix.item.datum.indica.IndicaKey;
 
 import java.security.PublicKey;
 import java.time.Instant;

@@ -4,7 +4,7 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.concept.fact.addressed.depot.indica.Indica;
+import dev.inward.matrix.item.datum.indica.Indica;
 import dev.inward.matrix.control.administration.Bureau;
 import dev.inward.matrix.predictable.Executable;
 

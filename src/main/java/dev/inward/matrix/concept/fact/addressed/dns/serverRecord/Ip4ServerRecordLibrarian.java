@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.concept.fact.addressed.dns.serverRecord;
 
-import dev.inward.matrix.concept.fact.addressed.depot.standard.Standard;
+import dev.inward.matrix.item.datum.standard.Standard;
 
 public class Ip4ServerRecordLibrarian extends ServerRecordLibrarian<Ip4ServerRecord,Ip4ServerRecordKey,Ip4ServerRecordView,Ip4ServerRecordModel, Ip4ServerRecordReference, Ip4ServerRecordLibrarian> {
 

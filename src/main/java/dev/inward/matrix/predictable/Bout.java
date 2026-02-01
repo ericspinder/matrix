@@ -4,11 +4,7 @@
 
 package dev.inward.matrix.predictable;
 
-import dev.inward.matrix.concept.fact.addressed.log.Log;
-
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Bout<TARGET> {
 

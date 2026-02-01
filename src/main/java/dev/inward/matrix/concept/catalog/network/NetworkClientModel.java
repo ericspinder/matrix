@@ -5,9 +5,10 @@
 package dev.inward.matrix.concept.catalog.network;
 
 import dev.inward.matrix.Aspect;
+import dev.inward.matrix.concept.catalog.CatalogModel;
 import dev.inward.matrix.control.administration.BureauModel;
 
-public abstract class NetworkClientModel<BC extends NetworkClient<BC,BV,BM>,BV extends NetworkClientView<BC,BV,BM>,BM extends NetworkClientModel<BC,BV,BM>> extends BureauModel<BC,BV,BM> {
+public abstract class NetworkClientModel<NC extends NetworkClient<NC,NV,NM>,NV extends NetworkClientView<NC,NV,NM>,NM extends NetworkClientModel<NC,NV,NM>> extends CatalogModel<NC,NV,NM> {
     public NetworkClientModel(Aspect[] labeledAspects) {
         super(labeledAspects);
     }
