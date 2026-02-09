@@ -8,13 +8,16 @@ import dev.inward.matrix.View;
 
 public class ControlView<CO extends Control<CO,CV,CM>,CV extends ControlView<CO,CV,CM>,CM extends ControlModel<CO,CV,CM>> extends View<CO,CV,CM> {
 
-    public ControlView(String name, CO control) {
+    protected final CM model;
+
+    public ControlView(String name, CO control, CM model) {
         super(name, control);
+        this.model = model;
     }
 
     @Override
     public CM getModel() {
-        return null;
+        return model;
     }
 
 

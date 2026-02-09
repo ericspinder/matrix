@@ -6,20 +6,18 @@ package dev.inward.matrix.route;
 
 import dev.inward.matrix.predictable.Complication;
 
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.*;
 
-public class Road extends ThreadPoolExecutor implements Comparable<Road>  {
+public class Road extends ThreadPoolExecutor implements Comparable<Road>, WatchService {
 
     protected final UUID uuid = UUID.randomUUID();
 
-    public Road(Dispatch dispatch, BlockingQueue<Runnable> predictableBlockingQueue) {
-        this(dispatch,predictableBlockingQueue,dispatch.getDefaultDriverFactory(),dispatch);
-    }
-
-    public Road(Dispatch dispatch, BlockingQueue<Runnable> driverQueue, DriverFactory driverFactory, RejectedExecutionHandler handler) {
-        super(dispatch.corePoolSize, dispatch.maximumPoolSize, dispatch.keepAliveTime, dispatch.defaultTimeUnit,driverQueue,driverFactory, Objects.requireNonNullElse(handler,new AbortPolicy()));
+    public Road(DriverFactory driverFactory, BlockingQueue<Runnable> complicationQueue, RejectedExecutionHandler handler) {
+        super(driverFactory.dispatch.corePoolSize, driverFactory.dispatch.maximumPoolSize, driverFactory.dispatch.keepAliveTime, driverFactory.dispatch.defaultTimeUnit,complicationQueue,driverFactory, Objects.requireNonNullElse(handler,new AbortPolicy()));
     }
 
     @Override
@@ -29,11 +27,11 @@ public class Road extends ThreadPoolExecutor implements Comparable<Road>  {
 
     @Override
     protected void beforeExecute(Thread t, Runnable r) {
-        Driver driver = (Driver) t;
         Complication<?,?,?> complication = (Complication<?,?,?>) r;
         if (complication.isCanceled()) {
-            throw new CancellationException("predictable not open");
+            throw new CancellationException("Complication has been canceled");
         }
+        Driver driver = (Driver) t;
         driver.resetRouteStartInstant();
     }
 
@@ -46,5 +44,24 @@ public class Road extends ThreadPoolExecutor implements Comparable<Road>  {
     @Override
     protected void terminated() {
         super.terminated();
+    }
+
+    public void close() {
+        shutdown();
+    }
+
+    @Override
+    public Complication<?,?,?,?,?,?,?,?,> poll() {
+        return null;
+    }
+
+    @Override
+    public WatchKey poll(long timeout, TimeUnit unit) throws InterruptedException {
+        return null;
+    }
+
+    @Override
+    public WatchKey take() throws InterruptedException {
+        return null;
     }
 }

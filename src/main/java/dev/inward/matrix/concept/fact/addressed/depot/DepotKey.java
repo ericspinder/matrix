@@ -15,8 +15,5 @@ public abstract class DepotKey<F extends Depot<F,K,V,M,R,L>,K extends DepotKey<F
         super(uri, s, directoryKey);
     }
 
-    public abstract static class Builder<F extends Depot<F,K,V,M,R,L>,K extends DepotKey<F,K,V,M,R,L>,V extends DepotView<F,K,V,M,R,L>,M extends DepotModel<F,K,V,M,R,L>,R extends DepotReference<F,K,V,M,R,L>,L extends DepotLibrarian<F,K,V,M,R,L>> extends AddressedKey.Builder<F,String,K,V,M,R,L,DepotDirectory,DepotDirectoryKey,DepotDirectoryView,DepotDirectoryModel, DepotDirectoryReference, DepotDirectoryLibrarian,DepotPath> {
-
-    }
 
 }

@@ -1,22 +1,35 @@
 /*
- *  Pinder's Matrix © 2025. by Eric S Pinder is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
+ *  Pinder's Matrix © 2026. by Eric S Pinder is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International. To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-sa/4.0/
  */
 
 package dev.inward.matrix.predictable;
 
-import java.time.Instant;
+import dev.inward.matrix.Model;
+import dev.inward.matrix.View;
 
-public class Bout<TARGET> {
+import java.nio.file.WatchEvent;
 
-    protected final Instant startDateTime = Instant.now();
-    protected final TARGET target;
+public abstract class Bout<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>,C extends Complication<TARGET,V,M>> implements WatchEvent<Complication<TARGET,V,M>> {
 
-    public Bout(TARGET target) {
-        this.target = target;
+    private final Complication<TARGET,V,M> complication;
+    protected final
+
+    public Bout(Complication<TARGET,V,M> complication) {
+        this.complication = complication;
     }
 
-    public TARGET getDatum() {
-        return target;
+    @Override
+    public Kind<Complication<TARGET,V,M>> kind() {
+        return this.complication.complicated;
     }
 
+    @Override
+    public int count() {
+        return 0;
+    }
+
+    @Override
+    public Complication<TARGET,V,M> context() {
+        return this.complication;
+    }
 }

@@ -4,10 +4,12 @@ module dev.inward.matrix {
     requires transitive java.sql;
     requires transitive org.objectweb.asm;
     requires transitive jdk.security.auth;
+    requires transitive java.naming;
     requires jsr305;
     requires annotations;
     requires java.management;
     requires org.checkerframework.checker.qual;
+    requires org.bouncycastle.provider;
     exports dev.inward.matrix.route;
     exports dev.inward.matrix.personality;
     exports dev.inward.matrix.ticket;
@@ -17,7 +19,6 @@ module dev.inward.matrix {
     exports dev.inward.matrix.concept.fact.addressed.dns;
     exports dev.inward.matrix.item.datum.log;
     exports dev.inward.matrix.item.datum.administrator;
-    exports dev.inward.matrix.executable;
     exports dev.inward.matrix.concept.fact.addressed.http;
     exports dev.inward.matrix.concept.fact.addressed.https;
     exports dev.inward.matrix.concept.fact.addressed.ldap;

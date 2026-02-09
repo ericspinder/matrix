@@ -7,7 +7,7 @@ package dev.inward.matrix.concept.catalog;
 import dev.inward.matrix.Aspect;
 import dev.inward.matrix.control.ControlModel;
 
-public abstract class CatalogModel<CC extends Catalog<CC,CV,CM>,CV extends CatalogView<CC,CV,CM>,CM extends CatalogModel<CC,CV,CM>> extends ControlModel<CC,CV,CM> {
+public abstract class CatalogModel<CC extends Catalog<CC, CV, CM,TS>, CV extends CatalogView<CC, CV, CM,TS>, CM extends CatalogModel<CC, CV, CM,TS>,TS extends TargetSource> extends ControlModel<CC,CV,CM> {
 
 
     public CatalogModel(Aspect[] labeledAspects) {

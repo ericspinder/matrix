@@ -7,31 +7,38 @@ package dev.inward.matrix.predictable;
 import dev.inward.matrix.*;
 import dev.inward.matrix.item.datum.indica.Indica;
 import dev.inward.matrix.item.datum.log.Log;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchKey;
+import java.nio.file.Watchable;
 import java.util.*;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.locks.StampedLock;
 
-public class Complication<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET>> implements Runnable {
+public class Complication<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>> implements Runnable, Comparable<Complication<TARGET,V,M>> {
 
     protected final StampedLock gate = new StampedLock();
     protected final UUID uuid = UUID.randomUUID();
+    protected final Complicated<TARGET,V,M,Complication<TARGET,V,M>> complicated;
     protected final ConcurrentLinkedDeque<Log> competedLogs = new ConcurrentLinkedDeque<>();
     protected final Executable executable;
     protected final Provider<TARGET> provider;
 
     protected boolean queuedForExecution = false;
     protected boolean canceled = false;
-    protected Policy<Bout<TARGET>,?>[] allPolicies;
+
+    protected Policy<Bout<TARGET,V,M>,?>[] allPolicies;
 
 
     @SuppressWarnings("unchecked")
-    public Complication(Executable executable, Provider<TARGET> provider, Map<Indica,Criterion> criterionByIndicaMap) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public Complication(Complicated<TARGET,V,M,Complication<TARGET,V,M>> complicated, Executable executable, Provider<TARGET> provider, Map<Indica,Criterion> criterionByIndicaMap) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        this.complicated = complicated;
         this.executable = executable;
         this.provider = provider;
-        List<Policy<Bout<TARGET>,?>> policies = new ArrayList<>();
+        List<Policy<Bout<TARGET,V,M,?>,?>> policies = new ArrayList<>();
         for (Indica indica : criterionByIndicaMap.keySet()) {
             Criterion criterion = criterionByIndicaMap.get(indica);
             if (!indica.getCriterionClassName().equals(criterion.getClass().getCanonicalName())) {
@@ -94,9 +101,36 @@ public class Complication<TARGET,V extends View<TARGET,V,M>,M extends Model<TARG
         }
     }
 
+    @Override
+    public boolean isValid() {
+        return false;
+    }
+
+    @Override
+    public List<WatchEvent<?>> pollEvents() {
+        return List.of();
+    }
+
+    @Override
+    public boolean reset() {
+        return false;
+    }
+
     public void cancel() {
         this.canceled = true;
     }
+
+    @Override
+    public Shadow watchable() {
+        return null;
+    }
+
+    @Override
+    public int compareTo(@NotNull Complication<TARGET, V, M> that) {
+        int isZero = this.getClass().getCanonicalName().compareTo(that.getClass().getCanonicalName());
+        return 0;
+    }
+
     public boolean isCanceled() {
         return canceled;
     }

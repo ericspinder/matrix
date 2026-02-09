@@ -14,7 +14,7 @@ import java.util.Objects;
 
 public class IndicaKey extends DepotKey<Indica,IndicaKey,IndicaView,IndicaModel,IndicaReference,IndicaLibrarian> {
 
-    protected IndicaKey(URI uri, String locus, DepotDirectoryKey directoryKey) {
+    protected IndicaKey(URI uri,  DepotDirectoryKey directoryKey) {
         super(uri,locus,directoryKey);
     }
 

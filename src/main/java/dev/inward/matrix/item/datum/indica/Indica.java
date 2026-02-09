@@ -6,17 +6,20 @@ package dev.inward.matrix.item.datum.indica;
 
 import dev.inward.matrix.concept.fact.addressed.depot.Depot;
 import dev.inward.matrix.item.datum.Datum;
+import dev.inward.matrix.item.datum.Seat;
 
 import java.util.Arrays;
 
-public class Indica extends Datum<> {
+public class Indica extends Datum<Indica,IndicaView,IndicaModel> {
 
+    protected final String locus;
+    protected final Seat<Indica,IndicaView,IndicaModel> seat;
     private final String predictableClassName;
     private final String criterionClassName;
     private final String[] policyClassNames;
 
-    public Indica(IndicaKey identity, String complicationCriterionClassName, String[] policyClassNames,String predictableClassName) {
-        super(identity);
+    public Indica(String locus, String complicationCriterionClassName, String[] policyClassNames,String predictableClassName) {
+        this.locus = locus;
         this.criterionClassName = complicationCriterionClassName;
         this.policyClassNames = policyClassNames;
         this.predictableClassName = predictableClassName;
@@ -34,11 +37,4 @@ public class Indica extends Datum<> {
         return policyClassNames;
     }
 
-    @Override
-    public String toString() {
-        return "Indica{" + "policyClassName='" + Arrays.toString(policyClassNames) + '\'' +
-                ", criterionClassName='" + criterionClassName + '\'' +
-                ", indicaIdentity=" + key +
-                '}';
-    }
 }

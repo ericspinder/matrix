@@ -6,9 +6,11 @@ package dev.inward.matrix.concept.catalog;
 
 import java.util.Map;
 
-public class Supplied extends Catalog<Supplied,SuppliedView,SuppliedModel> {
+public abstract class TargetSource {
 
-    private Supplied(final Mount mount, String name, boolean readOnly, Map<String,Object> attributes) {
-        super(mount,name,readOnly,attributes);
+    public TargetSource(Map<String,Object> attributes) {
+
     }
+    public abstract void load(Map<String,Object> attributes);
+    public abstract boolean test();
 }

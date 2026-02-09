@@ -12,7 +12,7 @@ import java.util.UUID;
 import java.util.function.Function;
 
 
-public abstract class Policy<TARGET, L extends Log> implements Function<Bout<TARGET>,L> {
+public abstract class Policy<TARGET, L extends Log> implements Function<Bout<TARGET,V,M>,L> {
 
     protected final UUID uuid = UUID.randomUUID();
     protected final Indica indica;

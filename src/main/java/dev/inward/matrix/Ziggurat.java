@@ -4,13 +4,13 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.control.Control;
 import dev.inward.matrix.control.ControlModel;
 import dev.inward.matrix.control.domain.Domain;
 import dev.inward.matrix.control.authority.Authority;
 import dev.inward.matrix.control.terrene.*;
 import dev.inward.matrix.concept.fact.addressed.dns.ResourceRecordType;
 import dev.inward.matrix.concept.fact.addressed.dns.catalogRecord.CatalogRecord;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import javax.naming.NamingException;
 import javax.naming.directory.InitialDirContext;
@@ -18,8 +18,11 @@ import java.io.IOException;
 import java.lang.instrument.Instrumentation;
 import java.lang.ref.WeakReference;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLStreamHandler;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.SecureRandom;
+import java.security.Security;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -46,11 +49,28 @@ public final class Ziggurat extends URLStreamHandler {
         this.commandLine = commandLine;
         this.instrumentation = instrumentation;
         try {
+            Security.addProvider(new BouncyCastleProvider());
+
             this.dirContext = new InitialDirContext();
         } catch (NamingException e) {
             throw new RuntimeException(e);
         }
         this.localhostDomain = getDomain(Terrene.Parse(commandLine.getValue("terrene")), "localhost");
+        String userName = System.getenv("USERNAME");
+        String computerName = System.getenv("COMPUTERNAME");
+        String domainName = System.getenv("USERDNSDOMAIN");
+        for (LocalSystemNetworking.NetworkMapping networkMapping: this.localSystemNetworking.activeExternalInterfaces.keySet()) {
+            networkMapping.getInterfaceAddress().getAddress();
+        }
+        Instance = this;
+    }
+    public static KeyPair generateRsaKeyPair(int keySize) throws Exception {
+        if (keySize < 2048) {
+            throw new IllegalArgumentException("Key size must be at least 2048 bits");
+        }
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA", "BC");
+        keyPairGenerator.initialize(keySize, new SecureRandom()); // Use BC provider for consistency
+        return keyPairGenerator.generateKeyPair();
     }
 
     @Override

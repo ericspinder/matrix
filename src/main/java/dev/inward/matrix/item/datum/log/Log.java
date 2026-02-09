@@ -11,24 +11,14 @@ import dev.inward.matrix.item.datum.Datum;
 import java.time.Duration;
 import java.time.Instant;
 
-public abstract class Log implements Datum<Log,LogView,LogModel,LogClerk,> implements WatchEvent<IndicaKey> {
+public class Log {
 
-    protected final Instant createTime;
-    protected final IndicaKey indicaKey;
-    protected final Severity severity;
+    public interface Hashed {
 
-    protected Duration duration;
-
-    public Log(LogKey key, IndicaKey indicaKey, Severity severity) {
-        this(key, indicaKey,severity,Instant.now());
     }
-    public Log(LogKey id, IndicaKey indicaKey, Severity severity, Instant createTime) {
-        super(id);
-        this.indicaKey = indicaKey;
-        this.severity = severity;
-        this.createTime = createTime;
-    }
+    public interface Occurrence {
 
+    }
     public enum Severity implements Meta_I {
         Critical("critical", "Code related problem of primary importance"),
         Trace("trace", "Asked for by Owner", 1000),

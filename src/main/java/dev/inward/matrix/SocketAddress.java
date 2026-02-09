@@ -26,7 +26,7 @@ public abstract class SocketAddress implements Comparable<SocketAddress> {
         public LocalHost(InetAddress inetAddress, int port) {
             super(inetAddress, port);
             LocalSystemNetworking.NetworkMapping mapping = null;
-            for (LocalSystemNetworking.NetworkMapping networkMapping: LocalSystemNetworking.getInstance().getExternalActiveInterfaces().keySet()) {
+            for (LocalSystemNetworking.NetworkMapping networkMapping: LocalSystemNetworking.getInstance().getActiveExternalInterfaces().keySet()) {
                 if (networkMapping.getInterfaceAddress().getAddress().equals(inetAddress)) {
                     mapping = networkMapping;
                 }
@@ -36,9 +36,9 @@ public abstract class SocketAddress implements Comparable<SocketAddress> {
 
         public final boolean isUp() {
             try {
-                boolean result = networkMapping.getNetworkInterface().isUp();
+                boolean result = networkMapping.getSourceNetworkInterface().isUp();
                 if (result) {
-                    for (InterfaceAddress interfaceAddress:networkMapping.getNetworkInterface().getInterfaceAddresses()) {
+                    for (InterfaceAddress interfaceAddress:networkMapping.getSourceNetworkInterface().getInterfaceAddresses()) {
                         BigInteger checkBytes = new BigInteger(1,interfaceAddress.getAddress().getAddress());
                         if (checkBytes.equals(this.bytes) && interfaceAddress.getAddress().isAnyLocalAddress()) {
                             return true;

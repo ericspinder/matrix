@@ -4,9 +4,18 @@
 
 package dev.inward.matrix.item.datum.log;
 
-import dev.inward.matrix.item.datum.indica.Indica;
+import dev.inward.matrix.item.datum.indica.IndicaKey;
 
-import java.nio.file.WatchEvent;
+import java.time.Duration;
+import java.time.Instant;
 
-public class LogEntry implements WatchEvent<Indica> {
+public class LogEntry implements Comparable<LogEntry> {
+
+    protected final Instant createTime;
+    protected final IndicaKey indicaKey;
+    protected final Log.Severity severity;
+
+    protected Duration duration;
+
+
 }

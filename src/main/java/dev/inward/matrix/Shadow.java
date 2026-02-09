@@ -6,13 +6,20 @@ package dev.inward.matrix;
 
 import dev.inward.matrix.concept.fact.Fact;
 import dev.inward.matrix.concept.fact.FactKey;
+import dev.inward.matrix.predictable.Complication;
+import dev.inward.matrix.route.Road;
 import dev.inward.matrix.route.Ticket;
 
+import java.io.IOException;
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
+import java.nio.file.Watchable;
 import java.nio.file.attribute.AttributeView;
 import java.util.Collections;
 import java.util.Map;
 
-public interface Shadow<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>> extends AttributeView {
+public interface Shadow<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>> extends AttributeView, Comparable<Shadow<TARGET,V,M>>, Watchable {
 
     default String getName() {
         return this.get().toString();
@@ -40,4 +47,11 @@ public interface Shadow<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET
     }
     TARGET get();
 
+    default Complication<TARGET,V,M> register(Road watcher, WatchEvent.Kind<?>[] events, WatchEvent.Modifier... modifiers) throws IOException {
+        return null;
+    }
+
+    default Complication<TARGET,V,M> register(WatchService watcher, WatchEvent.Kind<?>... events) throws IOException {
+        return register(watcher, events, new WatchEvent.Modifier[0]);
+    }
 }

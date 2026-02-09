@@ -8,7 +8,7 @@ import dev.inward.matrix.control.ControlView;
 
 import java.nio.file.attribute.FileStoreAttributeView;
 
-public abstract class CatalogView<CC extends Catalog<CC,CV,CM>,CV extends CatalogView<CC,CV,CM>,CM extends CatalogModel<CC,CV,CM>> extends ControlView<CC,CV,CM> implements FileStoreAttributeView {
+public abstract class CatalogView<CC extends Catalog<CC, CV, CM,TS>, CV extends CatalogView<CC, CV, CM,TS>, CM extends CatalogModel<CC, CV, CM,TS>,TS extends TargetSource> extends ControlView<CC,CV,CM> implements FileStoreAttributeView {
 
     public CatalogView(String name, CC catalog) {
         super(name, catalog);

@@ -4,7 +4,10 @@
 
 package dev.inward.matrix;
 
+import org.bouncycastle.util.IPAddress;
+
 import java.math.BigInteger;
+import java.net.InetAddress;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -20,33 +23,40 @@ public class LocalSystemNetworking {
 
     public static LocalSystemNetworking getInstance() {
         if (INSTANCE == null) {
-            LocalSystemNetworking newInstance = new LocalSystemNetworking();
-            try {
-                newInstance.enrollPlatformInterfaceAddresses();
+            synchronized (LocalSystemNetworking.class) {
+                if (INSTANCE != null) {
+                    return INSTANCE;
+                }
+                LocalSystemNetworking newInstance = new LocalSystemNetworking();
+                try {
+                    newInstance.enrollPlatformInterfaceAddresses();
+                } catch (SocketException se) {
+                    throw new RuntimeException("Socket Exception getting local IP addresses");
+                    //throw new MatrixException(MatrixException.Type.NetworkUnavailable_No_Return,"Local System Networking", IndiciaKey.Focus.Admonitory, Matter.Severity.Exceptional,se);
+                }
+                INSTANCE = newInstance;
             }
-            catch (SocketException se) {
-                throw new RuntimeException("Socket Exception getting local IP addresses");
-                //throw new MatrixException(MatrixException.Type.NetworkUnavailable_No_Return,"Local System Networking", IndiciaKey.Focus.Admonitory, Matter.Severity.Exceptional,se);
-            }
-            INSTANCE = newInstance;
         }
         return INSTANCE;
     }
 
-    Map<NetworkMapping,Instant> externalActiveInterfaces = new ConcurrentHashMap<>();
-    Map<NetworkMapping,Instant> loopBackActiveInterfaces = new ConcurrentHashMap<>();
-    Map<NetworkMapping,Instant> inactiveInterfaces = new ConcurrentHashMap<>();
+    Map<NetworkMapping,Instant> activeExternalInterfaces = new ConcurrentHashMap<>();
+    Map<NetworkMapping,Instant> activeLoopBackInterfaces = new ConcurrentHashMap<>();
+    Map<NetworkMapping,Instant> activeBroadcastInterfaces = new ConcurrentHashMap<>();
 
     public static final class NetworkMapping implements Comparable<NetworkMapping> {
 
         private final InterfaceAddress interfaceAddress;
         private final BigInteger bytes;
-        private final NetworkInterface networkInterface;
+        private final IPAddress ipAddress;
+        private final InetAddress inetAddress;
+        private final NetworkInterface sourceNetworkInterface;
 
-        public NetworkMapping(final InterfaceAddress interfaceAddress, final NetworkInterface networkInterface) {
+        public NetworkMapping(final InterfaceAddress interfaceAddress, final NetworkInterface sourceNetworkInterface) {
             this.interfaceAddress = interfaceAddress;
-            this.networkInterface = networkInterface;
+            this.sourceNetworkInterface = sourceNetworkInterface;
             this.bytes = new BigInteger(1,interfaceAddress.getAddress().getAddress());
+            this.ipAddress = new IPAddress();
         }
         public BigInteger getBytes() {
             return this.bytes;
@@ -56,8 +66,8 @@ public class LocalSystemNetworking {
             return interfaceAddress;
         }
 
-        public NetworkInterface getNetworkInterface() {
-            return networkInterface;
+        public NetworkInterface getSourceNetworkInterface() {
+            return sourceNetworkInterface;
         }
 
         @Override
@@ -66,16 +76,16 @@ public class LocalSystemNetworking {
         }
     }
 
-    public final Map<NetworkMapping,Instant> getExternalActiveInterfaces() {
-        return this.externalActiveInterfaces;
+    public final Map<NetworkMapping,Instant> getActiveExternalInterfaces() {
+        return this.activeExternalInterfaces;
     }
 
-    public final Map<NetworkMapping,Instant> getLoopBackActiveInterfaces() {
-        return this.loopBackActiveInterfaces;
+    public final Map<NetworkMapping,Instant> getActiveLoopBackInterfaces() {
+        return this.activeLoopBackInterfaces;
     }
 
-    public final Map<NetworkMapping,Instant> getInactiveInterfaces() {
-        return this.inactiveInterfaces;
+    public final Map<NetworkMapping,Instant> getActiveBroadcastInterfaces() {
+        return this.activeBroadcastInterfaces;
     }
 
     public final void refresh() {
@@ -99,7 +109,7 @@ public class LocalSystemNetworking {
     }
 
     private final void parseInetAddresses(int layer, NetworkInterface networkInterface) throws SocketException {
-        if (layer > 3) {
+        if (layer > 20) {
             System.err.println("Looks like recursion error on network interface = " + networkInterface.getDisplayName());
             return;
             //throw new MatrixException(MatrixException.Type.Recursion,"Local Systems Networking", IndiciaKey.Focus.Assembly, Matter.Severity.Unexpected, new Exception("Layer: " + layer));
@@ -107,15 +117,15 @@ public class LocalSystemNetworking {
         for (InterfaceAddress ifAddress : networkInterface.getInterfaceAddresses()) {
             if (networkInterface.isLoopback()) {
                 if (ifAddress.getBroadcast() != null) {
-                    this.loopBackActiveInterfaces.put(new NetworkMapping(ifAddress,networkInterface),Instant.now());
+                    this.activeLoopBackInterfaces.put(new NetworkMapping(ifAddress,networkInterface),Instant.now());
                 } else {
-                    this.inactiveInterfaces.put(new NetworkMapping(ifAddress,networkInterface),Instant.now());
+                    this.activeBroadcastInterfaces.put(new NetworkMapping(ifAddress,networkInterface),Instant.now());
                 }
             } else {
                 if (ifAddress.getBroadcast() != null) {
-                    this.externalActiveInterfaces.put(new NetworkMapping(ifAddress,networkInterface),Instant.now());
+                    this.activeExternalInterfaces.put(new NetworkMapping(ifAddress,networkInterface),Instant.now());
                 } else {
-                    this.inactiveInterfaces.put(new NetworkMapping(ifAddress,networkInterface),Instant.now());
+                    this.activeBroadcastInterfaces.put(new NetworkMapping(ifAddress,networkInterface),Instant.now());
                 }
             }
         }
