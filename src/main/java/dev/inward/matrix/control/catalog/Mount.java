@@ -6,10 +6,10 @@ package dev.inward.matrix.control.catalog;
 
 import dev.inward.matrix.Range;
 
-public class Mount<PATH extends Comparable<PATH>> {
+public class Mount<PATH extends Comparable<PATH>> extends Range<PATH> {
 
     protected final RootMount rootMount;
-    protected final Range<PATH> path;
+    protected final PATH path;
 
     public static class RootMount<PATH extends Comparable<PATH>> extends Mount<PATH> {
 
@@ -17,14 +17,14 @@ public class Mount<PATH extends Comparable<PATH>> {
             super(null, new Range.AllPaths<>());
         }
     }
-    public static class AllMount<PATH extends Comparable<PATH>> extends Mount<PATH> {
+    public static class Mounted<PATH extends Comparable<PATH>> extends Mount<PATH> {
 
-        public AllMount() {
-            super(null, new Range.AllPaths<>());
+        public Mounted(RootMount<PATH> rootMount, PATH path) {
+            super(path, );
         }
     }
 
-    public Mount(RootMount rootMount, Range<PATH> path) {
+    public Mount(RootMount<PATH> rootMount, PATH path) {
         this.rootMount = rootMount;
         this.path = path;
     }

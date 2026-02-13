@@ -4,6 +4,7 @@
 
 package dev.inward.matrix.control.catalog;
 
+import dev.inward.matrix.Range;
 import dev.inward.matrix.concept.fact.*;
 import dev.inward.matrix.control.Control;
 import dev.inward.matrix.item.materilized.administrator.agent.Persona;
@@ -20,9 +21,9 @@ import java.util.WeakHashMap;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.locks.StampedLock;
 
-public abstract class Catalog<CC extends Catalog<CC, CV, CM,TS>, CV extends CatalogView<CC, CV, CM,TS>, CM extends CatalogModel<CC, CV, CM,TS>,TS extends TargetSource> extends FileStore implements Control<CC,CV,CM> {
+public abstract class Catalog<CC extends Catalog<CC, CV, CM,TS,PATH>, CV extends CatalogView<CC, CV, CM,TS>, CM extends CatalogModel<CC, CV, CM,TS>,TS extends TargetSource,PATH extends Comparable<PATH>> extends FileStore implements Control<CC,CV,CM> {
 
-    protected final Mount mount;
+    protected final Range<PATH> range;
     protected final String name;
     protected final boolean readOnly;
     private final Map<Librarian<?,?,?,?,?,?>, Instant> seenLibrarians = new WeakHashMap<>();
@@ -31,8 +32,8 @@ public abstract class Catalog<CC extends Catalog<CC, CV, CM,TS>, CV extends Cata
     protected StampedLock targetSourceLock = new StampedLock();
     protected final Instant creationTime = Instant.now();
 
-    public Catalog(final Mount mount, String name, boolean readOnly, Map<String,Object> attributes) {
-        this.mount = mount;
+    public Catalog(Range<PATH> range, String name, boolean readOnly, Map<String,Object> attributes) {
+        this.range = range;
         this.name = name;
         this.readOnly = readOnly;
         this.targetSource = createTargetSource(attributes);
