@@ -10,6 +10,6 @@ import dev.inward.matrix.concept.fact.Variant;
 
 import java.nio.file.WatchEvent;
 
-public record Complicated<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>,C extends Complication<TARGET,V,M>>(String name, Class<C> type, Variant variant) implements WatchEvent.Kind<C> {
+public record Complicated<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>,C extends Complication<TARGET,V,M,C>>(String name, Class<C> type, Variant variant) implements WatchEvent.Kind<C> {
 
 }

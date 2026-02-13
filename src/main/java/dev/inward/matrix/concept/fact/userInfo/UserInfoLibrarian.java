@@ -5,7 +5,7 @@
 package dev.inward.matrix.concept.fact.userInfo;
 
 import dev.inward.matrix.Shadow;
-import dev.inward.matrix.concept.catalog.Catalog;
+import dev.inward.matrix.control.catalog.Catalog;
 import dev.inward.matrix.concept.fact.Librarian;
 import dev.inward.matrix.item.datum.specification.Specification;
 

@@ -5,15 +5,19 @@
 package dev.inward.matrix.item.datum.log;
 
 import dev.inward.matrix.item.datum.indica.IndicaKey;
+import dev.inward.matrix.personality.Session;
 
 import java.time.Duration;
 import java.time.Instant;
 
 public class LogEntry implements Comparable<LogEntry> {
 
-    protected final Instant createTime;
-    protected final IndicaKey indicaKey;
-    protected final Log.Severity severity;
+    public class LogEntryKey {
+        protected final Instant createTime;
+        protected final IndicaKey indicaKey;
+        protected final Log.Severity severity;
+        protected final Session session;
+    }
 
     protected Duration duration;
 

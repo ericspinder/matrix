@@ -13,12 +13,12 @@ module dev.inward.matrix {
     exports dev.inward.matrix.route;
     exports dev.inward.matrix.personality;
     exports dev.inward.matrix.ticket;
-    exports dev.inward.matrix.concept.catalog;
+    exports dev.inward.matrix.control.catalog;
     exports dev.inward.matrix.concept.fact.addressed.dns.nameServerRecord;
     exports dev.inward.matrix.concept.fact.addressed.depot;
     exports dev.inward.matrix.concept.fact.addressed.dns;
     exports dev.inward.matrix.item.datum.log;
-    exports dev.inward.matrix.item.datum.administrator;
+    exports dev.inward.matrix.item.materilized.materialized;
     exports dev.inward.matrix.concept.fact.addressed.http;
     exports dev.inward.matrix.concept.fact.addressed.https;
     exports dev.inward.matrix.concept.fact.addressed.ldap;
@@ -46,4 +46,5 @@ module dev.inward.matrix {
     exports dev.inward.matrix.concept;
     exports dev.inward.matrix.control.administration.platform;
     exports dev.inward.matrix.engine;
+    exports dev.inward.matrix.item.materilized.materialized.agent;
 }

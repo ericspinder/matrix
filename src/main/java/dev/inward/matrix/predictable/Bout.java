@@ -6,30 +6,55 @@ package dev.inward.matrix.predictable;
 
 import dev.inward.matrix.Model;
 import dev.inward.matrix.View;
+import dev.inward.matrix.item.datum.log.LogEntry;
 
 import java.nio.file.WatchEvent;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public abstract class Bout<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>,C extends Complication<TARGET,V,M>> implements WatchEvent<Complication<TARGET,V,M>> {
+public abstract class Bout<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>,C extends Complication<TARGET,V,M,C>> implements WatchEvent<C> {
 
-    private final Complication<TARGET,V,M> complication;
-    protected final
+    private final C complication;
+    protected final AtomicInteger count = new AtomicInteger();
+    protected final TARGET target;
 
-    public Bout(Complication<TARGET,V,M> complication) {
+    public Bout(C complication, TARGET target) {
         this.complication = complication;
+        this.target = target;
     }
+    public final <LE extends LogEntry> void finalizedPolicyLog(LE logEntry) {
+        count.incrementAndGet();
 
+    }
+    public final TARGET getTarget() {
+        return target;
+    }
+    protected abstract void examineLogEntry(LogEntry logEntry);
+
+    @SuppressWarnings( "unchecked")
     @Override
-    public Kind<Complication<TARGET,V,M>> kind() {
-        return this.complication.complicated;
+    public Complicated<TARGET,V,M,C> kind() {
+        return (Complicated<TARGET,V,M,C>) this.complication.complicated;
     }
 
     @Override
     public int count() {
-        return 0;
+        return count.intValue();
     }
 
     @Override
-    public Complication<TARGET,V,M> context() {
+    public C context() {
         return this.complication;
+    }
+
+    public static final class Uninterested<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>,C extends Complication<TARGET,V,M>> extends Bout<TARGET,V,M,C> {
+
+        public Uninterested(C complication, TARGET startingTarget) {
+            super(complication, startingTarget);
+        }
+
+        @Override
+        protected void examineLogEntry(LogEntry logEntry) {
+
+        }
     }
 }

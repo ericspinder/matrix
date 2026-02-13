@@ -4,7 +4,7 @@
 
 package dev.inward.matrix.route;
 
-import dev.inward.matrix.item.datum.administrator.Administrator;
+import dev.inward.matrix.item.materilized.administrator.Materialized;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class Dispatch extends ThreadGroup implements Comparable<Dispatch> {
 
     protected final UUID uuid = UUID.randomUUID();
-    protected final Administrator<?,?,?,?> administrator;
+    protected final Materialized<?,?,?,?> materialized;
     public final String description;
     protected volatile int corePoolSize;
     protected volatile int maximumPoolSize;
@@ -23,9 +23,9 @@ public class Dispatch extends ThreadGroup implements Comparable<Dispatch> {
     protected volatile long stackSize;
 
 
-    public Dispatch(String name, Administrator<?,?,?,?> administrator,@Nullable String description, int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit defaultTimeUnit, long stackSize) {
+    public Dispatch(String name, Materialized<?,?,?,?> materialized, @Nullable String description, int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit defaultTimeUnit, long stackSize) {
         super(name);
-        this.administrator = administrator;
+        this.materialized = materialized;
         this.description = Objects.requireNonNullElse(description, "No description provided");
         this.corePoolSize = corePoolSize;
         this.maximumPoolSize = maximumPoolSize;

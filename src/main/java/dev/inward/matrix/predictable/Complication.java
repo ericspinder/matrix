@@ -6,37 +6,33 @@ package dev.inward.matrix.predictable;
 
 import dev.inward.matrix.*;
 import dev.inward.matrix.item.datum.indica.Indica;
-import dev.inward.matrix.item.datum.log.Log;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
-import java.nio.file.WatchEvent;
-import java.nio.file.WatchKey;
-import java.nio.file.Watchable;
+import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.locks.StampedLock;
 
-public class Complication<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>> implements Runnable, Comparable<Complication<TARGET,V,M>> {
+public class Complication<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>,C extends Complication<TARGET,V,M,C>> implements Runnable, Comparable<C> {
 
     protected final StampedLock gate = new StampedLock();
     protected final UUID uuid = UUID.randomUUID();
-    protected final Complicated<TARGET,V,M,Complication<TARGET,V,M>> complicated;
-    protected final ConcurrentLinkedDeque<Log> competedLogs = new ConcurrentLinkedDeque<>();
-    protected final Executable executable;
+    protected final Complicated<TARGET,V,M,C> complicated;
+    protected final ConcurrentLinkedDeque<Bout<TARGET,V,M,C>> competedBouts = new ConcurrentLinkedDeque<>();
+    protected final Map<Chit<TARGET,V,M>, Instant> registeredOpenChits = new WeakHashMap<>();
     protected final Provider<TARGET> provider;
 
     protected boolean queuedForExecution = false;
     protected boolean canceled = false;
 
-    protected Policy<Bout<TARGET,V,M>,?>[] allPolicies;
+    protected Policy<Bout<TARGET,V,M,C>,?>[] allPolicies;
 
 
     @SuppressWarnings("unchecked")
-    public Complication(Complicated<TARGET,V,M,Complication<TARGET,V,M>> complicated, Executable executable, Provider<TARGET> provider, Map<Indica,Criterion> criterionByIndicaMap) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public Complication(Complicated<TARGET,V,M,C> complicated, Provider<TARGET> provider, Map<Indica,Criterion> criterionByIndicaMap) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         this.complicated = complicated;
-        this.executable = executable;
         this.provider = provider;
         List<Policy<Bout<TARGET,V,M,?>,?>> policies = new ArrayList<>();
         for (Indica indica : criterionByIndicaMap.keySet()) {
@@ -44,12 +40,34 @@ public class Complication<TARGET,V extends View<TARGET,V,M>,M extends Model<TARG
             if (!indica.getCriterionClassName().equals(criterion.getClass().getCanonicalName())) {
                 throw new RuntimeException("indica and criterion mismatch" + indica.toString() + ", " + criterion.getLabel() + " - " + criterion.getClass());
             }
-            policies.add((Policy<Bout<TARGET>,?>) Class.forName(indica.getPolicyClassName()).getConstructor(Complication.class, Indica.class, Criterion.class).newInstance(this, indica, criterion));
+            policies.add((Policy<Bout<TARGET,V,M,C>,?>) Class.forName(indica.getPolicyClassName()).getConstructor(Complication.class, Indica.class, Criterion.class).newInstance(this, indica, criterion));
         }
         this.allPolicies = policies.toArray(new Policy[0]);
     }
+    public List<Bout<TARGET,V,M,C>> pollEvents(Chit<TARGET,V,M> chit) {
+        List<Bout<TARGET,V,M,C>> targetedBouts = new ArrayList<>();
+        for (Bout<TARGET,V,M,C> competedBout: competedBouts) {
+            TARGET chitTarget = chit.targetReference.get();
+            if (chitTarget != null && chitTarget.equals(competedBout.getTarget())) {
+                targetedBouts.add(competedBout);
+            }
+        }
+        if (registeredOpenChits.containsKey(chit)) {
+            registeredOpenChits.put(chit, Instant.now());
+        }
+        return targetedBouts;
+    }
 
-//    @SuppressWarnings("unchecked")
+    public Map<Chit<TARGET, V, M>, Instant> getRegisteredOpenChits() {
+        return registeredOpenChits;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+    pu
+
+    //    @SuppressWarnings("unchecked")
 //    public final void run() {
 //        if (working == null || working) throw new MatrixException(MatrixException.Type.RunProblem,"Complication was set as working or cancelled", Indicia.Focus.Assembly, Occurrence.Severity.Critical,new Exception("stack trace..."));
 //        long writeLock = gate.writeLock();
@@ -102,31 +120,7 @@ public class Complication<TARGET,V extends View<TARGET,V,M>,M extends Model<TARG
     }
 
     @Override
-    public boolean isValid() {
-        return false;
-    }
-
-    @Override
-    public List<WatchEvent<?>> pollEvents() {
-        return List.of();
-    }
-
-    @Override
-    public boolean reset() {
-        return false;
-    }
-
-    public void cancel() {
-        this.canceled = true;
-    }
-
-    @Override
-    public Shadow watchable() {
-        return null;
-    }
-
-    @Override
-    public int compareTo(@NotNull Complication<TARGET, V, M> that) {
+    public int compareTo(@NotNull C that) {
         int isZero = this.getClass().getCanonicalName().compareTo(that.getClass().getCanonicalName());
         return 0;
     }

@@ -6,13 +6,13 @@ package dev.inward.matrix;
 
 import dev.inward.matrix.item.datum.indica.Indica;
 import dev.inward.matrix.control.administration.Bureau;
-import dev.inward.matrix.predictable.Executable;
+import dev.inward.matrix.predictable.Chit;
 
 import java.lang.ref.SoftReference;
 import java.nio.file.WatchEvent;
 import java.util.UUID;
 
-public class Event<P extends Executable,B extends Bureau<?,?,?>> implements WatchEvent.Kind<P> {
+public class Event<P extends Chit,B extends Bureau<?,?,?>> implements WatchEvent.Kind<P> {
 
     protected final UUID uuid;
     protected final Indica indica;

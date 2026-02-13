@@ -5,7 +5,9 @@
 
 package dev.inward.matrix.item.datum;
 
-public interface Datum<D extends Datum<D,V,M>,V extends DatumView<D,V,M>,M extends DatumModel<D,V,M>> {
+import java.nio.file.WatchEvent;
+
+public interface Datum<D extends Datum<D,V,M>,V extends DatumView<D,V,M>,M extends DatumModel<D,V,M>> extends WatchEvent.Modifier {
 
     Seat<D,V,M> getSeat();
 

@@ -5,9 +5,9 @@
 package dev.inward.matrix.item.datum.indica;
 
 import dev.inward.matrix.concept.fact.addressed.depot.DepotReference;
-import dev.inward.matrix.predictable.Executable;
+import dev.inward.matrix.predictable.Chit;
 
-public class IndicaReference<P extends Executable> extends DepotReference<Indica<P>,IndicaKey<P>,IndicaView<P>,IndicaModel<P>, IndicaReference<P>, IndicaLibrarian<P>> {
+public class IndicaReference<P extends Chit> extends DepotReference<Indica<P>,IndicaKey<P>,IndicaView<P>,IndicaModel<P>, IndicaReference<P>, IndicaLibrarian<P>> {
     public IndicaReference(Indica<P> addressed, IndicaLibrarian<P> resource) {
         super(addressed, resource);
     }

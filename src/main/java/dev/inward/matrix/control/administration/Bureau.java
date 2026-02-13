@@ -9,7 +9,7 @@ import dev.inward.matrix.concept.fact.FactView;
 import dev.inward.matrix.concept.fact.addressed.*;
 import dev.inward.matrix.concept.fact.directory.*;
 import dev.inward.matrix.control.Control;
-import dev.inward.matrix.item.datum.administrator.Persona;
+import dev.inward.matrix.item.materilized.administrator.agent.Persona;
 
 import java.util.Map;
 

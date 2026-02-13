@@ -5,7 +5,7 @@
 package dev.inward.matrix.concept.fact.directory;
 
 import dev.inward.matrix.concept.fact.FactContext;
-import dev.inward.matrix.item.datum.administrator.Agent;
+import dev.inward.matrix.item.materilized.administrator.agent.Agent;
 import dev.inward.matrix.control.authority.Authority;
 import dev.inward.matrix.control.authority.AuthorityModel;
 import dev.inward.matrix.control.authority.AuthorityView;

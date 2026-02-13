@@ -19,11 +19,8 @@ import java.nio.file.attribute.AttributeView;
 import java.util.Collections;
 import java.util.Map;
 
-public interface Shadow<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>> extends AttributeView, Comparable<Shadow<TARGET,V,M>>, Watchable {
+public interface Shadow<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET,V,M>> extends AttributeView, Comparable<Shadow<TARGET,V,M>> {
 
-    default String getName() {
-        return this.get().toString();
-    }
     default Map<String, Ticket<?>> getAttributes() {
         return Collections.emptyMap();
     }
@@ -46,12 +43,4 @@ public interface Shadow<TARGET,V extends View<TARGET,V,M>,M extends Model<TARGET
         return null;
     }
     TARGET get();
-
-    default Complication<TARGET,V,M> register(Road watcher, WatchEvent.Kind<?>[] events, WatchEvent.Modifier... modifiers) throws IOException {
-        return null;
-    }
-
-    default Complication<TARGET,V,M> register(WatchService watcher, WatchEvent.Kind<?>... events) throws IOException {
-        return register(watcher, events, new WatchEvent.Modifier[0]);
-    }
 }

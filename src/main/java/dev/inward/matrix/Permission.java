@@ -4,7 +4,11 @@
 
 package dev.inward.matrix;
 
-import dev.inward.matrix.item.datum.administrator.*;
+import dev.inward.matrix.item.materilized.administrator.Materialized;
+import dev.inward.matrix.item.materilized.administrator.MaterializedClerk;
+import dev.inward.matrix.item.materilized.administrator.MaterializedModel;
+import dev.inward.matrix.item.materilized.administrator.MaterializedView;
+import dev.inward.matrix.item.materilized.administrator.agent.*;
 
 import java.nio.file.attribute.*;
 import java.util.ArrayList;
@@ -19,7 +23,7 @@ public abstract class Permission extends java.security.Permission {
         super(path);
         this.who = who;
     }
-    public static class AclPermission extends Permission<A extends Administrator<A,V,M>,V extends AdministratorView<A,V,M>,M extends AdministratorModel<A,V,M>> {
+    public static class AclPermission extends Permission<A extends Materialized<A,V,M>,V extends MaterializedView<A,V,M>,M extends MaterializedModel<A,V,M>> {
 
         protected final AclEntryType aclEntryType;
         protected final List<AclEntryPermission> aclEntryPermissionList;
@@ -53,7 +57,7 @@ public abstract class Permission extends java.security.Permission {
             return sj.toString();
         }
     }
-    public static abstract class PosixPermission<K extends AdministratorKey<K,F,V,M,R,B>,F extends Administrator<K,F,V,M,R,B>,V extends AdministratorView<K,F,V,M,R,B>,M extends AdministratorModel<K,F,V,M,R,B>,R extends Shadow,B extends AdministratorClerk<K,F,V,M,R,B>> extends Permission<K,F,V,M,R,B> {
+    public static abstract class PosixPermission<K extends AdministratorKey<K,F,V,M,R,B>,F extends Materialized<K,F,V,M,R,B>,V extends MaterializedView<K,F,V,M,R,B>,M extends MaterializedModel<K,F,V,M,R,B>,R extends Shadow,B extends MaterializedClerk<K,F,V,M,R,B>> extends Permission<K,F,V,M,R,B> {
 
         protected final List<PosixFilePermission> posixFilePermissionList;
         protected abstract List<PosixFilePermission> parse(List<PosixFilePermission> posixFilePermissions);

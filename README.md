@@ -17,7 +17,7 @@ Ledgers contain Gatherings which hold Addressed objects
     dev.inward.matrix.predictable.Executableimplements java.nio.file.WatchService
 Predictable is the manager of Matrix objects when creating Complications
 
-    dev.inward.matrix.executable.Complication implements java.nio.file.WatchKey
+    dev.inward.matrix.chit.Complication implements java.nio.file.WatchKey
 Complications are the runnable, which are configured by Criterion and produce Matters
 
     dev.inward.matrix.file.log.addressed.Matter extends dev.inward.matrix.file.addressed.Addressed implements java.nio.file.WatchEvent<Indicia> 
