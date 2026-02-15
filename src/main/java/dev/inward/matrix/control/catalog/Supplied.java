@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Supplied extends Catalog<Supplied,SuppliedView,SuppliedModel> {
 
-    private Supplied(final Mount mount, String name, boolean readOnly, Map<String,Object> attributes) {
-        super(mount,name,readOnly,attributes);
+    private Supplied(final MountedRangedMount mountedRange, String name, boolean readOnly, Map<String,Object> attributes) {
+        super(mountedRange,name,readOnly,attributes);
     }
 }

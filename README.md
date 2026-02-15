@@ -80,3 +80,22 @@ Addressed.FileAttributes is the attributes for the Addressed Objects
 Much more....
 
 
+
+
+## Where is the answer?
+
+The regex answer (as requested in previous tasks) is documented here for quick reference.
+
+- Accept-only (exactly a slash followed by one letter or digit):
+  - ^/[A-Za-z0-9]$
+- Accept strings that start with a slash and immediately have a letter or digit (rest can be anything):
+  - ^/[A-Za-z0-9].*$
+
+Unicode-friendly variants (allow any Unicode letter or number after the slash):
+- Exact two-character form: ^/[\p{L}\p{N}]$
+- Starts-with form: ^/[\p{L}\p{N}].*$
+
+Notes:
+- Use the accept-only variant to validate exactly two characters like "/a" or "/7".
+- Use the starts-with variant if "/alsadjflsajfkl" or "/1/foo" must be valid.
+- In Java, these can be used directly as string literals (escape backslashes as needed) and compiled with Pattern.

@@ -6,12 +6,9 @@
 package dev.inward.matrix;
 
 @SuppressWarnings("all")
-public abstract class Range<PATH extends Comparable<PATH>> implements Comparable<Range<PATH>> {
+public abstract class RangedMount<PATH extends Comparable<PATH>> extends Mount<PATH> implements Comparable<RangedMount<PATH>> {
 
-    public static <PATH extends Comparable<PATH>> Range<PATH> Parse(PATH startPath, PATH endPath) {
-        if (startPath == null && endPath == null) {
-            return new AllPaths<>();
-        }
+    public static <PATH extends Comparable<PATH>> RangedMount<PATH> Parse(PATH startPath, PATH endPath) {
         if (startPath == null) {
             return new BelowPath<>(endPath);
         }
@@ -50,7 +47,7 @@ public abstract class Range<PATH extends Comparable<PATH>> implements Comparable
     }
 
     @Override
-    public int compareTo(Range<PATH> that) {
+    public int compareTo(RangedMount<PATH> that) {
         Integer thatInt = this.compare(that);
         if (thatInt != null) {
             return thatInt;
@@ -63,29 +60,21 @@ public abstract class Range<PATH extends Comparable<PATH>> implements Comparable
      * @param that
      * @return
      */
-    public Integer compare(Range<PATH> that) {
-        if (this instanceof Range.AllPaths<PATH>) {
-            if (that instanceof Range.AllPaths<PATH>) {
-                return 0;
-            }
-            else {
-                return null;
-            }
-        }
-        if (this instanceof Range.BelowPath<PATH>) {
-            if (that instanceof Range.AbovePath<PATH> || that instanceof Range.BetweenPaths<PATH>) {
+    public Integer compare(RangedMount<PATH> that) {
+        if (this instanceof RangedMount.BelowPath<PATH>) {
+            if (that instanceof RangedMount.AbovePath<PATH> || that instanceof RangedMount.BetweenPaths<PATH>) {
                 int isZeroOrBetter = this.getHigherPath().compareTo(that.getLowestPath());
                 if (isZeroOrBetter >= 0) {
                     return isZeroOrBetter;
                 }
             }
-            if (that instanceof Range.BelowPath<PATH> && that.getHigherPath().compareTo(this.getHigherPath())== 0) {
+            if (that instanceof RangedMount.BelowPath<PATH> && that.getHigherPath().compareTo(this.getHigherPath())== 0) {
                 return 0;
             }
             return null;
         }
-        if (this instanceof Range.AbovePath<PATH>) {
-            if (that instanceof Range.BelowPath<PATH> || that instanceof Range.BetweenPaths<PATH>) {
+        if (this instanceof RangedMount.AbovePath<PATH>) {
+            if (that instanceof RangedMount.BelowPath<PATH> || that instanceof RangedMount.BetweenPaths<PATH>) {
                 int isZeroOrBetter = that.getLowestPath().compareTo(this.getLowestPath());
                 if (isZeroOrBetter >= 0) {
                     return isZeroOrBetter;
@@ -93,8 +82,8 @@ public abstract class Range<PATH extends Comparable<PATH>> implements Comparable
             }
             return null;
         }
-        if (this instanceof Range.BetweenPaths<PATH>) {
-            if (that instanceof Range.BetweenPaths<PATH>) {
+        if (this instanceof RangedMount.BetweenPaths<PATH>) {
+            if (that instanceof RangedMount.BetweenPaths<PATH>) {
                 int isZeroOrBetter = this.getLowestPath().compareTo(that.getHigherPath());
                     // this may be higher
                 if (isZeroOrBetter >= 0) {
@@ -113,10 +102,10 @@ public abstract class Range<PATH extends Comparable<PATH>> implements Comparable
                 }
                 return null;
             }
-            if (that instanceof Range.AbovePath<PATH>) {
+            if (that instanceof RangedMount.AbovePath<PATH>) {
                 return this.getLowestPath().compareTo(that.getHigherPath());
             }
-            if (that instanceof Range.BelowPath<PATH>) {
+            if (that instanceof RangedMount.BelowPath<PATH>) {
                 return this.getHigherPath().compareTo(that.getLowestPath());
             }
         }
@@ -129,27 +118,7 @@ public abstract class Range<PATH extends Comparable<PATH>> implements Comparable
 //
 //    }
 
-    public final static class AllPaths<PATH extends Comparable<PATH>> extends Range<PATH> {
-
-        @Override
-        PATH getHigherPath() {
-            return null;
-        }
-        @Override
-        PATH getLowestPath() {
-            return null;
-        }
-        @Override
-        public String toString() {
-            return "";
-        }
-
-        @Override
-        public int compareTo(Range<PATH> that) {
-            return 0;
-        }
-    }
-    public final static class BelowPath<PATH extends Comparable<PATH>> extends Range<PATH> {
+    public final static class BelowPath<PATH extends Comparable<PATH>> extends RangedMount<PATH> {
 
         protected final PATH higherPath;
 
@@ -172,7 +141,7 @@ public abstract class Range<PATH extends Comparable<PATH>> implements Comparable
         }
 
     }
-    public final static class AbovePath<PATH extends Comparable<PATH>> extends Range<PATH> {
+    public final static class AbovePath<PATH extends Comparable<PATH>> extends RangedMount<PATH> {
 
         protected final PATH lowestPath;
 
@@ -193,7 +162,7 @@ public abstract class Range<PATH extends Comparable<PATH>> implements Comparable
             return "?lowestPath=" + lowestPath;
         }
     }
-    public final static class BetweenPaths<PATH extends Comparable<PATH>> extends Range<PATH> {
+    public final static class BetweenPaths<PATH extends Comparable<PATH>> extends RangedMount<PATH> {
 
         protected final PATH lowestPath;
         protected final PATH higherPath;

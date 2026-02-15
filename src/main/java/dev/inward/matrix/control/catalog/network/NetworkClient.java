@@ -6,7 +6,7 @@ package dev.inward.matrix.control.catalog.network;
 
 import dev.inward.matrix.Hosts;
 import dev.inward.matrix.control.catalog.Catalog;
-import dev.inward.matrix.control.catalog.Mount;
+import dev.inward.matrix.control.catalog.MountedRangedMount;
 import dev.inward.matrix.control.Control;
 
 import java.util.Map;
@@ -17,8 +17,8 @@ public abstract class NetworkClient<NC extends NetworkClient<NC,NV,NM>,NV extend
 
     protected final Hosts.LocalHost localHost;
 
-    public NetworkClient(final Mount mount, String name, boolean readOnly, Control<?,?,?> control, Map<String,Object> attributes, Hosts.Remote remoteHost, Hosts.LocalHost localHost) {
-        super(mount, name, readOnly, networkClientModel, attributes, supportedFileViews);
+    public NetworkClient(final MountedRangedMount mountedRange, String name, boolean readOnly, Control<?,?,?> control, Map<String,Object> attributes, Hosts.Remote remoteHost, Hosts.LocalHost localHost) {
+        super(mountedRange, name, readOnly, networkClientModel, attributes, supportedFileViews);
         this.localHost = localHost;
         this.remoteHost = remoteHost;
     }

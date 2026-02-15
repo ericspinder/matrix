@@ -6,6 +6,7 @@ package dev.inward.matrix.predictable;
 
 import dev.inward.matrix.*;
 import dev.inward.matrix.item.datum.indica.Indica;
+import kotlin.jvm.internal.CollectionToArray;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
@@ -20,8 +21,8 @@ public class Complication<TARGET,V extends View<TARGET,V,M>,M extends Model<TARG
     protected final StampedLock gate = new StampedLock();
     protected final UUID uuid = UUID.randomUUID();
     protected final Complicated<TARGET,V,M,C> complicated;
-    protected final ConcurrentLinkedDeque<Bout<TARGET,V,M,C>> competedBouts = new ConcurrentLinkedDeque<>();
-    protected final Map<Chit<TARGET,V,M>, Instant> registeredOpenChits = new WeakHashMap<>();
+    private final ConcurrentLinkedDeque<Bout<TARGET,V,M,C>> competedBouts = new ConcurrentLinkedDeque<>();
+    private final Map<Chit<TARGET,V,M>, List<Bout<TARGET,V,M,C>>> registeredOpenChits = new WeakHashMap<>();
     protected final Provider<TARGET> provider;
 
     protected boolean queuedForExecution = false;
@@ -45,27 +46,28 @@ public class Complication<TARGET,V extends View<TARGET,V,M>,M extends Model<TARG
         this.allPolicies = policies.toArray(new Policy[0]);
     }
     public List<Bout<TARGET,V,M,C>> pollEvents(Chit<TARGET,V,M> chit) {
-        List<Bout<TARGET,V,M,C>> targetedBouts = new ArrayList<>();
-        for (Bout<TARGET,V,M,C> competedBout: competedBouts) {
-            TARGET chitTarget = chit.targetReference.get();
-            if (chitTarget != null && chitTarget.equals(competedBout.getTarget())) {
-                targetedBouts.add(competedBout);
-            }
-        }
-        if (registeredOpenChits.containsKey(chit)) {
-            registeredOpenChits.put(chit, Instant.now());
-        }
-        return targetedBouts;
+
     }
 
-    public Map<Chit<TARGET, V, M>, Instant> getRegisteredOpenChits() {
+    public void completeBout(Bout<TARGET,V,M,C> completedBout) {
+        competedBouts.add(completedBout);
+        for (Chit<TARGET,V,M> chit : registeredOpenChits.keySet()) {
+            if (chit.isOpen()) {
+                if (completedBout.getTarget().equals(chit.targetReference.get())) {
+                    registeredOpenChits.get(chit).add(completedBout);
+                }
+            }
+        }
+    }
+
+    public Map<Chit<TARGET,V,M>, List<Bout<TARGET,V,M,C>>> getRegisteredOpenChits() {
         return registeredOpenChits;
     }
 
     public UUID getUuid() {
         return uuid;
     }
-    pu
+
 
     //    @SuppressWarnings("unchecked")
 //    public final void run() {

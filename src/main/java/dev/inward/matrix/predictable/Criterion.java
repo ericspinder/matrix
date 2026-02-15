@@ -98,11 +98,11 @@ public abstract class Criterion implements Meta_I, WatchEvent.Modifier {
 
     public static class Ranged<DATUM extends Comparable<DATUM>> extends Criterion {
 
-        protected final Range<DATUM> range;
+        protected final RangedMount<DATUM> rangedMount;
 
-        public Ranged(String label, String description, String i18n,Range<DATUM> range) {
+        public Ranged(String label, String description, String i18n, RangedMount<DATUM> rangedMount) {
             super(label,description,i18n);
-            this.range = range;
+            this.rangedMount = rangedMount;
         }
 
         @Override

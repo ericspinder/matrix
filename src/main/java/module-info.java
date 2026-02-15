@@ -10,6 +10,7 @@ module dev.inward.matrix {
     requires java.management;
     requires org.checkerframework.checker.qual;
     requires org.bouncycastle.provider;
+    requires kotlin.stdlib;
     exports dev.inward.matrix.route;
     exports dev.inward.matrix.personality;
     exports dev.inward.matrix.ticket;
